@@ -4,7 +4,7 @@ function Login() {
     return (
         <div>
             <div className="login-header">
-                <p>Sign In</p>
+                <h1 className="header-text">Sign In</h1>
             </div>
             <div className="login-body">
                 <input name="Username" />

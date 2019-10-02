@@ -18,6 +18,11 @@ describe('Login Component', () => {
         expect(header).toHaveLength(1);
     });
 
+    it('should have sign in text', () => {
+        const headerText = login.find('.header-text').text();
+        expect(headerText).toEqual('Sign In');
+    });
+
     it("should contain a body div", () => {
         const body = login.find('.login-body');
         expect(body).toHaveLength(1);
