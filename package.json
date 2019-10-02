@@ -3,11 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "enzyme-adapter-react-16": "^1.14.0",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
     "react-scripts": "3.1.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "enzyme": "^3.10.0",
+    "jest-enzyme": "^7.0.2"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
