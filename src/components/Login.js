@@ -9,13 +9,13 @@ function Login() {
             </div>
             <div className="login-body">
                 <div className="column">
-                    <input name="Username" />
+                    <input type="text" name="Username" />
                 </div>
                 <div className="column">
-                    <input name="Password" />
+                    <input type="password" name="Password" />
                 </div>
                 <div className="column">
-                    <button className="column">Login</button>
+                    <button>Login</button>
                 </div>
             </div>
         </div>
