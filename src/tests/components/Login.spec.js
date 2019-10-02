@@ -14,6 +14,7 @@ describe('Login Component', () => {
     });
 
     it("should contain a header div", () => {
-
+        const header = login.find('div.login-header');
+        expect(header).toBeTruthy();
     });
 }); 
