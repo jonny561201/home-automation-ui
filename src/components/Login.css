@@ -1,0 +1,22 @@
+.column {
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-menu {
+    display: flex;
+    border-radius: 20px;
+    background-color: white;
+}
+
+.login-header {
+    flex: 50%;
+    border-radius: 20px 20px 0px 0px;
+    background-color: #00c774;
+}
+
+.login-body {
+    flex: 50%;
+    border-radius: 0px 0px 20px 20px;
+    background-color: white;
+}
