@@ -13,5 +13,10 @@ describe('App Component', () => {
   it('renders', () => {
     expect(app).toBeTruthy();
   });
+
+  it('should render login', () => {
+    const login = app.find('Login')
+    expect(login).toHaveLength(1);
+  });
 });
 
