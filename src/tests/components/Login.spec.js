@@ -20,11 +20,16 @@ describe('Login Component', () => {
 
     it('should have sign in text', () => {
         const headerText = login.find('.header-text').text();
-        expect(headerText).toEqual('Sign In');
+        expect(headerText).toEqual('Member Login');
     });
 
     it("should contain a body div", () => {
         const body = login.find('.login-body');
         expect(body).toHaveLength(1);
+    });
+
+    it('should contain a login button', () => {
+        const buttonText = login.find('button').text();
+        expect(buttonText).toEqual('Login');
     });
 }); 
