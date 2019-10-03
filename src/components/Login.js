@@ -9,10 +9,10 @@ function Login() {
             </div>
             <div className="login-body">
                 <div className="column">
-                    <input type="text" name="Username" />
+                    <input type="text" name="Username" placeholder="Username" />
                 </div>
                 <div className="column">
-                    <input type="password" name="Password" />
+                    <input type="password" name="Password" placeholder="Password" />
                 </div>
                 <div className="column">
                     <button>Login</button>
