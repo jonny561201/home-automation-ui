@@ -1,5 +1,7 @@
 import React from 'react';
 import './Login.css';
+import './UserPass';
+import UserPass from './UserPass';
 
 function Login() {
     return (
@@ -8,12 +10,7 @@ function Login() {
                 <h1 className="header-text">Member Login</h1>
             </div>
             <div className="login-body">
-                <div className="column">
-                    <input type="text" name="Username" placeholder="Username" />
-                </div>
-                <div className="column">
-                    <input type="password" name="Password" placeholder="Password" />
-                </div>
+                <UserPass />
                 <div className="column">
                     <button>Login</button>
                 </div>
