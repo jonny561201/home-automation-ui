@@ -28,8 +28,8 @@ describe('Login Component', () => {
         expect(body).toHaveLength(1);
     });
 
-    it('should contain a login button', () => {
-        const buttonText = login.find('button').text();
-        expect(buttonText).toEqual('Login');
+    it("should contain logo image", () => {
+        const logo = login.find('.logo-image');
+        expect(logo).toHaveLength(1);
     });
 }); 

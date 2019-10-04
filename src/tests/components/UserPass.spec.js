@@ -2,7 +2,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import UserPass from '../../components/UserPass';
-import { exportDefaultSpecifier } from '@babel/types';
 
 describe('UserPass', () => {
     let userPass;
@@ -23,5 +22,10 @@ describe('UserPass', () => {
     it('should contain password input', () => {
         const passInput = userPass.find('input[name="Password"]');
         expect(passInput).toHaveLength(1);
+    });
+
+    it('should contain a login button', () => {
+        const buttonText = userPass.find('button').text();
+        expect(buttonText).toEqual('Login');
     });
 });

@@ -17,6 +17,9 @@
     flex-grow: 1;
     border-radius: 20px 20px 0px 0px;
     background-color: #00c774;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .login-body {
@@ -44,4 +47,26 @@ button {
     margin: 1em;
     padding: 10px 20px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.logo-image {
+    height: 100px;
+}
+
+.test {
+    background-color: #ac7339;
+    border-radius: 80px;
+    width: 120px;
+    height: 120px;
+}
+
+.white-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-radius: 80px;
+    justify-content: center;
+    width: 130px;
+    height: 130px;
 }
