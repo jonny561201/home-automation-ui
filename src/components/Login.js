@@ -9,7 +9,7 @@ function Login() {
         <div className="login-menu column">
             <div className="login-header">
                 <div className="white-header">
-                    <div className="test">
+                    <div className="logo-background">
                         <img className="logo-image" src={Logo} />
                     </div>
                 </div>
