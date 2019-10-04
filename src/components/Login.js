@@ -13,7 +13,7 @@ function Login() {
                         <img className="logo-image" src={Logo} />
                     </div>
                 </div>
-                <h1 className="header-text">Member Login</h1>
+                <h1>Member Login</h1>
             </div>
             <div className="login-body">
                 <UserPass />

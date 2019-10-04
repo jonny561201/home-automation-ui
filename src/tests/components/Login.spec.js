@@ -19,7 +19,7 @@ describe('Login Component', () => {
     });
 
     it('should have sign in text', () => {
-        const headerText = login.find('.header-text').text();
+        const headerText = login.find('h1').text();
         expect(headerText).toEqual('Member Login');
     });
 
