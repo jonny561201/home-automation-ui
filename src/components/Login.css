@@ -1,6 +1,7 @@
 .column {
     flex-direction: column;
-    margin: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
     text-align: center;
 }
 
@@ -31,27 +32,7 @@ h1 {
     flex-grow: 10;
     border-radius: 0px 0px 12px 12px;
     background-color: white;
-}
-
-input {
-    border-radius: 12px;
-    border-style:solid;
-    background-color: lightgray;
-    border-color: lightgray;
-    width: 80%;
-    padding: 8px;
-}
-
-button {
-    background-color: #00c774;
-    border: none;
-    border-radius: 12px;
-    font-size: 16px;
-    color: white;
-    cursor: pointer;
-    margin: 1em;
-    padding: 10px 20px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin-top: 1em;
 }
 
 .logo-image {

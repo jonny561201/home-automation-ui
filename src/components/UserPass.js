@@ -34,18 +34,16 @@ export default class UserPass extends Component {
                 <div className="column">
                     <input onChange={this.setUsername} type="text" name="Username" placeholder="Username" />
                 </div>
-                {this.state.isUsernameInvalid &&
-                    <p className="error-text">
-                        Invalid username!
-                    </p>
+                {this.state.isUsernameInvalid
+                    ? <p className="error-text"> Invalid username!</p>
+                    : <p className="spacer"></p>
                 }
                 <div className="column">
                     <input onChange={this.setPassword} type="password" name="Password" placeholder="Password" />
                 </div>
-                {this.state.isPasswordInvalid &&
-                    <p className="error-text">
-                        Invalid password!
-                    </p>
+                {this.state.isPasswordInvalid
+                    ? <p className="error-text">Invalid password!</p>
+                    : <p className="spacer"></p>
                 }
                 <button className="column" onClick={this.validateCredentials}>Login</button>
             </div>
