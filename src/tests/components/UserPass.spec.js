@@ -38,14 +38,26 @@ describe('UserPass', () => {
             instance = userPass.instance();
         });
 
-        it('should set validate username', () => {
+        it('should set username to invalid when null', () => {
             instance.validateCredentials(null, password)
 
             expect(userPass.state().isUsernameInvalid).toEqual(true);
         });
 
-        it('should set validate password', () => {
+        it('should set username to invalid when undefined', () => {
+            instance.validateCredentials(undefined, password)
+
+            expect(userPass.state().isUsernameInvalid).toEqual(true);
+        });
+
+        it('should set password to invalid when null', () => {
             instance.validateCredentials(username, null)
+
+            expect(userPass.state().isPasswordInvalid).toEqual(true);
+        });
+
+        it('should set password to invalid when undefined', () => {
+            instance.validateCredentials(username, undefined)
 
             expect(userPass.state().isPasswordInvalid).toEqual(true);
         });
