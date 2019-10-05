@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './UserPass.css'
 
 export default class UserPass extends Component {
     constructor(props) {
@@ -34,7 +35,7 @@ export default class UserPass extends Component {
                     <input onChange={this.setUsername} type="text" name="Username" placeholder="Username" />
                 </div>
                 {this.state.isUsernameInvalid &&
-                    <p style={{ color: '#ff0000' }}>
+                    <p className="error-text">
                         Invalid username!
                     </p>
                 }
@@ -42,7 +43,7 @@ export default class UserPass extends Component {
                     <input onChange={this.setPassword} type="password" name="Password" placeholder="Password" />
                 </div>
                 {this.state.isPasswordInvalid &&
-                    <p style={{ color: '#ff0000' }}>
+                    <p className="error-text">
                         Invalid password!
                     </p>
                 }
