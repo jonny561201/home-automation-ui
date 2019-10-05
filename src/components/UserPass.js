@@ -15,6 +15,9 @@ export default class UserPass extends Component {
         if(username==null) {
             this.state.isUsernameInvalid = true;
         };
+        if(password==null) {
+            this.state.isPasswordInvalid = true;
+        }
     }
 
     render() {

@@ -43,5 +43,11 @@ describe('UserPass', () => {
 
             expect(userPass.state().isUsernameInvalid).toEqual(true);
         });
+
+        it('should set validate password', () => {
+            instance.validateCredentials(username, null)
+
+            expect(userPass.state().isPasswordInvalid).toEqual(true);
+        });
     });
 });
