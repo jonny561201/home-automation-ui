@@ -15,24 +15,16 @@ export default class UserPass extends Component {
     }
 
     validateCredentials = () => {
-        if (this.state.username == null || this.state.username === '') {
-            this.setState({isUsernameInvalid: true});
-        } else {
-            this.setState({isUsernameInvalid: false});
-        };
-        if (this.state.password == null || this.state.password === '') {
-            this.setState({isPasswordInvalid: true});
-        } else {
-            this.setState({isPasswordInvalid: false});
-        };
+        this.state.username == null || this.state.username === '' ? this.setState({ isUsernameInvalid: true }) : this.setState({ isUsernameInvalid: false });
+        this.state.password == null || this.state.password === '' ? this.setState({ isPasswordInvalid: true }) : this.setState({ isPasswordInvalid: false });
     }
 
     setUsername = (event) => {
-        this.setState({username: event.target.value})
+        this.setState({ username: event.target.value })
     }
 
     setPassword = (event) => {
-        this.setState({password: event.target.value})
+        this.setState({ password: event.target.value })
     }
 
     render() {
@@ -42,7 +34,7 @@ export default class UserPass extends Component {
                     <input onChange={this.setUsername} type="text" name="Username" placeholder="Username" />
                 </div>
                 {this.state.isUsernameInvalid &&
-                    <p style={{color: '#ff0000'}}>
+                    <p style={{ color: '#ff0000' }}>
                         Invalid username!
                     </p>
                 }
@@ -50,7 +42,7 @@ export default class UserPass extends Component {
                     <input onChange={this.setPassword} type="password" name="Password" placeholder="Password" />
                 </div>
                 {this.state.isPasswordInvalid &&
-                    <p style={{color: '#ff0000'}}>
+                    <p style={{ color: '#ff0000' }}>
                         Invalid password!
                     </p>
                 }
