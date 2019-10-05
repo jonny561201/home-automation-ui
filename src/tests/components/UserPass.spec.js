@@ -39,27 +39,65 @@ describe('UserPass', () => {
         });
 
         it('should set username to invalid when null', () => {
-            instance.validateCredentials(null, password)
+            userPass.state().password = password;
+            userPass.state().username = null;
+            instance.validateCredentials()
 
             expect(userPass.state().isUsernameInvalid).toEqual(true);
         });
 
         it('should set username to invalid when undefined', () => {
-            instance.validateCredentials(undefined, password)
+            userPass.state().password = password;
+            userPass.state().username = undefined;
+            instance.validateCredentials()
 
             expect(userPass.state().isUsernameInvalid).toEqual(true);
         });
 
+        it('should set username to invalid when empty string', () => {
+            userPass.state().password = password;
+            userPass.state().username = '';
+            instance.validateCredentials()
+
+            expect(userPass.state().isUsernameInvalid).toEqual(true);
+        });
+
+        it('should leave isUsernameInvalid to false when valid', () => {
+            userPass.state().username = username;
+            instance.validateCredentials()
+
+            expect(userPass.state().isUsernameInvalid).toEqual(false);
+        });
+
         it('should set password to invalid when null', () => {
-            instance.validateCredentials(username, null)
+            userPass.state().password = null;
+            userPass.state().username = username;
+            instance.validateCredentials()
 
             expect(userPass.state().isPasswordInvalid).toEqual(true);
         });
 
         it('should set password to invalid when undefined', () => {
-            instance.validateCredentials(username, undefined)
+            userPass.state().password = undefined;
+            userPass.state().username = username;
+            instance.validateCredentials()
 
             expect(userPass.state().isPasswordInvalid).toEqual(true);
+        });
+
+        it('should set password to invalid when empty string', () => {
+            userPass.state().password = '';
+            userPass.state().username = username;
+            instance.validateCredentials()
+
+            expect(userPass.state().isPasswordInvalid).toEqual(true);
+        });
+
+        it('should leave isPasswordInvalid to false when valid', () => {
+            userPass.state().password = password;
+            instance.validateCredentials()
+
+            expect(userPass.state().isPasswordInvalid).toEqual(false);
         });
     });
 });

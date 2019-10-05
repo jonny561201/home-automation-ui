@@ -3,34 +3,55 @@ import React, { Component } from 'react';
 export default class UserPass extends Component {
     constructor(props) {
         super(props);
+        this.setUsername = this.setUsername.bind(this);
+        this.setPassword = this.setPassword.bind(this);
+        this.validateCredentials = this.validateCredentials.bind(this);
         this.state = {
-           username: null,
-           password: null,
-           isUsernameInvalid: false,
-           isPasswordInvalid: false
+            username: undefined,
+            password: undefined,
+            isUsernameInvalid: false,
+            isPasswordInvalid: false
         }
     }
 
-    validateCredentials(username, password) {
-        if(username==null) {
-            this.state.isUsernameInvalid = true;
+    validateCredentials = () => {
+        if (this.state.username == null || this.state.username === '') {
+            this.setState({isUsernameInvalid: true});
         };
-        if(password==null) {
-            this.state.isPasswordInvalid = true;
+        if (this.state.password == null || this.state.password === '') {
+            this.setState({isPasswordInvalid: true});
         }
+    }
+
+    setUsername = (event) => {
+        this.setState({username: event.target.value})
+    }
+
+    setPassword = (event) => {
+        this.setState({password: event.target.value})
     }
 
     render() {
         return (
-            <form>
+            <div>
                 <div className="column">
-                    <input id="username" type="text" name="Username" placeholder="Username" value={this.state.username} />
+                    <input onChange={this.setUsername} type="text" name="Username" placeholder="Username" />
                 </div>
+                {this.state.isUsernameInvalid &&
+                    <p style={{color: '#ff0000'}}>
+                        Invalid username!
+                    </p>
+                }
                 <div className="column">
-                    <input type="password" name="Password" placeholder="Password" />
+                    <input onChange={this.setPassword} type="password" name="Password" placeholder="Password" />
                 </div>
-                <button className="column">Login</button>
-            </form>
+                {this.state.isPasswordInvalid &&
+                    <p style={{color: '#ff0000'}}>
+                        Invalid password!
+                    </p>
+                }
+                <button className="column" onClick={this.validateCredentials}>Login</button>
+            </div>
         )
     }
 }
