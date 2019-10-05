@@ -28,4 +28,20 @@ describe('UserPass', () => {
         const buttonText = userPass.find('button').text();
         expect(buttonText).toEqual('Login');
     });
+
+    describe('Form Validation', () => {
+        const username = 'Jon';
+        const password = 'bestestPass'
+        let instance;
+
+        beforeEach(() => {
+            instance = userPass.instance();
+        });
+
+        it('should set validate username', () => {
+            instance.validateCredentials(null, password)
+
+            expect(userPass.state().isUsernameInvalid).toEqual(true);
+        });
+    });
 });
