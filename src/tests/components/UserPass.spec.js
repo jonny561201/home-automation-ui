@@ -99,5 +99,13 @@ describe('UserPass', () => {
 
             expect(userPass.state().isPasswordInvalid).toEqual(false);
         });
+
+        it('should reset isUsernameInvalid to false when new value provided', () => {
+            userPass.state().isUsernameInvalid = true;
+            userPass.state().username = username;
+            instance.validateCredentials()
+            
+            expect(userPass.state().isUsernameInvalid).toBeFalsy();
+        });
     });
 });

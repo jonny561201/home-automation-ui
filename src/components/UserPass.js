@@ -17,6 +17,8 @@ export default class UserPass extends Component {
     validateCredentials = () => {
         if (this.state.username == null || this.state.username === '') {
             this.setState({isUsernameInvalid: true});
+        } else {
+            this.setState({isUsernameInvalid: false})
         };
         if (this.state.password == null || this.state.password === '') {
             this.setState({isPasswordInvalid: true});
