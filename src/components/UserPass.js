@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './UserPass.css'
+import './UserPass.css';
+import { getBearerToken } from '../utilities/RestApi';
 
 export default class UserPass extends Component {
     constructor(props) {
@@ -18,6 +19,10 @@ export default class UserPass extends Component {
     validateCredentials = () => {
         this.state.username == null || this.state.username === '' ? this.setState({ isUsernameInvalid: true }) : this.setState({ isUsernameInvalid: false });
         this.state.password == null || this.state.password === '' ? this.setState({ isPasswordInvalid: true }) : this.setState({ isPasswordInvalid: false });
+
+        if (!this.state.isUsernameInvalid) {
+            getBearerToken();
+        }
     }
 
     setUsername = (event) => {

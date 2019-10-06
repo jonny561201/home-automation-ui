@@ -1,4 +1,4 @@
-export const getBearerToken = async () => {
+export async function getBearerToken() {
     const response = await fetch('http://localhost:5000/login');
     if (response.ok) {
         const jsonResponse = await response.json();

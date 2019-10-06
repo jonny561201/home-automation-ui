@@ -2,6 +2,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import UserPass from '../../components/UserPass';
+import * as restApi from '../../utilities/RestApi';
 
 describe('UserPass', () => {
     let userPass;
@@ -35,13 +36,14 @@ describe('UserPass', () => {
         let instance;
 
         beforeEach(() => {
+            restApi.getBearerToken = jest.fn();
             instance = userPass.instance();
         });
 
         it('should set username to invalid when null', () => {
             userPass.state().password = password;
             userPass.state().username = null;
-            instance.validateCredentials()
+            instance.validateCredentials();
 
             expect(userPass.state().isUsernameInvalid).toEqual(true);
         });
@@ -49,7 +51,7 @@ describe('UserPass', () => {
         it('should set username to invalid when undefined', () => {
             userPass.state().password = password;
             userPass.state().username = undefined;
-            instance.validateCredentials()
+            instance.validateCredentials();
 
             expect(userPass.state().isUsernameInvalid).toEqual(true);
         });
@@ -57,14 +59,14 @@ describe('UserPass', () => {
         it('should set username to invalid when empty string', () => {
             userPass.state().password = password;
             userPass.state().username = '';
-            instance.validateCredentials()
+            instance.validateCredentials();
 
             expect(userPass.state().isUsernameInvalid).toEqual(true);
         });
 
         it('should leave isUsernameInvalid to false when valid', () => {
             userPass.state().username = username;
-            instance.validateCredentials()
+            instance.validateCredentials();
 
             expect(userPass.state().isUsernameInvalid).toEqual(false);
         });
@@ -72,7 +74,7 @@ describe('UserPass', () => {
         it('should set password to invalid when null', () => {
             userPass.state().password = null;
             userPass.state().username = username;
-            instance.validateCredentials()
+            instance.validateCredentials();
 
             expect(userPass.state().isPasswordInvalid).toEqual(true);
         });
@@ -80,7 +82,7 @@ describe('UserPass', () => {
         it('should set password to invalid when undefined', () => {
             userPass.state().password = undefined;
             userPass.state().username = username;
-            instance.validateCredentials()
+            instance.validateCredentials();
 
             expect(userPass.state().isPasswordInvalid).toEqual(true);
         });
@@ -88,14 +90,14 @@ describe('UserPass', () => {
         it('should set password to invalid when empty string', () => {
             userPass.state().password = '';
             userPass.state().username = username;
-            instance.validateCredentials()
+            instance.validateCredentials();
 
             expect(userPass.state().isPasswordInvalid).toEqual(true);
         });
 
         it('should leave isPasswordInvalid to false when valid', () => {
             userPass.state().password = password;
-            instance.validateCredentials()
+            instance.validateCredentials();
 
             expect(userPass.state().isPasswordInvalid).toEqual(false);
         });
@@ -103,7 +105,7 @@ describe('UserPass', () => {
         it('should reset isUsernameInvalid to false when new value provided', () => {
             userPass.state().isUsernameInvalid = true;
             userPass.state().username = username;
-            instance.validateCredentials()
+            instance.validateCredentials();
             
             expect(userPass.state().isUsernameInvalid).toBeFalsy();
         });
@@ -111,9 +113,27 @@ describe('UserPass', () => {
         it('should reset isPasswordInvalid to false when new value provided', () => {
             userPass.state().isPasswordInvalid = true;
             userPass.state().password = password;
-            instance.validateCredentials()
+            instance.validateCredentials();
             
             expect(userPass.state().isPasswordInvalid).toBeFalsy();
+        });
+
+        it('should make call to get bearer token when inputs valid', () => {
+            userPass.state().username = username;
+            userPass.state().password = password;
+
+            instance.validateCredentials();
+
+            expect(restApi.getBearerToken).toHaveBeenCalledTimes(1);
+        });
+
+        it('should not make call to get bearer token when user invalid', () => {
+            userPass.state().password = password;
+            userPass.state().username = null;
+
+            instance.validateCredentials();
+
+            expect(restApi.getBearerToken).toHaveBeenCalledTimes(0);
         });
     });
 });
