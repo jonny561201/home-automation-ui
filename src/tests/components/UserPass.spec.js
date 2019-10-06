@@ -135,5 +135,14 @@ describe('UserPass', () => {
 
             expect(restApi.getBearerToken).toHaveBeenCalledTimes(0);
         });
+
+        it('should not make call to get bearer token when password invalid', () => {
+            userPass.state().password = null;
+            userPass.state().username = username;
+
+            instance.validateCredentials();
+
+            expect(restApi.getBearerToken).toHaveBeenCalledTimes(0);
+        });
     });
 });
