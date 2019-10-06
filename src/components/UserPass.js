@@ -8,6 +8,7 @@ export default class UserPass extends Component {
         this.setUsername = this.setUsername.bind(this);
         this.setPassword = this.setPassword.bind(this);
         this.validateCredentials = this.validateCredentials.bind(this);
+        this.getBearerTokenFromLogin = this.getBearerTokenFromLogin.bind(this);
         this.state = {
             username: undefined,
             password: undefined,
@@ -18,9 +19,11 @@ export default class UserPass extends Component {
 
     validateCredentials = () => {
         this.state.username == null || this.state.username === '' ? this.setState({ isUsernameInvalid: true }) : this.setState({ isUsernameInvalid: false });
-        this.state.password == null || this.state.password === '' ? this.setState({ isPasswordInvalid: true }) : this.setState({ isPasswordInvalid: false });
+        this.state.password == null || this.state.password === '' ? this.setState({ isPasswordInvalid: true }) : this.setState({ isPasswordInvalid: false }, this.getBearerTokenFromLogin);
+    }
 
-        if (!this.state.isUsernameInvalid && !this.state.isPasswordInvalid) {
+    getBearerTokenFromLogin() {
+        if (this.state.isUsernameInvalid === false && this.state.isPasswordInvalid === false) {
             getBearerToken();
         }
     }
