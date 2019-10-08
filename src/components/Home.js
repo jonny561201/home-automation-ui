@@ -1,11 +1,13 @@
 import React from 'react';
 import './Home.css';
+import LogoHeader from './LogoHeader';
 
 function Home() {
     return (
         <div className="home-main">
             <div className="home-header">
-                <h1>Home Automation</h1>
+                <LogoHeader />
+                <h1 className="home-header-text">Home Automation</h1>
             </div>
             <div className="home-body">body</div>
         </div>

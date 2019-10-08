@@ -2,16 +2,26 @@
     width: 100%;
     height: 100%;
     flex-direction: column;
+    display: flex;
+    flex: 1;
 }
 
 .home-header {
-    flex-grow: 1;
     display: flex;
     background-color: #00c774;
+
+    padding: 1rem;
+    flex-direction: row;
+    align-items: center;
+}
+
+.home-header-text {
+    margin-left: 2rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
 }
 
 .home-body {
-    flex-grow: 8;
+    /* flex-grow: 40; */
     background-color: #282c34;
     color: white;
 }
