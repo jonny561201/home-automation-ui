@@ -15,6 +15,11 @@ describe('Home', () => {
         expect(header).toHaveLength(1)
     });
 
+    it('should display header text', () => {
+        const header = home.find('h1').text();
+        expect(header).toEqual('Home Automation');
+    });
+
     it('should display page body', () => {
         const body = home.find('.home-body');
         expect(body).toHaveLength(1)

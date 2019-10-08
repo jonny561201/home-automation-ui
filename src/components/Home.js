@@ -3,9 +3,11 @@ import './Home.css';
 
 function Home() {
     return (
-        <div>
-            <div className="home-header"></div>
-            <div className="home-body"></div>
+        <div className="home-main">
+            <div className="home-header">
+                <h1>Home Automation</h1>
+            </div>
+            <div className="home-body">body</div>
         </div>
     );
 }
