@@ -27,9 +27,4 @@ describe('Login Component', () => {
         const body = login.find('.login-body');
         expect(body).toHaveLength(1);
     });
-
-    it("should contain logo image", () => {
-        const logo = login.find('.logo-image');
-        expect(logo).toHaveLength(1);
-    });
 }); 

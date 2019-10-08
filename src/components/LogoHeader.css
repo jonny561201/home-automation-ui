@@ -1,0 +1,23 @@
+.logo-image {
+    height: 100px;
+}
+
+.logo-background {
+    background-color: #ac7339;
+    border-radius: 65px;
+    width: 130px;
+    height: 130px;
+    display: flex;
+    align-items: center;
+}
+
+.white-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-radius: 70px;
+    justify-content: center;
+    width: 140px;
+    height: 140px;
+}
