@@ -1,3 +1,4 @@
+import React from 'react';
 import Home from '../../components/Home';
 import { shallow } from 'enzyme';
 
@@ -12,5 +13,10 @@ describe('Home', () => {
     it('should display header bar', () => {
         const header = home.find('.home-header');
         expect(header).toHaveLength(1)
+    });
+
+    it('should display page body', () => {
+        const body = home.find('.home-body');
+        expect(body).toHaveLength(1)
     });
 });
