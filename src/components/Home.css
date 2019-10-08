@@ -16,7 +16,7 @@
 }
 
 .home-header-text {
-    margin-left: 2rem;
+    margin-left: 4rem;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
 }
 
@@ -24,4 +24,19 @@
     /* flex-grow: 40; */
     background-color: #282c34;
     color: white;
+}
+
+.logo-image {
+    height: 70px;
+}
+
+.logo-background {
+    border-radius: 45px;
+    height: 90px;
+    width: 90px;
+}
+
+.white-header {
+    height: 100px;
+    width: 100px;
 }
