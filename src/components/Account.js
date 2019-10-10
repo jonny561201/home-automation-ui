@@ -1,6 +1,7 @@
 import React from 'react';
 import './Account.css';
 
+
 function accountClick() {
     console.log('clicked account icon!')
 }

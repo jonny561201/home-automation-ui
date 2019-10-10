@@ -2,6 +2,7 @@ import React from 'react';
 import './Home.css';
 import LogoHeader from './LogoHeader';
 import Account from './Account';
+import AccountSettings from './AccountSettings';
 
 function Home() {
     return (
@@ -13,7 +14,9 @@ function Home() {
                 </div>
                 <Account />
             </div>
-            <div className="home-body">body</div>
+            <div className="home-body">
+                <AccountSettings />
+            </div>
         </div>
     );
 }
