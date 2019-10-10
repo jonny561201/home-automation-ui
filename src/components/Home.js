@@ -7,8 +7,10 @@ function Home() {
     return (
         <div className="home-main">
             <div className="home-header">
-                <LogoHeader />
-                <h1 className="home-header-text">Home Automation</h1>
+                <div className="header-logo-text">
+                    <LogoHeader />
+                    <h1 className="home-header-text">Home Automation</h1>
+                </div>
                 <Account />
             </div>
             <div className="home-body">body</div>

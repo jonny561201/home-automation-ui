@@ -15,7 +15,14 @@
     justify-content: space-between;
 }
 
+.header-logo-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .home-header-text {
+    margin: 0 2rem 0 2rem;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
 }
 
@@ -25,16 +32,16 @@
 }
 
 .logo-image {
-    height: 60px;
+    height: 75px;
 }
 
 .logo-background {
-    border-radius: 40px;
-    height: 75px;
-    width: 75px;
+    border-radius: 45px;
+    height: 90px;
+    width: 90px;
 }
 
 .white-header {
-    height: 81px;
-    width: 81px;
+    height: 100px;
+    width: 100px;
 }
