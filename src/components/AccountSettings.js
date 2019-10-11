@@ -1,7 +1,7 @@
 import React from 'react';
 import './AccountSettings.css';
 
-function AccountSettings() {
+export default function AccountSettings() {
     return (
         <div className="account-menu">
             <ul>
@@ -11,5 +11,3 @@ function AccountSettings() {
         </div>
     );
 }
-
-export default AccountSettings;

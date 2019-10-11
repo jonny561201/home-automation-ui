@@ -4,7 +4,7 @@ import LogoHeader from '../components/LogoHeader';
 import Account from '../components/Account';
 import AccountSettings from '../components/AccountSettings';
 
-function Home() {
+export default function Home() {
     return (
         <div className="home-main">
             <div className="home-header">
@@ -20,5 +20,3 @@ function Home() {
         </div>
     );
 }
-
-export default Home;

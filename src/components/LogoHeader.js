@@ -2,7 +2,7 @@ import React from 'react';
 import './LogoHeader.css';
 import Logo from '../resources/CompanyLogo.png';
 
-function LogoHeader() {
+export default function LogoHeader() {
     return (
         <div>
             <div className="white-header">
@@ -13,5 +13,3 @@ function LogoHeader() {
         </div>
     );
 }
-
-export default LogoHeader;

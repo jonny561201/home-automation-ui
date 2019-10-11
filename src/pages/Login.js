@@ -4,7 +4,7 @@ import '../components/UserPass';
 import LogoHeader from '../components/LogoHeader';
 import UserPass from '../components/UserPass';
 
-function Login() {
+export default function Login() {
     return (
         <div className="login-menu column">
             <div className="login-header">
@@ -17,5 +17,3 @@ function Login() {
         </div>
     );
 }
-
-export default Login;
