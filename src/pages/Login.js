@@ -1,8 +1,8 @@
 import React from 'react';
 import './Login.css';
-import './UserPass';
+import '../components/UserPass';
 import LogoHeader from '../components/LogoHeader';
-import UserPass from './UserPass';
+import UserPass from '../components/UserPass';
 
 function Login() {
     return (

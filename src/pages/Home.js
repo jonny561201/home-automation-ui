@@ -1,8 +1,8 @@
 import React from 'react';
 import './Home.css';
-import LogoHeader from './LogoHeader';
-import Account from './Account';
-import AccountSettings from './AccountSettings';
+import LogoHeader from '../components/LogoHeader';
+import Account from '../components/Account';
+import AccountSettings from '../components/AccountSettings';
 
 function Home() {
     return (
