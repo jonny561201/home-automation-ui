@@ -6,9 +6,9 @@ function accountClick() {
     console.log('clicked account icon!')
 }
 
-function Account() {
+export default function Account() {
     return (
-        <div className="account-container" onClick={accountClick}>
+        <div className="account-container" onClick={accountClick} >
             <div className="account-border">
                 <div className="account-center">
                     <div className="user-head"></div>
@@ -18,5 +18,3 @@ function Account() {
         </div>
     );
 }
-
-export default Account;
