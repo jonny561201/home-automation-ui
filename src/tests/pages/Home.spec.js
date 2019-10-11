@@ -1,5 +1,5 @@
 import React from 'react';
-import Home from '../../components/Home';
+import Home from '../../pages/Home';
 import { shallow } from 'enzyme';
 
 describe('Home', () => {
@@ -18,6 +18,16 @@ describe('Home', () => {
     it('should display header text', () => {
         const header = home.find('h1').text();
         expect(header).toEqual('Home Automation');
+    });
+
+    it('should display company logo', () => {
+        const header = home.find('LogoHeader');
+        expect(header).toHaveLength(1);
+    });
+
+    it('should display account icon', () => {
+        const header = home.find('Account');
+        expect(header).toHaveLength(1);
     });
 
     it('should display page body', () => {

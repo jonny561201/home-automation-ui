@@ -1,5 +1,5 @@
 import React from 'react';
-import Login from '../../components/Login';
+import Login from '../../pages/Login';
 import { shallow } from 'enzyme';
 
 describe('Login Component', () => {
@@ -24,7 +24,7 @@ describe('Login Component', () => {
     });
 
     it('should have Logo element', () => {
-        const logoHeader = login.find('LogoHeader').text();
+        const logoHeader = login.find('LogoHeader');
         expect(logoHeader).toHaveLength(1);
     });
 
