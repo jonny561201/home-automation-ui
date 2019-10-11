@@ -34,4 +34,38 @@ describe('Home', () => {
         const body = home.find('.home-body');
         expect(body).toHaveLength(1)
     });
+
+    describe('AccountSettings', () => {
+        it('should not show account settings when settingsActive false', () => {
+            home.state().settingsActive = false;
+            const accountSettings = home.find('AccountSettings');
+            expect(accountSettings).toHaveLength(0);
+        });
+        // Do I need to rerender?
+        it('should show account settings when settingsActive true', () => {
+            home.state().settingsActive = true;
+            const accountSettings = home.find('AccountSettings');
+            expect(accountSettings).toHaveLength(1);
+        });
+    });
+
+    describe('toggleAccountSettings', () => {
+        let instance;
+
+        beforeEach(() => {
+            instance = home.instance();
+        });
+
+        it('should set state to true when false', () => {
+            home.state().settingsActive = false;
+            instance.toggleAccountSettings();
+            expect(home.state().settingsActive).toBeTruthy;
+        });
+
+        it('should set state to false when true', () => {
+            home.state().settingsActive = true;
+            instance.toggleAccountSettings();
+            expect(home.state().settingsActive).toBeFalsy;
+        });
+    });
 });

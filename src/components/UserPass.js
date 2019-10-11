@@ -57,4 +57,4 @@ export default class UserPass extends Component {
             </div>
         )
     }
-}
+}   
