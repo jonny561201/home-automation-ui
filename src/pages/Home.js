@@ -27,11 +27,11 @@ export default class Home extends Component {
                     </div>
                     <Account toggle={this.toggleAccountSettings} />
                 </div>
+                {this.state.settingsActive
+                    ? <AccountSettings />
+                    : <div></div>
+                }
                 <div className="home-body">
-                    {this.state.settingsActive
-                        ? <AccountSettings />
-                        : <div>empty</div>
-                    }
                 </div>
             </div>
         );
