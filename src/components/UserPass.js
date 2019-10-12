@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './UserPass.css';
 import { getBearerToken } from '../utilities/RestApi';
 
@@ -53,7 +54,9 @@ export default class UserPass extends Component {
                     ? <p className="error-text">Invalid password!</p>
                     : <p className="spacer"></p>
                 }
-                <button className="column" onClick={this.validateCredentials}>Login</button>
+                <Link to="/home">
+                    <button className="column" onClick={this.validateCredentials}>Login</button>
+                </Link>
             </div>
         )
     }
