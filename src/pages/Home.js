@@ -4,6 +4,7 @@ import LogoHeader from '../components/LogoHeader';
 import Account from '../components/Account';
 import AccountSettings from '../components/AccountSettings';
 
+
 export default class Home extends Component {
     constructor(props) {
         super(props);

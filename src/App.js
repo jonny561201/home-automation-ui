@@ -4,19 +4,27 @@ import './App.css';
 import Login from './pages/Login';
 import Home from './pages/Home';
 
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
+    this.updateAuthenticated = this.updateAuthenticated.bind(this);
     this.state = {
-      isAuthenticated: false
+      isAuthenticated: true
     };
+  }
+
+  updateAuthenticated = () => {
+    this.setState({isAuthenticated: !this.state.isAuthenticated});
+    console.log('Auth State: ' + this.state.isAuthenticated);
   }
 
   render() {
     return (
       <Router>
         <header className="App-header">
-          <Route exact path="/" component={Login} />
+          <Route exact path="/" render={() => <Login updateAuth={this.updateAuthenticated}/>} />
+          {/* <Route exact path="/" component={Login} /> */}
           {this.state.isAuthenticated &&
             <Route exact path="/home" component={Home} />
           }

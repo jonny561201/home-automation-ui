@@ -4,7 +4,8 @@ import '../components/UserPass';
 import LogoHeader from '../components/LogoHeader';
 import UserPass from '../components/UserPass';
 
-export default function Login() {
+
+export default function Login(props) {
     return (
         <div className="login-menu column">
             <div className="login-header">
@@ -12,7 +13,7 @@ export default function Login() {
                 <h1>Member Login</h1>
             </div>
             <div className="login-body">
-                <UserPass />
+                <UserPass updateAuth={props.updateAuth}/>
             </div>
         </div>
     );

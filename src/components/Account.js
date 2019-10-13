@@ -2,7 +2,6 @@ import React from 'react';
 import './Account.css';
 
 
-
 export default function Account(props) {
     return (
         <div className="account-container" onClick={props.toggle} >
