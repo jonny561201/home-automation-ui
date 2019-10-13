@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -8,22 +8,21 @@ import Home from './pages/Home';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.updateAuthenticated = this.updateAuthenticated.bind(this);
+    this.authenticate = this.authenticate.bind(this);
     this.state = {
-      isAuthenticated: true
+      isAuthenticated: false
     };
   }
 
-  updateAuthenticated = () => {
-    this.setState({ isAuthenticated: !this.state.isAuthenticated });
-    console.log('Auth State: ' + this.state.isAuthenticated);
+  authenticate = () => {
+    this.setState({ isAuthenticated: true }, console.log('Auth State: ' + this.state.isAuthenticated));
   }
 
   render() {
     return (
       <Router>
         <header className="App-header">
-          <Route exact path="/" render={() => <Login updateAuth={this.updateAuthenticated} />} />
+          <Route exact path="/" render={() => <Login updateAuth={this.authenticate} />} />
           {this.state.isAuthenticated &&
             <Route exact path="/home" component={Home} />
           }

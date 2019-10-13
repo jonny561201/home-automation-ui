@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import './UserPass.css';
 import { getBearerToken } from '../utilities/RestApi';
 
@@ -15,19 +15,22 @@ export default class UserPass extends Component {
             username: undefined,
             password: undefined,
             isUsernameInvalid: false,
-            isPasswordInvalid: false
+            isPasswordInvalid: false,
+            receivedToken: false
         }
     }
 
-    validateCredentials = () => {
-        this.state.username == null || this.state.username === '' ? this.setState({ isUsernameInvalid: true }) : this.setState({ isUsernameInvalid: false });
-        this.state.password == null || this.state.password === '' ? this.setState({ isPasswordInvalid: true }) : this.setState({ isPasswordInvalid: false }, this.getBearerTokenFromLogin());
+    validateCredentials = async () => {
+        await this.state.username == null || this.state.username === '' ? this.setState({ isUsernameInvalid: true }) : this.setState({ isUsernameInvalid: false });
+        await this.state.password == null || this.state.password === '' ? this.setState({ isPasswordInvalid: true }) : this.setState({ isPasswordInvalid: false });
+        this.getBearerTokenFromLogin();
     }
 
-    getBearerTokenFromLogin() {
+    getBearerTokenFromLogin = () => {
         if (this.state.isUsernameInvalid === false && this.state.isPasswordInvalid === false) {
-            this.props.updateAuth();
             getBearerToken();
+            this.setState({ receivedToken: true });
+            this.props.updateAuth();
         }
     }
 
@@ -40,6 +43,9 @@ export default class UserPass extends Component {
     }
 
     render() {
+        if (this.state.receivedToken) {
+            return <Redirect to='/home' />
+        }
         return (
             <div>
                 <div className="column">
@@ -56,9 +62,7 @@ export default class UserPass extends Component {
                     ? <p className="error-text">Invalid password!</p>
                     : <p className="spacer"></p>
                 }
-                <Link to="/home">
-                    <button className="column" onClick={this.validateCredentials}>Login</button>
-                </Link>
+                <button className="column" onClick={this.validateCredentials}>Login</button>
             </div>
         )
     }
