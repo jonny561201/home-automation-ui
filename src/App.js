@@ -15,7 +15,7 @@ export default class App extends React.Component {
   }
 
   updateAuthenticated = () => {
-    this.setState({isAuthenticated: !this.state.isAuthenticated});
+    this.setState({ isAuthenticated: !this.state.isAuthenticated });
     console.log('Auth State: ' + this.state.isAuthenticated);
   }
 
@@ -23,8 +23,7 @@ export default class App extends React.Component {
     return (
       <Router>
         <header className="App-header">
-          <Route exact path="/" render={() => <Login updateAuth={this.updateAuthenticated}/>} />
-          {/* <Route exact path="/" component={Login} /> */}
+          <Route exact path="/" render={() => <Login updateAuth={this.updateAuthenticated} />} />
           {this.state.isAuthenticated &&
             <Route exact path="/home" component={Home} />
           }

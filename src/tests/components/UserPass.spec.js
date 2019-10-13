@@ -6,9 +6,10 @@ import * as restApi from '../../utilities/RestApi';
 
 describe('UserPass', () => {
     let userPass;
+    const updateAuth = () => { };
 
     beforeEach(() => {
-        userPass = shallow(<UserPass />);
+        userPass = shallow(<UserPass updateAuth={updateAuth} />);
     });
 
     it('renders', () => {
@@ -106,7 +107,7 @@ describe('UserPass', () => {
             userPass.state().isUsernameInvalid = true;
             userPass.state().username = username;
             instance.validateCredentials();
-            
+
             expect(userPass.state().isUsernameInvalid).toBeFalsy();
         });
 
@@ -114,7 +115,7 @@ describe('UserPass', () => {
             userPass.state().isPasswordInvalid = true;
             userPass.state().password = password;
             instance.validateCredentials();
-            
+
             expect(userPass.state().isPasswordInvalid).toBeFalsy();
         });
 
