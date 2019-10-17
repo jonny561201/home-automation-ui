@@ -41,9 +41,10 @@ describe('Home', () => {
             const accountSettings = home.find('AccountSettings');
             expect(accountSettings).toHaveLength(0);
         });
-        // Do I need to rerender?
+
         it('should show account settings when settingsActive true', () => {
             home.state().settingsActive = true;
+            home.instance().forceUpdate();
             const accountSettings = home.find('AccountSettings');
             expect(accountSettings).toHaveLength(1);
         });

@@ -21,9 +21,8 @@ export default class UserPass extends Component {
     }
 
     validateCredentials = async () => {
-        await this.state.username == null || this.state.username === '' ? this.setState({ isUsernameInvalid: true }) : this.setState({ isUsernameInvalid: false });
-        await this.state.password == null || this.state.password === '' ? this.setState({ isPasswordInvalid: true }) : this.setState({ isPasswordInvalid: false });
-        this.getBearerTokenFromLogin();
+        this.state.username == null || this.state.username === '' ? this.setState({ isUsernameInvalid: true }) : this.setState({ isUsernameInvalid: false });
+        this.state.password == null || this.state.password === '' ? this.setState({ isPasswordInvalid: true }) : this.setState({ isPasswordInvalid: false }, this.getBearerTokenFromLogin());
     }
 
     getBearerTokenFromLogin = () => {
