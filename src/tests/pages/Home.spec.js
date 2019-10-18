@@ -81,5 +81,15 @@ describe('Home', () => {
             const actual = home.find('.basement-panel');
             expect(actual).toHaveLength(1);
         });
+
+        it('should show garage icon', () => {
+            const actual = home.find('.garage-panel img').prop('alt');
+            expect(actual).toEqual('garage');
+        });
+
+        it('should show basement icon', () => {
+            const actual = home.find('.basement-panel img').prop('alt');
+            expect(actual).toEqual('basement');
+        });
     });
 });
