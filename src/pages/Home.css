@@ -72,3 +72,7 @@
 .panel {
     margin: 0.75rem;
 }
+
+.panel-text {
+    margin-left: 1rem !important;
+}

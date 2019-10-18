@@ -46,7 +46,7 @@ export default class Home extends Component {
                                         <div>
                                             <img alt="garage" className="logo-image" src={GarageIcon} />
                                         </div>
-                                        <Typography>Garage</Typography>
+                                        <Typography className="panel-text">Garage</Typography>
                                     </div>
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails className="center">
@@ -61,7 +61,7 @@ export default class Home extends Component {
                                         <div>
                                             <img alt="basement" className="logo-image" src={BasementIcon} />
                                         </div>
-                                        <Typography>Basement</Typography>
+                                        <Typography className="panel-text">Basement</Typography>
                                     </div>
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails className="center">
