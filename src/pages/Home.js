@@ -3,7 +3,8 @@ import './Home.css';
 import LogoHeader from '../components/LogoHeader';
 import Account from '../components/Account';
 import AccountSettings from '../components/AccountSettings';
-
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, expandIcon } from '@material-ui/core';
 
 export default class Home extends Component {
     constructor(props) {
@@ -35,6 +36,30 @@ export default class Home extends Component {
                     : <div></div>
                 }
                 <div className="home-body">
+                    <div>
+                        <div>
+                            <ExpansionPanel className="garage-panel">
+                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                    <Typography>Garage</Typography>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails className="home-main">
+                                    <Typography>Test Detail line 1</Typography>
+                                    <Typography>Test Detail line 2</Typography>
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                        </div>
+                        <div>
+                            <ExpansionPanel className="basement-panel">
+                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                    <Typography>Basement</Typography>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails className="home-main">
+                                    <Typography>Test Detail line 1</Typography>
+                                    <Typography>Test Detail line 2</Typography>
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

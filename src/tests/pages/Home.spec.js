@@ -69,4 +69,17 @@ describe('Home', () => {
             expect(home.state().settingsActive).toBeFalsy;
         });
     });
+
+    describe('ExpansionPanel', () => {
+
+        it('should show the Garage Panel', () => {
+            const actual = home.find('.garage-panel');
+            expect(actual).toHaveLength(1);
+        });
+
+        it('should show the Basement Panel', () => {
+            const actual = home.find('.basement-panel');
+            expect(actual).toHaveLength(1);
+        });
+    });
 });
