@@ -22,8 +22,10 @@ export default class Home extends Component {
         return (
             <div className="home-main" >
                 <div className="home-header">
-                    <div className="header-logo-text">
+                    <div className="test">
                         <LogoHeader />
+                    </div>
+                    <div className="header-logo-text">
                         <h1 className="home-header-text">Home Automation</h1>
                     </div>
                     <Account toggle={this.toggleAccountSettings} />
