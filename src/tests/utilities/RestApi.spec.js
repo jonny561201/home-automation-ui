@@ -1,11 +1,16 @@
 import base64 from 'base-64';
 import fetchMock from 'fetch-mock';
-import { getBearerToken, getGarageStatus, updateGarageState, getSumpLevels, getCurrentTemperature } from '../../utilities/RestApi';
+import ApiRequests from '../../utilities/RestApi';
 
 describe('RestApi', () => {
+    let restApi;
     const username = 'fakeUser';
     const password = 'fakepass';
     const fakeBearerToken = "fakeBearerToken";
+
+    beforeEach(() => {
+        restApi = new ApiRequests();
+    });
     
     it('should make rest call to login api using auth header', async () => {
         const response = { 'bearerToken': fakeBearerToken };
@@ -18,7 +23,7 @@ describe('RestApi', () => {
             };
         });
 
-        const actual = await getBearerToken(username, password);
+        const actual = await restApi.getBearerToken(username, password);
         expect(actual.bearerToken).toEqual(fakeBearerToken);
     });
 
@@ -30,7 +35,7 @@ describe('RestApi', () => {
             return { status: 400};
         });
 
-        const actual = await getGarageStatus();
+        const actual = await restApi.getGarageStatus();
         expect(actual.isGarageOpen).toEqual(true);
     });
 
@@ -42,7 +47,7 @@ describe('RestApi', () => {
             return {status: 400};
         });
 
-        const actual = await updateGarageState(false);
+        const actual = await restApi.updateGarageState(false);
         expect(actual.garageDoorOpen).toEqual(false);
     });
 
@@ -56,7 +61,7 @@ describe('RestApi', () => {
             return {status: 400};
         });
 
-        const actual = await getSumpLevels(userId);
+        const actual = await restApi.getSumpLevels(userId);
         expect(actual.currentDepth).toEqual(expectedDepth);
     })
 
@@ -70,7 +75,7 @@ describe('RestApi', () => {
             return {status: 400};
         });
 
-        const actual = await getCurrentTemperature(userId);
+        const actual = await restApi.getCurrentTemperature(userId);
         expect(actual.currentTemp).toEqual(expectedTemp);
     });
 });
