@@ -3,10 +3,7 @@ import './Home.css';
 import LogoHeader from '../components/LogoHeader';
 import Account from '../components/Account';
 import AccountSettings from '../components/AccountSettings';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import GarageIcon from '../resources/GarageDoorIcon.jpg';
-import BasementIcon from '../resources/BasementIcon.jpg';
-import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, expandIcon } from '@material-ui/core';
+import DashboardPanel from '../components/panels/DashboardPanels';
 
 export default class Home extends Component {
     constructor(props) {
@@ -39,36 +36,7 @@ export default class Home extends Component {
                 }
                 <div className="home-body">
                     <div className="center">
-                        <div className="panel">
-                            <ExpansionPanel className="garage-panel">
-                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                                    <div className="summary">
-                                        <div>
-                                            <img alt="garage" className="logo-image" src={GarageIcon} />
-                                        </div>
-                                        <Typography className="panel-text">Garage</Typography>
-                                    </div>
-                                </ExpansionPanelSummary>
-                                <ExpansionPanelDetails className="center">
-                                    <Typography>Test Detail line 2</Typography>
-                                </ExpansionPanelDetails>
-                            </ExpansionPanel>
-                        </div>
-                        <div className="panel">
-                            <ExpansionPanel className="basement-panel">
-                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                                    <div className="summary">
-                                        <div>
-                                            <img alt="basement" className="logo-image" src={BasementIcon} />
-                                        </div>
-                                        <Typography className="panel-text">Basement</Typography>
-                                    </div>
-                                </ExpansionPanelSummary>
-                                <ExpansionPanelDetails className="center">
-                                    <Typography>Test Detail line 2</Typography>
-                                </ExpansionPanelDetails>
-                            </ExpansionPanel>
-                        </div>
+                        <DashboardPanel />
                     </div>
                 </div>
             </div>
