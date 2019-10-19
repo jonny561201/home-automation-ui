@@ -17,10 +17,10 @@ export default function GaragePanel() {
                         <Typography className="panel-text">Garage</Typography>
                     </div>
                 </ExpansionPanelSummary>
+                <Divider />
                 <ExpansionPanelDetails className="center">
                     <Typography>Test Detail line 2</Typography>
                 </ExpansionPanelDetails>
-                <Divider />
                 <ExpansionPanelActions>
                     <button>Open</button>
                 </ExpansionPanelActions>

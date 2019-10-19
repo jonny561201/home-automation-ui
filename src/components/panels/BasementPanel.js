@@ -1,7 +1,7 @@
 import React from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import BasementIcon from '../../resources/BasementIcon.jpg';
-import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary } from '@material-ui/core';
+import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, Divider } from '@material-ui/core';
 import './BasementPanel.css';
 
 
@@ -17,6 +17,7 @@ export default function BasementPanel() {
                         <Typography className="panel-text">Basement</Typography>
                     </div>
                 </ExpansionPanelSummary>
+                <Divider />
                 <ExpansionPanelDetails className="center">
                     <Typography>Test Detail line 2</Typography>
                 </ExpansionPanelDetails>
