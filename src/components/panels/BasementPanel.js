@@ -2,6 +2,8 @@ import React from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import BasementIcon from '../../resources/BasementIcon.jpg';
 import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary } from '@material-ui/core';
+import './BasementPanel.css';
+
 
 export default function BasementPanel() {
     return (

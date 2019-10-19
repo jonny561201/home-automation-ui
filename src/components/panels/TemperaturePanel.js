@@ -2,6 +2,8 @@ import React from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import TemperatureIcon from '../../resources/TemperatureIcon.jpg';
 import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary } from '@material-ui/core';
+import './TemperaturePanel.css';
+
 
 export default function TemperaturePanel() {
     return (

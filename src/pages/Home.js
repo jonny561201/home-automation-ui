@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import './Home.css';
 import LogoHeader from '../components/LogoHeader';
 import Account from '../components/Account';
 import AccountSettings from '../components/AccountSettings';
 import DashboardPanel from '../components/panels/DashboardPanels';
+import './Home.css';
 
 export default class Home extends Component {
     constructor(props) {
@@ -25,7 +25,8 @@ export default class Home extends Component {
                     <div className="test">
                         <LogoHeader />
                     </div>
-                    <div className="header-logo-text">
+                    <div></div>
+                    <div>
                         <h1 className="home-header-text">Home Automation</h1>
                     </div>
                     <Account toggle={this.toggleAccountSettings} />

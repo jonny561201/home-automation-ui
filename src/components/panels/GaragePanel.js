@@ -2,6 +2,8 @@ import React from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import GarageIcon from '../../resources/GarageDoorIcon.jpg';
 import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, ExpansionPanelActions, Divider } from '@material-ui/core';
+import './GaragePanel.css';
+
 
 export default function GaragePanel() {
     return (
