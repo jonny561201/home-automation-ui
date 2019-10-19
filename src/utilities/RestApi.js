@@ -31,3 +31,14 @@ export async function updateGarageState(shouldOpen) {
     const response = await fetch('http://localhost:5000/garageDoor/state', options);
     return await response.json();
 }
+
+export async function getSumpLevels(userID) {
+    const options = {
+        method: 'GET',
+        headers: {'Authorization': 'Bearer ' + 'fakeBearerToken'}
+    }
+
+    const sumpUrl = `http://localhost:5000/sumpPump/user/${userID}/depth`
+    const response = await fetch(sumpUrl, options);
+    return await response.json();
+}
