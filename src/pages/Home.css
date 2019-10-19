@@ -30,15 +30,15 @@
     color: black;
     display: flex;
 
-    min-height: 700px;
-    min-width: 500px;
+    /* min-height: 800px; */
+    min-width: 650px;
     border-radius: 0px 0px 12px 12px;
 }
 
 .test {
     position: absolute;
-    right: 78%;
-    bottom: 88%
+    left: 1rem;
+    top: -0.5rem;
 }
 
 .logo-image {

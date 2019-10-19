@@ -20,7 +20,7 @@ export default function GaragePanel() {
                 </ExpansionPanelDetails>
                 <Divider />
                 <ExpansionPanelActions>
-                    <button>Test</button>
+                    <button>Open</button>
                 </ExpansionPanelActions>
             </ExpansionPanel>
         </div>

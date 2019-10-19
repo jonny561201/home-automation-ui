@@ -18,4 +18,9 @@ describe('GaragePanel', () => {
         const actual = garagePanel.find('.garage-panel img').prop('alt');
         expect(actual).toEqual('garage');
     });
+
+    it('should show garage door button', () => {
+        const actual = garagePanel.find('button');
+        expect(actual).toHaveLength(1);
+    });
 });

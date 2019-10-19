@@ -15,7 +15,6 @@ describe('BasementPanel', () => {
         expect(actual).toHaveLength(1);
     });
 
-
     it('should show basement icon', () => {
         const actual = basementPanel.find('.basement-panel img').prop('alt');
         expect(actual).toEqual('basement');
