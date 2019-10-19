@@ -1,5 +1,5 @@
 import React from 'react';
-import LogoCircle from '../../components/LogoHeader';
+import LogoCircle from '../../../components/header/LogoHeader';
 import {shallow} from 'enzyme';
 
 describe('LogoHeader', () => {

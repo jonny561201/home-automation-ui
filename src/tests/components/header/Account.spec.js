@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Account from '../../components/Account';
+import Account from '../../../components/header/Account';
 
 describe('Account', () => {
     let account;

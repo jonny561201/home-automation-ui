@@ -1,8 +1,8 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import UserPass from '../../components/UserPass';
-import * as restApi from '../../utilities/RestApi';
+import UserPass from '../../../components/header/UserPass';
+import * as restApi from '../../../utilities/RestApi';
 
 describe('UserPass', () => {
     let userPass;

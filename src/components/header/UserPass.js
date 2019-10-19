@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import './UserPass.css';
-import { getBearerToken } from '../utilities/RestApi';
+import { getBearerToken } from '../../utilities/RestApi';
 
 
 export default class UserPass extends Component {
