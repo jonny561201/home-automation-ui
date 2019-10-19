@@ -42,3 +42,14 @@ export async function getSumpLevels(userID) {
     const response = await fetch(sumpUrl, options);
     return await response.json();
 }
+
+export async function getCurrentTemperature(userId) {
+    const options = {
+        method: 'GET',
+        headers: {'Authorization': `Bearer fakeBearerToken`}
+    }
+
+    const tempUrl = `http://localhost:5000/thermostat/temperature/${userId}`;
+    const response = await fetch(tempUrl, options);
+    return await response.json();
+}
