@@ -19,3 +19,15 @@ export async function getGarageStatus() {
     const response = await fetch('http://localhost:5000/garageDoor/status', options);
     return await response.json();
 }
+
+export async function updateGarageState(shouldOpen) {
+    const request = {'garageDoorOpen': shouldOpen};
+    const options = {
+        method: 'POST',
+        headers: {'Authorization': 'Bearer ' + 'fakeBearerToken'},
+        body: JSON.stringify(request)
+    };
+
+    const response = await fetch('http://localhost:5000/garageDoor/state', options);
+    return await response.json();
+}
