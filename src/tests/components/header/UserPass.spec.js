@@ -2,13 +2,23 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import UserPass from '../../../components/header/UserPass';
-import * as restApi from '../../../utilities/RestApi';
+import ApiRequests from '../../../utilities/RestApi';
+
+jest.mock('../../../utilities/RestApi');
+
+const mockApi = jest.fn();
+
 
 describe('UserPass', () => {
     let userPass;
     const updateAuth = () => { };
 
     beforeEach(() => {
+        ApiRequests.mockImplementation(() => {
+            return {getBearerToken: mockApi}
+        });
+        ApiRequests.mockClear();
+        mockApi.mockClear();
         userPass = shallow(<UserPass updateAuth={updateAuth} />);
     });
 
@@ -32,12 +42,11 @@ describe('UserPass', () => {
     });
 
     describe('Form Validation', () => {
+        let instance;
         const username = 'Jon';
         const password = 'bestestPass'
-        let instance;
 
         beforeEach(() => {
-            restApi.getBearerToken = jest.fn();
             instance = userPass.instance();
         });
 
@@ -125,7 +134,7 @@ describe('UserPass', () => {
 
             instance.validateCredentials();
 
-            expect(restApi.getBearerToken).toHaveBeenCalledTimes(1);
+            expect(mockApi).toHaveBeenCalledTimes(1);
         });
 
         it('should not make call to get bearer token when user invalid', () => {
@@ -134,7 +143,7 @@ describe('UserPass', () => {
 
             instance.validateCredentials();
 
-            expect(restApi.getBearerToken).toHaveBeenCalledTimes(0);
+            expect(mockApi).toHaveBeenCalledTimes(0);
         });
 
         it('should not make call to get bearer token when password invalid', () => {
@@ -143,7 +152,7 @@ describe('UserPass', () => {
 
             instance.validateCredentials();
 
-            expect(restApi.getBearerToken).toHaveBeenCalledTimes(0);
+            expect(mockApi).toHaveBeenCalledTimes(0);
         });
 
         it('should not make call to get bearer token when user and pass invalid', () => {
@@ -152,7 +161,7 @@ describe('UserPass', () => {
 
             instance.validateCredentials();
 
-            expect(restApi.getBearerToken).toHaveBeenCalledTimes(0);
+            expect(mockApi).toHaveBeenCalledTimes(0);
         });
     });
 });
