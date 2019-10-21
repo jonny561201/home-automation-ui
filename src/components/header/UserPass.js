@@ -26,7 +26,7 @@ export default class UserPass extends Component {
 
     getBearerTokenFromLogin = () => {
         if (this.state.isUsernameInvalid === false && this.state.isPasswordInvalid === false) {
-            this.props.apiRequests.getBearerToken();
+            this.props.apiRequests.getBearerToken(this.state.username, this.state.password);
             this.setState({ receivedToken: true });
             this.props.updateAuth();
         }

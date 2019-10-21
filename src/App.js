@@ -17,7 +17,7 @@ export default class App extends React.Component {
   }
 
   authenticate = () => {
-    this.setState({ isAuthenticated: true }, console.log('Auth State: ' + this.state.isAuthenticated));
+    this.setState({ isAuthenticated: true });
   }
 
   render() {
