@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import './UserPass.css';
-import ApiRequests from '../../utilities/RestApi';
 
 
 export default class UserPass extends Component {
