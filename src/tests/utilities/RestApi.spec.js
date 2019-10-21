@@ -7,6 +7,7 @@ describe('RestApi', () => {
     const username = 'fakeUser';
     const password = 'fakepass';
     const fakeBearerToken = "fakeBearerToken";
+    const credentials = username + ":" + password;
 
     beforeEach(() => {
         restApi = new ApiRequests();
@@ -14,7 +15,7 @@ describe('RestApi', () => {
 
     it('should make rest call to login api using auth header', async () => {
         const response = { 'bearerToken': fakeBearerToken };
-        const options = { "method": "GET", "headers": { 'Authorization': `Basic ${base64.encode(username + ":" + password)}` } };
+        const options = { "method": "GET", "headers": { 'Authorization': `Basic ${base64.encode(credentials)}` } };
 
         fetchMock.mock('http://localhost:5000/login', response, options).catch(unmatchedUrl => {
             return {
@@ -29,7 +30,7 @@ describe('RestApi', () => {
 
     it('should store bearer token after successful login', async () => {
         const response = { 'bearerToken': fakeBearerToken };
-        const options = { 'method': 'GET', 'headers': { 'Authorization': `Basic ${base64.encode(username + ':' + password)}` }, overwriteRoutes: false };
+        const options = { 'method': 'GET', 'headers': { 'Authorization': `Basic ${base64.encode(credentials)}` }, overwriteRoutes: false };
 
         fetchMock.mock('http://localhost:5000/login', response, options).catch(unmatchedUrl => {
             return { status: 400 };
@@ -39,55 +40,63 @@ describe('RestApi', () => {
         expect(restApi.bearerToken).toEqual(fakeBearerToken);
     });
 
-    it('should make rest call to get garage door state', async () => {
-        const response = { 'isGarageOpen': true };
-        const options = { "method": "GET", "headers": { 'Authorization': `Bearer ${fakeBearerToken}` } };
+    describe('after successful login', () => {
+        const bearerToken2 = 'abc123';
 
-        fetchMock.mock('http://localhost:5000/garageDoor/status', response, options).catch(unmatchedUrl => {
-            return { status: 400 };
+        beforeEach(() => {
+            restApi.bearerToken = bearerToken2;
         });
 
-        const actual = await restApi.getGarageStatus();
-        expect(actual.isGarageOpen).toEqual(true);
-    });
+        it('should make rest call to get garage door state', async () => {
+            const response = { 'isGarageOpen': true };
+            const options = { "method": "GET", "headers": { 'Authorization': `Bearer ${bearerToken2}` } };
 
-    it('should make rest call to post garage door status', async () => {
-        const response = { 'garageDoorOpen': false };
-        const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${fakeBearerToken}` }, 'body': { "garageDoorOpen": false } };
+            fetchMock.mock('http://localhost:5000/garageDoor/status', response, options).catch(unmatchedUrl => {
+                return { status: 400 };
+            });
 
-        fetchMock.mock('http://localhost:5000/garageDoor/state', response, options).catch(unmatchedUrl => {
-            return { status: 400 };
+            const actual = await restApi.getGarageStatus();
+            expect(actual.isGarageOpen).toEqual(true);
         });
 
-        const actual = await restApi.updateGarageState(false);
-        expect(actual.garageDoorOpen).toEqual(false);
-    });
+        it('should make rest call to post garage door status', async () => {
+            const response = { 'garageDoorOpen': false };
+            const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': { "garageDoorOpen": false } };
 
-    it('should make rest call to get current sump pump level', async () => {
-        const userId = 'abc123';
-        const expectedDepth = 33.3;
-        const response = { 'currentDepth': expectedDepth, 'userId': userId, 'latestDate': '2019-11-12', 'averageDepth': 35.8 };
-        const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${fakeBearerToken}` } };
+            fetchMock.mock('http://localhost:5000/garageDoor/state', response, options).catch(unmatchedUrl => {
+                return { status: 400 };
+            });
 
-        fetchMock.mock(`http://localhost:5000/sumpPump/user/${userId}/depth`, response, options).catch(unmatchedUrl => {
-            return { status: 400 };
+            const actual = await restApi.updateGarageState(false);
+            expect(actual.garageDoorOpen).toEqual(false);
         });
 
-        const actual = await restApi.getSumpLevels(userId);
-        expect(actual.currentDepth).toEqual(expectedDepth);
-    })
+        it('should make rest call to get current sump pump level', async () => {
+            const userId = 'abc123';
+            const expectedDepth = 33.3;
+            const response = { 'currentDepth': expectedDepth, 'userId': userId, 'latestDate': '2019-11-12', 'averageDepth': 35.8 };
+            const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
 
-    it('should query the current thermostat temperature', async () => {
-        const userId = 'abc123';
-        const expectedTemp = 74.9;
-        const response = { 'currentTemp': expectedTemp, 'isFahrenheit': true };
-        const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${fakeBearerToken}` } };
+            fetchMock.mock(`http://localhost:5000/sumpPump/user/${userId}/depth`, response, options).catch(unmatchedUrl => {
+                return { status: 400 };
+            });
 
-        fetchMock.mock(`http://localhost:5000/thermostat/temperature/${userId}`, response, options).catch(unmatchedUrl => {
-            return { status: 400 };
+            const actual = await restApi.getSumpLevels(userId);
+            expect(actual.currentDepth).toEqual(expectedDepth);
+        })
+
+        it('should query the current thermostat temperature', async () => {
+            const userId = 'abc123';
+            const expectedTemp = 74.9;
+            const response = { 'currentTemp': expectedTemp, 'isFahrenheit': true };
+            const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
+
+            fetchMock.mock(`http://localhost:5000/thermostat/temperature/${userId}`, response, options).catch(unmatchedUrl => {
+                return { status: 400 };
+            });
+
+            const actual = await restApi.getCurrentTemperature(userId);
+            expect(actual.currentTemp).toEqual(expectedTemp);
         });
-
-        const actual = await restApi.getCurrentTemperature(userId);
-        expect(actual.currentTemp).toEqual(expectedTemp);
     });
 });
