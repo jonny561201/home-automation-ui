@@ -2,7 +2,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import UserPass from '../../../components/header/UserPass';
-import ApiRequests from '../../../utilities/RestApi';
 
 jest.mock('../../../utilities/RestApi');
 
@@ -11,15 +10,12 @@ const mockApi = jest.fn();
 
 describe('UserPass', () => {
     let userPass;
+    const mockRequests = { getBearerToken: mockApi }
     const updateAuth = () => { };
 
     beforeEach(() => {
-        ApiRequests.mockImplementation(() => {
-            return {getBearerToken: mockApi}
-        });
-        ApiRequests.mockClear();
         mockApi.mockClear();
-        userPass = shallow(<UserPass updateAuth={updateAuth} />);
+        userPass = shallow(<UserPass updateAuth={updateAuth} apiRequests={mockRequests} />);
     });
 
     it('renders', () => {
