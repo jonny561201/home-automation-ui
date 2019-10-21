@@ -37,7 +37,7 @@ export default class Home extends Component {
                 }
                 <div className="home-body">
                     <div className="center">
-                        <DashboardPanel />
+                        <DashboardPanel apiRequests={this.props.apiRequests} />
                     </div>
                 </div>
             </div>

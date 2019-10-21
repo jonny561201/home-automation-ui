@@ -26,7 +26,7 @@ export default class App extends React.Component {
         <header className="App-header">
           <Route exact path="/" render={() => <Login updateAuth={this.authenticate} apiRequests={this.apiRequests} />} />
           {this.state.isAuthenticated &&
-            <Route exact path="/home" component={Home} />
+            <Route exact path="/home" render={() => <Home apiRequests={this.apiRequests} />} />
           }
           <Route exact path="/settings" component={Home} />
         </header>

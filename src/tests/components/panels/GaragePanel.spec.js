@@ -4,9 +4,11 @@ import GaragePanel from "../../../components/panels/GaragePanel";
 
 describe('GaragePanel', () => {
     let garagePanel;
+    const mockGetStatus = jest.fn();
+    const mockRequests = { getGarageStatus: mockGetStatus };
 
     beforeEach(() => {
-        garagePanel = shallow(<GaragePanel />);
+        garagePanel = shallow(<GaragePanel apiRequests={mockRequests} />);
     });
 
     it('should show the Garage Panel', () => {

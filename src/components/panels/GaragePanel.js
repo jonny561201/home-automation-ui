@@ -5,26 +5,37 @@ import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummar
 import './GaragePanel.css';
 
 
-export default function GaragePanel() {
-    return (
-        <div>
-            <ExpansionPanel className="garage-panel">
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                    <div className="summary">
-                        <div>
-                            <img alt="garage" className="logo-image" src={GarageIcon} />
+export default class GaragePanel extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+        const test = this.props.apiRequests.getGarageStatus();
+        console.log('Garage Door Status: ' + JSON.stringify(test));
+    }
+
+    render() {
+        return (
+            <div>
+                <ExpansionPanel className="garage-panel">
+                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                        <div className="summary">
+                            <div>
+                                <img alt="garage" className="logo-image" src={GarageIcon} />
+                            </div>
+                            <Typography className="panel-text">Garage</Typography>
                         </div>
-                        <Typography className="panel-text">Garage</Typography>
-                    </div>
-                </ExpansionPanelSummary>
-                <Divider />
-                <ExpansionPanelDetails className="center">
-                    <Typography>Test Detail line 2</Typography>
-                </ExpansionPanelDetails>
-                <ExpansionPanelActions>
-                    <button>Open</button>
-                </ExpansionPanelActions>
-            </ExpansionPanel>
-        </div>
-    );
+                    </ExpansionPanelSummary>
+                    <Divider />
+                    <ExpansionPanelDetails className="center">
+                        <Typography>Test Detail line 2</Typography>
+                    </ExpansionPanelDetails>
+                    <ExpansionPanelActions>
+                        <button>Open</button>
+                    </ExpansionPanelActions>
+                </ExpansionPanel>
+            </div>
+        );
+    }
 }
