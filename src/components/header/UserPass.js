@@ -10,6 +10,7 @@ export default class UserPass extends Component {
         this.setPassword = this.setPassword.bind(this);
         this.validateCredentials = this.validateCredentials.bind(this);
         this.getBearerTokenFromLogin = this.getBearerTokenFromLogin.bind(this);
+        this.test = this.test.bind(this);
         this.state = {
             username: undefined,
             password: undefined,
@@ -26,7 +27,12 @@ export default class UserPass extends Component {
 
     getBearerTokenFromLogin = () => {
         if (this.state.isUsernameInvalid === false && this.state.isPasswordInvalid === false) {
-            this.props.apiRequests.getBearerToken(this.state.username, this.state.password);
+            this.props.apiRequests.getBearerToken(this.state.username, this.state.password, this.test);
+        }
+    }
+
+    test = () => {
+        if (this.props.apiRequests.bearerToken != null) {
             this.setState({ receivedToken: true });
             this.props.updateAuth();
         }

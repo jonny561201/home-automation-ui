@@ -2,12 +2,13 @@ import base64 from 'base-64';
 
 export default class ApiRequests {
 
-    bearerToken;
+    bearerToken = null;
     loginUrl = 'http://localhost:5000/login';
     garageStatusUrl = 'http://localhost:5000/garageDoor/status';
     garageStateUrl = 'http://localhost:5000/garageDoor/state';
 
-    getBearerToken = async (username, password) => {
+    getBearerToken = async (username, password, callback) => {
+        //make it a cached response where this is the only entry to the bearer token
         const options = {
             method: 'GET',
             headers: { 'Authorization': `Basic ${base64.encode(username + ":" + password)}` }
@@ -15,7 +16,11 @@ export default class ApiRequests {
 
         const response = await fetch(this.loginUrl, options);
         const jsonResponse = await response.json();
-        this.bearerToken = jsonResponse.bearerToken;
+        if (response.ok) {
+            this.bearerToken = jsonResponse.bearerToken;
+            //I really hate this callback...
+            callback()
+        }
         return jsonResponse;
     }
 
