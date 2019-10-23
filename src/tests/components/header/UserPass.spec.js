@@ -3,13 +3,10 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import UserPass from '../../../components/header/UserPass';
 
-jest.mock('../../../utilities/RestApi');
-
-const mockApi = jest.fn();
-
 
 describe('UserPass', () => {
     let userPass;
+    const mockApi = jest.fn();
     const mockRequests = { getBearerToken: mockApi }
     const updateAuth = () => { };
 

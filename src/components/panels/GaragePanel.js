@@ -8,11 +8,14 @@ import './GaragePanel.css';
 export default class GaragePanel extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            isGarageOpen: null
+        }
     }
 
-    componentDidMount() {
-        const test = this.props.apiRequests.getGarageStatus();
-        console.log('Garage Door Status: ' + JSON.stringify(test));
+    async componentDidMount() {
+        const garageStatus = await this.props.apiRequests.getGarageStatus();
+        this.setState({isGarageOpen: JSON.stringify(garageStatus.isGarageOpen)});
     }
 
     render() {
@@ -29,7 +32,7 @@ export default class GaragePanel extends React.Component {
                     </ExpansionPanelSummary>
                     <Divider />
                     <ExpansionPanelDetails className="center">
-                        <Typography>Test Detail line 2</Typography>
+                        <Typography>Door Status: {this.state.isGarageOpen}</Typography>
                     </ExpansionPanelDetails>
                     <ExpansionPanelActions>
                         <button>Open</button>
