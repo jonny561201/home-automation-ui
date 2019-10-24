@@ -15,7 +15,7 @@ export default class GaragePanel extends React.Component {
 
     async componentDidMount() {
         const garageStatus = await this.props.apiRequests.getGarageStatus();
-        this.setState({isGarageOpen: JSON.stringify(garageStatus.isGarageOpen)});
+        this.setState({ isGarageOpen: JSON.stringify(garageStatus.isGarageOpen) });
     }
 
     render() {
@@ -35,7 +35,9 @@ export default class GaragePanel extends React.Component {
                         <Typography>Door Status: {this.state.isGarageOpen}</Typography>
                     </ExpansionPanelDetails>
                     <ExpansionPanelActions>
-                        <button>Open</button>
+                        {this.state.isGarageOpen
+                            ? <button>Close</button>
+                            : <button>Open</button>}
                     </ExpansionPanelActions>
                 </ExpansionPanel>
             </div>
