@@ -5,10 +5,15 @@ import GaragePanel from "../../../components/panels/GaragePanel";
 describe('GaragePanel', () => {
     let garagePanel;
     const mockGetStatus = jest.fn(() => 'true');
-    const mockRequests = { getGarageStatus: mockGetStatus };
+    const mockUpdateState = jest.fn();
+    const mockRequests = { 
+        getGarageStatus: mockGetStatus,
+        updateGarageState: mockUpdateState
+    };
 
     beforeEach(() => {
         mockGetStatus.mockClear();
+        mockUpdateState.mockClear();
         garagePanel = shallow(<GaragePanel apiRequests={mockRequests} />);
     });
 
@@ -60,7 +65,7 @@ describe('GaragePanel', () => {
             const actual = garagePanel.find('.close-button').text();
             expect(actual).toEqual('Close');
         });
-        
+
         it('should show garage status base text', () => {
             const actual = garagePanel.find('.door-status').text();
             expect(actual).toEqual('Door Status: ');
@@ -80,6 +85,19 @@ describe('GaragePanel', () => {
 
             const actual = garagePanel.find('.status-text').text();
             expect(actual).toEqual('Closed');
+        });
+    });
+
+    describe('garage door state api', () => {
+        
+        it('should call update function with false when closing', () => {
+            garagePanel.instance().openGarageDoor(false);
+            expect(mockUpdateState).toBeCalledWith(false);
+        });
+
+        it('should call update function with true when opening', () => {
+            garagePanel.instance().openGarageDoor(true);
+            expect(mockUpdateState).toBeCalledWith(true);
         });
     });
 });

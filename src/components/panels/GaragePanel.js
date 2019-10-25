@@ -8,6 +8,7 @@ import './GaragePanel.css';
 export default class GaragePanel extends React.Component {
     constructor(props) {
         super(props);
+        this.openGarageDoor = this.openGarageDoor.bind(this);
         this.state = {
             isGarageOpen: null
         }
@@ -17,6 +18,10 @@ export default class GaragePanel extends React.Component {
         const garageStatus = await this.props.apiRequests.getGarageStatus();
         this.setState({ isGarageOpen: JSON.stringify(garageStatus.isGarageOpen) });
     }
+
+    openGarageDoor = async (shouldOpen) => {
+        await this.props.apiRequests.updateGarageState(shouldOpen);
+    };
 
     render() {
         return (
@@ -41,8 +46,8 @@ export default class GaragePanel extends React.Component {
                     </ExpansionPanelDetails>
                     <ExpansionPanelActions>
                         {this.state.isGarageOpen
-                            ? <button className="close-button">Close</button>
-                            : <button className="open-button">Open</button>}
+                            ? <button className="close-button" onClick={() => this.openGarageDoor(false)}>Close</button>
+                            : <button className="open-button" onClick={() => this.openGarageDoor(true)}>Open</button>}
                         <button className="toggle-button">Toggle</button>
                     </ExpansionPanelActions>
                 </ExpansionPanel>
