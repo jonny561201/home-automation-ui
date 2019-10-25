@@ -25,7 +25,14 @@
 }
 
 .status-text {
-    color: #00c774;
     font-weight: bold;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+}
+
+.open {
+    color: #00c774;
+}
+
+.close {
+    color: #ff3333;
 }
