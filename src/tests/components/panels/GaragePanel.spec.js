@@ -22,8 +22,13 @@ describe('GaragePanel', () => {
         expect(actual).toEqual('garage');
     });
 
-    it('should show garage door button', () => {
-        const actual = garagePanel.find('button');
+    it('should show open garage button', () => {
+        const actual = garagePanel.find('.open-button');
+        expect(actual).toHaveLength(1);
+    });
+
+    it('should show toggle garage button', () => {
+        const actual = garagePanel.find('.toggle-button');
         expect(actual).toHaveLength(1);
     });
 

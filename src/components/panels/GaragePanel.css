@@ -5,3 +5,15 @@
 .panel-text {
     margin-left: 1rem !important;
 }
+
+.door-status {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+}
+
+.toggle-button {
+    background-color: #1a75ff;
+}
+
+.close-button {
+    background-color: #ff4d4d;
+}
