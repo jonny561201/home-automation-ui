@@ -32,15 +32,16 @@ export default class GaragePanel extends React.Component {
                     </ExpansionPanelSummary>
                     <Divider />
                     <ExpansionPanelDetails className="center">
-                        <div>
-                            <p className="door-status">Door Status: {this.state.isGarageOpen ? 'Open' : 'Closed'}</p>
+                        <div className="status-text-group">
+                            <p className="door-status">Door Status: </p>
+                            <p className="status-text">{this.state.isGarageOpen ? 'Open' : 'Closed'}</p>
                         </div>
                     </ExpansionPanelDetails>
                     <ExpansionPanelActions>
                         {this.state.isGarageOpen
                             ? <button className="close-button">Close</button>
                             : <button className="open-button">Open</button>}
-                            <button className="toggle-button">Toggle</button>
+                        <button className="toggle-button">Toggle</button>
                     </ExpansionPanelActions>
                 </ExpansionPanel>
             </div>

@@ -6,7 +6,13 @@
     margin-left: 1rem !important;
 }
 
+.status-text-group {
+    display: flex;
+}
+
 .door-status {
+    flex-direction: row;
+    margin-left: 0.25rem;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
 }
 
@@ -15,5 +21,11 @@
 }
 
 .close-button {
-    background-color: #ff4d4d;
+    background-color: #ff3333;
+}
+
+.status-text {
+    color: #00c774;
+    font-weight: bold;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
 }
