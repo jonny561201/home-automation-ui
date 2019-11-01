@@ -33,7 +33,7 @@ export default class BasementPanel extends React.Component {
                     <Divider />
                     <ExpansionPanelDetails className="center">
                         <img alt="sump pump" className="sump-icon" src={SumpPumpIcon} />
-                        <div>
+                        <div className="sump-text-group">
                             <p className="sump-text">Current Depth: </p>
                             <p className="sump-depth">{this.state.currentSumpDepth}</p>
                         </div>

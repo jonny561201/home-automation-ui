@@ -5,9 +5,16 @@
 .sump-icon {
     height: 75px;
     width: 75px;
-    align-self: 'center';
+    align-self: center;
+}
+
+.sump-text-group {
+    display: flex;
+    justify-content: center;
 }
 
 p {
+    margin-left: 0.5rem;
+    align-items: center;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
 }
