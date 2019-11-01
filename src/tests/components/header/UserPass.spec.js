@@ -105,18 +105,18 @@ describe('UserPass', () => {
             expect(userPass.state().isPasswordInvalid).toEqual(false);
         });
 
-        it('should reset isUsernameInvalid to false when new value provided', () => {
+        it('should reset isUsernameInvalid to false when new value provided', async () => {
             userPass.state().isUsernameInvalid = true;
             userPass.state().username = username;
-            instance.validateCredentials();
+            await instance.validateCredentials();
 
             expect(userPass.state().isUsernameInvalid).toBeFalsy();
         });
 
-        it('should reset isPasswordInvalid to false when new value provided', () => {
+        it('should reset isPasswordInvalid to false when new value provided', async () => {
             userPass.state().isPasswordInvalid = true;
             userPass.state().password = password;
-            instance.validateCredentials();
+            await instance.validateCredentials();
 
             expect(userPass.state().isPasswordInvalid).toBeFalsy();
         });

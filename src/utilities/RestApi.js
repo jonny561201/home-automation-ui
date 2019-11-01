@@ -18,8 +18,6 @@ export default class ApiRequests {
         const jsonResponse = await response.json();
         if (response.ok) {
             this.bearerToken = jsonResponse.bearerToken;
-            //I really hate this callback...
-            callback()
         }
         return jsonResponse;
     }

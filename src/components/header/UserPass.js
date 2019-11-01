@@ -10,7 +10,6 @@ export default class UserPass extends Component {
         this.setPassword = this.setPassword.bind(this);
         this.validateCredentials = this.validateCredentials.bind(this);
         this.getBearerTokenFromLogin = this.getBearerTokenFromLogin.bind(this);
-        this.test = this.test.bind(this);
         this.state = {
             username: undefined,
             password: undefined,
@@ -22,19 +21,16 @@ export default class UserPass extends Component {
 
     validateCredentials = async () => {
         this.state.username == null || this.state.username === '' ? this.setState({ isUsernameInvalid: true }) : this.setState({ isUsernameInvalid: false });
-        this.state.password == null || this.state.password === '' ? this.setState({ isPasswordInvalid: true }) : this.setState({ isPasswordInvalid: false }, this.getBearerTokenFromLogin());
+        this.state.password == null || this.state.password === '' ? this.setState({ isPasswordInvalid: true }) : this.setState({ isPasswordInvalid: false }, await this.getBearerTokenFromLogin());
     }
 
-    getBearerTokenFromLogin = () => {
+    getBearerTokenFromLogin = async () => {
         if (this.state.isUsernameInvalid === false && this.state.isPasswordInvalid === false) {
-            this.props.apiRequests.getBearerToken(this.state.username, this.state.password, this.test);
-        }
-    }
-
-    test = () => {
-        if (this.props.apiRequests.bearerToken != null) {
-            this.setState({ receivedToken: true });
-            this.props.updateAuth();
+            await this.props.apiRequests.getBearerToken(this.state.username, this.state.password);
+            if (this.props.apiRequests.bearerToken != null) {
+                this.setState({ receivedToken: true });
+                this.props.updateAuth();
+            }
         }
     }
 
