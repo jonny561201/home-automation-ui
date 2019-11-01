@@ -10,7 +10,8 @@ export default class BasementPanel extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentSumpDepth: 0.0
+            currentSumpDepth: 0.0,
+            averageSumpDepth: 0.0,
         }
     }
 
@@ -34,8 +35,12 @@ export default class BasementPanel extends React.Component {
                     <ExpansionPanelDetails className="center">
                         <img alt="sump pump" className="sump-icon" src={SumpPumpIcon} />
                         <div className="sump-text-group">
-                            <p className="sump-text">Current Depth: </p>
-                            <p className="sump-depth">{this.state.currentSumpDepth}</p>
+                            <p className="current-text">Current Depth: </p>
+                            <p className="current-depth">{this.state.currentSumpDepth}</p>
+                        </div>
+                        <div className="sump-text-group">
+                            <p className="average-text">Average Depth: </p>
+                            <p className="average-depth">{this.state.averageSumpDepth}</p>
                         </div>
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
