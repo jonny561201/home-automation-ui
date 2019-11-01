@@ -38,11 +38,11 @@ export default class BasementPanel extends React.Component {
                             <img alt="sump pump" className="sump-icon" src={SumpPumpIcon} />
                             <div className="sump-measure-group">
                                 <div className="sump-text-group">
-                                    <p className="current-text">Current Depth: </p>
+                                    <p className="current-text">Current: </p>
                                     <p className="current-depth">{this.state.currentSumpDepth}</p>
                                 </div>
                                 <div className="sump-text-group">
-                                    <p className="average-text">Average Depth: </p>
+                                    <p className="average-text">Average: </p>
                                     <p className="average-depth">{this.state.averageSumpDepth}</p>
                                 </div>
                             </div>

@@ -38,7 +38,7 @@ describe('BasementPanel', () => {
 
         it('should display current sump depth text', () => {
             const actual = basementPanel.find('.current-text').text();
-            expect(actual).toEqual('Current Depth: ');
+            expect(actual).toEqual('Current: ');
         });
 
         it('should display current depth of sump pump', () => {
@@ -52,7 +52,7 @@ describe('BasementPanel', () => {
 
         it('should display average sump depth text', () => {
             const actual = basementPanel.find('.average-text').text();
-            expect(actual).toEqual('Average Depth: ');
+            expect(actual).toEqual('Average: ');
         });
 
         it('should display average depth of sump pump', () => {
