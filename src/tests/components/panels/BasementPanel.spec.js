@@ -5,9 +5,14 @@ import BasementPanel from '../../../components/panels/BasementPanel';
 describe('BasementPanel', () => {
 
     let basementPanel;
+    const mockGetSump = jest.fn();
+    const mockRequests = {
+        getSumpLevels: mockGetSump,
+    };
 
     beforeEach(() => {
-        basementPanel = shallow(<BasementPanel />);
+        mockGetSump.mockClear();
+        basementPanel = shallow(<BasementPanel apiRequests={mockRequests} />);
     });
 
     it('should show the Basement Panel', () => {
@@ -20,13 +25,20 @@ describe('BasementPanel', () => {
         expect(actual).toEqual('basement');
     });
 
-    it('should show sump pump icon', () => {
-        const actual = basementPanel.find('.center img');
-        expect(actual).toHaveLength(1);
-    });
+    describe('Sump Details', () => {
 
-    it('should display sump depth text', () => {
-        const actual = basementPanel.find('.sump-text p').text();
-        expect(actual).toEqual('Depth: ');
+        it('should show sump pump icon', () => {
+            const actual = basementPanel.find('.center img');
+            expect(actual).toHaveLength(1);
+        });
+
+        it('should display sump depth text', () => {
+            const actual = basementPanel.find('.sump-text p').text();
+            expect(actual).toEqual('Depth: ');
+        });
+
+        it('should make call to get sump pump depth', () => {
+            expect(mockGetSump).toHaveBeenCalledTimes(1);
+        });
     });
 });
