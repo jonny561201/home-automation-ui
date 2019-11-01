@@ -6,7 +6,8 @@ describe('RestApi', () => {
     let restApi;
     const username = 'fakeUser';
     const password = 'fakepass';
-    const fakeBearerToken = "fakeBearerToken";
+    const userId = "f250b5e4-fcf3-11e9-8f0b-362b9e155667";
+    const fakeBearerToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZjI1MGI1ZTQtZmNmMy0xMWU5LThmMGItMzYyYjllMTU1NjY3In0.WdrU1SRBkvDh_TbhEZTXnywdtBnz1XsaMY-G95ntCU8";
     const credentials = username + ":" + password;
 
     beforeEach(() => {
@@ -24,7 +25,7 @@ describe('RestApi', () => {
             };
         });
 
-        const actual = await restApi.getBearerToken(username, password, () => {});
+        const actual = await restApi.getBearerToken(username, password, () => { });
         expect(actual.bearerToken).toEqual(fakeBearerToken);
     });
 
@@ -36,8 +37,20 @@ describe('RestApi', () => {
             return { status: 400 };
         });
 
-        await restApi.getBearerToken(username, password, () => {});
+        await restApi.getBearerToken(username, password, () => { });
         expect(restApi.bearerToken).toEqual(fakeBearerToken);
+    });
+
+    it('should store user id after successful login', async () => {
+        const response = { 'bearerToken': fakeBearerToken };
+        const options = { 'method': 'GET', 'headers': { 'Authorization': `Basic ${base64.encode(credentials)}` }, overwriteRoutes: false };
+
+        fetchMock.mock('http://localhost:5000/login', response, options).catch(unmatchedUrl => {
+            return { status: 400 };
+        });
+
+        await restApi.getBearerToken(username, password, () => { });
+        expect(restApi.userId).toEqual(userId);
     });
 
     describe('after successful login', () => {

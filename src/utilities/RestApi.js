@@ -1,8 +1,10 @@
 import base64 from 'base-64';
+import jwt_decode from 'jwt-decode';
 
 export default class ApiRequests {
 
     bearerToken = null;
+    userId = null;
     loginUrl = 'http://localhost:5000/login';
     garageStatusUrl = 'http://localhost:5000/garageDoor/status';
     garageStateUrl = 'http://localhost:5000/garageDoor/state';
@@ -18,6 +20,7 @@ export default class ApiRequests {
         const jsonResponse = await response.json();
         if (response.ok) {
             this.bearerToken = jsonResponse.bearerToken;
+            this.userId = jwt_decode(this.bearerToken).user_id;
         }
         return jsonResponse;
     }
