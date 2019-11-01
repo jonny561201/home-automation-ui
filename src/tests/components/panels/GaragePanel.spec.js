@@ -6,7 +6,7 @@ describe('GaragePanel', () => {
     let garagePanel;
     const mockGetStatus = jest.fn(() => 'true');
     const mockUpdateState = jest.fn();
-    const mockRequests = { 
+    const mockRequests = {
         getGarageStatus: mockGetStatus,
         updateGarageState: mockUpdateState
     };
@@ -89,7 +89,7 @@ describe('GaragePanel', () => {
     });
 
     describe('garage door state api', () => {
-        
+
         it('should call update function with false when closing', () => {
             garagePanel.instance().openGarageDoor(false);
             expect(mockUpdateState).toBeCalledWith(false);

@@ -9,6 +9,9 @@ import './BasementPanel.css';
 export default class BasementPanel extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            currentSumpDepth: 0.0
+        }
     }
 
     async componentDidMount() {
@@ -30,8 +33,9 @@ export default class BasementPanel extends React.Component {
                     <Divider />
                     <ExpansionPanelDetails className="center">
                         <img alt="sump pump" className="sump-icon" src={SumpPumpIcon} />
-                        <div className="sump-text">
-                            <p>Depth: </p>
+                        <div>
+                            <p className="sump-text">Current Depth: </p>
+                            <p className="sump-depth">{this.state.currentSumpDepth}</p>
                         </div>
                     </ExpansionPanelDetails>
                 </ExpansionPanel>

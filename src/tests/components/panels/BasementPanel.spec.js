@@ -33,12 +33,21 @@ describe('BasementPanel', () => {
         });
 
         it('should display sump depth text', () => {
-            const actual = basementPanel.find('.sump-text p').text();
-            expect(actual).toEqual('Depth: ');
+            const actual = basementPanel.find('.sump-text').text();
+            expect(actual).toEqual('Current Depth: ');
         });
 
         it('should make call to get sump pump depth', () => {
             expect(mockGetSump).toHaveBeenCalledTimes(1);
+        });
+
+        it('should display depth of sump pump', () => {
+            const currentDepth = 32.0;
+            basementPanel.state().currentSumpDepth = currentDepth;
+            basementPanel.instance().forceUpdate();
+
+            const actual = basementPanel.find('.sump-depth').text();
+            expect(parseInt(actual)).toEqual(currentDepth);
         });
     });
 });
