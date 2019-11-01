@@ -21,7 +21,9 @@ export default function BasementPanel() {
                 <Divider />
                 <ExpansionPanelDetails className="center">
                     <img alt="sump pump" className="sump-icon" src={SumpPumpIcon} />
-                    <Typography>Test Detail line 2</Typography>
+                    <div className="sump-text">
+                        <p>Depth: </p>
+                    </div>
                 </ExpansionPanelDetails>
             </ExpansionPanel>
         </div>

@@ -21,7 +21,12 @@ describe('BasementPanel', () => {
     });
 
     it('should show sump pump icon', () => {
-        const actual = basementPanel.find('center img');
+        const actual = basementPanel.find('.center img');
         expect(actual).toHaveLength(1);
+    });
+
+    it('should display sump depth text', () => {
+        const actual = basementPanel.find('.sump-text p').text();
+        expect(actual).toEqual('Depth: ');
     });
 });
