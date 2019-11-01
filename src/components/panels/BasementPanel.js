@@ -4,6 +4,7 @@ import BasementIcon from '../../resources/BasementIcon.jpg';
 import SumpPumpIcon from '../../resources/SumpPumpIcon.png';
 import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, Divider } from '@material-ui/core';
 import './BasementPanel.css';
+import { flexbox } from '@material-ui/system';
 
 
 export default class BasementPanel extends React.Component {
@@ -33,14 +34,18 @@ export default class BasementPanel extends React.Component {
                     </ExpansionPanelSummary>
                     <Divider />
                     <ExpansionPanelDetails className="center">
-                        <img alt="sump pump" className="sump-icon" src={SumpPumpIcon} />
-                        <div className="sump-text-group">
-                            <p className="current-text">Current Depth: </p>
-                            <p className="current-depth">{this.state.currentSumpDepth}</p>
-                        </div>
-                        <div className="sump-text-group">
-                            <p className="average-text">Average Depth: </p>
-                            <p className="average-depth">{this.state.averageSumpDepth}</p>
+                        <div className="sump-group">
+                            <img alt="sump pump" className="sump-icon" src={SumpPumpIcon} />
+                            <div className="sump-measure-group">
+                                <div className="sump-text-group">
+                                    <p className="current-text">Current Depth: </p>
+                                    <p className="current-depth">{this.state.currentSumpDepth}</p>
+                                </div>
+                                <div className="sump-text-group">
+                                    <p className="average-text">Average Depth: </p>
+                                    <p className="average-depth">{this.state.averageSumpDepth}</p>
+                                </div>
+                            </div>
                         </div>
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
