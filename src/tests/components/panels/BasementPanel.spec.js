@@ -16,7 +16,12 @@ describe('BasementPanel', () => {
     });
 
     it('should show basement icon', () => {
-        const actual = basementPanel.find('.basement-panel img').prop('alt');
+        const actual = basementPanel.find('.summary img').prop('alt');
         expect(actual).toEqual('basement');
+    });
+
+    it('should show sump pump icon', () => {
+        const actual = basementPanel.find('center img');
+        expect(actual).toHaveLength(1);
     });
 });
