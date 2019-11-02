@@ -5,9 +5,11 @@ import BasementPanel from '../../../components/panels/BasementPanel';
 describe('BasementPanel', () => {
 
     let basementPanel;
+    const fakeUserId = "fakeUserId";
     const mockGetSump = jest.fn();
     const mockRequests = {
         getSumpLevels: mockGetSump,
+        userId: fakeUserId,
     };
 
     beforeEach(() => {
@@ -34,6 +36,7 @@ describe('BasementPanel', () => {
 
         it('should make call to get sump pump depth', () => {
             expect(mockGetSump).toHaveBeenCalledTimes(1);
+            expect(mockGetSump).toBeCalledWith(fakeUserId);
         });
 
         it('should display current sump depth text', () => {
