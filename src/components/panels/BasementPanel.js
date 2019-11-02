@@ -16,7 +16,9 @@ export default class BasementPanel extends React.Component {
     }
 
     async componentDidMount() {
-        await this.props.apiRequests.getSumpLevels(this.props.apiRequests.userId);
+        const response = await this.props.apiRequests.getSumpLevels(this.props.apiRequests.userId);
+        this.setState({currentSumpDepth: response.currentDepth});
+        this.setState({averageSumpDepth: response.averageDepth});
     }
 
     render() {
