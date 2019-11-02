@@ -4,7 +4,6 @@ import BasementIcon from '../../resources/BasementIcon.jpg';
 import SumpPumpIcon from '../../resources/SumpPumpIcon.png';
 import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, Divider } from '@material-ui/core';
 import './BasementPanel.css';
-import { flexbox } from '@material-ui/system';
 
 
 export default class BasementPanel extends React.Component {
