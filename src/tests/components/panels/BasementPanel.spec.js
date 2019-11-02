@@ -66,5 +66,23 @@ describe('BasementPanel', () => {
             const actual = basementPanel.find('.average-depth').text();
             expect(parseFloat(actual)).toEqual(averageDepth);
         });
+
+        it('should set current depth in view', () => {
+            const currentDepth = 23.8;
+            basementPanel.state().currentSumpDepth = currentDepth;
+            basementPanel.instance().forceUpdate();
+
+            const actual = basementPanel.find('.current-depth').text();
+            expect(parseFloat(actual)).toEqual(currentDepth);
+        });
+
+        it('should set average depth in view', () => {
+            const averageDepth = 37.1;
+            basementPanel.state().averageSumpDepth = averageDepth;
+            basementPanel.instance().forceUpdate();
+
+            const actual = basementPanel.find('.average-depth').text();
+            expect(parseFloat(actual)).toEqual(averageDepth);
+        });
     });
 });
