@@ -12,11 +12,13 @@ export default class BasementPanel extends React.Component {
         this.state = {
             currentSumpDepth: 0.0,
             averageSumpDepth: 0.0,
+            warningLevel: 0,
         }
     }
 
     async componentDidMount() {
         const response = await this.props.apiRequests.getSumpLevels(this.props.apiRequests.userId);
+        this.setState({warningLevel: response.warningLevel});
         this.setState({currentSumpDepth: response.currentDepth});
         this.setState({averageSumpDepth: response.averageDepth});
     }
@@ -40,7 +42,7 @@ export default class BasementPanel extends React.Component {
                             <div className="sump-measure-group">
                                 <div className="sump-text-group">
                                     <p className="current-text sump-text">Current: </p>
-                                    <p className="current-depth sump-text">{this.state.currentSumpDepth}</p>
+                                    <p className={"current-depth sump-text " + (this.state.warningLevel === 3 ? 'alert' : 'healthy')}>{this.state.currentSumpDepth}</p>
                                 </div>
                                 <div className="sump-text-group">
                                     <p className="average-text sump-text">Average: </p>

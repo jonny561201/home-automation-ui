@@ -28,3 +28,13 @@
     align-items: center;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
 }
+
+.alert {
+    color: red;
+    font-weight: bolder;
+}
+
+.healthy {
+    color: green;
+    font-weight: bolder;
+}
