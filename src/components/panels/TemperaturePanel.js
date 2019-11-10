@@ -16,7 +16,8 @@ export default class TemperaturePanel extends React.Component {
 
     async componentDidMount() {
         const response = await this.props.apiRequests.getCurrentTemperature(this.props.apiRequests.userId);
-        this.setState({ internalTemp: response.temp })
+        this.setState({ externalTemp: response.temp });
+        this.setState({ internalTemp: response.currentTemp });
     }
 
     render() {
@@ -33,10 +34,12 @@ export default class TemperaturePanel extends React.Component {
                     </ExpansionPanelSummary>
                     <Divider />
                     <div>
-                        <p className="internal-temp">{this.state.internalTemp}</p>
-                    </div>
-                    <div>
-                        <p className="external-temp">{this.state.externalTemp}</p>
+                        <div>
+                            <p className="internal-temp">{this.state.internalTemp}</p>
+                        </div>
+                        <div>
+                            <p className="external-temp">{this.state.externalTemp}</p>
+                        </div>
                     </div>
                 </ExpansionPanel>
             </div>
