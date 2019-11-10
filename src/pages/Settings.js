@@ -5,6 +5,9 @@ export default function Settings() {
     return (
         <div>
             <LogoHeader />
+            <div>
+                <h1 className="home-header-text">Home Automation</h1>
+            </div>
         </div>
     )
 }
