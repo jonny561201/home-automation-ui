@@ -8,10 +8,13 @@ import './TemperaturePanel.css';
 export default class TemperaturePanel extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            internalTemp: 0.0,
+        }
     }
 
-    componentDidMount() {
-        this.props.apiRequests.getCurrentTemperature(this.props.apiRequests.userId);
+    async componentDidMount() {
+        await this.props.apiRequests.getCurrentTemperature(this.props.apiRequests.userId);
     }
 
     render() {
@@ -27,9 +30,12 @@ export default class TemperaturePanel extends React.Component {
                         </div>
                     </ExpansionPanelSummary>
                     <Divider />
-                    <ExpansionPanelDetails className="center">
+                    <div>
+                        <p className="internal-temp-digits">{this.state.internalTemp}</p>
+                    </div>
+                    {/* <ExpansionPanelDetails className="center">
                         <Typography>Test Detail line 2</Typography>
-                    </ExpansionPanelDetails>
+                    </ExpansionPanelDetails> */}
                 </ExpansionPanel>
             </div>
         );

@@ -24,9 +24,21 @@ describe('TemperaturePanel', () => {
     });
 
     describe('ComponentDidMount', () => {
+
+        const internalTemp = 72.8;
+        const externalTemp = 32.7;
+
         it('should make api to get current weather', () => {
             expect(mockRequests).toHaveBeenCalledTimes(1);
             expect(mockRequests).toBeCalledWith(userId);
+        });
+
+        it('should show the internal temperature', () => {
+            tempPanel.state().internalTemp = internalTemp;
+            tempPanel.instance().forceUpdate();
+
+            const actual = tempPanel.find('.internal-temp-digits').text();
+            expect(actual).toEqual(internalTemp.toString());
         });
     });
 });
