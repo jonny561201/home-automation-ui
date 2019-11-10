@@ -19,7 +19,7 @@ describe('TemperaturePanel', () => {
     })
 
     it('should display temperature icon', () => {
-        const actual = tempPanel.find('.temperature-panel img').prop('alt');
+        const actual = tempPanel.find('.logo-image').prop('alt');
         expect(actual).toEqual('temperature');
     });
 
@@ -41,7 +41,7 @@ describe('TemperaturePanel', () => {
             expect(actual).toEqual(internalTemp.toString());
         });
 
-        it('should show the external temperaturew', () => {
+        it('should show the external temperature', () => {
             tempPanel.state().externalTemp = externalTemp;
             tempPanel.instance().forceUpdate();
 
