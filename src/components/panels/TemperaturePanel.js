@@ -1,7 +1,7 @@
 import React from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import TemperatureIcon from '../../resources/TemperatureIcon.jpg';
-import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, Divider } from '@material-ui/core';
+import { ExpansionPanel, Typography, ExpansionPanelSummary, Divider } from '@material-ui/core';
 import './TemperaturePanel.css';
 
 
@@ -10,6 +10,7 @@ export default class TemperaturePanel extends React.Component {
         super(props);
         this.state = {
             internalTemp: 0.0,
+            externalTemp: 0.0,
         }
     }
 
@@ -31,11 +32,11 @@ export default class TemperaturePanel extends React.Component {
                     </ExpansionPanelSummary>
                     <Divider />
                     <div>
-                        <p className="internal-temp-digits">{this.state.internalTemp}</p>
+                        <p className="internal-temp">{this.state.internalTemp}</p>
                     </div>
-                    {/* <ExpansionPanelDetails className="center">
-                        <Typography>Test Detail line 2</Typography>
-                    </ExpansionPanelDetails> */}
+                    <div>
+                        <p className="external-temp">{this.state.externalTemp}</p>
+                    </div>
                 </ExpansionPanel>
             </div>
         );

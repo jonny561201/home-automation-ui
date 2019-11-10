@@ -37,8 +37,16 @@ describe('TemperaturePanel', () => {
             tempPanel.state().internalTemp = internalTemp;
             tempPanel.instance().forceUpdate();
 
-            const actual = tempPanel.find('.internal-temp-digits').text();
+            const actual = tempPanel.find('.internal-temp').text();
             expect(actual).toEqual(internalTemp.toString());
+        });
+
+        it('should show the external temperaturew', () => {
+            tempPanel.state().externalTemp = externalTemp;
+            tempPanel.instance().forceUpdate();
+
+            const actual = tempPanel.find('.external-temp').text();
+            expect(actual).toEqual(externalTemp.toString());
         });
     });
 });
