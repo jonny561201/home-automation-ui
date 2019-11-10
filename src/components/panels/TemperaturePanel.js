@@ -15,7 +15,8 @@ export default class TemperaturePanel extends React.Component {
     }
 
     async componentDidMount() {
-        await this.props.apiRequests.getCurrentTemperature(this.props.apiRequests.userId);
+        const response = await this.props.apiRequests.getCurrentTemperature(this.props.apiRequests.userId);
+        this.setState({ internalTemp: response.temp })
     }
 
     render() {

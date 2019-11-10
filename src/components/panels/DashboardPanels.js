@@ -15,7 +15,7 @@ export default function DashboardPanel(props) {
                 <BasementPanel apiRequests={props.apiRequests} />
             </div>
             <div className="panel">
-                <TemperaturePanel />
+                <TemperaturePanel apiRequests={props.apiRequests} />
             </div>
             <div className="panel">
                 <LightingPanel />
