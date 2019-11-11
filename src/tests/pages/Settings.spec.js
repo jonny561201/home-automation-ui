@@ -13,9 +13,4 @@ describe('Settings Page', () => {
         const actual = settings.find('LogoHeader');
         expect(actual).toHaveLength(1);
     });
-
-    it('should display home automation text', () => {
-        const actual = settings.find('.home-header-text').text();
-        expect(actual).toEqual('Home Automation');
-    });
 });

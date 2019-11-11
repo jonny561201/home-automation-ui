@@ -3,20 +3,6 @@
     position: relative;
 }
 
-.home-header {
-    border-radius: 20px 20px 0px 0px;
-    display: flex;
-    background-color: #00c774;
-    padding: 1rem;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.home-header-text {
-    margin: 0 2rem 0 2rem;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
-}
-
 .home-body {
     background-color: white;
     color: black;
@@ -25,43 +11,4 @@
     /* min-height: 800px; */
     min-width: 650px;
     border-radius: 0px 0px 12px 12px;
-}
-
-.test {
-    position: absolute;
-    left: 1rem;
-    top: -0.5rem;
-}
-
-.logo-image {
-    height: 75px;
-}
-
-.logo-background {
-    border-radius: 45px;
-    height: 90px;
-    width: 90px;
-}
-
-.white-header {
-    height: 100px;
-    width: 100px;
-}
-
-.center {
-    margin-top: 10px;
-    flex-direction: column;
-    display: flex;
-    justify-content: center;
-    flex: 1;
-}
-
-.summary {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-}
-
-.panel {
-    margin: 0.75rem;
 }

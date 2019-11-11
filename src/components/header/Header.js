@@ -2,6 +2,7 @@ import React from 'react';
 import LogoHeader from '../header/LogoHeader';
 import Account from '../header/Account';
 import AccountSettings from '../header/AccountSettings';
+import './Header.css';
 
 
 export default class Header extends React.Component {
