@@ -10,7 +10,7 @@ describe('Settings Page', () => {
     });
 
     it('should display logo header', () => {
-        const actual = settings.find('LogoHeader');
+        const actual = settings.find('Header');
         expect(actual).toHaveLength(1);
     });
 });

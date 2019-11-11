@@ -1,12 +1,14 @@
 import React from 'react';
-import LogoHeader from '../components/header/LogoHeader';
+import Header from '../components/header/Header';
 
 export default function Settings() {
     return (
         <div>
-            <LogoHeader />
-            <div>
-                <h1 className="home-header-text">Home Automation</h1>
+            <div className="settings-header">
+                <Header />
+            </div>
+            <div className="settings-body">
+
             </div>
         </div>
     )
