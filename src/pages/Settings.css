@@ -1,0 +1,16 @@
+.settings-body {
+    background-color: white;
+    color: black;
+    display: flex;
+    min-width: 650px;
+}
+
+.test {
+    left: auto;
+    top: auto;
+}
+
+.account-menu {
+    right: 17rem;
+    top: auto;
+}
