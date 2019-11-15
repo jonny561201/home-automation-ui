@@ -13,4 +13,14 @@ describe('Settings Page', () => {
         const actual = settings.find('Header');
         expect(actual).toHaveLength(1);
     });
+
+    it('should display is fahrenheit settings switch', () => {
+        const actual = settings.find('.fahrenheit-toggle');
+        expect(actual).toHaveLength(1);
+    });
+
+    it('should display text to set to fahrenheit', () => {
+        const actual = settings.find('.settings-text').text();
+        expect(actual).toEqual('Fahrenheit');
+    });
 });
