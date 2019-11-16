@@ -28,4 +28,9 @@ describe('Settings Page', () => {
         const actual = settings.find('.settings-text').text();
         expect(actual).toEqual('Fahrenheit');
     });
+
+    it('should display save button to submit updated preferences', () => {
+        const actual = settings.find('button').text();
+        expect(actual).toEqual('Save');
+    });
 });

@@ -3,11 +3,17 @@
     color: black;
     display: flex;
     min-width: 650px;
+    flex-direction: column;
+    border-radius: 0 0 20px 20px;
 }
 
 .test {
     left: auto;
     top: auto;
+}
+
+.settings-wrapper {
+    margin: 1rem;
 }
 
 .settings-group {

@@ -11,14 +11,17 @@ export default function Settings() {
                 <Header />
             </div>
             <div className="settings-body">
-                <div className="settings-group">
-                    <h2>Temperature</h2>
-                    <Divider />
-                    <div className="settings-row">
-                        <Switch className="fahrenheit-toggle" />
-                        <p className="settings-text">Fahrenheit</p>
+                <div className="settings-wrapper">
+                    <div className="settings-group">
+                        <h2>Temperature</h2>
+                        <Divider />
+                        <div className="settings-row">
+                            <Switch className="fahrenheit-toggle" />
+                            <p className="settings-text">Fahrenheit</p>
+                        </div>
                     </div>
-
+                    <Divider />
+                    <button>Save</button>
                 </div>
             </div>
         </div>
