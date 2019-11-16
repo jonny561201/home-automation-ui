@@ -10,7 +10,14 @@
     top: auto;
 }
 
-.account-menu {
-    right: 17rem;
-    top: auto;
+.settings-group {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+    display: block;
+    flex: 1;
+    margin: 0.5rem;
+}
+
+.settings-row {
+    display: flex;
+    flex-direction: row;
 }

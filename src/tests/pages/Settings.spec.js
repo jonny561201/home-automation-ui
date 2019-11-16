@@ -14,6 +14,11 @@ describe('Settings Page', () => {
         expect(actual).toHaveLength(1);
     });
 
+    it('should display Temperature header', () => {
+        const actual = settings.find('h2').text();
+        expect(actual).toEqual('Temperature');
+    });
+
     it('should display is fahrenheit settings switch', () => {
         const actual = settings.find('.fahrenheit-toggle');
         expect(actual).toHaveLength(1);
