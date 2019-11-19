@@ -6,7 +6,7 @@ describe('Settings Page', () => {
     let settings;
 
     beforeEach(() => {
-        settings = shallow(<Settings />)
+        settings = shallow(<Settings />);
     });
 
     it('should display logo header', () => {
@@ -20,7 +20,7 @@ describe('Settings Page', () => {
     });
 
     it('should display is fahrenheit settings switch', () => {
-        const actual = settings.find('.fahrenheit-toggle');
+        const actual = settings.find('.switch');
         expect(actual).toHaveLength(1);
     });
 
@@ -33,4 +33,8 @@ describe('Settings Page', () => {
         const actual = settings.find('button').text();
         expect(actual).toEqual('Save');
     });
+
+    it('should display city input textbox', () => {
+        const actual = settings.find('input');
+    })
 });
