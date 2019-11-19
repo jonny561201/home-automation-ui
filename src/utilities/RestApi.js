@@ -1,5 +1,6 @@
 import base64 from 'base-64';
 import jwt_decode from 'jwt-decode';
+import { templateElement } from '@babel/types';
 
 export default class ApiRequests {
 
@@ -78,6 +79,19 @@ export default class ApiRequests {
         }
 
         const tempUrl = `http://localhost:5000/userId/${userId}/preferences`;
+        const response = await fetch(tempUrl, options);
+        return await response.json();
+    }
+
+    updateUserPreferences = async (userId, isFahrenheit, city) => {
+        const request = { 'isFahrenheit': isFahrenheit, 'city': city }
+        const options = {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${this.bearerToken}` },
+            body: JSON.stringify(request)
+        }
+
+        const tempUrl = `http://localhost:5000/userId/${userId}/preferences/update`
         const response = await fetch(tempUrl, options);
         return await response.json();
     }

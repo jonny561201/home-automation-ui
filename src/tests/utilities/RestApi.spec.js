@@ -114,7 +114,8 @@ describe('RestApi', () => {
 
         it('should query the user settings', async () => {
             const userId = 'abc1234';
-            const response = { 'unit': 'imperial', 'city': 'Des Moines', 'is_fahrenheit': true };
+            const expectedUnit = 'imperial';
+            const response = { 'unit': expectedUnit, 'city': 'Des Moines', 'is_fahrenheit': true };
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
 
             fetchMock.mock(`http://localhost:5000/userId/${userId}/preferences`, response, options).catch(unmatchedUrl => {
@@ -122,7 +123,21 @@ describe('RestApi', () => {
             });
 
             const actual = await restApi.getUserPreferences(userId);
-            expect(actual.unit).toEqual('imperial');
+            expect(actual.unit).toEqual(expectedUnit);
+        });
+
+        it('should make rest call to post user preferences', async () => {
+            const userId = 'abc12345';
+            const expectedResponse = 'response';
+            const response = { 'fake': expectedResponse };
+            const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': { 'isFahrenheit': true, 'city': 'Praha' } }
+
+            fetchMock.mock(`http://localhost:5000/userId/${userId}/preferences/update`, response, options).catch(unmatchedUrl => {
+                return { status: 400 };
+            });
+
+            const actual = await restApi.updateUserPreferences(userId, true, 'Praha');
+            expect(actual.fake).toEqual(expectedResponse);
         });
     });
 });
