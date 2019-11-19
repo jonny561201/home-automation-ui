@@ -111,5 +111,18 @@ describe('RestApi', () => {
             const actual = await restApi.getCurrentTemperature(userId);
             expect(actual.currentTemp).toEqual(expectedTemp);
         });
+
+        it('should query the user settings', async () => {
+            const userId = 'abc1234';
+            const response = { 'unit': 'imperial', 'city': 'Des Moines', 'is_fahrenheit': true };
+            const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
+
+            fetchMock.mock(`http://localhost:5000/userId/${userId}/preferences`, response, options).catch(unmatchedUrl => {
+                return { status: 400 };
+            });
+
+            const actual = await restApi.getUserPreferences(userId);
+            expect(actual.unit).toEqual('imperial');
+        });
     });
 });

@@ -9,7 +9,7 @@ export default class ApiRequests {
     garageStatusUrl = 'http://localhost:5000/garageDoor/status';
     garageStateUrl = 'http://localhost:5000/garageDoor/state';
 
-    getBearerToken = async (username, password, callback) => {
+    getBearerToken = async (username, password) => {
         //make it a cached response where this is the only entry to the bearer token
         const options = {
             method: 'GET',
@@ -47,7 +47,7 @@ export default class ApiRequests {
         return await response.json();
     }
 
-    getSumpLevels = async (userID) => {
+    getSumpLevels = async (userId) => {
         const options = {
             method: 'GET',
             headers: {
@@ -55,7 +55,7 @@ export default class ApiRequests {
             }
         }
 
-        const sumpUrl = `http://localhost:5000/sumpPump/user/${userID}/depth`
+        const sumpUrl = `http://localhost:5000/sumpPump/user/${userId}/depth`
         const response = await fetch(sumpUrl, options);
         return await response.json();
     }
@@ -67,6 +67,17 @@ export default class ApiRequests {
         }
 
         const tempUrl = `http://localhost:5000/thermostat/temperature/${userId}`;
+        const response = await fetch(tempUrl, options);
+        return await response.json();
+    }
+
+    getUserPreferences = async (userId) => {
+        const options = {
+            method: 'GET',
+            headers: { 'Authorization': `Bearer ${this.bearerToken}` }
+        }
+
+        const tempUrl = `http://localhost:5000/userId/${userId}/preferences`;
         const response = await fetch(tempUrl, options);
         return await response.json();
     }
