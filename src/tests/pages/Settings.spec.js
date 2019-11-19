@@ -4,9 +4,19 @@ import { shallow } from 'enzyme';
 
 describe('Settings Page', () => {
     let settings;
+    const userId = 'fakeUserId';
+    const mockGet = jest.fn();
+    const mockUpdate = jest.fn();
+    let mockRequests = {
+        userId: userId,
+        updateUserPreferences: mockUpdate,
+        getUserPreferences: mockGet,
+    }
 
     beforeEach(() => {
-        settings = shallow(<Settings />);
+        mockUpdate.mockClear();
+        mockGet.mockClear();
+        settings = shallow(<Settings apiRequests={mockRequests} />);
     });
 
     it('should display logo header', () => {
@@ -35,6 +45,13 @@ describe('Settings Page', () => {
     });
 
     it('should display city input textbox', () => {
-        const actual = settings.find('input');
+        const actual = settings.find('TextField');
+        // expect(actual).toHaveLength(1);
     })
+
+    describe('ComponentDidMount', () => {
+        it('should make api call to get preferences', () => {
+            expect(mockGet).toHaveBeenCalledTimes(1);
+        });
+    });
 });
