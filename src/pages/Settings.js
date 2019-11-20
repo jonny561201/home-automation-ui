@@ -44,7 +44,7 @@ export default class Settings extends React.Component {
                                 <Divider />
                                 <div className="settings-row">
                                     <Switch className="switch" color="primary" />
-                                    <p className="settings-text">Fahrenheit</p>
+                                    <p className="settings-text unit">Fahrenheit</p>
                                 </div>
                                 <div className="settings-row">
                                     <TextField variant="outlined" label="City" />

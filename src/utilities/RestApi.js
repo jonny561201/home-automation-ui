@@ -91,7 +91,7 @@ export default class ApiRequests {
         }
 
         const tempUrl = `http://localhost:5000/userId/${userId}/preferences/update`
-        const response = await fetch(tempUrl, options);
-        return await response.json();
+        return await fetch(tempUrl, options);
+        // return await response.json();
     }
 }

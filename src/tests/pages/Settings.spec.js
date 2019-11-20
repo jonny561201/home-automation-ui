@@ -100,7 +100,7 @@ describe('Settings Page', () => {
         });
 
         it('should display text to set to fahrenheit', () => {
-            const actual = settings.find('.settings-text').text();
+            const actual = settings.find('.unit').text();
             expect(actual).toEqual('Fahrenheit');
         });
 
