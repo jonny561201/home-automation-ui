@@ -17,10 +17,13 @@
 }
 
 .settings-group {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
     display: block;
     flex: 1;
     margin: 0.5rem;
+}
+
+.settings-text {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
 }
 
 .settings-row {

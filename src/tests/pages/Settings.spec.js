@@ -29,33 +29,6 @@ describe('Settings Page', () => {
         expect(actual).toEqual('Temperature');
     });
 
-    describe('Default View', () => {
-        const unitMeasure = 'metric';
-        const city = 'Vienna'
-
-        beforeEach(() => {
-            settings.state().isEditMode = false;
-            settings.state().unit = unitMeasure;
-            settings.state().city = city;
-            settings.instance().forceUpdate();
-        });
-
-        it('should display edit button', () => {
-            const actual = settings.find('button').text();
-            expect(actual).toEqual('Edit');
-        });
-
-        it('should display the fahrenheit setting stored in state', () => {
-            const actual = settings.find('.unit').text();
-            expect(actual).toEqual(unitMeasure);
-        });
-
-        it('should display the currently city setting stored in state', () => {
-            const actual = settings.find('.city').text();
-            expect(actual).toEqual(city);
-        });
-    });
-
     describe('toggleEditMode', () => {
 
         it('should switch isEditMode from true to false', async () => {
@@ -77,6 +50,42 @@ describe('Settings Page', () => {
         });
     });
 
+    describe('Default View', () => {
+        const unitMeasure = 'metric';
+        const city = 'Vienna'
+
+        beforeEach(() => {
+            settings.state().isEditMode = false;
+            settings.state().unit = unitMeasure;
+            settings.state().city = city;
+            settings.instance().forceUpdate();
+        });
+
+        it('should display edit button', () => {
+            const actual = settings.find('button').text();
+            expect(actual).toEqual('Edit');
+        });
+
+        it('should display the unit text', () => {
+            const actual = settings.find('.unit').at(0).text();
+            expect(actual).toEqual('Unit:');
+        });
+
+        it('should display the fahrenheit setting stored in state', () => {
+            const actual = settings.find('.unit').at(1).text();
+            expect(actual).toEqual(unitMeasure);
+        });
+
+        it('should display the city text', () => {
+            const actual = settings.find('.city').at(0).text();
+            expect(actual).toEqual('City:');
+        });
+
+        it('should display the currently city setting stored in state', () => {
+            const actual = settings.find('.city').at(1).text();
+            expect(actual).toEqual(city);
+        });
+    });
 
     describe('Edit View', () => {
 
@@ -100,6 +109,7 @@ describe('Settings Page', () => {
             expect(actual).toEqual('Save');
         });
 
+        // TODO: fix this text
         it('should display city input textbox', () => {
             const actual = settings.find('TextField');
             // expect(actual).toHaveLength(1);
@@ -110,5 +120,7 @@ describe('Settings Page', () => {
         it('should make api call to get preferences', () => {
             expect(mockGet).toHaveBeenCalledTimes(1);
         });
+
+        // TODO: add tests for storing the state in the response
     });
 });
