@@ -30,6 +30,7 @@
 .settings-row {
     display: flex;
     flex-direction: row;
+    margin-left: 1rem;
 }
 
 .cancel {
