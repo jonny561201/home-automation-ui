@@ -18,8 +18,8 @@ export default class Settings extends React.Component {
 
     componentDidMount = async () => {
         const userId = this.props.apiRequests.userId;
-        const actual = await this.props.apiRequests.getUserPreferences(userId);
-        this.setState({ city: actual.city, unit: actual.unit });
+        const response = await this.props.apiRequests.getUserPreferences(userId);
+        this.setState({ city: response.city, unit: response.unit });
     }
 
     toggleEditMode = () => {
@@ -28,6 +28,11 @@ export default class Settings extends React.Component {
 
     savePreferences = () => {
         this.props.apiRequests.updateUserPreferences(this.props.apiRequests.userId, this.state.isFahrenheit, this.state.city);
+        this.toggleEditMode();
+    }
+
+    updateCity = (input) => {
+        this.setState({ city: input.target.value });
     }
 
     render() {
@@ -47,7 +52,7 @@ export default class Settings extends React.Component {
                                     <p className="settings-text unit">Fahrenheit</p>
                                 </div>
                                 <div className="settings-row">
-                                    <TextField variant="outlined" label="City" />
+                                    <TextField variant="outlined" label="City" value={this.state.city} onChange={this.updateCity} />
                                 </div>
                             </div>
                             <Divider />

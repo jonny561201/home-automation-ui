@@ -122,10 +122,21 @@ describe('Settings Page', () => {
     })
 
     describe('ComponentDidMount', () => {
+        const expectedCity = 'Venice';
+        const expectedUnit = 'imperial';
+
         it('should make api call to get preferences', () => {
             expect(mockGet).toHaveBeenCalledTimes(1);
         });
 
+        it('should store the response of getting the preferences in state', () => {
+            const response = { city: expectedCity, unit: expectedUnit };
+            mockGet.mockReturnValue(response);
+            settings.instance().forceUpdate();
+
+            const actual = settings.state().city;
+            expect(actual).toEqual(expectedCity);
+        });
         // TODO: add tests for storing the state in the response
     });
 
@@ -137,6 +148,7 @@ describe('Settings Page', () => {
         beforeEach(() => {
             settings.state().city = expectedCity;
             settings.state().isFahrenheit = expectedIsFahrenheit;
+            settings.state().isEditMode = true;
             settings.instance().forceUpdate();
         });
 
@@ -144,6 +156,11 @@ describe('Settings Page', () => {
             settings.instance().savePreferences();
             expect(mockUpdate).toHaveBeenCalledTimes(1);
             expect(mockUpdate).toBeCalledWith(userId, expectedIsFahrenheit, expectedCity);
+        });
+
+        it('should toggle edit mode after making api call', async () => {
+            await settings.instance().savePreferences();
+            expect(settings.state().isEditMode).toBeFalsy();
         });
     });
 });
