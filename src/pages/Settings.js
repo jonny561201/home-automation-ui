@@ -13,6 +13,7 @@ export default class Settings extends React.Component {
             isEditMode: false,
             isFahrenheit: null,
             unit: null,
+            edited: false,
         }
     }
 
@@ -32,7 +33,7 @@ export default class Settings extends React.Component {
     }
 
     updateCity = (input) => {
-        this.setState({ city: input.target.value });
+        this.setState({ city: input.target.value, edited: true });
     }
 
     render() {

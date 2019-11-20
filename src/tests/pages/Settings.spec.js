@@ -140,6 +140,29 @@ describe('Settings Page', () => {
         // TODO: add tests for storing the state in the response
     });
 
+    describe('updateCity', () => {
+        const expectedCity = 'Munchin'
+        const response = { target: { value: expectedCity } }
+
+        it('should update the city value', async () => {
+            settings.state().city = 'old city';
+            settings.instance().forceUpdate();
+
+            await settings.instance().updateCity(response);
+
+            expect(settings.state().city).toEqual(expectedCity);
+        });
+
+        it('should set is edited to true when value updated', async () => {
+            settings.state().city = 'old city';
+            settings.instance().forceUpdate();
+
+            await settings.instance().updateCity(response);
+
+            expect(settings.state().edited).toBeTruthy();
+        });
+    });
+
     describe('savePreferences', () => {
 
         const expectedCity = 'Berlin';
