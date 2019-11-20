@@ -128,4 +128,22 @@ describe('Settings Page', () => {
 
         // TODO: add tests for storing the state in the response
     });
+
+    describe('savePreferences', () => {
+
+        const expectedCity = 'Berlin';
+        const expectedIsFahrenheit = false;
+
+        beforeEach(() => {
+            settings.state().city = expectedCity;
+            settings.state().isFahrenheit = expectedIsFahrenheit;
+            settings.instance().forceUpdate();
+        });
+
+        it('should call the updateUserPreferences api rest call', () => {
+            settings.instance().savePreferences();
+            expect(mockUpdate).toHaveBeenCalledTimes(1);
+            expect(mockUpdate).toBeCalledWith(userId, expectedIsFahrenheit, expectedCity);
+        });
+    });
 });

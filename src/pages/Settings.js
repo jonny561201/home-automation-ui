@@ -11,6 +11,7 @@ export default class Settings extends React.Component {
         this.state = {
             city: null,
             isEditMode: false,
+            isFahrenheit: null,
             unit: null,
         }
     }
@@ -25,6 +26,10 @@ export default class Settings extends React.Component {
         this.setState({ isEditMode: !this.state.isEditMode })
     }
 
+    savePreferences = () => {
+        this.props.apiRequests.updateUserPreferences(this.props.apiRequests.userId, this.state.isFahrenheit, this.state.city);
+    }
+
     render() {
         return (
             <div>
@@ -34,7 +39,7 @@ export default class Settings extends React.Component {
                 <div className="settings-body">
                     {this.state.isEditMode ?
                         <div className="settings-wrapper">
-                            <div className="settings-group">
+                            <div className="settings-group settings-text">
                                 <h2>Temperature</h2>
                                 <Divider />
                                 <div className="settings-row">
@@ -46,7 +51,7 @@ export default class Settings extends React.Component {
                                 </div>
                             </div>
                             <Divider />
-                            <button className="submit">Save</button>
+                            <button className="submit" onClick={this.savePreferences}>Save</button>
                             <button className="cancel" onClick={this.toggleEditMode}>Cancel</button>
                         </div>
                         : <div className="settings-wrapper">
