@@ -169,6 +169,7 @@ describe('Settings Page', () => {
         const expectedIsFahrenheit = false;
 
         beforeEach(() => {
+            settings.state().edited = true;
             settings.state().city = expectedCity;
             settings.state().isFahrenheit = expectedIsFahrenheit;
             settings.state().isEditMode = true;
@@ -184,6 +185,11 @@ describe('Settings Page', () => {
         it('should toggle edit mode after making api call', async () => {
             await settings.instance().savePreferences();
             expect(settings.state().isEditMode).toBeFalsy();
+        });
+
+        it('should reset edit mode after save', async () => {
+            await settings.instance().savePreferences();
+            expect(settings.state().edited).toBeFalsy();
         });
     });
 });

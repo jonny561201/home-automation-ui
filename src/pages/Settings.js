@@ -30,6 +30,7 @@ export default class Settings extends React.Component {
     savePreferences = () => {
         this.props.apiRequests.updateUserPreferences(this.props.apiRequests.userId, this.state.isFahrenheit, this.state.city);
         this.toggleEditMode();
+        this.setState({ edited: false });
     }
 
     updateCity = (input) => {
