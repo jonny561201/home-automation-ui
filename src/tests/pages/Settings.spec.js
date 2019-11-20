@@ -53,6 +53,15 @@ describe('Settings Page', () => {
             const actual = settings.state().isEditMode;
             expect(actual).toBeFalsy();
         });
+
+        it('should switch isEditMode from false to true', async () => {
+            settings.state().isEditMode = false;
+            settings.instance().forceUpdate();
+            await settings.instance().toggleEditMode();
+
+            const actual = settings.state().isEditMode;
+            expect(actual).toBeTruthy();
+        });
     });
 
 
