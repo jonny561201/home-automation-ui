@@ -1,6 +1,5 @@
 import base64 from 'base-64';
 import jwt_decode from 'jwt-decode';
-import { templateElement } from '@babel/types';
 
 export default class ApiRequests {
 

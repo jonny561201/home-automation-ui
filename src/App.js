@@ -29,7 +29,7 @@ export default class App extends React.Component {
           {this.state.isAuthenticated &&
             <Route exact path="/home" render={() => <Home apiRequests={this.apiRequests} />} />
           }
-          <Route exact path="/settings" component={Settings} />
+          <Route exact path="/settings" render={() => <Settings apiRequests={this.apiRequests} />} />
         </header>
       </Router>
     );
