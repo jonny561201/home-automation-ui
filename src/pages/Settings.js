@@ -57,7 +57,7 @@ export default class Settings extends React.Component {
                                 </div>
                             </div>
                             <Divider />
-                            <button className="submit" onClick={this.savePreferences}>Save</button>
+                            <button className="submit" disabled={!this.state.edited} onClick={this.savePreferences}>Save</button>
                             <button className="cancel" onClick={this.toggleEditMode}>Cancel</button>
                         </div>
                         : <div className="settings-wrapper">
