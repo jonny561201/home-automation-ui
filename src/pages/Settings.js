@@ -7,15 +7,19 @@ import { Switch, Divider, TextField } from '@material-ui/core';
 export default class Settings extends React.Component {
     constructor(props) {
         super(props);
+        this.toggleEditMode = this.toggleEditMode.bind(this);
         this.state = {
             isEditMode: false,
         }
-
     }
 
     componentDidMount = async () => {
         const userId = this.props.apiRequests.userId;
         await this.props.apiRequests.getUserPreferences(userId);
+    }
+
+    toggleEditMode = () => {
+        this.setState({ isEditMode: !this.state.isEditMode })
     }
 
     render() {

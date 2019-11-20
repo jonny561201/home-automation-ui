@@ -33,14 +33,25 @@ describe('Settings Page', () => {
 
         beforeEach(() => {
             settings.state().isEditMode = false;
+            settings.state().otherSetting = true;
             settings.instance().forceUpdate();
         });
 
         it('should display edit button', () => {
-            settings.instance().forceUpdate();
-
             const actual = settings.find('button').text();
             expect(actual).toEqual('Edit');
+        });
+    });
+
+    describe('toggleEditMode', () => {
+
+        it('should switch isEditMode from true to false', async () => {
+            settings.state().isEditMode = true;
+            settings.instance().forceUpdate();
+            await settings.instance().toggleEditMode();
+
+            const actual = settings.state().isEditMode;
+            expect(actual).toBeFalsy();
         });
     });
 
