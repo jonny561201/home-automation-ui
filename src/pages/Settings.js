@@ -74,6 +74,7 @@ export default class Settings extends React.Component {
                                 <p className="settings-text city">City:</p>
                                 <p className="settings-text city">{this.state.city}</p>
                             </div>
+                            <Divider />
                             <button onClick={this.toggleEditMode}>Edit</button>
                         </div>
                     }
