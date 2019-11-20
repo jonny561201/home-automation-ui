@@ -47,7 +47,7 @@ export default class Settings extends React.Component {
                             </div>
                             <Divider />
                             <button className="submit">Save</button>
-                            <button className="cancel">Cancel</button>
+                            <button className="cancel" onClick={this.toggleEditMode}>Cancel</button>
                         </div>
                         : <div className="settings-wrapper">
                             <div className="settings-group settings-text">
