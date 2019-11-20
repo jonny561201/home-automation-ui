@@ -7,6 +7,10 @@ import { Switch, Divider, TextField } from '@material-ui/core';
 export default class Settings extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            isEditMode: false,
+        }
+
     }
 
     componentDidMount = async () => {
@@ -21,21 +25,32 @@ export default class Settings extends React.Component {
                     <Header />
                 </div>
                 <div className="settings-body">
-                    <div className="settings-wrapper">
-                        <div className="settings-group">
-                            <h2>Temperature</h2>
-                            <Divider />
-                            <div className="settings-row">
-                                <Switch className="switch" color="primary" />
-                                <p className="settings-text">Fahrenheit</p>
-                            </div>
-                            <div className="settings-row">
-                                <TextField variant="outlined" label="City" />
+                    {this.state.isEditMode ?
+                        <div>
+                            <div className="settings-wrapper">
+                                <div className="settings-group">
+                                    <h2>Temperature</h2>
+                                    <Divider />
+                                    <div className="settings-row">
+                                        <Switch className="switch" color="primary" />
+                                        <p className="settings-text">Fahrenheit</p>
+                                    </div>
+                                    <div className="settings-row">
+                                        <TextField variant="outlined" label="City" />
+                                    </div>
+                                </div>
+                                <Divider />
+                                <button>Save</button>
                             </div>
                         </div>
-                        <Divider />
-                        <button>Save</button>
-                    </div>
+                        : <div>
+                            <div className="settings-group">
+                                <h2>Temperature</h2>
+                            </div>
+                            <button>Edit</button>
+                        </div>
+                    }
+
                 </div>
             </div>
         )

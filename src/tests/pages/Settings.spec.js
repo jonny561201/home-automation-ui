@@ -29,24 +29,48 @@ describe('Settings Page', () => {
         expect(actual).toEqual('Temperature');
     });
 
-    it('should display is fahrenheit settings switch', () => {
-        const actual = settings.find('.switch');
-        expect(actual).toHaveLength(1);
+    describe('Default View', () => {
+
+        beforeEach(() => {
+            settings.state().isEditMode = false;
+            settings.instance().forceUpdate();
+        });
+
+        it('should display edit button', () => {
+            settings.instance().forceUpdate();
+
+            const actual = settings.find('button').text();
+            expect(actual).toEqual('Edit');
+        });
     });
 
-    it('should display text to set to fahrenheit', () => {
-        const actual = settings.find('.settings-text').text();
-        expect(actual).toEqual('Fahrenheit');
-    });
 
-    it('should display save button to submit updated preferences', () => {
-        const actual = settings.find('button').text();
-        expect(actual).toEqual('Save');
-    });
+    describe('Edit View', () => {
 
-    it('should display city input textbox', () => {
-        const actual = settings.find('TextField');
-        // expect(actual).toHaveLength(1);
+        beforeEach(() => {
+            settings.state().isEditMode = true;
+            settings.instance().forceUpdate();
+        });
+
+        it('should display is fahrenheit settings switch', () => {
+            const actual = settings.find('.switch');
+            expect(actual).toHaveLength(1);
+        });
+
+        it('should display text to set to fahrenheit', () => {
+            const actual = settings.find('.settings-text').text();
+            expect(actual).toEqual('Fahrenheit');
+        });
+
+        it('should display save button to submit updated preferences', () => {
+            const actual = settings.find('button').text();
+            expect(actual).toEqual('Save');
+        });
+
+        it('should display city input textbox', () => {
+            const actual = settings.find('TextField');
+            // expect(actual).toHaveLength(1);
+        })
     })
 
     describe('ComponentDidMount', () => {
