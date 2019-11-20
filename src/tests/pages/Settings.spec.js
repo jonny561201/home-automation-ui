@@ -30,16 +30,22 @@ describe('Settings Page', () => {
     });
 
     describe('Default View', () => {
+        const unitMeasure = 'metric';
 
         beforeEach(() => {
             settings.state().isEditMode = false;
-            settings.state().otherSetting = true;
+            settings.state().unit = unitMeasure;
             settings.instance().forceUpdate();
         });
 
         it('should display edit button', () => {
             const actual = settings.find('button').text();
             expect(actual).toEqual('Edit');
+        });
+
+        it('should display the fahrenheit setting stored in state', () => {
+            const actual = settings.find('.settings-text').text();
+            expect(actual).toEqual(unitMeasure);
         });
     });
 
