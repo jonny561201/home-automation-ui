@@ -31,10 +31,12 @@ describe('Settings Page', () => {
 
     describe('Default View', () => {
         const unitMeasure = 'metric';
+        const city = 'Vienna'
 
         beforeEach(() => {
             settings.state().isEditMode = false;
             settings.state().unit = unitMeasure;
+            settings.state().city = city;
             settings.instance().forceUpdate();
         });
 
@@ -44,8 +46,13 @@ describe('Settings Page', () => {
         });
 
         it('should display the fahrenheit setting stored in state', () => {
-            const actual = settings.find('.settings-text').text();
+            const actual = settings.find('.unit').text();
             expect(actual).toEqual(unitMeasure);
+        });
+
+        it('should display the currently city setting stored in state', () => {
+            const actual = settings.find('.city').text();
+            expect(actual).toEqual(city);
         });
     });
 

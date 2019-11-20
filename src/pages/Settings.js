@@ -9,6 +9,7 @@ export default class Settings extends React.Component {
         super(props);
         this.toggleEditMode = this.toggleEditMode.bind(this);
         this.state = {
+            city: null,
             isEditMode: false,
             unit: null,
         }
@@ -54,7 +55,10 @@ export default class Settings extends React.Component {
                             </div>
                             <Divider />
                             <div className="settings-row">
-                                <p className="settings-text">{this.state.unit}</p>
+                                <p className="settings-text unit">{this.state.unit}</p>
+                            </div>
+                            <div className="settings-row">
+                                <p className="settings-text city">{this.state.city}</p>
                             </div>
                             <button onClick={this.toggleEditMode}>Edit</button>
                         </div>
