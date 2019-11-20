@@ -4,7 +4,6 @@
     border-radius: 10px;
     width: 150px;
     height: 100px;
-    display: flex;
     position: absolute;
     z-index: 10;
     top: 3.5rem;

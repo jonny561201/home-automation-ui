@@ -13,7 +13,11 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
 }
 
-.test {
+.header {
+    position: relative;
+}
+
+.logo-container {
     position: absolute;
     left: 1rem;
     top: -0.5rem;
