@@ -46,7 +46,8 @@ export default class Settings extends React.Component {
                                 </div>
                             </div>
                             <Divider />
-                            <button>Save</button>
+                            <button className="submit">Save</button>
+                            <button className="cancel">Cancel</button>
                         </div>
                         : <div className="settings-wrapper">
                             <div className="settings-group settings-text">

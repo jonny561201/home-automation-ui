@@ -31,3 +31,7 @@
     display: flex;
     flex-direction: row;
 }
+
+.cancel {
+    background-color: #c70000;
+}

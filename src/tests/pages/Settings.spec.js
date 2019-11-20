@@ -105,8 +105,13 @@ describe('Settings Page', () => {
         });
 
         it('should display save button to submit updated preferences', () => {
-            const actual = settings.find('button').text();
+            const actual = settings.find('.submit').text();
             expect(actual).toEqual('Save');
+        });
+
+        it('should display the cancel button', () => {
+            const actual = settings.find('.cancel').text();
+            expect(actual).toEqual('Cancel');
         });
 
         // TODO: fix this text
