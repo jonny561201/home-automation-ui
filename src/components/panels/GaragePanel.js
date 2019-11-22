@@ -14,7 +14,7 @@ export default class GaragePanel extends React.Component {
         }
     }
 
-    async componentDidMount() {
+    componentDidMount = async () => {
         const garageStatus = await this.props.apiRequests.getGarageStatus();
         this.setState({ isGarageOpen: JSON.stringify(garageStatus.isGarageOpen) });
     }
