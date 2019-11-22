@@ -11,9 +11,9 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.apiRequests = new ApiRequests();
-    this.authenticate = this.authenticate.bind(this);
     this.state = {
-      isAuthenticated: false
+      isAuthenticated: false,
+      activePage: null,
     };
   }
 
@@ -21,15 +21,20 @@ export default class App extends React.Component {
     this.setState({ isAuthenticated: true });
   }
 
+  updateActivePage = (pageName) => {
+    this.setState({ activePage: pageName });
+  }
+
+
   render() {
     return (
       <Router>
         <header className="App-header">
           <Route exact path="/" render={() => <Login updateAuth={this.authenticate} apiRequests={this.apiRequests} />} />
           {this.state.isAuthenticated &&
-            <Route exact path="/home" render={() => <Home apiRequests={this.apiRequests} />} />
+            <Route exact path="/home" render={() => <Home activePage={this.state.activePage} updatePage={this.updateActivePage} apiRequests={this.apiRequests} />} />
           }
-          <Route exact path="/settings" render={() => <Settings apiRequests={this.apiRequests} />} />
+          <Route exact path="/settings" render={() => <Settings updatePage={this.updateActivePage} apiRequests={this.apiRequests} />} />
         </header>
       </Router>
     );

@@ -31,7 +31,7 @@ export default class Header extends React.Component {
                     <Account toggle={this.toggleAccountSettings} />
                 </div>
                 {this.state.settingsActive
-                    ? <AccountSettings />
+                    ? <AccountSettings activePage={this.props.activePage} />
                     : <div></div>
                 }
             </div>

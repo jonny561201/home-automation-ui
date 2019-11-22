@@ -7,6 +7,7 @@ describe('Settings Page', () => {
     const userId = 'fakeUserId';
     const mockGet = jest.fn();
     const mockUpdate = jest.fn();
+    const mockUpdatePage = jest.fn();
     let mockRequests = {
         userId: userId,
         updateUserPreferences: mockUpdate,
@@ -16,7 +17,8 @@ describe('Settings Page', () => {
     beforeEach(() => {
         mockUpdate.mockClear();
         mockGet.mockClear();
-        settings = shallow(<Settings apiRequests={mockRequests} />);
+        mockUpdatePage.mockClear();
+        settings = shallow(<Settings updatePage={mockUpdatePage} apiRequests={mockRequests} />);
     });
 
     it('should display logo header', () => {
@@ -127,6 +129,10 @@ describe('Settings Page', () => {
 
         it('should make api call to get preferences', () => {
             expect(mockGet).toHaveBeenCalledTimes(1);
+        });
+
+        it('should set the active page to Settings', () => {
+            expect(mockUpdatePage).toHaveBeenCalledWith('Settings');
         });
 
         it('should store the response of getting the preferences in state', () => {

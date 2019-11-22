@@ -4,10 +4,11 @@ import { shallow } from 'enzyme';
 
 describe('Home', () => {
     let home;
-
+    const mockUpdatePage = jest.fn();
 
     beforeEach(() => {
-        home = shallow(<Home />);
+        mockUpdatePage.mockClear();
+        home = shallow(<Home updatePage={mockUpdatePage} />);
     });
 
     it('should display Header component', () => {
@@ -23,5 +24,9 @@ describe('Home', () => {
     it('should display DashboardPanel', () => {
         const actual = home.find('DashboardPanel');
         expect(actual).toHaveLength(1);
+    });
+
+    it('should set the active page to Home', () => {
+        expect(mockUpdatePage).toHaveBeenCalledWith('Home');
     });
 });
