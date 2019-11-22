@@ -52,7 +52,7 @@ export default class GaragePanel extends React.Component {
                         {this.state.isGarageOpen
                             ? <button className="close-button" onClick={() => this.openGarageDoor(false)}>Close</button>
                             : <button className="open-button" onClick={() => this.openGarageDoor(true)}>Open</button>}
-                        <button className="toggle-button">Toggle</button>
+                        <button className="toggle-button" onClick={this.toggleGarageDoor}>Toggle</button>
                     </ExpansionPanelActions>
                 </ExpansionPanel>
             </div>

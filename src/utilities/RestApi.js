@@ -43,7 +43,7 @@ export default class ApiRequests {
     }
 
     toggleGarageDoor = async () => {
-        const options = { method: 'POST', headers: { 'Authorization': `Bearer ${this.bearerToken}` } }
+        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${this.bearerToken}` } }
         return await fetch(this.garageToggleUrl, options);
     }
 
