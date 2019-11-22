@@ -84,6 +84,17 @@ describe('RestApi', () => {
             expect(actual.garageDoorOpen).toEqual(false);
         });
 
+        it('should make rest call to toggle garage door state', async () => {
+            const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } }
+
+            fetchMock.mock('http://localhost:5000/garageDoor/toggle', options).catch(unmatchedUrl => {
+                return { status: 400 };
+            });
+
+            const actual = await restApi.toggleGarageDoor();
+            expect(actual.status).toEqual(200);
+        });
+
         it('should make rest call to get current sump pump level', async () => {
             const userId = 'abc123';
             const expectedDepth = 33.3;
