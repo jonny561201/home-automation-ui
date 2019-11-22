@@ -6,12 +6,15 @@ describe('GaragePanel', () => {
     let garagePanel;
     const mockGetStatus = jest.fn(() => 'true');
     const mockUpdateState = jest.fn();
+    const mockToggleDoor = jest.fn();
     const mockRequests = {
         getGarageStatus: mockGetStatus,
-        updateGarageState: mockUpdateState
+        updateGarageState: mockUpdateState,
+        toggleGarageDoor: mockToggleDoor,
     };
 
     beforeEach(() => {
+        mockToggleDoor.mockClear();
         mockGetStatus.mockClear();
         mockUpdateState.mockClear();
         garagePanel = shallow(<GaragePanel apiRequests={mockRequests} />);
@@ -88,16 +91,21 @@ describe('GaragePanel', () => {
         });
     });
 
-    describe('garage door state api', () => {
+    describe('garage door api', () => {
 
-        it('should call update function with false when closing', () => {
+        it('should call open function with false when closing', () => {
             garagePanel.instance().openGarageDoor(false);
             expect(mockUpdateState).toBeCalledWith(false);
         });
 
-        it('should call update function with true when opening', () => {
+        it('should call open function with true when opening', () => {
             garagePanel.instance().openGarageDoor(true);
             expect(mockUpdateState).toBeCalledWith(true);
+        });
+
+        it('should call toggle function', () => {
+            garagePanel.instance().toggleGarageDoor();
+            expect(mockToggleDoor).toHaveBeenCalledTimes(1);
         });
     });
 });

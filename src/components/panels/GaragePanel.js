@@ -8,7 +8,7 @@ import './GaragePanel.css';
 export default class GaragePanel extends React.Component {
     constructor(props) {
         super(props);
-        this.openGarageDoor = this.openGarageDoor.bind(this);
+        // this.openGarageDoor = this.openGarageDoor.bind(this);
         this.state = {
             isGarageOpen: null
         }
@@ -21,6 +21,10 @@ export default class GaragePanel extends React.Component {
 
     openGarageDoor = async (shouldOpen) => {
         await this.props.apiRequests.updateGarageState(shouldOpen);
+    };
+
+    toggleGarageDoor = async () => {
+        await this.props.apiRequests.toggleGarageDoor();
     };
 
     render() {
