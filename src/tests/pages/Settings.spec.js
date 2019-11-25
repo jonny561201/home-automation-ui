@@ -1,9 +1,12 @@
 import React from 'react';
 import Settings from '../../pages/Settings'
-import { shallow } from 'enzyme';
+import { createShallow } from '@material-ui/core/test-utils'
+import { FormControlLabel, TextField } from '@material-ui/core';
+// import { shallow } from 'enzyme';
 
 describe('Settings Page', () => {
     let settings;
+    let shallow;
     const userId = 'fakeUserId';
     const mockGet = jest.fn();
     const mockUpdate = jest.fn();
@@ -14,11 +17,16 @@ describe('Settings Page', () => {
         getUserPreferences: mockGet,
     }
 
+    beforeAll(() => {
+        shallow = createShallow();
+    });
+
     beforeEach(() => {
         mockUpdate.mockClear();
         mockGet.mockClear();
         mockUpdatePage.mockClear();
-        settings = shallow(<Settings updatePage={mockUpdatePage} apiRequests={mockRequests} />);
+        settings = shallow(<Settings updatePage={mockUpdatePage} apiRequests={mockRequests} />)
+        // settings = shallow(<Settings updatePage={mockUpdatePage} apiRequests={mockRequests} />);
     });
 
     it('should display logo header', () => {
@@ -96,16 +104,6 @@ describe('Settings Page', () => {
             settings.instance().forceUpdate();
         });
 
-        it('should display is fahrenheit settings switch', () => {
-            const actual = settings.find('.switch');
-            expect(actual).toHaveLength(1);
-        });
-
-        it('should display text to set to fahrenheit', () => {
-            const actual = settings.find('.unit').text();
-            expect(actual).toEqual('Fahrenheit');
-        });
-
         it('should display save button to submit updated preferences', () => {
             const actual = settings.find('.submit').text();
             expect(actual).toEqual('Save');
@@ -116,10 +114,14 @@ describe('Settings Page', () => {
             expect(actual).toEqual('Cancel');
         });
 
-        // TODO: fix this text
+        it('should display the radio buttons for imperial and metric', () => {
+            const actual = settings.find(FormControlLabel);
+            expect(actual).toHaveLength(2);
+        });
+
         it('should display city input textbox', () => {
-            const actual = settings.find('TextField');
-            // expect(actual).toHaveLength(1);
+            const actual = settings.find(TextField);
+            expect(actual).toHaveLength(1);
         })
     })
 

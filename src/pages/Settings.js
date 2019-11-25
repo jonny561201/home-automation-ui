@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../components/header/Header';
 import './Settings.css'
-import { Switch, Divider, TextField } from '@material-ui/core';
+import { Switch, Divider, TextField, FormControlLabel, RadioGroup, FormControl, FormLabel, Radio } from '@material-ui/core';
 
 
 export default class Settings extends React.Component {
@@ -50,8 +50,13 @@ export default class Settings extends React.Component {
                                 <h2>Temperature</h2>
                                 <Divider />
                                 <div className="settings-row">
-                                    <Switch className="switch" color="primary" />
-                                    <p className="settings-text unit">Fahrenheit</p>
+                                    <FormControl>
+                                        <FormLabel component="legend">Unit</FormLabel>
+                                        <RadioGroup label="Unit:">
+                                            <FormControlLabel value="true" control={<Radio color="primary" />} label="Imperial" />
+                                            <FormControlLabel value="false" control={<Radio color="primary" />} label="Metric" />
+                                        </RadioGroup>
+                                    </FormControl>
                                 </div>
                                 <div className="settings-row">
                                     <TextField variant="outlined" label="City" value={this.state.city} onChange={this.updateCity} />
