@@ -178,12 +178,12 @@ describe('Settings Page', () => {
     describe('savePreferences', () => {
 
         const expectedCity = 'Berlin';
-        const expectedIsFahrenheit = false;
+        const expectedUnit = 'metric';
 
         beforeEach(() => {
             settings.state().edited = true;
             settings.state().newCity = expectedCity;
-            settings.state().isFahrenheit = expectedIsFahrenheit;
+            settings.state().newUnit = expectedUnit;
             settings.state().isEditMode = true;
             settings.instance().forceUpdate();
         });
@@ -191,7 +191,7 @@ describe('Settings Page', () => {
         it('should call the updateUserPreferences api rest call', () => {
             settings.instance().savePreferences();
             expect(mockUpdate).toHaveBeenCalledTimes(1);
-            expect(mockUpdate).toBeCalledWith(userId, expectedIsFahrenheit, expectedCity);
+            expect(mockUpdate).toBeCalledWith(userId, expectedUnit === 'imperial', expectedCity);
         });
 
         it('should toggle edit mode after making api call', async () => {
