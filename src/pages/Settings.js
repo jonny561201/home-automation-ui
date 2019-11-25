@@ -14,6 +14,7 @@ export default class Settings extends React.Component {
             isEditMode: false,
             isFahrenheit: null,
             unit: null,
+            newUnit: null,
             edited: false,
         }
     }
@@ -38,6 +39,11 @@ export default class Settings extends React.Component {
         this.setState({ newCity: input.target.value, edited: true });
     }
 
+    updateRadioButton = (input) => {
+        const value = input.target.value;
+        this.setState({ newUnit: value });
+    }
+
     render() {
         return (
             <div>
@@ -54,8 +60,8 @@ export default class Settings extends React.Component {
                                     <FormControl>
                                         <FormLabel component="legend">Unit</FormLabel>
                                         <RadioGroup label="Unit:">
-                                            <FormControlLabel value="true" control={<Radio color="primary" />} label="Imperial" />
-                                            <FormControlLabel value="false" control={<Radio color="primary" />} label="Metric" />
+                                            <FormControlLabel onChange={this.updateRadioButton} value="imperial" checked={this.state.unit === "imperial"} control={<Radio color="primary" />} label="Imperial" />
+                                            <FormControlLabel onChange={this.updateRadioButton} value="metric" checked={this.state.unit === "metric"} control={<Radio color="primary" />} label="Metric" />
                                         </RadioGroup>
                                     </FormControl>
                                 </div>

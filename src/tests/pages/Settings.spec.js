@@ -209,4 +209,13 @@ describe('Settings Page', () => {
             expect(settings.state().city).toEqual(expectedCity);
         });
     });
+
+    describe('updateRadioButton', () => {
+        const metricUnit = 'metric';
+
+        it('should set temp unit variable to input value', async () => {
+            await settings.instance().updateRadioButton({ target: { value: metricUnit } });
+            expect(settings.state().newUnit).toEqual(metricUnit)
+        });
+    });
 });
