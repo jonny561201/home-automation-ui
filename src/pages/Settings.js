@@ -22,7 +22,7 @@ export default class Settings extends React.Component {
     componentDidMount = async () => {
         const userId = this.props.apiRequests.userId;
         const response = await this.props.apiRequests.getUserPreferences(userId);
-        this.setState({ city: response.city, unit: response.unit, newCity: response.city });
+        this.setState({ city: response.city, unit: response.unit, newCity: response.city, newUnit: response.unit });
     }
 
     toggleEditMode = () => {
@@ -61,8 +61,8 @@ export default class Settings extends React.Component {
                                     <FormControl>
                                         <FormLabel component="legend">Unit</FormLabel>
                                         <RadioGroup label="Unit:">
-                                            <FormControlLabel onChange={this.updateRadioButton} value="imperial" checked={this.state.unit === "imperial"} control={<Radio color="primary" />} label="Imperial" />
-                                            <FormControlLabel onChange={this.updateRadioButton} value="metric" checked={this.state.unit === "metric"} control={<Radio color="primary" />} label="Metric" />
+                                            <FormControlLabel onChange={this.updateRadioButton} value="imperial" checked={this.state.newUnit === "imperial"} control={<Radio color="primary" />} label="Imperial" />
+                                            <FormControlLabel onChange={this.updateRadioButton} value="metric" checked={this.state.newUnit === "metric"} control={<Radio color="primary" />} label="Metric" />
                                         </RadioGroup>
                                     </FormControl>
                                 </div>

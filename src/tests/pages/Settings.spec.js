@@ -140,6 +140,16 @@ describe('Settings Page', () => {
             expect(actual.newCity).toEqual(expectedCity);
         });
 
+        it('should default newUnit to value from response', async () => {
+            const response = { unit: expectedUnit };
+            mockGet.mockReturnValue(response);
+            settings.instance().forceUpdate();
+            await settings.instance().componentDidMount();
+
+            const actual = settings.state();
+            expect(actual.newUnit).toEqual(expectedUnit);
+        });
+
         it('should store the response of getting the preferences in state', async () => {
             const response = { city: expectedCity, unit: expectedUnit };
             mockGet.mockReturnValue(response);
