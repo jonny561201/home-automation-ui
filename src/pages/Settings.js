@@ -10,6 +10,7 @@ export default class Settings extends React.Component {
         this.props.updatePage("Settings");
         this.state = {
             city: null,
+            newCity: null,
             isEditMode: false,
             isFahrenheit: null,
             unit: null,
@@ -20,7 +21,7 @@ export default class Settings extends React.Component {
     componentDidMount = async () => {
         const userId = this.props.apiRequests.userId;
         const response = await this.props.apiRequests.getUserPreferences(userId);
-        this.setState({ city: response.city, unit: response.unit });
+        this.setState({ city: response.city, unit: response.unit, newCity: response.city });
     }
 
     toggleEditMode = () => {
@@ -28,13 +29,13 @@ export default class Settings extends React.Component {
     }
 
     savePreferences = () => {
-        this.props.apiRequests.updateUserPreferences(this.props.apiRequests.userId, this.state.isFahrenheit, this.state.city);
+        this.props.apiRequests.updateUserPreferences(this.props.apiRequests.userId, this.state.isFahrenheit, this.state.newCity);
         this.toggleEditMode();
-        this.setState({ edited: false });
+        this.setState({ edited: false, city: this.state.newCity });
     }
 
     updateCity = (input) => {
-        this.setState({ city: input.target.value, edited: true });
+        this.setState({ newCity: input.target.value, edited: true });
     }
 
     render() {
@@ -59,7 +60,7 @@ export default class Settings extends React.Component {
                                     </FormControl>
                                 </div>
                                 <div className="settings-row">
-                                    <TextField variant="outlined" label="City" value={this.state.city} onChange={this.updateCity} />
+                                    <TextField variant="outlined" label="City" value={this.state.newCity} onChange={this.updateCity} />
                                 </div>
                             </div>
                             <Divider />

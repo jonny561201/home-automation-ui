@@ -130,6 +130,16 @@ describe('Settings Page', () => {
             expect(mockUpdatePage).toHaveBeenCalledWith('Settings');
         });
 
+        it('should default newCity to value from response', async () => {
+            const response = { city: expectedCity };
+            mockGet.mockReturnValue(response);
+            settings.instance().forceUpdate();
+            await settings.instance().componentDidMount();
+
+            const actual = settings.state();
+            expect(actual.newCity).toEqual(expectedCity);
+        });
+
         it('should store the response of getting the preferences in state', async () => {
             const response = { city: expectedCity, unit: expectedUnit };
             mockGet.mockReturnValue(response);
@@ -147,16 +157,16 @@ describe('Settings Page', () => {
         const response = { target: { value: expectedCity } }
 
         it('should update the city value', async () => {
-            settings.state().city = 'old city';
+            settings.state().newCity = 'old city';
             settings.instance().forceUpdate();
 
             await settings.instance().updateCity(response);
 
-            expect(settings.state().city).toEqual(expectedCity);
+            expect(settings.state().newCity).toEqual(expectedCity);
         });
 
         it('should set is edited to true when value updated', async () => {
-            settings.state().city = 'old city';
+            settings.state().newCity = 'old city';
             settings.instance().forceUpdate();
 
             await settings.instance().updateCity(response);
@@ -172,7 +182,7 @@ describe('Settings Page', () => {
 
         beforeEach(() => {
             settings.state().edited = true;
-            settings.state().city = expectedCity;
+            settings.state().newCity = expectedCity;
             settings.state().isFahrenheit = expectedIsFahrenheit;
             settings.state().isEditMode = true;
             settings.instance().forceUpdate();
@@ -192,6 +202,11 @@ describe('Settings Page', () => {
         it('should reset edit mode after save', async () => {
             await settings.instance().savePreferences();
             expect(settings.state().edited).toBeFalsy();
+        });
+
+        it('should update the city variable to equal new city', async () => {
+            await settings.instance().savePreferences();
+            expect(settings.state().city).toEqual(expectedCity);
         });
     });
 });
