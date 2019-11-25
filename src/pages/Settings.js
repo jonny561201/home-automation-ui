@@ -41,7 +41,7 @@ export default class Settings extends React.Component {
 
     updateRadioButton = (input) => {
         const value = input.target.value;
-        this.setState({ newUnit: value });
+        this.setState({ newUnit: value, edited: true });
     }
 
     render() {

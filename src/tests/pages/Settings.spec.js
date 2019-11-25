@@ -217,5 +217,10 @@ describe('Settings Page', () => {
             await settings.instance().updateRadioButton({ target: { value: metricUnit } });
             expect(settings.state().newUnit).toEqual(metricUnit)
         });
+
+        it('should set the edited mode to true when toggle radio buttons', async () => {
+            await settings.instance().updateRadioButton({ target: { value: metricUnit } });
+            expect(settings.state().edited).toBeTruthy();
+        });
     });
 });
