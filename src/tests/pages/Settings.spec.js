@@ -130,15 +130,16 @@ describe('Settings Page', () => {
             expect(mockUpdatePage).toHaveBeenCalledWith('Settings');
         });
 
-        it('should store the response of getting the preferences in state', () => {
+        it('should store the response of getting the preferences in state', async () => {
             const response = { city: expectedCity, unit: expectedUnit };
             mockGet.mockReturnValue(response);
             settings.instance().forceUpdate();
+            await settings.instance().componentDidMount();
 
-            const actual = settings.state().city;
-            expect(actual).toEqual(expectedCity);
+            const actual = settings.state();
+            expect(actual.city).toEqual(expectedCity);
+            expect(actual.unit).toEqual(expectedUnit);
         });
-        // TODO: add tests for storing the state in the response
     });
 
     describe('updateCity', () => {
