@@ -208,6 +208,11 @@ describe('Settings Page', () => {
             await settings.instance().savePreferences();
             expect(settings.state().city).toEqual(expectedCity);
         });
+
+        it('should update the unit variable to equal new unit', async () => {
+            await settings.instance().savePreferences();
+            expect(settings.state().unit).toEqual(expectedUnit);
+        });
     });
 
     describe('updateRadioButton', () => {
