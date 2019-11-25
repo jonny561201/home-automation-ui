@@ -225,6 +225,30 @@ describe('Settings Page', () => {
         });
     });
 
+    describe('cancelPreferences', () => {
+        it('should reset the state of city when cancelled', async () => {
+            const expectedCity = 'Sydney';
+            settings.state().city = expectedCity
+            settings.state().newCity = 'Perth'
+            settings.instance().forceUpdate();
+            await settings.instance().cancelPreferences();
+
+            const actual = settings.state().newCity
+            expect(actual).toEqual(expectedCity);
+        });
+
+        it('should reset the state of unit when cancelled', async () => {
+            const expectedUnit = 'imperial';
+            settings.state().unit = expectedUnit
+            settings.state().newUnit = 'metric'
+            settings.instance().forceUpdate();
+            await settings.instance().cancelPreferences();
+
+            const actual = settings.state().newUnit
+            expect(actual).toEqual(expectedUnit);
+        });
+    });
+
     describe('updateRadioButton', () => {
         const metricUnit = 'metric';
 

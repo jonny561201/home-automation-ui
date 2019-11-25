@@ -36,6 +36,10 @@ export default class Settings extends React.Component {
         this.setState({ edited: false, city: this.state.newCity, unit: this.state.newUnit });
     }
 
+    cancelPreferences = () => {
+        this.setState({ newCity: this.state.city, newUnit: this.state.unit });
+    }
+
     updateCity = (input) => {
         this.setState({ newCity: input.target.value, edited: true });
     }
