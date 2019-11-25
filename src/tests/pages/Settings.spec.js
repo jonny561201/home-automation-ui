@@ -247,6 +247,15 @@ describe('Settings Page', () => {
             const actual = settings.state().newUnit
             expect(actual).toEqual(expectedUnit);
         });
+
+        it('should reset the state of isEditMode when cancelled', async () => {
+            settings.state().isEditMode = true
+            settings.instance().forceUpdate();
+            await settings.instance().cancelPreferences();
+
+            const actual = settings.state().isEditMode
+            expect(actual).toBeFalsy();
+        });
     });
 
     describe('updateRadioButton', () => {
