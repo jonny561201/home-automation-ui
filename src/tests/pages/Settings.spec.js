@@ -1,12 +1,10 @@
 import React from 'react';
 import Settings from '../../pages/Settings'
-import { createShallow } from '@material-ui/core/test-utils'
 import { FormControlLabel, TextField } from '@material-ui/core';
-// import { shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 
 describe('Settings Page', () => {
     let settings;
-    let shallow;
     const userId = 'fakeUserId';
     const mockGet = jest.fn();
     const mockUpdate = jest.fn();
@@ -17,16 +15,11 @@ describe('Settings Page', () => {
         getUserPreferences: mockGet,
     }
 
-    beforeAll(() => {
-        shallow = createShallow();
-    });
-
     beforeEach(() => {
         mockUpdate.mockClear();
         mockGet.mockClear();
         mockUpdatePage.mockClear();
-        settings = shallow(<Settings updatePage={mockUpdatePage} apiRequests={mockRequests} />)
-        // settings = shallow(<Settings updatePage={mockUpdatePage} apiRequests={mockRequests} />);
+        settings = shallow(<Settings updatePage={mockUpdatePage} apiRequests={mockRequests} />);
     });
 
     it('should display logo header', () => {
