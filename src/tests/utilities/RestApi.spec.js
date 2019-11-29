@@ -25,8 +25,8 @@ describe('RestApi', () => {
             };
         });
 
-        const actual = await restApi.getBearerToken(username, password, () => { });
-        expect(actual.bearerToken).toEqual(fakeBearerToken);
+        const actual = await restApi.getBearerToken(username, password);
+        expect(actual).toBeTruthy();
     });
 
     it('should store bearer token after successful login', async () => {
@@ -37,7 +37,7 @@ describe('RestApi', () => {
             return { status: 400 };
         });
 
-        await restApi.getBearerToken(username, password, () => { });
+        await restApi.getBearerToken(username, password);
         expect(restApi.bearerToken).toEqual(fakeBearerToken);
     });
 
@@ -49,7 +49,7 @@ describe('RestApi', () => {
             return { status: 400 };
         });
 
-        await restApi.getBearerToken(username, password, () => { });
+        await restApi.getBearerToken(username, password);
         expect(restApi.userId).toEqual(userId);
     });
 

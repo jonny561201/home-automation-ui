@@ -15,12 +15,12 @@ export default class ApiRequests {
         const options = { method: 'GET', headers: { 'Authorization': `Basic ${base64.encode(username + ":" + password)}` } };
 
         const response = await fetch(this.loginUrl, options);
-        const jsonResponse = await response.json();
         if (response.ok) {
+            const jsonResponse = await response.json();
             this.bearerToken = jsonResponse.bearerToken;
             this.userId = jwt_decode(this.bearerToken).user_id;
         }
-        return jsonResponse;
+        return response.ok;
     }
 
     getGarageStatus = async () => {
