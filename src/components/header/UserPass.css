@@ -23,9 +23,9 @@ input {
 .error-text {
     margin: 2px;
     height: 16px;
-    color: red;
+    color: #e60000;
     font-size: 12px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 .spacer {

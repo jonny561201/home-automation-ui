@@ -15,7 +15,8 @@ export default class UserPass extends Component {
             password: undefined,
             isUsernameInvalid: false,
             isPasswordInvalid: false,
-            receivedToken: false
+            receivedToken: false,
+            isValidLogin: true,
         }
     }
 
@@ -27,9 +28,10 @@ export default class UserPass extends Component {
 
     getBearerTokenFromLogin = async () => {
         if (this.state.isUsernameInvalid === false && this.state.isPasswordInvalid === false) {
-            await this.props.apiRequests.getBearerToken(this.state.username, this.state.password);
+            const response = await this.props.apiRequests.getBearerToken(this.state.username, this.state.password);
+            this.setState({ isValidLogin: response });
             if (this.props.apiRequests.bearerToken != null) {
-                this.setState({ receivedToken: true });
+                this.setState({ receivedToken: true, isValidLogin: response });
                 this.props.updateAuth();
             }
         }
@@ -64,6 +66,12 @@ export default class UserPass extends Component {
                         ? <p className="error-text">Invalid password!</p>
                         : <p className="spacer"></p>
                     }
+                    <div className="error-text">
+                        {this.state.isValidLogin
+                            ? <p></p>
+                            : <p>ERROR: Username or Password is invalid!</p>
+                        }
+                    </div>
                     <button type="submit" className="column">Login</button>
                 </form>
             </div>

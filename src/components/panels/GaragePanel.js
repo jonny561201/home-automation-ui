@@ -8,7 +8,6 @@ import './GaragePanel.css';
 export default class GaragePanel extends React.Component {
     constructor(props) {
         super(props);
-        // this.openGarageDoor = this.openGarageDoor.bind(this);
         this.state = {
             isGarageOpen: null
         }
