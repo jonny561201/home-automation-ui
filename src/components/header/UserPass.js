@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import './UserPass.css';
+import { useState } from '../../TestState';
 
 
 export default class UserPass extends Component {
@@ -28,7 +29,7 @@ export default class UserPass extends Component {
             this.setState({ isValidLogin: response });
             if (this.props.apiRequests.bearerToken != null) {
                 this.setState({ receivedToken: true, isValidLogin: response });
-                this.props.updateAuth();
+                useState().updateAuth(true);
             }
         }
     }

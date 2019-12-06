@@ -5,19 +5,13 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import Settings from './pages/Settings';
 import ApiRequests from './utilities/RestApi';
+import { useState } from './TestState';
 
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.apiRequests = new ApiRequests();
-    this.state = {
-      isAuthenticated: false,
-    };
-  }
-
-  authenticate = () => {
-    this.setState({ isAuthenticated: true });
   }
 
 
@@ -25,8 +19,8 @@ export default class App extends React.Component {
     return (
       <Router>
         <header className="App-header">
-          <Route exact path="/" render={() => <Login updateAuth={this.authenticate} apiRequests={this.apiRequests} />} />
-          {this.state.isAuthenticated &&
+          <Route exact path="/" render={() => <Login apiRequests={this.apiRequests} />} />
+          {useState().isAuthenticated &&
             <Route exact path="/home" render={() => <Home apiRequests={this.apiRequests} />} />
           }
           <Route exact path="/settings" render={() => <Settings apiRequests={this.apiRequests} />} />

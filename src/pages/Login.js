@@ -15,7 +15,7 @@ export default function Login(props) {
                 <h1>Member Login</h1>
             </div>
             <div className="login-body">
-                <UserPass updateAuth={props.updateAuth} apiRequests={props.apiRequests} />
+                <UserPass apiRequests={props.apiRequests} />
             </div>
         </div>
     );
