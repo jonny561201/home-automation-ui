@@ -13,16 +13,11 @@ export default class App extends React.Component {
     this.apiRequests = new ApiRequests();
     this.state = {
       isAuthenticated: false,
-      activePage: null,
     };
   }
 
   authenticate = () => {
     this.setState({ isAuthenticated: true });
-  }
-
-  updateActivePage = (pageName) => {
-    this.setState({ activePage: pageName });
   }
 
 
@@ -32,9 +27,9 @@ export default class App extends React.Component {
         <header className="App-header">
           <Route exact path="/" render={() => <Login updateAuth={this.authenticate} apiRequests={this.apiRequests} />} />
           {this.state.isAuthenticated &&
-            <Route exact path="/home" render={() => <Home activePage={this.state.activePage} updatePage={this.updateActivePage} apiRequests={this.apiRequests} />} />
+            <Route exact path="/home" render={() => <Home apiRequests={this.apiRequests} />} />
           }
-          <Route exact path="/settings" render={() => <Settings updatePage={this.updateActivePage} apiRequests={this.apiRequests} />} />
+          <Route exact path="/settings" render={() => <Settings apiRequests={this.apiRequests} />} />
         </header>
       </Router>
     );
