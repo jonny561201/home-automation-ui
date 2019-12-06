@@ -6,10 +6,6 @@ import './UserPass.css';
 export default class UserPass extends Component {
     constructor(props) {
         super(props);
-        this.setUsername = this.setUsername.bind(this);
-        this.setPassword = this.setPassword.bind(this);
-        this.validateCredentials = this.validateCredentials.bind(this);
-        this.getBearerTokenFromLogin = this.getBearerTokenFromLogin.bind(this);
         this.state = {
             username: undefined,
             password: undefined,
