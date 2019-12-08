@@ -38,5 +38,10 @@ describe('TestState', () => {
             state.updateAuth(false);
             expect(state.state.isAuthenticated).toBeFalsy();
         });
+
+        it('should get the authorization', () => {
+            state.state.isAuthenticated = true;
+            expect(state.isAuthenticated()).toBeTruthy();
+        });
     });
 });
