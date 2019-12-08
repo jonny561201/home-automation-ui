@@ -4,6 +4,7 @@ class TestState {
             activePage: null,
             isAuthenticated: false,
             bearerToken: null,
+            userId: null,
         }
     }
 
@@ -29,6 +30,10 @@ class TestState {
 
     getBearerToken = () => {
         return this.state.bearerToken;
+    }
+
+    setUserId = (userId) => {
+        this.state.userId = userId;
     }
 }
 

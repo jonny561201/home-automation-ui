@@ -62,5 +62,19 @@ describe('TestState', () => {
             state.state.bearerToken = bearerToken;
             expect(state.getBearerToken()).toEqual(bearerToken);
         });
-    })
+    });
+
+    describe('UserId', () => {
+        let state;
+        const userId = 'fakeUserId';
+
+        beforeEach(() => {
+            state = useState();
+        });
+
+        it('should set the user Id', () => {
+            state.setUserId(userId);
+            expect(state.state.userId).toEqual(userId);
+        });
+    });
 });
