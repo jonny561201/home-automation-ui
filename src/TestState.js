@@ -35,6 +35,10 @@ class TestState {
     setUserId = (userId) => {
         this.state.userId = userId;
     }
+
+    getUserId = () => {
+        return this.state.userId;
+    }
 }
 
 let currentState = null;

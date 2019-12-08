@@ -1,5 +1,6 @@
 import {useState} from '../TestState';
 
+
 describe('TestState', () => {
 
     describe('ActivePage', () => {
@@ -75,6 +76,11 @@ describe('TestState', () => {
         it('should set the user Id', () => {
             state.setUserId(userId);
             expect(state.state.userId).toEqual(userId);
+        });
+
+        it('should get the user Id', () => {
+            state.state.userId = userId;
+            expect(state.getUserId()).toEqual(userId);
         });
     });
 });
