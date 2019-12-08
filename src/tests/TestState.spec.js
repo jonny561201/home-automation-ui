@@ -44,4 +44,18 @@ describe('TestState', () => {
             expect(state.isAuthenticated()).toBeTruthy();
         });
     });
+
+    describe('BearerToken', () => {
+        let state;
+        const bearerToken = 'ImAFakeBearerToken';
+
+        beforeEach(() => {
+            state = useState();
+        });
+
+        it('should set bearer token', () => {
+            state.setBearerToken(bearerToken);
+            expect(state.state.bearerToken).toEqual(bearerToken);
+        });
+    })
 });

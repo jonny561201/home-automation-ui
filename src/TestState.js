@@ -3,6 +3,7 @@ class TestState {
         this.state = {
             activePage: null,
             isAuthenticated: false,
+            bearerToken: null,
         }
     }
 
@@ -22,6 +23,9 @@ class TestState {
         return this.state.isAuthenticated;
     }
 
+    setBearerToken = (token) => {
+        this.state.bearerToken = token;
+    }
 }
 
 let currentState = null;
