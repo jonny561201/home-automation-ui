@@ -2,6 +2,7 @@ import React from 'react';
 import Settings from '../../pages/Settings'
 import { FormControlLabel, TextField } from '@material-ui/core';
 import { shallow } from 'enzyme';
+import {useState} from '../../TestState';
 
 describe('Settings Page', () => {
     let settings;
@@ -127,7 +128,7 @@ describe('Settings Page', () => {
         });
 
         it('should set the active page to Settings', () => {
-            expect(mockUpdatePage).toHaveBeenCalledWith('Settings');
+            expect(useState().state.activePage).toEqual('Settings');
         });
 
         it('should default newCity to value from response', async () => {

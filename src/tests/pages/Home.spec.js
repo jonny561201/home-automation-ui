@@ -28,6 +28,6 @@ describe('Home', () => {
     });
 
     it('should set the active page to Home', () => {
-        expect(mockUpdatePage).toHaveBeenCalledWith('Home');
+        expect(useState().state.activePage).toEqual('Home');
     });
 });
