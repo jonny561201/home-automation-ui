@@ -1,6 +1,7 @@
 import base64 from 'base-64';
 import fetchMock from 'fetch-mock';
 import ApiRequests from '../../utilities/RestApi';
+import {useState} from '../../TestState';
 
 describe('RestApi', () => {
     let restApi;
@@ -38,7 +39,7 @@ describe('RestApi', () => {
         });
 
         await restApi.getBearerToken(username, password);
-        expect(restApi.bearerToken).toEqual(fakeBearerToken);
+        expect(useState().getBearerToken()).toEqual(fakeBearerToken);
     });
 
     it('should store user id after successful login', async () => {
@@ -50,14 +51,16 @@ describe('RestApi', () => {
         });
 
         await restApi.getBearerToken(username, password);
-        expect(restApi.userId).toEqual(userId);
+        expect(useState().getUserId()).toEqual(userId);
     });
 
     describe('after successful login', () => {
+        let state;
         const bearerToken2 = 'abc123';
 
         beforeEach(() => {
-            restApi.bearerToken = bearerToken2;
+            state = useState();
+            state.state.bearerToken = bearerToken2;
         });
 
         it('should make rest call to get garage door state', async () => {

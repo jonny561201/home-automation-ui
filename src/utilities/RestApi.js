@@ -1,10 +1,10 @@
 import base64 from 'base-64';
 import jwt_decode from 'jwt-decode';
+import {useState} from '../TestState';
+
 
 export default class ApiRequests {
 
-    bearerToken = null;
-    userId = null;
     loginUrl = 'http://localhost:5000/login';
     garageToggleUrl = 'http://localhost:5000/garageDoor/toggle';
     garageStatusUrl = 'http://localhost:5000/garageDoor/status';
@@ -17,14 +17,15 @@ export default class ApiRequests {
         const response = await fetch(this.loginUrl, options);
         if (response.ok) {
             const jsonResponse = await response.json();
-            this.bearerToken = jsonResponse.bearerToken;
-            this.userId = jwt_decode(this.bearerToken).user_id;
+            const bearerToken = jsonResponse.bearerToken;
+            useState().setBearerToken(bearerToken);
+            useState().setUserId(jwt_decode(bearerToken).user_id);
         }
         return response.ok;
     }
 
     getGarageStatus = async () => {
-        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${this.bearerToken}` } };
+        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${useState().getBearerToken()}` } };
 
         const response = await fetch(this.garageStatusUrl, options);
         return await response.json();
@@ -34,7 +35,7 @@ export default class ApiRequests {
         const request = { 'garageDoorOpen': shouldOpen };
         const options = {
             method: 'POST',
-            headers: { 'Authorization': `Bearer ${this.bearerToken}` },
+            headers: { 'Authorization': `Bearer ${useState().getBearerToken()}` },
             body: JSON.stringify(request)
         };
 
@@ -43,12 +44,12 @@ export default class ApiRequests {
     }
 
     toggleGarageDoor = async () => {
-        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${this.bearerToken}` } }
+        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${useState().getBearerToken()}` } }
         return await fetch(this.garageToggleUrl, options);
     }
 
     getSumpLevels = async (userId) => {
-        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${this.bearerToken}` } };
+        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${useState().getBearerToken()}` } };
 
         const sumpUrl = `http://localhost:5000/sumpPump/user/${userId}/depth`
         const response = await fetch(sumpUrl, options);
@@ -56,7 +57,7 @@ export default class ApiRequests {
     }
 
     getCurrentTemperature = async (userId) => {
-        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${this.bearerToken}` } };
+        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${useState().getBearerToken()}` } };
 
         const tempUrl = `http://localhost:5000/thermostat/temperature/${userId}`;
         const response = await fetch(tempUrl, options);
@@ -64,7 +65,7 @@ export default class ApiRequests {
     }
 
     getUserPreferences = async (userId) => {
-        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${this.bearerToken}` } };
+        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${useState().getBearerToken()}` } };
 
         const tempUrl = `http://localhost:5000/userId/${userId}/preferences`;
         const response = await fetch(tempUrl, options);
@@ -75,7 +76,7 @@ export default class ApiRequests {
         const request = { 'isFahrenheit': isFahrenheit, 'city': city }
         const options = {
             method: 'POST',
-            headers: { 'Authorization': `Bearer ${this.bearerToken}` },
+            headers: { 'Authorization': `Bearer ${useState().getBearerToken()}` },
             body: JSON.stringify(request)
         }
 
