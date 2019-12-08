@@ -26,6 +26,10 @@ class TestState {
     setBearerToken = (token) => {
         this.state.bearerToken = token;
     }
+
+    getBearerToken = () => {
+        return this.state.bearerToken;
+    }
 }
 
 let currentState = null;
