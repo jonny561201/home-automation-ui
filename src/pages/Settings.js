@@ -15,15 +15,16 @@ export default class Settings extends React.Component {
             newCity: null,
             isEditMode: false,
             isFahrenheit: null,
-            unit: null,
-            newUnit: null,
+            tempUnit: null,
+            newTempUnit: null,
+            measureUnit: null,
             edited: false,
         }
     }
 
     componentDidMount = async () => {
         const response = await getUserPreferences(getStore().getUserId());
-        this.setState({ city: response.city, unit: response.unit, newCity: response.city, newUnit: response.unit });
+        this.setState({ city: response.city, tempUnit: response.unit, newCity: response.city, newTempUnit: response.unit });
     }
 
     toggleEditMode = () => {
@@ -31,14 +32,14 @@ export default class Settings extends React.Component {
     }
 
     savePreferences = () => {
-        const isFahrenheit = this.state.newUnit === "imperial";
+        const isFahrenheit = this.state.newTempUnit === "imperial";
         updateUserPreferences(getStore().getUserId(), isFahrenheit, this.state.newCity);
         this.toggleEditMode();
-        this.setState({ edited: false, city: this.state.newCity, unit: this.state.newUnit });
+        this.setState({ edited: false, city: this.state.newCity, tempUnit: this.state.newTempUnit });
     }
 
     cancelPreferences = () => {
-        this.setState({ newCity: this.state.city, newUnit: this.state.unit });
+        this.setState({ newCity: this.state.city, newTempUnit: this.state.tempUnit });
         this.toggleEditMode();
     }
 
@@ -48,7 +49,7 @@ export default class Settings extends React.Component {
 
     updateRadioButton = (input) => {
         const value = input.target.value;
-        this.setState({ newUnit: value, edited: true });
+        this.setState({ newTempUnit: value, edited: true });
     }
 
     render() {
@@ -67,8 +68,8 @@ export default class Settings extends React.Component {
                                     <FormControl>
                                         <FormLabel component="legend">Unit</FormLabel>
                                         <RadioGroup label="Unit:">
-                                            <FormControlLabel onChange={this.updateRadioButton} value="imperial" checked={this.state.newUnit === "imperial"} control={<Radio color="primary" />} label="Imperial" />
-                                            <FormControlLabel onChange={this.updateRadioButton} value="metric" checked={this.state.newUnit === "metric"} control={<Radio color="primary" />} label="Metric" />
+                                            <FormControlLabel onChange={this.updateRadioButton} value="imperial" checked={this.state.newTempUnit === "imperial"} control={<Radio color="primary" />} label="Imperial" />
+                                            <FormControlLabel onChange={this.updateRadioButton} value="metric" checked={this.state.newTempUnit === "metric"} control={<Radio color="primary" />} label="Metric" />
                                         </RadioGroup>
                                     </FormControl>
                                 </div>
@@ -89,7 +90,7 @@ export default class Settings extends React.Component {
                             <Divider />
                             <div className="settings-row">
                                 <p className="settings-text temp-unit">Unit:</p>
-                                <p className="settings-text temp-unit">{this.state.unit}</p>
+                                <p className="settings-text temp-unit">{this.state.tempUnit}</p>
                             </div>
                             <div className="settings-row">
                                 <p className="settings-text temp-city">City:</p>
@@ -101,6 +102,7 @@ export default class Settings extends React.Component {
                             <Divider />
                             <div className="settings-row">
                                 <p className="settings-text measure-unit">Unit:</p>
+                                <p className="settings-text measure-unit">{this.state.measureUnit}</p>
                             </div>
                             <Divider />
                             <button onClick={this.toggleEditMode}>Edit</button>

@@ -46,13 +46,15 @@ describe('Settings Page', () => {
     });
 
     describe('Default View', () => {
-        const unitMeasure = 'metric';
         const city = 'Vienna'
+        const tempUnit = 'metric';
+        const measureUnit = 'imperial'
 
         beforeEach(() => {
-            settings.state().isEditMode = false;
-            settings.state().unit = unitMeasure;
             settings.state().city = city;
+            settings.state().isEditMode = false;
+            settings.state().tempUnit = tempUnit;
+            settings.state().measureUnit = measureUnit;
             settings.instance().forceUpdate();
         });
 
@@ -68,7 +70,7 @@ describe('Settings Page', () => {
 
         it('should display the fahrenheit setting stored in state', () => {
             const actual = settings.find('.temp-unit').at(1).text();
-            expect(actual).toEqual(unitMeasure);
+            expect(actual).toEqual(tempUnit);
         });
 
         it('should display the city text for temperature', () => {
@@ -94,6 +96,11 @@ describe('Settings Page', () => {
         it('should display the unit text for measurement', () => {
             const actual = settings.find('.measure-unit').at(0).text();
             expect(actual).toEqual('Unit:');
+        });
+
+        it('should display the measurement unit stored in state', () => {
+            const actual = settings.find('.measure-unit').at(1).text();
+            expect(actual).toEqual(measureUnit);
         });
     });
 
@@ -157,14 +164,14 @@ describe('Settings Page', () => {
             expect(actual.newCity).toEqual(expectedCity);
         });
 
-        it('should default newUnit to value from response', async () => {
+        it('should default newTempUnit to value from response', async () => {
             const response = { unit: expectedUnit };
             spyGet.mockReturnValue(response);
             settings.instance().forceUpdate();
             await settings.instance().componentDidMount();
 
             const actual = settings.state();
-            expect(actual.newUnit).toEqual(expectedUnit);
+            expect(actual.newTempUnit).toEqual(expectedUnit);
         });
 
         it('should store the response of getting the preferences in state', async () => {
@@ -175,7 +182,7 @@ describe('Settings Page', () => {
 
             const actual = settings.state();
             expect(actual.city).toEqual(expectedCity);
-            expect(actual.unit).toEqual(expectedUnit);
+            expect(actual.tempUnit).toEqual(expectedUnit);
         });
     });
 
@@ -210,7 +217,7 @@ describe('Settings Page', () => {
         beforeEach(() => {
             settings.state().edited = true;
             settings.state().newCity = expectedCity;
-            settings.state().newUnit = expectedUnit;
+            settings.state().newTempUnit = expectedUnit;
             settings.state().isEditMode = true;
             settings.instance().forceUpdate();
         });
@@ -238,7 +245,7 @@ describe('Settings Page', () => {
 
         it('should update the unit variable to equal new unit', async () => {
             await settings.instance().savePreferences();
-            expect(settings.state().unit).toEqual(expectedUnit);
+            expect(settings.state().tempUnit).toEqual(expectedUnit);
         });
     });
 
@@ -257,11 +264,11 @@ describe('Settings Page', () => {
         it('should reset the state of unit when cancelled', async () => {
             const expectedUnit = 'imperial';
             settings.state().unit = expectedUnit
-            settings.state().newUnit = 'metric'
+            settings.state().newTempUnit = 'metric'
             settings.instance().forceUpdate();
             await settings.instance().cancelPreferences();
 
-            const actual = settings.state().newUnit
+            const actual = settings.state().newTempUnit
             expect(actual).toEqual(expectedUnit);
         });
 
@@ -280,7 +287,7 @@ describe('Settings Page', () => {
 
         it('should set temp unit variable to input value', async () => {
             await settings.instance().updateRadioButton({ target: { value: metricUnit } });
-            expect(settings.state().newUnit).toEqual(metricUnit)
+            expect(settings.state().newTempUnit).toEqual(metricUnit)
         });
 
         it('should set the edited mode to true when toggle radio buttons', async () => {
