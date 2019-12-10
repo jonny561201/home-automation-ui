@@ -3,11 +3,12 @@ import './Login.css';
 import '../components/header/UserPass';
 import LogoHeader from '../components/header/LogoHeader';
 import UserPass from '../components/header/UserPass';
-import { useState } from '../TestState';
+import { getStore } from '../TestState';
 
 
 export default function Login(props) {
-    useState().setActivePage('Login');
+    getStore().setActivePage('Login');
+    
     return (
         <div className="login-menu column">
             <div className="login-header">
@@ -15,7 +16,7 @@ export default function Login(props) {
                 <h1>Member Login</h1>
             </div>
             <div className="login-body">
-                <UserPass apiRequests={props.apiRequests} />
+                <UserPass />
             </div>
         </div>
     );

@@ -2,25 +2,21 @@ import React from 'react';
 import Settings from '../../pages/Settings'
 import { FormControlLabel, TextField } from '@material-ui/core';
 import { shallow } from 'enzyme';
-import {useState} from '../../TestState';
+import * as lib from '../../utilities/RestApi';
+import {getStore} from '../../TestState';
 
 describe('Settings Page', () => {
     let settings;
     const userId = 'fakeUserId';
-    const mockGet = jest.fn();
-    const mockUpdate = jest.fn();
-    const mockUpdatePage = jest.fn();
-    let mockRequests = {
-        userId: userId,
-        updateUserPreferences: mockUpdate,
-        getUserPreferences: mockGet,
-    }
+    const spyUpdate = jest.spyOn(lib, 'updateUserPreferences');
+    const spyGet = jest.spyOn(lib, 'getUserPreferences');
+
 
     beforeEach(() => {
-        mockUpdate.mockClear();
-        mockGet.mockClear();
-        mockUpdatePage.mockClear();
-        settings = shallow(<Settings updatePage={mockUpdatePage} apiRequests={mockRequests} />);
+        spyUpdate.mockClear();
+        spyGet.mockClear();
+        getStore().setUserId(userId);
+        settings = shallow(<Settings />);
     });
 
     it('should display logo header', () => {
@@ -124,16 +120,16 @@ describe('Settings Page', () => {
         const expectedUnit = 'imperial';
 
         it('should make api call to get preferences', () => {
-            expect(mockGet).toHaveBeenCalledTimes(1);
+            expect(spyGet).toHaveBeenCalledTimes(1);
         });
 
         it('should set the active page to Settings', () => {
-            expect(useState().state.activePage).toEqual('Settings');
+            expect(getStore().state.activePage).toEqual('Settings');
         });
 
         it('should default newCity to value from response', async () => {
             const response = { city: expectedCity };
-            mockGet.mockReturnValue(response);
+            spyGet.mockReturnValue(response);
             settings.instance().forceUpdate();
             await settings.instance().componentDidMount();
 
@@ -143,7 +139,7 @@ describe('Settings Page', () => {
 
         it('should default newUnit to value from response', async () => {
             const response = { unit: expectedUnit };
-            mockGet.mockReturnValue(response);
+            spyGet.mockReturnValue(response);
             settings.instance().forceUpdate();
             await settings.instance().componentDidMount();
 
@@ -153,7 +149,7 @@ describe('Settings Page', () => {
 
         it('should store the response of getting the preferences in state', async () => {
             const response = { city: expectedCity, unit: expectedUnit };
-            mockGet.mockReturnValue(response);
+            spyGet.mockReturnValue(response);
             settings.instance().forceUpdate();
             await settings.instance().componentDidMount();
 
@@ -201,8 +197,8 @@ describe('Settings Page', () => {
 
         it('should call the updateUserPreferences api rest call', () => {
             settings.instance().savePreferences();
-            expect(mockUpdate).toHaveBeenCalledTimes(1);
-            expect(mockUpdate).toBeCalledWith(userId, expectedUnit === 'imperial', expectedCity);
+            expect(spyUpdate).toHaveBeenCalledTimes(1);
+            expect(spyUpdate).toBeCalledWith(userId, expectedUnit === 'imperial', expectedCity);
         });
 
         it('should toggle edit mode after making api call', async () => {

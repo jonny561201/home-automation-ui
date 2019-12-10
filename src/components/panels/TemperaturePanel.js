@@ -3,6 +3,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import TemperatureIcon from '../../resources/TemperatureIcon.jpg';
 import { ExpansionPanel, Typography, ExpansionPanelSummary, Divider } from '@material-ui/core';
 import './TemperaturePanel.css';
+import {getCurrentTemperature} from '../../utilities/RestApi';
+import {getStore} from '../../TestState';
 
 
 export default class TemperaturePanel extends React.Component {
@@ -15,7 +17,7 @@ export default class TemperaturePanel extends React.Component {
     }
 
     componentDidMount = async () => {
-        const response = await this.props.apiRequests.getCurrentTemperature(this.props.apiRequests.userId);
+        const response = await getCurrentTemperature(getStore().getUserId());
         this.setState({ externalTemp: response.temp });
         this.setState({ internalTemp: response.currentTemp });
     }

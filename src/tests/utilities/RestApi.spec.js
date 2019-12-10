@@ -1,19 +1,14 @@
 import base64 from 'base-64';
 import fetchMock from 'fetch-mock';
-import ApiRequests from '../../utilities/RestApi';
-import {useState} from '../../TestState';
+import {getBearerToken, getGarageStatus, updateGarageState, toggleGarageDoor, getSumpLevels, getCurrentTemperature, getUserPreferences, updateUserPreferences} from '../../utilities/RestApi';
+import {getStore} from '../../TestState';
 
 describe('RestApi', () => {
-    let restApi;
     const username = 'fakeUser';
     const password = 'fakepass';
     const userId = "f250b5e4-fcf3-11e9-8f0b-362b9e155667";
     const fakeBearerToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZjI1MGI1ZTQtZmNmMy0xMWU5LThmMGItMzYyYjllMTU1NjY3In0.WdrU1SRBkvDh_TbhEZTXnywdtBnz1XsaMY-G95ntCU8";
     const credentials = username + ":" + password;
-
-    beforeEach(() => {
-        restApi = new ApiRequests();
-    });
 
     it('should make rest call to login api using auth header', async () => {
         const response = { 'bearerToken': fakeBearerToken };
@@ -26,7 +21,7 @@ describe('RestApi', () => {
             };
         });
 
-        const actual = await restApi.getBearerToken(username, password);
+        const actual = await getBearerToken(username, password);
         expect(actual).toBeTruthy();
     });
 
@@ -38,8 +33,8 @@ describe('RestApi', () => {
             return { status: 400 };
         });
 
-        await restApi.getBearerToken(username, password);
-        expect(useState().getBearerToken()).toEqual(fakeBearerToken);
+        await getBearerToken(username, password);
+        expect(getStore().getBearerToken()).toEqual(fakeBearerToken);
     });
 
     it('should store user id after successful login', async () => {
@@ -50,8 +45,8 @@ describe('RestApi', () => {
             return { status: 400 };
         });
 
-        await restApi.getBearerToken(username, password);
-        expect(useState().getUserId()).toEqual(userId);
+        await getBearerToken(username, password);
+        expect(getStore().getUserId()).toEqual(userId);
     });
 
     describe('after successful login', () => {
@@ -59,7 +54,7 @@ describe('RestApi', () => {
         const bearerToken2 = 'abc123';
 
         beforeEach(() => {
-            state = useState();
+            state = getStore();
             state.state.bearerToken = bearerToken2;
         });
 
@@ -71,7 +66,7 @@ describe('RestApi', () => {
                 return { status: 400 };
             });
 
-            const actual = await restApi.getGarageStatus();
+            const actual = await getGarageStatus();
             expect(actual.isGarageOpen).toEqual(true);
         });
 
@@ -83,7 +78,7 @@ describe('RestApi', () => {
                 return { status: 400 };
             });
 
-            const actual = await restApi.updateGarageState(false);
+            const actual = await updateGarageState(false);
             expect(actual.garageDoorOpen).toEqual(false);
         });
 
@@ -94,7 +89,7 @@ describe('RestApi', () => {
                 return { status: 400 };
             });
 
-            const actual = await restApi.toggleGarageDoor();
+            const actual = await toggleGarageDoor();
             expect(actual.status).toEqual(200);
         });
 
@@ -108,7 +103,7 @@ describe('RestApi', () => {
                 return { status: 400 };
             });
 
-            const actual = await restApi.getSumpLevels(userId);
+            const actual = await getSumpLevels(userId);
             expect(actual.currentDepth).toEqual(expectedDepth);
         })
 
@@ -122,7 +117,7 @@ describe('RestApi', () => {
                 return { status: 400 };
             });
 
-            const actual = await restApi.getCurrentTemperature(userId);
+            const actual = await getCurrentTemperature(userId);
             expect(actual.currentTemp).toEqual(expectedTemp);
         });
 
@@ -136,7 +131,7 @@ describe('RestApi', () => {
                 return { status: 400 };
             });
 
-            const actual = await restApi.getUserPreferences(userId);
+            const actual = await getUserPreferences(userId);
             expect(actual.unit).toEqual(expectedUnit);
         });
 
@@ -148,7 +143,7 @@ describe('RestApi', () => {
                 return { status: 400 };
             });
 
-            const actual = await restApi.updateUserPreferences(userId, true, 'Praha');
+            const actual = await updateUserPreferences(userId, true, 'Praha');
 
             expect(actual.status).toEqual(200);
         });

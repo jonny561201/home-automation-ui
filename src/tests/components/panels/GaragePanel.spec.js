@@ -1,23 +1,27 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import * as lib from '../../../utilities/RestApi';
 import GaragePanel from "../../../components/panels/GaragePanel";
 
 describe('GaragePanel', () => {
     let garagePanel;
-    const mockGetStatus = jest.fn(() => 'true');
-    const mockUpdateState = jest.fn();
-    const mockToggleDoor = jest.fn();
-    const mockRequests = {
-        getGarageStatus: mockGetStatus,
-        updateGarageState: mockUpdateState,
-        toggleGarageDoor: mockToggleDoor,
-    };
+    const spyGet = jest.spyOn(lib, 'getGarageStatus');
+    const spyUpdate = jest.spyOn(lib, 'updateGarageState');
+    const spyToggle = jest.spyOn(lib, 'toggleGarageDoor');
+    // const mockGetStatus = jest.fn(() => 'true');
+    // const mockUpdateState = jest.fn();
+    // const mockToggleDoor = jest.fn();
+    // const mockRequests = {
+    //     getGarageStatus: mockGetStatus,
+    //     updateGarageState: mockUpdateState,
+    //     toggleGarageDoor: mockToggleDoor,
+    // };
 
     beforeEach(() => {
-        mockToggleDoor.mockClear();
-        mockGetStatus.mockClear();
-        mockUpdateState.mockClear();
-        garagePanel = shallow(<GaragePanel apiRequests={mockRequests} />);
+        // mockToggleDoor.mockClear();
+        // mockGetStatus.mockClear();
+        // mockUpdateState.mockClear();
+        garagePanel = shallow(<GaragePanel />);
     });
 
     it('should show the Garage Panel', () => {
@@ -43,7 +47,7 @@ describe('GaragePanel', () => {
     describe('ComponentDidMount', () => {
 
         it('should make api call to get status', () => {
-            expect(mockGetStatus).toHaveBeenCalledTimes(1);
+            expect(spyGet).toHaveBeenCalledTimes(1);
         });
 
         // it('should store garage status in state', async () => {
@@ -95,17 +99,17 @@ describe('GaragePanel', () => {
 
         it('should call open function with false when closing', () => {
             garagePanel.instance().openGarageDoor(false);
-            expect(mockUpdateState).toBeCalledWith(false);
+            expect(spyUpdate).toBeCalledWith(false);
         });
 
         it('should call open function with true when opening', () => {
             garagePanel.instance().openGarageDoor(true);
-            expect(mockUpdateState).toBeCalledWith(true);
+            expect(spyUpdate).toBeCalledWith(true);
         });
 
         it('should call toggle function', () => {
             garagePanel.instance().toggleGarageDoor();
-            expect(mockToggleDoor).toHaveBeenCalledTimes(1);
+            expect(spyToggle).toHaveBeenCalledTimes(1);
         });
     });
 });

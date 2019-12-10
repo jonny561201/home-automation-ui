@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import './UserPass.css';
-import { useState } from '../../TestState';
+import {getBearerToken} from '../../utilities/RestApi'
+import { getStore } from '../../TestState';
 
 
 export default class UserPass extends Component {
@@ -25,11 +26,11 @@ export default class UserPass extends Component {
 
     getBearerTokenFromLogin = async () => {
         if (this.state.isUsernameInvalid === false && this.state.isPasswordInvalid === false) {
-            const response = await this.props.apiRequests.getBearerToken(this.state.username, this.state.password);
+            const response = await getBearerToken(this.state.username, this.state.password);
             this.setState({ isValidLogin: response });
-            if (this.props.apiRequests.bearerToken != null) {
+            if (getStore().getBearerToken() != null) {
                 this.setState({ receivedToken: true, isValidLogin: response });
-                useState().updateAuth(true);
+                getStore().updateAuth(true);
             }
         }
     }

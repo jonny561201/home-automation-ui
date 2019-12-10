@@ -1,4 +1,4 @@
-import {useState} from '../TestState';
+import {getStore} from '../TestState';
 
 
 describe('TestState', () => {
@@ -8,7 +8,7 @@ describe('TestState', () => {
         const activePage = "testPage";
 
         beforeEach(() => {
-            state = useState()
+            state = getStore()
         });
 
         it('should set active page', () => {
@@ -27,7 +27,7 @@ describe('TestState', () => {
         let state;
 
         beforeEach(() => {
-            state = useState();
+            state = getStore();
         });
 
         it('should update the authorization to true', () => {
@@ -51,7 +51,7 @@ describe('TestState', () => {
         const bearerToken = 'ImAFakeBearerToken';
 
         beforeEach(() => {
-            state = useState();
+            state = getStore();
         });
 
         it('should set bearer token', () => {
@@ -70,7 +70,7 @@ describe('TestState', () => {
         const userId = 'fakeUserId';
 
         beforeEach(() => {
-            state = useState();
+            state = getStore();
         });
 
         it('should set the user Id', () => {

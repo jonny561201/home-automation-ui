@@ -43,7 +43,7 @@ class TestState {
 
 let currentState = null;
 
-export const useState = () => {
+export const getStore = () => {
     if (currentState === null) {
         currentState = new TestState();
     }

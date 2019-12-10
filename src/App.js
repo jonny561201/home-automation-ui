@@ -4,28 +4,19 @@ import './App.css';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Settings from './pages/Settings';
-import ApiRequests from './utilities/RestApi';
-import { useState } from './TestState';
+import { getStore } from './TestState';
 
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.apiRequests = new ApiRequests();
-  }
-
-
-  render() {
-    return (
-      <Router>
-        <header className="App-header">
-          <Route exact path="/" render={() => <Login apiRequests={this.apiRequests} />} />
-          {useState().isAuthenticated &&
-            <Route exact path="/home" render={() => <Home apiRequests={this.apiRequests} />} />
-          }
-          <Route exact path="/settings" render={() => <Settings apiRequests={this.apiRequests} />} />
-        </header>
-      </Router>
-    );
-  }
+export default function App() {
+  return (
+    <Router>
+      <header className="App-header">
+        <Route exact path="/" render={() => <Login />} />
+        {getStore().isAuthenticated &&
+          <Route exact path="/home" render={() => <Home />} />
+        }
+        <Route exact path="/settings" render={() => <Settings />} />
+      </header>
+    </Router>
+  );
 }

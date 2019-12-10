@@ -1,20 +1,24 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import * as lib from '../../../utilities/RestApi';
+import {getStore} from '../../../TestState';
 import BasementPanel from '../../../components/panels/BasementPanel';
 
 describe('BasementPanel', () => {
 
     let basementPanel;
     const fakeUserId = "fakeUserId";
-    const mockGetSump = jest.fn();
-    const mockRequests = {
-        getSumpLevels: mockGetSump,
-        userId: fakeUserId,
-    };
+    const spyGet = jest.spyOn(lib, 'getSumpLevels');
+    // const mockGetSump = jest.fn();
+    // const mockRequests = {
+    //     getSumpLevels: mockGetSump,
+    //     userId: fakeUserId,
+    // };
 
     beforeEach(() => {
-        mockGetSump.mockClear();
-        basementPanel = shallow(<BasementPanel apiRequests={mockRequests} />);
+        getStore().setUserId(fakeUserId);
+        spyGet.mockClear();
+        basementPanel = shallow(<BasementPanel />);
     });
 
     it('should show the Basement Panel', () => {
@@ -35,8 +39,8 @@ describe('BasementPanel', () => {
         });
 
         it('should make call to get sump pump depth', () => {
-            expect(mockGetSump).toHaveBeenCalledTimes(1);
-            expect(mockGetSump).toBeCalledWith(fakeUserId);
+            expect(spyGet).toHaveBeenCalledTimes(1);
+            expect(spyGet).toBeCalledWith(fakeUserId);
         });
 
         it('should display current sump depth text', () => {

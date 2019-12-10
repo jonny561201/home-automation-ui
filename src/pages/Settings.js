@@ -2,13 +2,14 @@ import React from 'react';
 import Header from '../components/header/Header';
 import './Settings.css'
 import { Divider, TextField, FormControlLabel, RadioGroup, FormControl, FormLabel, Radio } from '@material-ui/core';
-import { useState } from '../TestState';
+import { getStore } from '../TestState';
+import {getUserPreferences, updateUserPreferences} from '../utilities/RestApi';
 
 
 export default class Settings extends React.Component {
     constructor(props) {
         super(props);
-        useState().setActivePage('Settings');
+        getStore().setActivePage('Settings');
         this.state = {
             city: null,
             newCity: null,
@@ -21,8 +22,7 @@ export default class Settings extends React.Component {
     }
 
     componentDidMount = async () => {
-        const userId = this.props.apiRequests.userId;
-        const response = await this.props.apiRequests.getUserPreferences(userId);
+        const response = await getUserPreferences(getStore().getUserId());
         this.setState({ city: response.city, unit: response.unit, newCity: response.city, newUnit: response.unit });
     }
 
@@ -32,7 +32,7 @@ export default class Settings extends React.Component {
 
     savePreferences = () => {
         const isFahrenheit = this.state.newUnit === "imperial";
-        this.props.apiRequests.updateUserPreferences(this.props.apiRequests.userId, isFahrenheit, this.state.newCity);
+        updateUserPreferences(getStore().getUserId(), isFahrenheit, this.state.newCity);
         this.toggleEditMode();
         this.setState({ edited: false, city: this.state.newCity, unit: this.state.newUnit });
     }

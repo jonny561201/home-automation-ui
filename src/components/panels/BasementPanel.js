@@ -4,6 +4,8 @@ import BasementIcon from '../../resources/BasementIcon.jpg';
 import SumpPumpIcon from '../../resources/SumpPumpIcon.png';
 import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, Divider } from '@material-ui/core';
 import './BasementPanel.css';
+import {getSumpLevels} from '../../utilities/RestApi';
+import {getStore} from '../../TestState';
 
 
 export default class BasementPanel extends React.Component {
@@ -17,7 +19,7 @@ export default class BasementPanel extends React.Component {
     }
 
     componentDidMount = async () => {
-        const response = await this.props.apiRequests.getSumpLevels(this.props.apiRequests.userId);
+        const response = await getSumpLevels(getStore().getUserId());
         this.setState({ warningLevel: response.warningLevel });
         this.setState({ currentSumpDepth: response.currentDepth });
         this.setState({ averageSumpDepth: response.averageDepth });

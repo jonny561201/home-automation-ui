@@ -3,6 +3,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import GarageIcon from '../../resources/GarageDoorIcon.jpg';
 import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, ExpansionPanelActions, Divider } from '@material-ui/core';
 import './GaragePanel.css';
+import {getGarageStatus, toggleGarageDoor, updateGarageState} from '../../utilities/RestApi';
 
 
 export default class GaragePanel extends React.Component {
@@ -14,16 +15,16 @@ export default class GaragePanel extends React.Component {
     }
 
     componentDidMount = async () => {
-        const garageStatus = await this.props.apiRequests.getGarageStatus();
+        const garageStatus = await getGarageStatus();
         this.setState({ isGarageOpen: JSON.stringify(garageStatus.isGarageOpen) });
     }
 
     openGarageDoor = async (shouldOpen) => {
-        await this.props.apiRequests.updateGarageState(shouldOpen);
+        await updateGarageState(shouldOpen);
     };
 
     toggleGarageDoor = async () => {
-        await this.props.apiRequests.toggleGarageDoor();
+        await toggleGarageDoor();
     };
 
     render() {

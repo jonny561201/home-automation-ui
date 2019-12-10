@@ -5,17 +5,18 @@ import TemperaturePanel from './TemperaturePanel';
 import LightingPanel from './LightingPanel';
 import SecurityPanel from './SecurityPanel';
 
+
 export default function DashboardPanel(props) {
     return (
         <div>
             <div className="panel">
-                <GaragePanel apiRequests={props.apiRequests} />
+                <GaragePanel />
             </div>
             <div className="panel">
-                <BasementPanel apiRequests={props.apiRequests} />
+                <BasementPanel />
             </div>
             <div className="panel">
-                <TemperaturePanel apiRequests={props.apiRequests} />
+                <TemperaturePanel />
             </div>
             <div className="panel">
                 <LightingPanel />

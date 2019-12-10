@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './AccountSettings.css';
-import { useState } from '../../TestState';
+import { getStore } from '../../TestState';
 
 
 export default function AccountSettings(props) {
     return (
         <div className="account-menu">
-            <ul>{useState().getActivePage() === 'Home'
+            <ul>{getStore().getActivePage() === 'Home'
                 ? <Link to='/settings'>
                     <li><div className="account-button">Settings</div></li>
                 </Link>
