@@ -293,15 +293,26 @@ describe('Settings Page', () => {
             expect(actual).toEqual(expectedCity);
         });
 
-        it('should reset the state of unit when cancelled', async () => {
+        it('should reset the state of temp unit when cancelled', async () => {
             const expectedTempUnit = 'fahrenheit';
             settings.state().tempUnit = expectedTempUnit
-            settings.state().newTempUnit = 'metric'
+            settings.state().newTempUnit = 'celsius'
             settings.instance().forceUpdate();
             await settings.instance().cancelPreferences();
 
             const actual = settings.state().newTempUnit
             expect(actual).toEqual(expectedTempUnit);
+        });
+
+        it('should reset the state of measure unit when cancelled', async () => {
+            const expectedMeasureUnit = 'imperial';
+            settings.state().measureUnit = expectedMeasureUnit
+            settings.state().newMeasureUnit = 'metric'
+            settings.instance().forceUpdate();
+            await settings.instance().cancelPreferences();
+
+            const actual = settings.state().newMeasureUnit
+            expect(actual).toEqual(expectedMeasureUnit);
         });
 
         it('should reset the state of isEditMode when cancelled', async () => {

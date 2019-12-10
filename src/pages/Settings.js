@@ -43,7 +43,7 @@ export default class Settings extends React.Component {
     }
 
     cancelPreferences = () => {
-        this.setState({ newCity: this.state.city, newTempUnit: this.state.tempUnit });
+        this.setState({ newCity: this.state.city, newTempUnit: this.state.tempUnit, newMeasureUnit: this.state.measureUnit });
         this.toggleEditMode();
     }
 
