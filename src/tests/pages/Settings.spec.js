@@ -157,7 +157,8 @@ describe('Settings Page', () => {
 
     describe('ComponentDidMount', () => {
         const expectedCity = 'Venice';
-        const expectedUnit = 'fahrenheit';
+        const expectedTempUnit = 'fahrenheit';
+        const expectedMeasureUnit = 'imperial';
 
         it('should make api call to get preferences', () => {
             expect(spyGet).toHaveBeenCalledTimes(1);
@@ -178,24 +179,25 @@ describe('Settings Page', () => {
         });
 
         it('should default newTempUnit to value from response', async () => {
-            const response = { temp_unit: expectedUnit };
+            const response = { temp_unit: expectedTempUnit };
             spyGet.mockReturnValue(response);
             settings.instance().forceUpdate();
             await settings.instance().componentDidMount();
 
             const actual = settings.state();
-            expect(actual.newTempUnit).toEqual(expectedUnit);
+            expect(actual.newTempUnit).toEqual(expectedTempUnit);
         });
 
         it('should store the response of getting the preferences in state', async () => {
-            const response = { city: expectedCity, temp_unit: expectedUnit };
+            const response = { city: expectedCity, temp_unit: expectedTempUnit, measure_unit: expectedMeasureUnit };
             spyGet.mockReturnValue(response);
             settings.instance().forceUpdate();
             await settings.instance().componentDidMount();
 
             const actual = settings.state();
             expect(actual.city).toEqual(expectedCity);
-            expect(actual.tempUnit).toEqual(expectedUnit);
+            expect(actual.tempUnit).toEqual(expectedTempUnit);
+            expect(actual.measureUnit).toEqual(expectedMeasureUnit);
         });
     });
 
