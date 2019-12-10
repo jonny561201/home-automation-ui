@@ -75,6 +75,8 @@ export default class Settings extends React.Component {
                                 <div className="settings-row">
                                     <TextField variant="outlined" label="City" value={this.state.newCity} onChange={this.updateCity} />
                                 </div>
+                                <h2>Measurement</h2>
+                                <Divider />
                             </div>
                             <Divider />
                             <button className="submit" disabled={!this.state.edited} onClick={this.savePreferences}>Save</button>

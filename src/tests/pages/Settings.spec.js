@@ -123,6 +123,11 @@ describe('Settings Page', () => {
             const actual = settings.find('h2').at(0).text();
             expect(actual).toEqual('Temperature');
         });
+
+        it('should display the Measurement header', () => {
+            const actual = settings.find('h2').at(1).text();
+            expect(actual).toEqual('Measurement');
+        });
     })
 
     describe('ComponentDidMount', () => {
