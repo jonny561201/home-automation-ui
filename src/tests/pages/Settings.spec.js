@@ -61,23 +61,23 @@ describe('Settings Page', () => {
             expect(actual).toEqual('Edit');
         });
 
-        it('should display the unit text', () => {
-            const actual = settings.find('.unit').at(0).text();
+        it('should display the unit text for temperature', () => {
+            const actual = settings.find('.temp-unit').at(0).text();
             expect(actual).toEqual('Unit:');
         });
 
         it('should display the fahrenheit setting stored in state', () => {
-            const actual = settings.find('.unit').at(1).text();
+            const actual = settings.find('.temp-unit').at(1).text();
             expect(actual).toEqual(unitMeasure);
         });
 
-        it('should display the city text', () => {
-            const actual = settings.find('.city').at(0).text();
+        it('should display the city text for temperature', () => {
+            const actual = settings.find('.temp-city').at(0).text();
             expect(actual).toEqual('City:');
         });
 
         it('should display the currently city setting stored in state', () => {
-            const actual = settings.find('.city').at(1).text();
+            const actual = settings.find('.temp-city').at(1).text();
             expect(actual).toEqual(city);
         });
 
@@ -89,6 +89,11 @@ describe('Settings Page', () => {
         it('should display the Measurement header', () => {
             const actual = settings.find('h2').at(1).text();
             expect(actual).toEqual('Measurement');
+        });
+
+        it('should display the unit text for measurement', () => {
+            const actual = settings.find('.measure-unit').at(0).text();
+            expect(actual).toEqual('Unit:');
         });
     });
 
