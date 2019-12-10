@@ -1,14 +1,12 @@
 import React from 'react';
 import Home from '../../pages/Home';
 import { shallow } from 'enzyme';
-import {getStore} from '../../TestState';
+import { getStore } from '../../TestState';
 
 describe('Home', () => {
     let home;
-    const mockUpdatePage = jest.fn();
 
     beforeEach(() => {
-        mockUpdatePage.mockClear();
         home = shallow(<Home />);
     });
 
@@ -28,6 +26,6 @@ describe('Home', () => {
     });
 
     it('should set the active page to Home', () => {
-        expect(getStore().state.activePage).toEqual('Home');
+        expect(getStore().state.activePage).toEqual('Home Automation');
     });
 });

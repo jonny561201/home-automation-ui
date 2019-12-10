@@ -1,11 +1,14 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Header from '../../../components/header/Header';
+import { getStore } from '../../../TestState';
 
 describe('HeaderComponent', () => {
     let header;
+    const expectedPage = 'Home Automation';
 
     beforeEach(() => {
+        getStore().setActivePage(expectedPage);
         header = shallow(<Header />)
     });
 
@@ -16,7 +19,7 @@ describe('HeaderComponent', () => {
 
     it('should display header text', () => {
         const actual = header.find('h1').text();
-        expect(actual).toEqual('Home Automation');
+        expect(actual).toEqual(expectedPage);
     });
 
     it('should display company logo', () => {

@@ -6,8 +6,8 @@ import { getStore } from '../TestState';
 
 
 export default function Home() {
-    getStore().setActivePage('Home');
-    
+    getStore().setActivePage('Home Automation');
+
     return (
         <div className="home-main" >
             <Header />
