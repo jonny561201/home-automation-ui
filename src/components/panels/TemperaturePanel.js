@@ -3,8 +3,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import TemperatureIcon from '../../resources/TemperatureIcon.jpg';
 import { ExpansionPanel, Typography, ExpansionPanelSummary, Divider } from '@material-ui/core';
 import './TemperaturePanel.css';
-import {getCurrentTemperature} from '../../utilities/RestApi';
-import {getStore} from '../../TestState';
+import { getCurrentTemperature } from '../../utilities/RestApi';
+import { getStore } from '../../TestState';
 
 
 export default class TemperaturePanel extends React.Component {

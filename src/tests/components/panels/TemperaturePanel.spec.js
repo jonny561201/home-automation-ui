@@ -1,16 +1,19 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import * as lib from '../../../utilities/RestApi';
+import { getStore } from '../../../TestState';
 import TemperaturePanel from '../../../components/panels/TemperaturePanel';
+
 
 describe('TemperaturePanel', () => {
     let tempPanel;
     let userId = 'fakeUserId'
-    let mockRequests = jest.fn();
-    let apiRequests = { getCurrentTemperature: mockRequests, userId: userId };
+    const spyGet = jest.spyOn(lib, 'getCurrentTemperature');
 
     beforeEach(() => {
-        mockRequests.mockClear();
-        tempPanel = shallow(<TemperaturePanel apiRequests={apiRequests} />);
+        getStore().setUserId(userId);
+        spyGet.mockClear();
+        tempPanel = shallow(<TemperaturePanel />);
     });
 
     it('should display temperature panel', () => {
@@ -29,8 +32,8 @@ describe('TemperaturePanel', () => {
         const externalTemp = 32.7;
 
         it('should make api to get current weather', () => {
-            expect(mockRequests).toHaveBeenCalledTimes(1);
-            expect(mockRequests).toBeCalledWith(userId);
+            expect(spyGet).toHaveBeenCalledTimes(1);
+            expect(spyGet).toBeCalledWith(userId);
         });
 
         it('should show the internal temperature', () => {

@@ -3,24 +3,17 @@ import { shallow } from 'enzyme';
 import * as lib from '../../../utilities/RestApi';
 import GaragePanel from "../../../components/panels/GaragePanel";
 
+
 describe('GaragePanel', () => {
     let garagePanel;
     const spyGet = jest.spyOn(lib, 'getGarageStatus');
     const spyUpdate = jest.spyOn(lib, 'updateGarageState');
     const spyToggle = jest.spyOn(lib, 'toggleGarageDoor');
-    // const mockGetStatus = jest.fn(() => 'true');
-    // const mockUpdateState = jest.fn();
-    // const mockToggleDoor = jest.fn();
-    // const mockRequests = {
-    //     getGarageStatus: mockGetStatus,
-    //     updateGarageState: mockUpdateState,
-    //     toggleGarageDoor: mockToggleDoor,
-    // };
 
     beforeEach(() => {
-        // mockToggleDoor.mockClear();
-        // mockGetStatus.mockClear();
-        // mockUpdateState.mockClear();
+        spyGet.mockClear();
+        spyUpdate.mockClear();
+        spyToggle.mockClear();
         garagePanel = shallow(<GaragePanel />);
     });
 

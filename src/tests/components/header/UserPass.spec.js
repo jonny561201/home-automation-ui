@@ -1,20 +1,17 @@
-
 import React from 'react';
 import { shallow } from 'enzyme';
+import * as lib from '../../../utilities/RestApi';
+import { getStore } from '../../../TestState';
 import UserPass from '../../../components/header/UserPass';
 
 
 describe('UserPass', () => {
     let userPass;
-    let mockBearerToken = jest.fn();
-    const mockApi = jest.fn();
-    const mockRequests = { getBearerToken: mockApi, bearerToken: mockBearerToken }
-    const updateAuth = () => { };
+    const spyBearer = jest.spyOn(lib, 'getBearerToken');
 
     beforeEach(() => {
-        mockApi.mockClear();
-        mockBearerToken.mockClear();
-        userPass = shallow(<UserPass updateAuth={updateAuth} apiRequests={mockRequests} />);
+        spyBearer.mockClear();
+        userPass = shallow(<UserPass />);
     });
 
     it('renders', () => {
@@ -127,14 +124,14 @@ describe('UserPass', () => {
         });
 
         it('should set isValidLogin to false when non 200', async () => {
-            mockApi.mockReturnValue(false);
+            spyBearer.mockReturnValue(false);
 
             await instance.getBearerTokenFromLogin();
             expect(userPass.state().isValidLogin).toEqual(false);
         });
 
         it('should set the receivedToken to true once a bearer token is set', async () => {
-            mockBearerToken.mockReturnValue('FakeBearerToken');
+            getStore().setBearerToken('FakeBearerToken')
 
             await instance.getBearerTokenFromLogin();
             expect(userPass.state().receivedToken).toBeTruthy();
@@ -146,7 +143,7 @@ describe('UserPass', () => {
 
             instance.validateCredentials(event);
 
-            expect(mockApi).toHaveBeenCalledTimes(1);
+            expect(spyBearer).toHaveBeenCalledTimes(1);
         });
 
         it('should not make call to get bearer token when user invalid', () => {
@@ -155,7 +152,7 @@ describe('UserPass', () => {
 
             instance.validateCredentials(event);
 
-            expect(mockApi).toHaveBeenCalledTimes(0);
+            expect(spyBearer).toHaveBeenCalledTimes(0);
         });
 
         it('should not make call to get bearer token when password invalid', () => {
@@ -164,7 +161,7 @@ describe('UserPass', () => {
 
             instance.validateCredentials(event);
 
-            expect(mockApi).toHaveBeenCalledTimes(0);
+            expect(spyBearer).toHaveBeenCalledTimes(0);
         });
 
         it('should not make call to get bearer token when user and pass invalid', () => {
@@ -173,7 +170,7 @@ describe('UserPass', () => {
 
             instance.validateCredentials(event);
 
-            expect(mockApi).toHaveBeenCalledTimes(0);
+            expect(spyBearer).toHaveBeenCalledTimes(0);
         });
 
         it('should make call to prevent defaults', () => {

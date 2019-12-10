@@ -1,7 +1,7 @@
 import base64 from 'base-64';
 import fetchMock from 'fetch-mock';
-import {getBearerToken, getGarageStatus, updateGarageState, toggleGarageDoor, getSumpLevels, getCurrentTemperature, getUserPreferences, updateUserPreferences} from '../../utilities/RestApi';
-import {getStore} from '../../TestState';
+import { getBearerToken, getGarageStatus, updateGarageState, toggleGarageDoor, getSumpLevels, getCurrentTemperature, getUserPreferences, updateUserPreferences } from '../../utilities/RestApi';
+import { getStore } from '../../TestState';
 
 describe('RestApi', () => {
     const username = 'fakeUser';
