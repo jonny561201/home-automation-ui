@@ -1,6 +1,6 @@
 import React from 'react';
 import Settings from '../../pages/Settings'
-import { FormControlLabel, TextField } from '@material-ui/core';
+import { FormControlLabel, TextField, RadioGroup } from '@material-ui/core';
 import { shallow } from 'enzyme';
 import * as lib from '../../utilities/RestApi';
 import { getStore } from '../../TestState';
@@ -121,9 +121,13 @@ describe('Settings Page', () => {
             expect(actual).toEqual('Cancel');
         });
 
-        it('should display the radio buttons for imperial and metric', () => {
-            const actual = settings.find(FormControlLabel);
+        it('should display the radio buttons for celsius and fahrenheit', () => {
+            const actualGroup = settings.find(RadioGroup).at(0);
+            const actual = actualGroup.find(FormControlLabel);
+
             expect(actual).toHaveLength(2);
+            expect(actual.at(0).props()).toHaveProperty('label', 'Fahrenheit');
+            expect(actual.at(1).props()).toHaveProperty('label', 'Celcius');
         });
 
         it('should display city input textbox', () => {
@@ -139,6 +143,15 @@ describe('Settings Page', () => {
         it('should display the Measurement header', () => {
             const actual = settings.find('h2').at(1).text();
             expect(actual).toEqual('Measurement');
+        });
+
+        it('should display the radio buttons for imperial and metric', () => {
+            const actualGroup = settings.find(RadioGroup).at(1);
+            const actual = actualGroup.find(FormControlLabel);
+
+            expect(actual.find(FormControlLabel)).toHaveLength(2);
+            expect(actual.at(0).props()).toHaveProperty('label', 'Imperial');
+            expect(actual.at(1).props()).toHaveProperty('label', 'Metric');
         });
     })
 

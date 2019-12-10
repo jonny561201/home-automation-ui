@@ -18,6 +18,7 @@ export default class Settings extends React.Component {
             tempUnit: null,
             newTempUnit: null,
             measureUnit: null,
+            newMeasureUnit: null,
             edited: false,
         }
     }
@@ -68,8 +69,8 @@ export default class Settings extends React.Component {
                                     <FormControl>
                                         <FormLabel component="legend">Unit</FormLabel>
                                         <RadioGroup label="Unit:">
-                                            <FormControlLabel onChange={this.updateRadioButton} value="imperial" checked={this.state.newTempUnit === "imperial"} control={<Radio color="primary" />} label="Imperial" />
-                                            <FormControlLabel onChange={this.updateRadioButton} value="metric" checked={this.state.newTempUnit === "metric"} control={<Radio color="primary" />} label="Metric" />
+                                            <FormControlLabel onChange={this.updateRadioButton} value="fahrenheit" checked={this.state.newTempUnit === "fahrenheit"} control={<Radio color="primary" />} label="Fahrenheit" />
+                                            <FormControlLabel onChange={this.updateRadioButton} value="celcius" checked={this.state.newTempUnit === "celcius"} control={<Radio color="primary" />} label="Celcius" />
                                         </RadioGroup>
                                     </FormControl>
                                 </div>
@@ -78,6 +79,15 @@ export default class Settings extends React.Component {
                                 </div>
                                 <h2>Measurement</h2>
                                 <Divider />
+                                <div className="settings-row">
+                                    <FormControl>
+                                        <FormLabel component="legend">Unit</FormLabel>
+                                        <RadioGroup label="Unit:">
+                                            <FormControlLabel value="imperial" checked={this.state.newMeasureUnit === "imperial"} control={<Radio color="primary" />} label="Imperial" />
+                                            <FormControlLabel value="metric" checked={this.state.newMeasureUnit === "metric"} control={<Radio color="primary" />} label="Metric" />
+                                        </RadioGroup>
+                                    </FormControl>
+                                </div>
                             </div>
                             <Divider />
                             <button className="submit" disabled={!this.state.edited} onClick={this.savePreferences}>Save</button>
