@@ -8,6 +8,7 @@ describe('AccountSettings', () => {
     let accountSettings;
 
     beforeEach(() => {
+        getStore().updateAuth(true);
         accountSettings = shallow(<AccountSettings />);
     });
 
@@ -30,5 +31,11 @@ describe('AccountSettings', () => {
 
         const actual = accountSettings.find('.account-button').at(0).text();
         expect(actual).toEqual('Home');
+    });
+
+    it('should deauthenticate user when click sign out', () => {
+        const test = accountSettings.find('.account-button').at(1).simulate('click');
+        expect(test).toHaveLength(1);
+        expect(getStore().isAuthenticated()).toBeFalsy();
     });
 });

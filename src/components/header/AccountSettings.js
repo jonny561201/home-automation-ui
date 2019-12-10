@@ -15,8 +15,8 @@ export default function AccountSettings(props) {
                     <li><div className="account-button">Home</div></li>
                 </Link>
             }
-                <Link to='/' onClick={() => getStore().updateAuth(false)}>
-                    <li><div className="account-button">Sign Out</div></li>
+                <Link to='/'>
+                    <li><div className="account-button" onClick={() => getStore().updateAuth(false)}>Sign Out</div></li>
                 </Link>
             </ul>
         </div>
