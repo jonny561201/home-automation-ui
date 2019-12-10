@@ -238,12 +238,14 @@ describe('Settings Page', () => {
 
         const expectedCity = 'Berlin';
         const expectedTempUnit = 'celsius';
+        const expectedMeasureUnit = 'imperial';
 
         beforeEach(() => {
             settings.state().edited = true;
+            settings.state().isEditMode = true;
             settings.state().newCity = expectedCity;
             settings.state().newTempUnit = expectedTempUnit;
-            settings.state().isEditMode = true;
+            settings.state().newMeasureUnit = expectedMeasureUnit
             settings.instance().forceUpdate();
         });
 
@@ -268,9 +270,14 @@ describe('Settings Page', () => {
             expect(settings.state().city).toEqual(expectedCity);
         });
 
-        it('should update the unit variable to equal new unit', async () => {
+        it('should update the tempUnit variable to equal new unit', async () => {
             await settings.instance().savePreferences();
             expect(settings.state().tempUnit).toEqual(expectedTempUnit);
+        });
+
+        it('should update the measureUnit variable to equal new unit', async () => {
+            await settings.instance().savePreferences();
+            expect(settings.state().measureUnit).toEqual(expectedMeasureUnit);
         });
     });
 

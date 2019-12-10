@@ -39,7 +39,7 @@ export default class Settings extends React.Component {
         const isFahrenheit = this.state.newTempUnit === "imperial";
         updateUserPreferences(getStore().getUserId(), isFahrenheit, this.state.newCity);
         this.toggleEditMode();
-        this.setState({ edited: false, city: this.state.newCity, tempUnit: this.state.newTempUnit });
+        this.setState({ edited: false, city: this.state.newCity, tempUnit: this.state.newTempUnit, measureUnit: this.state.newMeasureUnit });
     }
 
     cancelPreferences = () => {
@@ -91,8 +91,8 @@ export default class Settings extends React.Component {
                                     <FormControl>
                                         <FormLabel component="legend">Unit</FormLabel>
                                         <RadioGroup label="Unit:">
-                                            <FormControlLabel value="imperial" checked={this.state.newMeasureUnit === "imperial"} control={<Radio color="primary" />} label="Imperial" />
-                                            <FormControlLabel value="metric" checked={this.state.newMeasureUnit === "metric"} control={<Radio color="primary" />} label="Metric" />
+                                            <FormControlLabel onChange={this.updateMeasureRadioButton} value="imperial" checked={this.state.newMeasureUnit === "imperial"} control={<Radio color="primary" />} label="Imperial" />
+                                            <FormControlLabel onChange={this.updateMeasureRadioButton} value="metric" checked={this.state.newMeasureUnit === "metric"} control={<Radio color="primary" />} label="Metric" />
                                         </RadioGroup>
                                     </FormControl>
                                 </div>
