@@ -18,7 +18,7 @@ describe('AccountSettings', () => {
     });
 
     it('should display Settings link when active page is set to home', () => {
-        getStore().setActivePage('Home');
+        getStore().setActivePage('Home Automation');
         accountSettings.setProps({});
 
         const actual = accountSettings.find('.account-button').at(0).text();
