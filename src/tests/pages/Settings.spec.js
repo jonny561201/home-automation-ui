@@ -3,7 +3,7 @@ import Settings from '../../pages/Settings'
 import { FormControlLabel, TextField } from '@material-ui/core';
 import { shallow } from 'enzyme';
 import * as lib from '../../utilities/RestApi';
-import {getStore} from '../../TestState';
+import { getStore } from '../../TestState';
 
 describe('Settings Page', () => {
     let settings;
@@ -22,11 +22,6 @@ describe('Settings Page', () => {
     it('should display logo header', () => {
         const actual = settings.find('Header');
         expect(actual).toHaveLength(1);
-    });
-
-    it('should display Temperature header', () => {
-        const actual = settings.find('h2').text();
-        expect(actual).toEqual('Temperature');
     });
 
     describe('toggleEditMode', () => {
@@ -85,6 +80,16 @@ describe('Settings Page', () => {
             const actual = settings.find('.city').at(1).text();
             expect(actual).toEqual(city);
         });
+
+        it('should display Temperature header', () => {
+            const actual = settings.find('h2').at(0).text();
+            expect(actual).toEqual('Temperature');
+        });
+
+        it('should display the Measurement header', () => {
+            const actual = settings.find('h2').at(1).text();
+            expect(actual).toEqual('Measurement');
+        });
     });
 
     describe('Edit View', () => {
@@ -113,6 +118,11 @@ describe('Settings Page', () => {
             const actual = settings.find(TextField);
             expect(actual).toHaveLength(1);
         })
+
+        it('should display Temperature header', () => {
+            const actual = settings.find('h2').at(0).text();
+            expect(actual).toEqual('Temperature');
+        });
     })
 
     describe('ComponentDidMount', () => {

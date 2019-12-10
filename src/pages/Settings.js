@@ -3,7 +3,7 @@ import Header from '../components/header/Header';
 import './Settings.css'
 import { Divider, TextField, FormControlLabel, RadioGroup, FormControl, FormLabel, Radio } from '@material-ui/core';
 import { getStore } from '../TestState';
-import {getUserPreferences, updateUserPreferences} from '../utilities/RestApi';
+import { getUserPreferences, updateUserPreferences } from '../utilities/RestApi';
 
 
 export default class Settings extends React.Component {
@@ -93,6 +93,10 @@ export default class Settings extends React.Component {
                                 <p className="settings-text city">City:</p>
                                 <p className="settings-text city">{this.state.city}</p>
                             </div>
+                            <div className="settings-wrapper settings-text">
+                                <h2>Measurement</h2>
+                            </div>
+                            <Divider />
                             <Divider />
                             <button onClick={this.toggleEditMode}>Edit</button>
                         </div>

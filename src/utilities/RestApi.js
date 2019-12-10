@@ -9,7 +9,6 @@ const garageStatusUrl = 'http://localhost:5000/garageDoor/status';
 const garageStateUrl = 'http://localhost:5000/garageDoor/state';
 
 export const getBearerToken = async (username, password) => {
-    //make it a cached response where this is the only entry to the bearer token
     const options = { method: 'GET', headers: { 'Authorization': `Basic ${base64.encode(username + ":" + password)}` } };
 
     const response = await fetch(loginUrl, options);
