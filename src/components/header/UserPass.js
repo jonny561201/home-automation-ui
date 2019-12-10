@@ -13,7 +13,6 @@ export default class UserPass extends Component {
             password: undefined,
             isUsernameInvalid: false,
             isPasswordInvalid: false,
-            receivedToken: false,
             isValidLogin: true,
         }
     }
@@ -28,8 +27,7 @@ export default class UserPass extends Component {
         if (this.state.isUsernameInvalid === false && this.state.isPasswordInvalid === false) {
             const response = await getBearerToken(this.state.username, this.state.password);
             this.setState({ isValidLogin: response });
-            if (getStore().getBearerToken() != null) {
-                this.setState({ receivedToken: true, isValidLogin: response });
+            if (response) {
                 getStore().updateAuth(true);
             }
         }
@@ -44,7 +42,7 @@ export default class UserPass extends Component {
     }
 
     render() {
-        if (this.state.receivedToken) {
+        if (getStore().isAuthenticated()) {
             return <Redirect to='/home' />
         }
         return (

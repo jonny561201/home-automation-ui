@@ -16,8 +16,9 @@ export const getBearerToken = async (username, password) => {
     if (response.ok) {
         const jsonResponse = await response.json();
         const bearerToken = jsonResponse.bearerToken;
-        getStore().setBearerToken(bearerToken);
-        getStore().setUserId(jwt_decode(bearerToken).user_id);
+        const dataStore = getStore();
+        dataStore.setBearerToken(bearerToken);
+        dataStore.setUserId(jwt_decode(bearerToken).user_id);
     }
     return response.ok;
 }

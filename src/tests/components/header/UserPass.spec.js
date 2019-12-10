@@ -131,10 +131,11 @@ describe('UserPass', () => {
         });
 
         it('should set the receivedToken to true once a bearer token is set', async () => {
-            getStore().setBearerToken('FakeBearerToken')
+            getStore().setBearerToken('FakeBearerToken');
+            spyBearer.mockReturnValue(true);
 
             await instance.getBearerTokenFromLogin();
-            expect(userPass.state().receivedToken).toBeTruthy();
+            expect(getStore().isAuthenticated()).toBeTruthy();
         });
 
         it('should make call to get bearer token when inputs valid', () => {
