@@ -48,9 +48,14 @@ export default class Settings extends React.Component {
         this.setState({ newCity: input.target.value, edited: true });
     }
 
-    updateRadioButton = (input) => {
+    updateTempRadioButton = (input) => {
         const value = input.target.value;
         this.setState({ newTempUnit: value, edited: true });
+    }
+
+    updateMeasureRadioButton = (input) => {
+        const value = input.target.value;
+        this.setState({ newMeasureUnit: value });
     }
 
     render() {
@@ -69,8 +74,8 @@ export default class Settings extends React.Component {
                                     <FormControl>
                                         <FormLabel component="legend">Unit</FormLabel>
                                         <RadioGroup label="Unit:">
-                                            <FormControlLabel onChange={this.updateRadioButton} value="fahrenheit" checked={this.state.newTempUnit === "fahrenheit"} control={<Radio color="primary" />} label="Fahrenheit" />
-                                            <FormControlLabel onChange={this.updateRadioButton} value="celcius" checked={this.state.newTempUnit === "celcius"} control={<Radio color="primary" />} label="Celcius" />
+                                            <FormControlLabel onChange={this.updateTempRadioButton} value="fahrenheit" checked={this.state.newTempUnit === "fahrenheit"} control={<Radio color="primary" />} label="Fahrenheit" />
+                                            <FormControlLabel onChange={this.updateTempRadioButton} value="celcius" checked={this.state.newTempUnit === "celcius"} control={<Radio color="primary" />} label="Celcius" />
                                         </RadioGroup>
                                     </FormControl>
                                 </div>

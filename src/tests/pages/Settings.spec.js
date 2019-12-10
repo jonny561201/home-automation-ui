@@ -225,12 +225,12 @@ describe('Settings Page', () => {
     describe('savePreferences', () => {
 
         const expectedCity = 'Berlin';
-        const expectedUnit = 'metric';
+        const expectedTempUnit = 'celcius';
 
         beforeEach(() => {
             settings.state().edited = true;
             settings.state().newCity = expectedCity;
-            settings.state().newTempUnit = expectedUnit;
+            settings.state().newTempUnit = expectedTempUnit;
             settings.state().isEditMode = true;
             settings.instance().forceUpdate();
         });
@@ -238,7 +238,7 @@ describe('Settings Page', () => {
         it('should call the updateUserPreferences api rest call', () => {
             settings.instance().savePreferences();
             expect(spyUpdate).toHaveBeenCalledTimes(1);
-            expect(spyUpdate).toBeCalledWith(userId, expectedUnit === 'imperial', expectedCity);
+            expect(spyUpdate).toBeCalledWith(userId, expectedTempUnit === 'imperial', expectedCity);
         });
 
         it('should toggle edit mode after making api call', async () => {
@@ -258,7 +258,7 @@ describe('Settings Page', () => {
 
         it('should update the unit variable to equal new unit', async () => {
             await settings.instance().savePreferences();
-            expect(settings.state().tempUnit).toEqual(expectedUnit);
+            expect(settings.state().tempUnit).toEqual(expectedTempUnit);
         });
     });
 
@@ -275,14 +275,14 @@ describe('Settings Page', () => {
         });
 
         it('should reset the state of unit when cancelled', async () => {
-            const expectedUnit = 'imperial';
-            settings.state().unit = expectedUnit
+            const expectedTempUnit = 'fahrenheit';
+            settings.state().tempUnit = expectedTempUnit
             settings.state().newTempUnit = 'metric'
             settings.instance().forceUpdate();
             await settings.instance().cancelPreferences();
 
             const actual = settings.state().newTempUnit
-            expect(actual).toEqual(expectedUnit);
+            expect(actual).toEqual(expectedTempUnit);
         });
 
         it('should reset the state of isEditMode when cancelled', async () => {
@@ -295,17 +295,26 @@ describe('Settings Page', () => {
         });
     });
 
-    describe('updateRadioButton', () => {
-        const metricUnit = 'metric';
+    describe('updateTempRadioButton', () => {
+        const metricUnit = 'celcius';
 
         it('should set temp unit variable to input value', async () => {
-            await settings.instance().updateRadioButton({ target: { value: metricUnit } });
+            await settings.instance().updateTempRadioButton({ target: { value: metricUnit } });
             expect(settings.state().newTempUnit).toEqual(metricUnit)
         });
 
         it('should set the edited mode to true when toggle radio buttons', async () => {
-            await settings.instance().updateRadioButton({ target: { value: metricUnit } });
+            await settings.instance().updateTempRadioButton({ target: { value: metricUnit } });
             expect(settings.state().edited).toBeTruthy();
+        });
+    });
+
+    describe('updateMeasureRadioButton', () => {
+        const measureUnit = 'imperial';
+
+        it('should set measure unit variable to input value', async () => {
+            await settings.instance().updateMeasureRadioButton({ target: { value: measureUnit } });
+            expect(settings.state().newMeasureUnit).toEqual(measureUnit);
         });
     });
 });
