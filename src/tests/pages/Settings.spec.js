@@ -127,7 +127,7 @@ describe('Settings Page', () => {
 
             expect(actual).toHaveLength(2);
             expect(actual.at(0).props()).toHaveProperty('label', 'Fahrenheit');
-            expect(actual.at(1).props()).toHaveProperty('label', 'Celcius');
+            expect(actual.at(1).props()).toHaveProperty('label', 'Celsius');
         });
 
         it('should display city input textbox', () => {
@@ -157,7 +157,7 @@ describe('Settings Page', () => {
 
     describe('ComponentDidMount', () => {
         const expectedCity = 'Venice';
-        const expectedUnit = 'imperial';
+        const expectedUnit = 'fahrenheit';
 
         it('should make api call to get preferences', () => {
             expect(spyGet).toHaveBeenCalledTimes(1);
@@ -178,7 +178,7 @@ describe('Settings Page', () => {
         });
 
         it('should default newTempUnit to value from response', async () => {
-            const response = { unit: expectedUnit };
+            const response = { temp_unit: expectedUnit };
             spyGet.mockReturnValue(response);
             settings.instance().forceUpdate();
             await settings.instance().componentDidMount();
@@ -188,7 +188,7 @@ describe('Settings Page', () => {
         });
 
         it('should store the response of getting the preferences in state', async () => {
-            const response = { city: expectedCity, unit: expectedUnit };
+            const response = { city: expectedCity, temp_unit: expectedUnit };
             spyGet.mockReturnValue(response);
             settings.instance().forceUpdate();
             await settings.instance().componentDidMount();
@@ -225,7 +225,7 @@ describe('Settings Page', () => {
     describe('savePreferences', () => {
 
         const expectedCity = 'Berlin';
-        const expectedTempUnit = 'celcius';
+        const expectedTempUnit = 'celsius';
 
         beforeEach(() => {
             settings.state().edited = true;
@@ -296,7 +296,7 @@ describe('Settings Page', () => {
     });
 
     describe('updateTempRadioButton', () => {
-        const metricUnit = 'celcius';
+        const metricUnit = 'celsius';
 
         it('should set temp unit variable to input value', async () => {
             await settings.instance().updateTempRadioButton({ target: { value: metricUnit } });

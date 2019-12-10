@@ -25,7 +25,7 @@ export default class Settings extends React.Component {
 
     componentDidMount = async () => {
         const response = await getUserPreferences(getStore().getUserId());
-        this.setState({ city: response.city, tempUnit: response.unit, newCity: response.city, newTempUnit: response.unit });
+        this.setState({ city: response.city, tempUnit: response.temp_unit, newCity: response.city, newTempUnit: response.temp_unit });
     }
 
     toggleEditMode = () => {
@@ -75,7 +75,7 @@ export default class Settings extends React.Component {
                                         <FormLabel component="legend">Unit</FormLabel>
                                         <RadioGroup label="Unit:">
                                             <FormControlLabel onChange={this.updateTempRadioButton} value="fahrenheit" checked={this.state.newTempUnit === "fahrenheit"} control={<Radio color="primary" />} label="Fahrenheit" />
-                                            <FormControlLabel onChange={this.updateTempRadioButton} value="celcius" checked={this.state.newTempUnit === "celcius"} control={<Radio color="primary" />} label="Celcius" />
+                                            <FormControlLabel onChange={this.updateTempRadioButton} value="celsius" checked={this.state.newTempUnit === "celsius"} control={<Radio color="primary" />} label="Celsius" />
                                         </RadioGroup>
                                     </FormControl>
                                 </div>
