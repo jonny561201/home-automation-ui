@@ -188,6 +188,16 @@ describe('Settings Page', () => {
             expect(actual.newTempUnit).toEqual(expectedTempUnit);
         });
 
+        it('should defualt newMeasureUnit to value from response', async () => {
+            const response = { measure_unit: expectedMeasureUnit };
+            spyGet.mockReturnValue(response);
+            settings.instance().forceUpdate();
+            await settings.instance().componentDidMount();
+
+            const actual = settings.state();
+            expect(actual.newMeasureUnit).toEqual(expectedMeasureUnit);
+        });
+
         it('should store the response of getting the preferences in state', async () => {
             const response = { city: expectedCity, temp_unit: expectedTempUnit, measure_unit: expectedMeasureUnit };
             spyGet.mockReturnValue(response);

@@ -27,7 +27,7 @@ export default class Settings extends React.Component {
         const response = await getUserPreferences(getStore().getUserId());
         this.setState({
             city: response.city, tempUnit: response.temp_unit, measureUnit: response.measure_unit,
-            newCity: response.city, newTempUnit: response.temp_unit
+            newMeasureUnit: response.measure_unit, newCity: response.city, newTempUnit: response.temp_unit
         });
     }
 
