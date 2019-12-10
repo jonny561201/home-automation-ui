@@ -249,10 +249,20 @@ describe('Settings Page', () => {
             settings.instance().forceUpdate();
         });
 
-        it('should call the updateUserPreferences api rest call', () => {
+        it('should call the updateUserPreferences api rest call with fahrenheit', () => {
+            settings.state().newTempUnit = 'fahrenheit';
+            settings.instance().forceUpdate();
             settings.instance().savePreferences();
             expect(spyUpdate).toHaveBeenCalledTimes(1);
-            expect(spyUpdate).toBeCalledWith(userId, expectedTempUnit === 'imperial', expectedCity);
+            expect(spyUpdate).toBeCalledWith(userId, true, expectedCity);
+        });
+
+        it('should call the updateUserPreferences api rest call with celsius', () => {
+            settings.state().newTempUnit = expectedTempUnit;
+            settings.instance().forceUpdate();
+            settings.instance().savePreferences();
+            expect(spyUpdate).toHaveBeenCalledTimes(1);
+            expect(spyUpdate).toBeCalledWith(userId, false, expectedCity);
         });
 
         it('should toggle edit mode after making api call', async () => {
