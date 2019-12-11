@@ -5,6 +5,7 @@ import { shallow } from 'enzyme';
 import * as lib from '../../utilities/RestApi';
 import { getStore } from '../../TestState';
 
+
 describe('Settings Page', () => {
     let settings;
     const userId = 'fakeUserId';

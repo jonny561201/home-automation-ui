@@ -37,7 +37,7 @@ export default class Settings extends React.Component {
 
     savePreferences = () => {
         const isFahrenheit = this.state.newTempUnit === "fahrenheit";
-        const isImperial = this.state.newMeasureUnit == "imperial";
+        const isImperial = this.state.newMeasureUnit === "imperial";
         updateUserPreferences(getStore().getUserId(), isFahrenheit, isImperial, this.state.newCity);
         this.toggleEditMode();
         this.setState({ edited: false, city: this.state.newCity, tempUnit: this.state.newTempUnit, measureUnit: this.state.newMeasureUnit });
