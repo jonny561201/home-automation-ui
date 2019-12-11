@@ -70,8 +70,8 @@ export const getUserPreferences = async (userId) => {
     return await response.json();
 }
 
-export const updateUserPreferences = async (userId, isFahrenheit, city) => {
-    const request = { 'isFahrenheit': isFahrenheit, 'city': city }
+export const updateUserPreferences = async (userId, isFahrenheit, isImperial, city) => {
+    const request = { 'isFahrenheit': isFahrenheit, 'city': city, 'isImperial': isImperial }
     const options = {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },

@@ -137,13 +137,13 @@ describe('RestApi', () => {
 
         it('should make rest call to post user preferences', async () => {
             const userId = 'abc12345';
-            const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': { 'isFahrenheit': true, 'city': 'Praha' } }
+            const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': { 'isFahrenheit': true, 'city': 'Praha', 'isImperial': false } }
 
             fetchMock.mock(`http://localhost:5000/userId/${userId}/preferences/update`, options).catch(unmatchedUrl => {
                 return { status: 400 };
             });
 
-            const actual = await updateUserPreferences(userId, true, 'Praha');
+            const actual = await updateUserPreferences(userId, true, true, 'Praha');
 
             expect(actual.status).toEqual(200);
         });

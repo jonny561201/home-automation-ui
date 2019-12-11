@@ -254,7 +254,7 @@ describe('Settings Page', () => {
             settings.instance().forceUpdate();
             settings.instance().savePreferences();
             expect(spyUpdate).toHaveBeenCalledTimes(1);
-            expect(spyUpdate).toBeCalledWith(userId, true, expectedCity);
+            expect(spyUpdate).toBeCalledWith(userId, true, true, expectedCity);
         });
 
         it('should call the updateUserPreferences api rest call with celsius', () => {
@@ -262,7 +262,22 @@ describe('Settings Page', () => {
             settings.instance().forceUpdate();
             settings.instance().savePreferences();
             expect(spyUpdate).toHaveBeenCalledTimes(1);
-            expect(spyUpdate).toBeCalledWith(userId, false, expectedCity);
+            expect(spyUpdate).toBeCalledWith(userId, false, true, expectedCity);
+        });
+        it('should call the updateUserPreferences api rest call with imperial', () => {
+            settings.state().newMeasureUnit = 'imperial';
+            settings.instance().forceUpdate();
+            settings.instance().savePreferences();
+            expect(spyUpdate).toHaveBeenCalledTimes(1);
+            expect(spyUpdate).toBeCalledWith(userId, false, true, expectedCity);
+        });
+
+        it('should call the updateUserPreferences api rest call with metric', () => {
+            settings.state().newMeasureUnit = 'metric';
+            settings.instance().forceUpdate();
+            settings.instance().savePreferences();
+            expect(spyUpdate).toHaveBeenCalledTimes(1);
+            expect(spyUpdate).toBeCalledWith(userId, false, false, expectedCity);
         });
 
         it('should toggle edit mode after making api call', async () => {
