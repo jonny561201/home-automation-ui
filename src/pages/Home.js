@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Header from '../components/header/Header';
 import DashboardPanel from '../components/panels/DashboardPanels';
 import './Home.css';

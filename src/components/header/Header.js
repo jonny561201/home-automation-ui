@@ -15,6 +15,10 @@ export default class Header extends React.Component {
         }
     }
 
+    setWrapperRef = (node) => {
+        this.wrapperRef = node;
+    }
+
     toggleAccountSettings = () => {
         this.setState({ settingsActive: !this.state.settingsActive })
     }
@@ -30,10 +34,12 @@ export default class Header extends React.Component {
                     <div>
                         <h1 className="home-header-text">{this.activePage}</h1>
                     </div>
-                    <Account toggle={this.toggleAccountSettings} />
+                    <div ref={this.setWrapperRef}>
+                        <Account toggle={this.toggleAccountSettings} />
+                    </div>
                 </div>
                 {this.state.settingsActive
-                    ? <AccountSettings />
+                    ? <AccountSettings toggle={this.toggleAccountSettings} parentRef={this.wrapperRef} />
                     : <div></div>
                 }
             </div>
