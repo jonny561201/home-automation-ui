@@ -13,9 +13,11 @@ export default function App() {
       <header className="App-header">
         <Route exact path="/" render={() => <Login />} />
         {getStore().isAuthenticated &&
-          <Route exact path="/home" render={() => <Home />} />
+          <div>
+            <Route exact path="/home" render={() => <Home />} />
+            <Route exact path="/settings" render={() => <Settings />} />
+          </div>
         }
-        <Route exact path="/settings" render={() => <Settings />} />
       </header>
     </Router>
   );
