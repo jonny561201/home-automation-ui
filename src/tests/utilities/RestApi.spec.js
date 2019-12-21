@@ -1,6 +1,10 @@
 import base64 from 'base-64';
 import fetchMock from 'fetch-mock';
-import { getBearerToken, getGarageStatus, updateGarageState, toggleGarageDoor, getSumpLevels, getCurrentTemperature, getUserPreferences, updateUserPreferences } from '../../utilities/RestApi';
+import {
+    getBearerToken, getGarageStatus, updateGarageState,
+    toggleGarageDoor, getSumpLevels, getCurrentTemperature,
+    getUserPreferences, updateUserPreferences, setUserTemperature
+} from '../../utilities/RestApi';
 import { getStore } from '../../TestState';
 
 describe('RestApi', () => {
@@ -119,6 +123,21 @@ describe('RestApi', () => {
 
             const actual = await getCurrentTemperature(userId);
             expect(actual.currentTemp).toEqual(expectedTemp);
+        });
+
+        it('should make rest call to post thermostat temperature', async () => {
+            const desiredTemp = 54.9;
+            const mode = "cooling";
+            const isFahrenheit = true;
+            const body = { 'desiredTemp': desiredTemp, 'mode': mode, 'isFahrenheit': isFahrenheit }
+            const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body }
+
+            fetchMock.mock(`http://localhost:5000/thermostat/temperature/${userId}`, options).catch(unmatchedUrl => {
+                return { status: 400 }
+            })
+
+            const actual = await setUserTemperature(userId, desiredTemp, mode, isFahrenheit)
+            expect(actual.status).toEqual(200);
         });
 
         it('should query the user settings', async () => {

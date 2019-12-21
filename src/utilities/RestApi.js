@@ -62,6 +62,19 @@ export const getCurrentTemperature = async (userId) => {
     return await response.json();
 }
 
+export const setUserTemperature = async (userId, desiredTemp, mode, isFahrenheit) => {
+    const request = { 'desiredTemp': desiredTemp, 'mode': mode, 'isFahrenheit': isFahrenheit }
+    const options = {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
+        body: JSON.stringify(request)
+    };
+
+    const tempUrl = `http://localhost:5000/thermostat/temperature/${userId}`;
+
+    return await fetch(tempUrl, options);
+}
+
 export const getUserPreferences = async (userId) => {
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
 
