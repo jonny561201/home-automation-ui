@@ -61,6 +61,7 @@ describe('TemperaturePanel', () => {
         const heatingColor = "#db5127";
         const coolingMode = "cooling";
         const coolingColor = "#27aedb";
+        const defaultColor = "#A0A0A0";
 
         it('should set mode to the new state provided', async () => {
             await tempPanel.instance().toggleHvac(testMode);
@@ -102,6 +103,13 @@ describe('TemperaturePanel', () => {
             await tempPanel.instance().toggleHvac(coolingMode);
 
             expect(tempPanel.state().displayColor).toEqual(coolingColor);
+        });
+
+        it('should default the display color to dark grey when not heating or cooling', async () => {
+            tempPanel.state().isCooling = true;
+            await tempPanel.instance().toggleHvac(testMode);
+
+            expect(tempPanel.state().displayColor).toEqual(defaultColor);
         });
     });
 });
