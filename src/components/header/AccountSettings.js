@@ -5,9 +5,6 @@ import { getStore } from '../../TestState';
 
 
 export default class AccountSettings extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount = () => {
         document.addEventListener("mousedown", this.handleClickOutside);
