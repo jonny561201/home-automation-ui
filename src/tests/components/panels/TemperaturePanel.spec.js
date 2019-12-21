@@ -57,11 +57,31 @@ describe('TemperaturePanel', () => {
     describe('toggleHvac', () => {
 
         const testMode = "test Mode";
+        const heatingMode = "heating";
+        const heatingColor = "#db5127";
 
         it('should set mode to the new state provided', async () => {
             await tempPanel.instance().toggleHvac(testMode);
 
             expect(tempPanel.state().mode).toEqual(testMode);
+        });
+
+        it('should set heating to true when in heating mode', async () => {
+            await tempPanel.instance().toggleHvac(heatingMode);
+
+            expect(tempPanel.state().isHeating).toBeTruthy();
+        });
+
+        it('should set cooling to false when in heating mode', async () => {
+            await tempPanel.instance().toggleHvac(heatingMode);
+
+            expect(tempPanel.state().isCooling).toBeFalsy()
+        });
+
+        it('should set the color to orange when in heating mode', async () => {
+            await tempPanel.instance().toggleHvac(heatingMode);
+
+            expect(tempPanel.state().displayColor).toEqual(heatingColor);
         });
     });
 });
