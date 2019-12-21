@@ -20,7 +20,7 @@ export default class TemperaturePanel extends React.Component {
             minTemp: 50.0,
             maxTemp: 90.0,
             mode: "heating",
-            displayColor: "#00c774",
+            displayColor: "#A0A0A0",
             isHeating: false,
             isCooling: false,
         }
@@ -28,29 +28,26 @@ export default class TemperaturePanel extends React.Component {
 
     componentDidMount = async () => {
         const response = await getCurrentTemperature(getStore().getUserId());
-        this.setState({ externalTemp: response.temp });
-        this.setState({ internalTemp: response.currentTemp });
+        this.setState({ externalTemp: response.temp, internalTemp: response.currentTemp, desiredTemp: response.temp });
     }
 
     knobChange = (newValue) => {
-        this.setState({ desiredTemp: newValue });
+        if (this.state.isHeating || this.state.isCooling) {
+            this.setState({ desiredTemp: newValue });
+        }
     }
 
-    displayColor = () => {
-        return this.state.mode === "heating" ? "#db5127" : "#27aedb";
-    }
-
-    toggleHvac = (newMode) => {
+    toggleHvac = async (newMode) => {
         this.setState({ mode: newMode })
         newMode === "heating"
-            ? this.setState({ displayColor: "#db5127", isHeating: !this.state.isHeating, isCooling: false })
-            : this.setState({ displayColor: "#27aedb", isCooling: !this.state.isCooling, isHeating: false });
+            ? await this.setState({ isHeating: !this.state.isHeating, isCooling: false })
+            : await this.setState({ isCooling: !this.state.isCooling, isHeating: false });
         if (this.state.isCooling) {
             this.setState({ displayColor: "#27aedb" })
         } else if (this.state.isHeating) {
             this.setState({ displayColor: "#db5127" })
         } else {
-            this.setState({ displayColor: "#00c774" })
+            this.setState({ displayColor: "#A0A0A0" })
         }
     }
 
@@ -74,15 +71,15 @@ export default class TemperaturePanel extends React.Component {
                                 <p className="external-temp">{this.state.externalTemp}</p>
                             </div>
                             <div className="form-column">
-                                <Knob value={this.state.desiredTemp} lineCap={"round"} fgColor={this.state.displayColor} inputColor={this.state.displayColor}
-                                    onChange={this.knobChange} angleArc={240} angleOffset={240} title={"Test"} min={this.state.minTemp} max={this.state.maxTemp} />
+                                {/* <Knob value={this.state.desiredTemp} lineCap={"round"} fgColor={this.state.displayColor} inputColor={this.state.displayColor}
+                                    onChange={this.knobChange} angleArc={240} angleOffset={240} title={"Test"} min={this.state.minTemp} max={this.state.maxTemp} /> */}
                             </div>
                             <div className="form-column">
                                 <FormControl>
                                     <FormLabel focused={false}>Mode</FormLabel>
                                     <FormGroup>
                                         <FormControlLabel label="Heat" control={<Switch color="secondary" checked={this.state.isHeating} onChange={() => this.toggleHvac("heating")} />} />
-                                        <CustomSwitch checkedColor={"#db5127"} />
+                                        {/* <CustomSwitch checkedColor={"#db5127"} /> */}
                                         {/* <CustomSwitch checkedColor={"#27aedb"} /> */}
                                         <FormControlLabel label="Cool" control={<Switch color="primary" checked={this.state.isCooling} onChange={() => this.toggleHvac("cooling")} />} />
                                     </FormGroup>

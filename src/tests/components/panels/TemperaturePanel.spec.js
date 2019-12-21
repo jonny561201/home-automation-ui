@@ -30,6 +30,7 @@ describe('TemperaturePanel', () => {
 
         const internalTemp = 72.8;
         const externalTemp = 32.7;
+        const desiredColor = "B22341";
 
         it('should make api to get current weather', () => {
             expect(spyGet).toHaveBeenCalledTimes(1);
@@ -50,6 +51,17 @@ describe('TemperaturePanel', () => {
 
             const actual = tempPanel.find('.external-temp').text();
             expect(actual).toEqual(externalTemp.toString());
+        });
+    });
+
+    describe('toggleHvac', () => {
+
+        const testMode = "test Mode";
+
+        it('should set mode to the new state provided', async () => {
+            await tempPanel.instance().toggleHvac(testMode);
+
+            expect(tempPanel.state().mode).toEqual(testMode);
         });
     });
 });
