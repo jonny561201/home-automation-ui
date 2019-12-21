@@ -6,7 +6,6 @@ import TemperatureIcon from '../../resources/TemperatureIcon.jpg';
 import { getCurrentTemperature } from '../../utilities/RestApi';
 import { getStore } from '../../TestState';
 import Knob from 'react-canvas-knob';
-import CustomSwitch from '../../components/inputs/CustomSwitch';
 
 
 
@@ -71,16 +70,14 @@ export default class TemperaturePanel extends React.Component {
                                 <p className="external-temp">{this.state.externalTemp}</p>
                             </div>
                             <div className="form-column">
-                                {/* <Knob value={this.state.desiredTemp} lineCap={"round"} fgColor={this.state.displayColor} inputColor={this.state.displayColor}
-                                    onChange={this.knobChange} angleArc={240} angleOffset={240} title={"Test"} min={this.state.minTemp} max={this.state.maxTemp} /> */}
+                                <Knob value={this.state.desiredTemp} lineCap={"round"} fgColor={this.state.displayColor} inputColor={this.state.displayColor}
+                                    onChange={this.knobChange} angleArc={240} angleOffset={240} title={"Test"} min={this.state.minTemp} max={this.state.maxTemp} />
                             </div>
                             <div className="form-column">
                                 <FormControl>
                                     <FormLabel focused={false}>Mode</FormLabel>
                                     <FormGroup>
-                                        <FormControlLabel label="Heat" control={<Switch color="secondary" checked={this.state.isHeating} onChange={() => this.toggleHvac("heating")} />} />
-                                        {/* <CustomSwitch checkedColor={"#db5127"} /> */}
-                                        {/* <CustomSwitch checkedColor={"#27aedb"} /> */}
+                                        <FormControlLabel label="Heat" control={<Switch className="heating" color="secondary" checked={this.state.isHeating} onChange={() => this.toggleHvac("heating")} />} />
                                         <FormControlLabel label="Cool" control={<Switch color="primary" checked={this.state.isCooling} onChange={() => this.toggleHvac("cooling")} />} />
                                     </FormGroup>
                                 </FormControl>
