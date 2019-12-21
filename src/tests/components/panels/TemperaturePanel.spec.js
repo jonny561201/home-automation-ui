@@ -112,4 +112,36 @@ describe('TemperaturePanel', () => {
             expect(tempPanel.state().displayColor).toEqual(defaultColor);
         });
     });
+
+    describe('knobChange', () => {
+
+        const desiredTemp = 23.5;
+
+        it('should set the desired temp when heating', async () => {
+            tempPanel.state().isHeating = true;
+            tempPanel.state().isCooling = false;
+            tempPanel.instance().forceUpdate();
+
+            await tempPanel.instance().knobChange(desiredTemp);
+            expect(tempPanel.state().desiredTemp).toEqual(desiredTemp);
+        });
+
+        it('should set the desired temp when cooling', async () => {
+            tempPanel.state().isCooling = true;
+            tempPanel.state().isHeating = false;
+            tempPanel.instance().forceUpdate();
+
+            await tempPanel.instance().knobChange(desiredTemp);
+            expect(tempPanel.state().desiredTemp).toEqual(desiredTemp);
+        });
+
+        it('should not set the desired temp when neither heating or cooling', async () => {
+            tempPanel.state().isCooling = false;
+            tempPanel.state().isHeating = false;
+            tempPanel.instance().forceUpdate();
+
+            await tempPanel.instance().knobChange(desiredTemp);
+            expect(tempPanel.state().desiredTemp).toEqual(0.0);
+        });
+    });
 });

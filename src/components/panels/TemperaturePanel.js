@@ -15,7 +15,7 @@ export default class TemperaturePanel extends React.Component {
         this.state = {
             internalTemp: 0.0,
             externalTemp: 0.0,
-            desiredTemp: 70.0,
+            desiredTemp: 0.0,
             minTemp: 50.0,
             maxTemp: 90.0,
             mode: "heating",
