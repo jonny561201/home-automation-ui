@@ -3,7 +3,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { ExpansionPanel, Typography, ExpansionPanelSummary, Divider, FormControl, FormGroup, FormLabel, Switch, FormControlLabel } from '@material-ui/core';
 import './TemperaturePanel.css';
 import TemperatureIcon from '../../resources/TemperatureIcon.jpg';
-import { getCurrentTemperature } from '../../utilities/RestApi';
+import { getCurrentTemperature, setUserTemperature } from '../../utilities/RestApi';
 import { getStore } from '../../TestState';
 import Knob from 'react-canvas-knob';
 
@@ -16,6 +16,7 @@ export default class TemperaturePanel extends React.Component {
             internalTemp: 0.0,
             externalTemp: 0.0,
             desiredTemp: 0.0,
+            isFahrenheit: true,
             minTemp: 50.0,
             maxTemp: 90.0,
             mode: "heating",
@@ -33,6 +34,7 @@ export default class TemperaturePanel extends React.Component {
     knobChange = (newValue) => {
         if (this.state.isHeating || this.state.isCooling) {
             this.setState({ desiredTemp: newValue });
+            setUserTemperature(getStore().getUserId(), newValue, this.state.mode, this.state.isFahrenheit);        
         }
     }
 

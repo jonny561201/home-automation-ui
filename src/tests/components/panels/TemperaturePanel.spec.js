@@ -8,11 +8,14 @@ import TemperaturePanel from '../../../components/panels/TemperaturePanel';
 describe('TemperaturePanel', () => {
     let tempPanel;
     let userId = 'fakeUserId'
+    const spySet = jest.spyOn(lib, 'setUserTemperature');
     const spyGet = jest.spyOn(lib, 'getCurrentTemperature');
+
 
     beforeEach(() => {
         getStore().setUserId(userId);
         spyGet.mockClear();
+        spySet.mockClear();
         tempPanel = shallow(<TemperaturePanel />);
     });
 
@@ -116,32 +119,72 @@ describe('TemperaturePanel', () => {
     describe('knobChange', () => {
 
         const desiredTemp = 23.5;
+        const mode = 'cooling';
+        const isFahrenheit = true;
 
-        it('should set the desired temp when heating', async () => {
+        beforeEach(() => {
+            tempPanel.state().isFahrenheit = isFahrenheit;
+            tempPanel.state().mode = mode;
+            tempPanel.instance().forceUpdate();
+        });
+
+        it('should set the desired temp when heating', () => {
             tempPanel.state().isHeating = true;
             tempPanel.state().isCooling = false;
             tempPanel.instance().forceUpdate();
 
-            await tempPanel.instance().knobChange(desiredTemp);
+            tempPanel.instance().knobChange(desiredTemp);
             expect(tempPanel.state().desiredTemp).toEqual(desiredTemp);
         });
 
-        it('should set the desired temp when cooling', async () => {
+        it('should set the desired temp when cooling', () => {
             tempPanel.state().isCooling = true;
             tempPanel.state().isHeating = false;
             tempPanel.instance().forceUpdate();
 
-            await tempPanel.instance().knobChange(desiredTemp);
+            tempPanel.instance().knobChange(desiredTemp);
             expect(tempPanel.state().desiredTemp).toEqual(desiredTemp);
         });
 
-        it('should not set the desired temp when neither heating or cooling', async () => {
+        it('should not set the desired temp when neither heating or cooling', () => {
             tempPanel.state().isCooling = false;
             tempPanel.state().isHeating = false;
             tempPanel.instance().forceUpdate();
 
-            await tempPanel.instance().knobChange(desiredTemp);
+            tempPanel.instance().knobChange(desiredTemp);
             expect(tempPanel.state().desiredTemp).toEqual(0.0);
+        });
+
+        it('should make api call to set user temperature when heating', () => {
+            tempPanel.state().isHeating = true;
+            tempPanel.state().isCooling = false;
+            tempPanel.instance().forceUpdate();
+
+            tempPanel.instance().knobChange(desiredTemp);
+
+            expect(spySet).toHaveBeenCalledTimes(1);
+            expect(spySet).toHaveBeenCalledWith(userId, desiredTemp, mode, isFahrenheit);
+        });
+
+        it('should make api call to set user temperature when cooling', () => {
+            tempPanel.state().isCooling = true;
+            tempPanel.state().isHeating = false;
+            tempPanel.instance().forceUpdate();
+
+            tempPanel.instance().knobChange(desiredTemp);
+
+            expect(spySet).toHaveBeenCalledTimes(1);
+            expect(spySet).toHaveBeenCalledWith(userId, desiredTemp, mode, isFahrenheit);
+        });
+
+        it('should not make api call if neither heating or cooling', () => {
+            tempPanel.state().isCooling = false;
+            tempPanel.state().isHeating = false;
+            tempPanel.instance().forceUpdate();
+
+            tempPanel.instance().knobChange(desiredTemp);
+
+            expect(spySet).toHaveBeenCalledTimes(0);
         });
     });
 });
