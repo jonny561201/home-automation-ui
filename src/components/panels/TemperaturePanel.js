@@ -8,7 +8,6 @@ import { getStore } from '../../TestState';
 import Knob from 'react-canvas-knob';
 
 
-
 export default class TemperaturePanel extends React.Component {
     constructor(props) {
         super(props);
@@ -28,7 +27,7 @@ export default class TemperaturePanel extends React.Component {
 
     componentDidMount = async () => {
         const response = await getCurrentTemperature(getStore().getUserId());
-        this.setState({ externalTemp: response.temp, internalTemp: response.currentTemp, desiredTemp: response.temp });
+        this.setState({ externalTemp: response.temp, internalTemp: response.currentTemp, desiredTemp: Math.round(response.currentTemp) });
     }
 
     knobChange = (newValue) => {
