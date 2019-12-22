@@ -27,13 +27,17 @@ export default class TemperaturePanel extends React.Component {
 
     componentDidMount = async () => {
         const response = await getCurrentTemperature(getStore().getUserId());
-        this.setState({ externalTemp: response.temp, internalTemp: response.currentTemp, desiredTemp: Math.round(response.currentTemp) });
+        this.setState({
+            externalTemp: parseFloat(response.temp.toFixed(1)),
+            internalTemp: parseFloat(response.currentTemp.toFixed(1)),
+            desiredTemp: parseFloat(response.currentTemp.toFixed(0))
+        });
     }
 
     knobChange = (newValue) => {
         if (this.state.isHeating || this.state.isCooling) {
             this.setState({ desiredTemp: newValue });
-            setUserTemperature(getStore().getUserId(), newValue, this.state.mode, this.state.isFahrenheit);        
+            setUserTemperature(getStore().getUserId(), newValue, this.state.mode, this.state.isFahrenheit);
         }
     }
 
