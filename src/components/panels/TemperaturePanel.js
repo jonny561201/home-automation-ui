@@ -5,7 +5,8 @@ import './TemperaturePanel.css';
 import TemperatureIcon from '../../resources/TemperatureIcon.jpg';
 import { getCurrentTemperature, setUserTemperature } from '../../utilities/RestApi';
 import { getStore } from '../../TestState';
-import Knob from 'react-canvas-knob';
+import { debounce } from '../../utilities/Services';
+// import Knob from 'react-canvas-knob';
 
 
 export default class TemperaturePanel extends React.Component {
@@ -34,10 +35,16 @@ export default class TemperaturePanel extends React.Component {
         });
     }
 
+    // should reset the value of temperature when heating and cooling turned off
+    // should set min and max temperatures from back end
+    debounchApi = debounce(newValue => {
+        setUserTemperature(getStore().getUserId(), newValue, this.state.mode, this.state.isFahrenheit);
+    }, 200);
+
     knobChange = (newValue) => {
         if (this.state.isHeating || this.state.isCooling) {
             this.setState({ desiredTemp: newValue });
-            setUserTemperature(getStore().getUserId(), newValue, this.state.mode, this.state.isFahrenheit);
+            this.debounchApi(newValue);
         }
     }
 
@@ -75,8 +82,8 @@ export default class TemperaturePanel extends React.Component {
                                 <p className="external-temp">{this.state.externalTemp}</p>
                             </div>
                             <div className="form-column">
-                                <Knob value={this.state.desiredTemp} lineCap={"round"} fgColor={this.state.displayColor} inputColor={this.state.displayColor}
-                                    onChange={this.knobChange} angleArc={240} angleOffset={240} title={"Test"} min={this.state.minTemp} max={this.state.maxTemp} />
+                                {/* <Knob value={this.state.desiredTemp} lineCap={"round"} fgColor={this.state.displayColor} inputColor={this.state.displayColor}
+                                    onChange={this.knobChange} angleArc={240} angleOffset={240} title={"Test"} min={this.state.minTemp} max={this.state.maxTemp} /> */}
                             </div>
                             <div className="form-column">
                                 <FormControl>

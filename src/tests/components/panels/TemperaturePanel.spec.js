@@ -31,29 +31,38 @@ describe('TemperaturePanel', () => {
 
     describe('ComponentDidMount', () => {
 
+        const minTemp = 23.9;
+        const maxTemp = 49.8;
         const internalTemp = 72.8;
         const externalTemp = 32.7;
-        const desiredColor = "B22341";
+        const response = {
+            currentTemp: internalTemp, temp: externalTemp,
+            minThermostatTemp: minTemp, maxThermostatTemp: maxTemp
+        };
+
+        beforeEach(() => {
+            spyGet.mockReturnValue(response);
+        });
 
         it('should make api to get current weather', () => {
             expect(spyGet).toHaveBeenCalledTimes(1);
             expect(spyGet).toBeCalledWith(userId);
         });
 
-        it('should show the internal temperature', () => {
-            tempPanel.state().internalTemp = internalTemp;
-            tempPanel.instance().forceUpdate();
+        it('should show the external temperature from response on backend', () => {
+            const actual = tempPanel.find('.external-temp').text();
 
+            expect(actual).toEqual(externalTemp.toString());
+        });
+
+        it('should show the internal temperature from response on backend', () => {
             const actual = tempPanel.find('.internal-temp').text();
+
             expect(actual).toEqual(internalTemp.toString());
         });
 
-        it('should show the external temperature', () => {
-            tempPanel.state().externalTemp = externalTemp;
-            tempPanel.instance().forceUpdate();
-
-            const actual = tempPanel.find('.external-temp').text();
-            expect(actual).toEqual(externalTemp.toString());
+        it('should set the rounded desired temp from internal temp response on backend', () => {
+            expect(tempPanel.state().desiredTemp).toEqual(73.0);
         });
     });
 
