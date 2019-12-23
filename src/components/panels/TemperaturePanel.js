@@ -19,6 +19,7 @@ export default class TemperaturePanel extends React.Component {
             isFahrenheit: true,
             minTemp: 50.0,
             maxTemp: 90.0,
+            minThermostatTemp: 0.0,
             mode: "heating",
             displayColor: "#A0A0A0",
             isHeating: false,
@@ -31,7 +32,8 @@ export default class TemperaturePanel extends React.Component {
         this.setState({
             externalTemp: parseFloat(response.temp.toFixed(1)),
             internalTemp: parseFloat(response.currentTemp.toFixed(1)),
-            desiredTemp: parseFloat(response.currentTemp.toFixed(0))
+            desiredTemp: parseFloat(response.currentTemp.toFixed(0)),
+            minThermostatTemp: response.minThermostatTemp,
         });
     }
 

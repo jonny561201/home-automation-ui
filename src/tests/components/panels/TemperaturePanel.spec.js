@@ -64,6 +64,10 @@ describe('TemperaturePanel', () => {
         it('should set the rounded desired temp from internal temp response on backend', () => {
             expect(tempPanel.state().desiredTemp).toEqual(73.0);
         });
+
+        it('should set the min temperature knob value from backend', () => {
+            expect(tempPanel.state().minThermostatTemp).toEqual(minTemp);
+        });
     });
 
     describe('toggleHvac', () => {
