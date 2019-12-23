@@ -68,6 +68,10 @@ describe('TemperaturePanel', () => {
         it('should set the min temperature knob value from backend', () => {
             expect(tempPanel.state().minThermostatTemp).toEqual(minTemp);
         });
+
+        it('should set the max temperature knob value from backend', () => {
+            expect(tempPanel.state().maxThermostatTemp).toEqual(maxTemp);
+        });
     });
 
     describe('toggleHvac', () => {
