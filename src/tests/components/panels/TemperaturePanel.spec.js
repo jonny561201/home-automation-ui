@@ -1,14 +1,16 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import * as lib from '../../../utilities/RestApi';
+import * as services from '../../../utilities/Services';
 import { getStore } from '../../../TestState';
 import TemperaturePanel from '../../../components/panels/TemperaturePanel';
+import { setUserTemperature } from '../../../utilities/RestApi';
 
 
 describe('TemperaturePanel', () => {
     let tempPanel;
     let userId = 'fakeUserId'
-    const spySet = jest.spyOn(lib, 'setUserTemperature');
+    const spySet = jest.spyOn(services, 'debounchApi');
     const spyGet = jest.spyOn(lib, 'getCurrentTemperature');
 
 
@@ -140,6 +142,9 @@ describe('TemperaturePanel', () => {
         const isFahrenheit = true;
 
         beforeEach(() => {
+            tempPanel.state().desiredTemp = 0.0
+            tempPanel.state().isHeating = false;
+            tempPanel.state().isCooling = false;
             tempPanel.state().isFahrenheit = isFahrenheit;
             tempPanel.state().mode = mode;
             tempPanel.instance().forceUpdate();
@@ -163,7 +168,7 @@ describe('TemperaturePanel', () => {
             expect(tempPanel.state().desiredTemp).toEqual(desiredTemp);
         });
 
-        it('should not set the desired temp when neither heating or cooling', () => {
+        it('should not set the desired temp when neither heating nor cooling', () => {
             tempPanel.state().isCooling = false;
             tempPanel.state().isHeating = false;
             tempPanel.instance().forceUpdate();
@@ -180,21 +185,18 @@ describe('TemperaturePanel', () => {
             tempPanel.instance().knobChange(desiredTemp);
 
             expect(spySet).toHaveBeenCalledTimes(1);
-            expect(spySet).toHaveBeenCalledWith(userId, desiredTemp, mode, isFahrenheit);
         });
 
         it('should make api call to set user temperature when cooling', () => {
             tempPanel.state().isCooling = true;
-            tempPanel.state().isHeating = false;
             tempPanel.instance().forceUpdate();
 
             tempPanel.instance().knobChange(desiredTemp);
 
             expect(spySet).toHaveBeenCalledTimes(1);
-            expect(spySet).toHaveBeenCalledWith(userId, desiredTemp, mode, isFahrenheit);
         });
 
-        it('should not make api call if neither heating or cooling', () => {
+        it('should not make api call if neither heating nor cooling', () => {
             tempPanel.state().isCooling = false;
             tempPanel.state().isHeating = false;
             tempPanel.instance().forceUpdate();
