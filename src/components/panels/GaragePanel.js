@@ -3,20 +3,40 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import GarageIcon from '../../resources/GarageDoorIcon.jpg';
 import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, ExpansionPanelActions, Divider } from '@material-ui/core';
 import './GaragePanel.css';
-import {getGarageStatus, toggleGarageDoor, updateGarageState} from '../../utilities/RestApi';
+import { getGarageStatus, toggleGarageDoor, updateGarageState } from '../../utilities/RestApi';
 
 
 export default class GaragePanel extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isGarageOpen: null
+            isGarageOpen: null,
+            garageStatus: null,
+            statusDuration: null,
+            statusDays: null,
+            statusHours: null,
+            statusMins: null,
         }
     }
 
     componentDidMount = async () => {
         const garageStatus = await getGarageStatus();
-        this.setState({ isGarageOpen: JSON.stringify(garageStatus.isGarageOpen) });
+        await this.setState({ garageStatus: garageStatus, isGarageOpen: JSON.stringify(garageStatus.isGarageOpen) });
+        this.interval = setInterval(() => {
+            const duration = new Date(garageStatus.statusDuration);
+            const diffMs = new Date() - duration;
+            const days = Math.floor(diffMs / 86400000); // days
+            const hrs = Math.floor((diffMs % 86400000) / 3600000); // hours
+            const mins = Math.round(((diffMs % 86400000) % 3600000) / 60000)
+
+            this.setState({ statusDays: days, statusHours: hrs, statusMins: mins });
+        }, 1000);
+    }
+
+    componentWillUnmount() {
+        if (this.interval) {
+            clearInterval(this.interval);
+        }
     }
 
     openGarageDoor = async (shouldOpen) => {
@@ -46,6 +66,18 @@ export default class GaragePanel extends React.Component {
                             {this.state.isGarageOpen
                                 ? <p className="status-text close">Open</p>
                                 : <p className="status-text open">Closed</p>}
+                        </div>
+                        <div className="status-text-group">
+                            <p className="door-status">Duration: </p>
+                            {this.state.statusDays === 0
+                                ? <div />
+                                : <p className="status-text">{this.state.statusDays}Days</p>}
+                            {this.state.statusHours === 0
+                                ? <div />
+                                : <p className="status-text">{this.state.statusHours}Hr</p>}
+                            {this.state.statusDays === 0
+                                ? <p className="status-text">{this.state.statusMins}Min</p>
+                                : <div />}
                         </div>
                     </ExpansionPanelDetails>
                     <ExpansionPanelActions>
