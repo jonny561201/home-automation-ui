@@ -67,7 +67,7 @@ describe('GaragePanel', () => {
         });
 
         it('should show garage status base text', () => {
-            const actual = garagePanel.find('.door-status').text();
+            const actual = garagePanel.find('.door-status').at(0).text();
             expect(actual).toEqual('Door Status: ');
         });
 
@@ -75,7 +75,7 @@ describe('GaragePanel', () => {
             garagePanel.state().isGarageOpen = true;
             garagePanel.instance().forceUpdate();
 
-            const actual = garagePanel.find('.status-text').text();
+            const actual = garagePanel.find('.status-text').at(0).text();
             expect(actual).toEqual('Open');
         });
 
@@ -83,7 +83,7 @@ describe('GaragePanel', () => {
             garagePanel.state().isGarageOpen = false;
             garagePanel.instance().forceUpdate();
 
-            const actual = garagePanel.find('.status-text').text();
+            const actual = garagePanel.find('.status-text').at(0).text();
             expect(actual).toEqual('Closed');
         });
     });

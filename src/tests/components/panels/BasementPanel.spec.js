@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import * as lib from '../../../utilities/RestApi';
-import {getStore} from '../../../TestState';
+import { getStore } from '../../../TestState';
 import BasementPanel from '../../../components/panels/BasementPanel';
 
 describe('BasementPanel', () => {
@@ -44,7 +44,7 @@ describe('BasementPanel', () => {
         });
 
         it('should display current sump depth text', () => {
-            const actual = basementPanel.find('.current-text').text();
+            const actual = basementPanel.find('.current-text').at(0).text();
             expect(actual).toEqual('Current: ');
         });
 
@@ -57,8 +57,17 @@ describe('BasementPanel', () => {
             expect(parseFloat(actual)).toEqual(currentDepth);
         });
 
+        it('should display the current depth unit of measure', () => {
+            const unit = 'in';
+            basementPanel.state().depthUnit = unit;
+            basementPanel.instance().forceUpdate();
+
+            const actual = basementPanel.find('.current-text').at(1).text();
+            expect(actual).toEqual(unit);
+        });
+
         it('should display average sump depth text', () => {
-            const actual = basementPanel.find('.average-text').text();
+            const actual = basementPanel.find('.average-text').at(0).text();
             expect(actual).toEqual('Average: ');
         });
 
@@ -69,6 +78,15 @@ describe('BasementPanel', () => {
 
             const actual = basementPanel.find('.average-depth').text();
             expect(parseFloat(actual)).toEqual(averageDepth);
+        });
+
+        it('should display the average depth unit of measure', () => {
+            const unit = 'in';
+            basementPanel.state().depthUnit = unit;
+            basementPanel.instance().forceUpdate();
+
+            const actual = basementPanel.find('.average-text').at(1).text();
+            expect(actual).toEqual(unit);
         });
 
         it('should set current depth in view', () => {
