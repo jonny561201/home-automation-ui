@@ -12,7 +12,8 @@
 
 .door-status {
     flex-direction: row;
-    margin-right: 0.25rem;
+    /* margin-right: 0.25rem; */
+    margin: 0.5rem 0.5rem 0rem 0rem;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
 }
 
@@ -26,6 +27,7 @@
 
 .status-text {
     font-weight: bold;
+    margin: 0.5rem 0.5rem 0rem 0rem;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
 }
 
