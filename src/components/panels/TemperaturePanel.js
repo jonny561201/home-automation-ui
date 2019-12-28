@@ -21,6 +21,7 @@ export default class TemperaturePanel extends React.Component {
             desiredTemp: 0.0,
             externalTemp: 0.0,
             internalTemp: 0.0,
+            description: null,
             isFahrenheit: true,
             minThermostatTemp: 0.0,
             maxThermostatTemp: 0.0,
@@ -33,12 +34,13 @@ export default class TemperaturePanel extends React.Component {
         this.setState({
             externalTemp: parseFloat(response.temp.toFixed(1)),
             internalTemp: parseFloat(response.currentTemp.toFixed(1)),
-            desiredTemp: parseFloat(response.currentTemp.toFixed(0)),
+            desiredTemp: response.desiredTemp === null ? parseFloat(response.currentTemp.toFixed(0)) : parseFloat(response.desiredTemp.toFixed(0)),
             minThermostatTemp: response.minThermostatTemp,
             maxThermostatTemp: response.maxThermostatTemp,
             isCooling: response.mode === "cooling" ? true : false,
             isHeating: response.mode === "heating" ? true : false,
             mode: response.mode,
+            description: response.description,
         });
         this.toggleColor();
     }
@@ -61,13 +63,13 @@ export default class TemperaturePanel extends React.Component {
     toggleColor = () => {
         if (this.state.isCooling) {
             this.setState({ displayColor: "#27aedb" });
-            setUserTemperature(getStore().getUserId, this.state.desiredTemp, this.state.mode, this.state.isFahrenheit);
+            setUserTemperature(getStore().getUserId(), this.state.desiredTemp, this.state.mode, this.state.isFahrenheit);
         } else if (this.state.isHeating) {
             this.setState({ displayColor: "#db5127" });
-            setUserTemperature(getStore().getUserId, this.state.desiredTemp, this.state.mode, this.state.isFahrenheit);
+            setUserTemperature(getStore().getUserId(), this.state.desiredTemp, this.state.mode, this.state.isFahrenheit);
         } else {
             this.setState({ displayColor: "#A0A0A0" });
-            setUserTemperature(getStore().getUserId, this.state.desiredTemp, null, this.state.isFahrenheit);
+            setUserTemperature(getStore().getUserId(), this.state.desiredTemp, null, this.state.isFahrenheit);
         }
     }
 
@@ -86,6 +88,9 @@ export default class TemperaturePanel extends React.Component {
                     <Divider />
                     <div>
                         <div className="form-container">
+                            <div className="form-column">
+                                <TemperatureImage description={this.state.description} />
+                            </div>
                             <div className="form-column">
                                 <p className="internal-temp">{this.state.internalTemp}</p>
                                 <p className="external-temp">{this.state.externalTemp}</p>
