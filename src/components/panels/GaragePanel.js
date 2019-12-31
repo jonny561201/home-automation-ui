@@ -72,9 +72,7 @@ export default class GaragePanel extends React.Component {
                             {this.state.statusDays === 0
                                 ? <div />
                                 : <p className="status-text">{this.state.statusDays}Days</p>}
-                            {this.state.statusHours === 0
-                                ? <div />
-                                : <p className="status-text">{this.state.statusHours}Hr</p>}
+                            <p className="status-text">{this.state.statusHours}Hr</p>
                             {this.state.statusDays === 0
                                 ? <p className="status-text">{this.state.statusMins}Min</p>
                                 : <div />}

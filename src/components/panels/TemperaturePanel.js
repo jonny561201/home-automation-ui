@@ -6,6 +6,7 @@ import TemperatureIcon from '../../resources/TemperatureIcon.jpg';
 import { getCurrentTemperature, setUserTemperature } from '../../utilities/RestApi';
 import { getStore } from '../../TestState';
 import { debounchApi } from '../../utilities/Services';
+import TemperatureImage from './TemperatureImage';
 import Knob from 'react-canvas-knob';
 
 
@@ -34,6 +35,7 @@ export default class TemperaturePanel extends React.Component {
         this.setState({
             externalTemp: parseFloat(response.temp.toFixed(1)),
             internalTemp: parseFloat(response.currentTemp.toFixed(1)),
+            isFahrenheit: response.isFahrenheit,
             desiredTemp: response.desiredTemp === null ? parseFloat(response.currentTemp.toFixed(0)) : parseFloat(response.desiredTemp.toFixed(0)),
             minThermostatTemp: response.minThermostatTemp,
             maxThermostatTemp: response.maxThermostatTemp,
@@ -42,7 +44,7 @@ export default class TemperaturePanel extends React.Component {
             mode: response.mode,
             description: response.description,
         });
-        this.toggleColor();
+        this.toggle();
     }
 
     knobChange = (newValue) => {
@@ -53,11 +55,21 @@ export default class TemperaturePanel extends React.Component {
     }
 
     toggleHvac = async (newMode) => {
-        this.setState({ mode: newMode })
         newMode === "heating"
-            ? await this.setState({ isHeating: !this.state.isHeating, isCooling: false })
-            : await this.setState({ isCooling: !this.state.isCooling, isHeating: false });
-        this.toggleColor();
+            ? await this.setState({ isHeating: !this.state.isHeating, isCooling: false, mode: newMode })
+            : await this.setState({ isCooling: !this.state.isCooling, isHeating: false, mode: newMode });
+        this.toggleColor()
+    }
+
+
+    toggle = () => {
+        if (this.state.isCooling) {
+            this.setState({ displayColor: "#27aedb" });
+        } else if (this.state.isHeating) {
+            this.setState({ displayColor: "#db5127" });
+        } else {
+            this.setState({ displayColor: "#A0A0A0" });
+        }
     }
 
     toggleColor = () => {

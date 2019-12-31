@@ -37,8 +37,10 @@ describe('TemperaturePanel', () => {
         const maxTemp = 49.8;
         const internalTemp = 72.8;
         const externalTemp = 32.7;
+        const desiredTemp = 35.7;
+
         const response = {
-            currentTemp: internalTemp, temp: externalTemp,
+            currentTemp: internalTemp, temp: externalTemp, desiredTemp: desiredTemp,
             minThermostatTemp: minTemp, maxThermostatTemp: maxTemp
         };
 
@@ -63,16 +65,39 @@ describe('TemperaturePanel', () => {
             expect(actual).toEqual(internalTemp.toString());
         });
 
-        it('should set the rounded desired temp from internal temp response on backend', () => {
-            expect(tempPanel.state().desiredTemp).toEqual(73.0);
+        it('should set the rounded desired temp from backend', async () => {
+            await tempPanel.instance().componentDidMount();
+            expect(tempPanel.state().desiredTemp).toEqual(36);
         });
 
-        it('should set the min temperature knob value from backend', () => {
+        it('should set the min temperature knob value from backend', async () => {
+            await tempPanel.instance().componentDidMount();
             expect(tempPanel.state().minThermostatTemp).toEqual(minTemp);
         });
 
-        it('should set the max temperature knob value from backend', () => {
+        it('should set the max temperature knob value from backend', async () => {
+            await tempPanel.instance().componentDidMount();
             expect(tempPanel.state().maxThermostatTemp).toEqual(maxTemp);
+        });
+
+        it('should set the isCooling to true when mode is cooling', async () => {
+            const newResponse = {
+                currentTemp: internalTemp, temp: externalTemp, desiredTemp: desiredTemp,
+                minThermostatTemp: minTemp, maxThermostatTemp: maxTemp, mode: "cooling"
+            };
+            spyGet.mockReturnValue(newResponse)
+            await tempPanel.instance().componentDidMount();
+            expect(tempPanel.state().isCooling).toBeTruthy();
+        });
+
+        it('should set the isHeating to true when mode is heating', async () => {
+            const newResponse = {
+                currentTemp: internalTemp, temp: externalTemp, desiredTemp: desiredTemp,
+                minThermostatTemp: minTemp, maxThermostatTemp: maxTemp, mode: "heating"
+            };
+            spyGet.mockReturnValue(newResponse)
+            await tempPanel.instance().componentDidMount();
+            expect(tempPanel.state().isHeating).toBeTruthy();
         });
     });
 
@@ -85,53 +110,68 @@ describe('TemperaturePanel', () => {
         const coolingColor = "#27aedb";
         const defaultColor = "#A0A0A0";
 
-        it('should set mode to the new state provided', async () => {
-            await tempPanel.instance().toggleHvac(testMode);
+        it('should set mode to the new state provided', () => {
+            setTimeout(() => {
+                tempPanel.instance().toggleHvac(testMode);
 
-            expect(tempPanel.state().mode).toEqual(testMode);
+                expect(tempPanel.state().mode).toEqual(testMode);
+            });
         });
 
-        it('should set heating to true when in heating mode', async () => {
-            await tempPanel.instance().toggleHvac(heatingMode);
+        it('should set heating to true when in heating mode', () => {
+            setTimeout(() => {
+                tempPanel.instance().toggleHvac(heatingMode);
 
-            expect(tempPanel.state().isHeating).toBeTruthy();
+                expect(tempPanel.state().isHeating).toBeTruthy();
+            });
         });
 
-        it('should set cooling to false when in heating mode', async () => {
-            await tempPanel.instance().toggleHvac(heatingMode);
+        it('should set cooling to false when in heating mode', () => {
+            setTimeout(() => {
+                tempPanel.instance().toggleHvac(heatingMode);
 
-            expect(tempPanel.state().isCooling).toBeFalsy()
+                expect(tempPanel.state().isCooling).toBeFalsy();
+            });
         });
 
-        it('should set the color to orange when in heating mode', async () => {
-            await tempPanel.instance().toggleHvac(heatingMode);
+        it('should set the color to orange when in heating mode', () => {
+            setTimeout(() => {
+                tempPanel.instance().toggleHvac(heatingMode);
 
-            expect(tempPanel.state().displayColor).toEqual(heatingColor);
+                expect(tempPanel.state().displayColor).toEqual(heatingColor);
+            });
         });
 
-        it('should set cooling to true when in cooling mode', async () => {
-            await tempPanel.instance().toggleHvac(coolingMode);
+        it('should set cooling to true when in cooling mode', () => {
+            setTimeout(() => {
+                tempPanel.instance().toggleHvac(coolingMode);
 
-            expect(tempPanel.state().isCooling).toBeTruthy();
+                expect(tempPanel.state().isCooling).toBeTruthy();
+            });
         });
 
-        it('should set heating to false when in cooling mode', async () => {
-            await tempPanel.instance().toggleHvac(coolingMode);
+        it('should set heating to false when in cooling mode', () => {
+            setTimeout(() => {
+                tempPanel.instance().toggleHvac(coolingMode);
 
-            expect(tempPanel.state().isHeating).toBeFalsy();
+                expect(tempPanel.state().isHeating).toBeFalsy();
+            });
         });
 
-        it('should set the color to blue when in cooling mode', async () => {
-            await tempPanel.instance().toggleHvac(coolingMode);
+        it('should set the color to blue when in cooling mode', () => {
+            setTimeout(() => {
+                tempPanel.instance().toggleHvac(coolingMode);
 
-            expect(tempPanel.state().displayColor).toEqual(coolingColor);
+                expect(tempPanel.state().displayColor).toEqual(coolingColor);
+            });
         });
 
-        it('should default the display color to dark grey when not heating or cooling', async () => {
-            tempPanel.state().isCooling = true;
-            await tempPanel.instance().toggleHvac(testMode);
+        it('should default the display color to dark grey when not heating or cooling', () => {
+            setTimeout(() => {
+                tempPanel.instance().toggleHvac(testMode);
 
-            expect(tempPanel.state().displayColor).toEqual(defaultColor);
+                expect(tempPanel.state().displayColor).toEqual(defaultColor);
+            });
         });
     });
 
