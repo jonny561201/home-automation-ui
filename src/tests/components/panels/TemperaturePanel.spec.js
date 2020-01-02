@@ -4,7 +4,6 @@ import * as lib from '../../../utilities/RestApi';
 import * as services from '../../../utilities/Services';
 import { getStore } from '../../../TestState';
 import TemperaturePanel from '../../../components/panels/TemperaturePanel';
-import { setUserTemperature } from '../../../utilities/RestApi';
 
 
 describe('TemperaturePanel', () => {
