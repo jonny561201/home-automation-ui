@@ -1,4 +1,4 @@
-class TestState {
+class GlobalState {
     constructor() {
         this.state = {
             activePage: null,
@@ -45,7 +45,7 @@ let currentState = null;
 
 export const getStore = () => {
     if (currentState === null) {
-        currentState = new TestState();
+        currentState = new GlobalState();
     }
     return currentState;
 }

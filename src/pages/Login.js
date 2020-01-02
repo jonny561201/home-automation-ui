@@ -3,12 +3,12 @@ import './Login.css';
 import '../components/header/UserPass';
 import LogoHeader from '../components/header/LogoHeader';
 import UserPass from '../components/header/UserPass';
-import { getStore } from '../TestState';
+import { getStore } from '../GlobalState';
 
 
 export default function Login(props) {
     getStore().setActivePage('Login');
-    
+
     return (
         <div className="login-menu column">
             <div className="login-header">

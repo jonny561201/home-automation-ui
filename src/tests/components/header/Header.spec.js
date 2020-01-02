@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Header from '../../../components/header/Header';
-import { getStore } from '../../../TestState';
+import { getStore } from '../../../GlobalState';
 
 describe('HeaderComponent', () => {
     let header;

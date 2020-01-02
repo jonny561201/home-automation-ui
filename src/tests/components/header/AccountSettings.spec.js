@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { getStore } from '../../../TestState';
+import { getStore } from '../../../GlobalState';
 import AccountSettings from '../../../components/header/AccountSettings';
 
 

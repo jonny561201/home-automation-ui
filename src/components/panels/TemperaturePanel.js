@@ -4,7 +4,7 @@ import { ExpansionPanel, Typography, ExpansionPanelSummary, Divider, FormControl
 import './TemperaturePanel.css';
 import TemperatureIcon from '../../resources/TemperatureIcon.jpg';
 import { getCurrentTemperature, setUserTemperature } from '../../utilities/RestApi';
-import { getStore } from '../../TestState';
+import { getStore } from '../../GlobalState';
 import { debounchApi } from '../../utilities/Services';
 import TemperatureImage from './TemperatureImage';
 import Knob from '../Knob';

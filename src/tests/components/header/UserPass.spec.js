@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import * as lib from '../../../utilities/RestApi';
-import { getStore } from '../../../TestState';
+import { getStore } from '../../../GlobalState';
 import UserPass from '../../../components/header/UserPass';
 
 

@@ -1,6 +1,6 @@
 import base64 from 'base-64';
 import jwt_decode from 'jwt-decode';
-import { getStore } from '../TestState';
+import { getStore } from '../GlobalState';
 
 
 const loginUrl = 'http://localhost:5000/login';

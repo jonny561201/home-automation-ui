@@ -1,7 +1,7 @@
 import React from 'react';
 import Home from '../../pages/Home';
 import { shallow } from 'enzyme';
-import { getStore } from '../../TestState';
+import { getStore } from '../../GlobalState';
 
 describe('Home', () => {
     let home;

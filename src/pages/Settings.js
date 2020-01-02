@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../components/header/Header';
 import './Settings.css'
 import { Divider, TextField, FormControlLabel, RadioGroup, FormControl, FormLabel, Radio } from '@material-ui/core';
-import { getStore } from '../TestState';
+import { getStore } from '../GlobalState';
 import { getUserPreferences, updateUserPreferences } from '../utilities/RestApi';
 
 

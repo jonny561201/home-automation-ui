@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import * as lib from '../../../utilities/RestApi';
-import { getStore } from '../../../TestState';
+import { getStore } from '../../../GlobalState';
 import BasementPanel from '../../../components/panels/BasementPanel';
 
 describe('BasementPanel', () => {
@@ -9,11 +9,6 @@ describe('BasementPanel', () => {
     let basementPanel;
     const fakeUserId = "fakeUserId";
     const spyGet = jest.spyOn(lib, 'getSumpLevels');
-    // const mockGetSump = jest.fn();
-    // const mockRequests = {
-    //     getSumpLevels: mockGetSump,
-    //     userId: fakeUserId,
-    // };
 
     beforeEach(() => {
         getStore().setUserId(fakeUserId);

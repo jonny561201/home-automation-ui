@@ -3,7 +3,7 @@ import LogoHeader from '../header/LogoHeader';
 import Account from '../header/Account';
 import AccountSettings from '../header/AccountSettings';
 import './Header.css';
-import { getStore } from '../../TestState';
+import { getStore } from '../../GlobalState';
 
 
 export default class Header extends React.Component {

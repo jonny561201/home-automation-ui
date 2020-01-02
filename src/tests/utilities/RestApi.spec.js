@@ -5,7 +5,8 @@ import {
     toggleGarageDoor, getSumpLevels, getCurrentTemperature,
     getUserPreferences, updateUserPreferences, setUserTemperature
 } from '../../utilities/RestApi';
-import { getStore } from '../../TestState';
+import { getStore } from '../../GlobalState';
+
 
 describe('RestApi', () => {
     const username = 'fakeUser';

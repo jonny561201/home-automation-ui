@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './AccountSettings.css';
-import { getStore } from '../../TestState';
+import { getStore } from '../../GlobalState';
 
 
 export default class AccountSettings extends React.Component {

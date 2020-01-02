@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../components/header/Header';
 import DashboardPanel from '../components/panels/DashboardPanels';
 import './Home.css';
-import { getStore } from '../TestState';
+import { getStore } from '../GlobalState';
 
 
 export default function Home() {

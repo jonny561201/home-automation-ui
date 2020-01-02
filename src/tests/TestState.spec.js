@@ -1,7 +1,7 @@
-import {getStore} from '../TestState';
+import { getStore } from '../GlobalState';
 
 
-describe('TestState', () => {
+describe('GlobalState', () => {
 
     describe('ActivePage', () => {
         let state;

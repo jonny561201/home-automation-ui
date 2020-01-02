@@ -4,7 +4,7 @@ import './App.css';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Settings from './pages/Settings';
-import { getStore } from './TestState';
+import { getStore } from './GlobalState';
 
 
 export default function App() {
