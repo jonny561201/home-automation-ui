@@ -88,7 +88,7 @@ class Knob extends React.Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         if (nextProps.width && this.w !== nextProps.width) {
             this.w = nextProps.width;
         }
