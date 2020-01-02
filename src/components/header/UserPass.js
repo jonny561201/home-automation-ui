@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 import './UserPass.css';
 import { getBearerToken } from '../../utilities/RestApi'
 import { getStore } from '../../TestState';
 
 
-export default class UserPass extends Component {
+export default class UserPass extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
