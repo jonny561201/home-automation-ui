@@ -42,7 +42,11 @@ export default function TemperatureImage(props) {
             case "thunderstorm with heavy rain":
             case "light thunderstorm":
             case "heavy thunderstorm":
-            case "thunderstorm with drizzle thunderstorm":
+            case "thunderstorm with drizzle":
+            case "thunderstorm with light drizzle":
+            case "thunderstorm with heavy drizzle":
+            case "thunderstorm":
+            case "ragged thunderstorm":
                 return <img className="weather-icon" alt="description" src={Thunderstorm} label="thunderstorms" />
             default:
                 return <img className="weather-icon" alt="description" src={CloudyIcon} label="cloudy" />;
