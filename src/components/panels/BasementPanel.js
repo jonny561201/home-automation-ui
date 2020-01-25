@@ -1,7 +1,7 @@
 import React from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import BasementIcon from '../../resources/BasementIcon.jpg';
-import SumpPumpIcon from '../../resources/SumpPumpIcon.png';
+import BasementIcon from '../../resources/panelIcons/BasementIcon.jpg';
+import SumpPumpIcon from '../../resources/panelIcons/SumpPumpIcon.png';
 import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, Divider } from '@material-ui/core';
 import './BasementPanel.css';
 import { getSumpLevels } from '../../utilities/RestApi';

@@ -2,7 +2,7 @@ import React from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { ExpansionPanel, Typography, ExpansionPanelSummary, Divider, FormControl, FormGroup, FormLabel, Switch, FormControlLabel } from '@material-ui/core';
 import './TemperaturePanel.css';
-import TemperatureIcon from '../../resources/TemperatureIcon.jpg';
+import TemperatureIcon from '../../resources/panelIcons/TemperatureIcon.jpg';
 import { getCurrentTemperature, setUserTemperature } from '../../utilities/RestApi';
 import { getStore } from '../../GlobalState';
 import { debounchApi } from '../../utilities/Services';
@@ -22,7 +22,7 @@ export default class TemperaturePanel extends React.Component {
             desiredTemp: 0.0,
             externalTemp: 0.0,
             internalTemp: 0.0,
-            description: null,
+            description: "",
             isFahrenheit: true,
             minThermostatTemp: 0.0,
             maxThermostatTemp: 0.0,
