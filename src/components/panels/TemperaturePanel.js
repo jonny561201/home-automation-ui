@@ -33,8 +33,8 @@ export default class TemperaturePanel extends React.Component {
     componentDidMount = async () => {
         const response = await getCurrentTemperature(getStore().getUserId());
         this.setState({
-            externalTemp: parseFloat(response.temp.toFixed(1)),
-            internalTemp: parseFloat(response.currentTemp.toFixed(1)),
+            externalTemp: parseInt(response.temp),
+            internalTemp: parseInt(response.currentTemp),
             isFahrenheit: response.isFahrenheit,
             desiredTemp: response.desiredTemp === null ? parseFloat(response.currentTemp.toFixed(0)) : parseFloat(response.desiredTemp.toFixed(0)),
             minThermostatTemp: response.minThermostatTemp,
