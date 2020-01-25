@@ -18,32 +18,34 @@ export default function TemperatureImage(props) {
             case "clear sky":
                 return <img className="weather-icon" alt="description" src={ClearIcon} label="clear sky" />;
             case "heavy intensity rain":
-            case "vert heavy rain":
+            case "very heavy rain":
             case "extreme rain":
             case "shower rain":
             case "heavy intensity shower rain":
-                return <img className="weather-icon" alt="description" src={HeavyRain} label="clear sky" />;
+                return <img className="weather-icon" alt="description" src={HeavyRain} label="heavy rain" />;
             case "few clouds":
             case "scattered clouds":
-                return <img className="weather-icon" alt="description" src={PartlyCloudy} label="few clouds" />
+                return <img className="weather-icon" alt="description" src={PartlyCloudy} label="partly clouds" />
             case "drizzle":
             case "drizzle rain":
-                return <img className="weather-icon" alt="description" src={LightRain} label="few clouds" />
+            case "light rain":
+            case "moderate rain":
+                return <img className="weather-icon" alt="description" src={LightRain} label="light rain" />
             case "snow":
             case "light snow":
-                return <img className="weather-icon" alt="description" src={LightSnow} label="few clouds" />
+                return <img className="weather-icon" alt="description" src={LightSnow} label="light snow" />
             case "heavy snow":
             case "sleet":
-                return <img className="weather-icon" alt="description" src={Snowy} label="few clouds" />
+                return <img className="weather-icon" alt="description" src={Snowy} label="heavy snow" />
             case "thunderstorm with light rain":
             case "thunderstorm with rain":
             case "thunderstorm with heavy rain":
             case "light thunderstorm":
             case "heavy thunderstorm":
             case "thunderstorm with drizzle thunderstorm":
-                return <img className="weather-icon" alt="description" src={Thunderstorm} label="few clouds" />
+                return <img className="weather-icon" alt="description" src={Thunderstorm} label="thunderstorms" />
             default:
-                return <img className="weather-icon" alt="description" src={Thunderstorm} label="broken clouds" />;
+                return <img className="weather-icon" alt="description" src={CloudyIcon} label="cloudy" />;
         }
     }
 
