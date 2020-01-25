@@ -25,7 +25,7 @@ export default function TemperatureImage(props) {
                 return <img className="weather-icon" alt="description" src={HeavyRain} label="heavy rain" />;
             case "few clouds":
             case "scattered clouds":
-                return <img className="weather-icon" alt="description" src={PartlyCloudy} label="partly clouds" />
+                return <img className="weather-icon" alt="description" src={PartlyCloudy} label="partly cloudy" />
             case "drizzle":
             case "drizzle rain":
             case "light rain":
