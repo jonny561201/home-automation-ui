@@ -7,6 +7,7 @@ import LightSnow from '../../resources/weatherIcons/light_snow.png';
 import LightRain from '../../resources/weatherIcons/light_rain.png';
 import HeavyRain from '../../resources/weatherIcons/heavy_rain.png';
 import Thunderstorm from '../../resources/weatherIcons/thunderstorm.png';
+import HomeIcon from '../../resources/weatherIcons/home.png';
 import './TemperatureImage.css'
 
 
@@ -42,13 +43,14 @@ export default function TemperatureImage(props) {
             case "thunderstorm with drizzle thunderstorm":
                 return <img className="weather-icon" alt="description" src={Thunderstorm} label="few clouds" />
             default:
-                return <img className="weather-icon" alt="description" src={CloudyIcon} label="broken clouds" />;
+                return <img className="weather-icon" alt="description" src={Thunderstorm} label="broken clouds" />;
         }
     }
 
     return (
         <div>
             {getWeatherImage()}
+            <img className="home-icon" alt="home" src={HomeIcon} />
         </div>
     );
 }

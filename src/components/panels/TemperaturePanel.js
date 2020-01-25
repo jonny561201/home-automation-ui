@@ -101,17 +101,15 @@ export default class TemperaturePanel extends React.Component {
                     <div>
                         <div className="form-container">
                             <div className="form-column">
-                                <TemperatureImage description={this.state.description} />
-                            </div>
-                            <div className="form-column">
-                                <p className="internal-temp">{this.state.internalTemp}</p>
-                                <p className="external-temp">{this.state.externalTemp}</p>
+                                <div >
+                                    <TemperatureImage description={this.state.description} />
+                                    <p className="internal-temp">{this.state.internalTemp}</p>
+                                    <p className="external-temp">{this.state.externalTemp}</p>
+                                </div>
                             </div>
                             <div className="form-column">
                                 <Knob value={this.state.desiredTemp} lineCap={"round"} fgColor={this.state.displayColor} inputColor={this.state.displayColor}
                                     onChange={this.knobChange} angleArc={240} angleOffset={240} min={this.state.minThermostatTemp} max={this.state.maxThermostatTemp} />
-                            </div>
-                            <div className="form-column">
                                 <FormControl>
                                     <FormLabel focused={false}>Mode</FormLabel>
                                     <FormGroup>
