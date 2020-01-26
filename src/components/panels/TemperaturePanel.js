@@ -103,8 +103,8 @@ export default class TemperaturePanel extends React.Component {
                             <div className="form-column">
                                 <div >
                                     <TemperatureImage description={this.state.description} />
-                                    <p className="internal-temp">{this.state.internalTemp}</p>
-                                    <p className="external-temp">{this.state.externalTemp}</p>
+                                    <p className="internal-temp">{this.state.internalTemp}&deg;</p>
+                                    <p className="external-temp">{this.state.externalTemp}&deg;</p>
                                 </div>
                             </div>
                             <div className="form-column">

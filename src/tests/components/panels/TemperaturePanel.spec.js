@@ -55,13 +55,13 @@ describe('TemperaturePanel', () => {
         it('should show the rounded external temperature from response on backend', () => {
             const actual = tempPanel.find('.external-temp').text();
 
-            expect(actual).toEqual("33");
+            expect(actual).toEqual("33°");
         });
 
         it('should show the rounded internal temperature from response on backend', () => {
             const actual = tempPanel.find('.internal-temp').text();
 
-            expect(actual).toEqual("73");
+            expect(actual).toEqual("73°");
         });
 
         it('should set the rounded desired temp from backend', async () => {
