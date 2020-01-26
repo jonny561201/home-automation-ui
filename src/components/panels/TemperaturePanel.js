@@ -111,7 +111,6 @@ export default class TemperaturePanel extends React.Component {
                                 <Knob value={this.state.desiredTemp} lineCap={"round"} fgColor={this.state.displayColor} inputColor={this.state.displayColor}
                                     onChange={this.knobChange} angleArc={240} angleOffset={240} min={this.state.minThermostatTemp} max={this.state.maxThermostatTemp} />
                                 <FormControl>
-                                    <FormLabel focused={false}>Mode</FormLabel>
                                     <FormGroup>
                                         <FormControlLabel label="Heat" control={<Switch color="secondary" checked={this.state.isHeating} onChange={() => this.toggleHvac("heating")} />} />
                                         <FormControlLabel label="Cool" control={<Switch color="primary" checked={this.state.isCooling} onChange={() => this.toggleHvac("cooling")} />} />
