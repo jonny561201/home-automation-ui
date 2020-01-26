@@ -1,5 +1,5 @@
 import React from 'react';
-import ClearIcon from '../../resources/weatherIcons/clear.png';
+import ClearIcon from '../../resources/weatherIcons/sunny.png';
 import CloudyIcon from '../../resources/weatherIcons/cloudy.png';
 import PartlyCloudyIcon from '../../resources/weatherIcons/partly_cloudy.png';
 import SnowyIcon from '../../resources/weatherIcons/snowy.png';

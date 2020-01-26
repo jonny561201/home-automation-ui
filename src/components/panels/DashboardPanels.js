@@ -21,9 +21,9 @@ export default function DashboardPanel(props) {
             <div className="panel">
                 <LightingPanel />
             </div>
-            <div className="panel">
+            {/* <div className="panel">
                 <SecurityPanel />
-            </div>
+            </div> */}
         </div>
     );
 }
