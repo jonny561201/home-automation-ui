@@ -76,7 +76,6 @@ export default class Settings extends React.Component {
                                 <Divider />
                                 <div className="settings-row">
                                     <FormControl>
-                                        <FormLabel component="legend">Unit</FormLabel>
                                         <RadioGroup label="Unit:">
                                             <FormControlLabel onChange={this.updateTempRadioButton} value="fahrenheit" checked={this.state.newTempUnit === "fahrenheit"} control={<Radio color="primary" />} label="Fahrenheit" />
                                             <FormControlLabel onChange={this.updateTempRadioButton} value="celsius" checked={this.state.newTempUnit === "celsius"} control={<Radio color="primary" />} label="Celsius" />
@@ -90,7 +89,6 @@ export default class Settings extends React.Component {
                                 <Divider />
                                 <div className="settings-row">
                                     <FormControl>
-                                        <FormLabel component="legend">Unit</FormLabel>
                                         <RadioGroup label="Unit:">
                                             <FormControlLabel onChange={this.updateMeasureRadioButton} value="imperial" checked={this.state.newMeasureUnit === "imperial"} control={<Radio color="primary" />} label="Imperial" />
                                             <FormControlLabel onChange={this.updateMeasureRadioButton} value="metric" checked={this.state.newMeasureUnit === "metric"} control={<Radio color="primary" />} label="Metric" />
