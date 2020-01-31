@@ -1,7 +1,9 @@
 import React from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import BasementIcon from '../../resources/panelIcons/BasementIcon.jpg';
-import SumpPumpIcon from '../../resources/panelIcons/SumpPumpIcon.png';
+import SumpPumpLowIcon from '../../resources/panelIcons/SumpPumpLowIcon.png';
+import SumpPumpMediumIcon from '../../resources/panelIcons/SumpPumpMediumIcon.png';
+import SumpPumpHighIcon from '../../resources/panelIcons/SumpPumpHighIcon.png';
 import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, Divider } from '@material-ui/core';
 import './BasementPanel.css';
 import { getSumpLevels } from '../../utilities/RestApi';
@@ -29,6 +31,16 @@ export default class BasementPanel extends React.Component {
         });
     }
 
+    getSumpIcon = () => {
+        if (this.state.warningLevel === 0 || this.state.warningLevel === 1) {
+            return <img alt="sump pump" className="sump-icon" src={SumpPumpLowIcon} />
+        } else if (this.state.warningLevel == 2) {
+            return <img alt="sump pump" className="sump-icon" src={SumpPumpMediumIcon} />
+        } else if (this.state.warningLevel == 3) {
+            return <img alt="sump pump" className="sump-icon" src={SumpPumpHighIcon} />
+        }
+    }
+
     render() {
         return (
             <div>
@@ -44,7 +56,7 @@ export default class BasementPanel extends React.Component {
                     <Divider />
                     <ExpansionPanelDetails className="center">
                         <div className="sump-group">
-                            <img alt="sump pump" className="sump-icon" src={SumpPumpIcon} />
+                            {this.getSumpIcon()}
                             <div className="sump-measure-group">
                                 <div className="sump-text-group">
                                     <p className="current-text sump-text">Current: </p>

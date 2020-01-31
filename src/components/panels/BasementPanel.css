@@ -9,8 +9,8 @@
 }
 
 .sump-icon {
-    height: 75px;
-    width: 75px;
+    /* height: 75px; */
+    width: 175px;
 }
 
 .sump-text-group {
@@ -19,6 +19,7 @@
 }
 
 .sump-measure-group {
+    align-self: center;
     display: flex;
     flex-direction: column;
 }
