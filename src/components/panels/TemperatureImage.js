@@ -3,7 +3,7 @@ import ClearIcon from '../../resources/weatherIcons/sunny.png';
 import DrizzleIcon from '../../resources/weatherIcons/drizzle.png';
 import CloudyIcon from '../../resources/weatherIcons/cloudy.png';
 import PartlyCloudyIcon from '../../resources/weatherIcons/partly_cloudy.png';
-import SnowyIcon from '../../resources/weatherIcons/snowy.png';
+import SnowyIcon from '../../resources/weatherIcons/heavy_snow.png';
 import LightSnowIcon from '../../resources/weatherIcons/light_snow.png';
 import LightRainIcon from '../../resources/weatherIcons/light_rain.png';
 import HeavyRainIcon from '../../resources/weatherIcons/heavy_rain.png';
@@ -14,31 +14,25 @@ import './TemperatureImage.css'
 
 export default function TemperatureImage(props) {
 
-    const drizzle = ["light intensity drizzle", "drizzle", "drizzle rain", "heavy intensity drizzle", "light intensity drizzle rain", "shower drizzle"];
-    const lightRain = ["light rain", "moderate rain"];
-    const heavyRain = ["heavy intensity rain", "very heavy rain", "extreme rain", "shower rain", "heavy intensity shower rain"];
+    const weatherTypes = {
+        "light intensity drizzle": DrizzleIcon, "drizzle": DrizzleIcon, "drizzle rain": DrizzleIcon, "heavy intensity drizzle": DrizzleIcon,
+        "light intensity drizzle rain": DrizzleIcon, "shower drizzle": DrizzleIcon, "light rain": LightRainIcon, "moderate rain": LightRainIcon,
+        "heavy intensity rain": HeavyRainIcon, "very heavy rain": HeavyRainIcon, "extreme rain": HeavyRainIcon, "shower rain": HeavyRainIcon,
+        "heavy intensity shower rain": HeavyRainIcon, "clear sky": ClearIcon, "few clouds": PartlyCloudyIcon, "scattered clouds": PartlyCloudyIcon, "snow": LightSnowIcon,
+        "light snow": LightSnowIcon, "heavy snow": SnowyIcon, "sleet": SnowyIcon
+    };
 
-    // TODO: add tests for drizzle
+    getWeatherLabel = (weather) => {
+        return weather.replace("_", " ").replace(".png", "");
+    }
+
     const getWeatherImage = () => {
         const weatherDesc = props.description.toLowerCase();
+        console.log('Props Description:', weatherDesc)
         if (weatherDesc.includes("thunderstorm")) {
             return <img className="weather-icon" alt="description" src={ThunderstormIcon} label="thunderstorms" />
-        } else if (weatherDesc === "clear sky") {
-            return <img className="weather-icon" alt="description" src={ClearIcon} label="clear sky" />;
-        } else if (heavyRain.includes(weatherDesc)) {
-            return <img className="weather-icon" alt="description" src={HeavyRainIcon} label="heavy rain" />;
-        } else if (lightRain.includes(weatherDesc)) {
-            return <img className="weather-icon" alt="description" src={LightRainIcon} label="light rain" />
-        } else if (drizzle.includes(weatherDesc)) {
-            return <img className="weather-icon" alt="description" src={DrizzleIcon} label="drizzle" />;
-        } else if (weatherDesc === "few clouds" || weatherDesc === "scattered clouds") {
-            return <img className="weather-icon" alt="description" src={PartlyCloudyIcon} label="partly cloudy" />;
-        } else if (weatherDesc === "snow" || weatherDesc === "light snow") {
-            return <img className="weather-icon" alt="description" src={LightSnowIcon} label="light snow" />
-        } else if (weatherDesc === "heavy snow" || weatherDesc === "sleet") {
-            return <img className="weather-icon" alt="description" src={SnowyIcon} label="heavy snow" />
-            // } else if(drizzle.includes(weatherDesc)) {
-            //     return <img className="weather-icon" alt="description" src={DrizzleIcon} label="drizzle" />
+        } else if (weatherDesc in weatherTypes) {
+            return <img className="weather-icon" alt="description" src={weatherTypes[weatherDesc]} label={getWeatherLabel(weatherTypes[weatherDesc])} />
         } else {
             return <img className="weather-icon" alt="description" src={CloudyIcon} label="cloudy" />;
         }

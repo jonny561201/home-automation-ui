@@ -8,7 +8,7 @@ describe('TemperatureImage', () => {
     it('should return sunny weather icon', () => {
         const tempImage = shallow(<TemperatureImage description={'clear sky'} />);
         const actual = tempImage.find('.weather-icon');
-        expect(actual.props()).toHaveProperty('label', 'clear sky');
+        expect(actual.props()).toHaveProperty('label', 'sunny');
     });
 
     it('should return cloudy weather icon', () => {
