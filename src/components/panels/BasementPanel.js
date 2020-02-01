@@ -2,7 +2,8 @@ import React from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import BasementIcon from '../../resources/panelIcons/BasementIcon.jpg';
 import SumpPumpLowIcon from '../../resources/panelIcons/SumpPumpLowIcon.png';
-import SumpPumpMediumIcon from '../../resources/panelIcons/SumpPumpMediumIcon.png';
+import SumpPumpMediumLowIcon from '../../resources/panelIcons/SumpPumpMediumLowIcon.png';
+import SumpPumpMediumHighIcon from '../../resources/panelIcons/SumpPumpMediumHighIcon.png';
 import SumpPumpHighIcon from '../../resources/panelIcons/SumpPumpHighIcon.png';
 import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, Divider } from '@material-ui/core';
 import './BasementPanel.css';
@@ -32,10 +33,12 @@ export default class BasementPanel extends React.Component {
     }
 
     getSumpIcon = () => {
-        if (this.state.warningLevel === 0 || this.state.warningLevel === 1) {
+        if (this.state.warningLevel === 0) {
             return <img alt="sump pump" className="sump-icon" src={SumpPumpLowIcon} />
+        } else if (this.state.warningLevel == 1) {
+            return <img alt="sump pump" className="sump-icon" src={SumpPumpMediumLowIcon} />
         } else if (this.state.warningLevel == 2) {
-            return <img alt="sump pump" className="sump-icon" src={SumpPumpMediumIcon} />
+            return <img alt="sump pump" className="sump-icon" src={SumpPumpMediumHighIcon} />
         } else if (this.state.warningLevel == 3) {
             return <img alt="sump pump" className="sump-icon" src={SumpPumpHighIcon} />
         }
