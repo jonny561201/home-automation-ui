@@ -1,5 +1,6 @@
 import React from 'react';
 import ClearIcon from '../../resources/weatherIcons/sunny.png';
+import DrizzleIcon from '../../resources/weatherIcons/drizzle.png';
 import CloudyIcon from '../../resources/weatherIcons/cloudy.png';
 import PartlyCloudyIcon from '../../resources/weatherIcons/partly_cloudy.png';
 import SnowyIcon from '../../resources/weatherIcons/snowy.png';
@@ -13,9 +14,11 @@ import './TemperatureImage.css'
 
 export default function TemperatureImage(props) {
 
-    const lightRain = ["drizzle", "drizzle rain", "light rain", "moderate rain"];
+    const drizzle = ["light intensity drizzle", "drizzle", "drizzle rain", "heavy intensity drizzle", "light intensity drizzle rain", "shower drizzle"];
+    const lightRain = ["light rain", "moderate rain"];
     const heavyRain = ["heavy intensity rain", "very heavy rain", "extreme rain", "shower rain", "heavy intensity shower rain"];
 
+    // TODO: add tests for drizzle
     const getWeatherImage = () => {
         const weatherDesc = props.description.toLowerCase();
         if (weatherDesc.includes("thunderstorm")) {
@@ -26,12 +29,16 @@ export default function TemperatureImage(props) {
             return <img className="weather-icon" alt="description" src={HeavyRainIcon} label="heavy rain" />;
         } else if (lightRain.includes(weatherDesc)) {
             return <img className="weather-icon" alt="description" src={LightRainIcon} label="light rain" />
+        } else if (drizzle.includes(weatherDesc)) {
+            return <img className="weather-icon" alt="description" src={DrizzleIcon} label="drizzle" />;
         } else if (weatherDesc === "few clouds" || weatherDesc === "scattered clouds") {
             return <img className="weather-icon" alt="description" src={PartlyCloudyIcon} label="partly cloudy" />;
         } else if (weatherDesc === "snow" || weatherDesc === "light snow") {
             return <img className="weather-icon" alt="description" src={LightSnowIcon} label="light snow" />
         } else if (weatherDesc === "heavy snow" || weatherDesc === "sleet") {
             return <img className="weather-icon" alt="description" src={SnowyIcon} label="heavy snow" />
+            // } else if(drizzle.includes(weatherDesc)) {
+            //     return <img className="weather-icon" alt="description" src={DrizzleIcon} label="drizzle" />
         } else {
             return <img className="weather-icon" alt="description" src={CloudyIcon} label="cloudy" />;
         }
