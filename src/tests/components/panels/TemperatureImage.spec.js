@@ -59,6 +59,30 @@ describe('TemperatureImage', () => {
         expect(actual.props()).toHaveProperty('label', 'drizzle');
     });
 
+    it('should show drizzle icon when light intensity drizzle', () => {
+        const tempImage = shallow(<TemperatureImage description={'light intensity drizzle'} />);
+        const actual = tempImage.find('.weather-icon');
+        expect(actual.props()).toHaveProperty('label', 'drizzle');
+    });
+
+    it('should show drizzle icon when heavy intensity drizzle', () => {
+        const tempImage = shallow(<TemperatureImage description={'heavy intensity drizzle'} />);
+        const actual = tempImage.find('.weather-icon');
+        expect(actual.props()).toHaveProperty('label', 'drizzle');
+    });
+
+    it('should show drizzle icon when light intensity drizzle rain', () => {
+        const tempImage = shallow(<TemperatureImage description={'light intensity drizzle rain'} />);
+        const actual = tempImage.find('.weather-icon');
+        expect(actual.props()).toHaveProperty('label', 'drizzle');
+    });
+
+    it('should show drizzle icon when shower drizzle', () => {
+        const tempImage = shallow(<TemperatureImage description={'shower drizzle'} />);
+        const actual = tempImage.find('.weather-icon');
+        expect(actual.props()).toHaveProperty('label', 'drizzle');
+    });
+
     it('should show light rain icon when light rain', () => {
         const tempImage = shallow(<TemperatureImage description={'light rain'} />);
         const actual = tempImage.find('.weather-icon');
