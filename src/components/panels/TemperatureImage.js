@@ -22,7 +22,7 @@ export default function TemperatureImage(props) {
         "light snow": LightSnowIcon, "heavy snow": SnowyIcon, "sleet": SnowyIcon
     };
 
-    getWeatherLabel = (weather) => {
+    const getWeatherLabel = (weather) => {
         return weather.replace("_", " ").replace(".png", "");
     }
 

@@ -26,6 +26,41 @@ describe('BasementPanel', () => {
         expect(actual).toEqual('basement');
     });
 
+    describe('Sump Pump Icon', () => {
+
+        it('should display the low icon when warning level 0', () => {
+            basementPanel.state().warningLevel = 0;
+            basementPanel.instance().forceUpdate();
+
+            const actual = basementPanel.find('.sump-icon');
+            expect(actual.props()).toHaveProperty('label', 'warning-low')
+        });
+
+        it('should display the medium low icon when warning level 1', () => {
+            basementPanel.state().warningLevel = 1;
+            basementPanel.instance().forceUpdate();
+
+            const actual = basementPanel.find('.sump-icon');
+            expect(actual.props()).toHaveProperty('label', 'warning-medium-low')
+        });
+
+        it('should display the medium high icon when warning level 2', () => {
+            basementPanel.state().warningLevel = 2;
+            basementPanel.instance().forceUpdate();
+
+            const actual = basementPanel.find('.sump-icon');
+            expect(actual.props()).toHaveProperty('label', 'warning-medium-high')
+        });
+
+        it('should display the high icon when warning level 3', () => {
+            basementPanel.state().warningLevel = 3;
+            basementPanel.instance().forceUpdate();
+
+            const actual = basementPanel.find('.sump-icon');
+            expect(actual.props()).toHaveProperty('label', 'warning-high')
+        });
+    });
+
     describe('Sump Details', () => {
 
         it('should show sump pump icon', () => {
