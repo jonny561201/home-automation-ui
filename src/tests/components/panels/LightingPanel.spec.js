@@ -28,5 +28,15 @@ describe('LightingPanel', () => {
         it('should make api call to get lighting groups', () => {
             expect(spyGet).toHaveBeenCalledTimes(1);
         });
+
+        it('should render a button for every group in response', () => {
+            const groups = [{'groupId': "1", 'groupName': 'LivingRoom'}, {'groupId': "2", 'groupName': 'BedRoom'}]
+            lightingPanel.state().groups = groups;
+            lightingPanel.instance().forceUpdate();
+
+            const actual = lightingPanel.find('LightSwitch');
+
+            expect(actual.length).toEqual(2);
+        });
     });
 });

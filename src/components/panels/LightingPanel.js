@@ -3,15 +3,24 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import LightingIcon from '../../resources/panelIcons/LightingIcon.jpg';
 import { getLightGroups } from '../../utilities/RestApi';
 import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, Divider } from '@material-ui/core';
+import LightSwitch from '../LightSwitch';
 
 
 export default class LightingPanel extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            groups: null,
+        };
     }
     componentDidMount = async () => {
-        await getLightGroups();
+        this.setState({groups: await getLightGroups()});
+    };
+
+    renderGroups = () => {
+        if (this.state.groups) {
+            return this.state.groups.map(group => <LightSwitch data={group}/>)
+        }
     };
 
 
@@ -29,7 +38,7 @@ export default class LightingPanel extends React.Component {
                     </ExpansionPanelSummary>
                     <Divider />
                     <ExpansionPanelDetails className="center">
-                        <Typography>Test Detail line 2</Typography>
+                        {this.renderGroups()}
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
             </div>
