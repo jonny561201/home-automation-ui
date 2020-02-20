@@ -28,7 +28,6 @@ export default function TemperatureImage(props) {
 
     const getWeatherImage = () => {
         const weatherDesc = props.description.toLowerCase();
-        console.log('Props Description:', weatherDesc)
         if (weatherDesc.includes("thunderstorm")) {
             return <img className="weather-icon" alt="description" src={ThunderstormIcon} label="thunderstorms" />
         } else if (weatherDesc in weatherTypes) {
