@@ -1,6 +1,6 @@
 import React from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { ExpansionPanel, Typography, ExpansionPanelSummary, Divider, FormControl, FormGroup, FormLabel, Switch, FormControlLabel } from '@material-ui/core';
+import { ExpansionPanel, Typography, ExpansionPanelSummary, Divider, FormControl, FormGroup, Switch, FormControlLabel } from '@material-ui/core';
 import './TemperaturePanel.css';
 import TemperatureIcon from '../../resources/panelIcons/TemperatureIcon.jpg';
 import { getCurrentTemperature, setUserTemperature } from '../../utilities/RestApi';
