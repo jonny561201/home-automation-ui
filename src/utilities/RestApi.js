@@ -7,6 +7,7 @@ const garageToggleUrl = 'http://localhost:5000/garageDoor/toggle';
 const garageStatusUrl = 'http://localhost:5000/garageDoor/status';
 const garageStateUrl = 'http://localhost:5000/garageDoor/state';
 const lightGroupsUrl = 'http://localhost:5000/lights/groups';
+const setLightGroupUrl = 'http://localhost:5000/lights/group/state';
 
 export const getBearerToken = async (username, password) => {
     const options = { method: 'GET', headers: { 'Authorization': `Basic ${base64.encode(username + ":" + password)}` } };
@@ -99,4 +100,16 @@ export const getLightGroups = async () => {
     const options = { method: 'GET', headers: {'Authorization': `Bearer ${getStore().getBearerToken()}`}};
 
     return await fetch(lightGroupsUrl, options);
+}
+
+export const setLightGroupState = async (groupId, state, brightness) => {
+    const request = { 'groupId': groupId, 'on': state, 'brightness': brightness }
+    const options = { 
+        method: 'POST', 
+        headers: {'Authorization': `Bearer ${getStore().getBearerToken()}`},
+        body: JSON.stringify(request)
+    };
+
+    return await fetch(setLightGroupUrl, options);
+
 }

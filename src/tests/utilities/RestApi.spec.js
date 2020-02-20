@@ -4,7 +4,7 @@ import {
     getBearerToken, getGarageStatus, updateGarageState,
     toggleGarageDoor, getSumpLevels, getCurrentTemperature,
     getUserPreferences, updateUserPreferences, setUserTemperature,
-    getLightGroups
+    getLightGroups, setLightGroupState
 } from '../../utilities/RestApi';
 import { getStore } from '../../GlobalState';
 
@@ -172,12 +172,25 @@ describe('RestApi', () => {
         it('should make rest call to get light groups', async () => {
             const options = {'method': 'GET', 'headers': {'Authorization': `Bearer ${bearerToken2}`}};
 
-            fetchMock.mock(`http://localhost:5000/lights/groups`, options).catch(unmatchedUrl => {
+            fetchMock.mock('http://localhost:5000/lights/groups', options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
             const actual = await getLightGroups();
 
+            expect(actual.status).toEqual(200);
+        });
+
+        it('should make rest call to set the state of a light group', async () => {
+            const body = {'groupId': 1, 'on': true, 'brightness': 224};
+            const options = {'method': 'POST', 'headers': {'Authorization': `Bearer ${bearerToken2}`}, 'body': body};
+
+            fetchMock.mock('http://localhost:5000/lights/group/state', options).catch(unmatchedUrl => {
+                return {status: 400}
+            });
+
+            const actual = await setLightGroupState(body.groupId, body.on, body.brightness);
+            
             expect(actual.status).toEqual(200);
         });
     });
