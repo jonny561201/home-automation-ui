@@ -14,12 +14,12 @@ export default class LightingPanel extends React.Component {
         };
     }
     componentDidMount = async () => {
-        this.setState({groups: await getLightGroups()});
+        this.setState({ groups: await getLightGroups() });
     };
 
     renderGroups = () => {
         if (this.state.groups) {
-            return this.state.groups.map(group => <LightSwitch data={group}/>)
+            return this.state.groups.map(group => <LightSwitch data={group} />)
         }
     };
 
@@ -38,7 +38,9 @@ export default class LightingPanel extends React.Component {
                     </ExpansionPanelSummary>
                     <Divider />
                     <ExpansionPanelDetails className="center">
-                        {this.renderGroups()}
+                        <div>
+                            {this.renderGroups()}
+                        </div>
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
             </div>
