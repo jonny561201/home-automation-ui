@@ -31,13 +31,13 @@ export default class GaragePanel extends React.Component {
 
             this.setState({ statusDays: days, statusHours: hrs, statusMins: mins });
         }, 1000);
-    }
+    };
 
     componentWillUnmount() {
         if (this.interval) {
             clearInterval(this.interval);
         }
-    }
+    };
 
     openGarageDoor = async (shouldOpen) => {
         await updateGarageState(shouldOpen);

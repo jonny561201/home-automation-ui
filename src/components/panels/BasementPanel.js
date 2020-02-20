@@ -35,11 +35,11 @@ export default class BasementPanel extends React.Component {
     getSumpIcon = () => {
         if (this.state.warningLevel === 0) {
             return <img alt="sump pump" className="sump-icon" src={SumpPumpLowIcon} label="warning-low" />
-        } else if (this.state.warningLevel == 1) {
+        } else if (this.state.warningLevel === 1) {
             return <img alt="sump pump" className="sump-icon" src={SumpPumpMediumLowIcon} label="warning-medium-low" />
-        } else if (this.state.warningLevel == 2) {
+        } else if (this.state.warningLevel === 2) {
             return <img alt="sump pump" className="sump-icon" src={SumpPumpMediumHighIcon} label="warning-medium-high" />
-        } else if (this.state.warningLevel == 3) {
+        } else if (this.state.warningLevel === 3) {
             return <img alt="sump pump" className="sump-icon" src={SumpPumpHighIcon} label="warning-high" />
         }
     }
