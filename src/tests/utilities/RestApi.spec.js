@@ -171,14 +171,15 @@ describe('RestApi', () => {
 
         it('should make rest call to get light groups', async () => {
             const options = {'method': 'GET', 'headers': {'Authorization': `Bearer ${bearerToken2}`}};
+            const response = [{'groupId': 'One', 'groupName': 'Bathroom'}]
 
-            fetchMock.mock('http://localhost:5000/lights/groups', options).catch(unmatchedUrl => {
+            fetchMock.mock('http://localhost:5000/lights/groups', response, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
             const actual = await getLightGroups();
 
-            expect(actual.status).toEqual(200);
+            expect(actual[0].groupName).toEqual('Bathroom');
         });
 
         it('should make rest call to set the state of a light group', async () => {
