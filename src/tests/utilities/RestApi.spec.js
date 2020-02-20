@@ -3,7 +3,8 @@ import fetchMock from 'fetch-mock';
 import {
     getBearerToken, getGarageStatus, updateGarageState,
     toggleGarageDoor, getSumpLevels, getCurrentTemperature,
-    getUserPreferences, updateUserPreferences, setUserTemperature
+    getUserPreferences, updateUserPreferences, setUserTemperature,
+    getLightGroups
 } from '../../utilities/RestApi';
 import { getStore } from '../../GlobalState';
 
@@ -164,6 +165,18 @@ describe('RestApi', () => {
             });
 
             const actual = await updateUserPreferences(userId, true, true, 'Praha');
+
+            expect(actual.status).toEqual(200);
+        });
+
+        it('should make rest call to get light groups', async () => {
+            const options = {'method': 'GET', 'headers': {'Authorization': `Bearer ${bearerToken2}`}};
+
+            fetchMock.mock(`http://localhost:5000/lights/groups`, options).catch(unmatchedUrl => {
+                return { status: 400 }
+            });
+
+            const actual = await getLightGroups();
 
             expect(actual.status).toEqual(200);
         });

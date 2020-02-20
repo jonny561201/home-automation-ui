@@ -2,11 +2,11 @@ import base64 from 'base-64';
 import jwt_decode from 'jwt-decode';
 import { getStore } from '../GlobalState';
 
-
 const loginUrl = 'http://localhost:5000/login';
 const garageToggleUrl = 'http://localhost:5000/garageDoor/toggle';
 const garageStatusUrl = 'http://localhost:5000/garageDoor/status';
 const garageStateUrl = 'http://localhost:5000/garageDoor/state';
+const lightGroupsUrl = 'http://localhost:5000/lights/groups';
 
 export const getBearerToken = async (username, password) => {
     const options = { method: 'GET', headers: { 'Authorization': `Basic ${base64.encode(username + ":" + password)}` } };
@@ -93,4 +93,10 @@ export const updateUserPreferences = async (userId, isFahrenheit, isImperial, ci
 
     const tempUrl = `http://localhost:5000/userId/${userId}/preferences/update`
     return await fetch(tempUrl, options);
+}
+
+export const getLightGroups = async () => {
+    const options = { method: 'GET', headers: {'Authorization': `Bearer ${getStore().getBearerToken()}`}};
+
+    return await fetch(lightGroupsUrl, options);
 }
