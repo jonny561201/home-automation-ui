@@ -136,5 +136,21 @@ describe('BasementPanel', () => {
             const actual = basementPanel.find('.average-depth').text();
             expect(parseFloat(actual)).toEqual(averageDepth);
         });
+
+        it('should display the sump text in alert status', () => {
+            basementPanel.state().warningLevel = 3;
+            basementPanel.instance().forceUpdate();
+            const actual = basementPanel.find('.alert.sump-text');
+
+            expect(actual).toHaveLength(1);
+        });
+
+        it('should display the sump text in healthy status', () => {
+            basementPanel.state().warningLevel = 1;
+            basementPanel.instance().forceUpdate();
+            const actual = basementPanel.find('.healthy.sump-text');
+
+            expect(actual).toHaveLength(1);
+        });
     });
 });
