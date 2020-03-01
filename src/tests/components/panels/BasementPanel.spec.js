@@ -140,7 +140,7 @@ describe('BasementPanel', () => {
         it('should display the sump text in alert status', () => {
             basementPanel.state().warningLevel = 3;
             basementPanel.instance().forceUpdate();
-            const actual = basementPanel.find('.alert.sump-text');
+            const actual = basementPanel.find('.alert.current-depth');
 
             expect(actual).toHaveLength(1);
         });
@@ -148,7 +148,23 @@ describe('BasementPanel', () => {
         it('should display the sump text in healthy status', () => {
             basementPanel.state().warningLevel = 1;
             basementPanel.instance().forceUpdate();
-            const actual = basementPanel.find('.healthy.sump-text');
+            const actual = basementPanel.find('.healthy.current-depth');
+
+            expect(actual).toHaveLength(1);
+        });
+
+        it('should display the sump unit in alert status', () => {
+            basementPanel.state().warningLevel = 3;
+            basementPanel.instance().forceUpdate();
+            const actual = basementPanel.find('.alert.current-text');
+
+            expect(actual).toHaveLength(1);
+        });
+
+        it('should display the sump unit in healthy status', () => {
+            basementPanel.state().warningLevel = 1;
+            basementPanel.instance().forceUpdate();
+            const actual = basementPanel.find('.healthy.current-text');
 
             expect(actual).toHaveLength(1);
         });

@@ -64,7 +64,7 @@ export default class BasementPanel extends React.Component {
                                 <div className="sump-text-group">
                                     <p className="current-text sump-text">Current: </p>
                                     <p className={"current-depth sump-text " + (this.state.warningLevel === 3 ? 'alert' : 'healthy')}>{this.state.currentSumpDepth}</p>
-                                    <p className="current-text sump-text">{this.state.depthUnit}</p>
+                                    <p className={"current-text sump-text " + (this.state.warningLevel === 3 ? 'alert' : 'healthy')}>{this.state.depthUnit}</p>
                                 </div>
                                 <div className="sump-text-group">
                                     <p className="average-text sump-text">Average: </p>
