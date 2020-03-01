@@ -2,6 +2,7 @@ import React from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import LightingIcon from '../../resources/panelIcons/LightingIcon.jpg';
 import { getLightGroups } from '../../utilities/RestApi';
+import './LightingPanel.css'
 import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, Divider } from '@material-ui/core';
 import LightSwitch from '../LightSwitch';
 
@@ -20,6 +21,8 @@ export default class LightingPanel extends React.Component {
     renderGroups = () => {
         if (this.state.groups) {
             return this.state.groups.map(group => <LightSwitch data={group} />)
+        } else {
+            return <div><p className="lighting-text">No Lights Identified</p></div>
         }
     };
 
