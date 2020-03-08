@@ -22,7 +22,7 @@ export default class LightingPanel extends React.Component {
         if (this.state.groups) {
             return this.state.groups.map(group => <LightSwitch data={group} />)
         } else {
-            return <div><p className="lighting-text">No Lights Identified</p></div>
+            return <LightSwitch data={{ on: true, groupId: '1', groupName: "Test", brightness: 233, lights: [{ lightId: "1", lightName: "table lamp", on: false }] }} />
         }
     };
 

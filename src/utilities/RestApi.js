@@ -8,6 +8,7 @@ const garageStatusUrl = 'http://localhost:5000/garageDoor/status';
 const garageStateUrl = 'http://localhost:5000/garageDoor/state';
 const lightGroupsUrl = 'http://localhost:5000/lights/groups';
 const setLightGroupUrl = 'http://localhost:5000/lights/group/state';
+const setLightUrl = 'http://localhost:5000/group/light';
 
 export const getBearerToken = async (username, password) => {
     const options = { method: 'GET', headers: { 'Authorization': `Basic ${base64.encode(username + ":" + password)}` } };
@@ -97,20 +98,30 @@ export const updateUserPreferences = async (userId, isFahrenheit, isImperial, ci
 }
 
 export const getLightGroups = async () => {
-    const options = { method: 'GET', headers: {'Authorization': `Bearer ${getStore().getBearerToken()}`}};
+    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
 
     const response = await fetch(lightGroupsUrl, options);
     return response.json();
 }
 
 export const setLightGroupState = async (groupId, state, brightness) => {
-    const request = { 'groupId': groupId, 'on': state }
-    const options = { 
-        method: 'POST', 
-        headers: {'Authorization': `Bearer ${getStore().getBearerToken()}`},
+    const request = { 'groupId': groupId, 'on': state };
+    const options = {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
         body: JSON.stringify(request)
     };
 
     return await fetch(setLightGroupUrl, options);
+}
 
+export const setLightState = async (lightId, state, brightness) => {
+    const request = { 'lightId': lightId, 'on': state, 'brightness': brightness };
+    const options = {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
+        body: JSON.stringify(request)
+    };
+
+    return await fetch(setLightUrl, options);
 }

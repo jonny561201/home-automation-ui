@@ -15,7 +15,6 @@ export default class LightSwitch extends React.Component {
             groupName: this.props.data.groupName,
             brightness: this.props.data.brightness,
             lights: this.props.data.lights,
-            // Store the lights off the group
         }
     }
 
@@ -29,7 +28,7 @@ export default class LightSwitch extends React.Component {
     };
 
     getLightSwitches = () => {
-        return this.state.lights.map(x => <FormControlLabel className="test-class" control={<Switch checked={x.on} />}
+        return this.state.lights.map(x => <FormControlLabel className="light-switches" control={<Switch checked={x.on} />}
             label={x.lightName} />)
     };
 

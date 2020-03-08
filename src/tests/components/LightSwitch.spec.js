@@ -58,7 +58,7 @@ describe('LightSwitch', () => {
             lightSwitch.state().areLightsOpen = true;
             lightSwitch.instance().forceUpdate();
 
-            const actual = lightSwitch.find('.test-class');
+            const actual = lightSwitch.find('.light-switches');
 
             expect(actual).toHaveLength(2);
         });
