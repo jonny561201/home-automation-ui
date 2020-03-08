@@ -7,7 +7,7 @@ import { getCurrentTemperature, setUserTemperature } from '../../utilities/RestA
 import { getStore } from '../../GlobalState';
 import { debounchApi } from '../../utilities/Services';
 import TemperatureImage from './TemperatureImage';
-import Knob from '../Knob';
+import Knob from '../controls/Knob';
 
 
 export default class TemperaturePanel extends React.Component {

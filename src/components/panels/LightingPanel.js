@@ -4,7 +4,7 @@ import LightingIcon from '../../resources/panelIcons/LightingIcon.jpg';
 import { getLightGroups } from '../../utilities/RestApi';
 import './LightingPanel.css'
 import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, Divider } from '@material-ui/core';
-import LightSwitch from '../LightSwitch';
+import LightSwitch from '../controls/LightSwitch';
 
 
 export default class LightingPanel extends React.Component {
