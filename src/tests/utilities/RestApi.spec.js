@@ -12,8 +12,8 @@ import { getStore } from '../../GlobalState';
 describe('RestApi', () => {
     const username = 'fakeUser';
     const password = 'fakepass';
-    const userId = "f250b5e4-fcf3-11e9-8f0b-362b9e155667";
-    const fakeBearerToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZjI1MGI1ZTQtZmNmMy0xMWU5LThmMGItMzYyYjllMTU1NjY3In0.WdrU1SRBkvDh_TbhEZTXnywdtBnz1XsaMY-G95ntCU8";
+    const userId = "e97febc0-fd10-11e9-8f0b-362b9e155667";
+    const fakeBearerToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJlOTdmZWJjMC1mZDEwLTExZTktOGYwYi0zNjJiOWUxNTU2NjciLCJyb2xlcyI6WyJnYXJhZ2VfZG9vciIsInNlY3VyaXR5IiwidGhlcm1vc3RhdCIsImxpZ2h0aW5nIiwic3VtcF9wdW1wIl0sImZpcnN0X25hbWUiOiJKb24iLCJsYXN0X25hbWUiOiJUZXN0ZXIifSwiZXhwIjoxNTg1OTY3MDIwfQ.AfGoDyYuMhdQh4UYsMUEFenTDxnQnKg3iMhX3RxXac4";
     const credentials = username + ":" + password;
 
     it('should make rest call to login api using auth header', async () => {
@@ -68,11 +68,11 @@ describe('RestApi', () => {
             const response = { 'isGarageOpen': true };
             const options = { "method": "GET", "headers": { 'Authorization': `Bearer ${bearerToken2}` } };
 
-            fetchMock.mock('http://localhost:5000/garageDoor/status', response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`http://localhost:5000/garageDoor/user/${userId}/status`, response, options).catch(unmatchedUrl => {
                 return { status: 400 };
             });
 
-            const actual = await getGarageStatus();
+            const actual = await getGarageStatus(userId);
             expect(actual.isGarageOpen).toEqual(true);
         });
 
@@ -80,22 +80,22 @@ describe('RestApi', () => {
             const response = { 'garageDoorOpen': false };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': { "garageDoorOpen": false } };
 
-            fetchMock.mock('http://localhost:5000/garageDoor/state', response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`http://localhost:5000/garageDoor/user/${userId}/state`, response, options).catch(unmatchedUrl => {
                 return { status: 400 };
             });
 
-            const actual = await updateGarageState(false);
+            const actual = await updateGarageState(false, userId);
             expect(actual.garageDoorOpen).toEqual(false);
         });
 
         it('should make rest call to toggle garage door state', async () => {
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } }
 
-            fetchMock.mock('http://localhost:5000/garageDoor/toggle', options).catch(unmatchedUrl => {
+            fetchMock.mock(`http://localhost:5000/garageDoor/user/${userId}/toggle`, options).catch(unmatchedUrl => {
                 return { status: 400 };
             });
 
-            const actual = await toggleGarageDoor();
+            const actual = await toggleGarageDoor(userId);
             expect(actual.status).toEqual(200);
         });
 

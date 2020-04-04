@@ -3,9 +3,6 @@ import jwt_decode from 'jwt-decode';
 import { getStore } from '../GlobalState';
 
 const loginUrl = 'http://localhost:5000/login';
-const garageToggleUrl = 'http://localhost:5000/garageDoor/toggle';
-const garageStatusUrl = 'http://localhost:5000/garageDoor/status';
-const garageStateUrl = 'http://localhost:5000/garageDoor/state';
 const lightGroupsUrl = 'http://localhost:5000/lights/groups';
 const setLightGroupUrl = 'http://localhost:5000/lights/group/state';
 const setLightUrl = 'http://localhost:5000/group/light';
@@ -18,32 +15,35 @@ export const getBearerToken = async (username, password) => {
         const jsonResponse = await response.json();
         const bearerToken = jsonResponse.bearerToken;
         const dataStore = getStore();
+        //Make updates here to get roles etc
         dataStore.setBearerToken(bearerToken);
-        dataStore.setUserId(jwt_decode(bearerToken).user_id);
+        dataStore.setUserId(jwt_decode(bearerToken).user.user_id);
     }
     return response.ok;
 }
 
-export const getGarageStatus = async () => {
+export const getGarageStatus = async (userId) => {
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
+    const garageStatusUrl = `http://localhost:5000/garageDoor/user/${userId}/status`;
 
     const response = await fetch(garageStatusUrl, options);
     return await response.json();
 }
 
-export const updateGarageState = async (shouldOpen) => {
+export const updateGarageState = async (shouldOpen, userId) => {
     const request = { 'garageDoorOpen': shouldOpen };
     const options = {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
         body: JSON.stringify(request)
     };
-
+    const garageStateUrl = `http://localhost:5000/garageDoor/user/${userId}/state`;
     const response = await fetch(garageStateUrl, options);
     return await response.json();
 }
 
-export const toggleGarageDoor = async () => {
+export const toggleGarageDoor = async (userId) => {
+    const garageToggleUrl = `http://localhost:5000/garageDoor/user/${userId}/toggle`;
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } }
     return await fetch(garageToggleUrl, options);
 }
