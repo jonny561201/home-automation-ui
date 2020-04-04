@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormControlLabel, Switch } from '@material-ui/core';
-import { setLightGroupState } from '../../utilities/RestApi';
+import { setLightGroupState, setLightState } from '../../utilities/RestApi';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import './LightSwitch.css';
@@ -28,8 +28,15 @@ export default class LightSwitch extends React.Component {
     };
 
     getLightSwitches = () => {
-        return this.state.lights.map(x => <FormControlLabel className="light-switches" control={<Switch checked={x.on} />}
+        return this.state.lights.map(x => <FormControlLabel className="light-switches" control={<Switch checked={x.on} onChange={() => this.toggleCheckedLight(x)} />}
             label={x.lightName} />)
+    };
+
+    // TODO: extract light as separate component
+    toggleCheckedLight = async (light) => {
+        // this.setState({ lights: ...this.state.lights,{ lightId: light.lightId, lightName: light.lightName, on: !light.on, brightness: light.brightness });
+        light = { ...light.on = !light.on };
+        await setLightState(light.lightId, light.on, light.brightness);
     };
 
     render() {

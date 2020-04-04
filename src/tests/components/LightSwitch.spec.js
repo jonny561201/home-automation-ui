@@ -5,14 +5,19 @@ import LightSwitch from '../../components/controls/LightSwitch';
 
 describe('LightSwitch', () => {
     let lightSwitch;
-    const spySet = jest.spyOn(lib, 'setLightGroupState');
+    const spySetGroup = jest.spyOn(lib, 'setLightGroupState');
+    const spySetLight = jest.spyOn(lib, 'setLightState');
     const groupData = {
         'groupId': '1', 'groupName': 'DinningRoom', 'on': true,
-        'brightness': 155, 'lights': [{ 'lightName': 'desk lamp' }, { 'lightName': 'table lamp' }]
+        'brightness': 155, 'lights': [
+            { 'lightName': 'desk lamp', 'on': true, 'brightness': 123 },
+            { 'lightName': 'table lamp', 'on': false, 'brightness': 76 }
+        ]
     }
 
     beforeEach(() => {
-        spySet.mockClear();
+        spySetLight.mockClear();
+        spySetGroup.mockClear();
         lightSwitch = shallow(<LightSwitch data={groupData} />);
     })
 
@@ -25,13 +30,19 @@ describe('LightSwitch', () => {
     it('should call set light group state on toggleChecked', () => {
         lightSwitch.instance().toggleChecked();
 
-        expect(spySet).toBeCalledWith(groupData.groupId, false, groupData.brightness);
+        expect(spySetGroup).toBeCalledWith(groupData.groupId, false, groupData.brightness);
     });
 
     it('should display the expansion icon', () => {
         const actual = lightSwitch.find('ChevronRightIcon');
 
         expect(actual).toHaveLength(1);
+    });
+
+    it('should call set light state on toggleCheckedLight', () => {
+        lightSwitch.instance().toggleCheckedLight();
+
+        expect(spySetLight).toBeCalledWith();
     });
 
     describe('Light Expansion', () => {
