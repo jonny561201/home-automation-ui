@@ -4,7 +4,7 @@ import {
     getBearerToken, getGarageStatus, updateGarageState,
     toggleGarageDoor, getSumpLevels, getCurrentTemperature,
     getUserPreferences, updateUserPreferences, setUserTemperature,
-    getLightGroups, setLightGroupState, setLightState
+    getLightGroups, setLightGroupState, setLightState, updateUserAccount
 } from '../../utilities/RestApi';
 import { getStore } from '../../GlobalState';
 
@@ -204,6 +204,19 @@ describe('RestApi', () => {
             });
 
             const actual = await setLightState(body.lightId, body.on, body.brightness);
+
+            expect(actual.status).toEqual(200);
+        });
+
+        it('should make rest call to change user password', async () => {
+            const body = { 'userName': 'fake', 'oldPassword': 'alsoFake', 'newPassword': 'StillFake' };
+            const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
+
+            fetchMock.mock(`http://localhost:5000/userId/${userId}/updateAccount`, options).catch(unmatchedUrl => {
+                return { status: 400 }
+            });
+
+            const actual = await updateUserAccount(userId, body.userName, body.oldPassword, body.newPassword);
 
             expect(actual.status).toEqual(200);
         });

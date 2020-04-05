@@ -125,3 +125,15 @@ export const setLightState = async (lightId, state, brightness) => {
 
     return await fetch(setLightUrl, options);
 }
+
+export const updateUserAccount = async (userId, userName, oldPass, newPass) => {
+    const request = {'userName': userName, 'oldPassword': oldPass, 'newPassword': newPass};
+    const options = {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
+        body: JSON.stringify(request)
+    };
+
+    const url = `http://localhost:5000/userId/${userId}/updateAccount`
+    return await fetch(url, options);
+}
