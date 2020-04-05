@@ -1,8 +1,10 @@
 import React from 'react';
 import Header from '../components/header/Header';
 import { Divider, TextField } from '@material-ui/core';
+import { getStore } from '../GlobalState';
 
 export default function Account() {
+    getStore().setActivePage('Account')
 
     return (
         <div>
@@ -23,6 +25,7 @@ export default function Account() {
                         <div className="settings-row">
                             <TextField variant="outlined" label="Confirm New Password" type="password"/>
                         </div>
+                        <Divider />
                         <button>Submit</button>
                     </div>
                 </div>
