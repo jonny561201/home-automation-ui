@@ -28,10 +28,16 @@ describe('App Component', () => {
       expect(actual.props()).toHaveProperty('path', '/home');
     });
 
-    it('should have the home route', () => {
+    it('should have the settings route', () => {
       const actual = app.find('Route').at(2);
   
       expect(actual.props()).toHaveProperty('path', '/settings');
+    });
+
+    it('should have the account route', () => {
+      const actual = app.find('Route').at(3);
+  
+      expect(actual.props()).toHaveProperty('path', '/account');
     });
   });
 });

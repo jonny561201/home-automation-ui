@@ -16,6 +16,7 @@ export default function App() {
           <div>
             <Route exact path="/home" render={() => <Home />} />
             <Route exact path="/settings" render={() => <Settings />} />
+            <Route exact path="/account" />
           </div>
         }
       </header>
