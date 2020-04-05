@@ -46,4 +46,9 @@ describe('Account Page', () => {
         const actual = account.find(TextField).at(2);
         expect(actual.props()).toHaveProperty('label', 'Confirm New Password');
     });
+
+    it('should display the submit button', () => {
+        const actual = account.find('button').text();
+        expect(actual).toEqual('Submit');
+    });
 });
