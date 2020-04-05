@@ -16,6 +16,7 @@ export default function Account() {
                         <Divider />
                         <TextField variant="outlined" label="Old Password"/>
                         <TextField variant="outlined" label="New Password"/>
+                        <TextField variant="outlined" label="Confirm New Password"/>
                     </div>
                 </div>
 

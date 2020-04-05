@@ -36,4 +36,14 @@ describe('Account Page', () => {
         const actual = account.find(TextField).at(1);
         expect(actual.props()).toHaveProperty('label', 'New Password');
     });
+
+    it('should display the confirm new password input box', () => {
+        const actual = account.find(TextField).at(2);
+        expect(actual).toHaveLength(1);
+    });
+
+    it('should display the confirm new password label', () => {
+        const actual = account.find(TextField).at(2);
+        expect(actual.props()).toHaveProperty('label', 'Confirm New Password');
+    });
 });
