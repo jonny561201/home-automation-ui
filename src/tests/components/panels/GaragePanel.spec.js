@@ -2,15 +2,18 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import * as lib from '../../../utilities/RestApi';
 import GaragePanel from "../../../components/panels/GaragePanel";
+import { getStore } from '../../../GlobalState';
 
 
 describe('GaragePanel', () => {
     let garagePanel;
+    const userId = 'fakeuserid';
     const spyGet = jest.spyOn(lib, 'getGarageStatus');
     const spyUpdate = jest.spyOn(lib, 'updateGarageState');
     const spyToggle = jest.spyOn(lib, 'toggleGarageDoor');
 
     beforeEach(() => {
+        getStore().setUserId(userId)
         spyGet.mockClear();
         spyUpdate.mockClear();
         spyToggle.mockClear();
@@ -92,12 +95,12 @@ describe('GaragePanel', () => {
 
         it('should call open function with false when closing', () => {
             garagePanel.instance().openGarageDoor(false);
-            expect(spyUpdate).toBeCalledWith(false);
+            expect(spyUpdate).toBeCalledWith(false, userId);
         });
 
         it('should call open function with true when opening', () => {
             garagePanel.instance().openGarageDoor(true);
-            expect(spyUpdate).toBeCalledWith(true);
+            expect(spyUpdate).toBeCalledWith(true, userId);
         });
 
         it('should call toggle function', () => {

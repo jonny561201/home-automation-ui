@@ -4,12 +4,14 @@ import GarageIcon from '../../resources/panelIcons/GarageDoorIcon.jpg';
 import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, ExpansionPanelActions, Divider } from '@material-ui/core';
 import './GaragePanel.css';
 import { getGarageStatus, toggleGarageDoor, updateGarageState } from '../../utilities/RestApi';
+import { getStore } from '../../GlobalState';
 
 
 export default class GaragePanel extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            userId: getStore().getUserId(),
             isGarageOpen: null,
             garageStatus: null,
             statusDuration: null,
@@ -20,7 +22,7 @@ export default class GaragePanel extends React.Component {
     }
 
     componentDidMount = async () => {
-        const garageStatus = await getGarageStatus();
+        const garageStatus = await getGarageStatus(this.state.userId);
         await this.setState({ garageStatus: garageStatus, isGarageOpen: JSON.stringify(garageStatus.isGarageOpen) });
         this.interval = setInterval(() => {
             const duration = new Date(garageStatus.statusDuration);
@@ -40,11 +42,11 @@ export default class GaragePanel extends React.Component {
     };
 
     openGarageDoor = async (shouldOpen) => {
-        await updateGarageState(shouldOpen);
+        await updateGarageState(shouldOpen, this.state.userId);
     };
 
     toggleGarageDoor = async () => {
-        await toggleGarageDoor();
+        await toggleGarageDoor(this.state.userId);
     };
 
     render() {
