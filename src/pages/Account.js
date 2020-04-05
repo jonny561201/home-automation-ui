@@ -15,6 +15,7 @@ export default function Account() {
                         <h2>Change Password</h2>
                         <Divider />
                         <TextField variant="outlined" label="Old Password"/>
+                        <TextField variant="outlined" label="New Password"/>
                     </div>
                 </div>
 
