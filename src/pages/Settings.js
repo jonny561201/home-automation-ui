@@ -11,6 +11,7 @@ export default class Settings extends React.Component {
         super(props);
         getStore().setActivePage('Settings');
         this.state = {
+            userId: getStore().getUserId(),
             city: null,
             newCity: null,
             isEditMode: false,
@@ -24,7 +25,7 @@ export default class Settings extends React.Component {
     }
 
     componentDidMount = async () => {
-        const response = await getUserPreferences(getStore().getUserId());
+        const response = await getUserPreferences(this.state.userId);
         this.setState({
             city: response.city, tempUnit: response.temp_unit, measureUnit: response.measure_unit,
             newMeasureUnit: response.measure_unit, newCity: response.city, newTempUnit: response.temp_unit
@@ -38,7 +39,7 @@ export default class Settings extends React.Component {
     savePreferences = () => {
         const isFahrenheit = this.state.newTempUnit === "fahrenheit";
         const isImperial = this.state.newMeasureUnit === "imperial";
-        updateUserPreferences(getStore().getUserId(), isFahrenheit, isImperial, this.state.newCity);
+        updateUserPreferences(this.state.userId, isFahrenheit, isImperial, this.state.newCity);
         this.toggleEditMode();
         this.setState({ edited: false, city: this.state.newCity, tempUnit: this.state.newTempUnit, measureUnit: this.state.newMeasureUnit });
     }

@@ -126,8 +126,8 @@ export const setLightState = async (lightId, state, brightness) => {
     return await fetch(setLightUrl, options);
 }
 
-export const updateUserAccount = async (userId, userName, oldPass, newPass) => {
-    const request = {'userName': userName, 'oldPassword': oldPass, 'newPassword': newPass};
+export const updateUserAccount = async (userId, oldPass, newPass) => {
+    const request = {'oldPassword': oldPass, 'newPassword': newPass};
     const options = {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
