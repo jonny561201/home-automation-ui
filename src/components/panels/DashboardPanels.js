@@ -29,9 +29,12 @@ export default function DashboardPanel() {
                 </div>
                 : null
             }
-            <div className="panel">
-                <LightingPanel />
-            </div>
+            {roles.includes("lighting") ?
+                <div className="panel">
+                    <LightingPanel />
+                </div>
+                : null
+            }
             {/* <div className="panel">
                 <SecurityPanel />
             </div> */}
