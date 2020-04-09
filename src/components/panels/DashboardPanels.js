@@ -4,14 +4,19 @@ import BasementPanel from './BasementPanel';
 import TemperaturePanel from './TemperaturePanel';
 import LightingPanel from './LightingPanel';
 import SecurityPanel from './SecurityPanel';
+import { getStore } from '../../GlobalState';
 
 
-export default function DashboardPanel(props) {
+export default function DashboardPanel() {
+    const store = getStore();
     return (
         <div>
-            <div className="panel">
-                <GaragePanel />
-            </div>
+            {store.getUserRoles().includes("garage_door") ?
+                <div className="panel">
+                    <GaragePanel />
+                </div>
+                : null
+            }
             <div className="panel">
                 <BasementPanel />
             </div>
