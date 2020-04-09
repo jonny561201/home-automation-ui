@@ -38,6 +38,24 @@
     margin-top: 0.5rem;
 }
 
+.account-message {
+    display: flex;
+    margin-left: 1.5rem;
+    align-items: center;
+}
+
+.success-text {
+    color: #055219;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+}
+
+.failure-text {
+    color: #a8120a;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+}
+
 .cancel {
     background-color: #c73200;
 }
