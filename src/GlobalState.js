@@ -6,6 +6,7 @@ class GlobalState {
             bearerToken: null,
             userId: null,
             userRoles: null,
+            firstName: null,
         }
     }
 
@@ -47,6 +48,14 @@ class GlobalState {
 
     getUserRoles = () => {
         return this.state.userRoles;
+    }
+
+    setFirstName = (name) => {
+        this.state.firstName = name;
+    }
+
+    getFirstName = () => {
+        return this.state.firstName;
     }
 }
 
