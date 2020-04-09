@@ -17,7 +17,9 @@ export const getBearerToken = async (username, password) => {
         const dataStore = getStore();
         //Make updates here to get roles etc
         dataStore.setBearerToken(bearerToken);
-        dataStore.setUserId(jwt_decode(bearerToken).user.user_id);
+        const decodedToken = jwt_decode(bearerToken);
+        dataStore.setUserId(decodedToken.user.user_id);
+        dataStore.setUserRoles(decodedToken.user.roles);
     }
     return response.ok;
 }

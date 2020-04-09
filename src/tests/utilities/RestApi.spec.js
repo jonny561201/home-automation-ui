@@ -55,6 +55,18 @@ describe('RestApi', () => {
         expect(getStore().getUserId()).toEqual(userId);
     });
 
+    it('should store roles after successful login', async () => {
+        const response = { 'bearerToken': fakeBearerToken };
+        const options = { 'method': 'GET', 'headers': { 'Authorization': `Basic ${base64.encode(credentials)}` }, overwriteRoutes: false };
+
+        fetchMock.mock('http://localhost:5000/login', response, options).catch(unmatchedUrl => {
+            return { status: 400 };
+        });
+
+        await getBearerToken(username, password);
+        expect(getStore().getUserRoles()).toEqual(["garage_door","security","thermostat","lighting","sump_pump"]);
+    });
+
     describe('after successful login', () => {
         let state;
         const bearerToken2 = 'abc123';

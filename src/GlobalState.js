@@ -5,6 +5,7 @@ class GlobalState {
             isAuthenticated: false,
             bearerToken: null,
             userId: null,
+            userRoles: null,
         }
     }
 
@@ -38,6 +39,14 @@ class GlobalState {
 
     getUserId = () => {
         return this.state.userId;
+    }
+
+    setUserRoles = (roles) => {
+        this.state.userRoles = roles;
+    }
+
+    getUserRoles = () => {
+        return this.state.userRoles;
     }
 }
 
