@@ -8,18 +8,21 @@ import { getStore } from '../../GlobalState';
 
 
 export default function DashboardPanel() {
-    const store = getStore();
+    const roles = getStore().getUserRoles();
     return (
         <div>
-            {store.getUserRoles().includes("garage_door") ?
+            {roles.includes("garage_door") ?
                 <div className="panel">
                     <GaragePanel />
                 </div>
                 : null
             }
-            <div className="panel">
-                <BasementPanel />
-            </div>
+            {roles.includes("sump_pump") ?
+                <div className="panel">
+                    <BasementPanel />
+                </div>
+                : null
+            }
             <div className="panel">
                 <TemperaturePanel />
             </div>

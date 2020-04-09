@@ -30,10 +30,18 @@ describe('DashboardPanel', () => {
             expect(actual).toHaveLength(0);
         });
 
-        it('should show the Basement Panel if user has the basement', () => {
+        it('should show the Basement Panel if user has the basement role', () => {
+            store.setUserRoles(['sump_pump']);
             const dashboard = shallow(<DashboardPanels />);
             const actual = dashboard.find('BasementPanel');
             expect(actual).toHaveLength(1);
+        });
+
+        it('should not show the Basement Panel if user does not have the basement role', () => {
+            store.setUserRoles([]);
+            const dashboard = shallow(<DashboardPanels />);
+            const actual = dashboard.find('BasementPanel');
+            expect(actual).toHaveLength(0);
         });
     });
 });
