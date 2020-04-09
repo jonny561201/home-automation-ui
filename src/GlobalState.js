@@ -7,6 +7,7 @@ class GlobalState {
             userId: null,
             userRoles: null,
             firstName: null,
+            lastName: null,
         }
     }
 
@@ -56,6 +57,14 @@ class GlobalState {
 
     getFirstName = () => {
         return this.state.firstName;
+    }
+
+    setLastName = (name) => {
+        this.state.lastName = name;
+    }
+
+    getLastName = () => {
+        return this.state.lastName;
     }
 }
 

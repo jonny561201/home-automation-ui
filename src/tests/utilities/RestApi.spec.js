@@ -79,6 +79,18 @@ describe('RestApi', () => {
         expect(getStore().getFirstName()).toEqual("Jon");
     });
 
+    it('should store user last name after successful login', async () => {
+        const response = { 'bearerToken': fakeBearerToken };
+        const options = { 'method': 'GET', 'headers': { 'Authorization': `Basic ${base64.encode(credentials)}` }, overwriteRoutes: false };
+
+        fetchMock.mock('http://localhost:5000/login', response, options).catch(unmatchedUrl => {
+            return { status: 400 };
+        });
+
+        await getBearerToken(username, password);
+        expect(getStore().getLastName()).toEqual("Tester");
+    });
+
     describe('after successful login', () => {
         let state;
         const bearerToken2 = 'abc123';
