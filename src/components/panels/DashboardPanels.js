@@ -23,9 +23,12 @@ export default function DashboardPanel() {
                 </div>
                 : null
             }
-            <div className="panel">
-                <TemperaturePanel />
-            </div>
+            {roles.includes("thermostat") ?
+                <div className="panel">
+                    <TemperaturePanel />
+                </div>
+                : null
+            }
             <div className="panel">
                 <LightingPanel />
             </div>
