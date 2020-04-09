@@ -5,7 +5,7 @@ class GlobalState {
             isAuthenticated: false,
             bearerToken: null,
             userId: null,
-            userRoles: null,
+            userRoles: [],
             firstName: null,
             lastName: null,
         }
