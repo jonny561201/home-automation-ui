@@ -71,5 +71,19 @@ describe('DashboardPanel', () => {
             const actual = dashboard.find('LightingPanel');
             expect(actual).toHaveLength(0);
         });
+
+        it('should show the Security Panel if user has the security role', () => {
+            store.setUserRoles(['security']);
+            const dashboard = shallow(<DashboardPanels />);
+            const actual = dashboard.find('SecurityPanel');
+            expect(actual).toHaveLength(1);
+        });
+
+        it('should not show the Security Panel if user does not have the security role', () => {
+            store.setUserRoles([]);
+            const dashboard = shallow(<DashboardPanels />);
+            const actual = dashboard.find('SecurityPanel');
+            expect(actual).toHaveLength(0);
+        });
     });
 });

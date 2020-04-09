@@ -8,7 +8,9 @@ import { getStore } from '../../GlobalState';
 
 
 export default function DashboardPanel() {
+
     const roles = getStore().getUserRoles();
+    
     return (
         <div>
             {roles.includes("garage_door") ?
@@ -35,9 +37,12 @@ export default function DashboardPanel() {
                 </div>
                 : null
             }
-            {/* <div className="panel">
-                <SecurityPanel />
-            </div> */}
+            {roles.includes("security") ?
+                <div className="panel">
+                    <SecurityPanel />
+                </div>
+                : null
+            }
         </div>
     );
 }
