@@ -65,7 +65,7 @@ describe('Account Page', () => {
         it('should call updateUserAccount when not in error state', () => {
             account.state().oldPasswordError = false;
             account.state().changed = true;
-            account.state().doPasswordsMatch = false;
+            account.state().arePasswordsMismatched = false;
             account.state().oldPassword = oldPass;
             account.state().secondNewPassword = newPass;
             account.instance().forceUpdate();
@@ -78,7 +78,7 @@ describe('Account Page', () => {
         it('should set to error when state unchanged', () => {
             account.state().oldPasswordError = false;
             account.state().changed = false;
-            account.state().doPasswordsMatch = false;
+            account.state().arePasswordsMismatched = false;
             account.state().oldPassword = oldPass;
             account.state().secondNewPassword = newPass;
             account.instance().forceUpdate();
@@ -87,13 +87,13 @@ describe('Account Page', () => {
 
             expect(spyPost).toHaveBeenCalledTimes(0);
             expect(account.state().oldPasswordError).toBeTruthy();
-            expect(account.state().doPasswordsMatch).toBeTruthy();
+            expect(account.state().arePasswordsMismatched).toBeTruthy();
         });
         
         it('should set to error when state old password error', () => {
             account.state().oldPasswordError = true;
             account.state().changed = true;
-            account.state().doPasswordsMatch = false;
+            account.state().arePasswordsMismatched = false;
             account.state().oldPassword = oldPass;
             account.state().secondNewPassword = newPass;
             account.instance().forceUpdate();
@@ -102,13 +102,13 @@ describe('Account Page', () => {
 
             expect(spyPost).toHaveBeenCalledTimes(0);
             expect(account.state().oldPasswordError).toBeTruthy();
-            expect(account.state().doPasswordsMatch).toBeTruthy();
+            expect(account.state().arePasswordsMismatched).toBeTruthy();
         });
         
         it('should set to error when state password error', () => {
             account.state().oldPasswordError = false;
             account.state().changed = true;
-            account.state().doPasswordsMatch = true;
+            account.state().arePasswordsMismatched = true;
             account.state().oldPassword = oldPass;
             account.state().secondNewPassword = newPass;
             account.instance().forceUpdate();
@@ -117,37 +117,69 @@ describe('Account Page', () => {
 
             expect(spyPost).toHaveBeenCalledTimes(0);
             expect(account.state().oldPasswordError).toBeTruthy();
-            expect(account.state().doPasswordsMatch).toBeTruthy();
+            expect(account.state().arePasswordsMismatched).toBeTruthy();
         });
     });
 
     describe('onSecondPasswordChange', () => {
         const firstPass ="firstPassword";
         const secondPass = "secondPassword";
+        const input = {target:{value:secondPass}}
 
-        it('should update the second password and update the changed value', () => {
+        it('should update the second password and update the changed value', async () => {
             
-            await account.instance().onSecondPasswordChange(secondPass);
+            await account.instance().onSecondPasswordChange(input);
             expect(account.state().secondNewPassword).toEqual(secondPass);
             expect(account.state().changed).toBeTruthy();
         });
 
-        it('should set the do passwords match to false when match', () => {
-            account.state().firstNewPassword = firstPass;
-            account.state().secondNewPassword = firstPass;
+        it('should set arePasswordsMismatched match to false when match', async () => {
+            account.state().firstNewPassword = secondPass;
+            account.state().secondNewPassword = secondPass;
             account.instance().forceUpdate();
 
-            await account.instance().onSecondPasswordChange(secondPass);
-            expect(account.state().doPasswordsMatch).toBeFalsy();
+            await account.instance().onSecondPasswordChange(input);
+            expect(account.state().arePasswordsMismatched).toBeFalsy();
         });
 
-        it('should set the do passwords match to true when dont match', () => {
+        it('should set arePasswordsMismatched to true when dont match', async () => {
             account.state().firstNewPassword = firstPass;
             account.state().secondNewPassword = secondPass;
             account.instance().forceUpdate();
 
-            await account.instance().onSecondPasswordChange(secondPass);
-            expect(account.state().doPasswordsMatch).toBeTruthy();
+            await account.instance().onSecondPasswordChange(input);
+            expect(account.state().arePasswordsMismatched).toBeTruthy();
+        });
+    });
+
+    describe('onFirstPasswordChange', () => {
+        const firstPass ="firstPassword";
+        const secondPass = "secondPassword";
+        const input = {target:{value: firstPass}}
+
+        it('should update the first password and update the changed value', async () => {
+            
+            await account.instance().onFirstPasswordChange(input);
+            expect(account.state().firstNewPassword).toEqual(firstPass);
+            expect(account.state().changed).toBeTruthy();
+        });
+
+        it('should set arePasswordsMismatched to false when match', async () => {
+            account.state().firstNewPassword = firstPass;
+            account.state().secondNewPassword = firstPass;
+            account.instance().forceUpdate();
+
+            await account.instance().onFirstPasswordChange(input);
+            expect(account.state().arePasswordsMismatched).toBeFalsy();
+        });
+
+        it('should set arePasswordsMismatched to true when dont match', async () => {
+            account.state().firstNewPassword = firstPass;
+            account.state().secondNewPassword = secondPass;
+            account.instance().forceUpdate();
+
+            await account.instance().onFirstPasswordChange(input);
+            expect(account.state().arePasswordsMismatched).toBeTruthy();
         });
     });
 });
