@@ -1,0 +1,43 @@
+.account-body {
+    background-color: white;
+    color: black;
+    display: flex;
+    min-width: 650px;
+    flex-direction: column;
+    border-radius: 0 0 20px 20px;
+}
+
+.test {
+    left: auto;
+    top: auto;
+}
+
+.account-wrapper {
+    margin: 1rem;
+}
+
+.account-group {
+    display: block;
+    flex: 1;
+    margin: 0.5rem;
+}
+
+.account-divider {
+    margin-top: 0.5rem !important;
+}
+
+.account-text {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+    padding-right: 0.5rem;
+}
+
+.account-row {
+    display: flex;
+    flex-direction: row;
+    margin-left: 1rem;
+    margin-top: 0.5rem;
+}
+
+.cancel {
+    background-color: #c73200;
+}
