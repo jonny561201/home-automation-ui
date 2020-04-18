@@ -1,76 +1,63 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import './UserPass.css';
 import { getBearerToken } from '../../utilities/RestApi'
 import { getStore } from '../../GlobalState';
 
 
-export default class UserPass extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: undefined,
-            password: undefined,
-            isUsernameInvalid: false,
-            isPasswordInvalid: false,
-            isValidLogin: true,
-        }
-    }
+export default function UserPass() {
+    const [username, setUsername] = useState(undefined);
+    const [password, setPassword] = useState(undefined);
+    const [isUsernameInvalid, setIsUsernameInvalid] = useState(false);
+    const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
+    const [isValidLogin, setIsValidLogin] = useState(true);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-    validateCredentials = async (event) => {
+    const validateCredentials = async (event) => {
         event.preventDefault();
-        this.state.username == null || this.state.username === '' ? this.setState({ isUsernameInvalid: true }) : this.setState({ isUsernameInvalid: false });
-        this.state.password == null || this.state.password === '' ? this.setState({ isPasswordInvalid: true }) : this.setState({ isPasswordInvalid: false }, await this.getBearerTokenFromLogin());
+        username == null || username === '' ? setIsUsernameInvalid(true) : setIsUsernameInvalid(false);
+        password == null || password === '' ? setIsPasswordInvalid(true) : setIsPasswordInvalid(false);
+        await getBearerTokenFromLogin();
     }
 
-    getBearerTokenFromLogin = async () => {
-        if (this.state.isUsernameInvalid === false && this.state.isPasswordInvalid === false) {
-            const response = await getBearerToken(this.state.username, this.state.password);
-            this.setState({ isValidLogin: response });
+    const getBearerTokenFromLogin = async () => {
+        if (isUsernameInvalid === false && isPasswordInvalid === false) {
+            const response = await getBearerToken(username, password);
+            setIsValidLogin(response);
             if (response) {
                 getStore().updateAuth(true);
+                setIsAuthenticated(true);
             }
         }
     }
-
-    setUsername = (event) => {
-        this.setState({ username: event.target.value })
+    if (isAuthenticated) {
+        return <Redirect to='/home' />
     }
-
-    setPassword = (event) => {
-        this.setState({ password: event.target.value })
-    }
-
-    render() {
-        if (getStore().isAuthenticated()) {
-            return <Redirect to='/home' />
-        }
-        return (
-            <div>
-                <form onSubmit={this.validateCredentials}>
-                    <div className="column">
-                        <input onChange={this.setUsername} type="text" name="Username" placeholder="Username" />
-                    </div>
-                    {this.state.isUsernameInvalid
-                        ? <p className="error-text"> Invalid username!</p>
-                        : <p className="spacer"></p>
+    return (
+        <div>
+            <form onSubmit={validateCredentials}>
+                <div className="column">
+                    <input onChange={(event) => setUsername(event.target.value)} type="text" name="Username" placeholder="Username" />
+                </div>
+                {isUsernameInvalid
+                    ? <p className="error-text">Invalid username!</p>
+                    : <p className="spacer"></p>
+                }
+                <div className="column">
+                    <input onChange={(event) => setPassword(event.target.value)} type="password" name="Password" placeholder="Password" />
+                </div>
+                {isPasswordInvalid
+                    ? <p className="error-text">Invalid password!</p>
+                    : <p className="spacer"></p>
+                }
+                <div className="error-text">
+                    {isValidLogin
+                        ? <p></p>
+                        : <p>ERROR: Username or Password is invalid!</p>
                     }
-                    <div className="column">
-                        <input onChange={this.setPassword} type="password" name="Password" placeholder="Password" />
-                    </div>
-                    {this.state.isPasswordInvalid
-                        ? <p className="error-text">Invalid password!</p>
-                        : <p className="spacer"></p>
-                    }
-                    <div className="error-text">
-                        {this.state.isValidLogin
-                            ? <p></p>
-                            : <p>ERROR: Username or Password is invalid!</p>
-                        }
-                    </div>
-                    <button type="submit" className="column">Login</button>
-                </form>
-            </div>
-        )
-    }
+                </div>
+                <button type="submit" className="column">Login</button>
+            </form>
+        </div>
+    )
 }   

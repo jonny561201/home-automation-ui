@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import * as lib from '../../../utilities/RestApi';
 import { getStore } from '../../../GlobalState';
 import UserPass from '../../../components/header/UserPass';
@@ -11,7 +11,7 @@ describe('UserPass', () => {
 
     beforeEach(() => {
         spyBearer.mockClear();
-        userPass = shallow(<UserPass />);
+        userPass = mount(<UserPass />);
     });
 
     it('renders', () => {
@@ -45,138 +45,68 @@ describe('UserPass', () => {
             instance = userPass.instance();
         });
 
-        it('should set username to invalid when null', () => {
-            userPass.state().password = password;
-            userPass.state().username = null;
-            instance.validateCredentials(event);
+        it('should display error text when username an empty string', () => {
+            userPass.find('input[name="Username"]').simulate('change', { target: { value: '', }, });
+            userPass.find('button').simulate('submit');
 
-            expect(userPass.state().isUsernameInvalid).toEqual(true);
+            const errorText = userPass.find('.error-text');
+            expect(errorText.at(0).text()).toEqual('Invalid username!');
         });
 
-        it('should set username to invalid when undefined', () => {
-            userPass.state().password = password;
-            userPass.state().username = undefined;
-            instance.validateCredentials(event);
+        it('should display error text when username is undefined', () => {
+            userPass.find('input[name="Username"]').simulate('change', { target: { value: undefined, }, });
+            userPass.find('button').simulate('submit');
 
-            expect(userPass.state().isUsernameInvalid).toEqual(true);
+            const errorText = userPass.find('.error-text');
+            expect(errorText.at(0).text()).toEqual('Invalid username!');
         });
 
-        it('should set username to invalid when empty string', () => {
-            userPass.state().password = password;
-            userPass.state().username = '';
-            instance.validateCredentials(event);
+        it('should display error text when username is null', () => {
+            userPass.find('input[name="Username"]').simulate('change', { target: { value: null, }, });
+            userPass.find('button').simulate('submit');
 
-            expect(userPass.state().isUsernameInvalid).toEqual(true);
+            const errorText = userPass.find('.error-text');
+            expect(errorText.at(0).text()).toEqual('Invalid username!');
         });
 
-        it('should leave isUsernameInvalid to false when valid', () => {
-            userPass.state().username = username;
-            instance.validateCredentials(event);
+        it('should not display error text when username is valid', () => {
+            userPass.find('input[name="Username"]').simulate('change', { target: { value: 'User', }, });
+            userPass.find('button').simulate('submit');
 
-            expect(userPass.state().isUsernameInvalid).toEqual(false);
+            const errorText = userPass.find('.error-text').map(x => x.text());
+            expect(errorText.includes('Invalid username!')).toBeFalsy();
         });
 
-        it('should set password to invalid when null', () => {
-            userPass.state().password = null;
-            userPass.state().username = username;
-            instance.validateCredentials(event);
+        it('should display error text when password an empty string', () => {
+            userPass.find('input[name="Password"]').simulate('change', { target: { value: '', }, });
+            userPass.find('button').simulate('submit');
 
-            expect(userPass.state().isPasswordInvalid).toEqual(true);
+            const errorText = userPass.find('.error-text');
+            expect(errorText.at(1).text()).toEqual('Invalid password!');
         });
 
-        it('should set password to invalid when undefined', () => {
-            userPass.state().password = undefined;
-            userPass.state().username = username;
-            instance.validateCredentials(event);
+        it('should display error text when password is undefined', () => {
+            userPass.find('input[name="Password"]').simulate('change', { target: { value: undefined, }, });
+            userPass.find('button').simulate('submit');
 
-            expect(userPass.state().isPasswordInvalid).toEqual(true);
+            const errorText = userPass.find('.error-text');
+            expect(errorText.at(1).text()).toEqual('Invalid password!');
         });
 
-        it('should set password to invalid when empty string', () => {
-            userPass.state().password = '';
-            userPass.state().username = username;
-            instance.validateCredentials(event);
+        it('should display error text when password is null', () => {
+            userPass.find('input[name="Password"]').simulate('change', { target: { value: null, }, });
+            userPass.find('button').simulate('submit');
 
-            expect(userPass.state().isPasswordInvalid).toEqual(true);
+            const errorText = userPass.find('.error-text');
+            expect(errorText.at(1).text()).toEqual('Invalid password!');
         });
 
-        it('should leave isPasswordInvalid to false when valid', () => {
-            userPass.state().password = password;
-            instance.validateCredentials(event);
+        it('should not display error text when password is valid', () => {
+            userPass.find('input[name="Password"]').simulate('change', { target: { value: 'Pass', }, });
+            userPass.find('button').simulate('submit');
 
-            expect(userPass.state().isPasswordInvalid).toEqual(false);
-        });
-
-        it('should reset isUsernameInvalid to false when new value provided', async () => {
-            userPass.state().isUsernameInvalid = true;
-            userPass.state().username = username;
-            await instance.validateCredentials(event);
-
-            expect(userPass.state().isUsernameInvalid).toBeFalsy();
-        });
-
-        it('should reset isPasswordInvalid to false when new value provided', async () => {
-            userPass.state().isPasswordInvalid = true;
-            userPass.state().password = password;
-            await instance.validateCredentials(event);
-
-            expect(userPass.state().isPasswordInvalid).toBeFalsy();
-        });
-
-        it('should set isValidLogin to false when non 200', async () => {
-            spyBearer.mockReturnValue(false);
-
-            await instance.getBearerTokenFromLogin();
-            expect(userPass.state().isValidLogin).toEqual(false);
-        });
-
-        it('should set the user to authenticated when response returns successfully', async () => {
-            getStore().setBearerToken('FakeBearerToken');
-            spyBearer.mockReturnValue(true);
-
-            await instance.getBearerTokenFromLogin();
-            expect(getStore().isAuthenticated()).toBeTruthy();
-        });
-
-        it('should make call to get bearer token when inputs valid', () => {
-            userPass.state().username = username;
-            userPass.state().password = password;
-
-            instance.validateCredentials(event);
-
-            expect(spyBearer).toHaveBeenCalledTimes(1);
-        });
-
-        it('should not make call to get bearer token when user invalid', () => {
-            userPass.state().password = password;
-            userPass.state().username = null;
-
-            instance.validateCredentials(event);
-
-            expect(spyBearer).toHaveBeenCalledTimes(0);
-        });
-
-        it('should not make call to get bearer token when password invalid', () => {
-            userPass.state().password = null;
-            userPass.state().username = username;
-
-            instance.validateCredentials(event);
-
-            expect(spyBearer).toHaveBeenCalledTimes(0);
-        });
-
-        it('should not make call to get bearer token when user and pass invalid', () => {
-            userPass.state().password = null;
-            userPass.state().username = null;
-
-            instance.validateCredentials(event);
-
-            expect(spyBearer).toHaveBeenCalledTimes(0);
-        });
-
-        it('should make call to prevent defaults', () => {
-            instance.validateCredentials(event);
-            expect(mockEvent).toHaveBeenCalledTimes(1);
+            const errorText = userPass.find('.error-text').map(x => x.text());
+            expect(errorText.includes('Invalid password!')).toBeFalsy();
         });
     });
 });
