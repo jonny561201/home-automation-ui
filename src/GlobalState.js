@@ -6,8 +6,8 @@ class GlobalState {
             bearerToken: null,
             userId: null,
             userRoles: [],
-            firstName: null,
-            lastName: null,
+            firstName: "",
+            lastName: "",
         }
     }
 
