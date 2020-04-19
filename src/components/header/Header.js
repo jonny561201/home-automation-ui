@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LogoHeader from '../header/LogoHeader';
 import Account from '../header/Account';
 import AccountSettings from '../header/AccountSettings';
@@ -6,43 +6,37 @@ import './Header.css';
 import { getStore } from '../../GlobalState';
 
 
-export default class Header extends React.Component {
-    constructor(props) {
-        super(props);
-        this.activePage = getStore().getActivePage();
-        this.state = {
-            settingsActive: false,
-        }
+export default function Header() {
+    const activePage = getStore().getActivePage();
+    const [settingsActive, setSettingsActive] = useState(null);
+    const [wrapperRef, setWrapperRef] = useState(null);
+
+    const updateWrapperRef = (node) => {
+        setWrapperRef(node);
     }
 
-    setWrapperRef = (node) => {
-        this.wrapperRef = node;
+    const toggleAccountSettings = () => {
+        setSettingsActive(!settingsActive);
     }
 
-    toggleAccountSettings = () => {
-        this.setState({ settingsActive: !this.state.settingsActive })
-    }
-
-    render() {
-        return (
-            <div className="header">
-                <div className="home-header">
-                    <div className="logo-container">
-                        <LogoHeader />
-                    </div>
-                    <div></div>
-                    <div>
-                        <h1 className="home-header-text">{this.activePage}</h1>
-                    </div>
-                    <div ref={this.setWrapperRef}>
-                        <Account toggle={this.toggleAccountSettings} />
-                    </div>
+    return (
+        <div className="header">
+            <div className="home-header">
+                <div className="logo-container">
+                    <LogoHeader />
                 </div>
-                {this.state.settingsActive
-                    ? <AccountSettings toggle={this.toggleAccountSettings} parentRef={this.wrapperRef} />
-                    : <div></div>
-                }
+                <div></div>
+                <div>
+                    <h1 className="home-header-text">{activePage}</h1>
+                </div>
+                <div ref={updateWrapperRef}>
+                    <Account toggle={toggleAccountSettings} />
+                </div>
             </div>
-        );
-    }
+            {settingsActive
+                ? <AccountSettings toggle={toggleAccountSettings} parentRef={wrapperRef} />
+                : <div></div>
+            }
+        </div>
+    );
 }

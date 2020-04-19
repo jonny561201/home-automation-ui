@@ -18,7 +18,7 @@ export default function UserPass() {
         username == null || username === '' ? setIsUsernameInvalid(true) : setIsUsernameInvalid(false);
         password == null || password === '' ? setIsPasswordInvalid(true) : setIsPasswordInvalid(false);
         await getBearerTokenFromLogin();
-    }
+    };
 
     const getBearerTokenFromLogin = async () => {
         if (isUsernameInvalid === false && isPasswordInvalid === false) {
@@ -29,7 +29,8 @@ export default function UserPass() {
                 setIsAuthenticated(true);
             }
         }
-    }
+    };
+    
     if (isAuthenticated) {
         return <Redirect to='/home' />
     }

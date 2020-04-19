@@ -1,5 +1,5 @@
 import React from 'react';
-import {act} from 'react-dom/test-utils'
+import {act} from 'react-dom/test-utils';
 import { mount } from 'enzyme';
 import Account from '../../pages/Account';
 import * as lib from '../../utilities/RestApi';
@@ -100,7 +100,7 @@ describe('Account Page', () => {
             expect(account.find(TextField).at(0).prop("error")).toBeFalsy();
         });
 
-        it('should make api call when not in error state', () => {
+        it('should make api call when not in error state', async () => {
             const oldPassword = "oldPassword"
             const newPassword = "newPassword"
             await act(async () => {
