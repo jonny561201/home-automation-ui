@@ -28,4 +28,15 @@ describe('Account', () => {
         const initials = account.find('p').text();
         expect(initials).toEqual("JR");
     });
+
+    it('should trim whitespace from users first and last name', () => {
+        const firstName = " Jon";
+        const lastName = " Rox";
+        getStore().setFirstName(firstName);
+        getStore().setLastName(lastName);
+        const newAccount = shallow(<Account />);
+
+        const initials = newAccount.find('p').text();
+        expect(initials).toEqual("JR");
+    });
 });

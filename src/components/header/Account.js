@@ -4,8 +4,8 @@ import { getStore } from '../../GlobalState';
 
 
 export default function Account(props) {
-    const firstInitial = getStore().getFirstName().charAt(0);
-    const lastInitial = getStore().getLastName().charAt(0);
+    const firstInitial = getStore().getFirstName().trim().charAt(0);
+    const lastInitial = getStore().getLastName().trim().charAt(0);
 
     return (
         <div className="account-container" onClick={props.toggle} >
