@@ -43,7 +43,7 @@ export default class LightSwitch extends React.Component {
         return (
             <div>
                 <div className="light-group">
-                    <ButtonBase onClick={() => this.toggleOpen()} style={{ "border-radius": "50%" }}>
+                    <ButtonBase onClick={() => this.toggleOpen()} style={{ "borderRadius": "50%" }}>
                         <div className={`light-chevron ${this.state.areLightsOpen ? "expanded" : ""}`}>
                             <ChevronRightIcon />
                         </div>
