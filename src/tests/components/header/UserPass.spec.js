@@ -1,16 +1,12 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import * as lib from '../../../utilities/RestApi';
-import { getStore } from '../../../GlobalState';
+import { mount } from 'enzyme';
 import UserPass from '../../../components/header/UserPass';
 
 
 describe('UserPass', () => {
     let userPass;
-    const spyBearer = jest.spyOn(lib, 'getBearerToken');
 
     beforeEach(() => {
-        spyBearer.mockClear();
         userPass = mount(<UserPass />);
     });
 
@@ -34,16 +30,6 @@ describe('UserPass', () => {
     });
 
     describe('Form Validation', () => {
-        let instance;
-        const username = 'Jon';
-        const password = 'bestestPass'
-        const mockEvent = jest.fn();
-        const event = { preventDefault: mockEvent }
-
-        beforeEach(() => {
-            mockEvent.mockClear();
-            instance = userPass.instance();
-        });
 
         it('should display error text when username an empty string', () => {
             userPass.find('input[name="Username"]').simulate('change', { target: { value: '', }, });
