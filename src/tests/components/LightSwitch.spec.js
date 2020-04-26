@@ -1,7 +1,9 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import {act} from 'react-dom/test-utils';
+import { shallow, mount } from 'enzyme';
 import * as lib from '../../utilities/RestApi';
 import LightSwitch from '../../components/controls/LightSwitch';
+import { ButtonBase, FormControlLabel, Switch } from '@material-ui/core';
 
 describe('LightSwitch', () => {
     let lightSwitch;
@@ -21,14 +23,15 @@ describe('LightSwitch', () => {
         lightSwitch = shallow(<LightSwitch data={groupData} />);
     })
 
-    it('should display the group name as the label', () => {
-        const actual = lightSwitch.find('.MuiFormControlLabel-label');
-
-        // expect(actual).toEqual(groupData.groupName);
-    });
-
     it('should call set light group state on toggleChecked', async () => {
-        await lightSwitch.instance().toggleChecked();
+        const testSwitch = shallow(<LightSwitch data={groupData}/>)
+        testSwitch.find(ButtonBase).simulate('click');
+        await act(async () => {
+            // lightSwitch.find(TextField).at(1).props().onChange({target: {value:matchingPass}});
+            // lightSwitch.find(TextField).at(2).props().onChange({target: {value:matchingPass}});
+            testSwitch.find(".test-something").simulate('change');
+        });
+        // await lightSwitch.instance().toggleChecked();
 
         expect(spySetGroup).toBeCalledWith(groupData.groupId, false, groupData.brightness);
     });
@@ -49,27 +52,20 @@ describe('LightSwitch', () => {
     describe('Light Expansion', () => {
 
         it('should display expansion panel when areLightsOpen is true', () => {
-            lightSwitch.state().areLightsOpen = true;
-            lightSwitch.instance().forceUpdate();
-
+            lightSwitch.find(ButtonBase).simulate('click');
             const actual = lightSwitch.find('.light-group-expansion');
 
             expect(actual).toHaveLength(1);
         });
 
         it('should not display expansion panel when areLightsOpen is false', () => {
-            lightSwitch.state().areLightsOpen = false;
-            lightSwitch.instance().forceUpdate();
-
             const actual = lightSwitch.find('.light-group-expansion');
 
             expect(actual).toHaveLength(0);
         });
 
         it('should display all light switches', () => {
-            lightSwitch.state().areLightsOpen = true;
-            lightSwitch.instance().forceUpdate();
-
+            lightSwitch.find(ButtonBase).simulate('click');
             const actual = lightSwitch.find('.light-switches');
 
             expect(actual).toHaveLength(2);
