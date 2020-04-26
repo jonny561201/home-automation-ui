@@ -17,7 +17,7 @@ export default function Account() {
     const [succeeded, setSucceeded] = useState(null);
     const [submitted, setSubmitted] = useState(false);
 
-    useEffect(()=> {
+    useEffect(() => {
         if (firstNewPassword !== "" && secondNewPassword !== "") {
             setPasswordsMismatched(secondNewPassword !== firstNewPassword);
         }
