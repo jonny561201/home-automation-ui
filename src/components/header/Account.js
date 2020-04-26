@@ -11,8 +11,6 @@ export default function Account(props) {
         <div className="account-container" onClick={props.toggle} >
             <div className="account-border">
                 <div className="account-center">
-                    {/* <div className="user-head"></div>
-                    <div className="user-shoulders"></div> */}
                     <p>{firstInitial + lastInitial}</p>
                 </div>
             </div>
