@@ -1,7 +1,7 @@
 import base64 from 'base-64';
 import fetchMock from 'fetch-mock';
 import {
-    getBearerToken, getGarageStatus, updateGarageState,
+    getBearerToken, getGarageStatus, updateGarageState, addUserDevice,
     toggleGarageDoor, getSumpLevels, getCurrentTemperature,
     getUserPreferences, updateUserPreferences, setUserTemperature,
     getLightGroups, setLightGroupState, setLightState, updateUserAccount
@@ -253,6 +253,19 @@ describe('RestApi', () => {
             });
 
             const actual = await updateUserAccount(userId, body.oldPassword, body.newPassword);
+
+            expect(actual.status).toEqual(200);
+        });
+
+        it('should make rest call to add device to a user', async () => {
+            const body = { 'roleName': 'fakeName', 'ipAddress': '1.0.0.1' };
+            const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
+
+            fetchMock.mock(`http://localhost:5000/userId/${userId}/devices`, options).catch(unmatchedUrl => {
+                return { status: 400 }
+            });
+
+            const actual = await addUserDevice(userId, body.roleName, body.ipAddress);
 
             expect(actual.status).toEqual(200);
         });

@@ -137,6 +137,17 @@ export const updateUserAccount = async (userId, oldPass, newPass) => {
         body: JSON.stringify(request)
     };
 
-    const url = `http://localhost:5000/userId/${userId}/updateAccount`
+    const url = `http://localhost:5000/userId/${userId}/updateAccount`;
+    return await fetch(url, options);
+}
+
+export const addUserDevice = async (userId, roleName, ipAddress) => {
+    const request = {'roleName': roleName, 'ipAddress': ipAddress}
+    const options = {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}`},
+        body: JSON.stringify(request)
+    };
+    const url = `http://localhost:5000/userId/${userId}/devices`;
     return await fetch(url, options);
 }

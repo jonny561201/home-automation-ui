@@ -3,7 +3,7 @@ import {act} from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
 import * as lib from '../../utilities/RestApi';
 import LightSwitch from '../../components/controls/LightSwitch';
-import { ButtonBase, FormControlLabel, Switch } from '@material-ui/core';
+import { ButtonBase } from '@material-ui/core';
 
 describe('LightSwitch', () => {
     let lightSwitch;
@@ -69,5 +69,7 @@ describe('LightSwitch', () => {
 
             expect(actual).toHaveLength(2);
         });
+
+        // TODO: create test to make sure api call is make when an individual light switch is toggled
     });
 })
