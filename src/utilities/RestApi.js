@@ -145,9 +145,20 @@ export const addUserDevice = async (userId, roleName, ipAddress) => {
     const request = {'roleName': roleName, 'ipAddress': ipAddress}
     const options = {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}`},
+        headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
         body: JSON.stringify(request)
     };
     const url = `http://localhost:5000/userId/${userId}/devices`;
+    return await fetch(url, options);
+}
+
+export const addUserDeviceNode = async (userId, deviceId, nodeName) => {
+    const request = {'nodeName': nodeName};
+    const options = {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
+        body: JSON.stringify(request)
+    };
+    const url = `http://localhost:5000/userId/${userId}/devices/${deviceId}/node`;
     return await fetch(url, options);
 }
