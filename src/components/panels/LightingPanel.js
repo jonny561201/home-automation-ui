@@ -20,7 +20,7 @@ export default function LightingPanel() {
 
     const renderGroups = () => {
         if (groups) {
-            return groups.map(group => <LightSwitch data={group} />)
+            return groups.map(group => <LightSwitch key={`switch-${group.groupId}`} data={group} />)
         }
     };
 

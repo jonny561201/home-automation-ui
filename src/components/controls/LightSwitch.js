@@ -19,7 +19,7 @@ export default function LightSwitch (props) {
 
     const getLightSwitches = () => {
         if (lights) {
-            return lights.map(x => <FormControlLabel className="light-switches" control={<Switch checked={x.on} onChange={() => toggleCheckedLight(x)} />}
+            return lights.map(x => <FormControlLabel key={`label-${x.lightId}`} className="light-switches" control={<Switch key={`switch-${x.lightId}`} checked={x.on} onChange={() => toggleCheckedLight(x)} />}
             label={x.lightName} />)
         }
     };
