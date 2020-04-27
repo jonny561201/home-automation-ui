@@ -6,10 +6,10 @@ import './LightSwitch.css';
 
 export default function LightSwitch (props) {
     const [on, setOn] = useState(props.data.on);
-    const [lights, ] = useState(props.data.lights);
     const [groupId, ] = useState(props.data.groupId);
     const [groupName, ] = useState(props.data.groupName);
     const [brightness, ] = useState(props.data.brightness);
+    const [lights, setLights] = useState(props.data.lights);
     const [areLightsOpen, setLightsOpen] = useState(false);
 
     const toggleChecked = async () => {
@@ -18,14 +18,18 @@ export default function LightSwitch (props) {
     };
 
     const getLightSwitches = () => {
-        return lights.map(x => <FormControlLabel className="light-switches" control={<Switch checked={x.on} onChange={() => toggleCheckedLight(x)} />}
+        if (lights) {
+            return lights.map(x => <FormControlLabel className="light-switches" control={<Switch checked={x.on} onChange={() => toggleCheckedLight(x)} />}
             label={x.lightName} />)
+        }
     };
 
     const toggleCheckedLight = async (light) => {
-        // this.setState({ lights: ...this.state.lights,{ lightId: light.lightId, lightName: light.lightName, on: !light.on, brightness: light.brightness });
-        light = { ...light.on = !light.on };
-        await setLightState(light.lightId, light.on, light.brightness);
+        const filteredLights = lights.filter(x => x.lightId !== light.lightId);
+        const newLight = { lightId: light.lightId, lightName: light.lightName, on: !light.on, brightness: light.brightness };
+        filteredLights.push(newLight);
+        setLights(filteredLights);
+        setLightState(light.lightId, !light.on, 255);
     };
 
     return (
