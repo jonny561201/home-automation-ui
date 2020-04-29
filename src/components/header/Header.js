@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import LogoHeader from '../header/LogoHeader';
 import AccountIcon from './AccountIcon';
-import AccountSettings from '../header/AccountSettings';
+import AccountMenu from '../header/AccountMenu';
 import './Header.css';
 import { getStore } from '../../GlobalState';
 
@@ -34,7 +34,7 @@ export default function Header() {
                 </div>
             </div>
             {settingsActive
-                ? <AccountSettings toggle={toggleAccountSettings} parentRef={wrapperRef} />
+                ? <AccountMenu toggle={toggleAccountSettings} parentRef={wrapperRef} />
                 : <div></div>
             }
         </div>
