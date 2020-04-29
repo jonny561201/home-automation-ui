@@ -1,5 +1,5 @@
 import React from 'react';
-import {act} from 'react-dom/test-utils';
+import { act } from 'react-dom/test-utils';
 import { mount } from 'enzyme';
 import Account from '../../pages/Account';
 import * as lib from '../../utilities/RestApi';

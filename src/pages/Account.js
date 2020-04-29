@@ -67,10 +67,10 @@ export default function Account() {
                 <Header />
             </div>
             <div className="account-body">
-                <div className="account-wrapper">
+                <div className="account-wrapper account-text">
+                    <h2>Change Password</h2>
+                    <Divider />
                     <form className="account-group account-text" onSubmit={submitAccountChange}>
-                        <h2>Change Password</h2>
-                        <Divider />
                         <div className="account-row">
                             <TextField error={oldPasswordError} value={oldPassword} variant="outlined" label="Old Password" type="password" onChange={onOldPasswordChange} />
                         </div>
