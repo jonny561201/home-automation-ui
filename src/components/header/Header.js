@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import LogoHeader from '../header/LogoHeader';
-import Account from '../header/Account';
+import AccountIcon from './AccountIcon';
 import AccountSettings from '../header/AccountSettings';
 import './Header.css';
 import { getStore } from '../../GlobalState';
@@ -30,7 +30,7 @@ export default function Header() {
                     <h1 className="home-header-text">{activePage}</h1>
                 </div>
                 <div ref={updateWrapperRef}>
-                    <Account toggle={toggleAccountSettings} />
+                    <AccountIcon toggle={toggleAccountSettings} />
                 </div>
             </div>
             {settingsActive

@@ -1,5 +1,5 @@
 import React from 'react';
-import './Account.css';
+import './AccountIcon.css';
 import { getStore } from '../../GlobalState';
 
 
