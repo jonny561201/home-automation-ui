@@ -56,7 +56,7 @@ describe('Account Page', () => {
     });
 
     it('should display the submit button', () => {
-        const actual = account.find('button').text();
+        const actual = account.find('button').at(0).text();
         expect(actual).toEqual('Submit');
     });
 
@@ -67,7 +67,8 @@ describe('Account Page', () => {
                 account.find(TextField).at(1).props().onChange({target: {value:'pass1'}});
                 account.find(TextField).at(2).props().onChange({target: {value:'pass2'}});
             });
-            account.find('button').simulate('submit');
+            account.find('button').at(0).simulate('submit');
+            account.find('button').at(0).simulate('submit');
 
             expect(account.find(TextField).at(1).prop("error")).toBeTruthy();
             expect(account.find(TextField).at(2).prop("error")).toBeTruthy();
@@ -79,14 +80,14 @@ describe('Account Page', () => {
                 account.find(TextField).at(1).props().onChange({target: {value:matchingPass}});
                 account.find(TextField).at(2).props().onChange({target: {value:matchingPass}});
             });
-            account.find('button').simulate('submit');
+            account.find('button').at(0).simulate('submit');
 
             expect(account.find(TextField).at(1).prop("error")).toBeFalsy();
             expect(account.find(TextField).at(2).prop("error")).toBeFalsy();
         });
 
         it('should display old password error when it is empty string on submit', async () => {
-            account.find('button').simulate('submit');
+            account.find('button').at(0).simulate('submit');
 
             expect(account.find(TextField).at(0).prop("error")).toBeTruthy();
         });
@@ -95,7 +96,7 @@ describe('Account Page', () => {
             await act(async () => {
                 account.find(TextField).at(0).props().onChange({target: {value:'test'}});
             });
-            account.find('button').simulate('submit');
+            account.find('button').at(0).simulate('submit');
 
             expect(account.find(TextField).at(0).prop("error")).toBeFalsy();
         });
@@ -108,7 +109,7 @@ describe('Account Page', () => {
                 account.find(TextField).at(1).props().onChange({target: {value:newPassword}});
                 account.find(TextField).at(2).props().onChange({target: {value:newPassword}});
             });
-            account.find('button').simulate('submit');
+            account.find('button').at(0).simulate('submit');
             expect(spyPost).toBeCalledWith(userId, oldPassword, newPassword)
         });
     });
@@ -116,9 +117,15 @@ describe('Account Page', () => {
     describe('Add Device', () => {
 
         it('should display the Add Device header', () => {
-            const actual = account.find('h2').at(1);
+            const actual = account.find('h2').at(1).text();
 
-            expect(actual.text()).toEqual('Add Device');
+            expect(actual).toEqual('Add Device');
+        });
+
+        it('should display the Add Device button', () => {
+            const actual = account.find('button').at(1).text();
+
+            expect(actual).toEqual('Add');
         });
     });
 });

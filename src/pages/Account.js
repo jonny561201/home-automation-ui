@@ -86,6 +86,9 @@ export default function Account() {
                     </form>
                     <h2>Add Device</h2>
                     <Divider />
+                    <div>
+                        <button>Add</button>
+                    </div>
                 </div>
             </div>
         </div>
