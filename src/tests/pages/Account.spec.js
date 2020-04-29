@@ -122,6 +122,11 @@ describe('Account Page', () => {
             expect(actual).toEqual('Add Device');
         });
 
+        it('should display the input box for providing the device ip address', () => {
+            const actual = account.find(TextField).at(3);
+            expect(actual).toHaveLength(1);
+        });
+
         it('should display the Add Device button', () => {
             const actual = account.find('button').at(1).text();
 
