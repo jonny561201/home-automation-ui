@@ -84,6 +84,8 @@ export default function Account() {
                         <Divider className="account-divider" />
                         <button type="submit">Submit</button>
                     </form>
+                    <h2>Add Device</h2>
+                    <Divider />
                 </div>
             </div>
         </div>

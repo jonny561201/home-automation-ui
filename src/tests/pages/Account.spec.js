@@ -20,7 +20,7 @@ describe('Account Page', () => {
 
 
     it('should display header for changing password', () => {
-        const actual = account.find('h2');
+        const actual = account.find('h2').at(0);
 
         expect(actual).toHaveLength(1);
     });
@@ -110,6 +110,15 @@ describe('Account Page', () => {
             });
             account.find('button').simulate('submit');
             expect(spyPost).toBeCalledWith(userId, oldPassword, newPassword)
+        });
+    });
+
+    describe('Add Device', () => {
+
+        it('should display the Add Device header', () => {
+            const actual = account.find('h2').at(1);
+
+            expect(actual.text()).toEqual('Add Device');
         });
     });
 });
