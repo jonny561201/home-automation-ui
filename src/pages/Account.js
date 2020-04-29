@@ -87,7 +87,7 @@ export default function Account() {
                     <h2>Add Device</h2>
                     <Divider />
                     <form>
-                        <TextField />
+                        <TextField label="Add Device"/>
                         <button>Add</button>
                     </form>
                 </div>

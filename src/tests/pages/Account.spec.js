@@ -127,6 +127,11 @@ describe('Account Page', () => {
             expect(actual).toHaveLength(1);
         });
 
+        it('should display the add device label', () => {
+            const actual = account.find(TextField).at(3);
+            expect(actual.props()).toHaveProperty('label', 'Add Device');
+        });
+
         it('should display the Add Device button', () => {
             const actual = account.find('button').at(1).text();
 
