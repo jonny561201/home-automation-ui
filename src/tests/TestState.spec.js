@@ -97,6 +97,12 @@ describe('GlobalState', () => {
             expect(state.hasUnregisteredDevices()).toBeTruthy();
         });
 
+        it('should return true when garage role has devices list without items under role', () => {
+            const roles = [{role_name: 'garage_door', devices: []}];
+            state.state.roles = roles;
+            expect(state.hasUnregisteredDevices()).toBeTruthy();
+        });
+
         it('should return false when garage role has devices under role', () => {
             const role = [{role_name: 'garage_door', devices:[{node_name:'first garage'}]}]
             state.state.roles = role;
