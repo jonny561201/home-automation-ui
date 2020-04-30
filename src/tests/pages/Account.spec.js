@@ -137,5 +137,10 @@ describe('Account Page', () => {
 
             expect(actual).toEqual('Add');
         });
+
+        it('should disable the button when user does not have permission to add device', () => {
+            const actual = account.find('button').at(1);
+            expect(actual.prop('disabled')).toBeTruthy();
+        });
     });
 });

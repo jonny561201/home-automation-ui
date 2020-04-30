@@ -24,9 +24,9 @@ export default function Account() {
 
         if (changed && oldPassword === "") {
             setPasswordError(true);
-        } else if(changed && oldPassword !== "") {
+        } else if (changed && oldPassword !== "") {
             setPasswordError(false)
-        } else if(submitted && oldPassword === "") {
+        } else if (submitted && oldPassword === "") {
             setPasswordError(true);
         }
     }, [firstNewPassword, secondNewPassword, changed, oldPassword, submitted]);
@@ -53,7 +53,7 @@ export default function Account() {
             </div>
         } else if (succeeded === false) {
             return <div className="account-message">
-                <Error className="failure-text"/>
+                <Error className="failure-text" />
                 <p className="failure-text">Password Update Failed</p>
             </div>
         } else {
@@ -87,8 +87,10 @@ export default function Account() {
                     <h2>Add Device</h2>
                     <Divider />
                     <form>
-                        <TextField label="Add Device"/>
-                        <button>Add</button>
+                        <div className="account-row">
+                            <TextField variant="outlined" label="Add Device" />
+                        </div>
+                        <button disabled={true}>Add</button>
                     </form>
                 </div>
             </div>
