@@ -66,6 +66,11 @@ class GlobalState {
     getLastName = () => {
         return this.state.lastName;
     }
+
+    // TODO: need to update to look at roles 
+    hasUnregisteredDevices = () => {
+        return true;
+    }
 }
 
 let currentState = null;

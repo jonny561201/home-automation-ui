@@ -83,4 +83,18 @@ describe('GlobalState', () => {
             expect(state.getUserId()).toEqual(userId);
         });
     });
+
+    describe('Registered Devices', () => {
+        let state;
+
+        beforeEach(() => {
+            state = getStore();
+        });
+
+        it('should return true when garage role has no devices under role', () => {
+            const roles = [{role_name: 'garage_door', devices:[{node_name:'first garage'}]}];
+            state.state.roles = roles;
+            expect(state.hasUnregisteredDevices()).toBeTruthy();
+        });
+    });
 });
