@@ -116,31 +116,63 @@ describe('Account Page', () => {
 
     describe('Add Device', () => {
 
-        it('should display the Add Device header', () => {
-            const actual = account.find('h2').at(1).text();
+        let accountPage;
+        const roles = [{role_name: 'garage_door', devices:[]}]
 
-            expect(actual).toEqual('Add Device');
+        beforeEach(() => {
+            getStore().setUserRoles(roles)
+            accountPage = mount(<Account />);
         });
 
-        it('should display the input box for providing the device ip address', () => {
-            const actual = account.find(TextField).at(3);
-            expect(actual).toHaveLength(1);
+        describe('has unregistered devices', () => {
+            it('should display the Add Device header', () => {
+                const actual = accountPage.find('h2').at(1).text();
+    
+                expect(actual).toEqual('Add Device');
+            });
+    
+            it('should display the input box for providing the device ip address', () => {
+                const actual = accountPage.find(TextField).at(3);
+                expect(actual).toHaveLength(1);
+            });
+    
+            it('should display the add device label', () => {
+                const actual = accountPage.find(TextField).at(3);
+                expect(actual.props()).toHaveProperty('label', 'Add Device');
+            });
+    
+            it('should display the Add Device button', () => {
+                const actual = accountPage.find('button').at(1).text();
+    
+                expect(actual).toEqual('Add');
+            });
         });
 
-        it('should display the add device label', () => {
-            const actual = account.find(TextField).at(3);
-            expect(actual.props()).toHaveProperty('label', 'Add Device');
-        });
 
-        it('should display the Add Device button', () => {
-            const actual = account.find('button').at(1).text();
+        describe('does not have unregistered devices', () => {
 
-            expect(actual).toEqual('Add');
-        });
+            let accountPage;
+            const roles = [{role_name: 'garage_door', devices:[{node_name:'first garage'}]}]
 
-        it('should disable the button when user does not have permission to add device', () => {
-            const actual = account.find('button').at(1);
-            expect(actual.prop('disabled')).toBeTruthy();
+            beforeEach(() => {
+                getStore().setUserRoles(roles);
+                accountPage = mount(<Account />);
+            });
+            it('should not display the Add Device header when user does not have devices to add', () => {
+                const actual = accountPage.find('h2').at(1);
+    
+                expect(actual).toHaveLength(0);
+            });
+
+            it('should not display the button when user does not have devices to add', () => {
+                const actual = accountPage.find('button').at(1);
+                expect(actual).toHaveLength(0);
+            });
+    
+            it('should not display the TextField when user does not have devices to add', () => {
+                const actual = accountPage.find(TextField).at(3);
+                expect(actual).toHaveLength(0);
+            });
         });
     });
 });
