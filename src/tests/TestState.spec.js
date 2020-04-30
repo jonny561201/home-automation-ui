@@ -92,9 +92,15 @@ describe('GlobalState', () => {
         });
 
         it('should return true when garage role has no devices under role', () => {
-            const roles = [{role_name: 'garage_door', devices:[{node_name:'first garage'}]}];
+            const roles = [{role_name: 'garage_door'}];
             state.state.roles = roles;
             expect(state.hasUnregisteredDevices()).toBeTruthy();
+        });
+
+        it('should return false when garage role has devices under role', () => {
+            const role = [{role_name: 'garage_door', devices:[{node_name:'first garage'}]}]
+            state.state.roles = role;
+            expect(state.hasUnregisteredDevices()).toBeFalsy();
         });
     });
 });

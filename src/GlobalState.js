@@ -69,7 +69,11 @@ class GlobalState {
 
     // TODO: need to update to look at roles 
     hasUnregisteredDevices = () => {
-        return true;
+        const garageRole = this.state.roles.find(x => x.role_name === 'garage_door');
+        if (!garageRole.devices) {
+            return true;
+        }
+        return false;
     }
 }
 
