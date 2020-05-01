@@ -16,4 +16,10 @@ describe('Add Device', () => {
         const actual = screen.getByRole('textbox');
         expect(actual).toBeDefined();
     });
+
+    it('should display button for submitting request', () => {
+        render(<RegisterDevice />);
+        const actual = screen.getByRole('button');
+        expect(actual).toBeDefined();
+    });
 });
