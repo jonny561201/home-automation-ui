@@ -16,7 +16,6 @@ export default function Account() {
     const [secondNewPassword, setSecondPassword] = useState("");
     const [succeeded, setSucceeded] = useState(null);
     const [submitted, setSubmitted] = useState(false);
-    const [hasDevicesToAdd,] = useState(getStore().hasUnregisteredDevices());
 
     useEffect(() => {
         if (firstNewPassword !== "" && secondNewPassword !== "") {
@@ -85,19 +84,6 @@ export default function Account() {
                         <Divider className="account-divider" />
                         <button type="submit">Submit</button>
                     </form>
-                    {hasDevicesToAdd ?
-                        <div>
-                            <h2>Add Device</h2>
-                            <Divider />
-                            <form>
-                                <div className="account-row">
-                                    <TextField variant="outlined" label="Add Device" />
-                                </div>
-                                <button>Add</button>
-                            </form>
-                        </div>
-                        : null
-                    }
                 </div>
             </div>
         </div>
