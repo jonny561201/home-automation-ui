@@ -17,6 +17,7 @@
     "redbox-react": "^1.6.0"
   },
   "devDependencies": {
+    "@testing-library/react": "^10.0.4",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "fetch-mock": "^7.5.1",
