@@ -11,4 +11,9 @@ describe('Add Device', () => {
         expect(actual.textContent).toEqual("Add Device");
     });
 
+    it('should have an input box for the ip address', () => {
+        render(<RegisterDevice />)
+        const actual = screen.getByRole('textbox');
+        expect(actual).toBeDefined();
+    });
 });
