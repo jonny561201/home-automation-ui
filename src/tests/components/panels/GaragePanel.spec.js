@@ -47,51 +47,24 @@ describe('GaragePanel', () => {
         expect(actual).toEqual('Toggle');
     });
 
-//     describe('ComponentDidMount', () => {
+    it('should show Door Status text', () => {
+        render(<GaragePanel />);
+        const actual = screen.getByText('Door Status:').textContent;
+        expect(actual).toEqual('Door Status: ');
+    });
 
-//         it('should make api call to get status', () => {
-//             expect(spyGet).toHaveBeenCalledTimes(1);
-//         });
-
-//         it('should show open when garage state is closed', () => {
-//             garagePanel.state().isGarageOpen = false;
-//             garagePanel.instance().forceUpdate();
-
-//             const actual = garagePanel.find('.open-button').text();
-//             expect(actual).toEqual('Open');
-//         });
-
-//         it('should show close when garage state is open', () => {
-//             garagePanel.state().isGarageOpen = true;
-//             garagePanel.instance().forceUpdate();
-
-//             const actual = garagePanel.find('.close-button').text();
-//             expect(actual).toEqual('Close');
-//         });
-
-//         it('should show garage status base text', () => {
-//             const actual = garagePanel.find('.door-status').at(0).text();
-//             expect(actual).toEqual('Door Status: ');
-//         });
-
-//         it('should show garage status as open when state set to true', () => {
-//             garagePanel.state().isGarageOpen = true;
-//             garagePanel.instance().forceUpdate();
-
-//             const actual = garagePanel.find('.status-text').at(0).text();
-//             expect(actual).toEqual('Open');
-//         });
-
-//         it('should show garage status as closed when state set to false', () => {
-//             garagePanel.state().isGarageOpen = false;
-//             garagePanel.instance().forceUpdate();
-
-//             const actual = garagePanel.find('.status-text').at(0).text();
-//             expect(actual).toEqual('Closed');
-//         });
-//     });
+    it('should show Duration text', () => {
+        render(<GaragePanel />);
+        const actual = screen.getByText('Duration:').textContent;
+        expect(actual).toEqual('Duration: ');
+    });
 
     describe('garage door api', () => {
+
+        it('should make the initial call to get the garage data', () => {
+            render(<GaragePanel />);
+            expect(spyGet).toBeCalledWith(userId);
+        });
 
         it('should call update function with false when closing', async () => {
             spyGet.mockReturnValue({isGarageOpen: true})
