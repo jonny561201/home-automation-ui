@@ -23,25 +23,29 @@ describe('GaragePanel', () => {
 //         garagePanel = shallow(<GaragePanel />);
     });
 
-//     it('should show the Garage Panel', () => {
-//         const actual = garagePanel.find('.garage-panel');
-//         expect(actual).toHaveLength(1);
-//     });
+    it('should display the Garage text', () => {
+        render(<GaragePanel />);
+        const actual = screen.getByText("Garage");
+        expect(actual).toBeDefined();
+    });
 
-//     it('should show garage icon', () => {
-//         const actual = garagePanel.find('.garage-panel img').prop('alt');
-//         expect(actual).toEqual('garage');
-//     });
+    it('should show garage icon', () => {
+        render(<GaragePanel />);
+        const actual = screen.getByTestId("garage-icon");
+        expect(actual).toBeDefined();
+    });
 
-//     it('should show open garage button', () => {
-//         const actual = garagePanel.find('.open-button');
-//         expect(actual).toHaveLength(1);
-//     });
+    it('should show open garage button', () => {
+        render(<GaragePanel />);
+        const actual = screen.getByTestId('update-garage-open').textContent;
+        expect(actual).toEqual('Open');
+    });
 
-//     it('should show toggle garage button', () => {
-//         const actual = garagePanel.find('.toggle-button');
-//         expect(actual).toHaveLength(1);
-//     });
+    it('should show toggle garage button', () => {
+        render(<GaragePanel />);
+        const actual = screen.getByTestId('toggle-garage-button').textContent;
+        expect(actual).toEqual('Toggle');
+    });
 
 //     describe('ComponentDidMount', () => {
 

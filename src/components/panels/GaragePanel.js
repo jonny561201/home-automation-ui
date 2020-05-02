@@ -39,7 +39,7 @@ export default function GaragePanel() {
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <div className="summary">
                         <div>
-                            <img alt="garage" className="logo-image" src={GarageIcon} />
+                            <img data-testid={"garage-icon"} alt="garage" className="logo-image" src={GarageIcon} />
                         </div>
                         <Typography className="panel-text">Garage</Typography>
                     </div>
