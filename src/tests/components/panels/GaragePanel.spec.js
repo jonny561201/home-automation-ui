@@ -1,26 +1,23 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import userEvent from '@testing-library/user-event';
 import { render, screen, act } from '@testing-library/react';
-// import { act } from 'react-dom/test-utils';
 import * as lib from '../../../utilities/RestApi';
 import GaragePanel from "../../../components/panels/GaragePanel";
 import { getStore } from '../../../GlobalState';
 
 
 describe('GaragePanel', () => {
-//     let garagePanel;
     const userId = 'fakeuserid';
     const spyGet = jest.spyOn(lib, 'getGarageStatus');
     const spyUpdate = jest.spyOn(lib, 'updateGarageState');
     const spyToggle = jest.spyOn(lib, 'toggleGarageDoor');
 
     beforeEach(() => {
+        spyGet.mockReturnValue({isGarageOpen: true});
         getStore().setUserId(userId)
         spyGet.mockClear();
         spyUpdate.mockClear();
         spyToggle.mockClear();
-//         garagePanel = shallow(<GaragePanel />);
     });
 
     it('should display the Garage text', () => {
