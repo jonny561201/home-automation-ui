@@ -15,3 +15,7 @@ export const debounce = (func, wait) => {
 export const debounchApi = debounce(fn => {
     fn();
 }, 200);
+
+export const validateIpAddress = (ipAddress) => {
+    return (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipAddress));
+}
