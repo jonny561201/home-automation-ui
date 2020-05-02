@@ -59,6 +59,24 @@ describe('GaragePanel', () => {
         expect(actual).toEqual('Duration: ');
     });
 
+    it('should display Close text when response is false', async () => {
+        spyGet.mockReturnValue({isGarageOpen: false})
+        await act(() => {
+            render(<GaragePanel />);
+        });
+        const actual = screen.getByText("Closed").textContent;
+        expect(actual).toEqual('Closed');
+    });
+
+    it('should display Open text when response is true', async () => {
+        spyGet.mockReturnValue({isGarageOpen: true})
+        await act(() => {
+            render(<GaragePanel />);
+        });
+        const actual = screen.getByText("Open").textContent;
+        expect(actual).toEqual('Open');
+    });
+
     describe('garage door api', () => {
 
         it('should make the initial call to get the garage data', () => {
@@ -73,7 +91,6 @@ describe('GaragePanel', () => {
             });
             userEvent.click(screen.getByTestId("update-garage-close"));
             expect(spyUpdate).toBeCalledWith(false, userId);
-
         });
 
         it('should call update function with true when opening', async () => {
@@ -89,7 +106,7 @@ describe('GaragePanel', () => {
             render(<GaragePanel />)
             userEvent.click(screen.getByTestId("toggle-garage-button"));
 
-            expect(spyToggle).toHaveBeenCalledTimes(1);
+            expect(spyToggle).toBeCalledWith(userId);
         });
     });
 })
