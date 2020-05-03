@@ -15,10 +15,6 @@ export default function Header() {
         setWrapperRef(node);
     }
 
-    const toggleAccountSettings = () => {
-        setSettingsActive(!settingsActive);
-    }
-
     return (
         <div className="header">
             <div className="home-header">
@@ -30,11 +26,11 @@ export default function Header() {
                     <h1 className="home-header-text">{activePage}</h1>
                 </div>
                 <div ref={updateWrapperRef}>
-                    <AccountIcon toggle={toggleAccountSettings} />
+                    <AccountIcon toggle={() => setSettingsActive(!settingsActive)} />
                 </div>
             </div>
             {settingsActive
-                ? <AccountMenu toggle={toggleAccountSettings} parentRef={wrapperRef} />
+                ? <AccountMenu toggle={() => setSettingsActive(!settingsActive)} parentRef={wrapperRef} />
                 : <div></div>
             }
         </div>
