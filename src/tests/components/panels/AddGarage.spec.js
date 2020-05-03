@@ -15,4 +15,10 @@ describe('Add Garage', () => {
         const actual = screen.getByRole('textbox');
         expect(actual).toBeDefined();
     });
+
+    it('should display the Add garage button', () => {
+        render(<AddGarage />);
+        const actual = screen.getByRole('button').textContent;
+        expect(actual).toEqual('Add');
+    });
 });
