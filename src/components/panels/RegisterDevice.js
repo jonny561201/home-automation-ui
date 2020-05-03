@@ -7,9 +7,10 @@ import CloseIcon from '@material-ui/icons/Close';
 import './RegisterDevice.css';
 
 export default function RegisterDevice(props) {
-    const [isIpValid, setIsIpValid] = useState(true);
     const [ipAddress, setIpAddress] = useState();
     const [touched, setTouched] = useState(false);
+    const [isIpValid, setIsIpValid] = useState(true);
+    const [transitionComponent, setTransitionComponent] = useState(null);
 
     const checkIpAddress = (input) => {
         const ipAddress = input.target.value;
@@ -18,25 +19,36 @@ export default function RegisterDevice(props) {
         setTouched(true);
     }
 
-    const submitDevice = (event) => {
+    const submitDevice = async (event) => {
         event.preventDefault();
         if (isIpValid && touched) {
-            addUserDevice(getStore().getUserId(), 'garage_door', ipAddress)
+            const response = await addUserDevice(getStore().getUserId(), 'garage_door', ipAddress)
+            setTransitionComponent(response.ok)
         }
     }
 
     return (
         <div className="device-menu">
-            <div className="device-group">
-                <h2 data-testid={"data-add-device"} className=" device-text">Add Device</h2>
-                <CloseIcon onClick={() => props.close()} className="close-icon" />
-            </div>
-            <form onSubmit={submitDevice}>
-                <div className="account-row">
-                    <TextField value={ipAddress} error={!isIpValid} onChange={checkIpAddress} variant="outlined" label="IP Address" />
+            {transitionComponent
+                ? <div>
+                  <div className="device-group">
+                        <h2 data-testid={"data-add-device"} className=" device-text">Transitioned!!!</h2>
+                        <CloseIcon onClick={() => props.close()} className="close-icon" />
+                    </div>
                 </div>
-                <button type="submit">Next</button>
-            </form>
-        </div>
+                : <div>
+                    <div className="device-group">
+                        <h2 data-testid={"data-add-device"} className=" device-text">Add Device</h2>
+                        <CloseIcon data-testid={"close-button"} onClick={() => props.close()} className="close-icon" />
+                    </div>
+                    <form onSubmit={submitDevice}>
+                        <div className="account-row">
+                            <TextField value={ipAddress} error={!isIpValid} onChange={checkIpAddress} variant="outlined" label="IP Address" />
+                        </div>
+                        <button type="submit">Next</button>
+                    </form>
+                </div>
+            }
+            </div>
     );
 }
