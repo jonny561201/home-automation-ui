@@ -47,4 +47,10 @@ describe('Add Garage', () => {
         fireEvent.click(screen.getByRole('button'));
         expect(spyAdd).toHaveBeenCalledTimes(0);
     });
+
+    it('should not make api call if the when name is untouched', () => {
+        render(<AddGarage />);
+        fireEvent.click(screen.getByRole('button'));
+        expect(spyAdd).toHaveBeenCalledTimes(0);
+    });
 });
