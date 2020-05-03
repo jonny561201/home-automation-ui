@@ -1,15 +1,20 @@
 import React from 'react';
 import { render, screen, act, fireEvent } from '@testing-library/react'
 import * as lib from '../../../utilities/Services';
-import userEvent from '@testing-library/user-event'
+import * as api from '../../../utilities/RestApi'
 import RegisterDevice from '../../../components/panels/RegisterDevice';
+import { getStore } from '../../../GlobalState';
 
 describe('Add Device', () => {
 
+    const userId = 'fakeUserId';
+    const spyAdd = jest.spyOn(api, 'addUserDevice')
     const spyDebounce = jest.spyOn(lib, 'debounchApi');
     const spyValidate = jest.spyOn(lib, 'isValidIpAddress');
+    getStore().setUserId(userId)
 
     beforeEach(() => {
+        spyAdd.mockClear();
         spyDebounce.mockClear();
         spyValidate.mockClear();
     })
@@ -52,5 +57,16 @@ describe('Add Device', () => {
         const inputBox = screen.getByRole('textbox');
         fireEvent.change(inputBox, {target: {value: ipAddress}});
         expect(spyDebounce).toBeCalled();
+    });
+
+    it('should make api call to add device when IP not in error', () => {
+        const ipAddress = "12.12.12.12";
+        render(<RegisterDevice />);
+        const inputBox = screen.getByRole('textbox');
+        fireEvent.change(inputBox, {target: {value: ipAddress}});
+
+        const button = screen.getByRole('button');
+        fireEvent.submit(button);
+        expect(spyAdd).toBeCalledWith(userId, 'garage_door', ipAddress);
     });
 });
