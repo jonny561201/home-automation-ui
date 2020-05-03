@@ -15,7 +15,8 @@ export default function GaragePanel() {
     const [statusHours, setStatusHours] = useState(null);
     const [statusMins, setStatusMins] = useState(null);
     const [isGarageOpen, setIsGarageOpen] = useState(null);
-    const [interval, setMyInterval] = useState(null)
+    const [interval, setMyInterval] = useState(null);
+    const [displayRegister, setDisplayRegister] = useState(false);
 
     useEffect(() => {
         const getData = async () => {
@@ -48,9 +49,18 @@ export default function GaragePanel() {
                 </ExpansionPanelSummary>
                 <Divider />
                 {hasDevicesToRegister
-                    ? <RegisterDevice />
-                    :
-                    <div>
+                    ? <ExpansionPanelDetails className="center">
+                        <div>
+                            <h2 className="status-text">Register New Device</h2>
+                            <Divider />
+                            <div>
+                                <p className="status-text">A new device has been detected and needs to be registered!</p>
+                            </div>
+                            <button onClick={() => setDisplayRegister(true)}>Register</button>
+                        {displayRegister && <RegisterDevice close={() => setDisplayRegister(false)}/>}
+                        </div>
+                    </ExpansionPanelDetails>
+                    : <div>
                         <ExpansionPanelDetails className="center">
                             <div className="status-text-group">
                                 <p className="door-status">Door Status: </p>

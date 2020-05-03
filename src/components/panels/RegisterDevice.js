@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Divider, TextField } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import { isValidIpAddress, debounchApi } from '../../utilities/Services';
 import { addUserDevice } from '../../utilities/RestApi';
 import { getStore } from '../../GlobalState';
+import CloseIcon from '@material-ui/icons/Close';
 import './RegisterDevice.css';
 
-export default function RegisterDevice() {
+export default function RegisterDevice(props) {
     const [isIpValid, setIsIpValid] = useState(true);
     const [ipAddress, setIpAddress] = useState();
     const [touched, setTouched] = useState(false);
@@ -19,15 +20,18 @@ export default function RegisterDevice() {
 
     const submitDevice = (event) => {
         event.preventDefault();
-        if(isIpValid && touched){
+        if (isIpValid && touched) {
             addUserDevice(getStore().getUserId(), 'garage_door', ipAddress)
         }
     }
 
     return (
-        <div className="device-menu device-text">
-            <h2 data-testid={"data-add-device"}>Add Device</h2>
-            <form  onSubmit={submitDevice }>
+        <div className="device-menu">
+            <div className="device-group">
+                <h2 data-testid={"data-add-device"} className=" device-text">Add Device</h2>
+                <CloseIcon onClick={() => props.close()} className="close-icon" />
+            </div>
+            <form onSubmit={submitDevice}>
                 <div className="account-row">
                     <TextField value={ipAddress} error={!isIpValid} onChange={checkIpAddress} variant="outlined" label="IP Address" />
                 </div>
