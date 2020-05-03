@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, screen, act, fireEvent } from '@testing-library/react'
+import { render, screen, act, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import * as lib from '../../../utilities/Services';
 import * as api from '../../../utilities/RestApi'
 import RegisterDevice from '../../../components/panels/RegisterDevice';
@@ -83,9 +84,15 @@ describe('Add Device', () => {
     });
 
     describe('After Transition', () => {
-        it('should display Set Garage door name text', () => {
-            render(<RegisterDevice />);
+        // it('should display Set Garage door name text', async () => {
+        //     spyValidate.mockReturnValue(true);
+        //     const ipAddress = "12.12.12.12";
+        //     render(<RegisterDevice />);
+        //     userEvent.type(screen.getByRole('textbox'), ipAddress);
+        //     userEvent.click(screen.getByRole('button'));
 
-        });
+        //     const actual = screen.getByTestId('data-add-device').textContent;
+        //     expect(actual).toEqual('Add Garage Door Opener');
+        // });
     });
 });
