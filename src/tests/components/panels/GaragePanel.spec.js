@@ -34,6 +34,14 @@ describe('GaragePanel', () => {
             const actual = screen.getByText('Register New Device!').textContent;
             expect(actual).toEqual('Register New Device!');
         });
+
+        it('should display Register Device paragraph', async () => {
+            await act(async() => {
+                render(<GaragePanel />);
+            });
+            const actual = screen.getByText('A new device has been detected and needs to be registered.').textContent;
+            expect(actual).toEqual('A new device has been detected and needs to be registered.');
+        });
     });
 
     describe('should display garage details', () => {
