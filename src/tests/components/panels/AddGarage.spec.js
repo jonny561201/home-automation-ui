@@ -6,7 +6,13 @@ describe('Add Garage', () => {
 
     it('should display the Add Garage Door text', () => {
         render(<AddGarage />);
-        const actual = screen.getByText('Add Garage Door').textContent;
+        const actual = screen.getByRole('heading').textContent;
         expect(actual).toEqual('Add Garage Door');
+    });
+
+    it('should display the Garage Door input box', () => {
+        render(<AddGarage />);
+        const actual = screen.getByRole('textbox');
+        expect(actual).toBeDefined();
     });
 });
