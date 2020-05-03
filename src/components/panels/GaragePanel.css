@@ -25,10 +25,15 @@
     background-color: #ff3333;
 }
 
-.status-text {
+.status-text-bold {
     font-weight: bold;
     margin-top: 0.5rem;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+}
+
+.status-text {
+    margin-top: 0.5rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;  
 }
 
 .open {

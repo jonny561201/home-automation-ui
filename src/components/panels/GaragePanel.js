@@ -51,10 +51,10 @@ export default function GaragePanel() {
                 {hasDevicesToRegister
                     ? <ExpansionPanelDetails className="center">
                         <div>
-                            <h2 className="status-text">Register New Device</h2>
+                            <h2 className="status-text-bold">Register New Device!</h2>
                             <Divider />
                             <div>
-                                <p className="status-text">A new device has been detected and needs to be registered!</p>
+                                <p className="status-text">A new device has been detected and needs to be registered.</p>
                             </div>
                             <button onClick={() => setDisplayRegister(true)}>Register</button>
                         {displayRegister && <RegisterDevice close={() => setDisplayRegister(false)}/>}
@@ -65,17 +65,17 @@ export default function GaragePanel() {
                             <div className="status-text-group">
                                 <p className="door-status">Door Status: </p>
                                 {isGarageOpen
-                                    ? <p className="status-text close">Open</p>
-                                    : <p className="status-text open">Closed</p>}
+                                    ? <p className="status-text-bold close">Open</p>
+                                    : <p className="status-text-bold open">Closed</p>}
                             </div>
                             <div className="status-text-group">
                                 <p className="door-status">Duration: </p>
                                 {statusDays === 0
                                     ? <div />
-                                    : <p className="status-text">{statusDays}Days</p>}
+                                    : <p className="status-text-bold">{statusDays}Days</p>}
                                 <p className="status-text">{statusHours}Hr</p>
                                 {statusDays === 0
-                                    ? <p className="status-text">{statusMins}Min</p>
+                                    ? <p className="status-text-bold">{statusMins}Min</p>
                                     : <div />}
                             </div>
                         </ExpansionPanelDetails>
