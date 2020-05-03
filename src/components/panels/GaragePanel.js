@@ -56,7 +56,7 @@ export default function GaragePanel() {
                             <div>
                                 <p className="status-text">A new device has been detected and needs to be registered.</p>
                             </div>
-                            <button onClick={() => setDisplayRegister(true)}>Register</button>
+                            <button data-testid={"register-device-button"} onClick={() => setDisplayRegister(true)}>Register</button>
                         {displayRegister && <RegisterDevice close={() => setDisplayRegister(false)}/>}
                         </div>
                     </ExpansionPanelDetails>
