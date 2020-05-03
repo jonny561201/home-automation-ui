@@ -26,6 +26,12 @@ describe('Add Garage', () => {
         expect(actual).toBeDefined();
     });
 
+    it('should display the close icon', () => {
+        render(<AddGarage />);
+        const actual = screen.getByTestId('garage-close-button');
+        expect(actual).toBeDefined();
+    });
+
     it('should display the Add garage button', () => {
         render(<AddGarage />);
         const actual = screen.getByRole('button').textContent;

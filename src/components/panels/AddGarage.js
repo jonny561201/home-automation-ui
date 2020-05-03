@@ -26,7 +26,7 @@ export default function AddGarage(props) {
         <div>
             <div className="device-group">
                 <h2 data-testid={"data-add-device"} className=" device-text">Add Garage Door</h2>
-                <CloseIcon onClick={() => props.close()} className="close-icon" />
+                <CloseIcon data-testid={"garage-close-button"} onClick={() => props.close()} className="close-icon" />
             </div>
             <form onSubmit={submitGarageDoor}>
                 <div className="account-row">
