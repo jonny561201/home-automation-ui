@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Divider, TextField } from '@material-ui/core';
+import { isValidIpAddress, debounchApi } from '../../utilities/Services'
 
 export default function RegisterDevice() {
+    const [isIpValid, setIsIpValid] = useState(true);
+    const [ipAddress, setIpAddress] = useState();
+
+
+    const checkIpAddress = (input) => {
+        const ipAddress = input.target.value;
+        debounchApi(() => setIsIpValid(isValidIpAddress(ipAddress)));
+        setIpAddress(ipAddress);
+    }
 
     return (
         <div>
@@ -9,7 +19,7 @@ export default function RegisterDevice() {
             <Divider />
             <form>
                 <div className="account-row">
-                    <TextField variant="outlined" label="Add Device" />
+                    <TextField value={ipAddress} error={!isIpValid} onChange={checkIpAddress} variant="outlined" label="Add Device" />
                 </div>
                 <button>Add</button>
             </form>
