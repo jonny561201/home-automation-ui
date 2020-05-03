@@ -20,90 +20,112 @@ describe('GaragePanel', () => {
         spyToggle.mockClear();
     });
 
-    it('should display the Garage text', () => {
-        render(<GaragePanel />);
-        const actual = screen.getByText("Garage");
-        expect(actual).toBeDefined();
-    });
+    describe('should not display garage details', () => {
+        const roles = [{role_name: 'garage_door', devices: []}]
 
-    it('should show garage icon', () => {
-        render(<GaragePanel />);
-        const actual = screen.getByTestId("garage-icon");
-        expect(actual).toBeDefined();
-    });
+        beforeEach(() => {
+            getStore().setUserRoles(roles);
+        })
 
-    it('should show open garage button', () => {
-        render(<GaragePanel />);
-        const actual = screen.getByTestId('update-garage-open').textContent;
-        expect(actual).toEqual('Open');
-    });
-
-    it('should show toggle garage button', () => {
-        render(<GaragePanel />);
-        const actual = screen.getByTestId('toggle-garage-button').textContent;
-        expect(actual).toEqual('Toggle');
-    });
-
-    it('should show Door Status text', () => {
-        render(<GaragePanel />);
-        const actual = screen.getByText('Door Status:').textContent;
-        expect(actual).toEqual('Door Status: ');
-    });
-
-    it('should show Duration text', () => {
-        render(<GaragePanel />);
-        const actual = screen.getByText('Duration:').textContent;
-        expect(actual).toEqual('Duration: ');
-    });
-
-    it('should display Close text when response is false', async () => {
-        spyGet.mockReturnValue({isGarageOpen: false})
-        await act(() => {
+        it('should display Register Device Component', () => {
             render(<GaragePanel />);
+            const actual = screen.getByTestId('data-add-device');
+            expect(actual).toBeDefined();
         });
-        const actual = screen.getByText("Closed").textContent;
-        expect(actual).toEqual('Closed');
     });
 
-    it('should display Open text when response is true', async () => {
-        spyGet.mockReturnValue({isGarageOpen: true})
-        await act(() => {
+    describe('should display garage details', () => {
+        const roles = [{role_name: 'garage_door', devices: [{deviceName: 'Garage Door'}]}]
+
+        beforeEach(() => {
+            getStore().setUserRoles(roles);
+        })
+
+        it('should display the Garage text', () => {
             render(<GaragePanel />);
+            const actual = screen.getByText("Garage");
+            expect(actual).toBeDefined();
         });
-        const actual = screen.getByText("Open").textContent;
-        expect(actual).toEqual('Open');
-    });
-
-    describe('garage door api', () => {
-
-        it('should make the initial call to get the garage data', () => {
+    
+        it('should show garage icon', () => {
             render(<GaragePanel />);
-            expect(spyGet).toBeCalledWith(userId);
+            const actual = screen.getByTestId("garage-icon");
+            expect(actual).toBeDefined();
         });
-
-        it('should call update function with false when closing', async () => {
+    
+        it('should show open garage button', () => {
+            render(<GaragePanel />);
+            const actual = screen.getByTestId('update-garage-open').textContent;
+            expect(actual).toEqual('Open');
+        });
+    
+        it('should show toggle garage button', () => {
+            render(<GaragePanel />);
+            const actual = screen.getByTestId('toggle-garage-button').textContent;
+            expect(actual).toEqual('Toggle');
+        });
+    
+        it('should show Door Status text', () => {
+            render(<GaragePanel />);
+            const actual = screen.getByText('Door Status:').textContent;
+            expect(actual).toEqual('Door Status: ');
+        });
+    
+        it('should show Duration text', () => {
+            render(<GaragePanel />);
+            const actual = screen.getByText('Duration:').textContent;
+            expect(actual).toEqual('Duration: ');
+        });
+    
+        it('should display Close text when response is false', async () => {
+            spyGet.mockReturnValue({isGarageOpen: false})
+            await act(() => {
+                render(<GaragePanel />);
+            });
+            const actual = screen.getByText("Closed").textContent;
+            expect(actual).toEqual('Closed');
+        });
+    
+        it('should display Open text when response is true', async () => {
             spyGet.mockReturnValue({isGarageOpen: true})
             await act(() => {
                 render(<GaragePanel />);
             });
-            userEvent.click(screen.getByTestId("update-garage-close"));
-            expect(spyUpdate).toBeCalledWith(false, userId);
+            const actual = screen.getByText("Open").textContent;
+            expect(actual).toEqual('Open');
         });
-
-        it('should call update function with true when opening', async () => {
-            spyGet.mockReturnValue({isGarageOpen: false})
-            await act(() => {
+    
+        describe('garage door api', () => {
+    
+            it('should make the initial call to get the garage data', () => {
+                render(<GaragePanel />);
+                expect(spyGet).toBeCalledWith(userId);
+            });
+    
+            it('should call update function with false when closing', async () => {
+                spyGet.mockReturnValue({isGarageOpen: true})
+                await act(() => {
+                    render(<GaragePanel />);
+                });
+                userEvent.click(screen.getByTestId("update-garage-close"));
+                expect(spyUpdate).toBeCalledWith(false, userId);
+            });
+    
+            it('should call update function with true when opening', async () => {
+                spyGet.mockReturnValue({isGarageOpen: false})
+                await act(() => {
+                    render(<GaragePanel />)
+                })
+                userEvent.click(screen.getByTestId("update-garage-open"));
+                expect(spyUpdate).toBeCalledWith(true, userId);
+            });
+    
+            it('should call toggle function', () => {
                 render(<GaragePanel />)
-            })
-            userEvent.click(screen.getByTestId("update-garage-open"));
-            expect(spyUpdate).toBeCalledWith(true, userId);
-        });
-
-        it('should call toggle function', () => {
-            render(<GaragePanel />)
-            userEvent.click(screen.getByTestId("toggle-garage-button"));
-
-            expect(spyToggle).toBeCalledWith(userId);
+                userEvent.click(screen.getByTestId("toggle-garage-button"));
+    
+                expect(spyToggle).toBeCalledWith(userId);
+            });
         });
     });
-})
+});

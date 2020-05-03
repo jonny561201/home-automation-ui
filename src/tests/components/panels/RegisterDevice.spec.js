@@ -48,17 +48,6 @@ describe('Add Device', () => {
         expect(spyDebounce).toBeCalled();
     });
 
-    it('should call validate function on change', async () => {
-        spyDebounce.mockReturnValue(() => {})
-        const ipAddress = "12.12.12.12";
-        await act(() => {
-            render(<RegisterDevice />);
-        });
-        const inputBox = screen.getByRole('textbox');
-        fireEvent.change(inputBox, {target: {value: ipAddress}});
-        expect(spyDebounce).toBeCalled();
-    });
-
     it('should make api call to add device when IP not in error', () => {
         const ipAddress = "12.12.12.12";
         render(<RegisterDevice />);
@@ -69,4 +58,18 @@ describe('Add Device', () => {
         fireEvent.submit(button);
         expect(spyAdd).toBeCalledWith(userId, 'garage_door', ipAddress);
     });
+
+    // it('should not make api call to add device when IP in error', async () => {
+    //     spyValidate.mockReturnValue(false);
+    //     await act(() => {
+    //         render(<RegisterDevice />);
+    //     });
+    //     const inputBox = screen.getByRole('textbox');
+    //     fireEvent.change(inputBox, {target: {value: "I dont matter"}});
+
+    //     const button = screen.getByRole('button');
+    //     // screen.getByText('Add Device')
+    //     fireEvent.submit(button);
+    //     expect(spyAdd).toHaveBeenCalledTimes(0);
+    // });
 });

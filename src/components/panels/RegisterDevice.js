@@ -15,11 +15,18 @@ export default function RegisterDevice() {
         setIpAddress(ipAddress);
     }
 
+    const submitDevice = (event) => {
+        event.preventDefault();
+        if(isIpValid){
+            addUserDevice(getStore().getUserId(), 'garage_door', ipAddress)
+        }
+    }
+
     return (
         <div>
             <h2 data-testid={"data-add-device"}>Add Device</h2>
             <Divider />
-            <form  onSubmit={() => addUserDevice(getStore().getUserId(), 'garage_door', ipAddress)}>
+            <form  onSubmit={submitDevice }>
                 <div className="account-row">
                     <TextField value={ipAddress} error={!isIpValid} onChange={checkIpAddress} variant="outlined" label="Add Device" />
                 </div>
