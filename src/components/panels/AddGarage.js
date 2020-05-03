@@ -11,7 +11,8 @@ export default function AddGarage(props) {
 
     const checkGarageName = (input) => {
         const name = input.target.value;
-        setGarageTouched(name !== "");
+        setGarageTouched(true);
+        setIsNameValid(name !== "");
         setGarageName(name);
     }
 

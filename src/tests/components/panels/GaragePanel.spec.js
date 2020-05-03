@@ -170,7 +170,7 @@ describe('GaragePanel', () => {
                 userEvent.click(screen.getByTestId("update-garage-open"));
                 expect(spyUpdate).toBeCalledWith(true, userId);
             });
-
+            
             it('should call toggle function', async () => {
                 await act(async () => {
                     render(<GaragePanel />)
