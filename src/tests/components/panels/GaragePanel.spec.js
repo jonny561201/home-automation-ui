@@ -50,6 +50,15 @@ describe('GaragePanel', () => {
             const actual = screen.getByTestId('register-device-button').textContent;
             expect(actual).toEqual('Register');
         });
+
+        it('should display the register device modal when clicking the register button', async ( )=> {
+            await act(async () => {
+                render(<GaragePanel />);
+            });
+            userEvent.click(screen.getByTestId('register-device-button'));
+            const actual = screen.getByTestId('data-add-device');
+            expect(actual).toBeDefined();
+        });
     });
 
     describe('should display garage details', () => {
