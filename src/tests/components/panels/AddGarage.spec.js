@@ -39,4 +39,12 @@ describe('Add Garage', () => {
         fireEvent.click(screen.getByRole('button'));
         expect(spyAdd).toBeCalledWith(userId, 'deviceId', name);
     });
+
+    it('should not make api call if the when invalid name', () => {
+        render(<AddGarage />);
+        const name = '';
+        fireEvent.change(screen.getByRole('textbox'), {target: {value: name}});
+        fireEvent.click(screen.getByRole('button'));
+        expect(spyAdd).toHaveBeenCalledTimes(0);
+    });
 });
