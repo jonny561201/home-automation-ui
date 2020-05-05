@@ -73,7 +73,7 @@ export default function GaragePanel() {
                                 {statusDays === 0
                                     ? <div />
                                     : <p className="status-text-bold">{statusDays}Days</p>}
-                                <p className="status-text">{statusHours}Hr</p>
+                                <p className="status-text-bold">{statusHours}Hr</p>
                                 {statusDays === 0
                                     ? <p className="status-text-bold">{statusMins}Min</p>
                                     : <div />}
