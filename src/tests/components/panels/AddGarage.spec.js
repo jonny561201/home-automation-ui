@@ -39,11 +39,12 @@ describe('Add Garage', () => {
     });
 
     it('should make api call if the when valid name', () => {
-        render(<AddGarage />);
+        const deviceId = 'testDeviceId';
+        render(<AddGarage deviceId={deviceId}/>);
         const name = 'TestGarage';
         fireEvent.change(screen.getByRole('textbox'), {target: {value: name}});
         fireEvent.click(screen.getByRole('button'));
-        expect(spyAdd).toBeCalledWith(userId, 'deviceId', name);
+        expect(spyAdd).toBeCalledWith(userId, deviceId, name);
     });
 
     it('should not make api call if the when invalid name', () => {

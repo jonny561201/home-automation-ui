@@ -11,6 +11,7 @@ export default function RegisterDevice(props) {
     const [ipAddress, setIpAddress] = useState('');
     const [touched, setTouched] = useState(false);
     const [isIpValid, setIsIpValid] = useState(true);
+    const [deviceId, setDeviceId] = useState(null);
     const [transitionComponent, setTransitionComponent] = useState(null);
 
     const checkIpAddress = (input) => {
@@ -24,14 +25,16 @@ export default function RegisterDevice(props) {
         event.preventDefault();
         if (isIpValid && touched) {
             const response = await addUserDevice(getStore().getUserId(), 'garage_door', ipAddress)
-            setTransitionComponent(response.ok)
+            const responseObj = await response.json();
+            setDeviceId(responseObj.deviceId);
+            setTransitionComponent(response.ok);
         }
     }
 
     return (
         <div className="device-menu">
-            {transitionComponent
-                ? <AddGarage close={props.close} />
+            {transitionComponent // TODO: needs to also check to see if in progress of adding!!!
+                ? <AddGarage close={props.close} deviceId={deviceId} />
                 : <div>
                     <div className="device-group">
                         <h2 data-testid={"data-add-device"} className=" device-text">Add Device</h2>

@@ -5,9 +5,9 @@ import { addUserDeviceNode } from '../../utilities/RestApi';
 import { getStore } from '../../GlobalState';
 
 export default function AddGarage(props) {
-    const [garageTouched, setGarageTouched] = useState(false);
-    const [isNameValid, setIsNameValid] = useState(true);
     const [garageName, setGarageName] = useState('');
+    const [isNameValid, setIsNameValid] = useState(true);
+    const [garageTouched, setGarageTouched] = useState(false);
 
     const checkGarageName = (input) => {
         const name = input.target.value;
@@ -19,7 +19,7 @@ export default function AddGarage(props) {
     const submitGarageDoor = async (event) => {
         event.preventDefault();
         (garageTouched && isNameValid)
-            ? addUserDeviceNode(getStore().getUserId(), "deviceId", garageName)
+            ? addUserDeviceNode(getStore().getUserId(), props.deviceId, garageName)
             : setIsNameValid(false);
     }
 
