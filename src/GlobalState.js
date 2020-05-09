@@ -79,7 +79,7 @@ class GlobalState {
 
     hasStartedRegistration = () => {
         const garageRole = this.state.userRoles.find(x => x.role_name === 'garage_door');
-        return garageRole.device_id;
+        return garageRole && garageRole.device_id;
     }
 }
 
