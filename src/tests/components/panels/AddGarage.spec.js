@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, act, waitForElement } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import AddGarage from "../../../components/panels/AddGarage";
 import { getStore } from '../../../GlobalState';
 import * as lib from '../../../utilities/RestApi';
@@ -12,6 +12,7 @@ describe('Add Garage', () => {
 
     beforeEach(() => {
         spyAdd.mockClear();
+        spyAdd.mockReturnValue({ok: false, json: () => {return {availableNodes: 2}}});
     });
 
     describe('Add Device Screen', () => {
@@ -39,26 +40,34 @@ describe('Add Garage', () => {
             expect(actual).toEqual('Add');
         });
 
-        it('should make api call if the when valid name', () => {
+        it('should make api call if the valid name', async () => {
             const deviceId = 'testDeviceId';
-            render(<AddGarage deviceId={deviceId}/>);
             const name = 'TestGarage';
+            await act(async () => {
+                render(<AddGarage deviceId={deviceId}/>);
+            });
             fireEvent.change(screen.getByRole('textbox'), {target: {value: name}});
-            fireEvent.click(screen.getByRole('button'));
+            await act(async () => {
+                fireEvent.click(screen.getByRole('button'));
+            });
             expect(spyAdd).toBeCalledWith(userId, deviceId, name);
         });
 
-        it('should not make api call if the when invalid name', () => {
+        it('should not make api call if the when invalid name', async () => {
             render(<AddGarage />);
             const name = '';
             fireEvent.change(screen.getByRole('textbox'), {target: {value: name}});
-            fireEvent.click(screen.getByRole('button'));
+            await act(async () => {
+                fireEvent.click(screen.getByRole('button'));
+            });
             expect(spyAdd).toHaveBeenCalledTimes(0);
         });
 
-        it('should not make api call if the when name is untouched', () => {
+        it('should not make api call if the when name is untouched', async () => {
             render(<AddGarage />);
-            fireEvent.click(screen.getByRole('button'));
+            await act(async () => {
+                fireEvent.click(screen.getByRole('button'));
+            });
             expect(spyAdd).toHaveBeenCalledTimes(0);
         });
     });
@@ -107,5 +116,19 @@ describe('Add Garage', () => {
             const actual = screen.getByText(`Would you like to setup the remaining (${nodeCount}) openers?`).textContent;
             expect(actual).toEqual(`Would you like to setup the remaining (${nodeCount}) openers?`);
         });
+
+        // it('should display the Add Garage Door Opener button', async () => {
+        //     spyAdd.mockReturnValue({ ok: true, json: () => {return {availableNodes: 1}} });
+        //     const name = "ImValid";
+        //     await act(async () => {
+        //         render(<AddGarage />);
+        //     });
+        //     fireEvent.change(screen.getByRole('textbox'), { target: { value: name } });
+        //     await act(async () => {
+        //         fireEvent.click(screen.getByRole('button'));
+        //     });
+        //     const actual = screen.getByRole('button').textContent;
+        //     expect(actual).toEqual('Add');
+        // });
     });
 });
