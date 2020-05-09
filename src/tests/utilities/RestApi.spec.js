@@ -271,7 +271,7 @@ describe('RestApi', () => {
         });
 
         it('should make rest call to add device node for a user', async () => {
-            const deviceId = 'abc123';
+            const deviceId = '456def'
             const body = { 'nodeName': 'fakeName'};
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 

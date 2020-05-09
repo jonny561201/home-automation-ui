@@ -76,7 +76,21 @@ describe('Add Garage', () => {
                 fireEvent.click(screen.getByRole('button'));
             });
             const actual = screen.getByText('Successfully Added').textContent;
-            expect(actual).toEqual('Successfully Added')
+            expect(actual).toEqual('Successfully Added');
+        });
+
+        it('should display the Close Icon Header', async () => {
+            spyAdd.mockReturnValue({ ok: true, json: () => {return {availableNodes: 1}} });
+            const name = "ImValid";
+            await act(async () => {
+                render(<AddGarage />);
+            });
+            fireEvent.change(screen.getByRole('textbox'), { target: { value: name } });
+            await act(async () => {
+                fireEvent.click(screen.getByRole('button'));
+            });
+            const actual = screen.getByTestId('garage-close-button').textContent;
+            expect(actual).toBeDefined();
         });
     });
 });
