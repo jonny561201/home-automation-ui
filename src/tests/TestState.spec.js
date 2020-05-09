@@ -129,5 +129,11 @@ describe('GlobalState', () => {
             state.state.userRoles = role;
             expect(state.hasStartedRegistration()).toBeTruthy();
         });
+
+        it('should return false when garage role has no device id', () => {
+            const role = [{ role_name: 'garage_door'}];
+            state.state.userRoles = role;
+            expect(state.hasStartedRegistration()).toBeFalsy();
+        });
     });
 });
