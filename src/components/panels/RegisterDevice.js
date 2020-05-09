@@ -7,6 +7,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import AddGarage from './AddGarage';
 import './RegisterDevice.css';
 
+
 export default function RegisterDevice(props) {
     const [ipAddress, setIpAddress] = useState('');
     const [touched, setTouched] = useState(false);

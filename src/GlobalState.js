@@ -76,6 +76,10 @@ class GlobalState {
         }
         return false;
     }
+
+    hasStartedRegistration = () => {
+        return true;
+    }
 }
 
 let currentState = null;

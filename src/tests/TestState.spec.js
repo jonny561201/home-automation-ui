@@ -92,27 +92,42 @@ describe('GlobalState', () => {
         });
 
         it('should return true when garage role has no devices under role', () => {
-            const roles = [{role_name: 'garage_door'}];
+            const roles = [{ role_name: 'garage_door' }];
             state.state.userRoles = roles;
             expect(state.hasUnregisteredDevices()).toBeTruthy();
         });
 
         it('should return true when garage role has devices list without items under role', () => {
-            const roles = [{role_name: 'garage_door', devices: []}];
+            const roles = [{ role_name: 'garage_door', devices: [] }];
             state.state.userRoles = roles;
             expect(state.hasUnregisteredDevices()).toBeTruthy();
         });
 
         it('should return false when garage role has devices under role', () => {
-            const role = [{role_name: 'garage_door', devices:[{node_name:'first garage'}]}]
+            const role = [{ role_name: 'garage_door', devices: [{ node_name: 'first garage' }] }];
             state.state.userRoles = role;
             expect(state.hasUnregisteredDevices()).toBeFalsy();
         });
 
         it('should return false when no garage role', () => {
-            const role = [{role_name: 'security'}]
+            const role = [{ role_name: 'security' }];
             state.state.userRoles = role;
             expect(state.hasUnregisteredDevices()).toBeFalsy();
+        });
+
+    });
+
+    describe('started registration', () => {
+        let state;
+
+        beforeEach(() => {
+            state = getStore();
+        });
+
+        it('should return true when garage role has a device id', () => {
+            const role = [{ role_name: 'garage_door', device_id: 'abcdef1234' }];
+            state.state.userRoles = role;
+            expect(state.hasStartedRegistration()).toBeTruthy();
         });
     });
 });
