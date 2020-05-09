@@ -162,5 +162,11 @@ describe('GlobalState', () => {
             state.state.userRoles = role;
             expect(state.getGarageDeviceId()).toEqual(null);
         });
+
+        it('should return null if garage role not present', () => {
+            const role = [{ role_name: 'security'}];
+            state.state.userRoles = role;
+            expect(state.getGarageDeviceId()).toEqual(null);
+        });
     });
 });
