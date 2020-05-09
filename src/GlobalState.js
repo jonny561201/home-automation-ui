@@ -84,7 +84,8 @@ class GlobalState {
 
     getGarageDeviceId = () => {
         const garageRole = this.state.userRoles.find(x => x.role_name === 'garage_door');
-        return garageRole.device_id;
+        const deviceId = garageRole.device_id;
+        return deviceId ? deviceId : null;
     }
 }
 
