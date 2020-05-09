@@ -142,4 +142,19 @@ describe('GlobalState', () => {
             expect(state.startedGarageRegistration()).toBeFalsy();
         });
     });
+
+    describe('Garage Device Id', () => {
+        let state;
+
+        beforeEach(() => {
+            state = getStore();
+        });
+
+        it('should return the device id if it is present in garage role', () => {
+            const deviceId = 'abcdef1234';
+            const role = [{ role_name: 'garage_door', device_id: deviceId }];
+            state.state.userRoles = role;
+            expect(state.getGarageDeviceId()).toEqual(deviceId);
+        });
+    });
 });
