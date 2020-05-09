@@ -127,19 +127,19 @@ describe('GlobalState', () => {
         it('should return true when garage role has a device id', () => {
             const role = [{ role_name: 'garage_door', device_id: 'abcdef1234' }];
             state.state.userRoles = role;
-            expect(state.hasStartedRegistration()).toBeTruthy();
+            expect(state.startedGarageRegistration()).toBeTruthy();
         });
 
         it('should return false when garage role has no device id', () => {
             const role = [{ role_name: 'garage_door'}];
             state.state.userRoles = role;
-            expect(state.hasStartedRegistration()).toBeFalsy();
+            expect(state.startedGarageRegistration()).toBeFalsy();
         });
 
         it('should return false when no garage role', () => {
             const role = [{ role_name: 'security'}];
             state.state.userRoles = role;
-            expect(state.hasStartedRegistration()).toBeFalsy();
+            expect(state.startedGarageRegistration()).toBeFalsy();
         });
     });
 });
