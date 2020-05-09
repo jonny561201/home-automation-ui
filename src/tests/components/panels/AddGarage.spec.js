@@ -130,5 +130,20 @@ describe('Add Garage', () => {
             const actual = screen.getByRole('button').textContent;
             expect(actual).toEqual('Add');
         });
+
+        it('should navigate back to the Add Garage Door screen when adding another device', async () => {
+            spyAdd.mockReturnValue({ ok: true, json: () => {return {availableNodes: 1}} });
+            const name = "ImValid";
+            await act(async () => {
+                render(<AddGarage />);
+            });
+            fireEvent.change(screen.getByRole('textbox'), { target: { value: name } });
+            await act(async () => {
+                fireEvent.click(screen.getByRole('button'));
+            });
+            fireEvent.click(screen.getByRole('button'));
+            const actual = screen.getByText('Add Garage Door').textContent;
+            expect(actual).toEqual('Add Garage Door');
+        });
     });
 });
