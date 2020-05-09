@@ -117,18 +117,18 @@ describe('Add Garage', () => {
             expect(actual).toEqual(`Would you like to setup the remaining (${nodeCount}) openers?`);
         });
 
-        // it('should display the Add Garage Door Opener button', async () => {
-        //     spyAdd.mockReturnValue({ ok: true, json: () => {return {availableNodes: 1}} });
-        //     const name = "ImValid";
-        //     await act(async () => {
-        //         render(<AddGarage />);
-        //     });
-        //     fireEvent.change(screen.getByRole('textbox'), { target: { value: name } });
-        //     await act(async () => {
-        //         fireEvent.click(screen.getByRole('button'));
-        //     });
-        //     const actual = screen.getByRole('button').textContent;
-        //     expect(actual).toEqual('Add');
-        // });
+        it('should display the Add Garage Door Opener button', async () => {
+            spyAdd.mockReturnValue({ ok: true, json: () => {return {availableNodes: 1}} });
+            const name = "ImValid";
+            await act(async () => {
+                render(<AddGarage />);
+            });
+            fireEvent.change(screen.getByRole('textbox'), { target: { value: name } });
+            await act(async () => {
+                fireEvent.click(screen.getByRole('button'));
+            });
+            const actual = screen.getByRole('button').textContent;
+            expect(actual).toEqual('Add');
+        });
     });
 });
