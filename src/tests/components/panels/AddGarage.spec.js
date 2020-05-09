@@ -92,5 +92,20 @@ describe('Add Garage', () => {
             const actual = screen.getByTestId('garage-close-button').textContent;
             expect(actual).toBeDefined();
         });
+
+        it('should display the text asking to setup additional garage door openers', async () => {
+            const nodeCount = 1;
+            spyAdd.mockReturnValue({ ok: true, json: () => {return {availableNodes: nodeCount}} });
+            const name = "ImValid";
+            await act(async () => {
+                render(<AddGarage />);
+            });
+            fireEvent.change(screen.getByRole('textbox'), { target: { value: name } });
+            await act(async () => {
+                fireEvent.click(screen.getByRole('button'));
+            });
+            const actual = screen.getByText(`Would you like to setup the remaining (${nodeCount}) openers?`).textContent;
+            expect(actual).toEqual(`Would you like to setup the remaining (${nodeCount}) openers?`);
+        });
     });
 });

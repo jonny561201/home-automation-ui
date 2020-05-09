@@ -36,7 +36,6 @@ export default function AddGarage(props) {
         setSucceeded(response.ok);
         const jsonResponse = await response.json();
         setAvailableNodes(jsonResponse.availableNodes);
-        console.log('RESPONSE:', succeeded)
         if (jsonResponse.availableNodes === 0 ) {props.close();}
     }
 
