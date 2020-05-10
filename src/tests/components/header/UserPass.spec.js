@@ -6,14 +6,16 @@ import App from '../../../App';
 import UserPass from '../../../components/header/UserPass';
 
 
-const renderComponent = () => {
-    render(
-        <App>
-            <Context.Provider>
-                <UserPass />
-            </Context.Provider>
-        </App>
-    );
+const renderComponent = async () => {
+    await act(async () => {
+        render(
+            <App>
+                <Context.Provider>
+                    <UserPass />
+                </Context.Provider>
+            </App>
+        );
+    });
 }
 
 describe('UserPass', () => {
@@ -24,19 +26,19 @@ describe('UserPass', () => {
         spyGet.mockClear();
     });
 
-    it('should contain username input', () => {
+    it('should contain username input', async () => {
         renderComponent();
         const actual = screen.getByTestId('user-name');
         expect(actual).toBeDefined();
     });
 
-    it('should contain password input', () => {
+    it('should contain password input', async () => {
         renderComponent();
         const actual = screen.getByTestId('password');
         expect(actual).toBeDefined();
     });
 
-    it('should contain a login button', () => {
+    it('should contain a login button', async () => {
         renderComponent();
         const actual = screen.getByRole('button');
         expect(actual).toBeDefined();
@@ -46,8 +48,8 @@ describe('UserPass', () => {
 
         it('should not display error text when username is valid', async () => {
             renderComponent();
-            await act(async ()=> {
-                fireEvent.change(screen.getByTestId('user-name'), {target: {value: 'validName'}});
+            await act(async () => {
+                fireEvent.change(screen.getByTestId('user-name'), { target: { value: 'validName' } });
             });
             fireEvent.click(screen.getByRole('button'));
             const actual = screen.queryByText('Invalid username!');
@@ -56,8 +58,8 @@ describe('UserPass', () => {
 
         it('should display error text when username is an empty string', async () => {
             renderComponent();
-            await act(async ()=> {
-                fireEvent.change(screen.getByTestId('user-name'), {target: {value: ''}});
+            await act(async () => {
+                fireEvent.change(screen.getByTestId('user-name'), { target: { value: '' } });
             });
             fireEvent.click(screen.getByRole('button'));
             const actual = screen.getByText('Invalid username!').textContent;
@@ -73,8 +75,8 @@ describe('UserPass', () => {
 
         it('should not display error text when password is valid', async () => {
             renderComponent();
-            await act(async ()=> {
-                fireEvent.change(screen.getByTestId('password'), {target: {value: 'validName'}});
+            await act(async () => {
+                fireEvent.change(screen.getByTestId('password'), { target: { value: 'validName' } });
             });
             fireEvent.click(screen.getByRole('button'));
             const actual = screen.queryByText('Invalid password!');
@@ -83,8 +85,8 @@ describe('UserPass', () => {
 
         it('should display error text when password is an empty string', async () => {
             renderComponent();
-            await act(async ()=> {
-                fireEvent.change(screen.getByTestId('password'), {target: {value: ''}});
+            await act(async () => {
+                fireEvent.change(screen.getByTestId('password'), { target: { value: '' } });
             });
             fireEvent.click(screen.getByRole('button'));
             const actual = screen.getByText('Invalid password!').textContent;
@@ -102,13 +104,33 @@ describe('UserPass', () => {
             const userName = 'validFirst';
             const password = 'validPass';
             renderComponent();
-            await act(async ()=> {
-                fireEvent.change(screen.getByTestId('user-name'), {target: {value: userName}});
-                fireEvent.change(screen.getByTestId('password'), {target: {value: password}});
+            await act(async () => {
+                fireEvent.change(screen.getByTestId('user-name'), { target: { value: userName } });
+                fireEvent.change(screen.getByTestId('password'), { target: { value: password } });
             });
-            fireEvent.submit(screen.getByRole('button'));
+            await act(async () => {
+                fireEvent.submit(screen.getByRole('button'));
+            });
 
             expect(spyGet).toHaveBeenCalledWith(userName, password);
+        });
+
+        it('should navigate to home screen on successful login', async () => {
+            const userName = 'validFirst';
+            const password = 'validPass';
+            spyGet.mockReturnValue(true);
+            renderComponent();
+            await act(async () => {
+                fireEvent.change(screen.getByTestId('user-name'), { target: { value: userName } });
+                fireEvent.change(screen.getByTestId('password'), { target: { value: password } });
+            });
+            await act(async () => {
+                fireEvent.submit(screen.getByRole('button'));
+            });
+
+            const actual = screen.getByText('Home Automation').textContent;
+
+            expect(actual).toEqual('Home Automation');
         });
     });
 });
