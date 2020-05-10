@@ -1,18 +1,18 @@
 import React, { useState, useContext } from 'react';
+import jwt_decode from 'jwt-decode';
 import { Redirect } from 'react-router-dom';
 import './UserPass.css';
-import { getBearerToken } from '../../utilities/RestApi';
 import { Context } from '../../state/Store';
+import { getBearerToken } from '../../utilities/RestApi';
 
 
 export default function UserPass() {
-    const [, dispatch] = useContext(Context);
+    const [state, dispatch] = useContext(Context);
     const [username, setUsername] = useState(undefined);
     const [password, setPassword] = useState(undefined);
     const [isUsernameInvalid, setIsUsernameInvalid] = useState(false);
     const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
     const [isValidLogin, setIsValidLogin] = useState(true);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const validateCredentials = async (event) => {
         event.preventDefault();
@@ -26,13 +26,18 @@ export default function UserPass() {
             const response = await getBearerToken(username, password);
             setIsValidLogin(response);
             if (response) {
+                const decodedToken = jwt_decode(response.bearerToken);
                 dispatch({type: 'SET_AUTHENTICATION', payload: true});
-                setIsAuthenticated(true);
+                dispatch({type: 'SET_BEARER_TOKEN', payload: response.bearerToken})
+                dispatch({type: 'SET_ROLES', payload: decodedToken.user.roles})
+                dispatch({type: 'SET_USER_ID', payload: decodedToken.user.user_id})
+                dispatch({type: 'SET_FIRST_NAME', payload: decodedToken.user.first_name})
+                dispatch({type: 'SET_LAST_NAME', payload: decodedToken.user.last_name})
             }
         }
     };
     
-    if (isAuthenticated) {
+    if (state.isAuthenticated) {
         return <Redirect to='/home' />
     }
     return (

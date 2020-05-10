@@ -9,6 +9,9 @@ const initialState = {
     isAuthenticated: false,
     firstName: "",
     lastName: "",
+    roles: [],
+    deviceId: null,
+    startedGarageRegistration: false,
 };
 
 const Store = ({children}) => {

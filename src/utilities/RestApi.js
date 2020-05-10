@@ -21,8 +21,9 @@ export const getBearerToken = async (username, password) => {
         dataStore.setUserRoles(decodedToken.user.roles);
         dataStore.setFirstName(decodedToken.user.first_name)
         dataStore.setLastName(decodedToken.user.last_name)
+        return jsonResponse;
     }
-    return response.ok;
+    return null;
 }
 
 export const getGarageStatus = async (userId) => {

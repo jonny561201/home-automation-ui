@@ -15,6 +15,11 @@ const Reducer = (state, action) => {
                 ...state,
                 userId: action.payload
             };
+        case 'SET_DEVICE_ID':
+            return {
+                ...state,
+                deviceId: action.payload
+            };
         case 'SET_FIRST_NAME':
             return {
                 ...state,
@@ -29,6 +34,16 @@ const Reducer = (state, action) => {
             return {
                 ...state,
                 isAuthenticated: action.payload
+            };
+        case 'SET_ROLES':
+            return {
+                ...state,
+                roles: action.payload
+            };
+        case 'SET_STARTED_GARAGE_REGISTRATION':
+            return {
+                ...state,
+                startedGarageRegistration: action.payload
             };
         default:
             return state;

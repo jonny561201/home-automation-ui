@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { TextField } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { addUserDeviceNode } from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
 import { CheckCircle } from '@material-ui/icons';
+import { Context } from '../../state/Store';
 import './AddGarage.css';
 
 export default function AddGarage(props) {
+    const [state, ] = useContext(Context);
     const [succeeded, setSucceeded] = useState();
     const [garageName, setGarageName] = useState('');
     const [isNameValid, setIsNameValid] = useState(true);
@@ -32,7 +34,7 @@ export default function AddGarage(props) {
     }
 
     const updateGarageNode = async () => {
-        const response = await addUserDeviceNode(getStore().getUserId(), props.deviceId, garageName);
+        const response = await addUserDeviceNode(getStore().getUserId(), state.deviceId, garageName);
         setSucceeded(response.ok);
         const jsonResponse = await response.json();
         setAvailableNodes(jsonResponse.availableNodes);
