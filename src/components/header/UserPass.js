@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import './UserPass.css';
 import { getBearerToken } from '../../utilities/RestApi';
-import { getStore } from '../../state/GlobalState';
 import { Context } from '../../state/Store';
 
 
@@ -28,7 +27,6 @@ export default function UserPass() {
             setIsValidLogin(response);
             if (response) {
                 dispatch({type: 'SET_AUTHENTICATION', payload: true});
-                getStore().updateAuth(true);
                 setIsAuthenticated(true);
             }
         }
@@ -41,14 +39,14 @@ export default function UserPass() {
         <div>
             <form onSubmit={validateCredentials}>
                 <div className="column">
-                    <input onChange={(event) => setUsername(event.target.value)} type="text" name="Username" placeholder="Username" />
+                    <input data-testid={"user-name"} onChange={(event) => setUsername(event.target.value)} type="text" name="Username" placeholder="Username" />
                 </div>
                 {isUsernameInvalid
                     ? <p className="error-text">Invalid username!</p>
                     : <p className="spacer"></p>
                 }
                 <div className="column">
-                    <input onChange={(event) => setPassword(event.target.value)} type="password" name="Password" placeholder="Password" />
+                    <input data-testid={"password"} onChange={(event) => setPassword(event.target.value)} type="password" name="Password" placeholder="Password" />
                 </div>
                 {isPasswordInvalid
                     ? <p className="error-text">Invalid password!</p>

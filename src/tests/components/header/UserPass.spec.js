@@ -1,98 +1,114 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, screen, fireEvent, act } from '@testing-library/react';
+import * as lib from '../../../utilities/RestApi';
+import { Context } from '../../../state/Store';
+import App from '../../../App';
 import UserPass from '../../../components/header/UserPass';
 
 
+const renderComponent = () => {
+    render(
+        <App>
+            <Context.Provider>
+                <UserPass />
+            </Context.Provider>
+        </App>
+    );
+}
+
 describe('UserPass', () => {
-    let userPass;
+
+    const spyGet = jest.spyOn(lib, 'getBearerToken');
 
     beforeEach(() => {
-        userPass = mount(<UserPass />);
-    });
-
-    it('renders', () => {
-        expect(userPass).toBeTruthy();
+        spyGet.mockClear();
     });
 
     it('should contain username input', () => {
-        const userInput = userPass.find('input[name="Username"]');
-        expect(userInput).toHaveLength(1);
+        renderComponent();
+        const actual = screen.getByTestId('user-name');
+        expect(actual).toBeDefined();
     });
 
     it('should contain password input', () => {
-        const passInput = userPass.find('input[name="Password"]');
-        expect(passInput).toHaveLength(1);
+        renderComponent();
+        const actual = screen.getByTestId('password');
+        expect(actual).toBeDefined();
     });
 
     it('should contain a login button', () => {
-        const buttonText = userPass.find('button').text();
-        expect(buttonText).toEqual('Login');
+        renderComponent();
+        const actual = screen.getByRole('button');
+        expect(actual).toBeDefined();
     });
 
     describe('Form Validation', () => {
 
-        it('should display error text when username an empty string', () => {
-            userPass.find('input[name="Username"]').simulate('change', { target: { value: '', }, });
-            userPass.find('button').simulate('submit');
-
-            const errorText = userPass.find('.error-text');
-            expect(errorText.at(0).text()).toEqual('Invalid username!');
+        it('should not display error text when username is valid', async () => {
+            renderComponent();
+            await act(async ()=> {
+                fireEvent.change(screen.getByTestId('user-name'), {target: {value: 'validName'}});
+            });
+            fireEvent.click(screen.getByRole('button'));
+            const actual = screen.queryByText('Invalid username!');
+            expect(actual).toBeNull();
         });
 
-        it('should display error text when username is undefined', () => {
-            userPass.find('input[name="Username"]').simulate('change', { target: { value: undefined, }, });
-            userPass.find('button').simulate('submit');
-
-            const errorText = userPass.find('.error-text');
-            expect(errorText.at(0).text()).toEqual('Invalid username!');
+        it('should display error text when username is an empty string', async () => {
+            renderComponent();
+            await act(async ()=> {
+                fireEvent.change(screen.getByTestId('user-name'), {target: {value: ''}});
+            });
+            fireEvent.click(screen.getByRole('button'));
+            const actual = screen.getByText('Invalid username!').textContent;
+            expect(actual).toEqual('Invalid username!');
         });
 
-        it('should display error text when username is null', () => {
-            userPass.find('input[name="Username"]').simulate('change', { target: { value: null, }, });
-            userPass.find('button').simulate('submit');
-
-            const errorText = userPass.find('.error-text');
-            expect(errorText.at(0).text()).toEqual('Invalid username!');
+        it('should display error text when username is undefined', async () => {
+            renderComponent();
+            fireEvent.click(screen.getByRole('button'));
+            const actual = screen.getByText('Invalid username!').textContent;
+            expect(actual).toEqual('Invalid username!');
         });
 
-        it('should not display error text when username is valid', () => {
-            userPass.find('input[name="Username"]').simulate('change', { target: { value: 'User', }, });
-            userPass.find('button').simulate('submit');
-
-            const errorText = userPass.find('.error-text').map(x => x.text());
-            expect(errorText.includes('Invalid username!')).toBeFalsy();
+        it('should not display error text when password is valid', async () => {
+            renderComponent();
+            await act(async ()=> {
+                fireEvent.change(screen.getByTestId('password'), {target: {value: 'validName'}});
+            });
+            fireEvent.click(screen.getByRole('button'));
+            const actual = screen.queryByText('Invalid password!');
+            expect(actual).toBeNull();
         });
 
-        it('should display error text when password an empty string', () => {
-            userPass.find('input[name="Password"]').simulate('change', { target: { value: '', }, });
-            userPass.find('button').simulate('submit');
-
-            const errorText = userPass.find('.error-text');
-            expect(errorText.at(1).text()).toEqual('Invalid password!');
+        it('should display error text when password is an empty string', async () => {
+            renderComponent();
+            await act(async ()=> {
+                fireEvent.change(screen.getByTestId('password'), {target: {value: ''}});
+            });
+            fireEvent.click(screen.getByRole('button'));
+            const actual = screen.getByText('Invalid password!').textContent;
+            expect(actual).toEqual('Invalid password!');
         });
 
-        it('should display error text when password is undefined', () => {
-            userPass.find('input[name="Password"]').simulate('change', { target: { value: undefined, }, });
-            userPass.find('button').simulate('submit');
-
-            const errorText = userPass.find('.error-text');
-            expect(errorText.at(1).text()).toEqual('Invalid password!');
+        it('should display error text when password is undefined', async () => {
+            renderComponent();
+            fireEvent.click(screen.getByRole('button'));
+            const actual = screen.getByText('Invalid password!').textContent;
+            expect(actual).toEqual('Invalid password!');
         });
 
-        it('should display error text when password is null', () => {
-            userPass.find('input[name="Password"]').simulate('change', { target: { value: null, }, });
-            userPass.find('button').simulate('submit');
+        it('should make api call to get bearer token when user and pass are valid', async () => {
+            const userName = 'validFirst';
+            const password = 'validPass';
+            renderComponent();
+            await act(async ()=> {
+                fireEvent.change(screen.getByTestId('user-name'), {target: {value: userName}});
+                fireEvent.change(screen.getByTestId('password'), {target: {value: password}});
+            });
+            fireEvent.submit(screen.getByRole('button'));
 
-            const errorText = userPass.find('.error-text');
-            expect(errorText.at(1).text()).toEqual('Invalid password!');
-        });
-
-        it('should not display error text when password is valid', () => {
-            userPass.find('input[name="Password"]').simulate('change', { target: { value: 'Pass', }, });
-            userPass.find('button').simulate('submit');
-
-            const errorText = userPass.find('.error-text').map(x => x.text());
-            expect(errorText.includes('Invalid password!')).toBeFalsy();
+            expect(spyGet).toHaveBeenCalledWith(userName, password);
         });
     });
 });
