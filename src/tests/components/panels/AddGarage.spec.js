@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import AddGarage from "../../../components/panels/AddGarage";
-import { getStore } from '../../../GlobalState';
+import { getStore } from '../../../state/GlobalState';
 import * as lib from '../../../utilities/RestApi';
 
 describe('Add Garage', () => {

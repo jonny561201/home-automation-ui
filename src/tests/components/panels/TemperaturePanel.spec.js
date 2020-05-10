@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import * as lib from '../../../utilities/RestApi';
 import * as services from '../../../utilities/Services';
-import { getStore } from '../../../GlobalState';
+import { getStore } from '../../../state/GlobalState';
 import TemperaturePanel from '../../../components/panels/TemperaturePanel';
 
 

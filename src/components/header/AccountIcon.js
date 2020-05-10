@@ -1,6 +1,6 @@
 import React from 'react';
 import './AccountIcon.css';
-import { getStore } from '../../GlobalState';
+import { getStore } from '../../state/GlobalState';
 
 
 export default function Account(props) {

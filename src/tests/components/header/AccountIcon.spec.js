@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Account from '../../../components/header/AccountIcon';
-import { getStore } from '../../../GlobalState';
+import { getStore } from '../../../state/GlobalState';
 
 describe('Account', () => {
     let accountIcon;

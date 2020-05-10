@@ -8,7 +8,7 @@ import SumpPumpHighIcon from '../../resources/panelIcons/SumpPumpHighIcon.png';
 import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, Divider } from '@material-ui/core';
 import './BasementPanel.css';
 import { getSumpLevels } from '../../utilities/RestApi';
-import { getStore } from '../../GlobalState';
+import { getStore } from '../../state/GlobalState';
 
 
 export default class BasementPanel extends React.Component {

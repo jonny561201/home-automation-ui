@@ -4,7 +4,7 @@ import BasementPanel from './BasementPanel';
 import TemperaturePanel from './TemperaturePanel';
 import LightingPanel from './LightingPanel';
 import SecurityPanel from './SecurityPanel';
-import { getStore } from '../../GlobalState';
+import { getStore } from '../../state/GlobalState';
 
 
 export default function DashboardPanel() {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { getStore } from '../../../GlobalState';
+import { getStore } from '../../../state/GlobalState';
 import AccountMenu from '../../../components/header/AccountMenu';
 
 

@@ -1,4 +1,4 @@
-import { getStore } from '../GlobalState';
+import { getStore } from '../state/GlobalState';
 
 
 describe('GlobalState', () => {

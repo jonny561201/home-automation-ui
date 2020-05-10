@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import * as lib from '../../../utilities/RestApi';
-import { getStore } from '../../../GlobalState';
+import { getStore } from '../../../state/GlobalState';
 import BasementPanel from '../../../components/panels/BasementPanel';
 
 describe('BasementPanel', () => {

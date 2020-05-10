@@ -3,7 +3,7 @@ import LogoHeader from '../header/LogoHeader';
 import AccountIcon from './AccountIcon';
 import AccountMenu from '../header/AccountMenu';
 import './Header.css';
-import { getStore } from '../../GlobalState';
+import { getStore } from '../../state/GlobalState';
 
 
 export default function Header() {

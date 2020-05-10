@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Header from '../../../components/header/Header';
-import { getStore } from '../../../GlobalState';
+import { getStore } from '../../../state/GlobalState';
 
 describe('HeaderComponent', () => {
     let header;

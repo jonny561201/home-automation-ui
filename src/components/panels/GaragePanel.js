@@ -4,7 +4,7 @@ import GarageIcon from '../../resources/panelIcons/GarageDoorIcon.jpg';
 import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, ExpansionPanelActions, Divider } from '@material-ui/core';
 import './GaragePanel.css';
 import { getGarageStatus, toggleGarageDoor, updateGarageState } from '../../utilities/RestApi';
-import { getStore } from '../../GlobalState';
+import { getStore } from '../../state/GlobalState';
 import RegisterDevice from './RegisterDevice';
 
 

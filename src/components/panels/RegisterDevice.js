@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TextField } from '@material-ui/core';
 import { isValidIpAddress, debounchApi } from '../../utilities/Services';
 import { addUserDevice } from '../../utilities/RestApi';
-import { getStore } from '../../GlobalState';
+import { getStore } from '../../state/GlobalState';
 import CloseIcon from '@material-ui/icons/Close';
 import AddGarage from './AddGarage';
 import './RegisterDevice.css';

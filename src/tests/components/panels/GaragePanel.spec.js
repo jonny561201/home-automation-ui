@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { render, screen, act } from '@testing-library/react';
 import * as lib from '../../../utilities/RestApi';
 import GaragePanel from "../../../components/panels/GaragePanel";
-import { getStore } from '../../../GlobalState';
+import { getStore } from '../../../state/GlobalState';
 
 
 describe('GaragePanel', () => {

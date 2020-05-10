@@ -6,7 +6,7 @@ import {
     getUserPreferences, updateUserPreferences, setUserTemperature,
     getLightGroups, setLightGroupState, setLightState, updateUserAccount
 } from '../../utilities/RestApi';
-import { getStore } from '../../GlobalState';
+import { getStore } from '../../state/GlobalState';
 
 
 describe('RestApi', () => {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import './UserPass.css';
 import { getBearerToken } from '../../utilities/RestApi'
-import { getStore } from '../../GlobalState';
+import { getStore } from '../../state/GlobalState';
 
 
 export default function UserPass() {

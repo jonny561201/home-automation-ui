@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TextField } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { addUserDeviceNode } from '../../utilities/RestApi';
-import { getStore } from '../../GlobalState';
+import { getStore } from '../../state/GlobalState';
 import { CheckCircle } from '@material-ui/icons';
 import './AddGarage.css';
 

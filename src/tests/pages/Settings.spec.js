@@ -3,7 +3,7 @@ import Settings from '../../pages/Settings'
 import { FormControlLabel, TextField, RadioGroup } from '@material-ui/core';
 import { shallow } from 'enzyme';
 import * as lib from '../../utilities/RestApi';
-import { getStore } from '../../GlobalState';
+import { getStore } from '../../state/GlobalState';
 
 
 describe('Settings Page', () => {

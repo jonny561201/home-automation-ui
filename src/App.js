@@ -5,7 +5,7 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import Account from './pages/Account'
 import Settings from './pages/Settings';
-import { getStore } from './GlobalState';
+import { getStore } from './state/GlobalState';
 
 
 export default function App() {

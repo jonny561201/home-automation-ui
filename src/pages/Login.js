@@ -3,7 +3,7 @@ import './Login.css';
 import '../components/header/UserPass';
 import LogoHeader from '../components/header/LogoHeader';
 import UserPass from '../components/header/UserPass';
-import { getStore } from '../GlobalState';
+import { getStore } from '../state/GlobalState';
 
 
 export default function Login(props) {

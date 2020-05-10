@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import DashboardPanels from '../../../components/panels/DashboardPanels';
-import { getStore } from '../../../GlobalState';
+import { getStore } from '../../../state/GlobalState';
 
 describe('DashboardPanel', () => {
 

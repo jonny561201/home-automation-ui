@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/header/Header';
 import { Divider, TextField } from '@material-ui/core';
 import { CheckCircle, Error } from '@material-ui/icons';
-import { getStore } from '../GlobalState';
+import { getStore } from '../state/GlobalState';
 import { updateUserAccount } from '../utilities/RestApi';
 import './Account.css';
 

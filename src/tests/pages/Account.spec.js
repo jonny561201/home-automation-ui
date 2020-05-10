@@ -4,7 +4,7 @@ import { mount } from 'enzyme';
 import Account from '../../pages/Account';
 import * as lib from '../../utilities/RestApi';
 import { TextField } from '@material-ui/core';
-import { getStore } from '../../GlobalState';
+import { getStore } from '../../state/GlobalState';
 
 describe('Account Page', () => {
 

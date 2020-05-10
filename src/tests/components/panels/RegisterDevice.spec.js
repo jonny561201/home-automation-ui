@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import * as lib from '../../../utilities/Services';
 import * as api from '../../../utilities/RestApi'
 import RegisterDevice from '../../../components/panels/RegisterDevice';
-import { getStore } from '../../../GlobalState';
+import { getStore } from '../../../state/GlobalState';
 
 describe('Add Device', () => {
 
