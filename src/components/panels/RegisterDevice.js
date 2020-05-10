@@ -10,9 +10,10 @@ import './RegisterDevice.css';
 
 export default function RegisterDevice(props) {
     const [ipAddress, setIpAddress] = useState('');
+    const [startedRegistration, ] = useState(getStore().startedGarageRegistration());
     const [touched, setTouched] = useState(false);
     const [isIpValid, setIsIpValid] = useState(true);
-    const [deviceId, setDeviceId] = useState(null);
+    const [deviceId, setDeviceId] = useState(getStore().getGarageDeviceId());
     const [transitionComponent, setTransitionComponent] = useState(null);
 
     const checkIpAddress = (input) => {
@@ -34,7 +35,7 @@ export default function RegisterDevice(props) {
 
     return (
         <div className="device-menu">
-            {transitionComponent // TODO: needs to also check to see if in progress of adding!!!
+            {transitionComponent || startedRegistration
                 ? <AddGarage close={props.close} deviceId={deviceId} />
                 : <div>
                     <div className="device-group">

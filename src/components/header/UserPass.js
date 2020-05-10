@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import './UserPass.css';
-import { getBearerToken } from '../../utilities/RestApi'
+import { getBearerToken } from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
+import { Context } from '../../state/Store';
 
 
 export default function UserPass() {
+    const [, dispatch] = useContext(Context);
     const [username, setUsername] = useState(undefined);
     const [password, setPassword] = useState(undefined);
     const [isUsernameInvalid, setIsUsernameInvalid] = useState(false);
@@ -25,6 +27,7 @@ export default function UserPass() {
             const response = await getBearerToken(username, password);
             setIsValidLogin(response);
             if (response) {
+                dispatch({type: 'SET_AUTHENTICATION', payload: true});
                 getStore().updateAuth(true);
                 setIsAuthenticated(true);
             }
