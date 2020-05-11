@@ -18,7 +18,8 @@ export default function RegisterDevice(props) {
     const [transitionComponent, setTransitionComponent] = useState(null);
 
     useEffect(() => {
-        const garageRole = state.roles.find(x => x.role_name === 'garage_door');
+        //TODO: what about when roles is empty????
+        const garageRole = state.roles? state.roles.find(x => x.role_name === 'garage_door'): [];
         setStartedRegistration(garageRole && (garageRole.device_id || state.startedGarageRegistration));
         if (!state.deviceId) {
             dispatch({type: 'SET_DEVICE_ID', payload: garageRole && garageRole.device_id ? garageRole.device_id : null})

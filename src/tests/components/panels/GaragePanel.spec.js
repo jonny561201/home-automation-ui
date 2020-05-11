@@ -4,7 +4,7 @@ import { render, screen, act } from '@testing-library/react';
 import * as lib from '../../../utilities/RestApi';
 import GaragePanel from "../../../components/panels/GaragePanel";
 import { getStore } from '../../../state/GlobalState';
-import Store from '../../../state/Store';
+import {Context} from '../../../state/Store';
 
 
 describe('GaragePanel', () => {
@@ -16,9 +16,9 @@ describe('GaragePanel', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Store>
+                <Context.Provider value={[{devicesToRegister: false}, () => {}]}>
                     <GaragePanel />
-                </Store>
+                </Context.Provider>
             );
         });
     }
@@ -38,26 +38,36 @@ describe('GaragePanel', () => {
             getStore().setUserRoles(roles);
         })
 
+        const renderTrueComponent = async () => {
+            await act(async () => {
+                render(
+                    <Context.Provider value={[{devicesToRegister: true}, () => {}]}>
+                        <GaragePanel />
+                    </Context.Provider>
+                );
+            });
+        }
+
         it('should display Register Device Text', async () => {
-            await renderComponent();
+            await renderTrueComponent();
             const actual = screen.getByText('Register New Device!').textContent;
             expect(actual).toEqual('Register New Device!');
         });
 
         it('should display Register Device paragraph', async () => {
-            await renderComponent();
+            await renderTrueComponent();
             const actual = screen.getByText('A new device has been detected and needs to be registered.').textContent;
             expect(actual).toEqual('A new device has been detected and needs to be registered.');
         });
 
         it('should display the register device button', async () => {
-            await renderComponent();
+            await renderTrueComponent();
             const actual = screen.getByTestId('register-device-button').textContent;
             expect(actual).toEqual('Register');
         });
 
         it('should display the register device modal when clicking the register button', async ( )=> {
-            await renderComponent();
+            await renderTrueComponent();
             userEvent.click(screen.getByTestId('register-device-button'));
             const actual = screen.getByTestId('data-add-device');
             expect(actual).toBeDefined();

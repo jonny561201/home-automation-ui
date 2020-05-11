@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import GarageIcon from '../../resources/panelIcons/GarageDoorIcon.jpg';
-import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, ExpansionPanelActions, Divider } from '@material-ui/core';
-import './GaragePanel.css';
-import { getGarageStatus, toggleGarageDoor, updateGarageState } from '../../utilities/RestApi';
+import {Context} from '../../state/Store';
 import { getStore } from '../../state/GlobalState';
 import RegisterDevice from './RegisterDevice';
-import {Context} from '../../state/Store';
+import GarageIcon from '../../resources/panelIcons/GarageDoorIcon.jpg';
+import { getGarageStatus, toggleGarageDoor, updateGarageState } from '../../utilities/RestApi';
+import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, ExpansionPanelActions, Divider } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import './GaragePanel.css';
 
 
 export default function GaragePanel() {

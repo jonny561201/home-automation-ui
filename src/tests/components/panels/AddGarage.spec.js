@@ -3,7 +3,7 @@ import { render, screen, fireEvent, act } from '@testing-library/react';
 import AddGarage from "../../../components/panels/AddGarage";
 import { getStore } from '../../../state/GlobalState';
 import * as lib from '../../../utilities/RestApi';
-import Store from '../../../state/Store';
+import { Context } from '../../../state/Store';
 
 
 describe('Add Garage', () => {
@@ -15,9 +15,9 @@ describe('Add Garage', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Store>
+                <Context.Provider value={[{deviceId: deviceId}, () => {}]}>
                     <AddGarage />
-                </Store>
+                </Context.Provider>
             );
         });
     }
