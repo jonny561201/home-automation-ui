@@ -1,33 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './AccountMenu.css';
 import { getStore } from '../../state/GlobalState';
 
 
-export default class AccountSettings extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activePage: getStore().getActivePage()
+export default function AccountSettings(props) {
+    let wrapperRef;
+    const [activePage, ] = useState(getStore().getActivePage());
+
+    useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside);
+    });
+
+    const handleClickOutside = (event) => {
+        if (wrapperRef && !props.parentRef.contains(event.target) && !wrapperRef.contains(event.target)) {
+            props.toggle();
         }
     }
 
-    componentDidMount = () => {
-        document.addEventListener("mousedown", this.handleClickOutside);
-    }
-
-    setWrapperRef = (node) => {
-        this.wrapperRef = node;
-    }
-
-    handleClickOutside = (event) => {
-        if (this.wrapperRef && !this.props.parentRef.contains(event.target) && !this.wrapperRef.contains(event.target)) {
-            this.props.toggle();
-        }
-    }
-
-    getLinks = () => {
-        if (this.state.activePage === "Home Automation") {
+    const getLinks = () => {
+        if (activePage === "Home Automation") {
             return <div>
                 <Link to='/settings'>
                     <li><div className="account-button">Settings</div></li>
@@ -37,7 +29,7 @@ export default class AccountSettings extends React.Component {
                 </Link>
             </div>
         }
-        else if (this.state.activePage === "Settings") {
+        else if (activePage === "Settings") {
             return <div>
                 <Link to='/home'>
                     <li><div className="account-button">Home</div></li>
@@ -59,15 +51,13 @@ export default class AccountSettings extends React.Component {
         }
     }
 
-    render() {
-        return (
-            <div className="account-menu" ref={this.setWrapperRef}>
-                <ul>{ this.getLinks() }
-                    <Link to='/'>
-                        <li><div className="account-button" onClick={() => getStore().updateAuth(false)}>Sign Out</div></li>
-                    </Link>
-                </ul>
-            </div>
-        );
-    }
+    return (
+        <div className="account-menu" ref={(node) => {wrapperRef=node}}>
+            <ul>{ getLinks() }
+                <Link to='/'>
+                    <li><div className="account-button" onClick={() => getStore().updateAuth(false)}>Sign Out</div></li>
+                </Link>
+            </ul>
+        </div>
+    );
 }
