@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import AddGarage from "../../../components/panels/AddGarage";
-import { getStore } from '../../../state/GlobalState';
 import * as lib from '../../../utilities/RestApi';
 import { Context } from '../../../state/Store';
 
@@ -9,13 +8,12 @@ import { Context } from '../../../state/Store';
 describe('Add Garage', () => {
     const deviceId = 'abc123';
     const userId = 'fakeUserId';
-    getStore().setUserId(userId);
     const spyAdd = jest.spyOn(lib, 'addUserDeviceNode');
 
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{deviceId: deviceId}, () => {}]}>
+                <Context.Provider value={[{deviceId: deviceId, userId: userId}, () => {}]}>
                     <AddGarage />
                 </Context.Provider>
             );

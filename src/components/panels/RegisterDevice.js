@@ -2,11 +2,10 @@ import React, { useState, useContext, useEffect } from 'react';
 import { TextField } from '@material-ui/core';
 import { isValidIpAddress, debounchApi } from '../../utilities/Services';
 import { addUserDevice } from '../../utilities/RestApi';
-import { getStore } from '../../state/GlobalState';
 import CloseIcon from '@material-ui/icons/Close';
 import AddGarage from './AddGarage';
 import './RegisterDevice.css';
-import {Context} from '../../state/Store';
+import { Context } from '../../state/Store';
 
 
 export default function RegisterDevice(props) {
@@ -36,7 +35,7 @@ export default function RegisterDevice(props) {
     const submitDevice = async (event) => {
         event.preventDefault();
         if (isIpValid && touched) {
-            const response = await addUserDevice(getStore().getUserId(), 'garage_door', ipAddress)
+            const response = await addUserDevice(state.userId, 'garage_door', ipAddress)
             const responseObj = await response.json();
             dispatch({type: 'SET_STARTED_GARAGE_REGISTRATION', payload: true})
             dispatch({type: 'SET_DEVICE_ID', payload: responseObj.deviceId});
