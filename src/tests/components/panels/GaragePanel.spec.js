@@ -3,8 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { render, screen, act } from '@testing-library/react';
 import * as lib from '../../../utilities/RestApi';
 import GaragePanel from "../../../components/panels/GaragePanel";
-import { getStore } from '../../../state/GlobalState';
-import {Context} from '../../../state/Store';
+import { Context } from '../../../state/Store';
 
 
 describe('GaragePanel', () => {
@@ -16,7 +15,7 @@ describe('GaragePanel', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{devicesToRegister: false}, () => {}]}>
+                <Context.Provider value={[{devicesToRegister: false, userId: userId}, () => {}]}>
                     <GaragePanel />
                 </Context.Provider>
             );
@@ -25,23 +24,17 @@ describe('GaragePanel', () => {
 
     beforeEach(() => {
         spyGet.mockReturnValue({ isGarageOpen: true });
-        getStore().setUserId(userId)
         spyGet.mockClear();
         spyUpdate.mockClear();
         spyToggle.mockClear();
     });
 
     describe('should not display garage details', () => {
-        const roles = [{ role_name: 'garage_door', devices: [] }]
-
-        beforeEach(() => {
-            getStore().setUserRoles(roles);
-        })
 
         const renderTrueComponent = async () => {
             await act(async () => {
                 render(
-                    <Context.Provider value={[{devicesToRegister: true}, () => {}]}>
+                    <Context.Provider value={[{devicesToRegister: true, userId: userId}, () => {}]}>
                         <GaragePanel />
                     </Context.Provider>
                 );
@@ -75,11 +68,6 @@ describe('GaragePanel', () => {
     });
 
     describe('should display garage details', () => {
-        const roles = [{ role_name: 'garage_door', devices: [{ deviceName: 'Garage Door' }] }]
-
-        beforeEach(() => {
-            getStore().setUserRoles(roles);
-        })
 
         it('should display the Garage text', async () => {
             await renderComponent();

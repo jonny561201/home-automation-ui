@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import {Context} from '../../state/Store';
-import { getStore } from '../../state/GlobalState';
 import RegisterDevice from './RegisterDevice';
 import GarageIcon from '../../resources/panelIcons/GarageDoorIcon.jpg';
 import { getGarageStatus, toggleGarageDoor, updateGarageState } from '../../utilities/RestApi';
@@ -11,7 +10,6 @@ import './GaragePanel.css';
 
 export default function GaragePanel() {
     const [state, ] = useContext(Context);
-    const [userId,] = useState(getStore().getUserId());
     const [interval, setMyInterval] = useState(null);
     const [statusDays, setStatusDays] = useState(null);
     const [statusMins, setStatusMins] = useState(null);
@@ -22,7 +20,7 @@ export default function GaragePanel() {
 
     useEffect(() => {
         const getData = async () => {
-            const garageStatus = await getGarageStatus(userId);
+            const garageStatus = await getGarageStatus(state.userId);
             setIsGarageOpen(garageStatus.isGarageOpen)
             setGarageDuration(garageStatus.statusDuration)
         };
@@ -37,7 +35,7 @@ export default function GaragePanel() {
         return () => {
             clearInterval(interval);
         };
-    }, [statusDays, statusHours, statusMins, isGarageOpen, userId, garageDuration]);
+    }, [statusDays, statusHours, statusMins, isGarageOpen, state.userId, garageDuration]);
 
     return (
         <div>
@@ -84,9 +82,9 @@ export default function GaragePanel() {
                         </ExpansionPanelDetails>
                         <ExpansionPanelActions>
                             {isGarageOpen
-                                ? <button data-testid={"update-garage-close"} className="close-button" onClick={() => updateGarageState(false, userId)}>Close</button>
-                                : <button data-testid={"update-garage-open"} className="open-button" onClick={() => updateGarageState(true, userId)}>Open</button>}
-                            <button data-testid={"toggle-garage-button"} className="toggle-button" onClick={() => toggleGarageDoor(userId)}>Toggle</button>
+                                ? <button data-testid={"update-garage-close"} className="close-button" onClick={() => updateGarageState(false, state.userId)}>Close</button>
+                                : <button data-testid={"update-garage-open"} className="open-button" onClick={() => updateGarageState(true, state.userId)}>Open</button>}
+                            <button data-testid={"toggle-garage-button"} className="toggle-button" onClick={() => toggleGarageDoor(state.userId)}>Toggle</button>
                         </ExpansionPanelActions>
                     </div>
                 }
