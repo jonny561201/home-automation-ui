@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { TextField } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { addUserDeviceNode } from '../../utilities/RestApi';
@@ -8,7 +8,7 @@ import { Context } from '../../state/Store';
 import './AddGarage.css';
 
 export default function AddGarage(props) {
-    const [state, ] = useContext(Context);
+    const [state, dispatch] = useContext(Context);
     const [succeeded, setSucceeded] = useState();
     const [garageName, setGarageName] = useState('');
     const [isNameValid, setIsNameValid] = useState(true);
@@ -22,6 +22,7 @@ export default function AddGarage(props) {
             setIsNameValid(name !== "");
             setGarageName(name);
         } else {
+            dispatch({type: 'SET_DEVICES_TO_REGISTER', payload: false});
             props.close();
         }
     }
@@ -38,7 +39,10 @@ export default function AddGarage(props) {
         setSucceeded(response.ok);
         const jsonResponse = await response.json();
         setAvailableNodes(jsonResponse.availableNodes);
-        if (jsonResponse.availableNodes === 0 ) {props.close();}
+        if (jsonResponse.availableNodes === 0 ) {
+            dispatch({type: 'SET_DEVICES_TO_REGISTER', payload: false});
+            props.close();
+        }
     }
 
     const resetDevices = () => {

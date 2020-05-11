@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import GarageIcon from '../../resources/panelIcons/GarageDoorIcon.jpg';
 import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, ExpansionPanelActions, Divider } from '@material-ui/core';
@@ -6,35 +6,38 @@ import './GaragePanel.css';
 import { getGarageStatus, toggleGarageDoor, updateGarageState } from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
 import RegisterDevice from './RegisterDevice';
+import {Context} from '../../state/Store';
 
 
 export default function GaragePanel() {
-    const [hasDevicesToRegister,] = useState(getStore().hasUnregisteredDevices());
+    const [state, ] = useContext(Context);
     const [userId,] = useState(getStore().getUserId());
-    const [statusDays, setStatusDays] = useState(null);
-    const [statusHours, setStatusHours] = useState(null);
-    const [statusMins, setStatusMins] = useState(null);
-    const [isGarageOpen, setIsGarageOpen] = useState(null);
     const [interval, setMyInterval] = useState(null);
+    const [statusDays, setStatusDays] = useState(null);
+    const [statusMins, setStatusMins] = useState(null);
+    const [statusHours, setStatusHours] = useState(null);
+    const [isGarageOpen, setIsGarageOpen] = useState(null);
+    const [garageDuration, setGarageDuration] = useState(null);
     const [displayRegister, setDisplayRegister] = useState(false);
 
     useEffect(() => {
         const getData = async () => {
             const garageStatus = await getGarageStatus(userId);
             setIsGarageOpen(garageStatus.isGarageOpen)
-            setMyInterval(setInterval(() => {
-                const duration = new Date(garageStatus.statusDuration);
-                const diffMs = new Date() - duration;
-                setStatusDays(Math.floor(diffMs / 86400000));
-                setStatusHours(Math.floor((diffMs % 86400000) / 3600000));
-                setStatusMins(Math.round(((diffMs % 86400000) % 3600000) / 60000));
-            }, 1000));
+            setGarageDuration(garageStatus.statusDuration)
         };
         getData();
+        setMyInterval(setInterval(() => {
+            const duration = new Date(garageDuration);
+            const diffMs = new Date() - duration;
+            setStatusDays(Math.floor(diffMs / 86400000));
+            setStatusHours(Math.floor((diffMs % 86400000) / 3600000));
+            setStatusMins(Math.round(((diffMs % 86400000) % 3600000) / 60000));
+        }, 1000));
         return () => {
             clearInterval(interval);
         };
-    }, [statusDays, statusHours, statusMins, isGarageOpen, userId]);
+    }, [statusDays, statusHours, statusMins, isGarageOpen, userId, garageDuration]);
 
     return (
         <div>
@@ -48,7 +51,7 @@ export default function GaragePanel() {
                     </div>
                 </ExpansionPanelSummary>
                 <Divider />
-                {hasDevicesToRegister
+                {state.devicesToRegister
                     ? <ExpansionPanelDetails className="center">
                         <div>
                             <h2 className="status-text-bold">Register New Device!</h2>

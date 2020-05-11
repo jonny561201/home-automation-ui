@@ -33,8 +33,19 @@ export default function UserPass() {
                 dispatch({type: 'SET_USER_ID', payload: decodedToken.user.user_id})
                 dispatch({type: 'SET_FIRST_NAME', payload: decodedToken.user.first_name})
                 dispatch({type: 'SET_LAST_NAME', payload: decodedToken.user.last_name})
+                dispatch({type: 'SET_DEVICES_TO_REGISTER', payload: unregisteredDevices(decodedToken.user.roles)})
             }
         }
+    };
+
+    const unregisteredDevices = (roles) => {
+        const garageRole = roles.find(x => x.role_name === 'garage_door');
+        if (garageRole) {
+            if (!garageRole.devices || garageRole.devices.length === 0) {
+                return true;
+            }
+        }
+        return false;
     };
     
     if (state.isAuthenticated) {

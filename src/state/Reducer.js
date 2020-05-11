@@ -45,6 +45,11 @@ const Reducer = (state, action) => {
                 ...state,
                 startedGarageRegistration: action.payload
             };
+        case 'SET_DEVICES_TO_REGISTER':
+            return {
+                ...state,
+                devicesToRegister: action.payload
+            };
         default:
             return state;
     }

@@ -23,7 +23,7 @@ export default function RegisterDevice(props) {
         if (!state.deviceId) {
             dispatch({type: 'SET_DEVICE_ID', payload: garageRole && garageRole.device_id ? garageRole.device_id : null})
         }
-    }, []);
+    }, [dispatch, state.roles, state.deviceId, state.startedGarageRegistration]);
 
     const checkIpAddress = (input) => {
         const ipAddress = input.target.value;
