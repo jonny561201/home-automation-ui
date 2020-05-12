@@ -1,35 +1,32 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import * as lib from '../../../utilities/RestApi';
 import LightingPanel from '../../../components/panels/LightingPanel';
-import { act } from 'react-dom/test-utils';
 
 describe('LightingPanel', () => {
 
-    let lightingPanel;
     const spyGet = jest.spyOn(lib, 'getLightGroups');
 
     beforeEach(() => {
         spyGet.mockClear();
-        lightingPanel = shallow(<LightingPanel />);
     });
 
-    it('should show the Lighting Panel', () => {
-        const actual = lightingPanel.find('.lighting-panel');
-        expect(actual).toHaveLength(1);
+    it('should show the Lighting Panel text', () => {
+        render(<LightingPanel />);
+        const actual = screen.getByText('Lighting').textContent;
+        expect(actual).toEqual('Lighting');
     });
 
     it('should show lighting icon', () => {
-        const actual = lightingPanel.find('.lighting-panel img').prop('alt');
-        expect(actual).toEqual('lighting');
+        render(<LightingPanel />);
+        const actual = screen.getByRole('img');
+        expect(actual).toBeDefined();
     });
 
     describe('useEffect', () => {
 
         it('should make api call to get lighting groups', async () => {
-            await act(async () => {
-                mount(<LightingPanel />);
-            });
+            render(<LightingPanel />);
             expect(spyGet).toHaveBeenCalledTimes(1);
         });
 
