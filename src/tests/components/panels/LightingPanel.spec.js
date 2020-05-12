@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, act, fireEvent } from '@testing-library/react';
 import * as lib from '../../../utilities/RestApi';
 import LightingPanel from '../../../components/panels/LightingPanel';
 
@@ -30,17 +30,17 @@ describe('LightingPanel', () => {
             expect(spyGet).toHaveBeenCalledTimes(1);
         });
 
-        // TODO: NEED TO FIX TEST!!!
-        // it('should render a button for every group in response', async () => {
-        //     const response = [{groupId: "1",groupName: "LivingRoom",on: false,brightness: 127}, {groupId: "1",groupName: "LivingRoom",on: false,brightness: 127}];
-        //     spyGet.mockReturnValue(response);
-        //     const panel = mount(<LightingPanel />);
+        it('should render a button for every group in response', async () => {
+            const response = [{groupId: "1",groupName: "LivingRoom",on: false,brightness: 127}, {groupId: "2",groupName: "LivingRoom",on: false,brightness: 127}];
+            spyGet.mockReturnValue(response);
+            render(<LightingPanel />);
+            await act(async () => {
+                fireEvent.click(screen.getByRole('button'));
+            });
 
-        //     await act(async () => {
-        //         const actual = panel.find('LightSwitch');
-        //         console.log('----------Actual:', actual)
-        //         expect(actual.length).toEqual(2);
-        //     });
-        // });
+            const actual = screen.getAllByTestId('light-group');
+
+            expect(actual.length).toEqual(2);
+        });
     });
 });
