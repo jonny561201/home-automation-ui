@@ -3,15 +3,18 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { getStore } from '../../../state/GlobalState';
 import AccountMenu from '../../../components/header/AccountMenu';
 import { BrowserRouter } from 'react-router-dom';
+import { Context } from '../../../state/Store';
 
 
 describe('AccountSettings', () => {
 
     const renderComponent = () => {
         render(
-            <BrowserRouter>
-                <AccountMenu />
-            </BrowserRouter>
+            <Context.Provider value={[{}, () => { }]}>
+                <BrowserRouter>
+                    <AccountMenu />
+                </BrowserRouter>
+            </Context.Provider>
         );
     };
 

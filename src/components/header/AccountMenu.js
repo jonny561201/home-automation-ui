@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import './AccountMenu.css';
 import { getStore } from '../../state/GlobalState';
+import { Context } from '../../state/Store';
 
 
 export default function AccountSettings(props) {
     let wrapperRef;
     const [activePage, ] = useState(getStore().getActivePage());
+    const [, dispatch] = useContext(Context);
 
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
@@ -55,7 +57,7 @@ export default function AccountSettings(props) {
         <div className="account-menu" ref={(node) => {wrapperRef=node}}>
             <ul>{ getLinks() }
                 <Link to='/'>
-                    <li><div className="account-button" onClick={() => getStore().updateAuth(false)}>Sign Out</div></li>
+                    <li><div className="account-button" onClick={() => dispatch({type: 'SET_AUTHENTICATION', payload: false})}>Sign Out</div></li>
                 </Link>
             </ul>
         </div>
