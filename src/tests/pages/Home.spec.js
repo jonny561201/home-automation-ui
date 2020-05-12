@@ -1,28 +1,26 @@
 import React from 'react';
+import { render, screen } from '@testing-library/react';
 import Home from '../../pages/Home';
-import { shallow } from 'enzyme';
 import { getStore } from '../../state/GlobalState';
 
 describe('Home', () => {
-    let home;
-
-    beforeEach(() => {
-        home = shallow(<Home />);
-    });
 
     it('should display Header component', () => {
-        const actual = home.find('Header');
-        expect(actual).toHaveLength(1);
+        render(<Home />);
+        const actual = screen.getByTestId('white-header');
+        expect(actual).toBeDefined();
     });
 
     it('should display page body', () => {
-        const actual = home.find('.home-body');
-        expect(actual).toHaveLength(1)
+        render(<Home />);
+        const actual = screen.getByTestId('home-body');
+        expect(actual).toBeDefined()
     });
 
     it('should display DashboardPanel', () => {
-        const actual = home.find('DashboardPanel');
-        expect(actual).toHaveLength(1);
+        render(<Home />);
+        const actual = screen.getByTestId('dashboard-panel');
+        expect(actual).toBeDefined();
     });
 
     it('should set the active page to Home', () => {

@@ -13,7 +13,7 @@ export default function DashboardPanel() {
     const roleNames = roles.map(x => x.role_name);
     
     return (
-        <div>
+        <div data-testid={"dashboard-panel"}>
             {roleNames.includes("garage_door") ?
                 <div className="panel">
                     <GaragePanel />
