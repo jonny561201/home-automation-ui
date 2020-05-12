@@ -1,26 +1,24 @@
 import React from 'react';
+import { render, screen } from '@testing-library/react';
 import LogoCircle from '../../../components/header/LogoHeader';
-import {shallow} from 'enzyme';
 
 describe('LogoHeader', () => {
-    let logoHeader;
-
-    beforeEach(() => {
-        logoHeader = shallow(<LogoCircle />)
-    });
 
     it("should contain logo image", () => {
-        const logo = logoHeader.find('.logo-image');
-        expect(logo).toHaveLength(1);
+        render(<LogoCircle />);
+        const actual = screen.getByRole('img');
+        expect(actual).toBeDefined();
     });
 
     it("should contain white logo border", () => {
-        const logo = logoHeader.find('.white-header');
-        expect(logo).toHaveLength(1);
+        render(<LogoCircle />);
+        const actual = screen.getByTestId('white-header');
+        expect(actual).toBeDefined();
     });
 
     it("should contain brown logo background", () => {
-        const logo = logoHeader.find('.logo-background');
-        expect(logo).toHaveLength(1);
+        render(<LogoCircle />);
+        const actual = screen.getByTestId('logo-background');
+        expect(actual).toBeDefined();
     });
 });
