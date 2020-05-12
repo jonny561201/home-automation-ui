@@ -1,22 +1,18 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import SecurityPanel from '../../../components/panels/SecurityPanel';
 
 describe('SecurityPanel', () => {
 
-    let securityPanel;
-
-    beforeEach(() => {
-        securityPanel = shallow(<SecurityPanel />);
-    });
-
-    it('should show the Security Panel', () => {
-        const actual = securityPanel.find('.security-panel');
-        expect(actual).toHaveLength(1);
+    it('should show the Security Panel text', () => {
+        render(<SecurityPanel />);
+        const actual = screen.getByText('Security').textContent;
+        expect(actual).toEqual('Security');
     });
 
     it('should show security icon', () => {
-        const actual = securityPanel.find('.security-panel img').prop('alt');
-        expect(actual).toEqual('security');
+        render(<SecurityPanel />);
+        const actual = screen.getByRole('img');
+        expect(actual).toBeDefined();
     });
 });
