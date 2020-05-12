@@ -1,32 +1,33 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import Account from '../../../components/header/AccountIcon';
 import { getStore } from '../../../state/GlobalState';
 
 describe('Account', () => {
-    let accountIcon;
     const firstName = "Jon";
     const lastName = "Rox";
 
     beforeEach(() => {
         getStore().setFirstName(firstName);
         getStore().setLastName(lastName);
-        accountIcon = shallow(<Account />);
     });
 
     it('should display account login border', () => {
-        const border = accountIcon.find('.account-border');
-        expect(border).toHaveLength(1);
+        render(<Account />);
+        const actual = screen.getByTestId('account-border');
+        expect(actual).toBeDefined();
     });
 
     it('should display account login token', () => {
-        const border = accountIcon.find('.account-center');
-        expect(border).toHaveLength(1);
+        render(<Account />);
+        const actual = screen.getByTestId('account-center');
+        expect(actual).toBeDefined();
     });
 
     it('should display the first letter of users first name and first letter of users last name', () => {
-        const initials = accountIcon.find('p').text();
-        expect(initials).toEqual("JR");
+        render(<Account />);
+        const actual = screen.getByText('JR').textContent;
+        expect(actual).toEqual("JR");
     });
 
     it('should trim whitespace from users first and last name', () => {
@@ -34,9 +35,9 @@ describe('Account', () => {
         const lastName = " Rox";
         getStore().setFirstName(firstName);
         getStore().setLastName(lastName);
-        const newAccount = shallow(<Account />);
+        render(<Account />);
 
-        const initials = newAccount.find('p').text();
-        expect(initials).toEqual("JR");
+        const actual = screen.getByText('JR').textContent;
+        expect(actual).toEqual("JR");
     });
 });

@@ -9,8 +9,8 @@ export default function Account(props) {
 
     return (
         <div className="account-container" onClick={props.toggle} >
-            <div className="account-border">
-                <div className="account-center">
+            <div data-testid={"account-border"} className="account-border">
+                <div data-testid={"account-center"} className="account-center">
                     <p data-testid={"user-initials"}>{firstInitial + lastInitial}</p>
                 </div>
             </div>
