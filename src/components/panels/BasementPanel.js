@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import BasementIcon from '../../resources/panelIcons/BasementIcon.jpg';
 import SumpPumpLowIcon from '../../resources/panelIcons/SumpPumpLowIcon.png';
@@ -11,71 +11,65 @@ import { getSumpLevels } from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
 
 
-export default class BasementPanel extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            currentSumpDepth: 0.0,
-            averageSumpDepth: 0.0,
-            depthUnit: null,
-            warningLevel: 0,
+export default function BasementPanel() {
+    const [depthUnit, setDepthUnit] = useState(null);
+    const [warningLevel, setWarningLevel] = useState(0);
+    const [currentSumpDepth, setCurrentSumpDepth] = useState(0.0);
+    const [averageSumpDepth, setAverageSumpDepth] = useState(0.0);
+
+    useEffect(() => {
+        const getSumpData = async () => {
+            const response = await getSumpLevels(getStore().getUserId()); 
+            setWarningLevel(response.warningLevel);
+            setDepthUnit(response.depthUnit);
+            setCurrentSumpDepth(response.currentDepth.toFixed(1));
+            setAverageSumpDepth(response.averageDepth.toFixed(1));
+        };
+        getSumpData();
+    });
+
+    const getSumpIcon = () => {
+        if (warningLevel === 0) {
+            return <img data-testid={"warning-low"} alt="sump pump" className="sump-icon" src={SumpPumpLowIcon} label="warning-low" />
+        } else if (warningLevel === 1) {
+            return <img data-testid={"warning-medium-low"} alt="sump pump" className="sump-icon" src={SumpPumpMediumLowIcon} label="warning-medium-low" />
+        } else if (warningLevel === 2) {
+            return <img data-testid={"warning-medium-high"} alt="sump pump" className="sump-icon" src={SumpPumpMediumHighIcon} label="warning-medium-high" />
+        } else if (warningLevel === 3) {
+            return <img data-testid={"warning-high"} alt="sump pump" className="sump-icon" src={SumpPumpHighIcon} label="warning-high" />
         }
     }
 
-    componentDidMount = async () => {
-        const response = await getSumpLevels(getStore().getUserId());
-        this.setState({
-            warningLevel: response.warningLevel,
-            depthUnit: response.depthUnit,
-            currentSumpDepth: parseFloat(response.currentDepth.toFixed(1)),
-            averageSumpDepth: parseFloat(response.averageDepth.toFixed(1)),
-        });
-    }
-
-    getSumpIcon = () => {
-        if (this.state.warningLevel === 0) {
-            return <img alt="sump pump" className="sump-icon" src={SumpPumpLowIcon} label="warning-low" />
-        } else if (this.state.warningLevel === 1) {
-            return <img alt="sump pump" className="sump-icon" src={SumpPumpMediumLowIcon} label="warning-medium-low" />
-        } else if (this.state.warningLevel === 2) {
-            return <img alt="sump pump" className="sump-icon" src={SumpPumpMediumHighIcon} label="warning-medium-high" />
-        } else if (this.state.warningLevel === 3) {
-            return <img alt="sump pump" className="sump-icon" src={SumpPumpHighIcon} label="warning-high" />
-        }
-    }
-
-    render() {
-        return (
-            <div>
-                <ExpansionPanel className="basement-panel">
-                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                        <div className="summary">
-                            <div>
-                                <img alt="basement" className="logo-image" src={BasementIcon} />
-                            </div>
-                            <Typography className="panel-text">Basement</Typography>
+    return (
+        <div>
+            <ExpansionPanel data-testid={"basement-panel"} className="basement-panel">
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                    <div className="summary">
+                        <div>
+                            <img data-testid={"sump-logo"} alt="basement" className="logo-image" src={BasementIcon} />
                         </div>
-                    </ExpansionPanelSummary>
-                    <Divider />
-                    <ExpansionPanelDetails className="center">
-                        <div className="sump-group">
-                            {this.getSumpIcon()}
-                            <div className="sump-measure-group">
-                                <div className="sump-text-group">
-                                    <p className="current-text sump-text">Current: </p>
-                                    <p className={"current-depth sump-text " + (this.state.warningLevel === 3 ? 'alert' : 'healthy')}>{this.state.currentSumpDepth}</p>
-                                    <p className={"current-text sump-text " + (this.state.warningLevel === 3 ? 'alert' : 'healthy')}>{this.state.depthUnit}</p>
-                                </div>
-                                <div className="sump-text-group">
-                                    <p className="average-text sump-text">Average: </p>
-                                    <p className="average-depth sump-text">{this.state.averageSumpDepth}</p>
-                                    <p className="average-text sump-text">{this.state.depthUnit}</p>
-                                </div>
+                        <Typography className="panel-text">Basement</Typography>
+                    </div>
+                </ExpansionPanelSummary>
+                <Divider />
+                <ExpansionPanelDetails className="center">
+                    <div className="sump-group">
+                        {getSumpIcon()}
+                        <div className="sump-measure-group">
+                            <div className="sump-text-group">
+                                <p className="current-text sump-text">Current: </p>
+                                <p className={"current-depth sump-text " + (warningLevel === 3 ? 'alert' : 'healthy')}>{currentSumpDepth}</p>
+                                <p className={"current-text sump-text " + (warningLevel === 3 ? 'alert' : 'healthy')}>{depthUnit}</p>
+                            </div>
+                            <div className="sump-text-group">
+                                <p className="average-text sump-text">Average: </p>
+                                <p className="average-depth sump-text">{averageSumpDepth}</p>
+                                <p className="average-text sump-text">{depthUnit}</p>
                             </div>
                         </div>
-                    </ExpansionPanelDetails>
-                </ExpansionPanel>
-            </div >
-        );
-    }
+                    </div>
+                </ExpansionPanelDetails>
+            </ExpansionPanel>
+        </div >
+    );
 }

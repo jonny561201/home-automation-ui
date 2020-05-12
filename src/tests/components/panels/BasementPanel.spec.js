@@ -1,172 +1,155 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import * as lib from '../../../utilities/RestApi';
 import { getStore } from '../../../state/GlobalState';
 import BasementPanel from '../../../components/panels/BasementPanel';
+import { render, screen, act } from '@testing-library/react';
 
 describe('BasementPanel', () => {
 
-    let basementPanel;
+    const depthUnit = "in";
+    const averageDepth = 12.2;
+    const currentDepth = 11.1;
     const fakeUserId = "fakeUserId";
-    const spyGet = jest.spyOn(lib, 'getSumpLevels');
+    const spyGet = jest.spyOn(lib, 'getSumpLevels');        
+    let response = { warningLevel: 1, depthUnit: depthUnit, averageDepth: averageDepth, currentDepth: currentDepth };
+
+    const renderComponent = async () => {
+        await act(async () => {
+            render(
+                <BasementPanel />
+            );
+        });
+    }
 
     beforeEach(() => {
         getStore().setUserId(fakeUserId);
         spyGet.mockClear();
-        basementPanel = shallow(<BasementPanel />);
+        spyGet.mockReturnValue(response)
     });
 
     it('should show the Basement Panel', () => {
-        const actual = basementPanel.find('.basement-panel');
-        expect(actual).toHaveLength(1);
+        render(<BasementPanel />);
+        const actual = screen.getByTestId('basement-panel');
+        expect(actual).toBeDefined();
     });
 
     it('should show basement icon', () => {
-        const actual = basementPanel.find('.summary img').prop('alt');
-        expect(actual).toEqual('basement');
+        render(<BasementPanel />);
+        const actual = screen.getByTestId('sump-logo');
+        expect(actual).toBeDefined();
+    });
+
+    it('should display the basement Header', () => {
+        render(<BasementPanel />);
+        const actual = screen.getByText('Basement').textContent;
+        expect(actual).toEqual('Basement');
     });
 
     describe('Sump Pump Icon', () => {
 
-        it('should display the low icon when warning level 0', () => {
-            basementPanel.state().warningLevel = 0;
-            basementPanel.instance().forceUpdate();
-
-            const actual = basementPanel.find('.sump-icon');
-            expect(actual.props()).toHaveProperty('label', 'warning-low')
+        it('should display the low icon when warning level 0', async () => {
+            response.warningLevel = 0;
+            await renderComponent();
+            const actual = screen.getByTestId('warning-low');
+            expect(actual).toBeDefined();
         });
 
-        it('should display the medium low icon when warning level 1', () => {
-            basementPanel.state().warningLevel = 1;
-            basementPanel.instance().forceUpdate();
-
-            const actual = basementPanel.find('.sump-icon');
-            expect(actual.props()).toHaveProperty('label', 'warning-medium-low')
+        it('should display the medium low icon when warning level 1', async () => {
+            response.warningLevel = 1;
+            await renderComponent();
+            const actual = screen.getByTestId('warning-medium-low');
+            expect(actual).toBeDefined();
         });
 
-        it('should display the medium high icon when warning level 2', () => {
-            basementPanel.state().warningLevel = 2;
-            basementPanel.instance().forceUpdate();
-
-            const actual = basementPanel.find('.sump-icon');
-            expect(actual.props()).toHaveProperty('label', 'warning-medium-high')
+        it('should display the medium high icon when warning level 2', async () => {
+            response.warningLevel = 2;
+            await renderComponent();
+            const actual = screen.getByTestId('warning-medium-high')
+            expect(actual).toBeDefined();
         });
 
-        it('should display the high icon when warning level 3', () => {
-            basementPanel.state().warningLevel = 3;
-            basementPanel.instance().forceUpdate();
-
-            const actual = basementPanel.find('.sump-icon');
-            expect(actual.props()).toHaveProperty('label', 'warning-high')
+        it('should display the high icon when warning level 3', async () => {
+            response.warningLevel = 3
+            await renderComponent();
+            const actual = screen.getByTestId('warning-high')
+            expect(actual).toBeDefined();
         });
     });
 
     describe('Sump Details', () => {
 
-        it('should show sump pump icon', () => {
-            const actual = basementPanel.find('.center img');
-            expect(actual).toHaveLength(1);
-        });
-
         it('should make call to get sump pump depth', () => {
-            expect(spyGet).toHaveBeenCalledTimes(1);
+            render(<BasementPanel />)
             expect(spyGet).toBeCalledWith(fakeUserId);
         });
 
-        it('should display current sump depth text', () => {
-            const actual = basementPanel.find('.current-text').at(0).text();
+        it('should display current sump depth text', async () => {
+            await renderComponent();
+            const actual = screen.getByText('Current:').textContent;
             expect(actual).toEqual('Current: ');
         });
 
-        it('should display current depth of sump pump', () => {
-            const currentDepth = 32.1;
-            basementPanel.state().currentSumpDepth = currentDepth;
-            basementPanel.instance().forceUpdate();
+        it('should display current depth of sump pump', async () => {
+            await renderComponent();
 
-            const actual = basementPanel.find('.current-depth').text();
+            const actual = screen.getByText(currentDepth.toString()).textContent;
             expect(parseFloat(actual)).toEqual(currentDepth);
         });
 
-        it('should display the current depth unit of measure', () => {
-            const unit = 'in';
-            basementPanel.state().depthUnit = unit;
-            basementPanel.instance().forceUpdate();
+        it('should display the current depth unit of measure', async () => {
+            await renderComponent();
 
-            const actual = basementPanel.find('.current-text').at(1).text();
-            expect(actual).toEqual(unit);
+            const actual = screen.getAllByText(depthUnit)[0].textContent;
+            expect(actual).toEqual(depthUnit);
         });
 
-        it('should display average sump depth text', () => {
-            const actual = basementPanel.find('.average-text').at(0).text();
+        it('should display average sump depth text', async () => {
+            await renderComponent();
+
+            const actual = screen.getByText('Average:').textContent;
             expect(actual).toEqual('Average: ');
         });
 
-        it('should display average depth of sump pump', () => {
-            const averageDepth = 24.4;
-            basementPanel.state().averageSumpDepth = averageDepth;
-            basementPanel.instance().forceUpdate();
+        it('should display average depth of sump pump', async () => {
+            await renderComponent();
 
-            const actual = basementPanel.find('.average-depth').text();
+            const actual = screen.getByText(averageDepth.toString()).textContent;
             expect(parseFloat(actual)).toEqual(averageDepth);
         });
 
-        it('should display the average depth unit of measure', () => {
-            const unit = 'in';
-            basementPanel.state().depthUnit = unit;
-            basementPanel.instance().forceUpdate();
+        it('should display the average depth unit of measure', async () => {
+            await renderComponent();
 
-            const actual = basementPanel.find('.average-text').at(1).text();
-            expect(actual).toEqual(unit);
+            const actual = screen.getAllByText(depthUnit)[1].textContent;
+            expect(actual).toEqual(depthUnit);
         });
 
-        it('should set current depth in view', () => {
-            const currentDepth = 23.8;
-            basementPanel.state().currentSumpDepth = currentDepth;
-            basementPanel.instance().forceUpdate();
-
-            const actual = basementPanel.find('.current-depth').text();
-            expect(parseFloat(actual)).toEqual(currentDepth);
+        it('should display the sump text in alert status', async () => {
+            response.warningLevel = 3;
+            await renderComponent();
+            const actual = screen.getByText(currentDepth.toString()).classList;
+            expect(actual).toContain('alert');
         });
 
-        it('should set average depth in view', () => {
-            const averageDepth = 37.1;
-            basementPanel.state().averageSumpDepth = averageDepth;
-            basementPanel.instance().forceUpdate();
-
-            const actual = basementPanel.find('.average-depth').text();
-            expect(parseFloat(actual)).toEqual(averageDepth);
+        it('should display the sump text in healthy status', async () => {
+            response.warningLevel = 1;
+            await renderComponent();
+            const actual = screen.getByText(currentDepth.toString()).classList;
+            expect(actual).toContain('healthy');
         });
 
-        it('should display the sump text in alert status', () => {
-            basementPanel.state().warningLevel = 3;
-            basementPanel.instance().forceUpdate();
-            const actual = basementPanel.find('.alert.current-depth');
-
-            expect(actual).toHaveLength(1);
+        it('should display the sump unit in alert status', async () => {
+            response.warningLevel = 3;
+            await renderComponent();
+            const actual = screen.getAllByText(depthUnit.toString())[0].classList;
+            expect(actual).toContain('alert');
         });
 
-        it('should display the sump text in healthy status', () => {
-            basementPanel.state().warningLevel = 1;
-            basementPanel.instance().forceUpdate();
-            const actual = basementPanel.find('.healthy.current-depth');
-
-            expect(actual).toHaveLength(1);
-        });
-
-        it('should display the sump unit in alert status', () => {
-            basementPanel.state().warningLevel = 3;
-            basementPanel.instance().forceUpdate();
-            const actual = basementPanel.find('.alert.current-text');
-
-            expect(actual).toHaveLength(1);
-        });
-
-        it('should display the sump unit in healthy status', () => {
-            basementPanel.state().warningLevel = 1;
-            basementPanel.instance().forceUpdate();
-            const actual = basementPanel.find('.healthy.current-text');
-
-            expect(actual).toHaveLength(1);
+        it('should display the sump unit in healthy status', async () => {
+            response.warningLevel = 1;
+            await renderComponent();
+            const actual = screen.getAllByText(depthUnit.toString())[0].classList;
+            expect(actual).toContain('healthy');
         });
     });
 });
