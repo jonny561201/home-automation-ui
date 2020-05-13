@@ -69,13 +69,11 @@ export default function TemperaturePanel() {
     }
 
     const toggleColor = (mode) => {
-        if (mode === "cooling") {
+        if (mode === "cooling")
             setDisplayColor("#27aedb");
-        } else if (mode === "heating") {
+        else if (mode === "heating")
             setDisplayColor("#db5127");
-        } else {
-            setDisplayColor("#A0A0A0");
-        }
+        setDisplayColor("#A0A0A0");
     }
 
     return (
