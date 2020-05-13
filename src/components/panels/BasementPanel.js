@@ -26,7 +26,7 @@ export default function BasementPanel() {
             setAverageSumpDepth(response.averageDepth.toFixed(1));
         };
         getSumpData();
-    });
+    }, []);
 
     const getSumpIcon = () => {
         if (warningLevel === 0) {

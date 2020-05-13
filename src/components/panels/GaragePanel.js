@@ -35,7 +35,7 @@ export default function GaragePanel() {
         return () => {
             clearInterval(interval);
         };
-    }, [statusDays, statusHours, statusMins, isGarageOpen, state.userId, garageDuration]);
+    }, []);
 
     return (
         <div>
