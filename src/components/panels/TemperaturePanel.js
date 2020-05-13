@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { ExpansionPanel, Typography, ExpansionPanelSummary, Divider, FormControl, FormGroup, Switch, FormControlLabel } from '@material-ui/core';
 import './TemperaturePanel.css';
@@ -10,117 +10,113 @@ import TemperatureImage from './TemperatureImage';
 import Knob from '../controls/Knob';
 
 
-export default class TemperaturePanel extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            minTemp: 50.0,
-            maxTemp: 90.0,
-            mode: "heating",
-            isHeating: false,
-            isCooling: false,
-            desiredTemp: 0.0,
-            externalTemp: 0.0,
-            internalTemp: 0.0,
-            description: "",
-            isFahrenheit: true,
-            minThermostatTemp: 0.0,
-            maxThermostatTemp: 0.0,
-            displayColor: "#A0A0A0",
+export default function TemperaturePanel() {
+    const [mode, setMode] = useState("heating");
+    const [description, setDescription] = useState("");
+    const [displayColor, setDisplayColor] = useState("#A0A0A0");
+    const [isHeating, setIsHeating] = useState(false);
+    const [isCooling, setIsCooling] = useState(false);
+    const [isFahrenheit, setIsFahrenheit] = useState(true);
+    const [desiredTemp, setDesiredTemp] = useState(0.0);
+    const [externalTemp, setExternalTemp] = useState(0.0);
+    const [internalTemp, setInternalTemp] = useState(0.0);
+    const [minThermostatTemp, setMinThermostatTemp] = useState(0.0);
+    const [maxThermostatTemp, setMaxThermostatTemp] = useState(0.0);
+
+
+    useEffect(() => {
+        const getTempData = async () => {
+            const response = await getCurrentTemperature(getStore().getUserId());
+            setExternalTemp(Math.round(response.temp));
+            setInternalTemp(Math.round(response.currentTemp));
+            setIsFahrenheit(response.isFahrenheit);
+            setDesiredTemp(response.desiredTemp === null ? parseFloat(response.currentTemp.toFixed(0)) : parseFloat(response.desiredTemp.toFixed(0)));
+            setMinThermostatTemp(response.minThermostatTemp);
+            setMaxThermostatTemp(response.maxThermostatTemp);
+            setIsCooling(response.mode === "cooling" ? true : false);
+            setIsHeating(response.mode === "heating" ? true : false);
+            setMode(response.mode);
+            setDescription(response.description);
+            toggle(response.mode);
+        };
+        getTempData();
+    }, []);
+
+    const knobChange = (newValue) => {
+        if (isHeating || isCooling) {
+            setDesiredTemp(newValue);
+            debounchApi(() => setUserTemperature(getStore().getUserId(), newValue, mode, isFahrenheit));
         }
     }
 
-    componentDidMount = async () => {
-        const response = await getCurrentTemperature(getStore().getUserId());
-        this.setState({
-            externalTemp: Math.round(response.temp),
-            internalTemp: Math.round(response.currentTemp),
-            isFahrenheit: response.isFahrenheit,
-            desiredTemp: response.desiredTemp === null ? parseFloat(response.currentTemp.toFixed(0)) : parseFloat(response.desiredTemp.toFixed(0)),
-            minThermostatTemp: response.minThermostatTemp,
-            maxThermostatTemp: response.maxThermostatTemp,
-            isCooling: response.mode === "cooling" ? true : false,
-            isHeating: response.mode === "heating" ? true : false,
-            mode: response.mode,
-            description: response.description,
-        });
-        this.toggle();
-    }
-
-    knobChange = (newValue) => {
-        if (this.state.isHeating || this.state.isCooling) {
-            this.setState({ desiredTemp: newValue });
-            debounchApi(() => setUserTemperature(getStore().getUserId(), newValue, this.state.mode, this.state.isFahrenheit));
+    const toggleHvac = (newMode) => {
+        let modeState = null;
+        if (newMode === "heating") {
+            const heating = !isHeating
+            setIsHeating(heating);
+            setIsCooling(false);
+            modeState = heating ? "heating" : null    
+            setUserTemperature(getStore().getUserId(), desiredTemp, newMode, isFahrenheit);
+        } else if (newMode === "cooling") {
+            const cooling = !isCooling;
+            setIsHeating(false);
+            setIsCooling(cooling);   
+            modeState = cooling ? "cooling" : null;
+            setUserTemperature(getStore().getUserId(), desiredTemp, newMode, isFahrenheit);
+        } 
+        if (modeState === null) {
+            setIsHeating(false);
+            setIsCooling(false);
+            setUserTemperature(getStore().getUserId(), desiredTemp, null, isFahrenheit);
         }
+        setMode(newMode);
+        toggle(modeState);
     }
 
-    toggleHvac = async (newMode) => {
-        newMode === "heating"
-            ? await this.setState({ isHeating: !this.state.isHeating, isCooling: false, mode: newMode })
-            : await this.setState({ isCooling: !this.state.isCooling, isHeating: false, mode: newMode });
-        this.toggleColor()
-    }
-
-
-    toggle = () => {
-        if (this.state.isCooling) {
-            this.setState({ displayColor: "#27aedb" });
-        } else if (this.state.isHeating) {
-            this.setState({ displayColor: "#db5127" });
+    const toggle = (mode) => {
+        if (mode === "cooling") {
+            setDisplayColor("#27aedb");
+        } else if (mode === "heating") {
+            setDisplayColor("#db5127");
         } else {
-            this.setState({ displayColor: "#A0A0A0" });
+            setDisplayColor("#A0A0A0");
         }
     }
 
-    toggleColor = () => {
-        if (this.state.isCooling) {
-            this.setState({ displayColor: "#27aedb" });
-            setUserTemperature(getStore().getUserId(), this.state.desiredTemp, this.state.mode, this.state.isFahrenheit);
-        } else if (this.state.isHeating) {
-            this.setState({ displayColor: "#db5127" });
-            setUserTemperature(getStore().getUserId(), this.state.desiredTemp, this.state.mode, this.state.isFahrenheit);
-        } else {
-            this.setState({ displayColor: "#A0A0A0" });
-            setUserTemperature(getStore().getUserId(), this.state.desiredTemp, null, this.state.isFahrenheit);
-        }
-    }
-
-    render() {
-        return (
-            <div>
-                <ExpansionPanel className="temperature-panel">
-                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                        <div className="summary">
-                            <div>
-                                <img alt="temperature" className="logo-image" src={TemperatureIcon} />
-                            </div>
-                            <Typography className="panel-text">Temperature</Typography>
+    return (
+        <div>
+            <ExpansionPanel className="temperature-panel">
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                    <div className="summary">
+                        <div>
+                            <img alt="temperature" className="logo-image" src={TemperatureIcon} />
                         </div>
-                    </ExpansionPanelSummary>
-                    <Divider />
-                    <div>
-                        <div className="form-container">
-                            <div className="form-column">
-                                <div >
-                                    <TemperatureImage description={this.state.description} />
-                                    <p className="internal-temp">{this.state.internalTemp}&deg;</p>
-                                    <p className="external-temp">{this.state.externalTemp}&deg;</p>
-                                </div>
+                        <Typography className="panel-text">Temperature</Typography>
+                    </div>
+                </ExpansionPanelSummary>
+                <Divider />
+                <div>
+                    <div className="form-container">
+                        <div className="form-column">
+                            <div >
+                                <TemperatureImage description={description} />
+                                <p className="internal-temp">{internalTemp}&deg;</p>
+                                <p className="external-temp">{externalTemp}&deg;</p>
                             </div>
-                            <div className="form-column">
-                                <Knob value={this.state.desiredTemp} lineCap={"round"} fgColor={this.state.displayColor} inputColor={this.state.displayColor}
-                                    onChange={this.knobChange} angleArc={240} angleOffset={240} min={this.state.minThermostatTemp} max={this.state.maxThermostatTemp} />
-                                <FormControl>
-                                    <FormGroup>
-                                        <FormControlLabel label="Heat" control={<Switch color="secondary" checked={this.state.isHeating} onChange={() => this.toggleHvac("heating")} />} />
-                                        <FormControlLabel label="Cool" control={<Switch color="primary" checked={this.state.isCooling} onChange={() => this.toggleHvac("cooling")} />} />
-                                    </FormGroup>
-                                </FormControl>
-                            </div>
+                        </div>
+                        <div className="form-column">
+                            <Knob value={desiredTemp} lineCap={"round"} fgColor={displayColor} inputColor={displayColor}
+                                onChange={knobChange} angleArc={240} angleOffset={240} min={minThermostatTemp} max={maxThermostatTemp} />
+                            <FormControl>
+                                <FormGroup>
+                                    <FormControlLabel label="Heat" control={<Switch color="secondary" checked={isHeating} onChange={() => toggleHvac("heating")} />} />
+                                    <FormControlLabel label="Cool" control={<Switch color="primary" checked={isCooling} onChange={() => toggleHvac("cooling")} />} />
+                                </FormGroup>
+                            </FormControl>
                         </div>
                     </div>
-                </ExpansionPanel>
-            </div>
-        );
-    }
+                </div>
+            </ExpansionPanel>
+        </div>
+    );
 }
