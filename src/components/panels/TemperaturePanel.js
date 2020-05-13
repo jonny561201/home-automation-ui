@@ -37,7 +37,7 @@ export default function TemperaturePanel() {
             setIsHeating(response.mode === "heating" ? true : false);
             setMode(response.mode);
             setDescription(response.description);
-            toggle(response.mode);
+            toggleColor(response.mode);
         };
         getTempData();
     }, []);
@@ -50,30 +50,25 @@ export default function TemperaturePanel() {
     }
 
     const toggleHvac = (newMode) => {
-        let modeState = null;
-        if (newMode === "heating") {
-            const heating = !isHeating
-            setIsHeating(heating);
-            setIsCooling(false);
-            modeState = heating ? "heating" : null    
-            setUserTemperature(getStore().getUserId(), desiredTemp, newMode, isFahrenheit);
-        } else if (newMode === "cooling") {
-            const cooling = !isCooling;
-            setIsHeating(false);
-            setIsCooling(cooling);   
-            modeState = cooling ? "cooling" : null;
-            setUserTemperature(getStore().getUserId(), desiredTemp, newMode, isFahrenheit);
-        } 
-        if (modeState === null) {
-            setIsHeating(false);
-            setIsCooling(false);
-            setUserTemperature(getStore().getUserId(), desiredTemp, null, isFahrenheit);
-        }
+        const heatState = (newMode === "heating" && !isHeating) ? true : false    
+        const coldState = (newMode === "cooling" && !isCooling) ? true : false;
+        const modeState = getToggledMode(heatState, coldState);
+        setIsHeating(heatState);
+        setIsCooling(coldState);
         setMode(newMode);
-        toggle(modeState);
+        toggleColor(modeState);
+        setUserTemperature(getStore().getUserId(), desiredTemp, modeState, isFahrenheit);
     }
 
-    const toggle = (mode) => {
+    const getToggledMode = (heatState, coldState) => {
+        if (heatState)
+            return "heating";
+        else if (coldState)
+            return "cooling";
+        return null;
+    }
+
+    const toggleColor = (mode) => {
         if (mode === "cooling") {
             setDisplayColor("#27aedb");
         } else if (mode === "heating") {
