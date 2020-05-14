@@ -73,12 +73,13 @@ export default function TemperaturePanel() {
             setDisplayColor("#27aedb");
         else if (mode === "heating")
             setDisplayColor("#db5127");
-        setDisplayColor("#A0A0A0");
+        else 
+            setDisplayColor("#A0A0A0");
     }
 
     return (
         <div>
-            <ExpansionPanel className="temperature-panel">
+            <ExpansionPanel data-testid={"temperature-panel"} className="temperature-panel">
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <div className="summary">
                         <div>
@@ -93,8 +94,8 @@ export default function TemperaturePanel() {
                         <div className="form-column">
                             <div >
                                 <TemperatureImage description={description} />
-                                <p className="internal-temp">{internalTemp}&deg;</p>
-                                <p className="external-temp">{externalTemp}&deg;</p>
+                                <p data-testid={"internal-temp"} className="internal-temp">{internalTemp}&deg;</p>
+                                <p data-testid={"external-temp"} className="external-temp">{externalTemp}&deg;</p>
                             </div>
                         </div>
                         <div className="form-column">
@@ -102,8 +103,8 @@ export default function TemperaturePanel() {
                                 onChange={knobChange} angleArc={240} angleOffset={240} min={minThermostatTemp} max={maxThermostatTemp} />
                             <FormControl>
                                 <FormGroup>
-                                    <FormControlLabel label="Heat" control={<Switch color="secondary" checked={isHeating} onChange={() => toggleHvac("heating")} />} />
-                                    <FormControlLabel label="Cool" control={<Switch color="primary" checked={isCooling} onChange={() => toggleHvac("cooling")} />} />
+                                    <FormControlLabel label="Heat" control={<Switch data-testid={"heating-switch"} color="secondary" checked={isHeating} onChange={() => toggleHvac("heating")} />} />
+                                    <FormControlLabel label="Cool" control={<Switch data-testid={"cooling-switch"}  color="primary" checked={isCooling} onChange={() => toggleHvac("cooling")} />} />
                                 </FormGroup>
                             </FormControl>
                         </div>
