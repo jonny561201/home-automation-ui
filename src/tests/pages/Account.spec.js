@@ -1,116 +1,121 @@
 import React from 'react';
-import { act } from 'react-dom/test-utils';
-import { mount } from 'enzyme';
 import Account from '../../pages/Account';
 import * as lib from '../../utilities/RestApi';
-import { TextField } from '@material-ui/core';
 import { getStore } from '../../state/GlobalState';
+import { render, screen, act, fireEvent } from '@testing-library/react';
 
 describe('Account Page', () => {
 
-    let account;
     const spyPost = jest.spyOn(lib, 'updateUserAccount');
     const userId = 'fakeUserId'
 
     beforeEach(() => {
         getStore().setUserId(userId);
         spyPost.mockClear();
-        account = mount(<Account />);
     });
 
 
     it('should display header for changing password', () => {
-        const actual = account.find('h2').at(0);
+        render(<Account />);
+        const actual = screen.getByText('Change Password').textContent;
 
-        expect(actual).toHaveLength(1);
-    });
-
-    it('should display the old password input box', () => {
-        const actual = account.find(TextField).at(0);
-        expect(actual).toHaveLength(1);
+        expect(actual).toEqual('Change Password');
     });
 
     it('should display the old password label', () => {
-        const actual = account.find(TextField).at(0);
-        expect(actual.props()).toHaveProperty('label', 'Old Password');
+        render(<Account />);
+        const actual = screen.queryByLabelText('Old Password');
+        expect(actual).toBeDefined();
     });
 
-    it('should display the new password input box', () => {
-        const actual = account.find(TextField).at(1);
-        expect(actual).toHaveLength(1);
+    it('should display the old password input box', () => {
+        render(<Account />);
+        const actual = screen.getByTestId('old-pass').querySelector('input');
+        expect(actual).toBeDefined();
     });
 
     it('should display the new password label', () => {
-        const actual = account.find(TextField).at(1);
-        expect(actual.props()).toHaveProperty('label', 'New Password');
+        render(<Account />);
+        const actual = screen.queryByLabelText('New Password');
+        expect(actual).toBeDefined();
     });
 
-    it('should display the confirm new password input box', () => {
-        const actual = account.find(TextField).at(2);
-        expect(actual).toHaveLength(1);
+    it('should display the new password input box', () => {
+        render(<Account />);
+        const actual = screen.getByTestId('new-pass').querySelector('input');
+        expect(actual).toBeDefined();
     });
 
     it('should display the confirm new password label', () => {
-        const actual = account.find(TextField).at(2);
-        expect(actual.props()).toHaveProperty('label', 'Confirm New Password');
+        render(<Account />);
+        const actual = screen.queryByLabelText('Confirm Password');
+        expect(actual).toBeDefined();
+    });
+
+    it('should display the confirm new password input box', () => {
+        render(<Account />);
+        const actual = screen.getByTestId('confirm-pass').querySelector('input');
+        expect(actual).toBeDefined();
     });
 
     it('should display the submit button', () => {
-        const actual = account.find('button').at(0).text();
+        render(<Account />);
+        const actual = screen.getByRole('button').textContent;
         expect(actual).toEqual('Submit');
     });
 
     describe('Password Update Errors', () => {
 
         it('should display error when passwords does do not match', async () => {
-            await act(async () => {
-                account.find(TextField).at(1).props().onChange({target: {value:'pass1'}});
-                account.find(TextField).at(2).props().onChange({target: {value:'pass2'}});
-            });
-            account.find('button').at(0).simulate('submit');
-            account.find('button').at(0).simulate('submit');
+            render(<Account />);
+            fireEvent.change(screen.getByTestId('new-pass').querySelector('input'), { target: { value: 'pass1' } });
+            fireEvent.change(screen.getByTestId('confirm-pass').querySelector('input'), { target: { value: 'pass2' } });
+            const newInput = screen.getByTestId('new-pass').querySelector('label').className;
+            const confirmInput = screen.getByTestId('confirm-pass').querySelector('label').className;
 
-            expect(account.find(TextField).at(1).prop("error")).toBeTruthy();
-            expect(account.find(TextField).at(2).prop("error")).toBeTruthy();
+            expect(newInput).toContain('error');
+            expect(confirmInput).toContain('error');
         });
 
         it('should not display error when passwords match', async () => {
             const matchingPass = 'test';
-            await act(async () => {
-                account.find(TextField).at(1).props().onChange({target: {value:matchingPass}});
-                account.find(TextField).at(2).props().onChange({target: {value:matchingPass}});
-            });
-            account.find('button').at(0).simulate('submit');
+            render(<Account />);
+            fireEvent.change(screen.getByTestId('new-pass').querySelector('input'), { target: { value: matchingPass } });
+            fireEvent.change(screen.getByTestId('confirm-pass').querySelector('input'), { target: { value: matchingPass } });
+            const newInput = screen.getByTestId('new-pass').querySelector('label').className;
+            const confirmInput = screen.getByTestId('confirm-pass').querySelector('label').className;
 
-            expect(account.find(TextField).at(1).prop("error")).toBeFalsy();
-            expect(account.find(TextField).at(2).prop("error")).toBeFalsy();
+            expect(newInput).not.toContain('error');
+            expect(confirmInput).not.toContain('error');
         });
 
         it('should display old password error when it is empty string on submit', async () => {
-            account.find('button').at(0).simulate('submit');
+            render(<Account />);
+            fireEvent.click(screen.getByRole('button'));
+            const actual = screen.getByTestId('old-pass').querySelector('label').className;
 
-            expect(account.find(TextField).at(0).prop("error")).toBeTruthy();
+            expect(actual).toContain('error');
         });
 
         it('should not display old password error when it is populated on submit', async () => {
-            await act(async () => {
-                account.find(TextField).at(0).props().onChange({target: {value:'test'}});
-            });
-            account.find('button').at(0).simulate('submit');
+            render(<Account />);
+            fireEvent.change(screen.getByTestId('old-pass').querySelector('input'), { target: {value: 'validPass'} });
+            fireEvent.click(screen.getByRole('button'));
+            const actual = screen.getByTestId('old-pass').querySelector('label').className;
 
-            expect(account.find(TextField).at(0).prop("error")).toBeFalsy();
+            expect(actual).not.toContain('error');
         });
 
         it('should make api call when not in error state', async () => {
-            const oldPassword = "oldPassword"
-            const newPassword = "newPassword"
-            await act(async () => {
-                account.find(TextField).at(0).props().onChange({target: {value:oldPassword}});
-                account.find(TextField).at(1).props().onChange({target: {value:newPassword}});
-                account.find(TextField).at(2).props().onChange({target: {value:newPassword}});
-            });
-            account.find('button').at(0).simulate('submit');
-            expect(spyPost).toBeCalledWith(userId, oldPassword, newPassword)
+            const oldPass = 'oldPass';
+            const matchingPass = 'newPass';
+            render(<Account />);
+            fireEvent.change(screen.getByTestId('old-pass').querySelector('input'), { target: {value: oldPass } });
+            fireEvent.change(screen.getByTestId('new-pass').querySelector('input'), { target: { value: matchingPass } });
+            fireEvent.change(screen.getByTestId('confirm-pass').querySelector('input'), { target: { value: matchingPass } });
+
+            fireEvent.click(screen.getByRole('button'));
+            expect(spyPost).toHaveBeenCalledWith(userId, oldPass, matchingPass);
         });
     });
 });

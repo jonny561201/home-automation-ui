@@ -72,13 +72,13 @@ export default function Account() {
                     <Divider />
                     <form className="account-group account-text" onSubmit={submitAccountChange}>
                         <div className="account-row">
-                            <TextField error={oldPasswordError} value={oldPassword} variant="outlined" label="Old Password" type="password" onChange={onOldPasswordChange} />
+                            <TextField data-testid={"old-pass"} error={oldPasswordError} value={oldPassword} variant="outlined" label="Old Password" type="password" onChange={onOldPasswordChange} />
                         </div>
                         <div className="account-row">
-                            <TextField error={arePasswordsMismatched} value={firstNewPassword} variant="outlined" label="New Password" type="password" onChange={(input) => setFirstPassword(input.target.value)} />
+                            <TextField data-testid={"new-pass"} error={arePasswordsMismatched} value={firstNewPassword} variant="outlined" label="New Password" type="password" onChange={(input) => setFirstPassword(input.target.value)} />
                         </div>
                         <div className="account-row">
-                            <TextField error={arePasswordsMismatched} value={secondNewPassword} variant="outlined" label="Confirm New Password" type="password" onChange={(input) => setSecondPassword(input.target.value)} />
+                            <TextField data-testid={"confirm-pass"} error={arePasswordsMismatched} value={secondNewPassword} variant="outlined" label="Confirm New Password" type="password" onChange={(input) => setSecondPassword(input.target.value)} />
                         </div>
                         {passwordMessage()}
                         <Divider className="account-divider" />
