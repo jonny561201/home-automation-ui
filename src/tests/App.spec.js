@@ -1,17 +1,13 @@
 import React from 'react';
 import App from '../App';
-import { shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 
 
 describe('App Component', () => {
-  let app;
-
-  beforeEach(() => {
-    app = shallow(<App />);
-  });
-
   it('renders', () => {
-    expect(app).toBeTruthy();
+    render(<App />);
+    const actual = screen.getByText('Member Login');
+    expect(actual).toBeDefined()
   });
 });
 
