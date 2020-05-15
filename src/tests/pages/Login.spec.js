@@ -1,35 +1,40 @@
 import React from 'react';
 import Login from '../../pages/Login';
-import { shallow } from 'enzyme';
+import { Context } from '../../state/Store';
+import { render, screen, act } from '@testing-library/react';
 
 describe('Login Component', () => {
-    let login;
+    const renderComponent = async () => {
+        await act(async () => {
+            render(
+                <Context.Provider value={[{}, () => {}]}>
+                    <Login />
+                </Context.Provider>
+            );
+        });
+    }
 
-    beforeEach(() => {
-        login = shallow(<Login />);
+    it("should contain a header div", async () => {
+        await renderComponent();
+        const actual = screen.getByTestId('login-header');
+        expect(actual).toBeDefined();
     });
 
-    it('renders', () => {
-        expect(login).toBeTruthy();
+    it('should have member login text', async () => {
+        await renderComponent();
+        const actual = screen.getByText('Member Login').textContent;
+        expect(actual).toEqual('Member Login');
     });
 
-    it("should contain a header div", () => {
-        const header = login.find('.login-header');
-        expect(header).toHaveLength(1);
+    it('should have Logo element', async () => {
+        await renderComponent();
+        const actual = screen.getByTestId('white-header');
+        expect(actual).toBeDefined();
     });
 
-    it('should have sign in text', () => {
-        const headerText = login.find('h1').text();
-        expect(headerText).toEqual('Member Login');
-    });
-
-    it('should have Logo element', () => {
-        const logoHeader = login.find('LogoHeader');
-        expect(logoHeader).toHaveLength(1);
-    });
-
-    it("should contain a body div", () => {
-        const body = login.find('.login-body');
-        expect(body).toHaveLength(1);
+    it("should contain user pass screen", async () => {
+        await renderComponent();
+        const actual = screen.getByText('Login');
+        expect(actual).toBeDefined();
     });
 }); 

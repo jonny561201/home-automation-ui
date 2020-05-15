@@ -11,7 +11,7 @@ export default function Login(props) {
 
     return (
         <div className="login-menu column">
-            <div className="login-header">
+            <div data-testid={"login-header"} className="login-header">
                 <LogoHeader />
                 <h1>Member Login</h1>
             </div>
