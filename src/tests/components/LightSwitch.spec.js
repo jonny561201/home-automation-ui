@@ -1,12 +1,9 @@
 import React from 'react';
-import {act} from 'react-dom/test-utils';
-import { shallow, mount } from 'enzyme';
+import { render, screen, act, fireEvent } from '@testing-library/react';
 import * as lib from '../../utilities/RestApi';
 import LightSwitch from '../../components/controls/LightSwitch';
-import { ButtonBase } from '@material-ui/core';
 
 describe('LightSwitch', () => {
-    let lightSwitch;
     const spySetGroup = jest.spyOn(lib, 'setLightGroupState');
     const spySetLight = jest.spyOn(lib, 'setLightState');
     const groupData = {
@@ -20,7 +17,6 @@ describe('LightSwitch', () => {
     beforeEach(() => {
         spySetLight.mockClear();
         spySetGroup.mockClear();
-        lightSwitch = shallow(<LightSwitch data={groupData} />);
     })
 
     //TODO: fix this test
@@ -36,9 +32,10 @@ describe('LightSwitch', () => {
     // });
 
     it('should display the expansion icon', () => {
-        const actual = lightSwitch.find('ChevronRightIcon');
+        render(<LightSwitch data={groupData} />);
+        const actual = screen.getByTestId('expansion-chevron');
 
-        expect(actual).toHaveLength(1);
+        expect(actual).toBeDefined();
     });
 
     // it('should call set light state on toggleCheckedLight', async () => {
@@ -51,21 +48,24 @@ describe('LightSwitch', () => {
     describe('Light Expansion', () => {
 
         it('should display expansion panel when areLightsOpen is true', () => {
-            lightSwitch.find(ButtonBase).simulate('click');
-            const actual = lightSwitch.find('.light-group-expansion');
+            render(<LightSwitch data={groupData} />);
+            fireEvent.click(screen.getByRole('button'));
+            const actual = screen.getByTestId('light-group-expansion');
 
-            expect(actual).toHaveLength(1);
+            expect(actual).toBeDefined();
         });
 
         it('should not display expansion panel when areLightsOpen is false', () => {
-            const actual = lightSwitch.find('.light-group-expansion');
+            render(<LightSwitch data={groupData} />);
+            const actual = screen.queryByTestId('light-group-expansion');
 
-            expect(actual).toHaveLength(0);
+            expect(actual).toBeNull();
         });
 
         it('should display all light switches', () => {
-            lightSwitch.find(ButtonBase).simulate('click');
-            const actual = lightSwitch.find('.light-switches');
+            render(<LightSwitch data={groupData} />);
+            fireEvent.click(screen.getByRole('button'));
+            const actual = screen.getAllByTestId('light-switches');
 
             expect(actual).toHaveLength(2);
         });

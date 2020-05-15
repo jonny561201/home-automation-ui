@@ -19,7 +19,7 @@ export default function LightSwitch(props) {
 
     const getLightSwitches = () => {
         if (lights) {
-            return lights.map(x => <FormControlLabel key={`label-${x.lightId}`} className="light-switches" control={<Switch key={`switch-${x.lightId}`} checked={x.on} onChange={() => toggleCheckedLight(x)} />}
+            return lights.map(x => <FormControlLabel data-testid={"light-switches"}key={`label-${x.lightId}`} className="light-switches" control={<Switch key={`switch-${x.lightId}`} checked={x.on} onChange={() => toggleCheckedLight(x)} />}
                 label={x.lightName} />)
         }
     };
@@ -37,7 +37,7 @@ export default function LightSwitch(props) {
             <div className="light-group">
                 <ButtonBase onClick={() => setLightsOpen(!areLightsOpen)} style={{ "borderRadius": "50%" }}>
                     <div className={`light-chevron ${areLightsOpen ? "expanded" : ""}`}>
-                        <ChevronRightIcon />
+                        <ChevronRightIcon data-testid={"expansion-chevron"} />
                     </div>
                 </ButtonBase>
                 <FormControlLabel
@@ -46,7 +46,7 @@ export default function LightSwitch(props) {
                 />
             </div>
             {areLightsOpen
-                ? <div className="light-group-expansion">{getLightSwitches()}</div>
+                ? <div data-testid={"light-group-expansion"} className="light-group-expansion">{getLightSwitches()}</div>
                 : null}
         </div>
     );
