@@ -71,6 +71,13 @@ describe('LightSwitch', () => {
             expect(actual).toHaveLength(2);
         });
 
+        it('should not display light switches when not expanded', () => {
+            render(<LightSwitch data={groupData} />);
+            const actual = screen.queryAllByTestId('light-switches');
+
+            expect(actual).toHaveLength(0);
+        });
+
         it('should make api call when toggling on the desk lamp', () => {
             render(<LightSwitch data={groupData} />);
             fireEvent.click(screen.getByRole('button'));
@@ -78,5 +85,14 @@ describe('LightSwitch', () => {
 
             expect(spySetLight).toHaveBeenCalledWith(1, false, 255);
         });
+
+        it('should make api call when toggling on the desk lamp', () => {
+            render(<LightSwitch data={groupData} />);
+            fireEvent.click(screen.getByRole('button'));
+            fireEvent.click(screen.getAllByTestId('light-switches')[1]);
+
+            expect(spySetLight).toHaveBeenCalledWith(2, true, 255);
+        });
+        //test to display all the groups looks to only support one
     });
 })
