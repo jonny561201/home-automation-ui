@@ -10,7 +10,7 @@ describe('LightSwitch', () => {
     const groupData = {
         'groupId': '1', 'groupName': groupName, 'on': true,
         'brightness': 155, 'lights': [
-            { 'lightName': 'desk lamp', 'on': true, 'brightness': 123, 'lightId': 1},
+            { 'lightName': 'desk lamp', 'on': true, 'brightness': 123, 'lightId': 1 },
             { 'lightName': 'table lamp', 'on': false, 'brightness': 76, 'lightId': 2 }
         ]
     }
@@ -93,6 +93,29 @@ describe('LightSwitch', () => {
 
             expect(spySetLight).toHaveBeenCalledWith(2, true, 255);
         });
-        //test to display all the groups looks to only support one
+
+        it('should display message that there are null lights for a group when zero lights', () => {
+            const data = {
+                'groupId': '1', 'groupName': groupName, 'on': true,
+                'brightness': 155, 'lights': null
+            }
+            render(<LightSwitch data={data} />);
+            fireEvent.click(screen.getByRole('button'));
+            const actual = screen.getByText('No lights assigned to group').textContent;
+
+            expect(actual).toEqual('No lights assigned to group');
+        });
+
+        it('should display message that there are empty lights for a group when zero lights', () => {
+            const data = {
+                'groupId': '1', 'groupName': groupName, 'on': true,
+                'brightness': 155, 'lights': []
+            }
+            render(<LightSwitch data={data} />);
+            fireEvent.click(screen.getByRole('button'));
+            const actual = screen.getByText('No lights assigned to group').textContent;
+
+            expect(actual).toEqual('No lights assigned to group');
+        });
     });
 })

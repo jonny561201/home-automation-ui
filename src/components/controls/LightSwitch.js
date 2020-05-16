@@ -18,10 +18,11 @@ export default function LightSwitch(props) {
     };
 
     const getLightSwitches = () => {
-        if (lights) {
+        if (lights && lights.length > 0) {
             return lights.map(x => <FormControlLabel data-testid={"light-switches"}key={`label-${x.lightId}`} className="light-switches" control={<Switch key={`switch-${x.lightId}`} checked={x.on} onChange={() => toggleCheckedLight(x)} />}
                 label={x.lightName} />)
         }
+        return <p>No lights assigned to group</p>
     };
 
     const toggleCheckedLight = async (light) => {
@@ -41,7 +42,7 @@ export default function LightSwitch(props) {
                     </div>
                 </ButtonBase>
                 <FormControlLabel data-testid={"form-control"}
-                    control={<Switch className="test-something" checked={on} onChange={toggleChecked} color="primary" />}
+                    control={<Switch checked={on} onChange={toggleChecked} color="primary" />}
                     label={groupName}
                 />
             </div>
