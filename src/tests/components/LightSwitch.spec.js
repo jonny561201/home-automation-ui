@@ -6,30 +6,25 @@ import LightSwitch from '../../components/controls/LightSwitch';
 describe('LightSwitch', () => {
     const spySetGroup = jest.spyOn(lib, 'setLightGroupState');
     const spySetLight = jest.spyOn(lib, 'setLightState');
+    const groupName = 'DinningRoom';
     const groupData = {
-        'groupId': '1', 'groupName': 'DinningRoom', 'on': true,
+        'groupId': '1', 'groupName': groupName, 'on': true,
         'brightness': 155, 'lights': [
-            { 'lightName': 'desk lamp', 'on': true, 'brightness': 123 },
-            { 'lightName': 'table lamp', 'on': false, 'brightness': 76 }
+            { 'lightName': 'desk lamp', 'on': true, 'brightness': 123, 'lightId': 1},
+            { 'lightName': 'table lamp', 'on': false, 'brightness': 76, 'lightId': 2 }
         ]
     }
 
     beforeEach(() => {
         spySetLight.mockClear();
         spySetGroup.mockClear();
-    })
+    });
 
-    //TODO: fix this test
-    // it('should call set light group state on toggleChecked', async () => {
-    //     const testSwitch = shallow(<LightSwitch data={groupData}/>)
-    //     testSwitch.find(ButtonBase).simulate('click');
-    //     await act(async () => {
-    //         testSwitch.find(".test-something").simulate('change');
-    //     });
-    //     // await lightSwitch.instance().toggleChecked();
-
-    //     expect(spySetGroup).toBeCalledWith(groupData.groupId, false, groupData.brightness);
-    // });
+    it('should display the group name for the group light switch', () => {
+        render(<LightSwitch data={groupData} />);
+        const actual = screen.getByText(groupName);
+        expect(actual).toBeDefined();
+    });
 
     it('should display the expansion icon', () => {
         render(<LightSwitch data={groupData} />);
@@ -38,12 +33,18 @@ describe('LightSwitch', () => {
         expect(actual).toBeDefined();
     });
 
-    // it('should call set light state on toggleCheckedLight', async () => {
-    //     await lightSwitch.state().lights = [{"on": true, "lightName": "Test"}];
-    //     await lightSwitch.instance().toggleCheckedLight();
+    it('should display the group light switch button', () => {
+        render(<LightSwitch data={groupData} />);
+        const actual = screen.getByTestId('form-control').querySelector('input');
+        expect(actual).toBeDefined();
+    });
 
-    //     expect(spySetLight).toBeCalledWith();
-    // });
+    it('should call set light group state on toggleChecked', async () => {
+        render(<LightSwitch data={groupData} />);
+        fireEvent.click(screen.getByRole('checkbox'));
+
+        expect(spySetGroup).toBeCalledWith(groupData.groupId, false, groupData.brightness);
+    });
 
     describe('Light Expansion', () => {
 

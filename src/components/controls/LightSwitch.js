@@ -40,7 +40,7 @@ export default function LightSwitch(props) {
                         <ChevronRightIcon data-testid={"expansion-chevron"} />
                     </div>
                 </ButtonBase>
-                <FormControlLabel
+                <FormControlLabel data-testid={"form-control"}
                     control={<Switch className="test-something" checked={on} onChange={toggleChecked} color="primary" />}
                     label={groupName}
                 />
