@@ -42,5 +42,15 @@ describe('LightingPanel', () => {
 
             expect(actual.length).toEqual(2);
         });
+
+        it('should display error text when there are no groups returned', async () => {
+            spyGet.mockReturnValue(null);
+            render(<LightingPanel />);
+            await act(async () => {
+                fireEvent.click(screen.getByRole('button'));
+            });
+            const actual = screen.getByText('No Light Groups were found').textContent;
+            expect(actual).toEqual('No Light Groups were found');
+        });
     });
 });
