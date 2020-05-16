@@ -71,6 +71,12 @@ describe('LightSwitch', () => {
             expect(actual).toHaveLength(2);
         });
 
-        // TODO: create test to make sure api call is make when an individual light switch is toggled
+        it('should make api call when toggling on the desk lamp', () => {
+            render(<LightSwitch data={groupData} />);
+            fireEvent.click(screen.getByRole('button'));
+            fireEvent.click(screen.getAllByTestId('light-switches')[0]);
+
+            expect(spySetLight).toHaveBeenCalledWith(1, false, 255);
+        });
     });
 })
