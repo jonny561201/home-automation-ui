@@ -1,15 +1,24 @@
 import React from 'react';
-import { render, screen, act } from '@testing-library/react';
+import * as lib from '../../../utilities/RestApi';
+import { render, screen, act, fireEvent } from '@testing-library/react';
 import SettingsEditPanel from '../../../components/panels/SettingsEditPanel';
 import '@testing-library/jest-dom';
+import { getStore } from '../../../state/GlobalState';
 
 describe('Settings Edit Panel', () => {
+    const userId = 'fakeUserId';
+    const spyUpdate = jest.spyOn(lib, 'updateUserPreferences');
 
     const renderComponent = async () => {
         await act(async() => {
-            render(<SettingsEditPanel />);
+            render(<SettingsEditPanel  tempUnit={"fahrenheit"} measureUnit={"imperial"}/>);
         });
     }
+
+    beforeEach(() => {
+        getStore().setUserId(userId);
+        spyUpdate.mockClear();
+    });
 
     it('should display save button to submit updated preferences', async () => {
         await renderComponent();
