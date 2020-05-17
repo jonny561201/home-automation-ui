@@ -27,33 +27,33 @@ describe('Settings Page', () => {
         spyGet.mockReturnValue({city: city, temp_unit: tempUnit, measure_unit: unitMeasure});
     });
 
-    it('should display logo header', () => {
-        render(<Settings />);
+    it('should display logo header', async () => {
+        await renderComponent();
         const actual = screen.getByText('Settings').textContent;
         expect(actual).toEqual('Settings');
     });
 
-    it('should display the settings panel by default', () => {
-        render(<Settings />);
+    it('should display the settings panel by default', async () => {
+        await renderComponent();
         const actual = screen.getByRole('button').textContent;
         expect(actual).toEqual('Edit');
     });
 
-    it('should display the edit settings panel when click edit button', () => {
-        render(<Settings />);
+    it('should display the edit settings panel when click edit button', async () => {
+        await renderComponent();
         fireEvent.click(screen.getByRole('button'));
         const actual = screen.getAllByRole('button')[0].textContent;
         expect(actual).toEqual('Save');
     });
 
-    it('should make api call to get settings data', () => {
-        render(<Settings />);
+    it('should make api call to get settings data', async () => {
+        await renderComponent();
         expect(spyGet).toHaveBeenCalledWith(userId)
     });
 
     it('should make api call on submit to update the city', () => {
-        const newCity = 'Vienna';
-        render(<Settings />);
+        const newCity = 'Vienna';        
+        renderComponent();
         fireEvent.click(screen.getByRole('button'));
         fireEvent.change(screen.getByRole('textbox'), {target: {value: newCity }});
 
@@ -62,7 +62,7 @@ describe('Settings Page', () => {
     });
 
     it('should make api call on submit to update the unit of measure', () => {
-        render(<Settings />);
+        renderComponent();
         fireEvent.click(screen.getByRole('button'));
         fireEvent.click(screen.getAllByRole('radio')[2]);
 
@@ -71,16 +71,16 @@ describe('Settings Page', () => {
     });
 
     it('should make api call on submit to update the temp', () => {
-        render(<Settings />);
+        renderComponent();
         fireEvent.click(screen.getByRole('button'));
+        
         fireEvent.click(screen.getAllByRole('radio')[0]);
-
         fireEvent.click(screen.getByText('Save'));
         expect(spyUpdate).toHaveBeenCalledWith(userId, true, false, undefined);
     });
 
-    it('should return to the normal screen when cancelling on edit screen', () => {
-        render(<Settings />);
+    it('should return to the normal screen when cancelling on edit screen', async () => {
+        await renderComponent();
         fireEvent.click(screen.getByRole('button'));
         fireEvent.click(screen.getByText('Cancel'));
 
@@ -89,9 +89,9 @@ describe('Settings Page', () => {
         expect(actual).toBeDefined();
     });
 
-    it('should update the city on the normal screen after saving', () => {
+    it('should update the city on the normal screen after saving', async () => {
         const city = 'Berlin';
-        render(<Settings />);
+        await renderComponent();
         fireEvent.click(screen.getByRole('button'));
         fireEvent.change(screen.getByRole('textbox'), {target: {value: city}});
         fireEvent.click(screen.getByText('Save'));
@@ -112,8 +112,8 @@ describe('Settings Page', () => {
         expect(actual).toBeDefined();
     });
 
-    it('should update the unit of measure on the normal screen after saving', () => {
-        render(<Settings />);
+    it('should update the unit of measure on the normal screen after saving', async () => {
+        await renderComponent();
         fireEvent.click(screen.getByRole('button'));
         fireEvent.click(screen.getAllByRole('radio')[3]);
         fireEvent.click(screen.getByText('Save'));
@@ -134,8 +134,8 @@ describe('Settings Page', () => {
         expect(actual).toBeDefined();
     });
 
-    it('should update the temp unit on the normal screen after saving', () => {
-        render(<Settings />);
+    it('should update the temp unit on the normal screen after saving', async () => {
+        await renderComponent();
         fireEvent.click(screen.getByRole('button'));
         fireEvent.click(screen.getAllByRole('radio')[1]);
         fireEvent.click(screen.getByText('Save'));
