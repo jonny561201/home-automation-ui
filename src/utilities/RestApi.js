@@ -26,28 +26,28 @@ export const getBearerToken = async (username, password) => {
     return null;
 }
 
-export const getGarageStatus = async (userId) => {
+export const getGarageStatus = async (userId, garageId) => {
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
-    const garageStatusUrl = `http://localhost:5000/garageDoor/user/${userId}/status`;
+    const garageStatusUrl = `http://localhost:5000/garageDoor/${garageId}/user/${userId}/status`;
 
     const response = await fetch(garageStatusUrl, options);
     return await response.json();
 }
 
-export const updateGarageState = async (shouldOpen, userId) => {
+export const updateGarageState = async (shouldOpen, userId, garageId) => {
     const request = { 'garageDoorOpen': shouldOpen };
     const options = {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
         body: JSON.stringify(request)
     };
-    const garageStateUrl = `http://localhost:5000/garageDoor/user/${userId}/state`;
+    const garageStateUrl = `http://localhost:5000/garageDoor/${garageId}/user/${userId}/state`;
     const response = await fetch(garageStateUrl, options);
     return await response.json();
 }
 
-export const toggleGarageDoor = async (userId) => {
-    const garageToggleUrl = `http://localhost:5000/garageDoor/user/${userId}/toggle`;
+export const toggleGarageDoor = async (userId, garageId) => {
+    const garageToggleUrl = `http://localhost:5000/garageDoor/${garageId}/user/${userId}/toggle`;
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } }
     return await fetch(garageToggleUrl, options);
 }

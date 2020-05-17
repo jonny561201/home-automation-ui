@@ -93,6 +93,7 @@ describe('RestApi', () => {
 
     describe('after successful login', () => {
         let state;
+        const garageId = 1;
         const bearerToken2 = 'abc123';
 
         beforeEach(() => {
@@ -104,11 +105,11 @@ describe('RestApi', () => {
             const response = { 'isGarageOpen': true };
             const options = { "method": "GET", "headers": { 'Authorization': `Bearer ${bearerToken2}` } };
 
-            fetchMock.mock(`http://localhost:5000/garageDoor/user/${userId}/status`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`http://localhost:5000/garageDoor/${garageId}/user/${userId}/status`, response, options).catch(unmatchedUrl => {
                 return { status: 400 };
             });
 
-            const actual = await getGarageStatus(userId);
+            const actual = await getGarageStatus(userId, garageId);
             expect(actual.isGarageOpen).toEqual(true);
         });
 
@@ -116,22 +117,22 @@ describe('RestApi', () => {
             const response = { 'garageDoorOpen': false };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': { "garageDoorOpen": false } };
 
-            fetchMock.mock(`http://localhost:5000/garageDoor/user/${userId}/state`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`http://localhost:5000/garageDoor/${garageId}/user/${userId}/state`, response, options).catch(unmatchedUrl => {
                 return { status: 400 };
             });
 
-            const actual = await updateGarageState(false, userId);
+            const actual = await updateGarageState(false, userId, garageId);
             expect(actual.garageDoorOpen).toEqual(false);
         });
 
         it('should make rest call to toggle garage door state', async () => {
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } }
 
-            fetchMock.mock(`http://localhost:5000/garageDoor/user/${userId}/toggle`, options).catch(unmatchedUrl => {
+            fetchMock.mock(`http://localhost:5000/garageDoor/${garageId}/user/${userId}/toggle`, options).catch(unmatchedUrl => {
                 return { status: 400 };
             });
 
-            const actual = await toggleGarageDoor(userId);
+            const actual = await toggleGarageDoor(userId, garageId);
             expect(actual.status).toEqual(200);
         });
 
