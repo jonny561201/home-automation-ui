@@ -27,7 +27,7 @@ export default function LightingPanel() {
 
     return (
         <div>
-            <ExpansionPanel className="lighting-panel">
+            <ExpansionPanel data-testid={"lighting-panel"} className="lighting-panel">
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <div className="summary">
                         <div>

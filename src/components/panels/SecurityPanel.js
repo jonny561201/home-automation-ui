@@ -7,7 +7,7 @@ import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummar
 export default function SecurityPanel() {
     return (
         <div>
-            <ExpansionPanel className="security-panel">
+            <ExpansionPanel data-testid={"security-panel"} className="security-panel">
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <div className="summary">
                         <div>
