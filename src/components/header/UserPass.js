@@ -27,13 +27,14 @@ export default function UserPass() {
             setIsValidLogin(response);
             if (response) {
                 const decodedToken = jwt_decode(response.bearerToken);
-                dispatch({type: 'SET_AUTHENTICATION', payload: true});
-                dispatch({type: 'SET_BEARER_TOKEN', payload: response.bearerToken})
-                dispatch({type: 'SET_ROLES', payload: decodedToken.user.roles})
-                dispatch({type: 'SET_USER_ID', payload: decodedToken.user.user_id})
-                dispatch({type: 'SET_FIRST_NAME', payload: decodedToken.user.first_name})
-                dispatch({type: 'SET_LAST_NAME', payload: decodedToken.user.last_name})
-                dispatch({type: 'SET_DEVICES_TO_REGISTER', payload: unregisteredDevices(decodedToken.user.roles)})
+                await dispatch({type: 'SET_BEARER_TOKEN', payload: response.bearerToken});
+                await dispatch({type: 'SET_USER_ID', payload: decodedToken.user.user_id});
+                await dispatch({type: 'SET_ROLES', payload: decodedToken.user.roles});
+                await dispatch({type: 'SET_GARAGE_ROLE', payload: decodedToken.user.roles.find(x => x.role_name === 'garage_door')});
+                await dispatch({type: 'SET_FIRST_NAME', payload: decodedToken.user.first_name});
+                await dispatch({type: 'SET_LAST_NAME', payload: decodedToken.user.last_name});
+                await dispatch({type: 'SET_DEVICES_TO_REGISTER', payload: unregisteredDevices(decodedToken.user.roles)});
+                await dispatch({type: 'SET_AUTHENTICATION', payload: true});
             }
         }
     };
