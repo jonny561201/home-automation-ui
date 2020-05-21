@@ -23,7 +23,7 @@ export default function Settings() {
             setMeasureUnit(response.measure_unit);
         };
         getData();
-    }, []);
+    }, [userId]);
 
     const toggleEditMode = () => {
         setEditMode(!isEditMode);

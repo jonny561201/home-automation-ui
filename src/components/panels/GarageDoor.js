@@ -28,7 +28,7 @@ export default function GarageDoor(props) {
         return () => {
             clearInterval(interval);
         };
-    }, [duration, isOpen]);
+    }, [duration, isOpen, state.userId, props.device.node_device]);
 
     return (
         <div>
