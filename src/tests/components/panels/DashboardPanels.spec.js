@@ -8,11 +8,12 @@ import DashboardPanels from '../../../components/panels/DashboardPanels';
 
 describe('DashboardPanel', () => {
     const store = getStore();
+    const garageRole = {devices: [{node_name: 'test'}]};
 
     const renderComponent = async () => {
         await act(async() => {
             render(
-                <Context.Provider value={[{}, () => {}]}>
+                <Context.Provider value={[{garageRole: garageRole}, () => {}]}>
                     <DashboardPanels />
                 </Context.Provider>
                 );

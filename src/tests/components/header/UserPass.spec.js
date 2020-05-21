@@ -10,7 +10,7 @@ const renderComponent = async () => {
     await act(async () => {
         render(
             <App>
-                <Context.Provider>
+                <Context.Provider value={[{}, () => {}]}>
                     <UserPass />
                 </Context.Provider>
             </App>
