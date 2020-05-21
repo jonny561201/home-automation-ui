@@ -12,6 +12,15 @@ export default function GaragePanel() {
     const [state,] = useContext(Context);
     const [displayRegister, setDisplayRegister] = useState(false);
 
+    const renderDoors = () => {
+        //TODO: need to test all of this behavior
+        const devices = state.garageRole.devices;
+        if (devices && devices.length > 0) {
+            return devices.map(x =>  <GarageDoor key={`door-${x.node_device}`} device={x}/> );
+        }
+        return <p>No Garge devices have been registered</p>
+    }
+
     return (
         <div>
             <ExpansionPanel className="garage-panel">
@@ -36,7 +45,7 @@ export default function GaragePanel() {
                             {displayRegister && <RegisterDevice close={() => setDisplayRegister(false)} />}
                         </div>
                      </ExpansionPanelDetails>
-                    : <GarageDoor device={state.garageRole.devices[0]}/>
+                    : <div className="door-groups">{renderDoors()}</div>
                 }
             </ExpansionPanel>
         </div>

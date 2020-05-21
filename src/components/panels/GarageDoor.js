@@ -7,7 +7,7 @@ import { ExpansionPanelDetails, ExpansionPanelActions } from '@material-ui/core'
 export default function GarageDoor(props) {
     const [state, ] = useContext(Context);
     const [isOpen, setIsOpen] = useState();
-    const [duration, setDuration] = useState(props.duration);
+    const [duration, setDuration] = useState(0);
     const [statusDays, setStatusDays] = useState(0);
     const [statusMins, setStatusMins] = useState(0);
     const [statusHours, setStatusHours] = useState(0);
