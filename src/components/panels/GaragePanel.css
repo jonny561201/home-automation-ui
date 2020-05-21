@@ -43,3 +43,8 @@
 .close {
     color: #ff3333;
 }
+
+.door-groups {
+    display: flex;
+    justify-content: space-between;
+}
