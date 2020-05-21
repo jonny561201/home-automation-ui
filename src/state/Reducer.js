@@ -50,6 +50,11 @@ const Reducer = (state, action) => {
                 ...state,
                 devicesToRegister: action.payload
             };
+        case 'SET_GARAGE_ROLE':
+            return {
+                ...state,
+                garageRole: action.payload
+            };
         default:
             return state;
     }

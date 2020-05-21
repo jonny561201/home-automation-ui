@@ -13,6 +13,7 @@ const initialState = {
     deviceId: null,
     startedGarageRegistration: false,
     devicesToRegister: false,
+    garageRole: null,
 };
 
 const Store = ({children}) => {
