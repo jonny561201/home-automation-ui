@@ -27,25 +27,25 @@ describe('Add Garage', () => {
 
     describe('Add Device Screen', () => {
         it('should display the Add Garage Door text', async () => {
-            renderComponent();
+            await renderComponent();
             const actual = screen.getByRole('heading').textContent;
             expect(actual).toEqual('Add Garage Door');
         });
 
         it('should display the Garage Door input box', async () => {
-            renderComponent();
+            await renderComponent();
             const actual = screen.getByRole('textbox');
             expect(actual).toBeDefined();
         });
 
         it('should display the close icon', async () => {
-            renderComponent();
+            await renderComponent();
             const actual = screen.getByTestId('garage-close-button');
             expect(actual).toBeDefined();
         });
 
         it('should display the Add garage button', async () => {
-            renderComponent();
+            await renderComponent();
             const actual = screen.getByRole('button').textContent;
             expect(actual).toEqual('Add');
         });
@@ -61,7 +61,7 @@ describe('Add Garage', () => {
         });
 
         it('should not make api call if the when invalid name', async () => {
-            renderComponent();
+            await renderComponent();
             const name = '';
             fireEvent.change(screen.getByRole('textbox'), { target: { value: name } });
             await act(async () => {
@@ -71,7 +71,7 @@ describe('Add Garage', () => {
         });
 
         it('should not make api call if the when name is untouched', async () => {
-            renderComponent();
+            await renderComponent();
             await act(async () => {
                 fireEvent.click(screen.getByRole('button'));
             });
@@ -84,7 +84,7 @@ describe('Add Garage', () => {
         it('should display the Success Header', async () => {
             spyAdd.mockReturnValue({ ok: true, json: () => { return { availableNodes: 1 } } });
             const name = "ImValid";
-            renderComponent();
+            await renderComponent();
             fireEvent.change(screen.getByRole('textbox'), { target: { value: name } });
             await act(async () => {
                 fireEvent.click(screen.getByRole('button'));
@@ -96,7 +96,7 @@ describe('Add Garage', () => {
         it('should display the Close Icon Header', async () => {
             spyAdd.mockReturnValue({ ok: true, json: () => { return { availableNodes: 1 } } });
             const name = "ImValid";
-            renderComponent();
+            await renderComponent();
             fireEvent.change(screen.getByRole('textbox'), { target: { value: name } });
             await act(async () => {
                 fireEvent.click(screen.getByRole('button'));
@@ -109,7 +109,7 @@ describe('Add Garage', () => {
             const nodeCount = 1;
             spyAdd.mockReturnValue({ ok: true, json: () => { return { availableNodes: nodeCount } } });
             const name = "ImValid";
-            renderComponent();
+            await renderComponent();
             fireEvent.change(screen.getByRole('textbox'), { target: { value: name } });
             await act(async () => {
                 fireEvent.click(screen.getByRole('button'));
@@ -121,7 +121,7 @@ describe('Add Garage', () => {
         it('should display the Add Garage Door Opener button', async () => {
             spyAdd.mockReturnValue({ ok: true, json: () => { return { availableNodes: 1 } } });
             const name = "ImValid";
-            renderComponent();
+            await renderComponent();
             fireEvent.change(screen.getByRole('textbox'), { target: { value: name } });
             await act(async () => {
                 fireEvent.click(screen.getByRole('button'));
@@ -133,7 +133,7 @@ describe('Add Garage', () => {
         it('should navigate back to the Add Garage Door screen when adding another device', async () => {
             spyAdd.mockReturnValue({ ok: true, json: () => { return { availableNodes: 1 } } });
             const name = "ImValid";
-            renderComponent();
+            await renderComponent();
             fireEvent.change(screen.getByRole('textbox'), { target: { value: name } });
             await act(async () => {
                 fireEvent.click(screen.getByRole('button'));

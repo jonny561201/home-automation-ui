@@ -27,19 +27,19 @@ describe('UserPass', () => {
     });
 
     it('should contain username input', async () => {
-        renderComponent();
+        await renderComponent();
         const actual = screen.getByTestId('user-name');
         expect(actual).toBeDefined();
     });
 
     it('should contain password input', async () => {
-        renderComponent();
+        await renderComponent();
         const actual = screen.getByTestId('password');
         expect(actual).toBeDefined();
     });
 
     it('should contain a login button', async () => {
-        renderComponent();
+        await renderComponent();
         const actual = screen.getByRole('button');
         expect(actual).toBeDefined();
     });
@@ -47,7 +47,7 @@ describe('UserPass', () => {
     describe('Form Validation', () => {
 
         it('should not display error text when username is valid', async () => {
-            renderComponent();
+            await renderComponent();
             await act(async () => {
                 fireEvent.change(screen.getByTestId('user-name'), { target: { value: 'validName' } });
             });
@@ -57,7 +57,7 @@ describe('UserPass', () => {
         });
 
         it('should display error text when username is an empty string', async () => {
-            renderComponent();
+            await renderComponent();
             await act(async () => {
                 fireEvent.change(screen.getByTestId('user-name'), { target: { value: '' } });
             });
@@ -67,14 +67,14 @@ describe('UserPass', () => {
         });
 
         it('should display error text when username is undefined', async () => {
-            renderComponent();
+            await renderComponent();
             fireEvent.click(screen.getByRole('button'));
             const actual = screen.getByText('Invalid username!').textContent;
             expect(actual).toEqual('Invalid username!');
         });
 
         it('should not display error text when password is valid', async () => {
-            renderComponent();
+            await renderComponent();
             await act(async () => {
                 fireEvent.change(screen.getByTestId('password'), { target: { value: 'validName' } });
             });
@@ -84,7 +84,7 @@ describe('UserPass', () => {
         });
 
         it('should display error text when password is an empty string', async () => {
-            renderComponent();
+            await renderComponent();
             await act(async () => {
                 fireEvent.change(screen.getByTestId('password'), { target: { value: '' } });
             });
@@ -94,7 +94,7 @@ describe('UserPass', () => {
         });
 
         it('should display error text when password is undefined', async () => {
-            renderComponent();
+            await renderComponent();
             fireEvent.click(screen.getByRole('button'));
             const actual = screen.getByText('Invalid password!').textContent;
             expect(actual).toEqual('Invalid password!');
@@ -103,7 +103,7 @@ describe('UserPass', () => {
         it('should make api call to get bearer token when user and pass are valid', async () => {
             const userName = 'validFirst';
             const password = 'validPass';
-            renderComponent();
+            await renderComponent();
             await act(async () => {
                 fireEvent.change(screen.getByTestId('user-name'), { target: { value: userName } });
                 fireEvent.change(screen.getByTestId('password'), { target: { value: password } });
@@ -120,7 +120,7 @@ describe('UserPass', () => {
             const password = 'validPass';
             const bearerToken = {bearerToken: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJlOTdmZWJjMC1mZDEwLTExZTktOGYwYi0zNjJiOWUxNTU2NjciLCJyb2xlcyI6W3sicm9sZV9uYW1lIjoidGhlcm1vc3RhdCJ9LHsicm9sZV9uYW1lIjoic2VjdXJpdHkifSx7InJvbGVfbmFtZSI6ImdhcmFnZV9kb29yIn0seyJyb2xlX25hbWUiOiJsaWdodGluZyJ9LHsicm9sZV9uYW1lIjoic3VtcF9wdW1wIn1dLCJmaXJzdF9uYW1lIjoiSm9uIiwibGFzdF9uYW1lIjoiVGVzdGVyIn0sImV4cCI6MTU4ODQ4MTU2NX0.SJhFh7v2Xf3d85vQj3Aop4tBYXJlI7_pQvvinwxti0M"};
             spyGet.mockReturnValue(bearerToken);
-            renderComponent();
+            await renderComponent();
             await act(async () => {
                 fireEvent.change(screen.getByTestId('user-name'), { target: { value: userName } });
                 fireEvent.change(screen.getByTestId('password'), { target: { value: password } });
