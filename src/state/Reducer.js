@@ -55,6 +55,11 @@ const Reducer = (state, action) => {
                 ...state,
                 garageRole: action.payload
             };
+        case 'SET_ADDED_GARAGE_NODE':
+            return {
+                ...state,
+                addedGarageNode: action.payload
+            };
         default:
             return state;
     }

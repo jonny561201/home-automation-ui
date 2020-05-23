@@ -35,8 +35,8 @@ export default function AddGarage(props) {
         setSucceeded(response.ok);
         const jsonResponse = await response.json();
         setAvailableNodes(jsonResponse.availableNodes);
+        dispatch({type: "SET_ADDED_GARAGE_NODE", payload: true})
         if (jsonResponse.availableNodes === 0 ) {
-            dispatch({type: 'SET_DEVICES_TO_REGISTER', payload: false});
             props.close();
         }
     }
