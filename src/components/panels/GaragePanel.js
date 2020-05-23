@@ -9,8 +9,9 @@ import GarageDoor from './GarageDoor';
 
 
 export default function GaragePanel() {
-    const [state,] = useContext(Context);
+    const [state, dispatch] = useContext(Context);
     const [displayRegister, setDisplayRegister] = useState(false);
+    const [wrapperRef, setWrapperRef] = useState(null);
 
     const renderDoors = () => {
         //TODO: need to test all of this behavior
@@ -19,6 +20,12 @@ export default function GaragePanel() {
             return devices.map(x =>  <GarageDoor key={`door-${x.node_device}`} device={x}/> );
         }
         return <p>No Garge devices have been registered</p>
+    }
+
+    const closeModal = () => {
+        setDisplayRegister(false);
+        if (state.addedGarageNode)
+            dispatch({type: 'SET_DEVICES_TO_REGISTER', payload: false});
     }
 
     return (
@@ -42,7 +49,9 @@ export default function GaragePanel() {
                                 <p className="status-text">A new device has been detected and needs to be registered.</p>
                             </div>
                             <button data-testid={"register-device-button"} onClick={() => setDisplayRegister(true)}>Register</button>
-                            {displayRegister && <RegisterDevice close={() => setDisplayRegister(false)} />}
+                            <div ref={(node) => {setWrapperRef(node)}}>
+                                {displayRegister && <RegisterDevice close={closeModal} parentRef={wrapperRef}/>}
+                            </div>
                         </div>
                      </ExpansionPanelDetails>
                     : <div className="door-groups">{renderDoors()}</div>

@@ -20,9 +20,6 @@ export default function AddGarage(props) {
             setGarageTouched(true);
             setIsNameValid(name !== "");
             setGarageName(name);
-        } else {
-            dispatch({type: 'SET_DEVICES_TO_REGISTER', payload: false});
-            props.close();
         }
     }
 
