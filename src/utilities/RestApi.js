@@ -163,3 +163,11 @@ export const addUserDeviceNode = async (userId, deviceId, nodeName) => {
     const url = `http://localhost:5000/userId/${userId}/devices/${deviceId}/node`;
     return await fetch(url, options);
 }
+
+export const getRolesByUserId = async (userId) => {
+    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
+
+    const url = `http://localhost:5000/userId/${userId}/roles`;
+    const response = await fetch(url, options);
+    return response.json();
+}

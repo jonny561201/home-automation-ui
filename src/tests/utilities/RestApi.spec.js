@@ -4,7 +4,7 @@ import {
     getBearerToken, getGarageStatus, updateGarageState, addUserDevice,
     toggleGarageDoor, getSumpLevels, getCurrentTemperature, addUserDeviceNode,
     getUserPreferences, updateUserPreferences, setUserTemperature,
-    getLightGroups, setLightGroupState, setLightState, updateUserAccount
+    getLightGroups, setLightGroupState, setLightState, updateUserAccount, getRolesByUserId
 } from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
 
@@ -283,6 +283,20 @@ describe('RestApi', () => {
             const actual = await addUserDeviceNode(userId, deviceId, body.nodeName);
 
             expect(actual.status).toEqual(200);
+        });
+
+        it('should make rest call to get roles with bearer token', async () => {
+            const userId = 'jkasdf1';
+            const response = {'roles': [{}]};
+            const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
+
+            fetchMock.mock(`http://localhost:5000/userId/${userId}/roles`, response, options).catch(unmatchedUrl => {
+                return { status: 400 }
+            });
+
+            const actual = await getRolesByUserId(userId);
+
+            expect(actual.roles).toEqual([{}]);
         });
     });
 });
