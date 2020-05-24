@@ -9,6 +9,7 @@ describe('Add Garage', () => {
     const deviceId = 'abc123';
     const userId = 'fakeUserId';
     const spyAdd = jest.spyOn(lib, 'addUserDeviceNode');
+    const spyGet = jest.spyOn(lib, 'getRolesByUserId');
 
     const renderComponent = async () => {
         await act(async () => {
@@ -21,7 +22,9 @@ describe('Add Garage', () => {
     }
     
     beforeEach(() => {
+        spyGet.mockClear();
         spyAdd.mockClear();
+        spyGet.mockReturnValue({roles: [{}]});
         spyAdd.mockReturnValue({ ok: false, json: () => { return { availableNodes: 2 } } });
     });
 
@@ -50,7 +53,7 @@ describe('Add Garage', () => {
             expect(actual).toEqual('Add');
         });
 
-        it('should make api call if valid name', async () => {
+        it('should make api call to add node if valid name', async () => {
             const name = 'TestGarage';
             await renderComponent();
             fireEvent.change(screen.getByRole('textbox'), { target: { value: name } });
@@ -58,6 +61,16 @@ describe('Add Garage', () => {
                 fireEvent.click(screen.getByRole('button'));
             });
             expect(spyAdd).toBeCalledWith(userId, deviceId, name);
+        });
+
+        it('should make api call to get roles if valid name', async () => {
+            const name = 'TestGarage';
+            await renderComponent();
+            fireEvent.change(screen.getByRole('textbox'), { target: { value: name } });
+            await act(async () => {
+                fireEvent.click(screen.getByRole('button'));
+            });
+            expect(spyGet).toBeCalledWith(userId);
         });
 
         it('should not make api call if the when invalid name', async () => {
