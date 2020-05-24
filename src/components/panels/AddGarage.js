@@ -32,7 +32,7 @@ export default function AddGarage(props) {
 
     const updateGarageNode = async () => {
         const response = await addUserDeviceNode(state.userId, state.deviceId, garageName);
-        const roles = await getRolesByUserId(state.userId);
+        updateRoles()
         setSucceeded(response.ok);
         const jsonResponse = await response.json();
         setAvailableNodes(jsonResponse.availableNodes);
@@ -40,6 +40,13 @@ export default function AddGarage(props) {
         if (jsonResponse.availableNodes === 0 ) {
             props.close();
         }
+    }
+
+    const updateRoles = async () => {
+        const userRoles = await getRolesByUserId(state.userId);
+        await dispatch({type: 'SET_ROLES', payload: userRoles.roles});
+        const garageRole = userRoles.roles.find(x => x.role_name === 'garage_door');
+        await dispatch({type: 'SET_GARAGE_ROLE', payload: garageRole});
     }
 
     const resetDevices = () => {
