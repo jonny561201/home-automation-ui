@@ -6,21 +6,21 @@ import App from '../../../App';
 import UserPass from '../../../components/header/UserPass';
 
 
-const renderComponent = async () => {
-    await act(async () => {
-        render(
-            <App>
-                <Context.Provider value={[{}, () => {}]}>
-                    <UserPass />
-                </Context.Provider>
-            </App>
-        );
-    });
-}
-
 describe('UserPass', () => {
 
     const spyGet = jest.spyOn(lib, 'getBearerToken');
+    
+    const renderComponent = async () => {
+        await act(async () => {
+            render(
+                <App>
+                    <Context.Provider value={[{}, () => {}]}>
+                        <UserPass />
+                    </Context.Provider>
+                </App>
+            );
+        });
+    }
 
     beforeEach(() => {
         spyGet.mockClear();
