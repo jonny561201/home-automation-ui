@@ -86,6 +86,8 @@ export default function Account() {
                     </form>
                     <form>
                         <h2>Account Users</h2>
+                        <Divider />
+                        <button data-testid="add-user-button">Add User</button>
                     </form>
                 </div>
             </div>

@@ -126,5 +126,12 @@ describe('Account Page', () => {
 
             expect(actual).toEqual('Account Users');
         });
+
+        it('should display the add account users button', () => {
+            render(<Account />);
+            const actual = screen.getByTestId('add-user-button').textContent;
+
+            expect(actual).toEqual('Add User');
+        });
     });
 });
