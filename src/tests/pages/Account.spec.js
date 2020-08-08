@@ -4,7 +4,7 @@ import * as lib from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
 import { render, screen, fireEvent } from '@testing-library/react';
 
-describe('Account Page', () => {
+describe('Account Page', () => { 
 
     const spyPost = jest.spyOn(lib, 'updateUserAccount');
     const userId = 'fakeUserId'
@@ -116,6 +116,15 @@ describe('Account Page', () => {
 
             fireEvent.click(screen.getByTestId('password-submit'));
             expect(spyPost).toHaveBeenCalledWith(userId, oldPass, matchingPass);
+        });
+    });
+
+    describe('User Account Section', () => {
+        it('should display the Account users header', () => {
+            render(<Account/>);
+            const actual = screen.getByText('Account Users').textContent;
+
+            expect(actual).toEqual('Account Users');
         });
     });
 });

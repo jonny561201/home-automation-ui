@@ -84,6 +84,9 @@ export default function Account() {
                         <button data-testid={"password-submit"} type="submit">Submit</button>
                         <Divider className="account-divider" />
                     </form>
+                    <form>
+                        <h2>Account Users</h2>
+                    </form>
                 </div>
             </div>
         </div>
