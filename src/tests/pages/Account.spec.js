@@ -4,7 +4,7 @@ import * as lib from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
 import { render, screen, fireEvent } from '@testing-library/react';
 
-describe('Account Page', () => { 
+describe('Account Page', () => {
 
     const spyPost = jest.spyOn(lib, 'updateUserAccount');
     const userId = 'fakeUserId'
@@ -99,7 +99,7 @@ describe('Account Page', () => {
 
         it('should not display old password error when it is populated on submit', async () => {
             render(<Account />);
-            fireEvent.change(screen.getByTestId('old-pass').querySelector('input'), { target: {value: 'validPass'} });
+            fireEvent.change(screen.getByTestId('old-pass').querySelector('input'), { target: { value: 'validPass' } });
             fireEvent.click(screen.getByTestId('password-submit'));
             const actual = screen.getByTestId('old-pass').querySelector('label').className;
 
@@ -110,7 +110,7 @@ describe('Account Page', () => {
             const oldPass = 'oldPass';
             const matchingPass = 'newPass';
             render(<Account />);
-            fireEvent.change(screen.getByTestId('old-pass').querySelector('input'), { target: {value: oldPass } });
+            fireEvent.change(screen.getByTestId('old-pass').querySelector('input'), { target: { value: oldPass } });
             fireEvent.change(screen.getByTestId('new-pass').querySelector('input'), { target: { value: matchingPass } });
             fireEvent.change(screen.getByTestId('confirm-pass').querySelector('input'), { target: { value: matchingPass } });
 
@@ -121,7 +121,7 @@ describe('Account Page', () => {
 
     describe('User Account Section', () => {
         it('should display the Account users header', () => {
-            render(<Account/>);
+            render(<Account />);
             const actual = screen.getByText('Account Users').textContent;
 
             expect(actual).toEqual('Account Users');
@@ -132,6 +132,13 @@ describe('Account Page', () => {
             const actual = screen.getByTestId('add-user-button').textContent;
 
             expect(actual).toEqual('Add User');
+        });
+
+        it('should display a text box for the email address of new user', () => {
+            render(<Account />);
+            const actual = screen.getByTestId('new-account-email').querySelector('input');
+
+            expect(actual).toBeDefined();
         });
     });
 });

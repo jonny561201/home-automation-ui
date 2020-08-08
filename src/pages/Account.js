@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/header/Header';
-import { Divider, TextField } from '@material-ui/core';
+import { Divider, TextField, MenuItem, Select, InputLabel, Input, FormControl } from '@material-ui/core';
 import { CheckCircle, Error } from '@material-ui/icons';
 import { getStore } from '../state/GlobalState';
 import { updateUserAccount } from '../utilities/RestApi';
@@ -87,6 +87,9 @@ export default function Account() {
                     <form>
                         <h2>Account Users</h2>
                         <Divider />
+                        <div className="account-row">
+                            <TextField data-testid="new-account-email" className="email-account-user" variant="outlined" label="Email" />
+                        </div>
                         <button data-testid="add-user-button">Add User</button>
                     </form>
                 </div>
