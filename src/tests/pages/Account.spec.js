@@ -140,5 +140,12 @@ describe('Account Page', () => {
 
             expect(actual).toBeDefined();
         });
+
+        it('should display the drop down for the role assignment', () => {
+            render(<Account />);
+            const actual = screen.getByTestId('roles-account-user').querySelector('input');
+
+            expect(actual).toBeDefined();
+        });
     });
 });

@@ -89,6 +89,11 @@ export default function Account() {
                         <Divider />
                         <div className="account-row">
                             <TextField data-testid="new-account-email" className="email-account-user" variant="outlined" label="Email" />
+                            <FormControl >
+                                <InputLabel className="roles-account-user" id="demo-mutiple-name-label">Roles</InputLabel>
+                                <Select data-testId="roles-account-user" labelId="demo-mutiple-name-label" multiple onChange={handleChange} value={selectedRole} input={<Input />} >
+                                </Select>
+                            </FormControl>
                         </div>
                         <button data-testid="add-user-button">Add User</button>
                     </form>
