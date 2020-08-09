@@ -147,5 +147,17 @@ describe('Account Page', () => {
 
             expect(actual).toBeDefined();
         });
+
+        it('should display the drop down menu items', () => {
+            const roles = [{role_name: 'security'},{role_name: 'garage'}];
+            getStore().setUserRoles(roles);
+            render(<Account />);
+            fireEvent.click(screen.getByTestId("roles-account-user").querySelector('div'));
+            const security = screen.getByText("security").textContent;
+            const garage = screen.getByText("garage").textContent;
+
+            expect(security).toEqual('security');
+            expect(garage).toEqual('garage');
+        });
     });
 });

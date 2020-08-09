@@ -16,6 +16,8 @@ export default function Account() {
     const [secondNewPassword, setSecondPassword] = useState("");
     const [succeeded, setSucceeded] = useState(null);
     const [submitted, setSubmitted] = useState(false);
+    const roles = getStore().getUserRoles();
+    const [selectedRole, setSelectedRole] = useState([]);
 
     useEffect(() => {
         if (firstNewPassword !== "" && secondNewPassword !== "") {
@@ -91,7 +93,12 @@ export default function Account() {
                             <TextField data-testid="new-account-email" className="email-account-user" variant="outlined" label="Email" />
                             <FormControl >
                                 <InputLabel className="roles-account-user" id="demo-mutiple-name-label">Roles</InputLabel>
-                                <Select data-testId="roles-account-user" labelId="demo-mutiple-name-label" multiple onChange={handleChange} value={selectedRole} input={<Input />} >
+                                <Select data-testid="roles-account-user" labelId="demo-mutiple-name-label" multiple onChange={handleChange} value={selectedRole} input={<Input />} >
+                                    {roles.map((role) => (
+                                        <MenuItem key={role.role_name} value={role.role_name}>
+                                            {role.role_name}
+                                        </MenuItem>
+                                    ))}
                                 </Select>
                             </FormControl>
                         </div>
