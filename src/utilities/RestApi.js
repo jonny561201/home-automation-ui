@@ -171,3 +171,15 @@ export const getRolesByUserId = async (userId) => {
     const response = await fetch(url, options);
     return response.json();
 }
+
+export const addUserChildAccount = async (userId, email, roles) => {
+    const request = { 'email': email, 'roles': roles };
+    const options = {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
+        body: JSON.stringify(request)
+    };
+    const url = `${baseUrl}/userId/${userId}/createChildAccount`;
+
+    return await fetch(url, options);;
+}

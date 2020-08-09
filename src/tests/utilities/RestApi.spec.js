@@ -3,7 +3,7 @@ import fetchMock from 'fetch-mock';
 import {
     getBearerToken, getGarageStatus, updateGarageState, addUserDevice,
     toggleGarageDoor, getSumpLevels, getCurrentTemperature, addUserDeviceNode,
-    getUserPreferences, updateUserPreferences, setUserTemperature,
+    getUserPreferences, updateUserPreferences, setUserTemperature, addUserChildAccount,
     getLightGroups, setLightGroupState, setLightState, updateUserAccount, getRolesByUserId
 } from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
@@ -297,6 +297,19 @@ describe('RestApi', () => {
             const actual = await getRolesByUserId(userId);
 
             expect(actual.roles).toEqual([{}]);
+        });
+
+        it('should make rest call to add child account to a user account', async () => {
+            const body = { 'email': 'fakeName', 'roles': ['garage_door']};
+            const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
+
+            fetchMock.mock(`http://localhost:5000/userId/${userId}/createChildAccount`, options).catch(unmatchedUrl => {
+                return { status: 400 }
+            });
+
+            const actual = await addUserChildAccount(userId, body.email, body.roles);
+
+            expect(actual.status).toEqual(200);
         });
     });
 });
