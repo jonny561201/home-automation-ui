@@ -2,16 +2,20 @@ import React from 'react';
 import Account from '../../pages/Account';
 import * as lib from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, within } from '@testing-library/react';
 
 describe('Account Page', () => {
 
     const spyPost = jest.spyOn(lib, 'updateUserAccount');
+    const spyPostChildAccount = jest.spyOn(lib, 'addUserChildAccount');
     const userId = 'fakeUserId'
+    const roles = [{role_name: 'security'}, {role_name: 'garage_door'}];
 
     beforeEach(() => {
         getStore().setUserId(userId);
+        getStore().setUserRoles(roles);
         spyPost.mockClear();
+        spyPostChildAccount.mockClear();
     });
 
 
@@ -136,7 +140,7 @@ describe('Account Page', () => {
 
         it('should display a text box for the email address of new user', () => {
             render(<Account />);
-            const actual = screen.getByTestId('new-account-email').querySelector('input');
+            const actual = screen.getByTestId('email-account-user').querySelector('input');
 
             expect(actual).toBeDefined();
         });
@@ -158,6 +162,21 @@ describe('Account Page', () => {
 
             expect(security).toEqual('security');
             expect(garage).toEqual('garage');
+        });
+
+        it('should make api call to create child account when submitted', () => {
+            const email = 'test@test.com';
+            const roles = ['garage_door', 'security'];
+            render(<Account />);
+            fireEvent.click(screen.getByTestId('roles-account-user').querySelector('div'));
+            const listbox = within(screen.getByRole('listbox'));
+
+            fireEvent.click(listbox.getByText(/garage_door/i));
+            fireEvent.click(listbox.getByText(/security/i));
+            fireEvent.change(screen.getByTestId('email-account-user').querySelector('input'), { target: { value: email } });
+            fireEvent.click(screen.getByTestId('add-user-button'));
+
+            expect(spyPostChildAccount).toHaveBeenCalledWith(userId, email, roles);
         });
     });
 });

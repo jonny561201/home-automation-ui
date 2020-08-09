@@ -3,7 +3,7 @@ import Header from '../components/header/Header';
 import { Divider, TextField, MenuItem, Select, InputLabel, Input, FormControl } from '@material-ui/core';
 import { CheckCircle, Error } from '@material-ui/icons';
 import { getStore } from '../state/GlobalState';
-import { updateUserAccount } from '../utilities/RestApi';
+import { updateUserAccount, addUserChildAccount } from '../utilities/RestApi';
 import './Account.css';
 
 export default function Account() {
@@ -16,8 +16,9 @@ export default function Account() {
     const [secondNewPassword, setSecondPassword] = useState("");
     const [succeeded, setSucceeded] = useState(null);
     const [submitted, setSubmitted] = useState(false);
-    const roles = getStore().getUserRoles();
+    const [roles, ] = useState(getStore().getUserRoles());
     const [selectedRole, setSelectedRole] = useState([]);
+    const [email, setEmail] = useState("");
 
     useEffect(() => {
         if (firstNewPassword !== "" && secondNewPassword !== "") {
@@ -47,6 +48,11 @@ export default function Account() {
         }
     }
 
+    const submitChildAccount = async (event) => {
+        event.preventDefault();
+        await addUserChildAccount(getStore().getUserId(), email, selectedRole);
+    }
+
     const passwordMessage = () => {
         if (succeeded) {
             return <div className="account-message">
@@ -62,6 +68,7 @@ export default function Account() {
             return <div><p></p></div>
         }
     }
+    
 
     return (
         <div>
@@ -86,14 +93,14 @@ export default function Account() {
                         <button data-testid={"password-submit"} type="submit">Submit</button>
                         <Divider className="account-divider" />
                     </form>
-                    <form>
+                    <form onSubmit={submitChildAccount}>
                         <h2>Account Users</h2>
                         <Divider />
                         <div className="account-row">
-                            <TextField data-testid="new-account-email" className="email-account-user" variant="outlined" label="Email" />
+                            <TextField data-testid="email-account-user" className="email-account-user" variant="outlined" label="Email" value={email} onChange={(input) => {setEmail(input.target.value)}} />
                             <FormControl >
                                 <InputLabel className="roles-account-user" id="demo-mutiple-name-label">Roles</InputLabel>
-                                <Select data-testid="roles-account-user" labelId="demo-mutiple-name-label" multiple onChange={handleChange} value={selectedRole} input={<Input />} >
+                                <Select data-testid="roles-account-user" multiple value={selectedRole} onChange={(input) => {setSelectedRole(input.target.value)}} input={<Input />} >
                                     {roles.map((role) => (
                                         <MenuItem key={role.role_name} value={role.role_name}>
                                             {role.role_name}
