@@ -2,20 +2,16 @@ import React from 'react';
 import Account from '../../pages/Account';
 import * as lib from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
-import { render, screen, fireEvent, within } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 
 describe('Account Page', () => {
 
     const spyPost = jest.spyOn(lib, 'updateUserAccount');
-    const spyPostChildAccount = jest.spyOn(lib, 'addUserChildAccount');
-    const userId = 'fakeUserId'
-    const roles = [{role_name: 'security'}, {role_name: 'garage_door'}];
+    const userId = 'fakeUserId';
 
     beforeEach(() => {
         getStore().setUserId(userId);
-        getStore().setUserRoles(roles);
         spyPost.mockClear();
-        spyPostChildAccount.mockClear();
     });
 
 
@@ -120,63 +116,6 @@ describe('Account Page', () => {
 
             fireEvent.click(screen.getByTestId('password-submit'));
             expect(spyPost).toHaveBeenCalledWith(userId, oldPass, matchingPass);
-        });
-    });
-
-    describe('User Account Section', () => {
-        it('should display the Account users header', () => {
-            render(<Account />);
-            const actual = screen.getByText('Account Users').textContent;
-
-            expect(actual).toEqual('Account Users');
-        });
-
-        it('should display the add account users button', () => {
-            render(<Account />);
-            const actual = screen.getByTestId('add-user-button').textContent;
-
-            expect(actual).toEqual('Add User');
-        });
-
-        it('should display a text box for the email address of new user', () => {
-            render(<Account />);
-            const actual = screen.getByTestId('email-account-user').querySelector('input');
-
-            expect(actual).toBeDefined();
-        });
-
-        it('should display the drop down for the role assignment', () => {
-            render(<Account />);
-            const actual = screen.getByTestId('roles-account-user').querySelector('input');
-
-            expect(actual).toBeDefined();
-        });
-
-        it('should display the drop down menu items', () => {
-            const roles = [{role_name: 'security'},{role_name: 'garage'}];
-            getStore().setUserRoles(roles);
-            render(<Account />);
-            fireEvent.click(screen.getByTestId("roles-account-user").querySelector('div'));
-            const security = screen.getByText("security").textContent;
-            const garage = screen.getByText("garage").textContent;
-
-            expect(security).toEqual('security');
-            expect(garage).toEqual('garage');
-        });
-
-        it('should make api call to create child account when submitted', () => {
-            const email = 'test@test.com';
-            const roles = ['garage_door', 'security'];
-            render(<Account />);
-            fireEvent.click(screen.getByTestId('roles-account-user').querySelector('div'));
-            const listbox = within(screen.getByRole('listbox'));
-
-            fireEvent.click(listbox.getByText(/garage_door/i));
-            fireEvent.click(listbox.getByText(/security/i));
-            fireEvent.change(screen.getByTestId('email-account-user').querySelector('input'), { target: { value: email } });
-            fireEvent.click(screen.getByTestId('add-user-button'));
-
-            expect(spyPostChildAccount).toHaveBeenCalledWith(userId, email, roles);
         });
     });
 });
