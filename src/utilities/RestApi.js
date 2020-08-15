@@ -32,9 +32,7 @@ export const getBearerToken = async (username, password) => {
 
 export const getGarageStatus = async (userId, garageId) => {
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
-    const garageStatusUrl = `${garageBaseUrl}/${garageId}/user/${userId}/status`;
-
-    const response = await fetch(garageStatusUrl, options);
+    const response = await fetch(`${garageBaseUrl}/${garageId}/user/${userId}/status`, options);
     return await response.json();
 }
 
@@ -45,30 +43,24 @@ export const updateGarageState = async (shouldOpen, userId, garageId) => {
         headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
         body: JSON.stringify(request)
     };
-    const garageStateUrl = `${garageBaseUrl}/${garageId}/user/${userId}/state`;
-    const response = await fetch(garageStateUrl, options);
+    const response = await fetch(`${garageBaseUrl}/${garageId}/user/${userId}/state`, options);
     return await response.json();
 }
 
 export const toggleGarageDoor = async (userId, garageId) => {
-    const garageToggleUrl = `${garageBaseUrl}/${garageId}/user/${userId}/toggle`;
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } }
-    return await fetch(garageToggleUrl, options);
+    return await fetch(`${garageBaseUrl}/${garageId}/user/${userId}/toggle`, options);
 }
 
 export const getSumpLevels = async (userId) => {
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
-
-    const sumpUrl = `${sumpBaseUrl}/user/${userId}/depth`
-    const response = await fetch(sumpUrl, options);
+    const response = await fetch(`${sumpBaseUrl}/user/${userId}/depth`, options);
     return await response.json();
 }
 
 export const getCurrentTemperature = async (userId) => {
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
-
-    const tempUrl = `${thermostatBaseUrl}/temperature/${userId}`;
-    const response = await fetch(tempUrl, options);
+    const response = await fetch(`${thermostatBaseUrl}/temperature/${userId}`, options);
     return await response.json();
 }
 
@@ -80,15 +72,12 @@ export const setUserTemperature = async (userId, desiredTemp, mode, isFahrenheit
         body: JSON.stringify(request)
     };
 
-    const tempUrl = `${thermostatBaseUrl}/temperature/${userId}`;
-    return await fetch(tempUrl, options);
+    return await fetch(`${thermostatBaseUrl}/temperature/${userId}`, options);
 }
 
 export const getUserPreferences = async (userId) => {
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
-
-    const tempUrl = `${baseUrl}/userId/${userId}/preferences`;
-    const response = await fetch(tempUrl, options);
+    const response = await fetch(`${baseUrl}/userId/${userId}/preferences`, options);
     return await response.json();
 }
 
@@ -100,13 +89,11 @@ export const updateUserPreferences = async (userId, isFahrenheit, isImperial, ci
         body: JSON.stringify(request)
     }
 
-    const tempUrl = `${baseUrl}/userId/${userId}/preferences/update`
-    return await fetch(tempUrl, options);
+    return await fetch(`${baseUrl}/userId/${userId}/preferences/update`, options);
 }
 
 export const getLightGroups = async () => {
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
-
     const response = await fetch(`${lightBaseUrl}/groups`, options);
     return response.json();
 }
@@ -141,8 +128,7 @@ export const updateUserAccount = async (userId, oldPass, newPass) => {
         body: JSON.stringify(request)
     };
 
-    const url = `${accountBaseUrl}/userId/${userId}/updateAccount`;
-    return await fetch(url, options);
+    return await fetch(`${accountBaseUrl}/userId/${userId}/updateAccount`, options);
 }
 
 export const addUserDevice = async (userId, roleName, ipAddress) => {
@@ -152,8 +138,7 @@ export const addUserDevice = async (userId, roleName, ipAddress) => {
         headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
         body: JSON.stringify(request)
     };
-    const url = `${deviceBaseUrl}/userId/${userId}/devices`;
-    return await fetch(url, options);
+    return await fetch(`${deviceBaseUrl}/userId/${userId}/devices`, options);
 }
 
 export const addUserDeviceNode = async (userId, deviceId, nodeName) => {
@@ -163,15 +148,12 @@ export const addUserDeviceNode = async (userId, deviceId, nodeName) => {
         headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
         body: JSON.stringify(request)
     };
-    const url = `${deviceBaseUrl}/userId/${userId}/devices/${deviceId}/node`;
-    return await fetch(url, options);
+    return await fetch(`${deviceBaseUrl}/userId/${userId}/devices/${deviceId}/node`, options);
 }
 
 export const getRolesByUserId = async (userId) => {
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
-
-    const url = `${accountBaseUrl}/userId/${userId}/roles`;
-    const response = await fetch(url, options);
+    const response = await fetch(`${accountBaseUrl}/userId/${userId}/roles`, options);
     return response.json();
 }
 
@@ -182,7 +164,5 @@ export const addUserChildAccount = async (userId, email, roles) => {
         headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
         body: JSON.stringify(request)
     };
-    const url = `${accountBaseUrl}/userId/${userId}/createChildAccount`;
-
-    return await fetch(url, options);;
+    return await fetch(`${accountBaseUrl}/userId/${userId}/createChildAccount`, options);;
 }
