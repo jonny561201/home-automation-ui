@@ -236,7 +236,7 @@ describe('RestApi', () => {
             const body = { 'lightId': 1, 'on': true, 'brightness': 211 };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.mock('http://localhost:5000/group/light', options).catch(unmatchedUrl => {
+            fetchMock.mock('http://localhost:5000/lights/group/light', options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
@@ -249,7 +249,7 @@ describe('RestApi', () => {
             const body = { 'oldPassword': 'alsoFake', 'newPassword': 'StillFake' };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.mock(`http://localhost:5000/userId/${userId}/updateAccount`, options).catch(unmatchedUrl => {
+            fetchMock.mock(`http://localhost:5000/account/userId/${userId}/updateAccount`, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
@@ -262,7 +262,7 @@ describe('RestApi', () => {
             const body = { 'roleName': 'fakeName', 'ipAddress': '1.0.0.1' };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.mock(`http://localhost:5000/userId/${userId}/devices`, options).catch(unmatchedUrl => {
+            fetchMock.mock(`http://localhost:5000/devices/userId/${userId}/devices`, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
@@ -276,7 +276,7 @@ describe('RestApi', () => {
             const body = { 'nodeName': 'fakeName'};
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.mock(`http://localhost:5000/userId/${userId}/devices/${deviceId}/node`, options).catch(unmatchedUrl => {
+            fetchMock.mock(`http://localhost:5000/devices/userId/${userId}/devices/${deviceId}/node`, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
@@ -290,7 +290,7 @@ describe('RestApi', () => {
             const response = {'roles': [{}]};
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
 
-            fetchMock.mock(`http://localhost:5000/userId/${userId}/roles`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`http://localhost:5000/account/userId/${userId}/roles`, response, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
@@ -303,7 +303,7 @@ describe('RestApi', () => {
             const body = { 'email': 'fakeName', 'roles': ['garage_door']};
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.mock(`http://localhost:5000/userId/${userId}/createChildAccount`, options).catch(unmatchedUrl => {
+            fetchMock.mock(`http://localhost:5000/account/userId/${userId}/createChildAccount`, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
