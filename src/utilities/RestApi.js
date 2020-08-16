@@ -166,3 +166,9 @@ export const addUserChildAccount = async (userId, email, roles) => {
     };
     return await fetch(`${accountBaseUrl}/userId/${userId}/createChildAccount`, options);;
 }
+
+export const getUserChildAccounts = async (userId) => {
+    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
+    const response = await fetch(`${accountBaseUrl}/userId/${userId}/childAccounts`, options);
+    return response.json();
+}
