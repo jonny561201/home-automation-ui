@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { getStore } from '../../state/GlobalState';
 import { addUserChildAccount } from '../../utilities/RestApi';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { Divider, TextField, MenuItem, Select, InputLabel, Input, FormControl } from '@material-ui/core';
+import "./AccountChildUser.css"
 
 export default function AccountChildUser() {
-    const [roles, ] = useState(getStore().getUserRoles());
+    const [roles,] = useState(getStore().getUserRoles());
     const [selectedRole, setSelectedRole] = useState([]);
     const [email, setEmail] = useState("");
+    const test = [{ user_name: 'Jon Graf', roles: ['garage_door', 'lighting'] }, { user_name: 'Kalynn Dawn', roles: ['garage_door'] }];
 
     const submitChildAccount = async (event) => {
         event.preventDefault();
@@ -18,6 +21,14 @@ export default function AccountChildUser() {
             <form onSubmit={submitChildAccount}>
                 <h2>Account Users</h2>
                 <Divider />
+                <table className="table-container">
+                    <tr className="table-header" ><th>User</th><th>Roles</th><th></th></tr>
+                    {test.map(x => (
+                        <tr className="table-rows">
+                            <td>{x.user_name}</td><td>{x.roles.join(', ')}</td><td><HighlightOffIcon/></td>
+                        </tr>
+                    ))}
+                </table>
                 <div className="account-row">
                     <TextField data-testid="email-account-user" className="email-account-user" variant="outlined" label="Email" value={email} onChange={(input) => { setEmail(input.target.value) }} />
                     <FormControl >
