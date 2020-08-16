@@ -14,6 +14,7 @@ const initialState = {
     startedGarageRegistration: false,
     devicesToRegister: false,
     garageRole: null,
+    addedGarageNode: false,
 };
 
 const Store = ({children}) => {

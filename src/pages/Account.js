@@ -4,6 +4,7 @@ import { Divider, TextField } from '@material-ui/core';
 import { CheckCircle, Error } from '@material-ui/icons';
 import { getStore } from '../state/GlobalState';
 import { updateUserAccount } from '../utilities/RestApi';
+import AccountChildUser from '../components/panels/AccountChildUser';
 import './Account.css';
 
 export default function Account() {
@@ -61,6 +62,7 @@ export default function Account() {
         }
     }
 
+
     return (
         <div>
             <div className="account-header">
@@ -68,9 +70,9 @@ export default function Account() {
             </div>
             <div className="account-body">
                 <div className="account-wrapper account-text">
-                    <h2>Change Password</h2>
-                    <Divider />
                     <form className="account-group account-text" onSubmit={submitAccountChange}>
+                        <h2>Change Password</h2>
+                        <Divider />
                         <div className="account-row">
                             <TextField data-testid={"old-pass"} error={oldPasswordError} value={oldPassword} variant="outlined" label="Old Password" type="password" onChange={onOldPasswordChange} />
                         </div>
@@ -81,9 +83,10 @@ export default function Account() {
                             <TextField data-testid={"confirm-pass"} error={arePasswordsMismatched} value={secondNewPassword} variant="outlined" label="Confirm New Password" type="password" onChange={(input) => setSecondPassword(input.target.value)} />
                         </div>
                         {passwordMessage()}
+                        <button data-testid={"password-submit"} type="submit">Submit</button>
                         <Divider className="account-divider" />
-                        <button type="submit">Submit</button>
                     </form>
+                    <AccountChildUser />
                 </div>
             </div>
         </div>

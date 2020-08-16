@@ -1,10 +1,10 @@
 import base64 from 'base-64';
 import fetchMock from 'fetch-mock';
 import {
-    getBearerToken, getGarageStatus, updateGarageState, addUserDevice,
+    getBearerToken, getGarageStatus, updateGarageState, addUserDevice,getUserChildAccounts,
     toggleGarageDoor, getSumpLevels, getCurrentTemperature, addUserDeviceNode,
-    getUserPreferences, updateUserPreferences, setUserTemperature,
-    getLightGroups, setLightGroupState, setLightState, updateUserAccount
+    getUserPreferences, updateUserPreferences, setUserTemperature, addUserChildAccount,
+    getLightGroups, setLightGroupState, setLightState, updateUserAccount, getRolesByUserId
 } from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
 
@@ -236,7 +236,7 @@ describe('RestApi', () => {
             const body = { 'lightId': 1, 'on': true, 'brightness': 211 };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.mock('http://localhost:5000/group/light', options).catch(unmatchedUrl => {
+            fetchMock.mock('http://localhost:5000/lights/group/light', options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
@@ -249,7 +249,7 @@ describe('RestApi', () => {
             const body = { 'oldPassword': 'alsoFake', 'newPassword': 'StillFake' };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.mock(`http://localhost:5000/userId/${userId}/updateAccount`, options).catch(unmatchedUrl => {
+            fetchMock.mock(`http://localhost:5000/account/userId/${userId}/updateAccount`, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
@@ -262,7 +262,7 @@ describe('RestApi', () => {
             const body = { 'roleName': 'fakeName', 'ipAddress': '1.0.0.1' };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.mock(`http://localhost:5000/userId/${userId}/devices`, options).catch(unmatchedUrl => {
+            fetchMock.mock(`http://localhost:5000/devices/userId/${userId}/devices`, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
@@ -276,13 +276,53 @@ describe('RestApi', () => {
             const body = { 'nodeName': 'fakeName'};
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.mock(`http://localhost:5000/userId/${userId}/devices/${deviceId}/node`, options).catch(unmatchedUrl => {
+            fetchMock.mock(`http://localhost:5000/devices/userId/${userId}/devices/${deviceId}/node`, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
             const actual = await addUserDeviceNode(userId, deviceId, body.nodeName);
 
             expect(actual.status).toEqual(200);
+        });
+
+        it('should make rest call to get roles with bearer token', async () => {
+            const userId = 'jkasdf1';
+            const response = {'roles': [{}]};
+            const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
+
+            fetchMock.mock(`http://localhost:5000/account/userId/${userId}/roles`, response, options).catch(unmatchedUrl => {
+                return { status: 400 }
+            });
+
+            const actual = await getRolesByUserId(userId);
+
+            expect(actual.roles).toEqual([{}]);
+        });
+
+        it('should make rest call to add child account to a user account', async () => {
+            const body = { 'email': 'fakeName', 'roles': ['garage_door']};
+            const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
+
+            fetchMock.mock(`http://localhost:5000/account/userId/${userId}/createChildAccount`, options).catch(unmatchedUrl => {
+                return { status: 400 }
+            });
+
+            const actual = await addUserChildAccount(userId, body.email, body.roles);
+
+            expect(actual.status).toEqual(200);
+        });
+
+        it('should make rest call to get child accounts for a user account', async() => {
+            const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}`} };
+            const response = [{'user_name': 'test', 'roles': []}];
+
+            fetchMock.mock(`http://localhost:5000/account/userId/${userId}/childAccounts`, response, options).catch(unmatchedUrl => {
+                return { status: 400 }
+            });
+
+            const actual = await getUserChildAccounts(userId);
+
+            expect(actual[0].user_name).toEqual('test');
         });
     });
 });

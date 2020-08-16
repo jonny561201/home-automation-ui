@@ -2,12 +2,12 @@ import React from 'react';
 import Account from '../../pages/Account';
 import * as lib from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
-import { render, screen, act, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 
 describe('Account Page', () => {
 
     const spyPost = jest.spyOn(lib, 'updateUserAccount');
-    const userId = 'fakeUserId'
+    const userId = 'fakeUserId';
 
     beforeEach(() => {
         getStore().setUserId(userId);
@@ -60,7 +60,7 @@ describe('Account Page', () => {
 
     it('should display the submit button', () => {
         render(<Account />);
-        const actual = screen.getByRole('button').textContent;
+        const actual = screen.getByTestId('password-submit').textContent;
         expect(actual).toEqual('Submit');
     });
 
@@ -91,7 +91,7 @@ describe('Account Page', () => {
 
         it('should display old password error when it is empty string on submit', async () => {
             render(<Account />);
-            fireEvent.click(screen.getByRole('button'));
+            fireEvent.click(screen.getByTestId('password-submit'));
             const actual = screen.getByTestId('old-pass').querySelector('label').className;
 
             expect(actual).toContain('error');
@@ -99,8 +99,8 @@ describe('Account Page', () => {
 
         it('should not display old password error when it is populated on submit', async () => {
             render(<Account />);
-            fireEvent.change(screen.getByTestId('old-pass').querySelector('input'), { target: {value: 'validPass'} });
-            fireEvent.click(screen.getByRole('button'));
+            fireEvent.change(screen.getByTestId('old-pass').querySelector('input'), { target: { value: 'validPass' } });
+            fireEvent.click(screen.getByTestId('password-submit'));
             const actual = screen.getByTestId('old-pass').querySelector('label').className;
 
             expect(actual).not.toContain('error');
@@ -110,11 +110,11 @@ describe('Account Page', () => {
             const oldPass = 'oldPass';
             const matchingPass = 'newPass';
             render(<Account />);
-            fireEvent.change(screen.getByTestId('old-pass').querySelector('input'), { target: {value: oldPass } });
+            fireEvent.change(screen.getByTestId('old-pass').querySelector('input'), { target: { value: oldPass } });
             fireEvent.change(screen.getByTestId('new-pass').querySelector('input'), { target: { value: matchingPass } });
             fireEvent.change(screen.getByTestId('confirm-pass').querySelector('input'), { target: { value: matchingPass } });
 
-            fireEvent.click(screen.getByRole('button'));
+            fireEvent.click(screen.getByTestId('password-submit'));
             expect(spyPost).toHaveBeenCalledWith(userId, oldPass, matchingPass);
         });
     });

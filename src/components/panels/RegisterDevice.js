@@ -9,6 +9,7 @@ import { Context } from '../../state/Store';
 
 
 export default function RegisterDevice(props) {
+    const [wrapperRef, setWrapperRef] = useState(null);
     const [state, dispatch] = useContext(Context);
     const [ipAddress, setIpAddress] = useState('');
     const [touched, setTouched] = useState(false);
@@ -17,19 +18,21 @@ export default function RegisterDevice(props) {
     const [transitionComponent, setTransitionComponent] = useState(null);
 
     useEffect(() => {
-        //TODO: what about when roles is empty????
-        const garageRole = state.roles? state.roles.find(x => x.role_name === 'garage_door'): [];
-        setStartedRegistration(garageRole && (garageRole.device_id || state.startedGarageRegistration));
-        if (!state.deviceId) {
-            dispatch({type: 'SET_DEVICE_ID', payload: garageRole && garageRole.device_id ? garageRole.device_id : null})
-        }
-    }, [dispatch, state.roles, state.deviceId, state.startedGarageRegistration]);
+        document.addEventListener("mousedown", handleClickOutside);
+        setStartedRegistration(state.startedGarageRegistration);
+    });
 
     const checkIpAddress = (input) => {
         const ipAddress = input.target.value;
         debounchApi(() => setIsIpValid(isValidIpAddress(ipAddress)));
         setIpAddress(ipAddress);
         setTouched(true);
+    }
+
+    const handleClickOutside = (event) => {
+        if (wrapperRef && !props.parentRef.contains(event.target) && !wrapperRef.contains(event.target)) {
+            props.close();
+        }
     }
 
     const submitDevice = async (event) => {
@@ -44,7 +47,7 @@ export default function RegisterDevice(props) {
     }
 
     return (
-        <div className="device-menu">
+        <div className="device-menu" ref={(node) => {setWrapperRef(node)}}>
             {transitionComponent || startedRegistration
                 ? <AddGarage close={props.close} />
                 : <div>
