@@ -25,7 +25,7 @@ export default function AccountChildUser() {
                     <tr className="table-header" ><th>User</th><th>Roles</th><th></th></tr>
                     {test.map(x => (
                         <tr className="table-rows">
-                            <td>{x.user_name}</td><td>{x.roles.join(', ')}</td><td><HighlightOffIcon/></td>
+                            <td>{x.user_name}</td><td>{x.roles.join(', ')}</td><td><HighlightOffIcon className="table-delete-user"/></td>
                         </tr>
                     ))}
                 </table>
