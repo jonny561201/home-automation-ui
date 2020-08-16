@@ -22,12 +22,14 @@ export default function AccountChildUser() {
                 <h2>Account Users</h2>
                 <Divider />
                 <table className="table-container">
-                    <tr className="table-header" ><th>User</th><th>Roles</th><th></th></tr>
-                    {test.map(x => (
-                        <tr className="table-rows">
-                            <td>{x.user_name}</td><td>{x.roles.join(', ')}</td><td><HighlightOffIcon className="table-delete-user"/></td>
-                        </tr>
-                    ))}
+                    <tbody>
+                        <tr className="table-header" ><th>User</th><th>Roles</th><th></th></tr>
+                        {test.map(x => (
+                            <tr className="table-rows" key={`user-${x.user_name}`}>
+                                <td>{x.user_name}</td><td>{x.roles.join(', ')}</td><td><HighlightOffIcon className="table-delete-user" /></td>
+                            </tr>
+                        ))}
+                    </tbody>
                 </table>
                 <div className="account-row">
                     <TextField data-testid="email-account-user" className="email-account-user" variant="outlined" label="Email" value={email} onChange={(input) => { setEmail(input.target.value) }} />
