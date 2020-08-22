@@ -6,7 +6,7 @@ import TemperatureIcon from '../../resources/panelIcons/TemperatureIcon.jpg';
 import { getCurrentTemperature, setUserTemperature } from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
 import { debounchApi } from '../../utilities/Services';
-import TemperatureImage from './TemperatureImage';
+import TemperatureImage from '../segments/TemperatureImage';
 import Knob from '../controls/Knob';
 
 
@@ -50,7 +50,7 @@ export default function TemperaturePanel() {
     }
 
     const toggleHvac = (newMode) => {
-        const heatState = (newMode === "heating" && !isHeating) ? true : false    
+        const heatState = (newMode === "heating" && !isHeating) ? true : false
         const coldState = (newMode === "cooling" && !isCooling) ? true : false;
         const modeState = getToggledMode(heatState, coldState);
         setIsHeating(heatState);
@@ -73,7 +73,7 @@ export default function TemperaturePanel() {
             setDisplayColor("#27aedb");
         else if (mode === "heating")
             setDisplayColor("#db5127");
-        else 
+        else
             setDisplayColor("#A0A0A0");
     }
 
@@ -104,7 +104,7 @@ export default function TemperaturePanel() {
                             <FormControl>
                                 <FormGroup>
                                     <FormControlLabel label="Heat" control={<Switch data-testid={"heating-switch"} color="secondary" checked={isHeating} onChange={() => toggleHvac("heating")} />} />
-                                    <FormControlLabel label="Cool" control={<Switch data-testid={"cooling-switch"}  color="primary" checked={isCooling} onChange={() => toggleHvac("cooling")} />} />
+                                    <FormControlLabel label="Cool" control={<Switch data-testid={"cooling-switch"} color="primary" checked={isCooling} onChange={() => toggleHvac("cooling")} />} />
                                 </FormGroup>
                             </FormControl>
                         </div>

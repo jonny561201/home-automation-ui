@@ -4,7 +4,7 @@ import { Divider, TextField } from '@material-ui/core';
 import { CheckCircle, Error } from '@material-ui/icons';
 import { getStore } from '../state/GlobalState';
 import { updateUserAccount } from '../utilities/RestApi';
-import AccountChildUser from '../components/panels/AccountChildUser';
+import AccountChildUser from '../components/segments/AccountChildUser';
 import './Account.css';
 
 export default function Account() {

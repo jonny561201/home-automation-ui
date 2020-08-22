@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { Context } from '../../state/Store';
-import RegisterDevice from './RegisterDevice';
+import RegisterDevice from '../segments/RegisterDevice';
 import GarageIcon from '../../resources/panelIcons/GarageDoorIcon.jpg';
 import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, Divider } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import './GaragePanel.css';
-import GarageDoor from './GarageDoor';
+import GarageDoor from '../segments/GarageDoor';
 
 
 export default function GaragePanel() {
@@ -17,7 +17,7 @@ export default function GaragePanel() {
         //TODO: need to test all of this behavior
         const devices = state.garageRole.devices;
         if (devices && devices.length > 0) {
-            return devices.map(x =>  <GarageDoor key={`door-${x.node_device}`} device={x}/> );
+            return devices.map(x => <GarageDoor key={`door-${x.node_device}`} device={x} />);
         }
         return <p>No Garge devices have been registered</p>
     }
@@ -25,7 +25,7 @@ export default function GaragePanel() {
     const closeModal = () => {
         setDisplayRegister(false);
         if (state.addedGarageNode)
-            dispatch({type: 'SET_DEVICES_TO_REGISTER', payload: false});
+            dispatch({ type: 'SET_DEVICES_TO_REGISTER', payload: false });
     }
 
     return (
@@ -49,11 +49,11 @@ export default function GaragePanel() {
                                 <p className="status-text">A new device has been detected and needs to be registered.</p>
                             </div>
                             <button data-testid={"register-device-button"} onClick={() => setDisplayRegister(true)}>Register</button>
-                            <div ref={(node) => {setWrapperRef(node)}}>
-                                {displayRegister && <RegisterDevice close={closeModal} parentRef={wrapperRef}/>}
+                            <div ref={(node) => { setWrapperRef(node) }}>
+                                {displayRegister && <RegisterDevice close={closeModal} parentRef={wrapperRef} />}
                             </div>
                         </div>
-                     </ExpansionPanelDetails>
+                    </ExpansionPanelDetails>
                     : <div className="door-groups">{renderDoors()}</div>
                 }
             </ExpansionPanel>

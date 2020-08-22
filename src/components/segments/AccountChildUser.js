@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getStore } from '../../state/GlobalState';
-import { addUserChildAccount } from '../../utilities/RestApi';
+import { addUserChildAccount, getUserChildAccounts } from '../../utilities/RestApi';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { Divider, TextField, MenuItem, Select, InputLabel, Input, FormControl } from '@material-ui/core';
 import "./AccountChildUser.css"
@@ -9,7 +9,17 @@ export default function AccountChildUser() {
     const [roles,] = useState(getStore().getUserRoles());
     const [selectedRole, setSelectedRole] = useState([]);
     const [email, setEmail] = useState("");
-    const test = [{ user_name: 'Jon Graf', roles: ['garage_door', 'lighting'] }, { user_name: 'Kalynn Dawn', roles: ['garage_door'] }];
+    const [test, setTest] = useState([]);
+    // const test = [{ user_name: 'Jon Graf', roles: ['garage_door', 'lighting'] }, { user_name: 'Kalynn Dawn', roles: ['garage_door'] }];
+
+    useEffect(() => {
+        const getData = async () => {
+            const response = await getUserChildAccounts(getStore().getUserId());
+            setTest(response);
+        };
+        getData();
+    }, []);
+
 
     const submitChildAccount = async (event) => {
         event.preventDefault();
