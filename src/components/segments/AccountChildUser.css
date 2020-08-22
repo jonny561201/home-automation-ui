@@ -4,7 +4,7 @@
     margin-left: 1rem;
 }
 
-.table-header {
+/* .table-header {
     display: flex;
     justify-content: space-between;
     padding-left: 1rem;
@@ -16,9 +16,45 @@
     justify-content: space-between;
     padding-left: 1rem;
     padding-right: 1rem;
-}
+} */
 
 .table-delete-user {
+    color: lightgray;
+    cursor: pointer;
+}
+
+.table-delete-user:hover {
     color: red;
     cursor: pointer;
 }
+
+.table-add-user {
+    color: green;
+    cursor: pointer;
+}
+
+.table-end-item {
+    flex-direction: row-reverse;
+}
+
+table {
+    display: flex;
+    justify-content: space-between;
+}
+
+td, tr, th {
+    display: flex;
+    flex: 1 1 0px;
+    /* flex-wrap: nowrap; */
+    /* border: 1px solid black; */
+    height: 2rem;
+}
+
+input {
+    background-color: white;
+    border-color: lightgray;
+}
+
+input:focus {
+    background-color: lightgray;
+  }
