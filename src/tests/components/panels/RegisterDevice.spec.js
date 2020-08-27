@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, act, fireEvent } from '@testing-library/react';
 import * as lib from '../../../utilities/Services';
 import * as api from '../../../utilities/RestApi'
-import RegisterDevice from '../../../components/panels/RegisterDevice';
+import RegisterDevice from '../../../components/segments/RegisterDevice';
 import { Context } from '../../../state/Store';
 
 

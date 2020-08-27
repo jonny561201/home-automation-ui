@@ -1,5 +1,5 @@
 import React from 'react';
-import TemperatureImage from '../../../components/panels/TemperatureImage';
+import TemperatureImage from '../../../components/segments/TemperatureImage';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
