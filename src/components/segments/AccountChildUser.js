@@ -26,6 +26,12 @@ export default function AccountChildUser() {
         await addUserChildAccount(getStore().getUserId(), email, selectedRole);
     }
 
+    const deleteChildUser = async (childUserId) => {
+        const response = await deleteUserChildAccount(getStore().getUserId(), childUserId);
+        if (response.ok)
+            setTest(test.filter(x => x.user_id !== childUserId));
+    }
+
     return (
         <div>
             <form onSubmit={submitChildAccount}>
@@ -36,13 +42,14 @@ export default function AccountChildUser() {
                         <tr className="table-header" ><th>User</th><th>Roles</th><th></th></tr>
                         {test.map(x => (
                             <tr className="table-rows" key={`user-${x.user_name}`}>
-                                <td>{x.user_name}</td><td>{x.roles.join(', ')}</td><td className="table-delete-user table-end-item"><CancelIcon onClick={() => deleteUserChildAccount(getStore().getUserId(), x.user_id)}/></td>
+                                <td>{x.user_name}</td>
+                                <td>{x.roles.join(', ')}</td>
+                                <td className="table-delete-user table-end-item"><CancelIcon data-testid={`user-${x.user_name}`} onClick={() => deleteChildUser(x.user_id)}/></td>
                             </tr>
                         ))}
                         <tr>
                             <td>
                                 <input data-testid="email-account-user" onChange={(input) => { setEmail(input.target.value) }} name="Email" placeholder="Email" />
-                                {/* <TextField data-testid="email-account-user" className="email-account-user" variant="outlined" label="Email" value={email} onChange={(input) => { setEmail(input.target.value) }} /> */}
                             </td>
                             <td>
                                 <InputLabel className="roles-account-user" id="demo-mutiple-name-label">Roles</InputLabel>
@@ -58,7 +65,6 @@ export default function AccountChildUser() {
                                 <div onClick={(event) => {submitChildAccount(event)}}>
                                     <AddCircleIcon type="submit" className="table-add-user" data-testid="add-user-button" />
                                 </div>
-                                {/* <button data-testid="add-user-button">Add User</button> */}
                             </td>
                         </tr>
                     </tbody>

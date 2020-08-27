@@ -2,7 +2,7 @@ import React from 'react';
 import AccountChildUser from '../../../components/segments/AccountChildUser';
 import { getStore } from '../../../state/GlobalState';
 import * as lib from '../../../utilities/RestApi';
-import { render, screen, fireEvent, within } from '@testing-library/react';
+import { render, screen, fireEvent, within, act } from '@testing-library/react';
 
 describe('AccountChildUser', () => {
     const userId = 'fakeUserId';
@@ -76,12 +76,19 @@ describe('AccountChildUser', () => {
             expect(spyPost).toHaveBeenCalledWith(userId, email, roles);
         });
 
-        it('should make api call to delete child user account', () => {
+        it('should remove item from list after clicking the delete', async () => {
             const childUserId = 'abc123';
-            spyGet.mockReturnValue({user_name: 'Jon', user_id: childUserId,  roles: ['role1', 'role2']});
-            render(<AccountChildUser />);
-            fireEvent.click(screen.getByTestId('delete-child-button'));
-            expect(spyGet).toHaveBeenCalledWith(userId, childUserId);
+            spyDelete.mockReturnValue({ok: true});
+            spyGet.mockReturnValue([{user_name: 'Jon', user_id: childUserId, roles: ['garage_door']}]);
+            await act(async() => {
+                render(<AccountChildUser />);
+            });
+
+            await act(async() => {
+                fireEvent.click(screen.getByTestId('user-Jon'));
+            });
+            const actual = screen.queryByText('Jon');
+            expect(actual).toBeNull();
         });
     });
 });
