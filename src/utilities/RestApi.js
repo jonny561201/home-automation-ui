@@ -172,3 +172,8 @@ export const getUserChildAccounts = async (userId) => {
     const response = await fetch(`${accountBaseUrl}/userId/${userId}/childAccounts`, options);
     return response.json();
 }
+
+export const deleteUserChildAccount = async (userId, childAccountId) => {
+    const options = { method: 'DELETE', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
+    return await fetch(`${accountBaseUrl}/userId/${userId}/childUserId/${childAccountId}`, options)
+}
