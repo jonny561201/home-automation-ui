@@ -6,13 +6,17 @@ import { render, screen, fireEvent, within } from '@testing-library/react';
 
 describe('AccountChildUser', () => {
     const userId = 'fakeUserId';
+    const spyGet = jest.spyOn(lib, 'getUserChildAccounts');
     const spyPost = jest.spyOn(lib, 'addUserChildAccount');
+    const spyDelete = jest.spyOn(lib, 'deleteUserChildAccount');
     const roles = [{role_name: 'security'}, {role_name: 'garage_door'}];
 
     beforeEach(() => {
         getStore().setUserId(userId);
         getStore().setUserRoles(roles);
+        spyGet.mockClear();
         spyPost.mockClear();
+        spyDelete.mockClear();
     });
 
     it('should display the Account users header', () => {
@@ -55,18 +59,29 @@ describe('AccountChildUser', () => {
         expect(garage).toEqual('garage');
     });
 
-    it('should make api call to create child account when submitted', () => {
-        const email = 'test@test.com';
-        const roles = ['garage_door', 'security'];
-        render(<AccountChildUser />);
-        fireEvent.click(screen.getByTestId('roles-account-user').querySelector('div'));
-        const listbox = within(screen.getByRole('listbox'));
+    describe('Api Calls', () => {
 
-        fireEvent.click(listbox.getByText(/garage_door/i));
-        fireEvent.click(listbox.getByText(/security/i));
-        fireEvent.change(screen.getByTestId('email-account-user'), { target: { value: email } });
-        fireEvent.click(screen.getByTestId('add-user-button'));
+        it('should make api call to create child account when submitted', () => {
+            const email = 'test@test.com';
+            const roles = ['garage_door', 'security'];
+            render(<AccountChildUser />);
+            fireEvent.click(screen.getByTestId('roles-account-user').querySelector('div'));
+            const listbox = within(screen.getByRole('listbox'));
+    
+            fireEvent.click(listbox.getByText(/garage_door/i));
+            fireEvent.click(listbox.getByText(/security/i));
+            fireEvent.change(screen.getByTestId('email-account-user'), { target: { value: email } });
+            fireEvent.click(screen.getByTestId('add-user-button'));
+    
+            expect(spyPost).toHaveBeenCalledWith(userId, email, roles);
+        });
 
-        expect(spyPost).toHaveBeenCalledWith(userId, email, roles);
+        it('should make api call to delete child user account', () => {
+            const childUserId = 'abc123';
+            spyGet.mockReturnValue({user_name: 'Jon', user_id: childUserId,  roles: ['role1', 'role2']});
+            render(<AccountChildUser />);
+            fireEvent.click(screen.getByTestId('delete-child-button'));
+            expect(spyGet).toHaveBeenCalledWith(userId, childUserId);
+        });
     });
 });

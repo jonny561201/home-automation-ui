@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { getStore } from '../../state/GlobalState';
-import { addUserChildAccount, getUserChildAccounts } from '../../utilities/RestApi';
+import { addUserChildAccount, getUserChildAccounts, deleteUserChildAccount } from '../../utilities/RestApi';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import { Divider, TextField, MenuItem, Select, InputLabel, Input, FormControl } from '@material-ui/core';
+import { Divider, MenuItem, Select, InputLabel, Input } from '@material-ui/core';
 import "./AccountChildUser.css"
 
 export default function AccountChildUser() {
@@ -36,7 +36,7 @@ export default function AccountChildUser() {
                         <tr className="table-header" ><th>User</th><th>Roles</th><th></th></tr>
                         {test.map(x => (
                             <tr className="table-rows" key={`user-${x.user_name}`}>
-                                <td>{x.user_name}</td><td>{x.roles.join(', ')}</td><td className="table-delete-user table-end-item"><CancelIcon /></td>
+                                <td>{x.user_name}</td><td>{x.roles.join(', ')}</td><td className="table-delete-user table-end-item"><CancelIcon onClick={() => deleteUserChildAccount(getStore().getUserId(), x.user_id)}/></td>
                             </tr>
                         ))}
                         <tr>
@@ -55,10 +55,9 @@ export default function AccountChildUser() {
                                 </Select>
                             </td>
                             <td className="table-end-item">
-                                <button>
-
-                                    <AddCircleIcon className="table-add-user" data-testid="add-user-button" />
-                                </button>
+                                <div onClick={(event) => {submitChildAccount(event)}}>
+                                    <AddCircleIcon type="submit" className="table-add-user" data-testid="add-user-button" />
+                                </div>
                                 {/* <button data-testid="add-user-button">Add User</button> */}
                             </td>
                         </tr>
