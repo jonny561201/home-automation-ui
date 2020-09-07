@@ -164,7 +164,8 @@ export const addUserChildAccount = async (userId, email, roles) => {
         headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
         body: JSON.stringify(request)
     };
-    return await fetch(`${accountBaseUrl}/userId/${userId}/createChildAccount`, options);;
+    const response = await fetch(`${accountBaseUrl}/userId/${userId}/createChildAccount`, options);
+    return response.json();
 }
 
 export const getUserChildAccounts = async (userId) => {
@@ -175,5 +176,5 @@ export const getUserChildAccounts = async (userId) => {
 
 export const deleteUserChildAccount = async (userId, childAccountId) => {
     const options = { method: 'DELETE', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
-    return await fetch(`${accountBaseUrl}/userId/${userId}/childUserId/${childAccountId}`, options)
+    return await fetch(`${accountBaseUrl}/userId/${userId}/childUserId/${childAccountId}`, options);
 }

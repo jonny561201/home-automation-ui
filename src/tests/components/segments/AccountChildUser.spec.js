@@ -15,9 +15,7 @@ describe('AccountChildUser', () => {
 
     const renderComponent = async () => {
         await act(async () => {
-            render(
-                <AccountChildUser />
-            );
+            render(<AccountChildUser />);
         });
     }
 

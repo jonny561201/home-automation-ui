@@ -1,7 +1,7 @@
 import base64 from 'base-64';
 import fetchMock from 'fetch-mock';
 import {
-    getBearerToken, getGarageStatus, updateGarageState, addUserDevice,getUserChildAccounts,
+    getBearerToken, getGarageStatus, updateGarageState, addUserDevice, getUserChildAccounts,
     toggleGarageDoor, getSumpLevels, getCurrentTemperature, addUserDeviceNode, deleteUserChildAccount,
     getUserPreferences, updateUserPreferences, setUserTemperature, addUserChildAccount,
     getLightGroups, setLightGroupState, setLightState, updateUserAccount, getRolesByUserId
@@ -64,7 +64,7 @@ describe('RestApi', () => {
         });
 
         await getBearerToken(username, password);
-        expect(getStore().getUserRoles()).toEqual(["garage_door","security","thermostat","lighting","sump_pump"]);
+        expect(getStore().getUserRoles()).toEqual(["garage_door", "security", "thermostat", "lighting", "sump_pump"]);
     });
 
     it('should store user first name after successful login', async () => {
@@ -273,7 +273,7 @@ describe('RestApi', () => {
 
         it('should make rest call to add device node for a user', async () => {
             const deviceId = '456def'
-            const body = { 'nodeName': 'fakeName'};
+            const body = { 'nodeName': 'fakeName' };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
             fetchMock.mock(`http://localhost:5000/devices/userId/${userId}/devices/${deviceId}/node`, options).catch(unmatchedUrl => {
@@ -287,7 +287,7 @@ describe('RestApi', () => {
 
         it('should make rest call to get roles with bearer token', async () => {
             const userId = 'jkasdf1';
-            const response = {'roles': [{}]};
+            const response = { 'roles': [{}] };
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
 
             fetchMock.mock(`http://localhost:5000/account/userId/${userId}/roles`, response, options).catch(unmatchedUrl => {
@@ -300,21 +300,22 @@ describe('RestApi', () => {
         });
 
         it('should make rest call to add child account to a user account', async () => {
-            const body = { 'email': 'fakeName', 'roles': ['garage_door']};
+            const body = { 'email': 'fakeName', 'roles': ['garage_door'] };
+            const response = { 'user_name': 'test' }
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.mock(`http://localhost:5000/account/userId/${userId}/createChildAccount`, options).catch(unmatchedUrl => {
+            fetchMock.mock(`http://localhost:5000/account/userId/${userId}/createChildAccount`, response, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
             const actual = await addUserChildAccount(userId, body.email, body.roles);
 
-            expect(actual.status).toEqual(200);
+            expect(actual).toEqual(response);
         });
 
-        it('should make rest call to get child accounts for a user account', async() => {
-            const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}`} };
-            const response = [{'user_name': 'test', 'roles': []}];
+        it('should make rest call to get child accounts for a user account', async () => {
+            const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
+            const response = [{ 'user_name': 'test', 'roles': [] }];
 
             fetchMock.mock(`http://localhost:5000/account/userId/${userId}/childAccounts`, response, options).catch(unmatchedUrl => {
                 return { status: 400 }
@@ -325,10 +326,10 @@ describe('RestApi', () => {
             expect(actual[0].user_name).toEqual('test');
         });
 
-        it('should make rest call to delete the child accounts for a user id', async() => {
+        it('should make rest call to delete the child accounts for a user id', async () => {
             const childAccount = "abc1234";
-            const options = { 'method': 'DELETE', 'headers': {'Authorization': `Bearer ${bearerToken2}` } };
-            
+            const options = { 'method': 'DELETE', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
+
             fetchMock.mock(`http://localhost:5000/account/userId/${userId}/childUserId/${childAccount}`, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });

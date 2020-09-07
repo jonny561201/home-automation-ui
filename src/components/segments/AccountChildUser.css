@@ -58,3 +58,7 @@ input {
 input:focus {
     background-color: lightgray;
   }
+
+  .account-roles {
+      justify-content: space-between;
+  }

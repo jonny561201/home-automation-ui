@@ -9,7 +9,7 @@ import LightSwitch from '../controls/LightSwitch';
 
 export default function LightingPanel() {
     const [groups, setGroups] = useState(null);
-    
+
     useEffect(() => {
         const getData = async () => {
             const groups = await getLightGroups();
@@ -19,7 +19,7 @@ export default function LightingPanel() {
     }, []);
 
     const renderGroups = () => {
-        if (groups && groups.length > 0) {
+        if (groups && groups.length) {
             return groups.map(group => <LightSwitch key={`switch-${group.groupId}`} data={group} />)
         }
         return <p className="lighting-text">No Light Groups were found</p>
