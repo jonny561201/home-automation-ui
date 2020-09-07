@@ -32,3 +32,7 @@ input {
     margin: 2px;
     height: 16px;
 }
+
+.error-input {
+    border-color: #e60000;
+}

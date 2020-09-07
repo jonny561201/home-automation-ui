@@ -10,8 +10,8 @@ export default function UserPass() {
     const [state, dispatch] = useContext(Context);
     const [username, setUsername] = useState(undefined);
     const [password, setPassword] = useState(undefined);
-    const [isUsernameInvalid, setIsUsernameInvalid] = useState(false);
-    const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
+    const [isUsernameInvalid, setIsUsernameInvalid] = useState(undefined);
+    const [isPasswordInvalid, setIsPasswordInvalid] = useState(undefined);
     const [isValidLogin, setIsValidLogin] = useState(true);
 
     const validateCredentials = async (event) => {
@@ -59,19 +59,13 @@ export default function UserPass() {
         <div>
             <form onSubmit={validateCredentials}>
                 <div className="column">
-                    <input data-testid={"user-name"} required onChange={(event) => setUsername(event.target.value)} type="text" name="Username" placeholder="Username" />
+                    <input data-testid={"user-name"} className={(isUsernameInvalid ? 'error-input' : '')} onChange={(event) => setUsername(event.target.value)} type="text" name="Username" placeholder="Username" />
                 </div>
-                {isUsernameInvalid
-                    ? <p className="error-text">Invalid username!</p>
-                    : <p className="spacer"></p>
-                }
+                <p></p>
                 <div className="column">
-                    <input data-testid={"password"} required onChange={(event) => setPassword(event.target.value)} type="password" name="Password" placeholder="Password" />
+                    <input data-testid={"password"} className={(isPasswordInvalid ? 'error-input' : '')} onChange={(event) => setPassword(event.target.value)} type="password" name="Password" placeholder="Password" />
                 </div>
-                {isPasswordInvalid
-                    ? <p className="error-text">Invalid password!</p>
-                    : <p className="spacer"></p>
-                }
+                <p></p>
                 <div className="error-text">
                     {isValidLogin
                         ? <p></p>
