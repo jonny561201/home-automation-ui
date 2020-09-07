@@ -23,7 +23,8 @@ export default function AccountChildUser() {
 
     const submitChildAccount = async (event) => {
         event.preventDefault();
-        await addUserChildAccount(getStore().getUserId(), email, selectedRole);
+        const response = await addUserChildAccount(getStore().getUserId(), email, selectedRole);
+        setTest(response);
     }
 
     const deleteChildUser = async (childUserId) => {
@@ -44,14 +45,14 @@ export default function AccountChildUser() {
                             <tr className="table-rows" key={`user-${x.user_name}`}>
                                 <td>{x.user_name}</td>
                                 <td>{x.roles.join(', ')}</td>
-                                <td className="table-delete-user table-end-item"><CancelIcon data-testid={`user-${x.user_name}`} onClick={() => deleteChildUser(x.user_id)}/></td>
+                                <td className="table-delete-user table-end-item"><CancelIcon data-testid={`user-${x.user_name}`} onClick={() => deleteChildUser(x.user_id)} /></td>
                             </tr>
                         ))}
                         <tr>
                             <td>
                                 <input data-testid="email-account-user" onChange={(input) => { setEmail(input.target.value) }} name="Email" placeholder="Email" />
                             </td>
-                            <td>
+                            <td className="account-roles">
                                 <InputLabel className="roles-account-user" id="demo-mutiple-name-label">Roles</InputLabel>
                                 <Select data-testid="roles-account-user" multiple value={selectedRole} onChange={(input) => { setSelectedRole(input.target.value) }} input={<Input />} >
                                     {roles.map((role) => (
@@ -62,7 +63,7 @@ export default function AccountChildUser() {
                                 </Select>
                             </td>
                             <td className="table-end-item">
-                                <div onClick={(event) => {submitChildAccount(event)}}>
+                                <div onClick={(event) => { submitChildAccount(event) }}>
                                     <AddCircleIcon type="submit" className="table-add-user" data-testid="add-user-button" />
                                 </div>
                             </td>
