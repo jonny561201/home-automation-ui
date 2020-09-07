@@ -41,7 +41,9 @@ describe('LightSwitch', () => {
 
     it('should call set light group state on toggleChecked', async () => {
         render(<LightSwitch data={groupData} />);
-        fireEvent.click(screen.getByRole('checkbox'));
+        await act(async () => {
+            fireEvent.click(screen.getByRole('checkbox'));
+        });
 
         expect(spySetGroup).toBeCalledWith(groupData.groupId, false, groupData.brightness);
     });
@@ -78,10 +80,16 @@ describe('LightSwitch', () => {
             expect(actual).toHaveLength(0);
         });
 
-        it('should make api call when toggling on the desk lamp', () => {
-            render(<LightSwitch data={groupData} />);
-            fireEvent.click(screen.getByRole('button'));
-            fireEvent.click(screen.getAllByTestId('light-switches')[0]);
+        it('should make api call when toggling on the desk lamp', async () => {
+            await act(async () => {
+                render(<LightSwitch data={groupData} />);
+            });
+            await act(async () => {
+                fireEvent.click(screen.getByRole('button'));
+            });
+            await act(async () => {
+                fireEvent.click(screen.getAllByTestId('light-switches')[0]);
+            });
 
             expect(spySetLight).toHaveBeenCalledWith(1, false, 255);
         });
