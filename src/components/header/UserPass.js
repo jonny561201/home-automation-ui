@@ -16,13 +16,15 @@ export default function UserPass() {
 
     const validateCredentials = async (event) => {
         event.preventDefault();
-        username == null || username === '' ? setIsUsernameInvalid(true) : setIsUsernameInvalid(false);
-        password == null || password === '' ? setIsPasswordInvalid(true) : setIsPasswordInvalid(false);
-        await getBearerTokenFromLogin();
+        const userInvalid = username == null || username === '';
+        const passInvalid = password == null || password === '';
+        setIsUsernameInvalid(userInvalid);
+        setIsPasswordInvalid(passInvalid)
+        await getBearerTokenFromLogin(userInvalid, passInvalid);
     };
 
-    const getBearerTokenFromLogin = async () => {
-        if (isUsernameInvalid === false && isPasswordInvalid === false) {
+    const getBearerTokenFromLogin = async (userInvalid, passInvalid) => {
+        if (userInvalid === false && passInvalid === false) {
             const response = await getBearerToken(username, password);
             setIsValidLogin(response);
             if (response) {
