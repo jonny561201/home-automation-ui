@@ -6,16 +6,6 @@ import App from '../../../App';
 import UserPass from '../../../components/header/UserPass';
 
 
-const renderComponent = async () => {
-    await act(async () => {
-        render(
-            <Context.Provider value={[{}, () => { }]}>
-                <UserPass />
-            </Context.Provider>
-        );
-    });
-}
-
 describe('UserPass', () => {
 
     const spyGet = jest.spyOn(lib, 'getBearerToken');
@@ -58,20 +48,21 @@ describe('UserPass', () => {
 
         it('should not display error text when username is valid', async () => {
             await renderComponent();
+            fireEvent.change(screen.getByTestId('user-name'), { target: { value: 'validName' } });
+
             await act(async () => {
-                fireEvent.change(screen.getByTestId('user-name'), { target: { value: 'validName' } });
+                fireEvent.click(screen.getByRole('button'));
             });
-            fireEvent.click(screen.getByRole('button'));
             const actual = screen.queryByText('Invalid username!');
             expect(actual).toBeNull();
         });
 
         it('should display error text when username is an empty string', async () => {
             await renderComponent();
+            fireEvent.change(screen.getByTestId('user-name'), { target: { value: '' } });
             await act(async () => {
-                fireEvent.change(screen.getByTestId('user-name'), { target: { value: '' } });
+                fireEvent.click(screen.getByRole('button'));
             });
-            fireEvent.click(screen.getByRole('button'));
             const actual = screen.getByText('Invalid username!').textContent;
             expect(actual).toEqual('Invalid username!');
         });
@@ -85,10 +76,10 @@ describe('UserPass', () => {
 
         it('should not display error text when password is valid', async () => {
             await renderComponent();
+            fireEvent.change(screen.getByTestId('password'), { target: { value: 'validName' } });
             await act(async () => {
-                fireEvent.change(screen.getByTestId('password'), { target: { value: 'validName' } });
+                fireEvent.click(screen.getByRole('button'));
             });
-            fireEvent.click(screen.getByRole('button'));
             const actual = screen.queryByText('Invalid password!');
             expect(actual).toBeNull();
         });
