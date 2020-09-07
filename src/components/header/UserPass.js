@@ -27,17 +27,17 @@ export default function UserPass() {
             setIsValidLogin(response);
             if (response) {
                 const decodedToken = jwt_decode(response.bearerToken);
-                await dispatch({type: 'SET_BEARER_TOKEN', payload: response.bearerToken});
-                await dispatch({type: 'SET_USER_ID', payload: decodedToken.user.user_id});
-                await dispatch({type: 'SET_ROLES', payload: decodedToken.user.roles});
+                await dispatch({ type: 'SET_BEARER_TOKEN', payload: response.bearerToken });
+                await dispatch({ type: 'SET_USER_ID', payload: decodedToken.user.user_id });
+                await dispatch({ type: 'SET_ROLES', payload: decodedToken.user.roles });
                 const garageRole = decodedToken.user.roles.find(x => x.role_name === 'garage_door');
-                await dispatch({type: 'SET_GARAGE_ROLE', payload: garageRole});
-                await dispatch({type: 'SET_FIRST_NAME', payload: decodedToken.user.first_name});
-                await dispatch({type: 'SET_LAST_NAME', payload: decodedToken.user.last_name});
-                await dispatch({type: 'SET_DEVICES_TO_REGISTER', payload: unregisteredDevices(decodedToken.user.roles)});
-                await dispatch({type: 'SET_AUTHENTICATION', payload: true});
-                await dispatch({type: 'SET_STARTED_GARAGE_REGISTRATION', payload: garageRole && garageRole.device_id ? true : false});
-                await dispatch({type: 'SET_DEVICE_ID', payload: garageRole && garageRole.device_id ? garageRole.device_id : null})
+                await dispatch({ type: 'SET_GARAGE_ROLE', payload: garageRole });
+                await dispatch({ type: 'SET_FIRST_NAME', payload: decodedToken.user.first_name });
+                await dispatch({ type: 'SET_LAST_NAME', payload: decodedToken.user.last_name });
+                await dispatch({ type: 'SET_DEVICES_TO_REGISTER', payload: unregisteredDevices(decodedToken.user.roles) });
+                await dispatch({ type: 'SET_AUTHENTICATION', payload: true });
+                await dispatch({ type: 'SET_STARTED_GARAGE_REGISTRATION', payload: garageRole && garageRole.device_id ? true : false });
+                await dispatch({ type: 'SET_DEVICE_ID', payload: garageRole && garageRole.device_id ? garageRole.device_id : null })
             }
         }
     };
@@ -51,7 +51,7 @@ export default function UserPass() {
         }
         return false;
     };
-    
+
     if (state.isAuthenticated) {
         return <Redirect to='/home' />
     }
@@ -59,14 +59,14 @@ export default function UserPass() {
         <div>
             <form onSubmit={validateCredentials}>
                 <div className="column">
-                    <input data-testid={"user-name"} onChange={(event) => setUsername(event.target.value)} type="text" name="Username" placeholder="Username" />
+                    <input data-testid={"user-name"} required onChange={(event) => setUsername(event.target.value)} type="text" name="Username" placeholder="Username" />
                 </div>
                 {isUsernameInvalid
                     ? <p className="error-text">Invalid username!</p>
                     : <p className="spacer"></p>
                 }
                 <div className="column">
-                    <input data-testid={"password"} onChange={(event) => setPassword(event.target.value)} type="password" name="Password" placeholder="Password" />
+                    <input data-testid={"password"} required onChange={(event) => setPassword(event.target.value)} type="password" name="Password" placeholder="Password" />
                 </div>
                 {isPasswordInvalid
                     ? <p className="error-text">Invalid password!</p>
