@@ -71,8 +71,19 @@ describe('AccountChildUser', () => {
 
     describe('Input Validations', () => {
 
-        it('should mark input as in error state when trying to submit empty', async () => {
+        it('should mark input in error state when trying to submit empty', async () => {
             await renderComponent();
+            await act(async () => {
+                fireEvent.submit(screen.getByTestId('add-user-button'));
+            });
+            const actual = screen.getByTestId('email-account-user');
+
+            expect(actual.className).toEqual('input-error')
+        });
+
+        it('should mark input in error state when trying updating text to empty', async () => {
+            await renderComponent();
+            fireEvent.change(screen.getByTestId('email-account-user'), { target: { value: "" } });
             await act(async () => {
                 fireEvent.submit(screen.getByTestId('add-user-button'));
             });
