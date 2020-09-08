@@ -16,6 +16,10 @@ describe('RestApi', () => {
     const fakeBearerToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJlOTdmZWJjMC1mZDEwLTExZTktOGYwYi0zNjJiOWUxNTU2NjciLCJyb2xlcyI6WyJnYXJhZ2VfZG9vciIsInNlY3VyaXR5IiwidGhlcm1vc3RhdCIsImxpZ2h0aW5nIiwic3VtcF9wdW1wIl0sImZpcnN0X25hbWUiOiJKb24iLCJsYXN0X25hbWUiOiJUZXN0ZXIifSwiZXhwIjoxNTg1OTY3MDIwfQ.AfGoDyYuMhdQh4UYsMUEFenTDxnQnKg3iMhX3RxXac4";
     const credentials = username + ":" + password;
 
+    beforeEach(() => {
+        fetchMock.reset();
+    });
+
     it('should make rest call to login api using auth header', async () => {
         const response = { 'bearerToken': fakeBearerToken };
         const options = { "method": "GET", "headers": { 'Authorization': `Basic ${base64.encode(credentials)}` } };
