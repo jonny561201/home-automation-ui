@@ -31,9 +31,11 @@ table {
 td, tr, th {
     display: flex;
     flex: 1 1 0px;
-    /* flex-wrap: nowrap; */
-    /* border: 1px solid black; */
     height: 2rem;
+}
+
+.table-header {
+    margin-top: 0.5rem;
 }
 
 input {
