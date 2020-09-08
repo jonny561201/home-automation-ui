@@ -45,6 +45,18 @@ input:focus {
     background-color: lightgray;
   }
 
-  .account-roles {
-      justify-content: space-between;
-  }
+.account-roles {
+    justify-content: space-between;
+}
+
+.input-error {
+    border-color: #e60000;
+}
+
+.child-user-label {
+    top: -1rem !important;
+}
+
+.child-user-input {
+    margin-top: 0 !important;
+}
