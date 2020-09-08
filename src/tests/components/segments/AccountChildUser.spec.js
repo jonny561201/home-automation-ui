@@ -69,6 +69,19 @@ describe('AccountChildUser', () => {
         expect(garage).toEqual('garage');
     });
 
+    describe('Input Validations', () => {
+
+        it('should mark input as in error state when trying to submit empty', async () => {
+            await renderComponent();
+            await act(async () => {
+                fireEvent.submit(screen.getByTestId('add-user-button'));
+            });
+            const actual = screen.getByTestId('email-account-user');
+
+            expect(actual.className).toEqual('input-error')
+        });
+    });
+
     describe('Api Calls', () => {
 
         it('should make api call to create child account when submitted', async () => {
