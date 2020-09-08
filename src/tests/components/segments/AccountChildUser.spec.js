@@ -101,6 +101,27 @@ describe('AccountChildUser', () => {
 
             expect(actual.classList).toContain('Mui-error');
         });
+
+        it('should not allow submission when email in an error state', async () => {
+            await renderComponent();
+            fireEvent.click(screen.getByTestId('roles-account-user').querySelector('div'));
+            const listbox = within(screen.getByRole('listbox'));
+
+            fireEvent.click(listbox.getByText(/garage_door/i));
+            await act(async () => {
+                fireEvent.submit(screen.getByTestId('add-user-button'));
+            });
+            expect(spyPost).not.toHaveBeenCalled();
+        });
+
+        it('should not allow submission when roles in an error state', async () => {
+            await renderComponent();
+            fireEvent.change(screen.getByTestId('email-account-user'), { target: { value: 'test@test.com' } });
+            await act(async () => {
+                fireEvent.submit(screen.getByTestId('add-user-button'));
+            });
+            expect(spyPost).not.toHaveBeenCalled();
+        });
     });
 
     describe('Api Calls', () => {
