@@ -91,6 +91,16 @@ describe('AccountChildUser', () => {
 
             expect(actual.className).toEqual('input-error')
         });
+
+        it('should mark roles in error state when no role is selected on submission', async () => {
+            await renderComponent();
+            await act(async () => {
+                fireEvent.submit(screen.getByTestId('add-user-button'));
+            });
+            const actual = screen.getByTestId('roles-account-user');
+
+            expect(actual.classList).toContain('Mui-error');
+        });
     });
 
     describe('Api Calls', () => {
