@@ -10,7 +10,7 @@ describe('BasementPanel', () => {
     const averageDepth = 12.2;
     const currentDepth = 11.1;
     const fakeUserId = "fakeUserId";
-    const spyGet = jest.spyOn(lib, 'getSumpLevels');        
+    const spyGet = jest.spyOn(lib, 'getSumpLevels');
     let response = { warningLevel: 1, depthUnit: depthUnit, averageDepth: averageDepth, currentDepth: currentDepth };
 
     const renderComponent = async () => {
@@ -27,20 +27,20 @@ describe('BasementPanel', () => {
         spyGet.mockReturnValue(response)
     });
 
-    it('should show the Basement Panel', () => {
-        render(<BasementPanel />);
+    it('should show the Basement Panel', async () => {
+        await renderComponent();
         const actual = screen.getByTestId('basement-panel');
         expect(actual).toBeDefined();
     });
 
-    it('should show basement icon', () => {
-        render(<BasementPanel />);
+    it('should show basement icon', async () => {
+        await renderComponent();
         const actual = screen.getByTestId('sump-logo');
         expect(actual).toBeDefined();
     });
 
-    it('should display the basement Header', () => {
-        render(<BasementPanel />);
+    it('should display the basement Header', async () => {
+        await renderComponent();
         const actual = screen.getByText('Basement').textContent;
         expect(actual).toEqual('Basement');
     });
@@ -78,8 +78,8 @@ describe('BasementPanel', () => {
 
     describe('Sump Details', () => {
 
-        it('should make call to get sump pump depth', () => {
-            render(<BasementPanel />)
+        it('should make call to get sump pump depth', async () => {
+            await renderComponent();
             expect(spyGet).toBeCalledWith(fakeUserId);
         });
 
