@@ -15,32 +15,38 @@ describe('LightSwitch', () => {
         ]
     }
 
+    const renderComponent = async () => {
+        await act(async () => {
+            render(<LightSwitch data={groupData} />);
+        });
+    }
+
     beforeEach(() => {
         spySetLight.mockClear();
         spySetGroup.mockClear();
     });
 
-    it('should display the group name for the group light switch', () => {
-        render(<LightSwitch data={groupData} />);
+    it('should display the group name for the group light switch', async () => {
+        await renderComponent();
         const actual = screen.getByText(groupName);
         expect(actual).toBeDefined();
     });
 
-    it('should display the expansion icon', () => {
-        render(<LightSwitch data={groupData} />);
+    it('should display the expansion icon', async () => {
+        await renderComponent();
         const actual = screen.getByTestId('expansion-chevron');
 
         expect(actual).toBeDefined();
     });
 
-    it('should display the group light switch button', () => {
-        render(<LightSwitch data={groupData} />);
+    it('should display the group light switch button', async () => {
+        await renderComponent();
         const actual = screen.getByTestId('form-control').querySelector('input');
         expect(actual).toBeDefined();
     });
 
     it('should call set light group state on toggleChecked', async () => {
-        render(<LightSwitch data={groupData} />);
+        await renderComponent();
         await act(async () => {
             fireEvent.click(screen.getByRole('checkbox'));
         });
@@ -50,40 +56,38 @@ describe('LightSwitch', () => {
 
     describe('Light Expansion', () => {
 
-        it('should display expansion panel when areLightsOpen is true', () => {
-            render(<LightSwitch data={groupData} />);
+        it('should display expansion panel when areLightsOpen is true', async () => {
+            await renderComponent();
             fireEvent.click(screen.getByRole('button'));
             const actual = screen.getByTestId('light-group-expansion');
 
             expect(actual).toBeDefined();
         });
 
-        it('should not display expansion panel when areLightsOpen is false', () => {
-            render(<LightSwitch data={groupData} />);
+        it('should not display expansion panel when areLightsOpen is false', async () => {
+            await renderComponent();
             const actual = screen.queryByTestId('light-group-expansion');
 
             expect(actual).toBeNull();
         });
 
-        it('should display all light switches', () => {
-            render(<LightSwitch data={groupData} />);
+        it('should display all light switches', async () => {
+            await renderComponent();
             fireEvent.click(screen.getByRole('button'));
             const actual = screen.getAllByTestId('light-switches');
 
             expect(actual).toHaveLength(2);
         });
 
-        it('should not display light switches when not expanded', () => {
-            render(<LightSwitch data={groupData} />);
+        it('should not display light switches when not expanded', async () => {
+            await renderComponent();
             const actual = screen.queryAllByTestId('light-switches');
 
             expect(actual).toHaveLength(0);
         });
 
         it('should make api call when toggling on the desk lamp', async () => {
-            await act(async () => {
-                render(<LightSwitch data={groupData} />);
-            });
+            await renderComponent();
             await act(async () => {
                 fireEvent.click(screen.getByRole('button'));
             });
@@ -94,8 +98,8 @@ describe('LightSwitch', () => {
             expect(spySetLight).toHaveBeenCalledWith(1, false, 255);
         });
 
-        it('should make api call when toggling on the desk lamp', () => {
-            render(<LightSwitch data={groupData} />);
+        it('should make api call when toggling on the desk lamp', async () => {
+            await renderComponent();
             fireEvent.click(screen.getByRole('button'));
             fireEvent.click(screen.getAllByTestId('light-switches')[1]);
 
