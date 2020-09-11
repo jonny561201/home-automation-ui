@@ -60,6 +60,11 @@ const Reducer = (state, action) => {
                 ...state,
                 addedGarageNode: action.payload
             };
+        case 'SET_GARAGE_COORDS':
+            return {
+                ...state,
+                garageCoords: action.payload
+            }
         default:
             return state;
     }
