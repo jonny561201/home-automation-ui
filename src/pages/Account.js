@@ -5,7 +5,6 @@ import { CheckCircle, Error } from '@material-ui/icons';
 import { getStore } from '../state/GlobalState';
 import { updateUserAccount } from '../utilities/RestApi';
 import AccountChildUser from '../components/segments/AccountChildUser';
-import LocateGarage from '../components/segments/LocateGarage';
 import './Account.css';
 
 export default function Account() {
@@ -85,10 +84,8 @@ export default function Account() {
                         </div>
                         {passwordMessage()}
                         <button data-testid={"password-submit"} type="submit">Submit</button>
-                        <Divider className="account-divider" />
                     </form>
                     <AccountChildUser />
-                    <LocateGarage />
                 </div>
             </div>
         </div>

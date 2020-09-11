@@ -72,12 +72,6 @@ describe('Account Page', () => {
         expect(actual).toEqual('Submit');
     });
 
-    it('should display the locate garage component', async () => {
-        await renderComponent();
-        const actual = screen.getByText('Set Garage Location');
-        expect(actual).toBeDefined();
-    });
-
     describe('Password Update Errors', () => {
 
         it('should display error when passwords do not match', async () => {
