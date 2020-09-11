@@ -3,7 +3,7 @@ import { getStore } from '../../state/GlobalState';
 import { addUserChildAccount, getUserChildAccounts, deleteUserChildAccount } from '../../utilities/RestApi';
 import RemoveIcon from '@material-ui/icons/RemoveCircle';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import { Divider, MenuItem, Select, InputLabel, Input, FormControl } from '@material-ui/core';
+import { Divider, MenuItem, Select, InputLabel, Input, FormControl, Chip } from '@material-ui/core';
 import "./AccountChildUser.css"
 
 export default function AccountChildUser() {
@@ -25,11 +25,11 @@ export default function AccountChildUser() {
 
     const submitChildAccount = async (event) => {
         event.preventDefault();
-        if ((!isEmailInvalid && !isRoleInvalid) && (selectedRole.length !== 0 && email != null && email != "")) {
+        if ((!isEmailInvalid && !isRoleInvalid) && (selectedRole.length !== 0 && email !== null && email !== "")) {
             const response = await addUserChildAccount(getStore().getUserId(), email, selectedRole);
             setTest(response);
         } else {
-            setIsEmailInvalid(email == "" || email == null);
+            setIsEmailInvalid(email === "" || email === null);
             setIsRoleInvalid(selectedRole.length === 0);
         }
     }
@@ -72,7 +72,14 @@ export default function AccountChildUser() {
                             <td className="account-roles">
                                 <FormControl error={isRoleInvalid}>
                                     <InputLabel className="child-user-label" id="demo-mutiple-name-label">Roles</InputLabel>
-                                    <Select className="child-user-input" data-testid="roles-account-user" multiple value={selectedRole} onChange={(input) => validateRole(input)} input={<Input />} >
+                                    <Select className="child-user-input" data-testid="roles-account-user" multiple value={selectedRole} onChange={(input) => validateRole(input)} input={<Input />}
+                                        renderValue={(selectedRole) => (
+                                            <div >
+                                                {selectedRole.map((value) => (
+                                                    <Chip key={value} label={value} />
+                                                ))}
+                                            </div>
+                                        )}>
                                         {roles.map((role) => (
                                             <MenuItem key={role.role_name} value={role.role_name}>
                                                 {role.role_name}
