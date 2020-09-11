@@ -24,9 +24,14 @@ describe('Locate Garage', () => {
 
     it('should display the helper text for adding garage location when one not provided ', async () => {
         await renderComponent(null);
-        const actual = screen.getByTestId('locate-garage-paragraph');
+        const actual = screen.getByTestId('locate-garage-paragraph').textContent;
         expect(actual).toEqual("To locate your garage; please stand in the center of the garage and click the 'Add' button");
     });
 
+    it('should display the add button when location not provided', async () => {
+        await renderComponent(null);
+        const actual = screen.getByTestId('locate-garage-button').textContent;
+        expect(actual).toEqual('Add');
+    });
 
 });
