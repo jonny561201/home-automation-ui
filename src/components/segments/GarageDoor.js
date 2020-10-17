@@ -5,30 +5,33 @@ import { ExpansionPanelDetails, ExpansionPanelActions } from '@material-ui/core'
 
 
 export default function GarageDoor(props) {
-    const [state, ] = useContext(Context);
+    const [state, dispatch] = useContext(Context);
     const [isOpen, setIsOpen] = useState();
-    const [duration, setDuration] = useState(new Date().valueOf());
+    const [duration, setDuration] = useState();
     const [statusDays, setStatusDays] = useState();
     const [statusMins, setStatusMins] = useState();
     const [statusHours, setStatusHours] = useState();
 
     useEffect(() => {
-        const getData = async () => {
-            const garageStatus = await getGarageStatus(state.userId, props.device.node_device);
-            setIsOpen(garageStatus.isGarageOpen);
-            setDuration(garageStatus.statusDuration);
-        };
-        getData();
+        getGarageData();
         const interval = setInterval(() => {
             const diffMs = new Date() - new Date(duration);
             setStatusDays(Math.floor(diffMs / 86400000));
             setStatusHours(Math.floor((diffMs % 86400000) / 3600000));
             setStatusMins(Math.round(((diffMs % 86400000) % 3600000) / 60000));
-          }, 1000);
+        }, 1000);
         return () => {
             clearInterval(interval);
         };
     }, [duration, isOpen, state.userId, props.device.node_device]);
+
+    const getGarageData = async () => {
+        const garageStatus = await getGarageStatus(state.userId, props.device.node_device);
+        setIsOpen(garageStatus.isGarageOpen);
+        setDuration(garageStatus.statusDuration);
+        dispatch({ type: 'SET_GARAGE_COORDS', payload: garageStatus.coordinates });
+        // setCoordinates(garageStatus.coordinates);
+    };
 
     return (
         <div>
