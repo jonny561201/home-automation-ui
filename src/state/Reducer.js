@@ -65,6 +65,11 @@ const Reducer = (state, action) => {
                 ...state,
                 garageCoords: action.payload
             }
+        case 'SET_USER_COORDS':
+            return {
+                ...state,
+                userCoords: action.payload
+            }
         default:
             return state;
     }
