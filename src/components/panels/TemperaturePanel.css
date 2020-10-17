@@ -4,8 +4,8 @@
 
 .internal-temp {
     position: absolute;
-    top: 65%;
-    left: 41%;
+    top: 63%;
+    left: 40%;
     font-size: 40px;
     font-weight: bolder;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
@@ -13,7 +13,7 @@
 
 .external-temp {
     position: absolute;
-    top: 38%;
+    top: 42%;
     left: 27%;
     font-size: 30px;
     font-weight: bolder;
