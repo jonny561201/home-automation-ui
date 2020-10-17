@@ -31,14 +31,14 @@ export default function TemperatureImage(props) {
     };
 
     const getWeatherLabel = (weather) => {
-        return weather.replace("_", " ").replace(".png", "");
+        return weather.replace(/_/g, " ").replace(".png", "");
     }
 
     const getWeatherImage = () => {
         const weatherDesc = props.description.toLowerCase();
         if (weatherDesc.includes("thunderstorm")) {
             return <img className="weather-icon" alt="description" src={ThunderstormIcon} label="thunderstorms" />
-        } else if (state.isNight && (weatherDesc === "clear sky")) {
+        } else if (state.isNight && (weatherDesc === "clear sky" || weatherDesc === "few clouds")) {
             const nightWeatherDesc = `${weatherDesc} night`
             return <img className="weather-icon" alt="description" label={getWeatherLabel(weatherTypes[nightWeatherDesc])} />
         } else if (weatherDesc in weatherTypes) {
