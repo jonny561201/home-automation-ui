@@ -14,7 +14,8 @@
     "react-scripts": "^3.4.1",
     "react-transform-catch-errors": "^1.0.2",
     "react-transform-hmr": "^1.0.4",
-    "redbox-react": "^1.6.0"
+    "redbox-react": "^1.6.0",
+    "sunrise-sunset-js": "^2.1.2"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.7.0",
