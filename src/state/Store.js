@@ -16,6 +16,7 @@ const initialState = {
     garageRole: null,
     addedGarageNode: false,
     garageCoords: null,
+    userCoords: null,
 };
 
 const Store = ({ children }) => {
