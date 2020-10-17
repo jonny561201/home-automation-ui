@@ -4,9 +4,9 @@
 
 .internal-temp {
     position: absolute;
-    top: 68%;
-    left: 37%;
-    font-size: 35px;
+    top: 65%;
+    left: 41%;
+    font-size: 40px;
     font-weight: bolder;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
 }
@@ -15,7 +15,7 @@
     position: absolute;
     top: 38%;
     left: 27%;
-    font-size: 35px;
+    font-size: 30px;
     font-weight: bolder;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
 }
