@@ -1,4 +1,5 @@
 import React from 'react';
+import { Context } from '../../../state/Store';
 import 'jest-canvas-mock';
 import * as lib from '../../../utilities/RestApi';
 import * as services from '../../../utilities/Services';
@@ -27,7 +28,9 @@ describe('TemperaturePanel', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <TemperaturePanel />
+                <Context.Provider value={[{}, () => { }]}>
+                    <TemperaturePanel />
+                </Context.Provider>
             );
         });
     }

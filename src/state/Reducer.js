@@ -70,6 +70,11 @@ const Reducer = (state, action) => {
                 ...state,
                 userCoords: action.payload
             }
+        case 'SET_IS_NIGHT':
+            return {
+                ...state,
+                isNight: action.payload
+            }
         default:
             return state;
     }

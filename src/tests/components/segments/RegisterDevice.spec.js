@@ -16,7 +16,7 @@ describe('Register Device', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{userId, userId}, () => {}]}>
+                <Context.Provider value={[{userId: userId}, () => {}]}>
                     <RegisterDevice />
                 </Context.Provider>
             );
