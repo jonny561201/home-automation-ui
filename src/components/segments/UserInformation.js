@@ -5,8 +5,6 @@ import { calculateDistanceInMeters } from '../../utilities/Location';
 
 export default function UserLocation() {
     const [state, dispatch] = useContext(Context);
-    const [sunrise, setSunrise] = useState();
-    const [sunset, setSunset] = useState();
     const [distance, setDistance] = useState();
     const [firstCheck, setFirstCheck] = useState(false);
     const [secondCheck, setSecondCheck] = useState(false);
@@ -48,10 +46,13 @@ export default function UserLocation() {
     }
 
     const calculateTimeOfDay = (userCoords) => {
-        // TODO: need to set is night flag if I can get it working
-        setSunrise(getSunrise(userCoords.latitude, userCoords.longitude));
-        setSunset(getSunset(userCoords.latitude, userCoords.longitude));
-        dispatch({ type: 'SET_IS_NIGHT', payload: true });
+        const today = new Date();
+        const now = new Date();
+        const tomorrow = new Date(now.setTime(now.getTime() + 1 * 86400000));
+        const sunrise = getSunrise(userCoords.latitude, userCoords.longitude, tomorrow);
+        const sunset = getSunset(userCoords.latitude, userCoords.longitude);
+        const night = today >= sunset && today < sunrise;
+        dispatch({ type: "SET_IS_NIGHT", payload: night });
     }
 
     const calculateDistance = () => {
@@ -63,16 +64,15 @@ export default function UserLocation() {
                 const userDistance = calculateDistanceInMeters(currentCoords.latitude, currentCoords.longitude, coords.latitude, coords.longitude);
                 setDistance(userDistance);
                 dispatch({ type: "SET_USER_COORDS", payload: userDistance });
-                // calculateTimeOfDay(currentCoords);
+                calculateTimeOfDay(currentCoords);
             }, (error) => { alert('Enable GPS position feature.') }, { enableHighAccuracy: true });
         }
     }
 
     return (
         <>
-            <p>Sunrise: {sunrise}</p>
-            <p>Sunset: {sunset}</p>
             <p>Distance: {distance} Miles</p>
+            <p>IsNight: {String(state.isNight)}</p>
         </>
     )
 }
