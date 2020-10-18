@@ -4,6 +4,7 @@ import AccountIcon from './AccountIcon';
 import AccountMenu from '../header/AccountMenu';
 import './Header.css';
 import { getStore } from '../../state/GlobalState';
+import UserInformation from '../segments/UserInformation';
 
 
 export default function Header() {
@@ -29,6 +30,7 @@ export default function Header() {
                 ? <AccountMenu toggle={() => setSettingsActive(!settingsActive)} parentRef={wrapperRef} />
                 : <div></div>
             }
+            <UserInformation />
         </div>
     );
 }

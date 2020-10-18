@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Context } from '../../state/Store';
 import ClearIcon from '../../resources/weatherIcons/sunny.png';
 import DrizzleIcon from '../../resources/weatherIcons/drizzle.png';
@@ -21,6 +21,18 @@ import './TemperatureImage.css'
 // need to update the below to useEffect and check at an interval
 export default function TemperatureImage(props) {
     const [state,] = useContext(Context);
+    const [weatherIcon, setWeatherIcon] = useState();
+    const [weatherDesc, setWeatherDesc] = useState("");
+
+    useEffect(() => {
+        getWeatherImage();
+        const interval = setInterval(() => {
+            getWeatherImage();
+        }, 5000);
+        return () => {
+            clearInterval(interval);
+        };
+    });
 
     const weatherTypes = {
         "light intensity drizzle": DrizzleIcon, "drizzle": DrizzleIcon, "drizzle rain": DrizzleIcon, "heavy intensity drizzle": DrizzleIcon,
@@ -37,20 +49,24 @@ export default function TemperatureImage(props) {
     const getWeatherImage = () => {
         const weatherDesc = props.description.toLowerCase();
         if (weatherDesc.includes("thunderstorm")) {
-            return <img className="weather-icon" alt="description" src={ThunderstormIcon} label="thunderstorms" />
+            setWeatherIcon(ThunderstormIcon);
+            setWeatherDesc("thunderstorms");
         } else if (state.isNight && (weatherDesc === "clear sky" || weatherDesc === "few clouds")) {
             const nightWeatherDesc = `${weatherDesc} night`
-            return <img className="weather-icon" alt="description" label={getWeatherLabel(weatherTypes[nightWeatherDesc])} />
+            setWeatherIcon(weatherTypes[nightWeatherDesc]);
+            setWeatherDesc(getWeatherLabel(weatherTypes[nightWeatherDesc]));
         } else if (weatherDesc in weatherTypes) {
-            return <img className="weather-icon" alt="description" src={weatherTypes[weatherDesc]} label={getWeatherLabel(weatherTypes[weatherDesc])} />
+            setWeatherIcon(weatherTypes[weatherDesc]);
+            setWeatherDesc(getWeatherLabel(weatherTypes[weatherDesc]));
         } else {
-            return <img className="weather-icon" alt="description" src={CloudyIcon} label="cloudy" />;
+            setWeatherIcon(CloudyIcon);
+            setWeatherDesc("cloudy");
         }
     }
 
     return (
         <div>
-            {getWeatherImage()}
+            <img className="weather-icon" alt="description" src={weatherIcon} label={weatherDesc} />
             <img className="home-icon" alt="home" src={HomeIcon} />
         </div>
     );
