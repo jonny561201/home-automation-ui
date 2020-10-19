@@ -36,8 +36,8 @@ export default function TemperaturePanel() {
             setIsCooling(response.mode === "cooling" ? true : false);
             setIsHeating(response.mode === "heating" ? true : false);
             setMode(response.mode);
-            setDescription(response.description);
             toggleColor(response.mode);
+            setDescription(response.description);
         };
         getTempData();
     }, []);

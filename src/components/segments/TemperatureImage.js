@@ -1,5 +1,7 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useInterval } from '../../utilities/UseInterval';
 import { Context } from '../../state/Store';
+import { getSunrise, getSunset } from 'sunrise-sunset-js';
 import ClearIcon from '../../resources/weatherIcons/sunny.png';
 import DrizzleIcon from '../../resources/weatherIcons/drizzle.png';
 import CloudyIcon from '../../resources/weatherIcons/cloudy.png';
@@ -15,24 +17,22 @@ import ClearNightIcon from '../../resources/weatherIcons/clear_night.png';
 import './TemperatureImage.css'
 
 
-// TODO: test night weather icons
-// need to update userlocation component to become userinfo component 
-// need to get sunset time and sunrise to get sunrise and sunset each day
-// need to update the below to useEffect and check at an interval
 export default function TemperatureImage(props) {
     const [state,] = useContext(Context);
+    const [isNight, setIsNight] = useState(false);
     const [weatherIcon, setWeatherIcon] = useState();
     const [weatherDesc, setWeatherDesc] = useState("");
 
     useEffect(() => {
+        calculateTimeOfDay();
         getWeatherImage();
-        const interval = setInterval(() => {
-            getWeatherImage();
-        }, 5000);
-        return () => {
-            clearInterval(interval);
-        };
-    });
+        getWeatherImage();
+    }, [isNight, weatherIcon, weatherDesc]);
+
+    useInterval(() => {
+        calculateTimeOfDay();
+        getWeatherImage();
+    }, 10000);
 
     const weatherTypes = {
         "light intensity drizzle": DrizzleIcon, "drizzle": DrizzleIcon, "drizzle rain": DrizzleIcon, "heavy intensity drizzle": DrizzleIcon,
@@ -46,12 +46,23 @@ export default function TemperatureImage(props) {
         return weather.replace(/_/g, " ").replace(".png", "");
     }
 
+    const calculateTimeOfDay = () => {
+        if (state.garageCoords !== null) {
+            const today = new Date();
+            const now = new Date();
+            const tomorrow = new Date(now.setTime(now.getTime() + 1 * 86400000));
+            const sunrise = getSunrise(state.garageCoords.latitude, state.garageCoords.longitude, tomorrow);
+            const sunset = getSunset(state.garageCoords.latitude, state.garageCoords.longitude);
+            setIsNight(today >= sunset && today < sunrise);
+        }
+    }
+
     const getWeatherImage = () => {
         const weatherDesc = props.description.toLowerCase();
         if (weatherDesc.includes("thunderstorm")) {
             setWeatherIcon(ThunderstormIcon);
             setWeatherDesc("thunderstorms");
-        } else if (state.isNight && (weatherDesc === "clear sky" || weatherDesc === "few clouds")) {
+        } else if (isNight && (weatherDesc === "clear sky" || weatherDesc === "few clouds")) {
             const nightWeatherDesc = `${weatherDesc} night`
             setWeatherIcon(weatherTypes[nightWeatherDesc]);
             setWeatherDesc(getWeatherLabel(weatherTypes[nightWeatherDesc]));

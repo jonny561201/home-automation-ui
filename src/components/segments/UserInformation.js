@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { getSunrise, getSunset } from 'sunrise-sunset-js';
 import { Context } from '../../state/Store';
 import { calculateDistanceInMeters } from '../../utilities/Location';
 
@@ -11,6 +10,7 @@ export default function UserLocation() {
     const [inGarage, setInGarage] = useState(false);
 
     useEffect(() => {
+        calculateDistance();
         const interval = setInterval(() => {
             calculateDistance();
         }, 5000);
@@ -45,26 +45,14 @@ export default function UserLocation() {
         }
     }
 
-    const calculateTimeOfDay = (userCoords) => {
-        const today = new Date();
-        const now = new Date();
-        const tomorrow = new Date(now.setTime(now.getTime() + 1 * 86400000));
-        const sunrise = getSunrise(userCoords.latitude, userCoords.longitude, tomorrow);
-        const sunset = getSunset(userCoords.latitude, userCoords.longitude);
-        const night = today >= sunset && today < sunrise;
-        dispatch({ type: "SET_IS_NIGHT", payload: night });
-    }
-
     const calculateDistance = () => {
         if (state.garageCoords !== null) {
-            navigator.geolocation.watchPosition((position) => {
-                console.log("updated location")
+            navigator.geolocation.getCurrentPosition((position) => {
                 const coords = position.coords;
                 const currentCoords = state.garageCoords;
                 const userDistance = calculateDistanceInMeters(currentCoords.latitude, currentCoords.longitude, coords.latitude, coords.longitude);
                 setDistance(userDistance);
                 dispatch({ type: "SET_USER_COORDS", payload: userDistance });
-                calculateTimeOfDay(currentCoords);
             }, (error) => { alert('Enable GPS position feature.') }, { enableHighAccuracy: true });
         }
     }
@@ -72,7 +60,6 @@ export default function UserLocation() {
     return (
         <>
             <p>Distance: {distance} Miles</p>
-            <p>IsNight: {String(state.isNight)}</p>
         </>
     )
 }
