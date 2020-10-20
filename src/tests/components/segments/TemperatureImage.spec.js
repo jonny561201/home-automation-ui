@@ -111,6 +111,12 @@ describe('TemperatureImage', () => {
             expect(actual).toHaveAttribute('label', 'drizzle');
         });
     
+        it('should show drizzle icon when mist', async () => {
+            await renderComponent('mist');
+            const actual = screen.getByAltText('description');
+            expect(actual).toHaveAttribute('label', 'drizzle');
+        });
+    
         it('should show light rain icon when light rain', async () => {
             await renderComponent('light rain');
             const actual = screen.getByAltText('description');
