@@ -9,11 +9,12 @@ import DashboardPanels from '../../../components/panels/DashboardPanels';
 describe('DashboardPanel', () => {
     const store = getStore();
     const garageRole = {devices: [{node_name: 'test'}]};
+    const coords = {latitude: 1, longitude: -1}
 
     const renderComponent = async () => {
         await act(async() => {
             render(
-                <Context.Provider value={[{garageRole: garageRole}, () => {}]}>
+                <Context.Provider value={[{garageRole: garageRole, garageCoords: coords}, () => {}]}>
                     <DashboardPanels />
                 </Context.Provider>
                 );

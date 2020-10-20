@@ -1,4 +1,5 @@
 import React from 'react';
+import { Context } from '../../state/Store';
 import Settings from '../../pages/Settings'
 import * as lib from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
@@ -15,10 +16,15 @@ describe('Settings Page', () => {
     const spyGet = jest.spyOn(lib, 'getUserPreferences');
 
     const renderComponent = async () => {
-        await act(async() => {
-            render(<Settings  />);
+        await act(async () => {
+            render(
+                <Context.Provider value={[{}, () => { }]}>
+                    <Settings />
+                </Context.Provider>
+            );
         });
     }
+
 
     beforeEach(() => {
         spyUpdate.mockClear();

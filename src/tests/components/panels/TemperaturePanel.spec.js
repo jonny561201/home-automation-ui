@@ -19,6 +19,7 @@ describe('TemperaturePanel', () => {
     const internalTemp = 72.8;
     const externalTemp = 32.7;
     const desiredTemp = 35.7;
+    const coords = {latitude: 1, longitude: -1}
 
     const response = {
         currentTemp: internalTemp, temp: externalTemp, desiredTemp: desiredTemp, mode: "heating",
@@ -28,7 +29,7 @@ describe('TemperaturePanel', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{}, () => { }]}>
+                <Context.Provider value={[{garageCoords: coords}, () => { }]}>
                     <TemperaturePanel />
                 </Context.Provider>
             );

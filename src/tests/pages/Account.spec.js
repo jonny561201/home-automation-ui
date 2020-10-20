@@ -1,4 +1,5 @@
 import React from 'react';
+import { Context } from '../../state/Store';
 import Account from '../../pages/Account';
 import * as lib from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
@@ -12,7 +13,11 @@ describe('Account Page', () => {
 
     const renderComponent = async () => {
         await act(async () => {
-            render(<Account />);
+            render(
+                <Context.Provider value={[{}, () => { }]}>
+                    <Account />
+                </Context.Provider>
+            );
         });
     }
 

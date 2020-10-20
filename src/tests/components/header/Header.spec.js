@@ -1,29 +1,40 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { Context } from '../../../state/Store';
+import { render, screen, act } from '@testing-library/react';
 import Header from '../../../components/header/Header';
 import { getStore } from '../../../state/GlobalState';
 
 describe('HeaderComponent', () => {
     const expectedPage = 'Home Automation';
 
+    const renderComponent = async () => {
+        await act(async () => {
+            render(
+                <Context.Provider value={[{}, () => { }]}>
+                    <Header />
+                </Context.Provider>
+            );
+        });
+    }
+
     beforeEach(() => {
         getStore().setActivePage(expectedPage);
     });
 
-    it('should display header text', () => {
-        render(<Header />);
+    it('should display header text', async () => {
+        await renderComponent();
         const actual = screen.getByText(expectedPage).textContent;
         expect(actual).toEqual(expectedPage);
     });
 
-    it('should display company logo', () => {
-        render(<Header />);
+    it('should display company logo', async () => {
+        await renderComponent();
         const actual = screen.getByRole('img');
         expect(actual).toBeDefined();
     });
 
-    it('should display account icon', () => {
-        render(<Header />);
+    it('should display account icon', async () => {
+        await renderComponent();
         const actual = screen.getByTestId('user-initials');
         expect(actual).toBeDefined();
     });
