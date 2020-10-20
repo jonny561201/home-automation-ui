@@ -25,22 +25,30 @@ export default function TemperaturePanel() {
 
 
     useEffect(() => {
-        const getTempData = async () => {
-            const response = await getCurrentTemperature(getStore().getUserId());
-            setExternalTemp(Math.round(response.temp));
-            setInternalTemp(Math.round(response.currentTemp));
-            setIsFahrenheit(response.isFahrenheit);
-            setDesiredTemp(response.desiredTemp === null ? parseFloat(response.currentTemp.toFixed(0)) : parseFloat(response.desiredTemp.toFixed(0)));
-            setMinThermostatTemp(response.minThermostatTemp);
-            setMaxThermostatTemp(response.maxThermostatTemp);
-            setIsCooling(response.mode === "cooling" ? true : false);
-            setIsHeating(response.mode === "heating" ? true : false);
-            setMode(response.mode);
-            toggleColor(response.mode);
-            setDescription(response.description);
-        };
         getTempData();
+        const interval = setInterval(() => {
+            getTempData();
+        }, 120000);
+        return () => {
+            clearInterval(interval);
+        };
     }, []);
+
+    const getTempData = async () => {
+        const response = await getCurrentTemperature(getStore().getUserId());
+        console.log(`WeatherResponse:`, JSON.stringify(response))
+        setExternalTemp(Math.round(response.temp));
+        setInternalTemp(Math.round(response.currentTemp));
+        setIsFahrenheit(response.isFahrenheit);
+        setDesiredTemp(response.desiredTemp === null ? parseFloat(response.currentTemp.toFixed(0)) : parseFloat(response.desiredTemp.toFixed(0)));
+        setMinThermostatTemp(response.minThermostatTemp);
+        setMaxThermostatTemp(response.maxThermostatTemp);
+        setIsCooling(response.mode === "cooling" ? true : false);
+        setIsHeating(response.mode === "heating" ? true : false);
+        setMode(response.mode);
+        setDescription(response.description);
+        toggleColor(response.mode);
+    };
 
     const knobChange = (newValue) => {
         if (isHeating || isCooling) {
