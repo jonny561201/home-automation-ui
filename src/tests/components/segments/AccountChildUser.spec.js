@@ -26,7 +26,6 @@ describe('AccountChildUser', () => {
         spyPost.mockClear();
         spyDelete.mockClear();
         spyGet.mockReturnValue(response);
-
     });
 
     it('should display the Account users header', async () => {

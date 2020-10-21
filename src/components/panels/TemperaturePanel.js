@@ -24,7 +24,6 @@ export default function TemperaturePanel() {
     const [minThermostatTemp, setMinThermostatTemp] = useState(0.0);
     const [maxThermostatTemp, setMaxThermostatTemp] = useState(0.0);
 
-
     useEffect(() => {
         getTempData();
     }, []);
@@ -33,10 +32,8 @@ export default function TemperaturePanel() {
         getTempData();
     }, 125000);
 
-
     const getTempData = async () => {
         const response = await getCurrentTemperature(getStore().getUserId());
-        console.log(`WeatherResponse:`, JSON.stringify(response))
         setExternalTemp(Math.round(response.temp));
         setInternalTemp(Math.round(response.currentTemp));
         setIsFahrenheit(response.isFahrenheit);
