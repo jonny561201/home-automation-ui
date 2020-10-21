@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useInterval } from '../../utilities/UseInterval';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { ExpansionPanel, Typography, ExpansionPanelSummary, Divider, FormControl, FormGroup, Switch, FormControlLabel } from '@material-ui/core';
 import './TemperaturePanel.css';
@@ -26,13 +27,12 @@ export default function TemperaturePanel() {
 
     useEffect(() => {
         getTempData();
-        const interval = setInterval(() => {
-            getTempData();
-        }, 120000);
-        return () => {
-            clearInterval(interval);
-        };
     }, []);
+
+    useInterval(() => {
+        getTempData();
+    }, 125000);
+
 
     const getTempData = async () => {
         const response = await getCurrentTemperature(getStore().getUserId());

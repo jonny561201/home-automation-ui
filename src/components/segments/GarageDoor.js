@@ -23,7 +23,7 @@ export default function GarageDoor(props) {
 
     useInterval(() => {
         getGarageData();
-    }, 120000);
+    }, 60000);
 
     const updateGarageDuration = () => {
         const diffMs = new Date() - new Date(duration);

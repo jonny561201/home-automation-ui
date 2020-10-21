@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useInterval } from '../../utilities/UseInterval';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import BasementIcon from '../../resources/panelIcons/BasementIcon.jpg';
 import SumpPumpLowIcon from '../../resources/panelIcons/SumpPumpLowIcon.png';
@@ -18,15 +19,20 @@ export default function BasementPanel() {
     const [averageSumpDepth, setAverageSumpDepth] = useState(0.0);
 
     useEffect(() => {
-        const getSumpData = async () => {
-            const response = await getSumpLevels(getStore().getUserId()); 
-            setWarningLevel(response.warningLevel);
-            setDepthUnit(response.depthUnit);
-            setCurrentSumpDepth(response.currentDepth.toFixed(1));
-            setAverageSumpDepth(response.averageDepth.toFixed(1));
-        };
         getSumpData();
     }, []);
+
+    useInterval(() => {
+        getSumpData();
+    }, 120000);
+
+    const getSumpData = async () => {
+        const response = await getSumpLevels(getStore().getUserId()); 
+        setWarningLevel(response.warningLevel);
+        setDepthUnit(response.depthUnit);
+        setCurrentSumpDepth(response.currentDepth.toFixed(1));
+        setAverageSumpDepth(response.averageDepth.toFixed(1));
+    };
 
     const getSumpIcon = () => {
         if (warningLevel === 0) {

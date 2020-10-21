@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useInterval } from '../../utilities/UseInterval';
 import { Context } from '../../state/Store';
 import { calculateDistanceInMeters } from '../../utilities/Location';
 
@@ -11,13 +12,11 @@ export default function UserLocation() {
 
     useEffect(() => {
         calculateDistance();
-        const interval = setInterval(() => {
-            calculateDistance();
-        }, 5000);
-        return () => {
-            clearInterval(interval);
-        };
     });
+
+    useInterval(() => {
+        calculateDistance();
+    }, 5000);
 
     const shouldOpenGarage = () => {
         //within 100M of Garage
