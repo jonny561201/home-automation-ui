@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { useInterval } from '../../utilities/UseInterval';
 import { Context } from '../../state/Store';
 import { toggleGarageDoor, updateGarageState, getGarageStatus } from '../../utilities/RestApi';
 import { ExpansionPanelDetails, ExpansionPanelActions } from '@material-ui/core';
@@ -14,23 +15,28 @@ export default function GarageDoor(props) {
 
     useEffect(() => {
         getGarageData();
-        const interval = setInterval(() => {
-            const diffMs = new Date() - new Date(duration);
-            setStatusDays(Math.floor(diffMs / 86400000));
-            setStatusHours(Math.floor((diffMs % 86400000) / 3600000));
-            setStatusMins(Math.round(((diffMs % 86400000) % 3600000) / 60000));
-        }, 1000);
-        return () => {
-            clearInterval(interval);
-        };
-    }, [duration, isOpen, state.userId, props.device.node_device]);
+    }, []);
+
+    useInterval(() => {
+        updateGarageDuration();
+    }, 1000);
+
+    useInterval(() => {
+        getGarageData();
+    }, 120000);
+
+    const updateGarageDuration = () => {
+        const diffMs = new Date() - new Date(duration);
+        setStatusDays(Math.floor(diffMs / 86400000));
+        setStatusHours(Math.floor((diffMs % 86400000) / 3600000));
+        setStatusMins(Math.round(((diffMs % 86400000) % 3600000) / 60000));
+    };
 
     const getGarageData = async () => {
         const garageStatus = await getGarageStatus(state.userId, props.device.node_device);
         setIsOpen(garageStatus.isGarageOpen);
         setDuration(garageStatus.statusDuration);
         dispatch({ type: 'SET_GARAGE_COORDS', payload: garageStatus.coordinates });
-        // setCoordinates(garageStatus.coordinates);
     };
 
     return (
