@@ -35,11 +35,11 @@ export default function TemperatureImage(props) {
     }, 10000);
 
     const weatherTypes = {
-        "light intensity drizzle": DrizzleIcon, "drizzle": DrizzleIcon, "drizzle rain": DrizzleIcon, "heavy intensity drizzle": DrizzleIcon,
+        "light intensity drizzle": DrizzleIcon, "drizzle": DrizzleIcon, "drizzle rain": DrizzleIcon, "heavy intensity drizzle": DrizzleIcon, "mist": DrizzleIcon,
         "light intensity drizzle rain": DrizzleIcon, "shower drizzle": DrizzleIcon, "light rain": LightRainIcon, "moderate rain": LightRainIcon,
-        "heavy intensity rain": HeavyRainIcon, "very heavy rain": HeavyRainIcon, "extreme rain": HeavyRainIcon, "shower rain": HeavyRainIcon, "mist": DrizzleIcon,
+        "heavy intensity rain": HeavyRainIcon, "very heavy rain": HeavyRainIcon, "extreme rain": HeavyRainIcon, "shower rain": HeavyRainIcon,"light snow": LightSnowIcon, 
         "heavy intensity shower rain": HeavyRainIcon, "clear sky": ClearIcon, "few clouds": PartlyCloudyIcon, "scattered clouds": PartlyCloudyIcon, "snow": LightSnowIcon,
-        "light snow": LightSnowIcon, "heavy snow": SnowyIcon, "sleet": SnowyIcon, "few clouds night": PartlyCloudNightIcon, "clear sky night": ClearNightIcon
+        "heavy snow": SnowyIcon, "sleet": SnowyIcon, "few clouds night": PartlyCloudNightIcon, "clear sky night": ClearNightIcon, "scattered clouds night": PartlyCloudNightIcon
     };
 
     const getWeatherLabel = (weather) => {
@@ -62,7 +62,7 @@ export default function TemperatureImage(props) {
         if (weatherDesc.includes("thunderstorm")) {
             setWeatherIcon(ThunderstormIcon);
             setWeatherDesc("thunderstorms");
-        } else if (isNight && (weatherDesc === "clear sky" || weatherDesc === "few clouds")) {
+        } else if (isNight && (weatherDesc === "clear sky" || weatherDesc === "few clouds" || weatherDesc === "scattered clouds")) {
             const nightWeatherDesc = `${weatherDesc} night`
             setWeatherIcon(weatherTypes[nightWeatherDesc]);
             setWeatherDesc(getWeatherLabel(weatherTypes[nightWeatherDesc]));

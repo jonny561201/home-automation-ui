@@ -241,10 +241,16 @@ describe('TemperatureImage', () => {
             expect(actual).toHaveAttribute('label', 'partly cloudy night');
         });
 
-        it('should return clear night weather icon', async () => {
+        it('should return clear night weather icon when clear at night', async () => {
             await renderComponent('clear sky');
             const actual = screen.getByAltText('description');
             expect(actual).toHaveAttribute('label', 'clear night');
+        });
+
+        it('should return partly cloudy night icon for scattered clouds', async () => {
+            await renderComponent('scattered clouds');
+            const actual = screen.getByAltText('description');
+            expect(actual).toHaveAttribute('label', 'partly cloudy night');
         });
     });
 });
