@@ -19,3 +19,7 @@
     border-radius: 1px;
     margin-left: 4rem;
 }
+
+.light-text {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+}
