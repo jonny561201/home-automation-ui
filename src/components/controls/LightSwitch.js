@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { Context } from '../../state/Store';
 import { debounchApi } from '../../utilities/Services';
 import { CustomSlider } from '../../components/controls/Slider';
 import { ButtonBase } from '@material-ui/core';
@@ -8,6 +9,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import './LightSwitch.css';
 
 export default function LightSwitch(props) {
+    const [state, dispatch] = useContext(Context);
     const [lights, ] = useState(props.data.lights);
     const [groupId,] = useState(props.data.groupId);
     const [groupName,] = useState(props.data.groupName);
@@ -16,14 +18,16 @@ export default function LightSwitch(props) {
 
     const sliderToggleLightGroup = async (event, value) => {
         const newBrightness = Math.round(value * 2.55);
+        const updatedLights = state.userLights.filter(x => x.groupId == groupId).map(o => ({ ...o, brightness: newBrightness }));
         debounchApi(() => setLightGroupState(groupId, true, newBrightness));
+        dispatch({type: 'SET_ALL_USER_LIGHTS', payload: updatedLights});
         setBrightness(value)
     };
 
     const getLightSwitches = () => {
         if (lights && lights.length > 0) {
             return lights.map(x => (
-                <SwitchSlider key={`switch-${x.lightId}`}  data={x} parent={brightness} />
+                <SwitchSlider key={`switch-${x.lightId}`}  data={x} lightId={x.lightId} />
             ));
         }
         return <p className="panel-text">No lights assigned to group</p>
