@@ -70,6 +70,21 @@ const Reducer = (state, action) => {
                 ...state,
                 userCoords: action.payload
             };
+        case 'SET_ALL_USER_LIGHTS':
+            return {
+                ...state,
+                userLights: action.payload
+            };
+        case 'SET_USER_LIGHT':
+            return {
+                ...state,
+                userLights: state.userLights.map(light => [action.payload].find(p => p.lightId === light.lightId) || light)
+            };
+        case 'SET_USER_LIGHT_GROUPS':
+            return {
+                ...state,
+                userLightGroups: action.payload
+            };
         default:
             return state;
     }
