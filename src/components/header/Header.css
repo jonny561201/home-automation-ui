@@ -24,7 +24,9 @@
 }
 
 .logo-image {
-    height: 75px;
+    display: block;
+    margin: auto;
+    height: 72px;
 }
 
 .logo-background {
