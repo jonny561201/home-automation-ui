@@ -1,3 +1,6 @@
+import { getSunrise, getSunset } from 'sunrise-sunset-js';
+
+
 export const debounce = (func, wait) => {
     let timeout;
     return function () {
@@ -18,4 +21,16 @@ export const debounchApi = debounce(fn => {
 
 export const isValidIpAddress = (ipAddress) => {
     return (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipAddress));
+}
+
+export const calculateTimeOfDay = (garageCoords) => {
+    if (garageCoords !== null) {
+        const today = new Date();
+        const tomorrow = new Date();
+        tomorrow.setDate(new Date().getDate()+1);
+        const sunrise = getSunrise(garageCoords.latitude, garageCoords.longitude, tomorrow);
+        const sunset = getSunset(garageCoords.latitude, garageCoords.longitude);
+        return (today >= sunset && today < sunrise);
+    }
+    return false;
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { calculateTimeOfDay } from '../../utilities/Services';
 import { useInterval } from '../../utilities/UseInterval';
 import { Context } from '../../state/Store';
-import { getSunrise, getSunset } from 'sunrise-sunset-js';
 import ClearIcon from '../../resources/weatherIcons/sunny.png';
 import DrizzleIcon from '../../resources/weatherIcons/drizzle.png';
 import CloudyIcon from '../../resources/weatherIcons/cloudy.png';
@@ -24,14 +24,14 @@ export default function TemperatureImage(props) {
     const [weatherDesc, setWeatherDesc] = useState("");
 
     useEffect(() => {
-        calculateTimeOfDay();
+        setIsNight(calculateTimeOfDay(state.garageCoords));
         getWeatherImage();
-    });
+    }, [isNight]);
 
     useInterval(() => {
-        calculateTimeOfDay();
+        setIsNight(calculateTimeOfDay(state.garageCoords));
         getWeatherImage();
-    }, 10000);
+    }, 60000);
 
     const weatherTypes = {
         "light intensity drizzle": DrizzleIcon, "drizzle": DrizzleIcon, "drizzle rain": DrizzleIcon, "heavy intensity drizzle": DrizzleIcon, "mist": DrizzleIcon,
@@ -44,17 +44,6 @@ export default function TemperatureImage(props) {
 
     const getWeatherLabel = (weather) => {
         return weather.replace(/_/g, " ").replace(".png", "");
-    }
-
-    const calculateTimeOfDay = () => {
-        if (state.garageCoords !== null) {
-            const today = new Date();
-            const tomorrow = new Date();
-            tomorrow.setDate(new Date().getDate()+1);
-            const sunrise = getSunrise(state.garageCoords.latitude, state.garageCoords.longitude, tomorrow);
-            const sunset = getSunset(state.garageCoords.latitude, state.garageCoords.longitude);
-            setIsNight(today >= sunset && today < sunrise);
-        }
     }
 
     const getWeatherImage = () => {
