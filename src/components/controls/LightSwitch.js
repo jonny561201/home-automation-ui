@@ -18,7 +18,7 @@ export default function LightSwitch(props) {
 
     const sliderToggleLightGroup = async (event, value) => {
         const newBrightness = Math.round(value * 2.55);
-        const updatedLights = state.userLights.filter(x => x.groupId == groupId).map(o => ({ ...o, brightness: newBrightness }));
+        const updatedLights = state.userLights.filter(x => x.groupId === groupId).map(o => ({ ...o, brightness: newBrightness }));
         debounchApi(() => setLightGroupState(groupId, true, newBrightness));
         dispatch({type: 'SET_ALL_USER_LIGHTS', payload: updatedLights});
         setBrightness(value)
