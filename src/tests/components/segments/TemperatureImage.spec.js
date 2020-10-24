@@ -30,7 +30,7 @@ describe('TemperatureImage', () => {
 
         beforeEach(() => {
             const now = new Date();
-            spySet.mockReturnValue(new Date(now.setTime(now.getTime() + 1 * 86400000)));
+            spySet.mockReturnValue(new Date(now.setTime(now.getTime() + 86400000)));
         });
 
         it('should return sunny weather icon', async () => {

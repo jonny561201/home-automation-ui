@@ -49,8 +49,8 @@ export default function TemperatureImage(props) {
     const calculateTimeOfDay = () => {
         if (state.garageCoords !== null) {
             const today = new Date();
-            const now = new Date();
-            const tomorrow = new Date(now.setTime(now.getTime() + 1 * 86400000));
+            const tomorrow = new Date();
+            tomorrow.setDate(new Date().getDate()+1);
             const sunrise = getSunrise(state.garageCoords.latitude, state.garageCoords.longitude, tomorrow);
             const sunset = getSunset(state.garageCoords.latitude, state.garageCoords.longitude);
             setIsNight(today >= sunset && today < sunrise);
