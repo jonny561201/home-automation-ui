@@ -159,12 +159,6 @@ describe('TemperatureImage', () => {
             expect(actual).toHaveAttribute('label', 'partly cloudy');
         });
     
-        it('should show partly cloudy icon when broken clouds', async () => {
-            await renderComponent('broken clouds');
-            const actual = screen.getByAltText('description');
-            expect(actual).toHaveAttribute('label', 'partly cloudy');
-        });
-    
         it('should show partly cloudy icon when scattered clouds', async () => {
             await renderComponent('scattered clouds');
             const actual = screen.getByAltText('description');
@@ -255,12 +249,6 @@ describe('TemperatureImage', () => {
 
         it('should return partly cloudy night icon for scattered clouds', async () => {
             await renderComponent('scattered clouds');
-            const actual = screen.getByAltText('description');
-            expect(actual).toHaveAttribute('label', 'partly cloudy night');
-        });
-
-        it('should return partly cloudy night icon for broken clouds', async () => {
-            await renderComponent('broken clouds');
             const actual = screen.getByAltText('description');
             expect(actual).toHaveAttribute('label', 'partly cloudy night');
         });

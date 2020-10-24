@@ -38,8 +38,7 @@ export default function TemperatureImage(props) {
         "light intensity drizzle rain": DrizzleIcon, "shower drizzle": DrizzleIcon, "light rain": LightRainIcon, "moderate rain": LightRainIcon,
         "heavy intensity rain": HeavyRainIcon, "very heavy rain": HeavyRainIcon, "extreme rain": HeavyRainIcon, "shower rain": HeavyRainIcon,"light snow": LightSnowIcon, 
         "heavy intensity shower rain": HeavyRainIcon, "clear sky": ClearIcon, "few clouds": PartlyCloudyIcon, "scattered clouds": PartlyCloudyIcon, "snow": LightSnowIcon,
-        "heavy snow": SnowyIcon, "sleet": SnowyIcon, "few clouds night": PartlyCloudNightIcon, "clear sky night": ClearNightIcon, "scattered clouds night": PartlyCloudNightIcon,
-        "broken clouds night": PartlyCloudNightIcon, "broken clouds": PartlyCloudyIcon
+        "heavy snow": SnowyIcon, "sleet": SnowyIcon, "few clouds night": PartlyCloudNightIcon, "clear sky night": ClearNightIcon, "scattered clouds night": PartlyCloudNightIcon
     };
 
     const getWeatherLabel = (weather) => {
@@ -51,7 +50,7 @@ export default function TemperatureImage(props) {
         if (weatherDesc.includes("thunderstorm")) {
             setWeatherIcon(ThunderstormIcon);
             setWeatherDesc("thunderstorms");
-        } else if (isNight && (weatherDesc === "clear sky" || weatherDesc === "few clouds" || weatherDesc === "scattered clouds" || weatherDesc === "broken clouds")) {
+        } else if (isNight && (weatherDesc === "clear sky" || weatherDesc === "few clouds" || weatherDesc === "scattered clouds")) {
             const nightWeatherDesc = `${weatherDesc} night`
             setWeatherIcon(weatherTypes[nightWeatherDesc]);
             setWeatherDesc(getWeatherLabel(weatherTypes[nightWeatherDesc]));
