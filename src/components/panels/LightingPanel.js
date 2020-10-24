@@ -21,7 +21,7 @@ export default function LightingPanel() {
             dispatch({type: 'SET_USER_LIGHT_GROUPS', payload: groups.map(({ lights, ...item }) => item)});
         };
         getData();
-    }, []);
+    }, [dispatch]);
 
     const renderGroups = () => {
         if (groups && groups.length) {
