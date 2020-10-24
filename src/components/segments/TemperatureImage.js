@@ -26,8 +26,7 @@ export default function TemperatureImage(props) {
     useEffect(() => {
         calculateTimeOfDay();
         getWeatherImage();
-        getWeatherImage();
-    }, [isNight, weatherIcon, weatherDesc]);
+    });
 
     useInterval(() => {
         calculateTimeOfDay();
