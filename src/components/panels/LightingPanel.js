@@ -13,15 +13,15 @@ export default function LightingPanel() {
     const [, dispatch] = useContext(Context);
 
     useEffect(() => {
-        const getData = async () => {
-            const groups = await getLightGroups();
-            setGroups(groups);
-            //May not need the lights stored in memory
-            dispatch({type: 'SET_ALL_USER_LIGHTS', payload: groups.map(x => x.lights).flat(1)});
-            dispatch({type: 'SET_USER_LIGHT_GROUPS', payload: groups.map(({ lights, ...item }) => item)});
-        };
         getData();
     }, [dispatch]);
+
+    const getData = async () => {
+        const groups = await getLightGroups();
+        setGroups(groups);
+        dispatch({type: 'SET_ALL_USER_LIGHTS', payload: groups.map(x => x.lights).flat(1)});
+        // dispatch({type: 'SET_USER_LIGHT_GROUPS', payload: groups.map(({ lights, ...item }) => item)});
+    };
 
     const renderGroups = () => {
         if (groups && groups.length) {

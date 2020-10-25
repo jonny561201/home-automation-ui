@@ -22,8 +22,8 @@ export default function BasementPanel() {
         getSumpData();
     }, []);
 
-    useInterval(() => {
-        getSumpData();
+    useInterval(async () => {
+        await getSumpData();
     }, 120000);
 
     const getSumpData = async () => {

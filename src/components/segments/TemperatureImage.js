@@ -31,7 +31,7 @@ export default function TemperatureImage(props) {
     useInterval(() => {
         setIsNight(calculateTimeOfDay(state.garageCoords));
         getWeatherImage();
-    }, 60000);
+    }, 30000);
 
     const weatherTypes = {
         "light intensity drizzle": DrizzleIcon, "drizzle": DrizzleIcon, "drizzle rain": DrizzleIcon, "heavy intensity drizzle": DrizzleIcon, "mist": DrizzleIcon,

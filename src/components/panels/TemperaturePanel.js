@@ -28,9 +28,9 @@ export default function TemperaturePanel() {
         getTempData();
     }, []);
 
-    useInterval(() => {
-        getTempData();
-    }, 125000);
+    useInterval(async ()  => {
+        await getTempData();
+    }, 60000);
 
     const getTempData = async () => {
         const response = await getCurrentTemperature(getStore().getUserId());
