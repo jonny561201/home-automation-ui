@@ -45,20 +45,22 @@ export default function UserLocation() {
     }
 
     const calculateDistance = () => {
-        if (state.garageCoords !== null) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                const coords = position.coords;
+        navigator.geolocation.getCurrentPosition((position) => {
+        // navigator.geolocation.watchPosition((position) => {
+            const coords = position.coords;
+            dispatch({ type: "SET_USER_COORDS", payload: coords });
+            if (state.garageCoords !== null) {
                 const currentCoords = state.garageCoords;
                 const userDistance = calculateDistanceInMeters(currentCoords.latitude, currentCoords.longitude, coords.latitude, coords.longitude);
-                setDistance(userDistance);
-                dispatch({ type: "SET_USER_COORDS", payload: userDistance });
-            }, (error) => { alert('Enable GPS position feature.') }, { enableHighAccuracy: true });
-        }
+                if (shouldOpenGarage(userDistance)) {
+                    console.log('gonna open')
+                    updateGarageState(true, state.userId, 1);
+                }
+            }
+        }, (error) => { alert('Enable GPS position feature.') }, { enableHighAccuracy: true });
     }
 
     return (
-        <>
-            <p>Distance: {distance} Miles</p>
-        </>
+        <></>
     )
 }

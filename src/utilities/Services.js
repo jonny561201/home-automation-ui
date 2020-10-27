@@ -23,7 +23,7 @@ export const isValidIpAddress = (ipAddress) => {
     return (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipAddress));
 }
 
-export const calculateTimeOfDay = (garageCoords) => {
+export const calculateTimeOfDay = (garageCoords, userCoords) => {
     if (garageCoords !== null) {
         const today = new Date();
         const tomorrow = new Date();
@@ -32,5 +32,12 @@ export const calculateTimeOfDay = (garageCoords) => {
         const sunset = getSunset(garageCoords.latitude, garageCoords.longitude);
         return (today >= sunset && today < sunrise);
     }
-    return false;
+    if (userCoords !== null) {
+        const today = new Date();
+        const tomorrow = new Date();
+        tomorrow.setDate(new Date().getDate()+1);
+        const sunrise = getSunrise(userCoords.latitude, userCoords.longitude, tomorrow);
+        const sunset = getSunset(userCoords.latitude, userCoords.longitude);
+        return (today >= sunset && today < sunrise);
+    }
 }

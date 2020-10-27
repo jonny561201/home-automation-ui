@@ -24,14 +24,14 @@ export default function TemperatureImage(props) {
     const [weatherDesc, setWeatherDesc] = useState("");
 
     useEffect(() => {
-        setIsNight(calculateTimeOfDay(state.garageCoords));
+        setIsNight(calculateTimeOfDay(state.garageCoords, state.userCoords));
         getWeatherImage();
     }, [isNight]);
 
     useInterval(() => {
-        setIsNight(calculateTimeOfDay(state.garageCoords));
+        setIsNight(calculateTimeOfDay(state.garageCoords, state.userCoords));
         getWeatherImage();
-    }, 30000);
+    }, 20000);
 
     const weatherTypes = {
         "light intensity drizzle": DrizzleIcon, "drizzle": DrizzleIcon, "drizzle rain": DrizzleIcon, "heavy intensity drizzle": DrizzleIcon, "mist": DrizzleIcon,
