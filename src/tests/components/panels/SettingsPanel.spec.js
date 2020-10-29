@@ -62,9 +62,15 @@ describe('Settings Panel', () => {
         expect(actual).toEqual(measureUnit);
     });
 
-    it('should display Alarm header', () => {
+    it('should display Light Alarm header', () => {
         render(<SettingsPanel />);
-        const actual = screen.getByText('Alarm').textContent;
-        expect(actual).toEqual('Alarm');
+        const actual = screen.getByText('Light Alarm').textContent;
+        expect(actual).toEqual('Light Alarm');
+    });
+
+    it('should display the alarm room text for measurement', () => {
+        render(<SettingsPanel />);
+        const actual = screen.getByText('Alarm Room:').textContent;
+        expect(actual).toEqual('Alarm Room:');
     });
 });

@@ -27,9 +27,12 @@ export default function SettingsPanel(props) {
             </div>
             <Divider />
             <div className="settings-group settings-text">
-                <h2>Alarm</h2>
+                <h2>Light Alarm</h2>
             </div>
             <Divider />
+            <div className="settings-row">
+                <p className="settings-text measure-unit">Alarm Room:</p>
+            </div>
             <button onClick={props.toggleEdit}>Edit</button>
         </div>
     );
