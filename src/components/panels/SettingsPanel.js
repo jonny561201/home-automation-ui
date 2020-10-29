@@ -26,6 +26,10 @@ export default function SettingsPanel(props) {
                 <p className="settings-text measure-unit">{props.measureUnit}</p>
             </div>
             <Divider />
+            <div className="settings-group settings-text">
+                <h2>Alarm</h2>
+            </div>
+            <Divider />
             <button onClick={props.toggleEdit}>Edit</button>
         </div>
     );

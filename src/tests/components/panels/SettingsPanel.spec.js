@@ -62,4 +62,9 @@ describe('Settings Panel', () => {
         expect(actual).toEqual(measureUnit);
     });
 
+    it('should display Alarm header', () => {
+        render(<SettingsPanel />);
+        const actual = screen.getByText('Alarm').textContent;
+        expect(actual).toEqual('Alarm');
+    });
 });
