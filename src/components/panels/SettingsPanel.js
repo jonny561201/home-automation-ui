@@ -34,6 +34,10 @@ export default function SettingsPanel(props) {
                 <p className="settings-text measure-unit">Alarm Room:</p>
                 <p className="settings-text measure-unit">{props.room}</p>
             </div>
+            <div className="settings-row">
+                <p className="settings-text measure-unit">Alarm Time:</p>
+                <p className="settings-text measure-unit">{props.time}</p>
+            </div>
             <button onClick={props.toggleEdit}>Edit</button>
         </div>
     );

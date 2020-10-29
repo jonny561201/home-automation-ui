@@ -80,4 +80,17 @@ describe('Settings Panel', () => {
         const actual = screen.getByText(room).textContent;
         expect(actual).toEqual(room);
     });
+
+    it('should display the alarm time for measurement', () => {
+        render(<SettingsPanel />);
+        const actual = screen.getByText('Alarm Time:').textContent;
+        expect(actual).toEqual('Alarm Time:');
+    });
+
+    it('should display the current alarm time setting stored in state', () => {
+        const time = '07:30:00';
+        render(<SettingsPanel time={time} />);
+        const actual = screen.getByText(time).textContent;
+        expect(actual).toEqual(time);
+    });
 });
