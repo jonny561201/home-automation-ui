@@ -93,4 +93,17 @@ describe('Settings Panel', () => {
         const actual = screen.getByText(time).textContent;
         expect(actual).toEqual(time);
     });
+
+    it('should display the alarm days for measurement', () => {
+        render(<SettingsPanel />);
+        const actual = screen.getByText('Alarm Days:').textContent;
+        expect(actual).toEqual('Alarm Days:');
+    });
+
+    it('should display the current alarm days setting stored in state', () => {
+        const days = 'MonTueWedThuFri';
+        render(<SettingsPanel days={days} />);
+        const actual = screen.getByText(days).textContent;
+        expect(actual).toEqual(days);
+    });
 });
