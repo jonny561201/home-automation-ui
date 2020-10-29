@@ -13,6 +13,9 @@ export default function Settings() {
     const [city, setCity] = useState();
     const [tempUnit, setTempUnit] = useState();
     const [isEditMode, setEditMode] = useState();
+    const [lightDays, setLightDays] = useState();
+    const [lightTime, setLightTime] = useState();
+    const [lightGroup, setLightGroup] = useState();
     const [measureUnit, setMeasureUnit] = useState();
 
     useEffect(() => {
@@ -20,7 +23,10 @@ export default function Settings() {
             const response = await getUserPreferences(userId);
             setCity(response.city);
             setTempUnit(response.temp_unit);
+            setLightDays(response.alarmDays);
+            setLightTime(response.alarmTime);
             setMeasureUnit(response.measure_unit);
+            setLightGroup(response.alarmLightGroup);
         };
         getData();
     }, [userId]);
@@ -41,7 +47,14 @@ export default function Settings() {
                         tempUnit={tempUnit} setTempUnit={setTempUnit}
                         isEditMode={isEditMode} setEditMode={setEditMode}
                         measureUnit={measureUnit} setMeasureUnit={setMeasureUnit} />
-                    : <SettingsPanel city={city} tempUnit={tempUnit} measureUnit={measureUnit} toggleEdit={toggleEditMode} />
+                    : <SettingsPanel
+                        city={city}
+                        tempUnit={tempUnit}
+                        measureUnit={measureUnit}
+                        toggleEdit={toggleEditMode}
+                        room={lightGroup}
+                        days={lightDays}
+                        time={lightTime} />
                 }
             </div>
         </div>

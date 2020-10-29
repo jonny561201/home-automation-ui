@@ -25,7 +25,6 @@ export default function SettingsPanel(props) {
                 <p className="settings-text measure-unit">Unit:</p>
                 <p className="settings-text measure-unit">{props.measureUnit}</p>
             </div>
-            <Divider />
             <div className="settings-group settings-text">
                 <h2>Light Alarm</h2>
             </div>
