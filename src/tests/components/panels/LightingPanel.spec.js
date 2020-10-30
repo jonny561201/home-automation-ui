@@ -48,7 +48,6 @@ describe('LightingPanel', () => {
             await renderComponent();
             await act(async () => {
                 fireEvent.click(screen.getByTestId('lighting-panel'));
-                // fireEvent.click(screen.getByRole('button'));
             });
 
             const actual = screen.getAllByTestId('light-group');
@@ -59,9 +58,6 @@ describe('LightingPanel', () => {
         it('should display error text when there are no groups returned', async () => {
             spyGet.mockReturnValue(null);
             await renderComponent();
-            // await act(async () => {
-            //     fireEvent.click(screen.getByTestId('lighting-panel'));
-            // });
             const actual = screen.getByText('No Light Groups were found').textContent;
             expect(actual).toEqual('No Light Groups were found');
         });
@@ -69,9 +65,6 @@ describe('LightingPanel', () => {
         it('should display error text when there are empty list of groups returned', async () => {
             spyGet.mockReturnValue([]);
             await renderComponent();
-            // await act(async () => {
-            //     fireEvent.click(screen.getByTestId('lighting-panel'));
-            // });
             const actual = screen.getByText('No Light Groups were found').textContent;
             expect(actual).toEqual('No Light Groups were found');
         });
