@@ -23,6 +23,7 @@ export const isValidIpAddress = (ipAddress) => {
     return (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipAddress));
 }
 
+//TODO: test this function???
 export const calculateTimeOfDay = (garageCoords, userCoords) => {
     if (garageCoords !== null) {
         const today = new Date();

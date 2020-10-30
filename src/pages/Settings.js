@@ -23,10 +23,10 @@ export default function Settings() {
             const response = await getUserPreferences(userId);
             setCity(response.city);
             setTempUnit(response.temp_unit);
-            setLightDays(response.alarmDays);
-            setLightTime(response.alarmTime);
+            setLightDays(response.alarm_days);
+            setLightTime(response.alarm_time);
             setMeasureUnit(response.measure_unit);
-            setLightGroup(response.alarmLightGroup);
+            setLightGroup(response.alarm_light_group);
         };
         getData();
     }, [userId]);
