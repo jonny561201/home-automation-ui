@@ -34,4 +34,8 @@ describe('SwitchSlider', () => {
         // expect(spySetLight).toHaveBeenCalled();
     });
 
+    it('should display the light name', async () => {
+        await renderComponent();
+        expect((await screen.getByText('desk lamp')).textContent).toEqual('desk lamp');
+    });
 });

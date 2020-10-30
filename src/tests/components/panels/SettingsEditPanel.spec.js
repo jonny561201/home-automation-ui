@@ -1,6 +1,6 @@
 import React from 'react';
 import * as lib from '../../../utilities/RestApi';
-import { render, screen, act, fireEvent } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import SettingsEditPanel from '../../../components/panels/SettingsEditPanel';
 import '@testing-library/jest-dom';
 import { getStore } from '../../../state/GlobalState';
