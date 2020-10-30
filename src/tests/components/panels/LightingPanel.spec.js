@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, act, fireEvent } from '@testing-library/react';
 import * as lib from '../../../utilities/RestApi';
+import { Context } from '../../../state/Store';
 import LightingPanel from '../../../components/panels/LightingPanel';
 
 describe('LightingPanel', () => {
@@ -9,7 +10,11 @@ describe('LightingPanel', () => {
 
     const renderComponent = async () => {
         await act(async () => {
-            render(<LightingPanel />);
+            render(
+                <Context.Provider value={[{ userLights: [] }, () => { }]}>
+                    <LightingPanel />
+                </Context.Provider>
+            );
         });
     }
 
@@ -54,9 +59,9 @@ describe('LightingPanel', () => {
         it('should display error text when there are no groups returned', async () => {
             spyGet.mockReturnValue(null);
             await renderComponent();
-            await act(async () => {
-                fireEvent.click(screen.getByRole('button'));
-            });
+            // await act(async () => {
+            //     fireEvent.click(screen.getByTestId('lighting-panel'));
+            // });
             const actual = screen.getByText('No Light Groups were found').textContent;
             expect(actual).toEqual('No Light Groups were found');
         });
@@ -64,9 +69,9 @@ describe('LightingPanel', () => {
         it('should display error text when there are empty list of groups returned', async () => {
             spyGet.mockReturnValue([]);
             await renderComponent();
-            await act(async () => {
-                fireEvent.click(screen.getByRole('button'));
-            });
+            // await act(async () => {
+            //     fireEvent.click(screen.getByTestId('lighting-panel'));
+            // });
             const actual = screen.getByText('No Light Groups were found').textContent;
             expect(actual).toEqual('No Light Groups were found');
         });

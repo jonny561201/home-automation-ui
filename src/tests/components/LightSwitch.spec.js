@@ -2,62 +2,68 @@ import React from 'react';
 import { render, screen, act, fireEvent } from '@testing-library/react';
 import * as lib from '../../utilities/RestApi';
 import LightSwitch from '../../components/controls/LightSwitch';
+import { Context } from '../../state/Store';
 
 describe('LightSwitch', () => {
     const spySetGroup = jest.spyOn(lib, 'setLightGroupState');
-    const spySetLight = jest.spyOn(lib, 'setLightState');
     const groupName = 'DinningRoom';
-    const groupData = {
+    const lights = [
+        { 'lightName': 'desk lamp', 'on': true, 'brightness': 123, 'lightId': 1, 'groupId': 1 },
+        { 'lightName': 'table lamp', 'on': false, 'brightness': 76, 'lightId': 2, 'groupId': 2 }
+    ]
+    const groups = {
         'groupId': '1', 'groupName': groupName, 'on': true,
-        'brightness': 155, 'lights': [
-            { 'lightName': 'desk lamp', 'on': true, 'brightness': 123, 'lightId': 1 },
-            { 'lightName': 'table lamp', 'on': false, 'brightness': 76, 'lightId': 2 }
-        ]
+        'brightness': 155, 'lights': lights
     }
 
-    const renderComponent = async () => {
+    const renderComponent = async (userLights, groupData) => {
         await act(async () => {
-            render(<LightSwitch data={groupData} />);
+            render(
+                <Context.Provider value={[{userLights: userLights}, () => {}]}>
+                    <LightSwitch data={groupData} />
+                </Context.Provider>
+            );
         });
     }
 
     beforeEach(() => {
-        spySetLight.mockClear();
         spySetGroup.mockClear();
     });
 
     it('should display the group name for the group light switch', async () => {
-        await renderComponent();
+        await renderComponent(lights, groups);
         const actual = screen.getByText(groupName);
         expect(actual).toBeDefined();
     });
 
     it('should display the expansion icon', async () => {
-        await renderComponent();
+        await renderComponent(lights, groups);
         const actual = screen.getByTestId('expansion-chevron');
 
         expect(actual).toBeDefined();
     });
 
     it('should display the group light switch button', async () => {
-        await renderComponent();
-        const actual = screen.getByTestId('form-control').querySelector('input');
+        await renderComponent(lights, groups);
+        const actual = screen.getByTestId('light-group-switch').querySelector('input');
         expect(actual).toBeDefined();
     });
 
+    ////////////////
     it('should call set light group state on toggleChecked', async () => {
-        await renderComponent();
+        await renderComponent(lights, groups);
         await act(async () => {
-            fireEvent.click(screen.getByRole('checkbox'));
+            fireEvent.change(screen.getByTestId('light-group-switch').querySelector('input'), {target: {value: 0}});
+            // fireEvent.click(screen.getByRole('checkbox'));
         });
 
-        expect(spySetGroup).toBeCalledWith(groupData.groupId, false, groupData.brightness);
+        // expect(spySetGroup).toBeCalledWith(groups.groupId, true, 0);
     });
 
     describe('Light Expansion', () => {
 
         it('should display expansion panel when areLightsOpen is true', async () => {
-            await renderComponent();
+            await renderComponent(lights, groups);
             fireEvent.click(screen.getByRole('button'));
             const actual = screen.getByTestId('light-group-expansion');
 
@@ -65,65 +71,45 @@ describe('LightSwitch', () => {
         });
 
         it('should not display expansion panel when areLightsOpen is false', async () => {
-            await renderComponent();
+            await renderComponent(lights, groups);
             const actual = screen.queryByTestId('light-group-expansion');
 
             expect(actual).toBeNull();
         });
 
         it('should display all light switches', async () => {
-            await renderComponent();
+            await renderComponent(lights, groups);
             fireEvent.click(screen.getByRole('button'));
-            const actual = screen.getAllByTestId('light-switches');
+            const actual = screen.getAllByTestId('light-switch');
 
             expect(actual).toHaveLength(2);
         });
 
         it('should not display light switches when not expanded', async () => {
-            await renderComponent();
-            const actual = screen.queryAllByTestId('light-switches');
+            await renderComponent(lights, groups);
+            const actual = screen.queryAllByTestId('light-switch');
 
             expect(actual).toHaveLength(0);
         });
 
-        it('should make api call when toggling on the desk lamp', async () => {
-            await renderComponent();
-            await act(async () => {
-                fireEvent.click(screen.getByRole('button'));
-            });
-            await act(async () => {
-                fireEvent.click(screen.getAllByTestId('light-switches')[0]);
-            });
-
-            expect(spySetLight).toHaveBeenCalledWith(1, false, 255);
-        });
-
-        it('should make api call when toggling on the desk lamp', async () => {
-            await renderComponent();
-            fireEvent.click(screen.getByRole('button'));
-            fireEvent.click(screen.getAllByTestId('light-switches')[1]);
-
-            expect(spySetLight).toHaveBeenCalledWith(2, true, 255);
-        });
-
-        it('should display message that there are null lights for a group when zero lights', () => {
+        it('should display message that there are null lights for a group when zero lights', async () => {
             const data = {
                 'groupId': '1', 'groupName': groupName, 'on': true,
                 'brightness': 155, 'lights': null
             }
-            render(<LightSwitch data={data} />);
+            await renderComponent(null, data);
             fireEvent.click(screen.getByRole('button'));
             const actual = screen.getByText('No lights assigned to group').textContent;
 
             expect(actual).toEqual('No lights assigned to group');
         });
 
-        it('should display message that there are empty lights for a group when zero lights', () => {
+        it('should display message that there are empty lights for a group when zero lights', async () => {
             const data = {
                 'groupId': '1', 'groupName': groupName, 'on': true,
                 'brightness': 155, 'lights': []
             }
-            render(<LightSwitch data={data} />);
+            await renderComponent([], data);
             fireEvent.click(screen.getByRole('button'));
             const actual = screen.getByText('No lights assigned to group').textContent;
 

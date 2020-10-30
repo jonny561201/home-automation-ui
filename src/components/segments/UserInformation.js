@@ -1,24 +1,25 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { updateGarageState } from '../../utilities/RestApi';
 import { useInterval } from '../../utilities/UseInterval';
 import { Context } from '../../state/Store';
 import { calculateDistanceInMeters } from '../../utilities/Location';
 
 export default function UserLocation() {
     const [state, dispatch] = useContext(Context);
-    const [distance, setDistance] = useState();
     const [firstCheck, setFirstCheck] = useState(false);
     const [secondCheck, setSecondCheck] = useState(false);
     const [inGarage, setInGarage] = useState(false);
 
     useEffect(() => {
         calculateDistance();
-    });
+    }, []);
 
+    //TODO: may not need this with watch position
     useInterval(() => {
         calculateDistance();
     }, 5000);
 
-    const shouldOpenGarage = () => {
+    const shouldOpenGarage = (distance) => {
         //within 100M of Garage
         //then within 50M of Garage within 10s
         //then within 20M of Garage within 20s
