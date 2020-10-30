@@ -36,6 +36,11 @@ describe('SwitchSlider', () => {
 
     it('should display the light name', async () => {
         await renderComponent();
-        expect((await screen.getByText('desk lamp')).textContent).toEqual('desk lamp');
+        expect((screen.getByText('desk lamp')).textContent).toEqual('desk lamp');
+    });
+
+    it('should display the slider', async () => {
+        await renderComponent();
+        expect((screen.getByTestId('light-switch'))).toBeDefined();
     });
 });
