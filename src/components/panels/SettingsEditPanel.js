@@ -6,6 +6,7 @@ import TimePicker from '../controls/TimePicker';
 
 
 export default function SettingsEditPanel(props) {
+    const [time, setTime] = useState();
     const [edited, setEdited] = useState();
     const [newCity, setNewCity] = useState(props.city);
     const [newTempUnit, setNewTempUnit] = useState(props.tempUnit);
@@ -14,7 +15,7 @@ export default function SettingsEditPanel(props) {
     const savePreferences = () => {
         const isFahrenheit = newTempUnit === "fahrenheit";
         const isImperial = newMeasureUnit === "imperial";
-        updateUserPreferences(getStore().getUserId(), isFahrenheit, isImperial, newCity);
+        updateUserPreferences(getStore().getUserId(), isFahrenheit, isImperial, newCity, time);
         setEdited(true);
         props.setCity(newCity);
         props.setTempUnit(newTempUnit);
@@ -42,6 +43,10 @@ export default function SettingsEditPanel(props) {
     const updateMeasureRadioButton = (input) => {
         setEdited(true);
         setNewMeasureUnit(input.target.value);
+    }
+
+    const updateTime = (dateTime) => {
+        setTime(dateTime);
     }
 
     return (
@@ -72,7 +77,7 @@ export default function SettingsEditPanel(props) {
                 </div>
                 <h2>Light Alarm</h2>
                 <Divider />
-                <TimePicker/>
+                <TimePicker setTime={updateTime}/>
             </div>
             <Divider />
             <button className="submit" disabled={!edited} onClick={savePreferences}>Save</button>
