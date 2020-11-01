@@ -30,7 +30,7 @@ describe('Settings Page', () => {
         spyUpdate.mockClear();
         spyGet.mockClear();
         getStore().setUserId(userId);
-        spyGet.mockReturnValue({city: city, temp_unit: tempUnit, measure_unit: unitMeasure});
+        spyGet.mockReturnValue({ city: city, temp_unit: tempUnit, measure_unit: unitMeasure });
     });
 
     it('should display logo header', async () => {
@@ -48,7 +48,7 @@ describe('Settings Page', () => {
     it('should display the edit settings panel when click edit button', async () => {
         await renderComponent();
         fireEvent.click(screen.getByRole('button'));
-        const actual = screen.getAllByRole('button')[0].textContent;
+        const actual = screen.getByText('Save').textContent;
         expect(actual).toEqual('Save');
     });
 
@@ -58,10 +58,10 @@ describe('Settings Page', () => {
     });
 
     it('should make api call on submit to update the city', () => {
-        const newCity = 'Vienna';        
+        const newCity = 'Vienna';
         renderComponent();
         fireEvent.click(screen.getByRole('button'));
-        fireEvent.change(screen.getByRole('textbox'), {target: {value: newCity }});
+        fireEvent.change(screen.getAllByRole('textbox')[0], { target: { value: newCity } });
 
         fireEvent.click(screen.getByText('Save'));
         expect(spyUpdate).toHaveBeenCalledWith(userId, false, false, newCity);
@@ -79,7 +79,7 @@ describe('Settings Page', () => {
     it('should make api call on submit to update the temp', () => {
         renderComponent();
         fireEvent.click(screen.getByRole('button'));
-        
+
         fireEvent.click(screen.getAllByRole('radio')[0]);
         fireEvent.click(screen.getByText('Save'));
         expect(spyUpdate).toHaveBeenCalledWith(userId, true, false, undefined);
@@ -99,7 +99,7 @@ describe('Settings Page', () => {
         const city = 'Berlin';
         await renderComponent();
         fireEvent.click(screen.getByRole('button'));
-        fireEvent.change(screen.getByRole('textbox'), {target: {value: city}});
+        fireEvent.change(screen.getAllByRole('textbox')[0], { target: { value: city } });
         fireEvent.click(screen.getByText('Save'));
 
         const actual = screen.getByText(city);
@@ -107,10 +107,10 @@ describe('Settings Page', () => {
         expect(actual).toBeDefined();
     });
 
-    it('should not the city on the normal screen after saving', async () => {
+    it('should not update the city on the normal screen after cancelling', async () => {
         await renderComponent();
         fireEvent.click(screen.getByRole('button'));
-        fireEvent.change(screen.getByRole('textbox'), {target: {value: 'Berlin'}});
+        fireEvent.change(screen.getAllByRole('textbox')[0], { target: { value: 'Berlin' } });
         fireEvent.click(screen.getByText('Cancel'));
 
         const actual = screen.getByText(city);

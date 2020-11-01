@@ -42,7 +42,7 @@ describe('Settings Edit Panel', () => {
 
     it('should display city input textbox', async () => {
         await renderComponent();
-        const actual = screen.getByRole('textbox');
+        const actual = screen.getAllByRole('textbox')[0];
         expect(actual).toBeDefined();
     })
 
