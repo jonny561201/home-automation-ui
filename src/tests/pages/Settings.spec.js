@@ -64,7 +64,7 @@ describe('Settings Page', () => {
         fireEvent.change(screen.getAllByRole('textbox')[0], { target: { value: newCity } });
 
         fireEvent.click(screen.getByText('Save'));
-        expect(spyUpdate).toHaveBeenCalledWith(userId, false, false, newCity);
+        expect(spyUpdate).toHaveBeenCalledWith(userId, false, false, newCity, undefined);
     });
 
     it('should make api call on submit to update the unit of measure', () => {
@@ -73,7 +73,7 @@ describe('Settings Page', () => {
         fireEvent.click(screen.getAllByRole('radio')[2]);
 
         fireEvent.click(screen.getByText('Save'));
-        expect(spyUpdate).toHaveBeenCalledWith(userId, false, true, undefined);
+        expect(spyUpdate).toHaveBeenCalledWith(userId, false, true, undefined, undefined);
     });
 
     it('should make api call on submit to update the temp', () => {
@@ -82,7 +82,7 @@ describe('Settings Page', () => {
 
         fireEvent.click(screen.getAllByRole('radio')[0]);
         fireEvent.click(screen.getByText('Save'));
-        expect(spyUpdate).toHaveBeenCalledWith(userId, true, false, undefined);
+        expect(spyUpdate).toHaveBeenCalledWith(userId, true, false, undefined, undefined);
     });
 
     it('should return to the normal screen when cancelling on edit screen', async () => {
