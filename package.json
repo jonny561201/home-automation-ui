@@ -6,6 +6,8 @@
   "dependencies": {
     "@material-ui/core": "^4.5.1",
     "@material-ui/icons": "^4.5.1",
+    "@material-ui/pickers": "latest",
+    "@date-io/date-fns": "v1",
     "base-64": "^0.1.0",
     "jwt-decode": "^2.2.0",
     "react": "^16.10.1",
