@@ -201,14 +201,14 @@ describe('RestApi', () => {
             const userId = 'abc12345';
             const options = {
                 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` },
-                'body': { 'isFahrenheit': true, 'city': 'Praha', 'isImperial': false, 'alarmTime': '01:01:01', 'alarmDays': 'Mon' }
+                'body': { 'isFahrenheit': true, 'city': 'Praha', 'isImperial': false, 'lightAlarm': {'alarmTime': '01:01:01', 'alarmDays': 'Mon', 'alarmLightGroup': '1', 'lightGroupName': 'bedroom' }}
             }
 
             fetchMock.mock(`http://localhost:5000/userId/${userId}/preferences/update`, options).catch(unmatchedUrl => {
                 return { status: 400 };
             });
 
-            const actual = await updateUserPreferences(userId, true, true, 'Praha', '01:01:01', 'Mon');
+            const actual = await updateUserPreferences(userId, true, true, 'Praha', '01:01:01', 'Mon', '1', 'bedroom');
 
             expect(actual.status).toEqual(200);
         });

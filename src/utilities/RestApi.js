@@ -81,8 +81,9 @@ export const getUserPreferences = async (userId) => {
     return await response.json();
 }
 
-export const updateUserPreferences = async (userId, isFahrenheit, isImperial, city, alarmTime, alarmDays) => {
-    const request = { 'isFahrenheit': isFahrenheit, 'city': city, 'isImperial': isImperial, 'alarmTime': alarmTime, 'alarmDays': alarmDays }
+export const updateUserPreferences = async (userId, isFahrenheit, isImperial, city, alarmTime, alarmDays, lightGroup, groupName) => {
+    const lightAlarm = {'alarmTime': alarmTime, 'alarmDays': alarmDays, 'alarmLightGroup': lightGroup, 'alarmGroupName': groupName }
+    const request = { 'isFahrenheit': isFahrenheit, 'city': city, 'isImperial': isImperial, 'lightAlarm': lightAlarm}
     const options = {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
