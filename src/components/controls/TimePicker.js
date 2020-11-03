@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DateFnsUtils from '@date-io/date-fns';
 import { KeyboardTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import './TimePicker.css';
 
 
-export default function TimePicker() {
+export default function TimePicker(props) {
     const [dateValue, setDateValue] = useState();
+
+    useEffect(() => {
+        const date = new Date();
+        const initialDate = props.initialTime.split(":");
+        date.setHours(initialDate[0])
+        date.setMinutes(initialDate[1])
+        setDateValue(date)
+    }, []);
 
     const handleDateChange = (date) => {
         setDateValue(date);
