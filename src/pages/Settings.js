@@ -15,7 +15,7 @@ export default function Settings() {
     const [isEditMode, setEditMode] = useState();
     const [lightDays, setLightDays] = useState();
     const [lightTime, setLightTime] = useState();
-    const [lightGroup, setLightGroup] = useState();
+    const [groupName, setGroupName] = useState();
     const [measureUnit, setMeasureUnit] = useState();
 
     useEffect(() => {
@@ -23,10 +23,10 @@ export default function Settings() {
             const response = await getUserPreferences(userId);
             setCity(response.city);
             setTempUnit(response.temp_unit);
-            setLightDays(response.alarm_days);
-            setLightTime(response.alarm_time);
             setMeasureUnit(response.measure_unit);
-            setLightGroup(response.alarm_light_group);
+            setLightDays(response.light_alarm.alarm_days);
+            setLightTime(response.light_alarm.alarm_time);
+            setGroupName(response.light_alarm.alarm_group_name);
         };
         getData();
     }, [userId]);
@@ -46,15 +46,18 @@ export default function Settings() {
                         city={city} setCity={setCity}
                         tempUnit={tempUnit} setTempUnit={setTempUnit}
                         isEditMode={isEditMode} setEditMode={setEditMode}
-                        measureUnit={measureUnit} setMeasureUnit={setMeasureUnit} />
+                        measureUnit={measureUnit} setMeasureUnit={setMeasureUnit}
+                        days={lightDays}
+                        time={lightTime}
+                        groupName={groupName}/>
                     : <SettingsPanel
                         city={city}
                         tempUnit={tempUnit}
                         measureUnit={measureUnit}
                         toggleEdit={toggleEditMode}
-                        room={lightGroup}
                         days={lightDays}
-                        time={lightTime} />
+                        time={lightTime}
+                        groupName={groupName} />
                 }
             </div>
         </div>

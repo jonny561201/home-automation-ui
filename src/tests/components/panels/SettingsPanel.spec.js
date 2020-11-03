@@ -76,7 +76,7 @@ describe('Settings Panel', () => {
 
     it('should display the current alarm room setting stored in state', () => {
         const room = 'BedRoom';
-        render(<SettingsPanel room={room} />);
+        render(<SettingsPanel groupName={room} />);
         const actual = screen.getByText(room).textContent;
         expect(actual).toEqual(room);
     });

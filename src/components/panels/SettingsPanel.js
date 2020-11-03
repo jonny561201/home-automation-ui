@@ -31,7 +31,7 @@ export default function SettingsPanel(props) {
             <Divider />
             <div className="settings-row">
                 <p className="settings-text measure-unit">Alarm Room:</p>
-                <p className="settings-text measure-unit">{props.room}</p>
+                <p className="settings-text measure-unit">{props.groupName}</p>
             </div>
             <div className="settings-row">
                 <p className="settings-text measure-unit">Alarm Days:</p>

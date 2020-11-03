@@ -30,7 +30,7 @@ describe('Settings Page', () => {
         spyUpdate.mockClear();
         spyGet.mockClear();
         getStore().setUserId(userId);
-        spyGet.mockReturnValue({ city: city, temp_unit: tempUnit, measure_unit: unitMeasure });
+        spyGet.mockReturnValue({ city: city, temp_unit: tempUnit, measure_unit: unitMeasure, light_alarm: { alarm_days: 'Mon', alarm_time: '00:00:00', alarm_light_group: '1', alarm_group_name: 'bedroom'} });
     });
 
     it('should display logo header', async () => {

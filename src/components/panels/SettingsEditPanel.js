@@ -1,21 +1,26 @@
-import React, { useState } from 'react';
-import { Divider, TextField, FormControlLabel, RadioGroup, FormControl, Radio } from '@material-ui/core';
+import React, { useState, useContext } from 'react';
+import { Context } from '../../state/Store';
 import { updateUserPreferences } from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
 import TimePicker from '../controls/TimePicker';
+import { Divider, TextField, FormControlLabel, RadioGroup, FormControl, Radio, MenuItem, Select, InputLabel } from '@material-ui/core';
+import './SettingsEditPanel.css'
 
 
 export default function SettingsEditPanel(props) {
-    const [time, setTime] = useState();
+    const [state,] = useContext(Context);
+    const [time, setTime] = useState(props.time);
     const [edited, setEdited] = useState();
     const [newCity, setNewCity] = useState(props.city);
+    const [selectedRoom, setSelectedRoom] = useState(props.groupName);
     const [newTempUnit, setNewTempUnit] = useState(props.tempUnit);
     const [newMeasureUnit, setNewMeasureUnit] = useState(props.measureUnit);
 
     const savePreferences = () => {
         const isFahrenheit = newTempUnit === "fahrenheit";
         const isImperial = newMeasureUnit === "imperial";
-        updateUserPreferences(getStore().getUserId(), isFahrenheit, isImperial, newCity, time);
+        const lightGroup = state.userLightGroups.find(x => x.groupName === selectedRoom).groupId;
+        updateUserPreferences(getStore().getUserId(), isFahrenheit, isImperial, newCity, time, 'Mon', lightGroup, selectedRoom);
         setEdited(true);
         props.setCity(newCity);
         props.setTempUnit(newTempUnit);
@@ -46,7 +51,13 @@ export default function SettingsEditPanel(props) {
     }
 
     const updateTime = (dateTime) => {
+        setEdited(true);
         setTime(dateTime);
+    }
+
+    const handleChange = (item) => {
+        setEdited(true);
+        setSelectedRoom(item.target.value)
     }
 
     return (
@@ -77,7 +88,25 @@ export default function SettingsEditPanel(props) {
                 </div>
                 <h2>Light Alarm</h2>
                 <Divider />
-                <TimePicker setTime={updateTime}/>
+                <FormControl className="light-alarm-component settings-first-item" variant="outlined">
+                    <InputLabel id="light-group-dropdown">Room</InputLabel>
+                    <Select
+                        id="settings-light-rooms"
+                        value={selectedRoom}
+                        onChange={handleChange}
+                        label="Room"
+                    >
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+                        {state.userLightGroups.map((group) => (
+                            <MenuItem key={group.groupId} value={group.groupName}>
+                                {group.groupName}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+                <TimePicker initialTime={time} setTime={updateTime} />
             </div>
             <Divider />
             <button className="submit" disabled={!edited} onClick={savePreferences}>Save</button>
