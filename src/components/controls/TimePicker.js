@@ -14,7 +14,7 @@ export default function TimePicker() {
 
     return (
         <>
-            <div className="light-alarm-time-picker">
+            <div className="light-alarm-component">
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <KeyboardTimePicker
                         margin="normal"
