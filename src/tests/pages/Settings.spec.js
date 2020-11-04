@@ -11,6 +11,10 @@ describe('Settings Page', () => {
     const city = 'Vienna';
     const unitMeasure = 'imperial';
     const tempUnit = 'fahrenheit';
+    const groupId = '1';
+    const groupName = 'Bedroom';
+    const alarmTime = '01:00:00';
+    const lightGroups = [{groupName: groupName, groupId: groupId}]
 
     const spyUpdate = jest.spyOn(lib, 'updateUserPreferences');
     const spyGet = jest.spyOn(lib, 'getUserPreferences');
@@ -18,7 +22,7 @@ describe('Settings Page', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{userLightGroups: []}, () => { }]}>
+                <Context.Provider value={[{ userLightGroups: lightGroups }, () => { }]}>
                     <Settings />
                 </Context.Provider>
             );
@@ -30,7 +34,7 @@ describe('Settings Page', () => {
         spyUpdate.mockClear();
         spyGet.mockClear();
         getStore().setUserId(userId);
-        spyGet.mockReturnValue({ city: city, temp_unit: tempUnit, measure_unit: unitMeasure, light_alarm: { alarm_days: 'Mon', alarm_time: '00:00:00', alarm_light_group: '1', alarm_group_name: 'bedroom'} });
+        spyGet.mockReturnValue({ city: city, temp_unit: tempUnit, measure_unit: unitMeasure, light_alarm: { alarm_days: 'Mon', alarm_time: alarmTime, alarm_light_group: groupId, alarm_group_name: groupName } });
     });
 
     it('should display logo header', async () => {
@@ -142,9 +146,15 @@ describe('Settings Page', () => {
 
     it('should update the temp unit on the normal screen after saving', async () => {
         await renderComponent();
-        fireEvent.click(screen.getByRole('button'));
-        fireEvent.click(screen.getAllByRole('radio')[1]);
-        fireEvent.click(screen.getByText('Save'));
+        await act(async () => {
+            fireEvent.click(screen.getByRole('button'));
+        });
+        await act(async () => {
+            fireEvent.click(screen.getAllByRole('radio')[1]);
+        });
+        await act(async () => {
+            fireEvent.click(screen.getByText('Save'));
+        });
 
         const actual = screen.getByText('celsius');
 
