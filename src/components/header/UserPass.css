@@ -7,6 +7,7 @@ button {
     margin: 1em;
     padding: 10px 20px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    outline: none;
 }
 
 input {
