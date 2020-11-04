@@ -3,6 +3,7 @@ import { Context } from '../../state/Store';
 import { updateUserPreferences } from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
 import TimePicker from '../controls/TimePicker';
+import WeekPicker from '../controls/WeekPicker';
 import { Divider, TextField, FormControlLabel, RadioGroup, FormControl, Radio, MenuItem, Select, InputLabel } from '@material-ui/core';
 import './SettingsEditPanel.css'
 
@@ -108,6 +109,7 @@ export default function SettingsEditPanel(props) {
                     </Select>
                 </FormControl>
                 <TimePicker initialTime={time} setTime={updateTime} />
+                <WeekPicker/>
             </div>
             <Divider />
             <button className="submit" disabled={!edited} onClick={savePreferences}>Save</button>
