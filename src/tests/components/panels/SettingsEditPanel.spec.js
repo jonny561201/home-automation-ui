@@ -4,14 +4,22 @@ import { render, screen, act } from '@testing-library/react';
 import SettingsEditPanel from '../../../components/panels/SettingsEditPanel';
 import '@testing-library/jest-dom';
 import { getStore } from '../../../state/GlobalState';
+import { Context } from '../../../state/Store';
 
 describe('Settings Edit Panel', () => {
     const userId = 'fakeUserId';
+    const days = 'MonTue';
+    const time = '01:00:00';
+    const groupName = 'Bedroom';
     const spyUpdate = jest.spyOn(lib, 'updateUserPreferences');
 
-    const renderComponent = async () => {
-        await act(async() => {
-            render(<SettingsEditPanel  tempUnit={"fahrenheit"} measureUnit={"imperial"}/>);
+    const renderComponent = async (alarmDays, alarmTime, alarmName) => {
+        await act(async () => {
+            render(
+                <Context.Provider value={[{userLightGroups: []}, () => { }]}>
+                    <SettingsEditPanel tempUnit={"fahrenheit"} measureUnit={"imperial"} days={alarmDays} time={alarmTime} groupName={alarmName} />
+                </Context.Provider>
+            );
         });
     }
 
@@ -21,19 +29,19 @@ describe('Settings Edit Panel', () => {
     });
 
     it('should display save button to submit updated preferences', async () => {
-        await renderComponent();
+        await renderComponent(days, time, groupName);
         const actual = screen.getByText('Save').textContent;
         expect(actual).toEqual('Save');
     });
 
     it('should display the cancel button', async () => {
-        await renderComponent();
+        await renderComponent(days, time, groupName);
         const actual = screen.getByText('Cancel').textContent;
         expect(actual).toEqual('Cancel');
     });
 
     it('should display the radio buttons for celsius and fahrenheit', async () => {
-        await renderComponent();
+        await renderComponent(days, time, groupName);
         const fahrenheitRadio = screen.getAllByRole('radio')[0];
         const celciusRadio = screen.getAllByRole('radio')[1];
         expect(fahrenheitRadio).toHaveAttribute('value', 'fahrenheit');
@@ -41,28 +49,34 @@ describe('Settings Edit Panel', () => {
     });
 
     it('should display city input textbox', async () => {
-        await renderComponent();
+        await renderComponent(days, time, groupName);
         const actual = screen.getAllByRole('textbox')[0];
         expect(actual).toBeDefined();
     })
 
     it('should display Temperature header', async () => {
-        await renderComponent();
+        await renderComponent(days, time, groupName);
         const actual = screen.getByText('Temperature').textContent;
         expect(actual).toEqual('Temperature');
     });
 
     it('should display the Measurement header', async () => {
-        await renderComponent();
+        await renderComponent(days, time, groupName);
         const actual = screen.getByText('Measurement').textContent;
         expect(actual).toEqual('Measurement');
     });
 
     it('should display the radio buttons for imperial and metric', async () => {
-        await renderComponent();
+        await renderComponent(days, time, groupName);
         const imperialRadio = screen.getAllByRole('radio')[2];
         const metricRadio = screen.getAllByRole('radio')[3];
         expect(imperialRadio).toHaveAttribute('value', 'imperial');
         expect(metricRadio).toHaveAttribute('value', 'metric');
     });
+
+     it('should display the time picker', async () => {
+        await renderComponent(days, time, groupName);
+        const actual = screen.getByTestId('time-picker');
+        expect(actual).toBeDefined();
+     });
 });

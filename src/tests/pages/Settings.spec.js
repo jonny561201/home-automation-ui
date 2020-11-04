@@ -18,7 +18,7 @@ describe('Settings Page', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{}, () => { }]}>
+                <Context.Provider value={[{userLightGroups: []}, () => { }]}>
                     <Settings />
                 </Context.Provider>
             );
@@ -151,7 +151,7 @@ describe('Settings Page', () => {
         expect(actual).toBeDefined();
     });
 
-    it('should not the temp unit on the normal screen after saving', async () => {
+    it('should not update the temp unit on the normal screen after cancelling', async () => {
         await renderComponent();
         fireEvent.click(screen.getByRole('button'));
         fireEvent.click(screen.getAllByRole('radio')[1]);

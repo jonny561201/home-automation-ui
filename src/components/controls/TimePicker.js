@@ -22,7 +22,7 @@ export default function TimePicker(props) {
 
     return (
         <>
-            <div className="light-alarm-component">
+            <div data-testid="time-picker" className="light-alarm-component">
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <KeyboardTimePicker
                         margin="normal"
