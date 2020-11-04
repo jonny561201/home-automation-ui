@@ -1,6 +1,6 @@
 import React from 'react';
 import * as lib from '../../../utilities/RestApi';
-import { render, screen, act } from '@testing-library/react';
+import { render, screen, act, fireEvent } from '@testing-library/react';
 import SettingsEditPanel from '../../../components/panels/SettingsEditPanel';
 import '@testing-library/jest-dom';
 import { getStore } from '../../../state/GlobalState';
@@ -11,12 +11,13 @@ describe('Settings Edit Panel', () => {
     const days = 'MonTue';
     const time = '01:00:00';
     const groupName = 'Bedroom';
+    const groups = [{groupId: '1', groupName: groupName}];
     const spyUpdate = jest.spyOn(lib, 'updateUserPreferences');
 
     const renderComponent = async (alarmDays, alarmTime, alarmName) => {
         await act(async () => {
             render(
-                <Context.Provider value={[{userLightGroups: []}, () => { }]}>
+                <Context.Provider value={[{userLightGroups: groups}, () => { }]}>
                     <SettingsEditPanel tempUnit={"fahrenheit"} measureUnit={"imperial"} days={alarmDays} time={alarmTime} groupName={alarmName} />
                 </Context.Provider>
             );
@@ -90,5 +91,14 @@ describe('Settings Edit Panel', () => {
         await renderComponent(days, time, groupName);
         const actual = screen.getByTestId('alarm-room-picker');
         expect(actual).toBeDefined();
+     });
+
+     it('should display the drop down options in the menu', async () => {
+        await renderComponent(days, time, groupName);
+        await act(async () => {
+            fireEvent.click(screen.getByTestId('alarm-room-picker'));
+        });
+        const actual = screen.getByText(groupName).textContent;
+        expect(actual).toEqual(groupName);
      });
 });
