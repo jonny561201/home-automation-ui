@@ -91,6 +91,7 @@ export default function SettingsEditPanel(props) {
                 <FormControl className="light-alarm-component settings-first-item" variant="outlined">
                     <InputLabel id="light-group-dropdown">Room</InputLabel>
                     <Select
+                        data-testid="alarm-room-picker"
                         id="settings-light-rooms"
                         value={selectedRoom}
                         onChange={handleChange}
