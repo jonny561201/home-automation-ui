@@ -13,14 +13,14 @@ const initialState = {
     deviceId: null,
     startedGarageRegistration: false,
     devicesToRegister: false,
-    garageRole: null,
+    garageRole: [],
     addedGarageNode: false,
     garageCoords: null,
     userCoords: null,
     userLights: [],
     userLightGroups: [],
-    daysOfWeek: [{ id: 1, day: 'S', on: false }, { id: 2, day: 'M', on: false }, { id: 3, day: 'T', on: false },
-                { id: 4, day: 'W', on: false }, { id: 5, day: 'T', on: false }, { id: 6, day: 'F', on: false }, { id: 7, day: 'S', on: false }],
+    daysOfWeek: [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false },
+                { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }],
 };
 
 const Store = ({ children }) => {
