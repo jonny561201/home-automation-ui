@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import DayPicker from '../../../components/controls/DayPicker';
 import { Context } from '../../../state/Store';
 
@@ -12,7 +12,7 @@ describe('Day Picker', () => {
     const renderComponent = async (day) => {
         render(
             <Context.Provider value={[{daysOfWeek: daysOfWeek}, () => { }]}>
-                <DayPicker day={day}/>
+                <DayPicker day={day} setEdited={() => {}}/>
             </Context.Provider>
         );
     }
@@ -35,5 +35,12 @@ describe('Day Picker', () => {
         const actual = screen.getByText('T').classList;
         expect(actual).not.toContain('selected');
         expect(actual).toContain('day-picker');
+    });
+
+    it('should toggle the button state when clicked', async () => {
+        await renderComponent(dayUnselected);
+        fireEvent.click(screen.getByText('T'));
+        const actual = screen.getByText('T').classList;
+        expect(actual).toContain('selected');
     });
 });
