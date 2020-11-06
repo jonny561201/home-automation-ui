@@ -29,5 +29,11 @@ describe('Day Picker', () => {
         expect(actual).toContain('selected');
         expect(actual).toContain('day-picker');
     });
-    
+
+    it('should not display the selected value when starts in an off state', async () => {
+        await renderComponent(dayUnselected);
+        const actual = screen.getByText('T').classList;
+        expect(actual).not.toContain('selected');
+        expect(actual).toContain('day-picker');
+    });
 });
