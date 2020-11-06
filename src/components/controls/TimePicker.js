@@ -8,11 +8,13 @@ export default function TimePicker(props) {
     const [dateValue, setDateValue] = useState();
 
     useEffect(() => {
-        const date = new Date();
-        const initialDate = props.initialTime.split(":");
-        date.setHours(initialDate[0])
-        date.setMinutes(initialDate[1])
-        setDateValue(date)
+        if (props.initialTime != undefined) {
+            const date = new Date();
+            const initialDate = props.initialTime.split(":");
+            date.setHours(initialDate[0]);
+            date.setMinutes(initialDate[1]);
+            setDateValue(date);
+        }
     }, []);
 
     const handleDateChange = (date) => {
