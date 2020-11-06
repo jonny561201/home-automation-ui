@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Context } from '../../state/Store';
 import { updateUserPreferences } from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
@@ -10,12 +10,18 @@ import './SettingsEditPanel.css'
 
 export default function SettingsEditPanel(props) {
     const [state,] = useContext(Context);
-    const [time, setTime] = useState(props.time);
     const [edited, setEdited] = useState();
+    const [groupId,] = useState(props.groupId);
+    const [time, setTime] = useState(props.time);
     const [newCity, setNewCity] = useState(props.city);
-    const [selectedRoom, setSelectedRoom] = useState(props.groupName);
+    const [selectedRoom, setSelectedRoom] = useState("");
     const [newTempUnit, setNewTempUnit] = useState(props.tempUnit);
     const [newMeasureUnit, setNewMeasureUnit] = useState(props.measureUnit);
+
+    useEffect(() => {
+        if (state.userLightGroups.filter(x => x.groupName === props.groupName).length > 0)
+            setSelectedRoom(props.groupName);
+    }, []);
 
     const savePreferences = () => {
         const isFahrenheit = newTempUnit === "fahrenheit";
