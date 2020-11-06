@@ -1,5 +1,6 @@
 .light-alarm-component {
-    width: 50%;
+    flex: 1;
+    margin-right: 1rem !important;
 }
 
 .settings-first-item {
