@@ -22,7 +22,7 @@ describe('Settings Page', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ userLightGroups: lightGroups }, () => { }]}>
+                <Context.Provider value={[{ userLightGroups: lightGroups, daysOfWeek: [] }, () => { }]}>
                     <Settings />
                 </Context.Provider>
             );
@@ -68,7 +68,7 @@ describe('Settings Page', () => {
         fireEvent.change(screen.getAllByRole('textbox')[0], { target: { value: newCity } });
 
         fireEvent.click(screen.getByText('Save'));
-        expect(spyUpdate).toHaveBeenCalledWith(userId, false, false, newCity, undefined);
+        expect(spyUpdate).toHaveBeenCalledWith(userId, false, false, newCity, undefined, "", undefined, undefined);
     });
 
     it('should make api call on submit to update the unit of measure', () => {
@@ -77,7 +77,7 @@ describe('Settings Page', () => {
         fireEvent.click(screen.getAllByRole('radio')[2]);
 
         fireEvent.click(screen.getByText('Save'));
-        expect(spyUpdate).toHaveBeenCalledWith(userId, false, true, undefined, undefined);
+        expect(spyUpdate).toHaveBeenCalledWith(userId, false, true, undefined, undefined, "", undefined, undefined);
     });
 
     it('should make api call on submit to update the temp', () => {
@@ -86,7 +86,7 @@ describe('Settings Page', () => {
 
         fireEvent.click(screen.getAllByRole('radio')[0]);
         fireEvent.click(screen.getByText('Save'));
-        expect(spyUpdate).toHaveBeenCalledWith(userId, true, false, undefined, undefined);
+        expect(spyUpdate).toHaveBeenCalledWith(userId, true, false, undefined, undefined, "", undefined, undefined);
     });
 
     it('should return to the normal screen when cancelling on edit screen', async () => {

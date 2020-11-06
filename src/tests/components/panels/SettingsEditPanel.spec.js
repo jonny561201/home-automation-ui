@@ -17,7 +17,7 @@ describe('Settings Edit Panel', () => {
     const renderComponent = async (alarmDays, alarmTime, alarmName) => {
         await act(async () => {
             render(
-                <Context.Provider value={[{userLightGroups: groups}, () => { }]}>
+                <Context.Provider value={[{userLightGroups: groups, daysOfWeek: [] }, () => { }]}>
                     <SettingsEditPanel tempUnit={"fahrenheit"} measureUnit={"imperial"} days={alarmDays} time={alarmTime} groupName={alarmName} />
                 </Context.Provider>
             );

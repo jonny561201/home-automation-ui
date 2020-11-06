@@ -49,7 +49,7 @@ describe('LightSwitch', () => {
         expect(actual).toBeDefined();
     });
 
-    ////////////////
+    //TODO: need to get testing working on slider components...
     it('should call set light group state on toggleChecked', async () => {
         await renderComponent(lights, groups);
         await act(async () => {
