@@ -5,12 +5,13 @@ import './DayPicker.css';
 
 export default function DayPicker(props) {
     const [on, setOn] = useState(props.day.on);
-    const [ ,dispatch] = useContext(Context);
+    const [, dispatch] = useContext(Context);
 
     const toggleDay = () => {
         const updatedState = !on;
         dispatch({type: 'TOGGLE_DAY_OF_WEEK', payload: {...props.day, on: updatedState} });
         setOn(updatedState);
+        props.setEdited();
     }
 
     return (
