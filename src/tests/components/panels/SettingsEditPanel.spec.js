@@ -13,11 +13,12 @@ describe('Settings Edit Panel', () => {
     const groupName = 'Bedroom';
     const groups = [{groupId: '1', groupName: groupName}];
     const spyUpdate = jest.spyOn(lib, 'updateUserPreferences');
+    let roles;
 
     const renderComponent = async (alarmDays, alarmTime, alarmName) => {
         await act(async () => {
             render(
-                <Context.Provider value={[{userLightGroups: groups, daysOfWeek: [] }, () => { }]}>
+                <Context.Provider value={[{userLightGroups: groups, daysOfWeek: [], roles:  roles}, () => { }]}>
                     <SettingsEditPanel tempUnit={"fahrenheit"} measureUnit={"imperial"} days={alarmDays} time={alarmTime} groupName={alarmName} />
                 </Context.Provider>
             );
@@ -25,6 +26,7 @@ describe('Settings Edit Panel', () => {
     }
 
     beforeEach(() => {
+        roles = [{"role_name": "lighting"}];
         getStore().setUserId(userId);
         spyUpdate.mockClear();
     });
@@ -100,5 +102,12 @@ describe('Settings Edit Panel', () => {
         });
         const actual = screen.getByText(groupName).textContent;
         expect(actual).toEqual(groupName);
+     });
+
+     it('should not display the light alarm preferences when you dont have the role', async () => {
+        roles = [];
+        await renderComponent(days, time, groupName);
+        const actual = screen.queryByText('Light Alarm');
+        expect(actual).toBeNull();
      });
 });

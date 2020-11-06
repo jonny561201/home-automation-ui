@@ -33,7 +33,7 @@ export default function Settings() {
             setGroupName(response.light_alarm.alarm_group_name);
 
             state.daysOfWeek.filter(x => response.light_alarm.alarm_days.includes(x.id)).map(y =>
-                dispatch({type: 'TOGGLE_DAY_OF_WEEK', payload: {...y, on: true} })
+                dispatch({ type: 'TOGGLE_DAY_OF_WEEK', payload: { ...y, on: true } })
             )
         };
         getData();
@@ -57,7 +57,7 @@ export default function Settings() {
                         measureUnit={measureUnit} setMeasureUnit={setMeasureUnit}
                         time={lightTime}
                         groupName={groupName}
-                        groupId={lightGroupId}/>
+                        groupId={lightGroupId} />
                     : <SettingsPanel
                         city={city}
                         tempUnit={tempUnit}

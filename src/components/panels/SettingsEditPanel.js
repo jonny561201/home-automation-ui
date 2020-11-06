@@ -97,31 +97,37 @@ export default function SettingsEditPanel(props) {
                         </RadioGroup>
                     </FormControl>
                 </div>
-                <h2>Light Alarm</h2>
-                <Divider />
-                <div className="settings-row">
-                    <FormControl className="light-alarm-component settings-first-item" variant="outlined">
-                        <InputLabel id="light-group-dropdown">Room</InputLabel>
-                        <Select
-                            data-testid="alarm-room-picker"
-                            id="settings-light-rooms"
-                            value={selectedRoom}
-                            onChange={updateSelectedRoom}
-                            label="Room"
-                        >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            {state.userLightGroups.map((group) => (
-                                <MenuItem key={group.groupId} value={group.groupName}>
-                                    {group.groupName}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                    <TimePicker className="light-alarm-component" initialTime={props.time} setTime={updateTime} />
-                </div>
-                <WeekPicker setEdited={() => setEdited(true)} />
+                {
+                    state.roles.some(x => x.role_name === 'lighting') &&
+                    <>
+                        <h2>Light Alarm</h2>
+                        <Divider />
+                        <div className="settings-row">
+                            <FormControl className="light-alarm-component settings-first-item" variant="outlined">
+                                <InputLabel id="light-group-dropdown">Room</InputLabel>
+                                <Select
+                                    data-testid="alarm-room-picker"
+                                    id="settings-light-rooms"
+                                    value={selectedRoom}
+                                    onChange={updateSelectedRoom}
+                                    label="Room"
+                                >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    {state.userLightGroups.map((group) => (
+                                        <MenuItem key={group.groupId} value={group.groupName}>
+                                            {group.groupName}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                            <TimePicker className="light-alarm-component" initialTime={props.time} setTime={updateTime} />
+                        </div>
+                        <WeekPicker setEdited={() => setEdited(true)} />
+                    </>
+
+                }
             </div>
             <Divider />
             <button className="submit" disabled={!edited} onClick={savePreferences}>Save</button>

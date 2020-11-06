@@ -15,6 +15,7 @@ describe('Settings Page', () => {
     const groupName = 'Bedroom';
     const alarmTime = '01:00:00';
     const lightGroups = [{groupName: groupName, groupId: groupId}]
+    const roles = [{"role_name": "lighting"}];
 
     const spyUpdate = jest.spyOn(lib, 'updateUserPreferences');
     const spyGet = jest.spyOn(lib, 'getUserPreferences');
@@ -22,7 +23,7 @@ describe('Settings Page', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ userLightGroups: lightGroups, daysOfWeek: [] }, () => { }]}>
+                <Context.Provider value={[{ userLightGroups: lightGroups, daysOfWeek: [], roles: roles}, () => { }]}>
                     <Settings />
                 </Context.Provider>
             );
