@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Divider } from '@material-ui/core';
+import { Context } from '../../state/Store';
 
 
 export default function SettingsPanel(props) {
+    const [state, dispatch] = useContext(Context);
+
     return (
         <div className="settings-wrapper">
             <div className="settings-group settings-text">
@@ -25,22 +28,28 @@ export default function SettingsPanel(props) {
                 <p className="settings-text measure-unit">Unit:</p>
                 <p className="settings-text measure-unit">{props.measureUnit}</p>
             </div>
-            <div className="settings-group settings-text">
-                <h2>Light Alarm</h2>
-            </div>
-            <Divider />
-            <div className="settings-row">
-                <p className="settings-text measure-unit">Alarm Room:</p>
-                <p className="settings-text measure-unit">{props.groupName}</p>
-            </div>
-            <div className="settings-row">
-                <p className="settings-text measure-unit">Alarm Days:</p>
-                <p className="settings-text measure-unit">{props.days}</p>
-            </div>
-            <div className="settings-row">
-                <p className="settings-text measure-unit">Alarm Time:</p>
-                <p className="settings-text measure-unit">{props.time}</p>
-            </div>
+            {
+                state.roles.some(x => x.role_name === 'lighting') &&
+                <>
+                    <div className="settings-group settings-text">
+                        <h2>Light Alarm</h2>
+                    </div>
+                    <Divider />
+                    <div className="settings-row">
+                        <p className="settings-text measure-unit">Alarm Room:</p>
+                        <p className="settings-text measure-unit">{props.groupName}</p>
+                    </div>
+                    <div className="settings-row">
+                        <p className="settings-text measure-unit">Alarm Days:</p>
+                        <p className="settings-text measure-unit">{props.days}</p>
+                    </div>
+                    <div className="settings-row">
+                        <p className="settings-text measure-unit">Alarm Time:</p>
+                        <p className="settings-text measure-unit">{props.time}</p>
+                    </div>
+                </>
+            }
+
             <button onClick={props.toggleEdit}>Edit</button>
         </div>
     );
