@@ -31,10 +31,11 @@ export default function Settings() {
             setLightGroupId(response.light_alarm.alarm_light_group)
             setLightTime(response.light_alarm.alarm_time);
             setGroupName(response.light_alarm.alarm_group_name);
-
-            state.daysOfWeek.filter(x => response.light_alarm.alarm_days.includes(x.id)).map(y =>
-                dispatch({ type: 'TOGGLE_DAY_OF_WEEK', payload: { ...y, on: true } })
-            )
+            if (response.light_alarm.alarm_days) {
+                state.daysOfWeek.filter(x => response.light_alarm.alarm_days.includes(x.id)).map(y =>
+                    dispatch({ type: 'TOGGLE_DAY_OF_WEEK', payload: { ...y, on: true } })
+                )
+            }
         };
         getData();
     }, [userId]);
