@@ -3,7 +3,7 @@ import jwt_decode from 'jwt-decode';
 import { getStore } from '../state/GlobalState';
 
 
-const baseUrl = 'http://www.soaringleafsolutions.com';
+const baseUrl = 'https://www.soaringleafsolutions.com';
 const accountBaseUrl = `${baseUrl}/account`;
 const deviceBaseUrl = `${baseUrl}/devices`;
 const garageBaseUrl = `${baseUrl}/garageDoor`;
