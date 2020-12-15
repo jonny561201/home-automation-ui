@@ -7,8 +7,5 @@
     background-color: white;
     color: black;
     display: flex;
-
-    /* min-height: 800px; */
-    min-width: 650px;
     border-radius: 0px 0px 12px 12px;
 }
