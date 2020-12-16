@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/home-automation-ui/static/css/main.7862466b.chunk.css",
-    "main.js": "/home-automation-ui/static/js/main.7fe98a1a.chunk.js",
-    "main.js.map": "/home-automation-ui/static/js/main.7fe98a1a.chunk.js.map",
+    "main.css": "/home-automation-ui/static/css/main.aed13b7a.chunk.css",
+    "main.js": "/home-automation-ui/static/js/main.3246d135.chunk.js",
+    "main.js.map": "/home-automation-ui/static/js/main.3246d135.chunk.js.map",
     "runtime-main.js": "/home-automation-ui/static/js/runtime-main.8f1e8178.js",
     "runtime-main.js.map": "/home-automation-ui/static/js/runtime-main.8f1e8178.js.map",
     "static/js/2.b9570c57.chunk.js": "/home-automation-ui/static/js/2.b9570c57.chunk.js",
     "static/js/2.b9570c57.chunk.js.map": "/home-automation-ui/static/js/2.b9570c57.chunk.js.map",
     "index.html": "/home-automation-ui/index.html",
-    "precache-manifest.686b65d641ef569b4875439b94f72477.js": "/home-automation-ui/precache-manifest.686b65d641ef569b4875439b94f72477.js",
+    "precache-manifest.d8fc2ce42e722f3b08c405d41fd2f47a.js": "/home-automation-ui/precache-manifest.d8fc2ce42e722f3b08c405d41fd2f47a.js",
     "service-worker.js": "/home-automation-ui/service-worker.js",
-    "static/css/main.7862466b.chunk.css.map": "/home-automation-ui/static/css/main.7862466b.chunk.css.map",
+    "static/css/main.aed13b7a.chunk.css.map": "/home-automation-ui/static/css/main.aed13b7a.chunk.css.map",
     "static/js/2.b9570c57.chunk.js.LICENSE.txt": "/home-automation-ui/static/js/2.b9570c57.chunk.js.LICENSE.txt",
     "static/media/CompanyLogo.png": "/home-automation-ui/static/media/CompanyLogo.185c92d3.png",
     "static/media/GarageDoorIcon.png": "/home-automation-ui/static/media/GarageDoorIcon.d016c3b1.png",
@@ -34,7 +34,7 @@
   "entrypoints": [
     "static/js/runtime-main.8f1e8178.js",
     "static/js/2.b9570c57.chunk.js",
-    "static/css/main.7862466b.chunk.css",
-    "static/js/main.7fe98a1a.chunk.js"
+    "static/css/main.aed13b7a.chunk.css",
+    "static/js/main.3246d135.chunk.js"
   ]
 }
