@@ -8,9 +8,15 @@ body {
 
 .App-header {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   color: white;
+}
+
+
+@media (min-width: 480px) {
+  .App-header {
+    display: flex;
+    flex-direction: column;
+  }
 }
