@@ -2,9 +2,14 @@
     background-color: white;
     color: black;
     display: flex;
-    min-width: 650px;
     flex-direction: column;
     border-radius: 0 0 20px 20px;
+}
+
+@media (min-width: 480px) {
+    .account-body {
+        min-width: 650px;
+    }
 }
 
 .test {
