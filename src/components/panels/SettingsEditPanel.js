@@ -130,8 +130,10 @@ export default function SettingsEditPanel(props) {
                 }
             </div>
             <Divider />
-            <button className="submit" disabled={!edited} onClick={savePreferences}>Save</button>
-            <button className="cancel" onClick={cancelPreferences}>Cancel</button>
+            <div className="settings-button-group">
+                <button className="submit" disabled={!edited} onClick={savePreferences}>Save</button>
+                <button className="cancel" onClick={cancelPreferences}>Cancel</button>
+            </div>
         </div>
     );
 }

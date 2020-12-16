@@ -12,6 +12,14 @@
     }
 }
 
+@media (max-width: 479px) {
+    .settings-button-group {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+
 .test {
     left: auto;
     top: auto;
