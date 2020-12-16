@@ -12,6 +12,24 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
 }
 
+@media (max-width: 479px) {
+    .home-header-text {
+        font-size: 20px;
+    }
+
+    .home-header {
+        border-radius: 0;
+    }
+
+    .header {
+        position: fixed !important;
+        top:0;
+        left: 0;
+        right: 0;
+        z-index: 1;
+    }
+}
+
 .header {
     position: relative;
 }
