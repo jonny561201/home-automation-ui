@@ -1,11 +1,11 @@
-.home-main {
-    flex-direction: column;
-    position: relative;
-}
-
 .home-body {
     background-color: white;
     color: black;
-    display: flex;
     border-radius: 0px 0px 12px 12px;
+}
+
+@media (min-width: 480px) {
+    .home-body {
+        display: flex;
+    }    
 }
