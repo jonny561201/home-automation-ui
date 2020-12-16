@@ -98,9 +98,7 @@ export default function TemperaturePanel() {
                     <div className="form-container">
                         <div className="form-column">
                             <div>
-                                <TemperatureImage description={description} />
-                                <p data-testid={"internal-temp"} className="internal-temp">{internalTemp}&deg;</p>
-                                <p data-testid={"external-temp"} className="external-temp">{externalTemp}&deg;</p>
+                                <TemperatureImage description={description} internal={internalTemp} external={externalTemp}/>
                             </div>
                         </div>
                         <div className="form-column">

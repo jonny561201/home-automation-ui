@@ -64,20 +64,6 @@ describe('TemperaturePanel', () => {
             expect(spyGet).toBeCalledWith(userId);
         });
 
-        it('should show the rounded external temperature from response on backend', async () => {
-            await renderComponent();
-            const actual = screen.getByTestId('external-temp').textContent;
-
-            expect(actual).toEqual("33°");
-        });
-
-        it('should show the rounded internal temperature from response on backend', async () => {
-            await renderComponent();
-            const actual = screen.getByTestId('internal-temp').textContent;
-
-            expect(actual).toEqual("73°");
-        });
-
         it('should show the desired temperature knob value from backend', async () => {
             await renderComponent();
             const actual = screen.getByTitle(desiredTemp.toFixed(0).toString());

@@ -5,7 +5,7 @@
 .internal-temp {
     position: absolute;
     top: 63%;
-    left: 40%;
+    left: 42%;
     font-size: 40px;
     font-weight: bolder;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
@@ -28,6 +28,18 @@
 @media (max-width: 479px) {
     .form-container {
         flex-direction: column;
+    }
+
+    .external-temp {
+        top: 28%;
+        left: 34%;
+        font-size: 25px;
+    }
+
+    .internal-temp {
+        font-size: 35px;
+        top: 36%;
+        left: 63%;
     }
  }
 

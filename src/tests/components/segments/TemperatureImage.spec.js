@@ -7,7 +7,9 @@ import '@testing-library/jest-dom';
 
 
 describe('TemperatureImage', () => {
-    const coords = {latitude: 1, longitude: -1}
+    const coords = {latitude: 1, longitude: -1};
+    const internalTemp = 73;
+    const externalTemp = 33;
     const spyRise = jest.spyOn(lib, 'getSunrise');
     const spySet = jest.spyOn(lib, 'getSunset');
 
@@ -16,7 +18,7 @@ describe('TemperatureImage', () => {
         await act(async () => {
             render(
                 <Context.Provider value={[{garageCoords: coords}, () => { }]}>
-                    <TemperatureImage description={desc} />
+                    <TemperatureImage description={desc} internal={internalTemp} external={externalTemp}/>
                 </Context.Provider>
             );
         });
@@ -31,6 +33,20 @@ describe('TemperatureImage', () => {
         beforeEach(() => {
             const now = new Date();
             spySet.mockReturnValue(new Date(now.setTime(now.getTime() + 86400000)));
+        });
+
+        it('should show the rounded external temperature', async () => {
+            await renderComponent('clear sky');
+            const actual = screen.getByTestId('external-temp').textContent;
+
+            expect(actual).toEqual("33°");
+        });
+
+        it('should show the rounded internal temperature', async () => {
+            await renderComponent('clear sky');
+            const actual = screen.getByTestId('internal-temp').textContent;
+
+            expect(actual).toEqual("73°");
         });
 
         it('should return sunny weather icon', async () => {
