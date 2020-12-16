@@ -48,3 +48,12 @@
     display: flex;
     justify-content: space-between;
 }
+
+@media (max-width: 479px) {
+    .door-groups {
+        flex-direction: column;
+    }
+    .MuiExpansionPanelActions-root {
+        justify-content: center !important;
+    }
+}
