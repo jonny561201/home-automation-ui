@@ -5,3 +5,18 @@
 .home-icon {
     width: 200px;
 }
+
+@media (max-width: 479px) {
+    .temp-container {
+        display: flex;
+    }
+    .weather-icon {
+        height: 145px;
+        object-fit: contain;
+    }
+    .home-icon {
+        padding-top: 4rem;
+        height: 75px;
+        object-fit: contain;
+    }
+}
