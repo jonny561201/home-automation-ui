@@ -4,3 +4,9 @@
     margin: 0.5rem;
     justify-content: center;
 }
+
+@media (max-width: 479px) {
+    .weekday-picker {
+        margin: 0;
+    }
+}
