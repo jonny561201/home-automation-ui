@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b3ad2d1f5c8704c34c9a4266dd1111dc",
+    "revision": "2eaee68197f5ff9b0e0070e4df4a012b",
     "url": "/home-automation-ui/index.html"
   },
   {
-    "revision": "100de91fb91a368fa0e8",
-    "url": "/home-automation-ui/static/css/main.7862466b.chunk.css"
+    "revision": "85339c4fc56b2dd97ba4",
+    "url": "/home-automation-ui/static/css/main.641eac34.chunk.css"
   },
   {
     "revision": "bbb137996aeb6a539452",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/home-automation-ui/static/js/2.b9570c57.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "100de91fb91a368fa0e8",
-    "url": "/home-automation-ui/static/js/main.7bceefa1.chunk.js"
+    "revision": "85339c4fc56b2dd97ba4",
+    "url": "/home-automation-ui/static/js/main.f3684a80.chunk.js"
   },
   {
     "revision": "07374fba03fe46966704",
