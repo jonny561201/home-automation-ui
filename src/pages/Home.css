@@ -12,6 +12,10 @@
 
 @media (max-width: 479px) {
     .home-body {
-        margin-top: 77px;
+        margin-top: 69px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        width: 100%;
     }
 }
