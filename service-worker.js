@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/home-automation-ui/precache-manifest.bfeae292391f9f16b9613e96ccd4bdc3.js"
+  "/home-automation-ui/precache-manifest.25e38c3b51fa9d9607c684b7b1015434.js"
 );
 
 self.addEventListener('message', (event) => {
