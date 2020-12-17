@@ -6,7 +6,7 @@ import UserPass from '../components/header/UserPass';
 import { getStore } from '../state/GlobalState';
 
 
-export default function Login(props) {
+export default function Login() {
     getStore().setActivePage('Login');
 
     return (

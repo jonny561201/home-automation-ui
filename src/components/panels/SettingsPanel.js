@@ -4,7 +4,7 @@ import { Context } from '../../state/Store';
 
 
 export default function SettingsPanel(props) {
-    const [state, dispatch] = useContext(Context);
+    const [state, ] = useContext(Context);
 
     return (
         <div className="settings-wrapper">
