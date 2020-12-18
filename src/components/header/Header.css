@@ -15,6 +15,7 @@
 @media (max-width: 479px) {
     .home-header-text {
         font-size: 20px;
+        margin-left: 5rem;
     }
 
     .home-header {
