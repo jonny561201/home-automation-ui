@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/home-automation-ui/static/css/main.60f50807.chunk.css",
+    "main.css": "/home-automation-ui/static/css/main.04834218.chunk.css",
     "main.js": "/home-automation-ui/static/js/main.c170dcd8.chunk.js",
     "main.js.map": "/home-automation-ui/static/js/main.c170dcd8.chunk.js.map",
     "runtime-main.js": "/home-automation-ui/static/js/runtime-main.8f1e8178.js",
@@ -8,9 +8,9 @@
     "static/js/2.b9570c57.chunk.js": "/home-automation-ui/static/js/2.b9570c57.chunk.js",
     "static/js/2.b9570c57.chunk.js.map": "/home-automation-ui/static/js/2.b9570c57.chunk.js.map",
     "index.html": "/home-automation-ui/index.html",
-    "precache-manifest.a98691012526278905657f245fa1d269.js": "/home-automation-ui/precache-manifest.a98691012526278905657f245fa1d269.js",
+    "precache-manifest.ab4924f435dfca866967532ef17fbb32.js": "/home-automation-ui/precache-manifest.ab4924f435dfca866967532ef17fbb32.js",
     "service-worker.js": "/home-automation-ui/service-worker.js",
-    "static/css/main.60f50807.chunk.css.map": "/home-automation-ui/static/css/main.60f50807.chunk.css.map",
+    "static/css/main.04834218.chunk.css.map": "/home-automation-ui/static/css/main.04834218.chunk.css.map",
     "static/js/2.b9570c57.chunk.js.LICENSE.txt": "/home-automation-ui/static/js/2.b9570c57.chunk.js.LICENSE.txt",
     "static/media/CompanyLogo.png": "/home-automation-ui/static/media/CompanyLogo.185c92d3.png",
     "static/media/GarageDoorIcon.png": "/home-automation-ui/static/media/GarageDoorIcon.d016c3b1.png",
@@ -34,7 +34,7 @@
   "entrypoints": [
     "static/js/runtime-main.8f1e8178.js",
     "static/js/2.b9570c57.chunk.js",
-    "static/css/main.60f50807.chunk.css",
+    "static/css/main.04834218.chunk.css",
     "static/js/main.c170dcd8.chunk.js"
   ]
 }
