@@ -19,12 +19,7 @@ export default function UserLocation() {
     }, 5000);
 
     const shouldOpenGarage = (distance) => {
-        //within 100M of Garage
-        //then within 50M of Garage within 10s
-        //then within 20M of Garage within 20s
-
-        //if garage door already in garage shouldnt open
-        //time duration to reset location checks
+        // DISTANCE COMES IN AS MILES!!!
 
         // not in garage
         if (distance >= 0.1 && distance < 0.4) {
@@ -34,14 +29,14 @@ export default function UserLocation() {
             } else if (distance <= 0.3 && firstCheck && !secondCheck) {
                 setSecondCheck(true);
                 return false;
-            } else if (distance <= 0.2 && secondCheck && firstCheck) {
+            } else if (distance <= 0.1 && secondCheck && firstCheck) {
                 return true;
-            } else {
-                setFirstCheck(false);
-                setSecondCheck(false);
-                return false;
-            }
-        } 
+            } 
+        } else {
+            setFirstCheck(false);
+            setSecondCheck(false);
+            return false;
+        }
     }
 
     const calculateDistance = () => {
