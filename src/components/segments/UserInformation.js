@@ -20,7 +20,6 @@ export default function UserLocation() {
 
     const shouldOpenGarage = (distance) => {
         // DISTANCE COMES IN AS MILES!!!
-
         // not in garage
         if (distance >= 0.1 && distance < 0.4) {
             if (distance <= 0.4 && !firstCheck && !secondCheck) {

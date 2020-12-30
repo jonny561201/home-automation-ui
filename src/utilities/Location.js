@@ -12,7 +12,3 @@ export const calculateDistanceInMeters = (lat1, long1, lat2, long2) => {
 
     return ((meterConversion * c) * 0.000621371).toFixed(2);
 }
-
-// export const shouldOpenGarage = (distance, interval) => {
-
-// }
