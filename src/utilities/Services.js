@@ -24,7 +24,7 @@ export const isValidIpAddress = (ipAddress) => {
 }
 
 //TODO: test this function???
-export const calculateTimeOfDay = (garageCoords, userCoords) => {
+export const isNightTime = (garageCoords, userCoords) => {
     if (garageCoords !== null) {
         const today = new Date();
         const sunrise = calculateSunrise(garageCoords.latitude, garageCoords.longitude, today)
