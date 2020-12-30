@@ -8,7 +8,6 @@ export default function UserLocation() {
     const [state, dispatch] = useContext(Context);
     const [firstCheck, setFirstCheck] = useState(false);
     const [secondCheck, setSecondCheck] = useState(false);
-    const [inGarage, setInGarage] = useState(false);
 
     useEffect(() => {
         calculateDistance();
@@ -26,33 +25,33 @@ export default function UserLocation() {
 
         //if garage door already in garage shouldnt open
         //time duration to reset location checks
-        if (distance <= 5 && !firstCheck) {
-            setInGarage(true);
-        } else if (distance <= 15 && secondCheck && firstCheck && !inGarage) {
-            setInGarage(true);
-            return true;
-        } else if (distance <= 50 && firstCheck && !inGarage) {
-            setSecondCheck(true);
-            return false;
-        } else if (distance <= 100 && !inGarage) {
-            setFirstCheck(true);
-            return false;
-        } else {
-            setInGarage(false);
-            setFirstCheck(false);
-            setSecondCheck(false);
-            return false;
-        }
+
+        // not in garage
+        if (distance >= 0.1 && distance < 0.4) {
+            if (distance <= 0.4 && !firstCheck && !secondCheck) {
+                setFirstCheck(true);
+                return false;
+            } else if (distance <= 0.3 && firstCheck && !secondCheck) {
+                setSecondCheck(true);
+                return false;
+            } else if (distance <= 0.2 && secondCheck && firstCheck) {
+                return true;
+            } else {
+                setFirstCheck(false);
+                setSecondCheck(false);
+                return false;
+            }
+        } 
     }
 
     const calculateDistance = () => {
         navigator.geolocation.getCurrentPosition((position) => {
         // navigator.geolocation.watchPosition((position) => {
-            const coords = position.coords;
-            dispatch({ type: "SET_USER_COORDS", payload: coords });
+            const userCoords = position.coords;
+            dispatch({ type: "SET_USER_COORDS", payload: userCoords });
             if (state.garageCoords !== null) {
-                const currentCoords = state.garageCoords;
-                const userDistance = calculateDistanceInMeters(currentCoords.latitude, currentCoords.longitude, coords.latitude, coords.longitude);
+                const garageCoords = state.garageCoords;
+                const userDistance = calculateDistanceInMeters(garageCoords.latitude, garageCoords.longitude, userCoords.latitude, userCoords.longitude);
                 if (shouldOpenGarage(userDistance)) {
                     console.log('gonna open')
                     updateGarageState(true, state.userId, 1);
