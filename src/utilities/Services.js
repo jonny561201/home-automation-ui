@@ -27,18 +27,33 @@ export const isValidIpAddress = (ipAddress) => {
 export const calculateTimeOfDay = (garageCoords, userCoords) => {
     if (garageCoords !== null) {
         const today = new Date();
-        const tomorrow = new Date();
-        tomorrow.setDate(new Date().getDate()+1);
-        const sunrise = getSunrise(garageCoords.latitude, garageCoords.longitude, tomorrow);
-        const sunset = getSunset(garageCoords.latitude, garageCoords.longitude);
+        const sunrise = calculateSunrise(garageCoords.latitude, garageCoords.longitude, today)
+        const sunset = calculateSunset(garageCoords.latitude, garageCoords.longitude, today);
+        return (today >= sunset && today < sunrise);
+    } else if (userCoords !== null) {
+        const today = new Date();
+        const sunrise = calculateSunrise(userCoords.latitude, userCoords.longitude, today);
+        const sunset = calculateSunset(userCoords.latitude, userCoords.longitude, today);
         return (today >= sunset && today < sunrise);
     }
-    if (userCoords !== null) {
-        const today = new Date();
+}
+
+const calculateSunrise = (latitude, longitude, today) => {
+    if (today.getHours() < 12) {
+        return getSunrise(latitude, longitude, today);
+    } else {
         const tomorrow = new Date();
-        tomorrow.setDate(new Date().getDate()+1);
-        const sunrise = getSunrise(userCoords.latitude, userCoords.longitude, tomorrow);
-        const sunset = getSunset(userCoords.latitude, userCoords.longitude);
-        return (today >= sunset && today < sunrise);
+        tomorrow.setDate(new Date().getDate() +1);
+        return getSunrise(latitude, longitude, tomorrow);
+    }
+}
+
+const calculateSunset = (latitude, longitude, today) => {
+    if (today.getHours() < 12) {
+        const yesterday = new Date();
+        yesterday.setDate(new Date().getDate() -1);
+        return getSunset(latitude, longitude, yesterday);
+    } else {
+        return getSunset(latitude, longitude);
     }
 }
