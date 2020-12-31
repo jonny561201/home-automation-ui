@@ -3,7 +3,7 @@ import { useInterval } from '../../utilities/UseInterval';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { ExpansionPanel, Typography, ExpansionPanelSummary, Divider, FormControl, FormGroup, Switch, FormControlLabel } from '@material-ui/core';
 import './TemperaturePanel.css';
-import TemperatureIcon from '../../resources/panelIcons/TemperatureIcon.jpg';
+import TemperatureIcon from '../../resources/panelIcons/TemperatureIcon.png';
 import { getCurrentTemperature, setUserTemperature } from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
 import { debounchApi } from '../../utilities/Services';

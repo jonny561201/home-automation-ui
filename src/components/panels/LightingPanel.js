@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Context } from '../../state/Store';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import LightingIcon from '../../resources/panelIcons/LightingIcon.jpg';
+import LightingIcon from '../../resources/panelIcons/LightingIcon.png';
 import { getLightGroups } from '../../utilities/RestApi';
 import './LightingPanel.css'
 import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, Divider } from '@material-ui/core';

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useInterval } from '../../utilities/UseInterval';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import BasementIcon from '../../resources/panelIcons/BasementIcon.jpg';
+import BasementIcon from '../../resources/panelIcons/BasementIcon.png';
 import SumpPumpLowIcon from '../../resources/panelIcons/SumpPumpLowIcon.png';
 import SumpPumpMediumLowIcon from '../../resources/panelIcons/SumpPumpMediumLowIcon.png';
 import SumpPumpMediumHighIcon from '../../resources/panelIcons/SumpPumpMediumHighIcon.png';
