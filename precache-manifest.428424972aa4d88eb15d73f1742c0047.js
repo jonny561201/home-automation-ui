@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2a71e1bdb59dba801d21d6a3c4fe9cf2",
+    "revision": "0dc6aa874ebc2ee35764b3f9f97db0ac",
     "url": "/home-automation-ui/index.html"
   },
   {
-    "revision": "37325f9009f4316e27c6",
-    "url": "/home-automation-ui/static/css/main.8b925e06.chunk.css"
+    "revision": "c0a60c8f881bfce2fb4f",
+    "url": "/home-automation-ui/static/css/main.321c866c.chunk.css"
   },
   {
-    "revision": "bbb137996aeb6a539452",
-    "url": "/home-automation-ui/static/js/2.b9570c57.chunk.js"
+    "revision": "3169dc5a73d4d88dbe67",
+    "url": "/home-automation-ui/static/js/2.4822919f.chunk.js"
   },
   {
     "revision": "2ece5f65cc4af8c1e6a12b764a0a619c",
-    "url": "/home-automation-ui/static/js/2.b9570c57.chunk.js.LICENSE.txt"
+    "url": "/home-automation-ui/static/js/2.4822919f.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "37325f9009f4316e27c6",
-    "url": "/home-automation-ui/static/js/main.0a18a5af.chunk.js"
+    "revision": "c0a60c8f881bfce2fb4f",
+    "url": "/home-automation-ui/static/js/main.1fdf5a4a.chunk.js"
   },
   {
     "revision": "07374fba03fe46966704",
