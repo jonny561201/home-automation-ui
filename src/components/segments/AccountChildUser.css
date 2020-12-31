@@ -7,6 +7,8 @@
 .table-delete-user {
     color: lightgray;
     cursor: pointer;
+    width: 2rem !important;
+    height: 2rem !important; 
 }
 
 .table-delete-user:hover {
@@ -33,6 +35,10 @@ table {
 td, tr, th {
     display: flex;
     flex: 1 1 0px;
+
+}
+
+tr {
     margin-top: 0.5rem;
 }
 

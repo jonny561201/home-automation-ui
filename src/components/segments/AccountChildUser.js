@@ -62,7 +62,7 @@ export default function AccountChildUser() {
                             <tr className="table-rows" key={`user-${x.user_name}`}>
                                 <td>{x.user_name}</td>
                                 <td>{x.roles.join(', ')}</td>
-                                <td className="table-delete-user table-end-item"><RemoveIcon data-testid={`user-${x.user_name}`} onClick={() => deleteChildUser(x.user_id)} /></td>
+                                <td className="table-end-item"><RemoveIcon data-testid={`user-${x.user_name}`} className="table-delete-user" onClick={() => deleteChildUser(x.user_id)} /></td>
                             </tr>
                         ))}
                         <tr>
