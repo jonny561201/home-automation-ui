@@ -31,7 +31,12 @@ table {
 td, tr, th {
     display: flex;
     flex: 1 1 0px;
-    height: 2rem;
+    margin-top: 0.5rem;
+}
+
+svg {
+   width: 2rem;
+   height: 2rem; 
 }
 
 .table-header {
