@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import Login from '../../pages/Login';
+import PrivateRoute from '../routes/PrivateRoutes';
 import Home from '../../pages/Home';
 import Account from '../../pages/Account'
 import Settings from '../../pages/Settings';
@@ -14,13 +15,11 @@ export default function Routes() {
         <Router>
         <header className="App-header">
           <Route exact path="/" render={() => <Login />} />
-          {state.isAuthenticated &&
             <div>
-              <Route exact path="/home" render={() => <Home />} />
-              <Route exact path="/settings" render={() => <Settings />} />
-              <Route exact path="/account" render={() => <Account />} />
+              <PrivateRoute authed={state.isAuthenticated} path='/home' component={Home} />
+              <PrivateRoute authed={state.isAuthenticated} path='/settings' component={Settings} />
+              <PrivateRoute authed={state.isAuthenticated} path='/account' component={Account} />
             </div>
-          }
         </header>
       </Router>
     );
