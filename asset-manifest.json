@@ -1,23 +1,26 @@
 {
   "files": {
     "main.css": "/home-automation-ui/static/css/main.8b925e06.chunk.css",
-    "main.js": "/home-automation-ui/static/js/main.c170dcd8.chunk.js",
-    "main.js.map": "/home-automation-ui/static/js/main.c170dcd8.chunk.js.map",
+    "main.js": "/home-automation-ui/static/js/main.0a18a5af.chunk.js",
+    "main.js.map": "/home-automation-ui/static/js/main.0a18a5af.chunk.js.map",
     "runtime-main.js": "/home-automation-ui/static/js/runtime-main.8f1e8178.js",
     "runtime-main.js.map": "/home-automation-ui/static/js/runtime-main.8f1e8178.js.map",
     "static/js/2.b9570c57.chunk.js": "/home-automation-ui/static/js/2.b9570c57.chunk.js",
     "static/js/2.b9570c57.chunk.js.map": "/home-automation-ui/static/js/2.b9570c57.chunk.js.map",
     "index.html": "/home-automation-ui/index.html",
-    "precache-manifest.f5294e540d634a5d935d20052abf535c.js": "/home-automation-ui/precache-manifest.f5294e540d634a5d935d20052abf535c.js",
+    "precache-manifest.0ed79fb1da16b3208a9b8dc4de3f137d.js": "/home-automation-ui/precache-manifest.0ed79fb1da16b3208a9b8dc4de3f137d.js",
     "service-worker.js": "/home-automation-ui/service-worker.js",
     "static/css/main.8b925e06.chunk.css.map": "/home-automation-ui/static/css/main.8b925e06.chunk.css.map",
     "static/js/2.b9570c57.chunk.js.LICENSE.txt": "/home-automation-ui/static/js/2.b9570c57.chunk.js.LICENSE.txt",
     "static/media/CompanyLogo.png": "/home-automation-ui/static/media/CompanyLogo.185c92d3.png",
-    "static/media/GarageDoorIcon.png": "/home-automation-ui/static/media/GarageDoorIcon.d016c3b1.png",
+    "static/media/GarageDoorIcon.png": "/home-automation-ui/static/media/GarageDoorIcon.c95d399b.png",
+    "static/media/LightingIcon.png": "/home-automation-ui/static/media/LightingIcon.89f7cb32.png",
+    "static/media/SecurityIcon.png": "/home-automation-ui/static/media/SecurityIcon.0e998287.png",
     "static/media/SumpPumpHighIcon.png": "/home-automation-ui/static/media/SumpPumpHighIcon.df1d7649.png",
     "static/media/SumpPumpLowIcon.png": "/home-automation-ui/static/media/SumpPumpLowIcon.89127cae.png",
     "static/media/SumpPumpMediumHighIcon.png": "/home-automation-ui/static/media/SumpPumpMediumHighIcon.c5706d24.png",
     "static/media/SumpPumpMediumLowIcon.png": "/home-automation-ui/static/media/SumpPumpMediumLowIcon.5cded74d.png",
+    "static/media/TemperatureIcon.png": "/home-automation-ui/static/media/TemperatureIcon.603b09d0.png",
     "static/media/clear_night.png": "/home-automation-ui/static/media/clear_night.45c06890.png",
     "static/media/cloudy.png": "/home-automation-ui/static/media/cloudy.fc70c793.png",
     "static/media/drizzle.png": "/home-automation-ui/static/media/drizzle.d0cffbb2.png",
@@ -35,6 +38,6 @@
     "static/js/runtime-main.8f1e8178.js",
     "static/js/2.b9570c57.chunk.js",
     "static/css/main.8b925e06.chunk.css",
-    "static/js/main.c170dcd8.chunk.js"
+    "static/js/main.0a18a5af.chunk.js"
   ]
 }
