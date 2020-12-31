@@ -17,6 +17,8 @@
 .table-add-user {
     color: #00c774;
     cursor: pointer;
+    width: 2rem !important;
+    height: 2rem !important; 
 }
 
 .table-end-item {
@@ -32,11 +34,6 @@ td, tr, th {
     display: flex;
     flex: 1 1 0px;
     margin-top: 0.5rem;
-}
-
-svg {
-   width: 2rem;
-   height: 2rem; 
 }
 
 .table-header {
