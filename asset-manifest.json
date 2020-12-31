@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/home-automation-ui/static/css/main.321c866c.chunk.css",
-    "main.js": "/home-automation-ui/static/js/main.1fdf5a4a.chunk.js",
-    "main.js.map": "/home-automation-ui/static/js/main.1fdf5a4a.chunk.js.map",
+    "main.js": "/home-automation-ui/static/js/main.eae7b114.chunk.js",
+    "main.js.map": "/home-automation-ui/static/js/main.eae7b114.chunk.js.map",
     "runtime-main.js": "/home-automation-ui/static/js/runtime-main.8f1e8178.js",
     "runtime-main.js.map": "/home-automation-ui/static/js/runtime-main.8f1e8178.js.map",
     "static/js/2.4822919f.chunk.js": "/home-automation-ui/static/js/2.4822919f.chunk.js",
     "static/js/2.4822919f.chunk.js.map": "/home-automation-ui/static/js/2.4822919f.chunk.js.map",
     "index.html": "/home-automation-ui/index.html",
-    "precache-manifest.428424972aa4d88eb15d73f1742c0047.js": "/home-automation-ui/precache-manifest.428424972aa4d88eb15d73f1742c0047.js",
+    "precache-manifest.8728bcc991364435b8f8afae8d36e97b.js": "/home-automation-ui/precache-manifest.8728bcc991364435b8f8afae8d36e97b.js",
     "service-worker.js": "/home-automation-ui/service-worker.js",
     "static/css/main.321c866c.chunk.css.map": "/home-automation-ui/static/css/main.321c866c.chunk.css.map",
     "static/js/2.4822919f.chunk.js.LICENSE.txt": "/home-automation-ui/static/js/2.4822919f.chunk.js.LICENSE.txt",
@@ -38,6 +38,6 @@
     "static/js/runtime-main.8f1e8178.js",
     "static/js/2.4822919f.chunk.js",
     "static/css/main.321c866c.chunk.css",
-    "static/js/main.1fdf5a4a.chunk.js"
+    "static/js/main.eae7b114.chunk.js"
   ]
 }
