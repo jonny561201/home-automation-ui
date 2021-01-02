@@ -90,6 +90,12 @@ const Reducer = (state, action) => {
                 ...state,
                 daysOfWeek: state.daysOfWeek.map(day => [action.payload].find(p => p.id === day.id) || day)
             }
+        case 'UPDATE_GARAGE_DOORS':
+            const doorIndex = state.garageDoors.findIndex(door => door.doorName === action.payload.doorName);
+            return {
+                ...state,
+                garageDoors: doorIndex > -1 ? state.garageDoors.map(door => door.doorName === action.payload.doorName ? {...door, "isOpen": action.payload.isOpen} : door) : [...state.garageDoors, action.payload]
+            }
         default:
             return state;
     }

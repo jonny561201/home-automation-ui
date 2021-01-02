@@ -37,6 +37,7 @@ export default function GarageDoor(props) {
         setIsOpen(garageStatus.isGarageOpen);
         setDuration(garageStatus.statusDuration);
         dispatch({ type: 'SET_GARAGE_COORDS', payload: garageStatus.coordinates });
+        dispatch({ type: 'UPDATE_GARAGE_DOORS', payload: {'doorName': props.device.node_name, 'isOpen': garageStatus.isGarageOpen} });
     };
 
     return (

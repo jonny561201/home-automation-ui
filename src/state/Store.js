@@ -16,6 +16,7 @@ const initialState = {
     garageRole: [],
     addedGarageNode: false,
     garageCoords: null,
+    garageDoors: [],
     userCoords: null,
     userLights: [],
     userLightGroups: [],
