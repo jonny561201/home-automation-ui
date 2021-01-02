@@ -16,7 +16,7 @@ describe('DashboardPanel', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ garageRole: garageRole, garageCoords: coords, userLights: [] }, () => { }]}>
+                <Context.Provider value={[{ garageRole: garageRole, garageCoords: coords, userLights: [], garageDoors: [] }, () => { }]}>
                     <DashboardPanels />
                 </Context.Provider>
             );
