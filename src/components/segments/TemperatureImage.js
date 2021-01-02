@@ -14,6 +14,7 @@ import HeavyRainIcon from '../../resources/weatherIcons/heavy_rain.png';
 import ThunderstormIcon from '../../resources/weatherIcons/thunderstorm.png';
 import HomeIcon from '../../resources/weatherIcons/home.png';
 import ClearNightIcon from '../../resources/weatherIcons/clear_night.png';
+import MistIcon from '../../resources/weatherIcons/misty.png';
 import './TemperatureImage.css'
 
 
@@ -34,7 +35,7 @@ export default function TemperatureImage(props) {
     }, 20000);
 
     const weatherTypes = {
-        "light intensity drizzle": DrizzleIcon, "drizzle": DrizzleIcon, "drizzle rain": DrizzleIcon, "heavy intensity drizzle": DrizzleIcon, "mist": DrizzleIcon,
+        "light intensity drizzle": DrizzleIcon, "drizzle": DrizzleIcon, "drizzle rain": DrizzleIcon, "heavy intensity drizzle": DrizzleIcon, "mist": MistIcon,
         "light intensity drizzle rain": DrizzleIcon, "shower drizzle": DrizzleIcon, "light rain": LightRainIcon, "moderate rain": LightRainIcon,
         "heavy intensity rain": HeavyRainIcon, "very heavy rain": HeavyRainIcon, "extreme rain": HeavyRainIcon, "shower rain": HeavyRainIcon,"light snow": LightSnowIcon, 
         "heavy intensity shower rain": HeavyRainIcon, "clear sky": ClearIcon, "few clouds": PartlyCloudyIcon, "scattered clouds": PartlyCloudyIcon, "snow": LightSnowIcon,
