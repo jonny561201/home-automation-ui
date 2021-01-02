@@ -12,7 +12,7 @@ describe('GaragePanel', () => {
         const renderTrueComponent = async () => {
             await act(async () => {
                 render(
-                    <Context.Provider value={[{devicesToRegister: true, garageRole: garageRole}, () => {}]}>
+                    <Context.Provider value={[{devicesToRegister: true, garageRole: garageRole, garageDoors: []}, () => {}]}>
                         <GaragePanel />
                     </Context.Provider>
                 );
@@ -46,11 +46,12 @@ describe('GaragePanel', () => {
     });
 
     describe('should display garage details', () => {
+        const door = {'doorName': 'Main', 'isOpen': true};
 
-        const renderComponent = async () => {
+        const renderComponent = async (door) => {
             await act(async () => {
                 render(
-                    <Context.Provider value={[{devicesToRegister: false, garageRole: garageRole}, () => {}]}>
+                    <Context.Provider value={[{devicesToRegister: false, garageRole: garageRole, garageDoors: [door]}, () => {}]}>
                         <GaragePanel />
                     </Context.Provider>
                 );
@@ -58,9 +59,21 @@ describe('GaragePanel', () => {
         }
 
         it('should display the Garage text', async () => {
-            await renderComponent();
+            await renderComponent(door);
             const actual = screen.getByText("Garage");
             expect(actual).toBeDefined();
+        });
+
+        it('should display the garage door name on drawer', async () => {
+            await renderComponent(door);
+            const actual = screen.getByText('Main:').textContent;
+            expect(actual).toEqual('Main:')
+        });
+
+        it('should display the garage door status on drawer', async () => {
+            await renderComponent(door);
+            const actual = screen.getAllByText('Open')[0].textContent;
+            expect(actual).toEqual('Open')
         });
     });
 });
