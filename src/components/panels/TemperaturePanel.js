@@ -12,6 +12,7 @@ import Knob from '../controls/Knob';
 
 
 export default function TemperaturePanel() {
+    const [open, setOpen] = useState(false);
     const [mode, setMode] = useState("heating");
     const [description, setDescription] = useState("");
     const [displayColor, setDisplayColor] = useState("#A0A0A0");
@@ -28,7 +29,7 @@ export default function TemperaturePanel() {
         getTempData();
     }, []);
 
-    useInterval(async ()  => {
+    useInterval(async () => {
         await getTempData();
     }, 60000);
 
@@ -84,13 +85,21 @@ export default function TemperaturePanel() {
 
     return (
         <div>
-            <ExpansionPanel data-testid={"temperature-panel"} className="temperature-panel">
+            <ExpansionPanel data-testid={"temperature-panel"} className="temperature-panel" onClick={() => { setOpen(!open) }}>
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <div className="summary">
                         <div>
                             <img alt="temperature" className="logo-image" src={TemperatureIcon} />
                         </div>
-                        <Typography className="panel-text">Temperature</Typography>
+                        <div>
+                            <Typography className="panel-text">Temperature</Typography>
+                            {!open &&
+                                <div className="small-text-group">
+                                    <p className="small-text">Inside:</p>
+                                    <p className="small-text">{internalTemp}&deg;</p>
+                                </div>
+                            }
+                        </div>
                     </div>
                 </ExpansionPanelSummary>
                 <Divider />
@@ -98,7 +107,7 @@ export default function TemperaturePanel() {
                     <div className="form-container">
                         <div className="form-column">
                             <div>
-                                <TemperatureImage description={description} internal={internalTemp} external={externalTemp}/>
+                                <TemperatureImage description={description} internal={internalTemp} external={externalTemp} />
                             </div>
                         </div>
                         <div className="form-column">

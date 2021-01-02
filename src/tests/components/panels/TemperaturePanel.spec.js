@@ -200,4 +200,26 @@ describe('TemperaturePanel', () => {
             expect(spyUpdate).toBeCalledWith(userId, Math.round(desiredTemp), null, true);
         });
     });
+
+    describe('Status Peek Text', () => {
+
+        it('should display the status text on the drawer when collapsed', async () => {
+            await renderComponent();
+            const actual = screen.getByText('Inside:').textContent;
+            expect(actual).toEqual('Inside:');
+        });
+
+        it('should not display the status text on the drawer when opened', async () => {
+            await renderComponent();
+            fireEvent.click(screen.getByText('Temperature'));
+            const actual = screen.queryByText('Inside:');
+            expect(actual).toBeNull();
+        });
+
+        it('should display the status inside temperature on the drawer', async () => {
+            await renderComponent();
+            const actual = screen.getAllByText("73°")[0].textContent;
+            expect(actual).toEqual("73°");
+        });
+    });
 });

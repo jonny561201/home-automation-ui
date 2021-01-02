@@ -23,6 +23,7 @@ describe('TemperatureImage', () => {
             );
         });
     }
+    
     beforeEach(() => {
         spyRise.mockClear();
         spySet.mockClear();
