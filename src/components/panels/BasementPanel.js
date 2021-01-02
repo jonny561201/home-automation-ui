@@ -13,6 +13,7 @@ import { getStore } from '../../state/GlobalState';
 
 
 export default function BasementPanel() {
+    const [open, setOpen] = useState(false);
     const [depthUnit, setDepthUnit] = useState(null);
     const [warningLevel, setWarningLevel] = useState(0);
     const [currentSumpDepth, setCurrentSumpDepth] = useState(0.0);
@@ -27,7 +28,7 @@ export default function BasementPanel() {
     }, 120000);
 
     const getSumpData = async () => {
-        const response = await getSumpLevels(getStore().getUserId()); 
+        const response = await getSumpLevels(getStore().getUserId());
         setWarningLevel(response.warningLevel);
         setDepthUnit(response.depthUnit);
         setCurrentSumpDepth(response.currentDepth.toFixed(1));
@@ -48,13 +49,22 @@ export default function BasementPanel() {
 
     return (
         <div>
-            <ExpansionPanel data-testid={"basement-panel"} className="basement-panel">
+            <ExpansionPanel data-testid={"basement-panel"} className="basement-panel" onClick={() => { setOpen(!open) }}>
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <div className="summary">
                         <div>
                             <img data-testid={"sump-logo"} alt="basement" className="logo-image" src={BasementIcon} />
                         </div>
-                        <Typography className="panel-text">Basement</Typography>
+                        <div>
+                            <Typography className="panel-text">Basement</Typography>
+                            {!open &&
+                                <div className="small-text-group">
+                                    <p className="small-text">Depth:</p>
+                                    <p className={"small-text " + (warningLevel === 3 ? 'alert' : 'healthy')}>{currentSumpDepth}</p>
+                                    <p className={"small-text " + (warningLevel === 3 ? 'alert' : 'healthy')}>{depthUnit}</p>
+                                </div>
+                            }
+                        </div>
                     </div>
                 </ExpansionPanelSummary>
                 <Divider />

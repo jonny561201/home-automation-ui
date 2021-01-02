@@ -2,7 +2,7 @@ import React from 'react';
 import * as lib from '../../../utilities/RestApi';
 import { getStore } from '../../../state/GlobalState';
 import BasementPanel from '../../../components/panels/BasementPanel';
-import { render, screen, act } from '@testing-library/react';
+import { render, screen, act, fireEvent } from '@testing-library/react';
 
 describe('BasementPanel', () => {
 
@@ -92,7 +92,7 @@ describe('BasementPanel', () => {
         it('should display current depth of sump pump', async () => {
             await renderComponent();
 
-            const actual = screen.getByText(currentDepth.toString()).textContent;
+            const actual = screen.getAllByText(currentDepth.toString())[1].textContent;
             expect(parseFloat(actual)).toEqual(currentDepth);
         });
 
@@ -127,25 +127,69 @@ describe('BasementPanel', () => {
         it('should display the sump text in alert status', async () => {
             response.warningLevel = 3;
             await renderComponent();
-            const actual = screen.getByText(currentDepth.toString()).classList;
+            const actual = screen.getAllByText(currentDepth.toString())[1].classList;
             expect(actual).toContain('alert');
         });
 
         it('should display the sump text in healthy status', async () => {
             response.warningLevel = 1;
             await renderComponent();
-            const actual = screen.getByText(currentDepth.toString()).classList;
+            const actual = screen.getAllByText(currentDepth.toString())[1].classList;
             expect(actual).toContain('healthy');
         });
 
         it('should display the sump unit in alert status', async () => {
             response.warningLevel = 3;
             await renderComponent();
-            const actual = screen.getAllByText(depthUnit.toString())[0].classList;
+            const actual = screen.getAllByText(depthUnit.toString())[1].classList;
             expect(actual).toContain('alert');
         });
 
         it('should display the sump unit in healthy status', async () => {
+            response.warningLevel = 1;
+            await renderComponent();
+            const actual = screen.getAllByText(depthUnit.toString())[1].classList;
+            expect(actual).toContain('healthy');
+        });
+    });
+
+    describe('Status Peek Text', () => {
+
+        it('should display the status Depth text when drawer collapsed', async () => {
+            await renderComponent();
+            const actual = screen.getByText('Depth:').textContent;
+            expect(actual).toEqual('Depth:');
+        });
+
+        it('should not display the status Depth text when drawer expanded', async () => {
+            await renderComponent();
+            fireEvent.click(screen.getByText('Basement'));
+            const actual = screen.queryByText('Depth:');
+            expect(actual).toBeNull();
+        });
+
+        it('should display the sump text in alert status', async () => {
+            response.warningLevel = 3;
+            await renderComponent();
+            const actual = screen.getAllByText(currentDepth.toString())[0].classList;
+            expect(actual).toContain('alert');
+        });
+
+        it('should display the sump text in healthy status', async () => {
+            response.warningLevel = 1;
+            await renderComponent();
+            const actual = screen.getAllByText(currentDepth.toString())[0].classList;
+            expect(actual).toContain('healthy');
+        });
+
+        it('should display the status sump unit in alert status', async () => {
+            response.warningLevel = 3;
+            await renderComponent();
+            const actual = screen.getAllByText(depthUnit.toString())[0].classList;
+            expect(actual).toContain('alert');
+        });
+
+        it('should display the status sump unit in healthy status', async () => {
             response.warningLevel = 1;
             await renderComponent();
             const actual = screen.getAllByText(depthUnit.toString())[0].classList;
