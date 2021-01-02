@@ -46,7 +46,8 @@ describe('GaragePanel', () => {
     });
 
     describe('should display garage details', () => {
-        const door = {'doorName': 'Main', 'isOpen': true};
+        const openDoor = {'doorName': 'Main', 'isOpen': true};
+        const closedDoor = {'doorName': 'Second', 'isOpen': false};
 
         const renderComponent = async (door) => {
             await act(async () => {
@@ -59,21 +60,34 @@ describe('GaragePanel', () => {
         }
 
         it('should display the Garage text', async () => {
-            await renderComponent(door);
+            await renderComponent(openDoor);
             const actual = screen.getByText("Garage");
             expect(actual).toBeDefined();
         });
 
         it('should display the garage door name on drawer', async () => {
-            await renderComponent(door);
+            await renderComponent(openDoor);
             const actual = screen.getByText('Main:').textContent;
             expect(actual).toEqual('Main:')
         });
 
-        it('should display the garage door status on drawer', async () => {
-            await renderComponent(door);
+        it('should not display the garage door name on drawer when opened', async () => {
+            await renderComponent(openDoor);
+            fireEvent.click(screen.getByText('Garage'));
+            const actual = screen.queryByText('Main:');
+            expect(actual).toBeNull();
+        });
+
+        it('should display the garage door status on drawer as open when true', async () => {
+            await renderComponent(openDoor);
             const actual = screen.getAllByText('Open')[0].textContent;
             expect(actual).toEqual('Open')
+        });
+
+        it('should display the garage door status on drawer as closed when false', async () => {
+            await renderComponent(closedDoor);
+            const actual = screen.getAllByText('Closed')[0].textContent;
+            expect(actual).toEqual('Closed')
         });
     });
 });
