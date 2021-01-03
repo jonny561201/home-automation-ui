@@ -39,14 +39,16 @@ export default function GaragePanel() {
                         </div>
                         <div>
                             <Typography className="panel-text">Garage</Typography>
+                            <div className="small-text-container">
                             {!open &&
                                 state.garageDoors.map(x => {
                                     return <div className="small-text-group" key={`door-notify-${x.node_device}`}>
-                                        <p className="small-text">{x.doorName}:</p>
-                                        <p className="small-text">{x.isOpen === true ? 'Open' : 'Closed'}</p>
-                                    </div>
+                                                <p className="small-text">{x.doorName}:</p>
+                                                <p className="small-text">{x.isOpen === true ? 'Open' : 'Closed'}</p>
+                                            </div>
                                 })
                             }
+                            </div>
                         </div>
                     </div>
                 </ExpansionPanelSummary>
