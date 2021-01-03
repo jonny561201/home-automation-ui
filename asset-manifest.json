@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/home-automation-ui/static/css/main.b0fb5525.chunk.css",
-    "main.js": "/home-automation-ui/static/js/main.45ac89ab.chunk.js",
-    "main.js.map": "/home-automation-ui/static/js/main.45ac89ab.chunk.js.map",
+    "main.js": "/home-automation-ui/static/js/main.0ba232f4.chunk.js",
+    "main.js.map": "/home-automation-ui/static/js/main.0ba232f4.chunk.js.map",
     "runtime-main.js": "/home-automation-ui/static/js/runtime-main.8f1e8178.js",
     "runtime-main.js.map": "/home-automation-ui/static/js/runtime-main.8f1e8178.js.map",
     "static/js/2.b6b3d6bc.chunk.js": "/home-automation-ui/static/js/2.b6b3d6bc.chunk.js",
     "static/js/2.b6b3d6bc.chunk.js.map": "/home-automation-ui/static/js/2.b6b3d6bc.chunk.js.map",
     "index.html": "/home-automation-ui/index.html",
-    "precache-manifest.80e2f421432f439d9ef3aefd102b7545.js": "/home-automation-ui/precache-manifest.80e2f421432f439d9ef3aefd102b7545.js",
+    "precache-manifest.e7c9a37fb3b8fd8c312b66b0a5515ff0.js": "/home-automation-ui/precache-manifest.e7c9a37fb3b8fd8c312b66b0a5515ff0.js",
     "service-worker.js": "/home-automation-ui/service-worker.js",
     "static/css/main.b0fb5525.chunk.css.map": "/home-automation-ui/static/css/main.b0fb5525.chunk.css.map",
     "static/js/2.b6b3d6bc.chunk.js.LICENSE.txt": "/home-automation-ui/static/js/2.b6b3d6bc.chunk.js.LICENSE.txt",
     "static/media/CompanyLogo.png": "/home-automation-ui/static/media/CompanyLogo.185c92d3.png",
-    "static/media/GarageDoorIcon.png": "/home-automation-ui/static/media/GarageDoorIcon.0614dc7c.png",
+    "static/media/GarageDoorIcon.png": "/home-automation-ui/static/media/GarageDoorIcon.f9268a58.png",
     "static/media/LightingIcon.png": "/home-automation-ui/static/media/LightingIcon.89f7cb32.png",
     "static/media/SecurityIcon.png": "/home-automation-ui/static/media/SecurityIcon.0e998287.png",
     "static/media/SumpPumpHighIcon.png": "/home-automation-ui/static/media/SumpPumpHighIcon.df1d7649.png",
@@ -39,6 +39,6 @@
     "static/js/runtime-main.8f1e8178.js",
     "static/js/2.b6b3d6bc.chunk.js",
     "static/css/main.b0fb5525.chunk.css",
-    "static/js/main.45ac89ab.chunk.js"
+    "static/js/main.0ba232f4.chunk.js"
   ]
 }
