@@ -203,13 +203,13 @@ describe('TemperaturePanel', () => {
 
     describe('Status Peek Text', () => {
 
-        it('should display the status text on the drawer when collapsed', async () => {
+        it('should display the status text outside on the drawer when collapsed', async () => {
             await renderComponent();
             const actual = screen.getByText('Inside:').textContent;
             expect(actual).toEqual('Inside:');
         });
 
-        it('should not display the status text on the drawer when opened', async () => {
+        it('should not display the status text outside on the drawer when opened', async () => {
             await renderComponent();
             fireEvent.click(screen.getByText('Temperature'));
             const actual = screen.queryByText('Inside:');
@@ -220,6 +220,18 @@ describe('TemperaturePanel', () => {
             await renderComponent();
             const actual = screen.getAllByText("73°")[0].textContent;
             expect(actual).toEqual("73°");
+        });
+
+        it('should display the status text inside on the drawer when collapsed', async () => {
+            await renderComponent();
+            const actual = screen.getByText('Outside:').textContent;
+            expect(actual).toEqual('Outside:');
+        });
+
+        it('should display the status inside temperature on the drawer', async () => {
+            await renderComponent();
+            const actual = screen.getAllByText("33°")[0].textContent;
+            expect(actual).toEqual("33°");
         });
     });
 });

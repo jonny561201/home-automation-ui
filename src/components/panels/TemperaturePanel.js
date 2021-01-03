@@ -94,9 +94,15 @@ export default function TemperaturePanel() {
                         <div>
                             <Typography className="panel-text">Temperature</Typography>
                             {!open &&
-                                <div className="small-text-group">
-                                    <p className="small-text">Inside:</p>
-                                    <p className="small-text">{internalTemp}&deg;</p>
+                                <div className="small-text-container">
+                                    <div className="small-text-group">
+                                        <p className="small-text">Inside:</p>
+                                        <p className="small-text">{internalTemp}&deg;</p>
+                                    </div>
+                                    <div className="small-text-group" style={{marginLeft: '1rem'}}>
+                                        <p className="small-text">Outside:</p>
+                                        <p className="small-text">{externalTemp}&deg;</p>
+                                    </div>
                                 </div>
                             }
                         </div>
