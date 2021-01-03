@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "9d45d066cf90911f636e97efc24e4aa0",
+    "revision": "b2d4a1757dd847dd8b776f1c07c6ed33",
     "url": "/home-automation-ui/index.html"
   },
   {
-    "revision": "da00c76680f9f768499b",
+    "revision": "c46b4c1c826b12ad6f03",
     "url": "/home-automation-ui/static/css/main.b0fb5525.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/home-automation-ui/static/js/2.b6b3d6bc.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "da00c76680f9f768499b",
-    "url": "/home-automation-ui/static/js/main.df032cf0.chunk.js"
+    "revision": "c46b4c1c826b12ad6f03",
+    "url": "/home-automation-ui/static/js/main.45ac89ab.chunk.js"
   },
   {
     "revision": "07374fba03fe46966704",
@@ -28,8 +28,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/home-automation-ui/static/media/CompanyLogo.185c92d3.png"
   },
   {
-    "revision": "c95d399bf65eb7370426161ad972abd2",
-    "url": "/home-automation-ui/static/media/GarageDoorIcon.c95d399b.png"
+    "revision": "0614dc7c0ae429b05027d64e290a2e46",
+    "url": "/home-automation-ui/static/media/GarageDoorIcon.0614dc7c.png"
   },
   {
     "revision": "89f7cb32f52311859c7d003d717a6aae",
