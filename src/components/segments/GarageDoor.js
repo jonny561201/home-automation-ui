@@ -23,7 +23,7 @@ export default function GarageDoor(props) {
 
     useInterval(async () => {
         await getGarageData();
-    }, 20000);
+    }, 30000);
 
     const updateGarageDuration = () => {
         const diffMs = new Date() - new Date(duration);
@@ -39,6 +39,11 @@ export default function GarageDoor(props) {
         dispatch({ type: 'SET_GARAGE_COORDS', payload: garageStatus.coordinates });
         dispatch({ type: 'UPDATE_GARAGE_DOORS', payload: {'doorName': props.device.node_name, 'isOpen': garageStatus.isGarageOpen} });
     };
+
+    const openCloseGarageDoor = (newState) => {
+        updateGarageState(newState, state.userId, props.device.node_device);
+        setIsOpen(newState);
+    }
 
     return (
         <div>
@@ -66,8 +71,8 @@ export default function GarageDoor(props) {
             </ExpansionPanelDetails>
             <ExpansionPanelActions>
                 {isOpen
-                    ? <button data-testid={"update-garage-close"} className="close-button" onClick={() => updateGarageState(false, state.userId, props.device.node_device)}>Close</button>
-                    : <button data-testid={"update-garage-open"} className="open-button" onClick={() => updateGarageState(true, state.userId, props.device.node_device)}>Open</button>}
+                    ? <button data-testid={"update-garage-close"} className="close-button" onClick={() => openCloseGarageDoor(false)}>Close</button>
+                    : <button data-testid={"update-garage-open"} className="open-button" onClick={() => openCloseGarageDoor(true)}>Open</button>}
                 <button data-testid={"toggle-garage-button"} className="toggle-button" onClick={() => toggleGarageDoor(state.userId, props.device.node_device)}>Toggle</button>
             </ExpansionPanelActions>
         </div>
