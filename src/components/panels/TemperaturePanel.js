@@ -85,8 +85,8 @@ export default function TemperaturePanel() {
 
     return (
         <div>
-            <ExpansionPanel data-testid={"temperature-panel"} className="temperature-panel" onClick={() => { setOpen(!open) }}>
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <ExpansionPanel data-testid={"temperature-panel"} className="temperature-panel">
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={() => { setOpen(!open) }}>
                     <div className="summary">
                         <div>
                             <img alt="temperature" className="logo-image" src={TemperatureIcon} />

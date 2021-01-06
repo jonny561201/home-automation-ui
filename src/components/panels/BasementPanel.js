@@ -49,8 +49,8 @@ export default function BasementPanel() {
 
     return (
         <div>
-            <ExpansionPanel data-testid={"basement-panel"} className="basement-panel" onClick={() => { setOpen(!open) }}>
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <ExpansionPanel data-testid={"basement-panel"} className="basement-panel">
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={() => { setOpen(!open) }}>
                     <div className="summary">
                         <div>
                             <img data-testid={"sump-logo"} alt="basement" className="logo-image" src={BasementIcon} />

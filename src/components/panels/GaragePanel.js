@@ -18,7 +18,7 @@ export default function GaragePanel() {
         //TODO: need to test all of this behavior
         const devices = state.garageRole.devices;
         if (devices && devices.length > 0) {
-            return devices.map(x => <GarageDoor key={`door-${x.node_device}`} device={x}/>);
+            return devices.map(x => <GarageDoor key={`door-${x.node_device}`} device={x} />);
         }
         return <p>No Garge devices have been registered</p>
     }
@@ -31,8 +31,8 @@ export default function GaragePanel() {
 
     return (
         <div>
-            <ExpansionPanel className="garage-panel" onClick={() => { setOpen(!open) }}>
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <ExpansionPanel className="garage-panel">
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={() => { setOpen(!open) }}>
                     <div className="summary">
                         <div>
                             <img data-testid={"garage-icon"} alt="garage" className="logo-image" src={GarageIcon} />
@@ -40,14 +40,14 @@ export default function GaragePanel() {
                         <div>
                             <Typography className="panel-text">Garage</Typography>
                             <div className="small-text-container">
-                            {!open &&
-                                state.garageDoors.map(x => {
-                                    return <div className="small-text-group" key={`door-notify-${x.node_device}`}>
-                                                <p className="small-text">{x.doorName}:</p>
-                                                <p className="small-text">{x.isOpen === true ? 'Open' : 'Closed'}</p>
-                                            </div>
-                                })
-                            }
+                                {!open &&
+                                    state.garageDoors.map(x => {
+                                        return <div className="small-text-group" key={`door-notify-${x.node_device}`}>
+                                            <p className="small-text">{x.doorName}:</p>
+                                            <p className="small-text">{x.isOpen === true ? 'Open' : 'Closed'}</p>
+                                        </div>
+                                    })
+                                }
                             </div>
                         </div>
                     </div>
