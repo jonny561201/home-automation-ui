@@ -82,8 +82,8 @@ export const getUserPreferences = async (userId) => {
 }
 
 export const updateUserPreferences = async (userId, isFahrenheit, isImperial, city, alarmTime, alarmDays, lightGroup, groupName) => {
-    const lightAlarm = {'alarmTime': alarmTime, 'alarmDays': alarmDays, 'alarmLightGroup': lightGroup, 'alarmGroupName': groupName }
-    const request = { 'isFahrenheit': isFahrenheit, 'city': city, 'isImperial': isImperial, 'lightAlarm': lightAlarm}
+    const lightAlarm = { 'alarmTime': alarmTime, 'alarmDays': alarmDays, 'alarmLightGroup': lightGroup, 'alarmGroupName': groupName }
+    const request = { 'isFahrenheit': isFahrenheit, 'city': city, 'isImperial': isImperial, 'lightAlarm': lightAlarm }
     const options = {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
@@ -178,4 +178,9 @@ export const getUserChildAccounts = async (userId) => {
 export const deleteUserChildAccount = async (userId, childAccountId) => {
     const options = { method: 'DELETE', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
     return await fetch(`${accountBaseUrl}/userId/${userId}/childUserId/${childAccountId}`, options);
+}
+
+export const deleteScheduledTask = async (userId, taskId) => {
+    const options = { method: 'DELETE', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
+    return await fetch(`${accountBaseUrl}/userId/${userId}/tasks/${taskId}`, options);
 }

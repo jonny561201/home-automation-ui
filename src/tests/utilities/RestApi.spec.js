@@ -3,7 +3,7 @@ import fetchMock from 'fetch-mock';
 import {
     getBearerToken, getGarageStatus, updateGarageState, addUserDevice, getUserChildAccounts,
     toggleGarageDoor, getSumpLevels, getCurrentTemperature, addUserDeviceNode, deleteUserChildAccount,
-    getUserPreferences, updateUserPreferences, setUserTemperature, addUserChildAccount,
+    getUserPreferences, updateUserPreferences, setUserTemperature, addUserChildAccount, deleteScheduledTask,
     getLightGroups, setLightGroupState, setLightState, updateUserAccount, getRolesByUserId
 } from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
@@ -342,6 +342,18 @@ describe('RestApi', () => {
                 return { status: 400 }
             });
             const actual = await deleteUserChildAccount(userId, childAccount);
+
+            expect(actual.status).toEqual(200);
+        });
+
+        it('should make rest call to delete the tasks for a user id', async () => {
+            const taskId = "abc1234";
+            const options = { 'method': 'DELETE', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
+
+            fetchMock.mock(`${baseUrl}/account/userId/${userId}/tasks/${taskId}`, options).catch(unmatchedUrl => {
+                return { status: 400 }
+            });
+            const actual = await deleteScheduledTask(userId, taskId);
 
             expect(actual.status).toEqual(200);
         });
