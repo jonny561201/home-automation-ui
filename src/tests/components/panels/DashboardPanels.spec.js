@@ -10,7 +10,7 @@ describe('DashboardPanel', () => {
     const store = getStore();
     const garageRole = { devices: [{ node_name: 'test' }] };
     const coords = { latitude: 1, longitude: -1 }
-    const userLights = [{groupId: '1', lightId: '1', lightName: 'room', brightness: 0, on: false}];
+    const userLights = [{ groupId: '1', lightId: '1', lightName: 'room', brightness: 0, on: false }];
     const lightGroups = [{ groupId: '1', groupName: 'test', brightness: 0, lights: userLights, on: false }];
 
     const renderComponent = async () => {

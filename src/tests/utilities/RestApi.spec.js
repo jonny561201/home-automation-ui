@@ -4,7 +4,7 @@ import {
     getBearerToken, getGarageStatus, updateGarageState, addUserDevice, getUserChildAccounts,
     toggleGarageDoor, getSumpLevels, getCurrentTemperature, addUserDeviceNode, deleteUserChildAccount,
     getUserPreferences, updateUserPreferences, setUserTemperature, addUserChildAccount, deleteScheduledTask,
-    getLightGroups, setLightGroupState, setLightState, updateUserAccount, getRolesByUserId
+    getLightGroups, setLightGroupState, setLightState, updateUserAccount, getRolesByUserId, getScheduledTask
 } from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
 
@@ -356,6 +356,19 @@ describe('RestApi', () => {
             const actual = await deleteScheduledTask(userId, taskId);
 
             expect(actual.status).toEqual(200);
+        });
+
+        it('should make rest call to get the scheduled tasks for a user id', async () => {
+            const taskId = '123lkj';
+            const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
+            const response = [{ 'task_id': taskId, 'alarm_time': '00:00:01', 'alarm_days': 'Mon' }];
+
+            fetchMock.mock(`${baseUrl}/account/userId/${userId}/tasks`, response, options).catch(unmatchedUrl => {
+                return { status: 400 }
+            });
+            const actual = await getScheduledTask(userId);
+
+            expect(actual[0].task_id).toEqual(taskId);
         });
     });
 });
