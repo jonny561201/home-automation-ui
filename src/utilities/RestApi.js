@@ -190,3 +190,14 @@ export const getScheduledTask = async (userId) => {
     const response = await fetch(`${accountBaseUrl}/userId/${userId}/tasks`, options);
     return response.json()
 }
+
+export const insertScheduledTasks = async (userId, alarmLightGroup, alarmGroupName, alarmDays, alarmTime) => {
+    const request = { 'alarmLightGroup': alarmLightGroup, 'alarmGroupName': alarmGroupName, 'alarmDays': alarmDays, 'alarmTime': alarmTime };
+    const options = {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
+        body: JSON.stringify(request)
+    };
+    const response = await fetch(`${accountBaseUrl}/userId/${userId}/tasks`, options);
+    return response.json()
+}

@@ -1,7 +1,7 @@
 import base64 from 'base-64';
 import fetchMock from 'fetch-mock';
 import {
-    getBearerToken, getGarageStatus, updateGarageState, addUserDevice, getUserChildAccounts,
+    getBearerToken, getGarageStatus, updateGarageState, addUserDevice, getUserChildAccounts, insertScheduledTasks,
     toggleGarageDoor, getSumpLevels, getCurrentTemperature, addUserDeviceNode, deleteUserChildAccount,
     getUserPreferences, updateUserPreferences, setUserTemperature, addUserChildAccount, deleteScheduledTask,
     getLightGroups, setLightGroupState, setLightState, updateUserAccount, getRolesByUserId, getScheduledTask
@@ -369,6 +369,20 @@ describe('RestApi', () => {
             const actual = await getScheduledTask(userId);
 
             expect(actual[0].task_id).toEqual(taskId);
+        });
+
+        it('should make rest call to insert scheduled tasks for a user account', async () => {
+            const body = { 'alarmLightGroup': '1', 'alarmGroupName': 'potty', 'alarmDays': 'Wed', 'alarmTime': '00:23:34' };
+            const response = [{ 'task_id': 'asdf678', 'alarm_time': '00:00:01', 'alarm_days': 'Mon' }];
+            const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
+
+            fetchMock.mock(`${baseUrl}/account/userId/${userId}/tasks`, response, options).catch(unmatchedUrl => {
+                return { status: 400 }
+            });
+
+            const actual = await insertScheduledTasks(userId, body.alarmLightGroup, body.alarmGroupName, body.alarmDays, body.alarmTime);
+
+            expect(actual[0].task_id).toEqual(response[0].task_id);
         });
     });
 });
