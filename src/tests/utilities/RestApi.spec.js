@@ -12,6 +12,7 @@ import { getStore } from '../../state/GlobalState';
 describe('RestApi', () => {
     const username = 'fakeUser';
     const password = 'fakepass';
+    const baseUrl = 'https://www.soaringleafsolutions.com';
     const userId = "e97febc0-fd10-11e9-8f0b-362b9e155667";
     const fakeBearerToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJlOTdmZWJjMC1mZDEwLTExZTktOGYwYi0zNjJiOWUxNTU2NjciLCJyb2xlcyI6WyJnYXJhZ2VfZG9vciIsInNlY3VyaXR5IiwidGhlcm1vc3RhdCIsImxpZ2h0aW5nIiwic3VtcF9wdW1wIl0sImZpcnN0X25hbWUiOiJKb24iLCJsYXN0X25hbWUiOiJUZXN0ZXIifSwiZXhwIjoxNTg1OTY3MDIwfQ.AfGoDyYuMhdQh4UYsMUEFenTDxnQnKg3iMhX3RxXac4";
     const credentials = username + ":" + password;
@@ -24,7 +25,7 @@ describe('RestApi', () => {
         const response = { 'bearerToken': fakeBearerToken };
         const options = { "method": "GET", "headers": { 'Authorization': `Basic ${base64.encode(credentials)}` } };
 
-        fetchMock.mock('https://www.soaringleafsolutions.com/login', response, options).catch(unmatchedUrl => {
+        fetchMock.mock(`${baseUrl}/login`, response, options).catch(unmatchedUrl => {
             return {
                 status: 400,
                 body: { details: 'Bad Request' }
@@ -39,7 +40,7 @@ describe('RestApi', () => {
         const response = { 'bearerToken': fakeBearerToken };
         const options = { 'method': 'GET', 'headers': { 'Authorization': `Basic ${base64.encode(credentials)}` }, overwriteRoutes: false };
 
-        fetchMock.mock('https://www.soaringleafsolutions.com/login', response, options).catch(unmatchedUrl => {
+        fetchMock.mock(`${baseUrl}/login`, response, options).catch(unmatchedUrl => {
             return { status: 400 };
         });
 
@@ -51,7 +52,7 @@ describe('RestApi', () => {
         const response = { 'bearerToken': fakeBearerToken };
         const options = { 'method': 'GET', 'headers': { 'Authorization': `Basic ${base64.encode(credentials)}` }, overwriteRoutes: false };
 
-        fetchMock.mock('https://www.soaringleafsolutions.com/login', response, options).catch(unmatchedUrl => {
+        fetchMock.mock(`${baseUrl}/login`, response, options).catch(unmatchedUrl => {
             return { status: 400 };
         });
 
@@ -63,7 +64,7 @@ describe('RestApi', () => {
         const response = { 'bearerToken': fakeBearerToken };
         const options = { 'method': 'GET', 'headers': { 'Authorization': `Basic ${base64.encode(credentials)}` }, overwriteRoutes: false };
 
-        fetchMock.mock('https://www.soaringleafsolutions.com/login', response, options).catch(unmatchedUrl => {
+        fetchMock.mock(`${baseUrl}/login`, response, options).catch(unmatchedUrl => {
             return { status: 400 };
         });
 
@@ -75,7 +76,7 @@ describe('RestApi', () => {
         const response = { 'bearerToken': fakeBearerToken };
         const options = { 'method': 'GET', 'headers': { 'Authorization': `Basic ${base64.encode(credentials)}` }, overwriteRoutes: false };
 
-        fetchMock.mock('https://www.soaringleafsolutions.com/login', response, options).catch(unmatchedUrl => {
+        fetchMock.mock(`${baseUrl}/login`, response, options).catch(unmatchedUrl => {
             return { status: 400 };
         });
 
@@ -87,7 +88,7 @@ describe('RestApi', () => {
         const response = { 'bearerToken': fakeBearerToken };
         const options = { 'method': 'GET', 'headers': { 'Authorization': `Basic ${base64.encode(credentials)}` }, overwriteRoutes: false };
 
-        fetchMock.mock('https://www.soaringleafsolutions.com/login', response, options).catch(unmatchedUrl => {
+        fetchMock.mock(`${baseUrl}/login`, response, options).catch(unmatchedUrl => {
             return { status: 400 };
         });
 
@@ -109,7 +110,7 @@ describe('RestApi', () => {
             const response = { 'isGarageOpen': true };
             const options = { "method": "GET", "headers": { 'Authorization': `Bearer ${bearerToken2}` } };
 
-            fetchMock.mock(`https://www.soaringleafsolutions.com/garageDoor/${garageId}/user/${userId}/status`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/garageDoor/${garageId}/user/${userId}/status`, response, options).catch(unmatchedUrl => {
                 return { status: 400 };
             });
 
@@ -121,7 +122,7 @@ describe('RestApi', () => {
             const response = { 'garageDoorOpen': false };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': { "garageDoorOpen": false } };
 
-            fetchMock.mock(`https://www.soaringleafsolutions.com/garageDoor/${garageId}/user/${userId}/state`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/garageDoor/${garageId}/user/${userId}/state`, response, options).catch(unmatchedUrl => {
                 return { status: 400 };
             });
 
@@ -132,7 +133,7 @@ describe('RestApi', () => {
         it('should make rest call to toggle garage door state', async () => {
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } }
 
-            fetchMock.mock(`https://www.soaringleafsolutions.com/garageDoor/${garageId}/user/${userId}/toggle`, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/garageDoor/${garageId}/user/${userId}/toggle`, options).catch(unmatchedUrl => {
                 return { status: 400 };
             });
 
@@ -146,7 +147,7 @@ describe('RestApi', () => {
             const response = { 'currentDepth': expectedDepth, 'userId': userId, 'latestDate': '2019-11-12', 'averageDepth': 35.8 };
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
 
-            fetchMock.mock(`https://www.soaringleafsolutions.com/sumpPump/user/${userId}/depth`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/sumpPump/user/${userId}/depth`, response, options).catch(unmatchedUrl => {
                 return { status: 400 };
             });
 
@@ -160,7 +161,7 @@ describe('RestApi', () => {
             const response = { 'currentTemp': expectedTemp, 'isFahrenheit': true };
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
 
-            fetchMock.mock(`https://www.soaringleafsolutions.com/thermostat/temperature/${userId}`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/thermostat/temperature/${userId}`, response, options).catch(unmatchedUrl => {
                 return { status: 400 };
             });
 
@@ -175,7 +176,7 @@ describe('RestApi', () => {
             const body = { 'desiredTemp': desiredTemp, 'mode': mode, 'isFahrenheit': isFahrenheit }
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body }
 
-            fetchMock.mock(`https://www.soaringleafsolutions.com/thermostat/temperature/${userId}`, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/thermostat/temperature/${userId}`, options).catch(unmatchedUrl => {
                 return { status: 400 }
             })
 
@@ -189,7 +190,7 @@ describe('RestApi', () => {
             const response = { 'unit': expectedUnit, 'city': 'Des Moines', 'is_fahrenheit': true };
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
 
-            fetchMock.mock(`https://www.soaringleafsolutions.com/userId/${userId}/preferences`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/userId/${userId}/preferences`, response, options).catch(unmatchedUrl => {
                 return { status: 400 };
             });
 
@@ -201,10 +202,10 @@ describe('RestApi', () => {
             const userId = 'abc12345';
             const options = {
                 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` },
-                'body': { 'isFahrenheit': true, 'city': 'Praha', 'isImperial': false, 'lightAlarm': {'alarmTime': '01:01:01', 'alarmDays': 'Mon', 'alarmLightGroup': '1', 'lightGroupName': 'bedroom' }}
+                'body': { 'isFahrenheit': true, 'city': 'Praha', 'isImperial': false, 'lightAlarm': { 'alarmTime': '01:01:01', 'alarmDays': 'Mon', 'alarmLightGroup': '1', 'lightGroupName': 'bedroom' } }
             }
 
-            fetchMock.mock(`https://www.soaringleafsolutions.com/userId/${userId}/preferences/update`, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/userId/${userId}/preferences/update`, options).catch(unmatchedUrl => {
                 return { status: 400 };
             });
 
@@ -217,7 +218,7 @@ describe('RestApi', () => {
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
             const response = [{ 'groupId': 'One', 'groupName': 'Bathroom' }]
 
-            fetchMock.mock('https://www.soaringleafsolutions.com/lights/groups', response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/lights/groups`, response, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
@@ -230,7 +231,7 @@ describe('RestApi', () => {
             const body = { 'groupId': 1, 'on': true, 'brightness': 224 };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.mock('https://www.soaringleafsolutions.com/lights/group/state', options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/lights/group/state`, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
@@ -243,7 +244,7 @@ describe('RestApi', () => {
             const body = { 'lightId': 1, 'on': true, 'brightness': 211 };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.mock('https://www.soaringleafsolutions.com/lights/group/light', options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/lights/group/light`, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
@@ -256,7 +257,7 @@ describe('RestApi', () => {
             const body = { 'oldPassword': 'alsoFake', 'newPassword': 'StillFake' };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.mock(`https://www.soaringleafsolutions.com/account/userId/${userId}/updateAccount`, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/account/userId/${userId}/updateAccount`, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
@@ -269,7 +270,7 @@ describe('RestApi', () => {
             const body = { 'roleName': 'fakeName', 'ipAddress': '1.0.0.1' };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.mock(`https://www.soaringleafsolutions.com/devices/userId/${userId}/devices`, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/devices/userId/${userId}/devices`, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
@@ -283,7 +284,7 @@ describe('RestApi', () => {
             const body = { 'nodeName': 'fakeName' };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.mock(`https://www.soaringleafsolutions.com/devices/userId/${userId}/devices/${deviceId}/node`, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/devices/userId/${userId}/devices/${deviceId}/node`, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
@@ -297,7 +298,7 @@ describe('RestApi', () => {
             const response = { 'roles': [{}] };
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
 
-            fetchMock.mock(`https://www.soaringleafsolutions.com/account/userId/${userId}/roles`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/account/userId/${userId}/roles`, response, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
@@ -311,7 +312,7 @@ describe('RestApi', () => {
             const response = { 'user_name': 'test' }
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.mock(`https://www.soaringleafsolutions.com/account/userId/${userId}/createChildAccount`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/account/userId/${userId}/createChildAccount`, response, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
@@ -324,7 +325,7 @@ describe('RestApi', () => {
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
             const response = [{ 'user_name': 'test', 'roles': [] }];
 
-            fetchMock.mock(`https://www.soaringleafsolutions.com/account/userId/${userId}/childAccounts`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/account/userId/${userId}/childAccounts`, response, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
@@ -337,7 +338,7 @@ describe('RestApi', () => {
             const childAccount = "abc1234";
             const options = { 'method': 'DELETE', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
 
-            fetchMock.mock(`https://www.soaringleafsolutions.com/account/userId/${userId}/childUserId/${childAccount}`, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/account/userId/${userId}/childUserId/${childAccount}`, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
             const actual = await deleteUserChildAccount(userId, childAccount);
