@@ -6,39 +6,39 @@ import { Context } from '../../../state/Store';
 
 describe('GaragePanel', () => {
     const garageRole = {devices: [{node_name: 'test'}]};
-
+    
+    const renderComponent = async (register, doors) => {
+        await act(async () => {
+            render(
+                <Context.Provider value={[{devicesToRegister: register, garageRole: garageRole, garageDoors: doors}, () => {}]}>
+                    <GaragePanel />
+                </Context.Provider>
+            );
+        });
+    }
+    
     describe('should not display garage details', () => {
 
-        const renderTrueComponent = async () => {
-            await act(async () => {
-                render(
-                    <Context.Provider value={[{devicesToRegister: true, garageRole: garageRole, garageDoors: []}, () => {}]}>
-                        <GaragePanel />
-                    </Context.Provider>
-                );
-            });
-        }
-
         it('should display Register Device Text', async () => {
-            await renderTrueComponent();
+            await renderComponent(true, []);
             const actual = screen.getByText('Register New Device!').textContent;
             expect(actual).toEqual('Register New Device!');
         });
 
         it('should display Register Device paragraph', async () => {
-            await renderTrueComponent();
+            await renderComponent(true, []);
             const actual = screen.getByText('A new device has been detected and needs to be registered.').textContent;
             expect(actual).toEqual('A new device has been detected and needs to be registered.');
         });
 
         it('should display the register device button', async () => {
-            await renderTrueComponent();
+            await renderComponent(true, []);
             const actual = screen.getByTestId('register-device-button').textContent;
             expect(actual).toEqual('Register');
         });
 
         it('should display the register device modal when clicking the register button', async ( )=> {
-            await renderTrueComponent();
+            await renderComponent(true, []);
             fireEvent.click(screen.getByTestId('register-device-button'));
             const actual = screen.getByTestId('data-add-device');
             expect(actual).toBeDefined();
@@ -49,43 +49,33 @@ describe('GaragePanel', () => {
         const openDoor = {'doorName': 'Main', 'isOpen': true};
         const closedDoor = {'doorName': 'Second', 'isOpen': false};
 
-        const renderComponent = async (door) => {
-            await act(async () => {
-                render(
-                    <Context.Provider value={[{devicesToRegister: false, garageRole: garageRole, garageDoors: [door]}, () => {}]}>
-                        <GaragePanel />
-                    </Context.Provider>
-                );
-            });
-        }
-
         it('should display the Garage text', async () => {
-            await renderComponent(openDoor);
+            await renderComponent(false, [openDoor]);
             const actual = screen.getByText("Garage");
             expect(actual).toBeDefined();
         });
 
         it('should display the garage door name on drawer', async () => {
-            await renderComponent(openDoor);
+            await renderComponent(false, [openDoor]);
             const actual = screen.getByText('Main:').textContent;
             expect(actual).toEqual('Main:')
         });
 
         it('should not display the garage door name on drawer when opened', async () => {
-            await renderComponent(openDoor);
+            await renderComponent(false, [openDoor]);
             fireEvent.click(screen.getByText('Garage'));
             const actual = screen.queryByText('Main:');
             expect(actual).toBeNull();
         });
 
         it('should display the garage door status on drawer as open when true', async () => {
-            await renderComponent(openDoor);
+            await renderComponent(false, [openDoor]);
             const actual = screen.getAllByText('Open')[0].textContent;
             expect(actual).toEqual('Open')
         });
 
         it('should display the garage door status on drawer as closed when false', async () => {
-            await renderComponent(closedDoor);
+            await renderComponent(false, [closedDoor]);
             const actual = screen.getAllByText('Closed')[0].textContent;
             expect(actual).toEqual('Closed')
         });
