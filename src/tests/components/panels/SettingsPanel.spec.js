@@ -21,7 +21,7 @@ describe('Settings Panel', () => {
     const renderComponent = async () => {
         render(
             <Context.Provider value={[{ roles: roles }, () => { }]}>
-                <SettingsPanel />
+                <SettingsPanel/>
             </Context.Provider>
         );
     }
@@ -93,18 +93,5 @@ describe('Settings Panel', () => {
         await renderComponentCustom();
         const actual = screen.getByText(measureUnit).textContent;
         expect(actual).toEqual(measureUnit);
-    });
-
-    it('should display the light alarm component', async () => {
-        await renderComponentCustom();
-        const actual = screen.getByText('Light Alarm').textContent;
-        expect(actual).toEqual('Light Alarm');
-    });
-
-    it('should not display the light alarm component when zero alarms', async () => {
-        spyGet.mockReturnValue([]);
-        await renderComponentCustom();
-        const actual = screen.queryByText('Alarm Room:');
-        expect(actual).toBeNull();
     });
 });

@@ -68,10 +68,6 @@ export default function SettingsPanel(props) {
                     <p className="settings-text measure-unit">Unit:</p>
                     <p className="settings-text measure-unit">{props.measureUnit}</p>
                 </div>
-                {
-                    renderAlarms()
-                }
-
             </div>
             <div>
                 <button onClick={props.toggleEdit}>Edit</button>
