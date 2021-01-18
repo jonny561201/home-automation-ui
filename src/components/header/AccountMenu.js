@@ -33,21 +33,31 @@ export default function AccountSettings(props) {
                     <li><div className="account-button">Account</div></li>
                 </Link>
             </div>
-        }
-        else if (activePage === "Settings") {
+        } else if (activePage === "Settings") {
             return <div>
+                <Link to='/home'>
+                    <li><div className="account-button">Home</div></li>
+                </Link>
                 <Link to='/activities'>
                     <li><div className="account-button">Activities</div></li>
                 </Link>
+                <Link to='/account'>
+                    <li><div className="account-button">Account</div></li>
+                </Link>
+            </div>
+        } else if (activePage === "Activities") {
+            return <div>
                 <Link to='/home'>
+                    <li><div className="account-button">Activities</div></li>
+                </Link>
+                <Link to='/settings'>
                     <li><div className="account-button">Home</div></li>
                 </Link>
                 <Link to='/account'>
                     <li><div className="account-button">Account</div></li>
                 </Link>
             </div>
-        }
-        else {
+        } else {
             return <div>
                 <Link to='/home'>
                     <li><div className="account-button">Home</div></li>

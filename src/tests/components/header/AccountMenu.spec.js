@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import { getStore } from '../../../state/GlobalState';
 import AccountMenu from '../../../components/header/AccountMenu';
 import { BrowserRouter } from 'react-router-dom';
@@ -8,25 +8,27 @@ import { Context } from '../../../state/Store';
 
 describe('AccountSettings', () => {
 
-    const renderComponent = () => {
-        render(
-            <Context.Provider value={[{}, () => { }]}>
-                <BrowserRouter>
-                    <AccountMenu />
-                </BrowserRouter>
-            </Context.Provider>
-        );
-    };
+    const renderComponent = async () => {
+        await act(async () => {
+            render(
+                <Context.Provider value={[{}, () => { }]}>
+                    <BrowserRouter>
+                        <AccountMenu />
+                    </BrowserRouter>
+                </Context.Provider>
+            );
+        });
+    }    
 
-    it('should display sign out link', () => {
-        renderComponent();
+    it('should display sign out link', async () => {
+        await renderComponent();
         const actual = screen.getByText('Sign Out').textContent;
         expect(actual).toEqual('Sign Out');
     });
 
-    it('should display Settings, Activities, and Account links when active page is set to home', () => {
+    it('should display Settings, Activities, and Account links when active page is set to home', async () => {
         getStore().setActivePage('Home Automation');
-        renderComponent();
+        await renderComponent();
 
         const settings = screen.getByText('Settings').textContent;
         const account = screen.getByText('Account').textContent;
@@ -36,9 +38,9 @@ describe('AccountSettings', () => {
         expect(activities).toEqual('Activities');
     });
 
-    it('should display Home, Activities, and Account links when active page is set to settings', () => {
+    it('should display Home, Activities, and Account links when active page is set to settings', async () => {
         getStore().setActivePage('Settings');
-        renderComponent();
+        await renderComponent();
 
         const home = screen.getByText('Home').textContent;
         const account = screen.getByText('Account').textContent;
@@ -48,9 +50,9 @@ describe('AccountSettings', () => {
         expect(activities).toEqual('Activities');
     });
 
-    it('should display Home, Activities, and Settings links when active page is set to Account', () => {
+    it('should display Home, Activities, and Settings links when active page is set to Account', async () => {
         getStore().setActivePage('Account');
-        renderComponent();
+        await renderComponent();
 
         const settings = screen.getByText('Settings').textContent;
         const home = screen.getByText('Home').textContent;
@@ -60,10 +62,22 @@ describe('AccountSettings', () => {
         expect(activities).toEqual('Activities');
     });
 
-    it('should deauthenticate user when click sign out', () => {
-        renderComponent();
+    it('should deauthenticate user when click sign out', async () => {
+        await renderComponent();
         const signOut = screen.getByText('Sign Out');
         fireEvent.click(signOut);
         expect(getStore().isAuthenticated()).toBeFalsy();
     });
+
+    // it('should display Home, Account, and Settings links when active page is set to Activities', async () => {
+    //     getStore().setActivePage('Activities');
+    //     await renderComponent();
+
+    //     const settings = screen.getByText('Settings').textContent;
+    //     const home = screen.getByText('Home').textContent;
+    //     const account = screen.getByText('Account').textContent;
+    //     expect(settings).toEqual('Settings');
+    //     expect(home).toEqual('Home');
+    //     expect(account).toEqual('Account');
+    // });
 });
