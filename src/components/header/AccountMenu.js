@@ -48,10 +48,10 @@ export default function AccountSettings(props) {
         } else if (activePage === "Activities") {
             return <div>
                 <Link to='/home'>
-                    <li><div className="account-button">Activities</div></li>
+                    <li><div className="account-button">Home</div></li>
                 </Link>
                 <Link to='/settings'>
-                    <li><div className="account-button">Home</div></li>
+                    <li><div className="account-button">Settings</div></li>
                 </Link>
                 <Link to='/account'>
                     <li><div className="account-button">Account</div></li>

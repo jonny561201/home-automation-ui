@@ -69,15 +69,15 @@ describe('AccountSettings', () => {
         expect(getStore().isAuthenticated()).toBeFalsy();
     });
 
-    // it('should display Home, Account, and Settings links when active page is set to Activities', async () => {
-    //     getStore().setActivePage('Activities');
-    //     await renderComponent();
+    it('should display Home, Account, and Settings links when active page is set to Activities', async () => {
+        getStore().setActivePage('Activities');
+        await renderComponent();
 
-    //     const settings = screen.getByText('Settings').textContent;
-    //     const home = screen.getByText('Home').textContent;
-    //     const account = screen.getByText('Account').textContent;
-    //     expect(settings).toEqual('Settings');
-    //     expect(home).toEqual('Home');
-    //     expect(account).toEqual('Account');
-    // });
+        const settings = screen.getByText('Settings').textContent;
+        const home = screen.getByText('Home').textContent;
+        const account = screen.getByText('Account').textContent;
+        expect(settings).toEqual('Settings');
+        expect(home).toEqual('Home');
+        expect(account).toEqual('Account');
+    });
 });
