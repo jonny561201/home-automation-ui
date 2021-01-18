@@ -60,7 +60,7 @@ export default function SettingsPanel(props) {
                     <p className="settings-text temp-city">City:</p>
                     <p className="settings-text temp-city">{props.city}</p>
                 </div>
-                <div className="settings-wrapper settings-text">
+                <div className="settings-text settings-text">
                     <h2>Measurement</h2>
                 </div>
                 <Divider />
