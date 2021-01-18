@@ -16,12 +16,6 @@ describe('Light Alarm Panel', () => {
         });
     }
 
-    it('should display Light Alarm header', async () => {
-        await renderComponent();
-        const actual = screen.getByText('Light Alarm').textContent;
-        expect(actual).toEqual('Light Alarm');
-    });
-
     it('should display the alarm room text for measurement', async () => {
         await renderComponent();
         const actual = screen.getByText('Alarm Room:').textContent;

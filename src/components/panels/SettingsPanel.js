@@ -7,7 +7,7 @@ import LightAlarm from '../panels/LightAlarmPanel';
 
 
 export default function SettingsPanel(props) {
-    const [state, ] = useContext(Context);
+    const [state,] = useContext(Context);
     const [tasks, setTasks] = useState([]);
 
     useEffect(() => {
@@ -26,6 +26,24 @@ export default function SettingsPanel(props) {
         };
         getData();
     }, []);
+
+
+    const renderAlarms = () => {
+        if (state.roles.some(x => x.role_name === 'lighting')) {
+            return <>
+                <div className="settings-group settings-text">
+                    <h2>Light Alarm</h2>
+                </div>
+                <Divider />
+                {
+                    tasks.map(x => {
+                        return <LightAlarm groupName={x.alarm_group_name} lightDays={x.alarm_days} lightTime={x.alarm_time} />
+                    })
+                }
+            </>
+        }
+
+    }
 
     return (
         <div className="settings-wrapper">
@@ -50,10 +68,7 @@ export default function SettingsPanel(props) {
                 <p className="settings-text measure-unit">{props.measureUnit}</p>
             </div>
             {
-                state.roles.some(x => x.role_name === 'lighting') &&
-                tasks.map(x => {
-                    return <LightAlarm groupName={x.alarm_group_name} lightDays={x.alarm_days} lightTime={x.alarm_time}/>
-                })
+                renderAlarms()
             }
 
             <button onClick={props.toggleEdit}>Edit</button>
