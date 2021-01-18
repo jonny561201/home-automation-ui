@@ -25,15 +25,19 @@ export default function ActivitiesPage() {
             <div className="activities-header">
                 <Header />
             </div>
-            <div className="settings-group settings-text">
-                <h2>Light Alarm</h2>
+            <div className="activities-body">
+                <div className="activites-wrapper">
+                    <div className="settings-group settings-text">
+                        <h2>Light Alarm</h2>
+                    </div>
+                    <Divider />
+                    {
+                        tasks.map(x => {
+                            return <LightAlarm groupName={x.alarm_group_name} lightDays={x.alarm_days} lightTime={x.alarm_time} />
+                        })
+                    }
+                </div>
             </div>
-            <Divider />
-            {
-                tasks.map(x => {
-                    return <LightAlarm groupName={x.alarm_group_name} lightDays={x.alarm_days} lightTime={x.alarm_time} />
-                })
-            }
         </div>
     )
 }

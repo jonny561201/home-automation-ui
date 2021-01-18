@@ -1,3 +1,31 @@
+.activities-body {
+    background-color: white;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0 0 20px 20px;
+}
+
+@media (min-width: 480px) {
+    .activities-body {
+        min-width: 615px;
+    }
+}
+
+@media (max-width: 479px) {
+    .activities-body {
+        margin-top: 69px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        width: 100%;
+        border-radius: 0px 0px 12px 12px;
+    }
+}
+
+.activites-wrapper {
+    margin: 1rem;
+}
 
 .alarm-time-divider {
     width: 85%;
