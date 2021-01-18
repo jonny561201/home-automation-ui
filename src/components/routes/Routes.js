@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import Login from '../../pages/Login';
 import PrivateRoute from '../routes/PrivateRoutes';
 import Home from '../../pages/Home';
+import Activities from '../../pages/Activities';
 import Account from '../../pages/Account'
 import Settings from '../../pages/Settings';
 import { Context } from '../../state/Store';
@@ -17,6 +18,7 @@ export default function Routes() {
           <Route exact path="/" render={() => <Login />} />
             <div>
               <PrivateRoute authed={state.isAuthenticated} path='/home' component={Home} />
+              <PrivateRoute authed={state.isAuthenticated} path='/activities' component={Activities} />
               <PrivateRoute authed={state.isAuthenticated} path='/settings' component={Settings} />
               <PrivateRoute authed={state.isAuthenticated} path='/account' component={Account} />
             </div>
