@@ -34,6 +34,18 @@ describe('AccountSettings', () => {
         expect(account).toEqual('Account');
     });
 
+    it('should display Activities, Settings, and Account links when active page is set to home', () => {
+        getStore().setActivePage('Home Automation');
+        renderComponent();
+
+        const settings = screen.getByText('Settings').textContent;
+        const activities = screen.getByText('Activities').textContent;
+        const account = screen.getByText('Account').textContent;
+        expect(settings).toEqual('Settings');
+        expect(account).toEqual('Account');
+        expect(activities).toEqual('Activities');
+    });
+
     it('should display Home and Account links when active page is set to settings', () => {
         getStore().setActivePage('Settings');
         renderComponent();

@@ -23,6 +23,9 @@ export default function AccountSettings(props) {
     const getLinks = () => {
         if (activePage === "Home Automation") {
             return <div>
+                <Link to='/activities'>
+                    <li><div className="account-button">Activities</div></li>
+                </Link>
                 <Link to='/settings'>
                     <li><div className="account-button">Settings</div></li>
                 </Link>
