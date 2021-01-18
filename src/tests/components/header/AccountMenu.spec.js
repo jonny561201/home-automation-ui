@@ -24,46 +24,40 @@ describe('AccountSettings', () => {
         expect(actual).toEqual('Sign Out');
     });
 
-    it('should display Settings and Account links when active page is set to home', () => {
+    it('should display Settings, Activities, and Account links when active page is set to home', () => {
         getStore().setActivePage('Home Automation');
         renderComponent();
 
         const settings = screen.getByText('Settings').textContent;
         const account = screen.getByText('Account').textContent;
-        expect(settings).toEqual('Settings');
-        expect(account).toEqual('Account');
-    });
-
-    it('should display Activities, Settings, and Account links when active page is set to home', () => {
-        getStore().setActivePage('Home Automation');
-        renderComponent();
-
-        const settings = screen.getByText('Settings').textContent;
         const activities = screen.getByText('Activities').textContent;
-        const account = screen.getByText('Account').textContent;
         expect(settings).toEqual('Settings');
         expect(account).toEqual('Account');
         expect(activities).toEqual('Activities');
     });
 
-    it('should display Home and Account links when active page is set to settings', () => {
+    it('should display Home, Activities, and Account links when active page is set to settings', () => {
         getStore().setActivePage('Settings');
         renderComponent();
 
         const home = screen.getByText('Home').textContent;
         const account = screen.getByText('Account').textContent;
+        const activities = screen.getByText('Activities').textContent;
         expect(home).toEqual('Home');
         expect(account).toEqual('Account');
+        expect(activities).toEqual('Activities');
     });
 
-    it('should display Home and Settings links when active page is set to Account', () => {
+    it('should display Home, Activities, and Settings links when active page is set to Account', () => {
         getStore().setActivePage('Account');
         renderComponent();
 
         const settings = screen.getByText('Settings').textContent;
         const home = screen.getByText('Home').textContent;
+        const activities = screen.getByText('Activities').textContent;
         expect(settings).toEqual('Settings');
         expect(home).toEqual('Home');
+        expect(activities).toEqual('Activities');
     });
 
     it('should deauthenticate user when click sign out', () => {
