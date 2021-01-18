@@ -94,4 +94,10 @@ describe('Settings Panel', () => {
         const actual = screen.getByText(measureUnit).textContent;
         expect(actual).toEqual(measureUnit);
     });
+
+    it('should display the light alarm component', async () => {
+        await renderComponentCustom();
+        const actual = screen.getByText('Light Alarm').textContent;
+        expect(actual).toEqual('Light Alarm');
+    });
 });

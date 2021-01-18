@@ -49,10 +49,12 @@ export default function SettingsPanel(props) {
                 <p className="settings-text measure-unit">Unit:</p>
                 <p className="settings-text measure-unit">{props.measureUnit}</p>
             </div>
-            {/* {
+            {
                 state.roles.some(x => x.role_name === 'lighting') &&
-                <LightAlarm />
-            } */}
+                tasks.map(x => {
+                    return <LightAlarm groupName={x.alarm_group_name} lightDays={x.alarm_days} lightTime={x.alarm_time}/>
+                })
+            }
 
             <button onClick={props.toggleEdit}>Edit</button>
         </div>
