@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
-import { Divider } from '@material-ui/core';
 import { Context } from '../../state/Store';
+import { Divider } from '@material-ui/core';
+import LightAlarm from '../panels/LightAlarmPanel';
 
 
 export default function SettingsPanel(props) {
@@ -30,24 +31,8 @@ export default function SettingsPanel(props) {
             </div>
             {
                 state.roles.some(x => x.role_name === 'lighting') &&
-                <>
-                    <div className="settings-group settings-text">
-                        <h2>Light Alarm</h2>
-                    </div>
-                    <Divider />
-                    <div className="settings-row">
-                        <p className="settings-text measure-unit">Alarm Room:</p>
-                        <p className="settings-text measure-unit">{props.groupName}</p>
-                    </div>
-                    <div className="settings-row">
-                        <p className="settings-text measure-unit">Alarm Days:</p>
-                        <p className="settings-text measure-unit">{props.days}</p>
-                    </div>
-                    <div className="settings-row">
-                        <p className="settings-text measure-unit">Alarm Time:</p>
-                        <p className="settings-text measure-unit">{props.time}</p>
-                    </div>
-                </>
+                // <LightAlarm />
+                <></>
             }
 
             <button onClick={props.toggleEdit}>Edit</button>

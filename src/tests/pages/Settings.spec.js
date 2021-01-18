@@ -11,11 +11,7 @@ describe('Settings Page', () => {
     const city = 'Vienna';
     const unitMeasure = 'imperial';
     const tempUnit = 'fahrenheit';
-    const groupId = '1';
-    const groupName = 'Bedroom';
-    const alarmTime = '01:00:00';
-    const lightGroups = [{groupName: groupName, groupId: groupId}]
-    const roles = [{"role_name": "lighting"}];
+    const roles = [];
 
     const spyUpdate = jest.spyOn(lib, 'updateUserPreferences');
     const spyGet = jest.spyOn(lib, 'getUserPreferences');
@@ -23,19 +19,18 @@ describe('Settings Page', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ userLightGroups: lightGroups, daysOfWeek: [], roles: roles}, () => { }]}>
+                <Context.Provider value={[{roles: roles}, () => { }]}>
                     <Settings />
                 </Context.Provider>
             );
         });
     }
 
-
     beforeEach(() => {
         spyUpdate.mockClear();
         spyGet.mockClear();
         getStore().setUserId(userId);
-        spyGet.mockReturnValue({ city: city, temp_unit: tempUnit, measure_unit: unitMeasure, light_alarm: { alarm_days: 'Mon', alarm_time: alarmTime, alarm_light_group: groupId, alarm_group_name: groupName } });
+        spyGet.mockReturnValue({ city: city, temp_unit: tempUnit, measure_unit: unitMeasure});
     });
 
     it('should display logo header', async () => {
@@ -69,7 +64,7 @@ describe('Settings Page', () => {
         fireEvent.change(screen.getAllByRole('textbox')[0], { target: { value: newCity } });
 
         fireEvent.click(screen.getByText('Save'));
-        expect(spyUpdate).toHaveBeenCalledWith(userId, false, false, newCity, undefined, "", undefined, undefined);
+        expect(spyUpdate).toHaveBeenCalledWith(userId, false, false, newCity);
     });
 
     it('should make api call on submit to update the unit of measure', () => {
@@ -78,7 +73,7 @@ describe('Settings Page', () => {
         fireEvent.click(screen.getAllByRole('radio')[2]);
 
         fireEvent.click(screen.getByText('Save'));
-        expect(spyUpdate).toHaveBeenCalledWith(userId, false, true, undefined, undefined, "", undefined, undefined);
+        expect(spyUpdate).toHaveBeenCalledWith(userId, false, true, undefined);
     });
 
     it('should make api call on submit to update the temp', () => {
@@ -87,7 +82,7 @@ describe('Settings Page', () => {
 
         fireEvent.click(screen.getAllByRole('radio')[0]);
         fireEvent.click(screen.getByText('Save'));
-        expect(spyUpdate).toHaveBeenCalledWith(userId, true, false, undefined, undefined, "", undefined, undefined);
+        expect(spyUpdate).toHaveBeenCalledWith(userId, true, false, undefined);
     });
 
     it('should return to the normal screen when cancelling on edit screen', async () => {

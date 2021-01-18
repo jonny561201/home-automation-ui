@@ -12,7 +12,7 @@ import { getStore } from '../../state/GlobalState';
 describe('RestApi', () => {
     const username = 'fakeUser';
     const password = 'fakepass';
-    const baseUrl = 'https://www.soaringleafsolutions.com';
+    const baseUrl = 'http://localhost:5000';
     const userId = "e97febc0-fd10-11e9-8f0b-362b9e155667";
     const fakeBearerToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJlOTdmZWJjMC1mZDEwLTExZTktOGYwYi0zNjJiOWUxNTU2NjciLCJyb2xlcyI6WyJnYXJhZ2VfZG9vciIsInNlY3VyaXR5IiwidGhlcm1vc3RhdCIsImxpZ2h0aW5nIiwic3VtcF9wdW1wIl0sImZpcnN0X25hbWUiOiJKb24iLCJsYXN0X25hbWUiOiJUZXN0ZXIifSwiZXhwIjoxNTg1OTY3MDIwfQ.AfGoDyYuMhdQh4UYsMUEFenTDxnQnKg3iMhX3RxXac4";
     const credentials = username + ":" + password;
@@ -202,14 +202,14 @@ describe('RestApi', () => {
             const userId = 'abc12345';
             const options = {
                 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` },
-                'body': { 'isFahrenheit': true, 'city': 'Praha', 'isImperial': false, 'lightAlarm': { 'alarmTime': '01:01:01', 'alarmDays': 'Mon', 'alarmLightGroup': '1', 'lightGroupName': 'bedroom' } }
+                'body': { 'isFahrenheit': true, 'city': 'Praha', 'isImperial': false }
             }
 
             fetchMock.mock(`${baseUrl}/userId/${userId}/preferences/update`, options).catch(unmatchedUrl => {
                 return { status: 400 };
             });
 
-            const actual = await updateUserPreferences(userId, true, true, 'Praha', '01:01:01', 'Mon', '1', 'bedroom');
+            const actual = await updateUserPreferences(userId, true, true, 'Praha');
 
             expect(actual.status).toEqual(200);
         });
@@ -350,7 +350,7 @@ describe('RestApi', () => {
             const taskId = "abc1234";
             const options = { 'method': 'DELETE', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
 
-            fetchMock.mock(`${baseUrl}/account/userId/${userId}/tasks/${taskId}`, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/userId/${userId}/tasks/${taskId}`, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
             const actual = await deleteScheduledTask(userId, taskId);
@@ -363,7 +363,7 @@ describe('RestApi', () => {
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
             const response = [{ 'task_id': taskId, 'alarm_time': '00:00:01', 'alarm_days': 'Mon' }];
 
-            fetchMock.mock(`${baseUrl}/account/userId/${userId}/tasks`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/userId/${userId}/tasks`, response, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
             const actual = await getScheduledTask(userId);
@@ -376,7 +376,7 @@ describe('RestApi', () => {
             const response = [{ 'task_id': 'asdf678', 'alarm_time': '00:00:01', 'alarm_days': 'Mon' }];
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.mock(`${baseUrl}/account/userId/${userId}/tasks`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/userId/${userId}/tasks`, response, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 

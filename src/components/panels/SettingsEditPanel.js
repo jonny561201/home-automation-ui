@@ -2,9 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Context } from '../../state/Store';
 import { updateUserPreferences } from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
-import TimePicker from '../controls/TimePicker';
-import WeekPicker from '../controls/WeekPicker';
-import { Divider, TextField, FormControlLabel, RadioGroup, FormControl, Radio, MenuItem, Select, InputLabel } from '@material-ui/core';
+import { Divider, TextField, FormControlLabel, RadioGroup, FormControl, Radio } from '@material-ui/core';
 import './SettingsEditPanel.css'
 
 
@@ -18,19 +16,19 @@ export default function SettingsEditPanel(props) {
     const [newTempUnit, setNewTempUnit] = useState(props.tempUnit);
     const [newMeasureUnit, setNewMeasureUnit] = useState(props.measureUnit);
 
-    useEffect(() => {
-        if (state.userLightGroups.filter(x => x.groupName === props.groupName).length > 0)
-            setSelectedRoom(props.groupName);
-    }, []);
+    // useEffect(() => {
+    //     if (state.userLightGroups.filter(x => x.groupName === props.groupName).length > 0)
+    //         setSelectedRoom(props.groupName);
+    // }, []);
 
     const savePreferences = () => {
         const isFahrenheit = newTempUnit === "fahrenheit";
         const isImperial = newMeasureUnit === "imperial";
-        const lightGroup = state.userLightGroups.find(x => x.groupName === selectedRoom);
-        const lightDays = state.daysOfWeek.filter(x => x.on === true).map(y => y.id).join('')
-        lightGroup
-            ? updateUserPreferences(getStore().getUserId(), isFahrenheit, isImperial, newCity, time, lightDays, lightGroup.groupId, selectedRoom)
-            : updateUserPreferences(getStore().getUserId(), isFahrenheit, isImperial, newCity, time, lightDays, groupId, props.groupName)
+        // const lightGroup = state.userLightGroups.find(x => x.groupName === selectedRoom);
+        // const lightDays = state.daysOfWeek.filter(x => x.on === true).map(y => y.id).join('')
+        // lightGroup
+        //     ? updateUserPreferences(getStore().getUserId(), isFahrenheit, isImperial, newCity, time, lightDays, lightGroup.groupId, selectedRoom)
+        updateUserPreferences(getStore().getUserId(), isFahrenheit, isImperial, newCity);
 
         setEdited(true);
         props.setCity(newCity);
@@ -61,16 +59,6 @@ export default function SettingsEditPanel(props) {
         setNewMeasureUnit(input.target.value);
     }
 
-    const updateTime = (dateTime) => {
-        setEdited(true);
-        setTime(dateTime);
-    }
-
-    const updateSelectedRoom = (item) => {
-        setEdited(true);
-        setSelectedRoom(item.target.value)
-    }
-
     return (
         <div className="settings-wrapper">
             <div className="settings-group settings-text">
@@ -99,34 +87,8 @@ export default function SettingsEditPanel(props) {
                 </div>
                 {
                     state.roles.some(x => x.role_name === 'lighting') &&
-                    <>
-                        <h2>Light Alarm</h2>
-                        <Divider />
-                        <div className="settings-row">
-                            <FormControl className="light-alarm-component settings-first-item" variant="outlined">
-                                <InputLabel id="light-group-dropdown">Room</InputLabel>
-                                <Select
-                                    data-testid="alarm-room-picker"
-                                    id="settings-light-rooms"
-                                    value={selectedRoom}
-                                    onChange={updateSelectedRoom}
-                                    label="Room"
-                                >
-                                    <MenuItem value="">
-                                        <em>None</em>
-                                    </MenuItem>
-                                    {state.userLightGroups.map((group) => (
-                                        <MenuItem key={group.groupId} value={group.groupName}>
-                                            {group.groupName}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                            <TimePicker className="light-alarm-component" initialTime={props.time} setTime={updateTime} />
-                        </div>
-                        <WeekPicker setEdited={() => setEdited(true)} />
-                    </>
-
+                    //display edit light alarm panel
+                    <div></div>
                 }
             </div>
             <Divider />

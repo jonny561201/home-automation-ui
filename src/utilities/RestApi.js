@@ -3,7 +3,7 @@ import jwt_decode from 'jwt-decode';
 import { getStore } from '../state/GlobalState';
 
 
-const baseUrl = 'https://www.soaringleafsolutions.com';
+const baseUrl = 'http://localhost:5000';
 const accountBaseUrl = `${baseUrl}/account`;
 const deviceBaseUrl = `${baseUrl}/devices`;
 const garageBaseUrl = `${baseUrl}/garageDoor`;
@@ -81,9 +81,8 @@ export const getUserPreferences = async (userId) => {
     return await response.json();
 }
 
-export const updateUserPreferences = async (userId, isFahrenheit, isImperial, city, alarmTime, alarmDays, lightGroup, groupName) => {
-    const lightAlarm = { 'alarmTime': alarmTime, 'alarmDays': alarmDays, 'alarmLightGroup': lightGroup, 'alarmGroupName': groupName }
-    const request = { 'isFahrenheit': isFahrenheit, 'city': city, 'isImperial': isImperial, 'lightAlarm': lightAlarm }
+export const updateUserPreferences = async (userId, isFahrenheit, isImperial, city) => {
+    const request = { 'isFahrenheit': isFahrenheit, 'city': city, 'isImperial': isImperial }
     const options = {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
@@ -182,12 +181,12 @@ export const deleteUserChildAccount = async (userId, childAccountId) => {
 
 export const deleteScheduledTask = async (userId, taskId) => {
     const options = { method: 'DELETE', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
-    return await fetch(`${accountBaseUrl}/userId/${userId}/tasks/${taskId}`, options);
+    return await fetch(`${baseUrl}/userId/${userId}/tasks/${taskId}`, options);
 }
 
 export const getScheduledTask = async (userId) => {
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
-    const response = await fetch(`${accountBaseUrl}/userId/${userId}/tasks`, options);
+    const response = await fetch(`${baseUrl}/userId/${userId}/tasks`, options);
     return response.json()
 }
 
@@ -198,6 +197,6 @@ export const insertScheduledTasks = async (userId, alarmLightGroup, alarmGroupNa
         headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
         body: JSON.stringify(request)
     };
-    const response = await fetch(`${accountBaseUrl}/userId/${userId}/tasks`, options);
+    const response = await fetch(`${baseUrl}/userId/${userId}/tasks`, options);
     return response.json()
 }
