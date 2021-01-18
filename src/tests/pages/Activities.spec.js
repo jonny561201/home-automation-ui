@@ -1,4 +1,5 @@
 import React from 'react';
+import { Context } from '../../state/Store';
 import * as lib from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
 import { render, screen, act } from '@testing-library/react';
@@ -17,7 +18,9 @@ describe('Activities Page', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <ActivitiesPage />
+                <Context.Provider value={[{}, () => { }]}>
+                    <ActivitiesPage />
+                </Context.Provider>
             );
         });
     }
@@ -26,6 +29,12 @@ describe('Activities Page', () => {
         spyGet.mockClear();
         getStore().setUserId(userId);
         spyGet.mockReturnValue([{ alarm_group_name: room, alarm_light_group: '2', alarm_days: days, alarm_time: time }]);
+    });
+
+    it('should display Header component', async () => {
+        await renderComponent();
+        const actual = screen.getByTestId('white-header');
+        expect(actual).toBeDefined();
     });
 
     it('should make api call to get settings data', async () => {

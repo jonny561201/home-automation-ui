@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Divider } from '@material-ui/core';
+import Header from '../components/header/Header';
 import { getStore } from '../state/GlobalState';
 import LightAlarm from '../components/panels/LightAlarmPanel';
 import { getScheduledTasks } from '../utilities/RestApi';
@@ -19,7 +20,10 @@ export default function ActivitiesPage() {
     }, []);
 
     return (
-        <>
+        <div>
+            <div className="activities-header">
+                <Header />
+            </div>
             <div className="settings-group settings-text">
                 <h2>Light Alarm</h2>
             </div>
@@ -29,6 +33,6 @@ export default function ActivitiesPage() {
                     return <LightAlarm groupName={x.alarm_group_name} lightDays={x.alarm_days} lightTime={x.alarm_time} />
                 })
             }
-        </>
+        </div>
     )
 }
