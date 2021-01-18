@@ -4,7 +4,7 @@ import {
     getBearerToken, getGarageStatus, updateGarageState, addUserDevice, getUserChildAccounts, insertScheduledTasks,
     toggleGarageDoor, getSumpLevels, getCurrentTemperature, addUserDeviceNode, deleteUserChildAccount,
     getUserPreferences, updateUserPreferences, setUserTemperature, addUserChildAccount, deleteScheduledTask,
-    getLightGroups, setLightGroupState, setLightState, updateUserAccount, getRolesByUserId, getScheduledTask
+    getLightGroups, setLightGroupState, setLightState, updateUserAccount, getRolesByUserId, getScheduledTasks
 } from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
 
@@ -366,7 +366,7 @@ describe('RestApi', () => {
             fetchMock.mock(`${baseUrl}/userId/${userId}/tasks`, response, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
-            const actual = await getScheduledTask(userId);
+            const actual = await getScheduledTasks(userId);
 
             expect(actual[0].task_id).toEqual(taskId);
         });

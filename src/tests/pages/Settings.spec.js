@@ -14,7 +14,8 @@ describe('Settings Page', () => {
     const roles = [];
 
     const spyUpdate = jest.spyOn(lib, 'updateUserPreferences');
-    const spyGet = jest.spyOn(lib, 'getUserPreferences');
+    const spyGetPrefs = jest.spyOn(lib, 'getUserPreferences');
+    const spyGetTasks = jest.spyOn(lib, 'getScheduledTasks');
 
     const renderComponent = async () => {
         await act(async () => {
@@ -28,9 +29,11 @@ describe('Settings Page', () => {
 
     beforeEach(() => {
         spyUpdate.mockClear();
-        spyGet.mockClear();
+        spyGetPrefs.mockClear();
+        spyGetTasks.mockClear();
         getStore().setUserId(userId);
-        spyGet.mockReturnValue({ city: city, temp_unit: tempUnit, measure_unit: unitMeasure});
+        spyGetPrefs.mockReturnValue({ city: city, temp_unit: tempUnit, measure_unit: unitMeasure});
+        spyGetTasks.mockReturnValue([{ alarm_group_name: 'bathroom', alarm_light_group: '2', alarm_days: 'Mon', alarm_time: '00:00:00' }]);
     });
 
     it('should display logo header', async () => {
@@ -54,7 +57,7 @@ describe('Settings Page', () => {
 
     it('should make api call to get settings data', async () => {
         await renderComponent();
-        expect(spyGet).toHaveBeenCalledWith(userId)
+        expect(spyGetPrefs).toHaveBeenCalledWith(userId)
     });
 
     it('should make api call on submit to update the city', () => {

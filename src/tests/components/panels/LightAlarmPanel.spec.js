@@ -1,41 +1,20 @@
 import React from 'react';
-import { Context } from '../../../state/Store';
-import * as lib from '../../../utilities/RestApi';
-import { getStore } from '../../../state/GlobalState';
 import LightAlarm from '../../../components/panels/LightAlarmPanel';
 import { render, screen, act } from '@testing-library/react';
 
 describe('Light Alarm Panel', () => {
 
-    const userId = '987asdfs90';
-    const spyGet = jest.spyOn(lib, 'getScheduledTask');
-    const groupId = '1';
     const days = 'Mon';
     const groupName = 'Bedroom';
     const alarmTime = '01:00:00';
-    const lightGroups = [{groupName: groupName, groupId: groupId}];
 
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ userLightGroups: lightGroups, daysOfWeek: []}, () => { }]}>
-                    <LightAlarm />
-                </Context.Provider>
+                <LightAlarm groupName={groupName} lightDays={days} lightTime={alarmTime} />
             );
         });
     }
-    
-    beforeEach(() => {
-        spyGet.mockClear();
-        getStore().setUserId(userId);
-        spyGet.mockReturnValue([{ alarm_days: days, alarm_time: alarmTime, alarm_light_group: groupId, alarm_group_name: groupName }]);
-    });
-
-    
-    it('should make api call to get light alarm data', async () => {
-        await renderComponent();
-        expect(spyGet).toHaveBeenCalledWith(userId)
-    });
 
     it('should display Light Alarm header', async () => {
         await renderComponent();

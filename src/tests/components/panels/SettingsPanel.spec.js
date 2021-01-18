@@ -1,17 +1,22 @@
 import React from 'react';
+import { Context } from '../../../state/Store';
+import * as lib from '../../../utilities/RestApi';
+import { getStore } from '../../../state/GlobalState';
 import { render, screen } from '@testing-library/react';
 import SettingsPanel from '../../../components/panels/SettingsPanel';
-import { Context } from '../../../state/Store';
 
 
 describe('Settings Panel', () => {
     let roles;
+    const userId = 'ascv123';
     const city = 'Vienna';
     const room = 'BedRoom';
     const time = '07:30:00';
     const tempUnit = 'fahrenheit';
     const measureUnit = 'imperial';
     const days = 'MonTueWedThuFri';
+
+    const spyGet = jest.spyOn(lib, 'getScheduledTasks');
 
     const renderComponent = async () => {
         render(
@@ -24,13 +29,16 @@ describe('Settings Panel', () => {
     const renderComponentCustom = async () => {
         render(
             <Context.Provider value={[{ roles: roles }, () => { }]}>
-                <SettingsPanel tempUnit={tempUnit} city={city} measureUnit={measureUnit} groupName={room} time={time} days={days}/>
+                <SettingsPanel tempUnit={tempUnit} city={city} measureUnit={measureUnit}/>
             </Context.Provider>
         );
     }
 
     beforeEach(() => {
-        roles = [{"role_name": "lighting"}]
+        spyGet.mockClear();
+        getStore().setUserId(userId);
+        roles = [{"role_name": "lighting"}];
+        spyGet.mockReturnValue([{ alarm_group_name: room, alarm_light_group: '2', alarm_days: days, alarm_time: time }]);
     });
 
     it('should display edit button', async () => {
