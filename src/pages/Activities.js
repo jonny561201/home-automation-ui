@@ -8,6 +8,7 @@ import './Activities.css';
 
 
 export default function ActivitiesPage() {
+    getStore().setActivePage('Activities');
     const [tasks, setTasks] = useState([]);
 
 

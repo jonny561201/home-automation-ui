@@ -31,6 +31,11 @@ describe('Activities Page', () => {
         spyGet.mockReturnValue([{ alarm_group_name: room, alarm_light_group: '2', alarm_days: days, alarm_time: time }]);
     });
 
+    it('should set the active page to Activites',async () => {
+        await renderComponent();
+        expect(getStore().getActivePage()).toEqual('Activities');
+    });
+
     it('should display Header component', async () => {
         await renderComponent();
         const actual = screen.getByTestId('white-header');

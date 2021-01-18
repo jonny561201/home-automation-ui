@@ -35,6 +35,11 @@ describe('Settings Page', () => {
         spyGetPrefs.mockReturnValue({ city: city, temp_unit: tempUnit, measure_unit: unitMeasure});
         spyGetTasks.mockReturnValue([{ alarm_group_name: 'bathroom', alarm_light_group: '2', alarm_days: 'Mon', alarm_time: '00:00:00' }]);
     });
+    
+    it('should set the active page to Settings',async () => {
+        await renderComponent();
+        expect(getStore().getActivePage()).toEqual('Settings');
+    });
 
     it('should display logo header', async () => {
         await renderComponent();

@@ -27,6 +27,10 @@ describe('Account Page', () => {
         spyGet.mockReturnValue([]);
     });
 
+    it('should set the active page to Account',async () => {
+        await renderComponent();
+        expect(getStore().getActivePage()).toEqual('Account');
+    });
 
     it('should display header for changing password', async () => {
         await renderComponent();

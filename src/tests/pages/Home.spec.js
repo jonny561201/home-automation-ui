@@ -35,6 +35,6 @@ describe('Home', () => {
     });
 
     it('should set the active page to Home',async () => {
-        expect(getStore().state.activePage).toEqual('Home Automation');
+        expect(getStore().getActivePage()).toEqual('Home Automation');
     });
 });
