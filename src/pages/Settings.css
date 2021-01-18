@@ -36,6 +36,8 @@
 
 .settings-wrapper {
     margin: 1rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .settings-group {
@@ -57,4 +59,24 @@
 
 .cancel {
     background-color: #c73200;
+}
+
+.alarm-time-divider {
+    width: 85%;
+    align-self: center;
+}
+
+.alarm-setting-group {
+    display: flex;
+    flex-direction: row;
+}
+
+.alarm-time {
+    margin: 0;
+    font-size: 2rem;
+    align-self: center;
+}
+
+.alarm-row {
+    flex: 1;
 }
