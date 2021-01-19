@@ -19,6 +19,10 @@ export default function ActivitiesPage() {
         getData();
     }, []);
 
+    const deleteTask = (taskId) => {
+        setTasks(tasks.filter(x => x.task_id !== taskId));
+    }
+
     return (
         <div>
             <div className="activities-header">
@@ -31,7 +35,7 @@ export default function ActivitiesPage() {
                     </div>
                     {
                         tasks.map(x => {
-                            return <LightAlarm key={`${x.alarm_group_name}-${x.alarm_days}-${x.alarm_time}`} groupName={x.alarm_group_name} lightDays={x.alarm_days} lightTime={x.alarm_time} />
+                            return <LightAlarm key={`${x.alarm_group_name}-${x.alarm_days}-${x.alarm_time}`} task={x} deleteTask={deleteTask} />
                         })
                     }
                 </div>
