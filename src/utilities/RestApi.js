@@ -208,5 +208,5 @@ export const updateScheduledTasks = async (userId, taskId, alarmLightGroup, alar
         headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
         body: JSON.stringify(request)
     }
-    return await fetch(`${baseUrl}/userId/${userId}/tasks/update`);
+    return await fetch(`${baseUrl}/userId/${userId}/tasks/update`, options);
 }
