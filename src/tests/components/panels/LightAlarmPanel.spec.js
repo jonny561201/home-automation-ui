@@ -1,6 +1,6 @@
 import React from 'react';
 import LightAlarm from '../../../components/panels/LightAlarmPanel';
-import { render, screen, act } from '@testing-library/react';
+import { render, screen, act, fireEvent } from '@testing-library/react';
 
 describe('Light Alarm Panel', () => {
 
@@ -32,5 +32,12 @@ describe('Light Alarm Panel', () => {
         await renderComponent();
         const actual = screen.getByText(days).textContent;
         expect(actual).toEqual(days);
+    });
+
+    it('should not display the days when expansion panel opened', async () => {
+        await renderComponent();
+        fireEvent.click(screen.getByTestId('light-alarm-group'))
+        const actual = screen.queryByText(days);
+        expect(actual).toBeNull();
     });
 });
