@@ -6,13 +6,15 @@ import { getStore } from '../../../state/GlobalState';
 
 describe('Light Alarm Panel', () => {
     const days = 'Mon';
+    const groupId = '3';
     const userId = 'abc123';
     const taskId = 'kasdf9sf';
     const groupName = 'Bedroom';
     const alarmTime = '01:00:00';
-    const task = {task_id: taskId,alarm_group_name: groupName, alarm_days: days, alarm_time: alarmTime};
+    const task = {task_id: taskId, alarm_group_name: groupName, alarm_days: days, alarm_time: alarmTime, alarm_light_group: groupId};
 
     const spyDelete = jest.spyOn(lib, 'deleteScheduledTask');
+    const spyUpdate = jest.spyOn(lib, 'updateScheduledTasks');
 
     const renderComponent = async () => {
         await act(async () => {
@@ -25,6 +27,7 @@ describe('Light Alarm Panel', () => {
     beforeEach(() => {
         getStore().setUserId(userId);
         spyDelete.mockClear();
+        spyUpdate.mockClear();
     })
 
     it('should display the current alarm room setting stored in state', async () => {
@@ -84,5 +87,12 @@ describe('Light Alarm Panel', () => {
         await renderComponent();
         fireEvent.click(screen.getByText('Delete'));
         expect(spyDelete).toHaveBeenCalledWith(userId, taskId);
+    });
+
+    it('should make api call to update task when update button clicked', async () => {
+        await renderComponent();
+        fireEvent.click(screen.getByText('F'));
+        fireEvent.click(screen.getByText('Update'));
+        expect(spyUpdate).toHaveBeenCalledWith(userId, taskId, groupId, groupName, days, alarmTime);
     });
 });

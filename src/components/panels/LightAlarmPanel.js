@@ -3,7 +3,7 @@ import WeekPicker from '../controls/WeekPicker';
 import TimePicker from '../controls/TimePicker';
 import { getStore } from '../../state/GlobalState';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { deleteScheduledTask } from '../../utilities/RestApi';
+import { deleteScheduledTask, updateScheduledTasks } from '../../utilities/RestApi';
 import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary, Divider } from '@material-ui/core';
 
 
@@ -18,8 +18,9 @@ export default function LightAlarm(props) {
         setTime(dateTime);
     }
 
-    const saveTask = () => {
-        console.log(JSON.stringify(daysOfWeek))
+    const saveTask = async () => {
+        const task = props.task;
+        await updateScheduledTasks(getStore().getUserId(), task.task_id, task.alarm_light_group, task.alarm_group_name, task.alarm_days, task.alarm_time);
     }
 
     const toggleDay = (task, newState) => {
