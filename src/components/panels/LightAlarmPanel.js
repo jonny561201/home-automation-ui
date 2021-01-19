@@ -32,8 +32,8 @@ export default function LightAlarm(props) {
     }
 
     const clickDelete = async () => {
-        props.deleteTask(props.task.task_id)
         await deleteScheduledTask(getStore().getUserId(), props.task.task_id);
+        props.deleteTask(props.task.task_id)
     }
 
     return (

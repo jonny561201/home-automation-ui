@@ -59,6 +59,27 @@ describe('Light Alarm Panel', () => {
         expect(actual).toBeNull();
     });
 
+    it('should display the update button when expansion panel opened', async () => {
+        await renderComponent();
+        fireEvent.click(screen.getByTestId('light-alarm-group'))
+        const actual = screen.getByText('Update').textContent;
+        expect(actual).toEqual('Update');
+    });
+
+    it('should display the delete button when expansion panel opened', async () => {
+        await renderComponent();
+        fireEvent.click(screen.getByTestId('light-alarm-group'))
+        const actual = screen.getByText('Delete').textContent;
+        expect(actual).toEqual('Delete');
+    });
+
+    it('should display the time picker when expansion panel opened', async () => {
+        await renderComponent();
+        fireEvent.click(screen.getByTestId('light-alarm-group'))
+        const actual = screen.getByTestId('time-picker');
+        expect(actual).toBeDefined();
+    });
+
     it('should make api call to delete task when delete button clicked', async () => {
         await renderComponent();
         fireEvent.click(screen.getByText('Delete'));
