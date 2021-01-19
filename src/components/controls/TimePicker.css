@@ -5,3 +5,7 @@
 .MuiPickersClockPointer-thumb {
     border: 14px solid #00c774 !important;
 }
+
+.MuiFormControl-marginNormal {
+    margin-top: 0 !important;
+}

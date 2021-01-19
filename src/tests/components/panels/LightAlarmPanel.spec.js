@@ -40,4 +40,11 @@ describe('Light Alarm Panel', () => {
         const actual = screen.queryByText(days);
         expect(actual).toBeNull();
     });
+
+    it('should not display the time when expansion panel opened', async () => {
+        await renderComponent();
+        fireEvent.click(screen.getByTestId('light-alarm-group'))
+        const actual = screen.queryByText(alarmTime);
+        expect(actual).toBeNull();
+    });
 });

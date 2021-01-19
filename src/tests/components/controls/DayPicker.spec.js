@@ -5,14 +5,14 @@ import { Context } from '../../../state/Store';
 
 
 describe('Day Picker', () => {
-    const daySelected = {on: true, day: 'M'};
-    const dayUnselected = {on: false, day: 'T'};
+    const daySelected = { on: true, day: 'M' };
+    const dayUnselected = { on: false, day: 'T' };
     const daysOfWeek = [{ id: 'Mon', day: 'M', on: false }];
 
     const renderComponent = async (day) => {
         render(
-            <Context.Provider value={[{daysOfWeek: daysOfWeek}, () => { }]}>
-                <DayPicker day={day} setEdited={() => {}}/>
+            <Context.Provider value={[{ daysOfWeek: daysOfWeek }, () => { }]}>
+                <DayPicker toggleDay={() => {}} day={day} setEdited={() => { }} />
             </Context.Provider>
         );
     }

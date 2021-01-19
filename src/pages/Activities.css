@@ -13,6 +13,11 @@
 }
 
 @media (max-width: 479px) {
+    .settings-button-group {
+        display: flex;
+        justify-content: center;
+    }
+
     .activities-body {
         margin-top: 69px;
         position: absolute;
@@ -21,10 +26,6 @@
         width: 100%;
         border-radius: 0px 0px 12px 12px;
     }
-}
-
-.task-panel {
-    
 }
 
 .activites-wrapper {

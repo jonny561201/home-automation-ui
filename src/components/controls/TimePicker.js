@@ -28,7 +28,6 @@ export default function TimePicker(props) {
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <KeyboardTimePicker
                         margin="normal"
-                        id="time-picker"
                         label="Time picker"
                         value={dateValue}
                         onChange={handleDateChange}

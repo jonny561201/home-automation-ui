@@ -51,7 +51,7 @@ export default function LightAlarmEditPanel(props) {
             </FormControl>
             <TimePicker className="light-alarm-component" initialTime={props.time} setTime={updateTime} />
         </div>
-        <WeekPicker setEdited={() => setEdited(true)} />
+        <WeekPicker daysOfWeek={state.daysOfWeek} setEdited={() => setEdited(true)} />
     </>
     )
 }

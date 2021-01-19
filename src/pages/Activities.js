@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Divider } from '@material-ui/core';
 import Header from '../components/header/Header';
 import { getStore } from '../state/GlobalState';
 import LightAlarm from '../components/panels/LightAlarmPanel';
@@ -30,7 +29,6 @@ export default function ActivitiesPage() {
                     <div className="settings-group settings-text">
                         <h2>Light Alarm</h2>
                     </div>
-                    <Divider />
                     {
                         tasks.map(x => {
                             return <LightAlarm key={`${x.alarm_group_name}-${x.alarm_days}-${x.alarm_time}`} groupName={x.alarm_group_name} lightDays={x.alarm_days} lightTime={x.alarm_time} />

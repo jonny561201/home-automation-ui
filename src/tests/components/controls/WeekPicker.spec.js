@@ -1,5 +1,4 @@
 import React from 'react';
-import { Context } from '../../../state/Store';
 import { render, screen } from '@testing-library/react';
 import WeekPicker from '../../../components/controls/WeekPicker';
 
@@ -9,9 +8,7 @@ describe('Week Picker', () => {
 
     const renderComponent = async () => {
         render(
-            <Context.Provider value={[{daysOfWeek: daysOfWeek}, () => { }]}>
-                <WeekPicker />
-            </Context.Provider>
+                <WeekPicker daysOfWeek={daysOfWeek}/>
         );
     }
 

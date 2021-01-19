@@ -85,11 +85,6 @@ const Reducer = (state, action) => {
                 ...state,
                 userLightGroups: action.payload
             };
-        case 'TOGGLE_DAY_OF_WEEK':
-            return {
-                ...state,
-                daysOfWeek: state.daysOfWeek.map(day => [action.payload].find(p => p.id === day.id) || day)
-            }
         case 'UPDATE_GARAGE_DOORS':
             const doorIndex = state.garageDoors.findIndex(door => door.doorName === action.payload.doorName);
             return {

@@ -1,15 +1,13 @@
-import React, { useContext, useState } from 'react';
-import { Context } from '../../state/Store';
+import React, { useState } from 'react';
 import './DayPicker.css';
 
 
 export default function DayPicker(props) {
     const [on, setOn] = useState(props.day.on);
-    const [, dispatch] = useContext(Context);
 
     const toggleDay = () => {
         const updatedState = !on;
-        dispatch({type: 'TOGGLE_DAY_OF_WEEK', payload: {...props.day, on: updatedState} });
+        props.toggleDay(props.day, updatedState);
         setOn(updatedState);
         props.setEdited();
     }

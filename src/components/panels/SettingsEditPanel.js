@@ -9,10 +9,10 @@ import './SettingsEditPanel.css'
 export default function SettingsEditPanel(props) {
     const [state,] = useContext(Context);
     const [edited, setEdited] = useState();
-    const [groupId,] = useState(props.groupId);
-    const [time, setTime] = useState(props.time);
+    // const [groupId,] = useState(props.groupId);
+    // const [time, setTime] = useState(props.time);
     const [newCity, setNewCity] = useState(props.city);
-    const [selectedRoom, setSelectedRoom] = useState("");
+    // const [selectedRoom, setSelectedRoom] = useState("");
     const [newTempUnit, setNewTempUnit] = useState(props.tempUnit);
     const [newMeasureUnit, setNewMeasureUnit] = useState(props.measureUnit);
 
