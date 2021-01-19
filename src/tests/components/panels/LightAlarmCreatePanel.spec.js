@@ -2,7 +2,7 @@ import React from 'react';
 import { Context } from '../../../state/Store';
 import { getStore } from '../../../state/GlobalState';
 import { render, screen, act, fireEvent } from '@testing-library/react';
-import LightAlarmEditPanel from '../../../components/panels/LightAlarmEditPanel';
+import LightAlarmCreatePanel from '../../../components/panels/LightAlarmCreatePanel';
 
 
 describe('Light Alarm Edit Panel', () => {
@@ -16,7 +16,7 @@ describe('Light Alarm Edit Panel', () => {
         await act(async () => {
             render(
                 <Context.Provider value={[{userLightGroups: groups, daysOfWeek: []}, () => { }]}>
-                    <LightAlarmEditPanel  tempUnit={"fahrenheit"} measureUnit={"imperial"} days={alarmDays} time={alarmTime} groupName={alarmName}/>
+                    <LightAlarmCreatePanel  tempUnit={"fahrenheit"} measureUnit={"imperial"} days={alarmDays} time={alarmTime} groupName={alarmName}/>
                 </Context.Provider>
             );
         });

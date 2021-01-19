@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from 'react';
 import { Context } from '../../state/Store';
 import TimePicker from '../controls/TimePicker';
 import WeekPicker from '../controls/WeekPicker';
-import { Divider, FormControl, MenuItem, Select, InputLabel } from '@material-ui/core';
+import { FormControl, MenuItem, Select, InputLabel } from '@material-ui/core';
 
 
 export default function LightAlarmEditPanel(props) {
@@ -29,8 +29,6 @@ export default function LightAlarmEditPanel(props) {
 
     return (
         <>
-        <h2>Light Alarm</h2>
-        <Divider />
         <div className="settings-row">
             <FormControl className="light-alarm-component settings-first-item" variant="outlined">
                 <InputLabel id="light-group-dropdown">Room</InputLabel>
