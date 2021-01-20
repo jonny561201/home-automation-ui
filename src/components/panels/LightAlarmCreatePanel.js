@@ -93,7 +93,8 @@ export default function LightAlarmEditPanel(props) {
                     <WeekPicker daysOfWeek={daysOfWeek} toggleDay={toggleDay} setEdited={() => setEdited(true)} />
                     <Divider />
                         <div className="tasks-button-group">
-                            <button className="save-button" data-testid="save-task-button" disabled={!edited} onClick={save}>Save</button>
+                            <button className="submit" data-testid="save-task-button" disabled={!edited} onClick={save}>Save</button>
+                            <button className="cancel" data-testid="cancel-task-button" onClick={props.cancelNewTask}>Cancel</button>
                         </div>
                 </ExpansionPanelDetails>
             </ExpansionPanel>

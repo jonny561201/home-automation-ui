@@ -79,10 +79,9 @@ describe('Light Alarm Edit Panel', () => {
         expect(actual).toEqual('Save');
     });
 
-    it('should make api call to save task when edited', async () => {
+    it('should display the cancel button', async () => {
         await renderComponent();
-        fireEvent.click(screen.getByText('F'));
-        fireEvent.click(screen.getByTestId('save-task-button'));
-        expect(spyPost).toHaveBeenCalledWith(userId, groupId, undefined, 'Fri', time);
+        const actual = screen.getByTestId('cancel-task-button').textContent;
+        expect(actual).toEqual('Cancel');
     });
 });

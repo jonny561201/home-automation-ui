@@ -34,7 +34,7 @@ export default function ActivitiesPage() {
         const response = await insertScheduledTasks(getStore().getUserId(), task.alarmLightGroup, task.alarmGroupName, task.alarmDays, task.alarmTime);
         setTasks([...response])
         setAddTask(false);
-    }    
+    }
 
     return (
         <div>
@@ -50,7 +50,7 @@ export default function ActivitiesPage() {
                     </div>
                     {
                         addTask &&
-                        <LightAlarmEditPanel saveNewTask={saveNewTask} />
+                        <LightAlarmEditPanel saveNewTask={saveNewTask} cancelNewTask={() => {setAddTask(false)}} />
                     }
                     {
                         tasks.map(x => {
