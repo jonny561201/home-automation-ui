@@ -34,9 +34,9 @@
     }
 
     .add-task-container {
-        top: 35.5rem;
-        right: 2rem;
-        position: absolute;
+        right: 43%;
+        bottom: 2%;
+        position: fixed;
     }
 }
 

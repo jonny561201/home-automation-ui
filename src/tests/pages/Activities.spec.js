@@ -60,7 +60,7 @@ describe('Activities Page', () => {
         expect(actual).toBeNull();
     });
 
-    it('should display the add tasl button', async () => {
+    it('should display the add task button', async () => {
         await renderComponent();
         const actual = screen.queryByTestId('add-task-button');
         expect(actual).toBeDefined();
