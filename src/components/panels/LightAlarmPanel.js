@@ -20,7 +20,8 @@ export default function LightAlarm(props) {
 
     const saveTask = async () => {
         const task = props.task;
-        await updateScheduledTasks(getStore().getUserId(), task.task_id, task.alarm_light_group, task.alarm_group_name, task.alarm_days, task.alarm_time);
+        const days = daysOfWeek.filter(x => x.on === true).map(y => y.id).join('')
+        await updateScheduledTasks(getStore().getUserId(), task.task_id, task.alarm_light_group, task.alarm_group_name, days, time);
     }
 
     const toggleDay = (task, newState) => {

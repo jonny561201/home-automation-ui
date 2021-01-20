@@ -93,6 +93,6 @@ describe('Light Alarm Panel', () => {
         await renderComponent();
         fireEvent.click(screen.getByText('F'));
         fireEvent.click(screen.getByText('Update'));
-        expect(spyUpdate).toHaveBeenCalledWith(userId, taskId, groupId, groupName, days, alarmTime);
+        expect(spyUpdate).toHaveBeenCalledWith(userId, taskId, groupId, groupName, 'Fri', alarmTime);
     });
 });

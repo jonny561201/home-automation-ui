@@ -28,18 +28,21 @@ export default function ActivitiesPage() {
             <div className="activities-header">
                 <Header />
             </div>
-            <div className="activities-body">
-                <div className="activites-wrapper">
-                    <div className="settings-group settings-text">
-                        <h2>Light Alarm</h2>
+            {/* {
+                state.roles.some(x => x.role_name === 'lighting') && */}
+                <div className="activities-body">
+                    <div className="activites-wrapper">
+                        <div className="settings-group settings-text">
+                            <h2>Light Alarm</h2>
+                        </div>
+                        {
+                            tasks.map(x => {
+                                return <LightAlarm key={`${x.alarm_group_name}-${x.alarm_days}-${x.alarm_time}`} task={x} deleteTask={deleteTask} />
+                            })
+                        }
                     </div>
-                    {
-                        tasks.map(x => {
-                            return <LightAlarm key={`${x.alarm_group_name}-${x.alarm_days}-${x.alarm_time}`} task={x} deleteTask={deleteTask} />
-                        })
-                    }
                 </div>
-            </div>
+            {/* } */}
         </div>
     )
 }

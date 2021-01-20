@@ -4,23 +4,6 @@ import { Divider } from '@material-ui/core';
 
 export default function SettingsPanel(props) {
 
-    // useEffect(() => {
-    //     const getData = async () => {
-    //         const response = await getScheduledTasks(getStore().getUserId());
-    //         setTasks(response);
-    //         // setLightDays(response[0].alarm_days);
-    //         // setLightGroupId(response[0].alarm_light_group)
-    //         // setLightTime(response[0].alarm_time);
-    //         // setGroupName(response[0].alarm_group_name);
-    //         // if (response && response[0].alarm_days) {
-    //         //     state.daysOfWeek.filter(x => response[0].alarm_days.includes(x.id)).map(y =>
-    //         //         dispatch({ type: 'TOGGLE_DAY_OF_WEEK', payload: { ...y, on: true } })
-    //         //     )
-    //         // }
-    //     };
-    //     getData();
-    // }, []);
-
     return (
         <>
             <div className="settings-wrapper">

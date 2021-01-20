@@ -1,5 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { Context } from '../../state/Store';
+import React, { useState } from 'react';
 import { updateUserPreferences } from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
 import { Divider, TextField, FormControlLabel, RadioGroup, FormControl, Radio } from '@material-ui/core';
@@ -7,27 +6,14 @@ import './SettingsEditPanel.css'
 
 
 export default function SettingsEditPanel(props) {
-    const [state,] = useContext(Context);
     const [edited, setEdited] = useState();
-    // const [groupId,] = useState(props.groupId);
-    // const [time, setTime] = useState(props.time);
     const [newCity, setNewCity] = useState(props.city);
-    // const [selectedRoom, setSelectedRoom] = useState("");
     const [newTempUnit, setNewTempUnit] = useState(props.tempUnit);
     const [newMeasureUnit, setNewMeasureUnit] = useState(props.measureUnit);
-
-    // useEffect(() => {
-    //     if (state.userLightGroups.filter(x => x.groupName === props.groupName).length > 0)
-    //         setSelectedRoom(props.groupName);
-    // }, []);
 
     const savePreferences = () => {
         const isFahrenheit = newTempUnit === "fahrenheit";
         const isImperial = newMeasureUnit === "imperial";
-        // const lightGroup = state.userLightGroups.find(x => x.groupName === selectedRoom);
-        // const lightDays = state.daysOfWeek.filter(x => x.on === true).map(y => y.id).join('')
-        // lightGroup
-        //     ? updateUserPreferences(getStore().getUserId(), isFahrenheit, isImperial, newCity, time, lightDays, lightGroup.groupId, selectedRoom)
         updateUserPreferences(getStore().getUserId(), isFahrenheit, isImperial, newCity);
 
         setEdited(true);
@@ -85,11 +71,6 @@ export default function SettingsEditPanel(props) {
                         </RadioGroup>
                     </FormControl>
                 </div>
-                {
-                    state.roles.some(x => x.role_name === 'lighting') &&
-                    //display edit light alarm panel
-                    <div></div>
-                }
             </div>
             <Divider />
             <div className="settings-button-group">
