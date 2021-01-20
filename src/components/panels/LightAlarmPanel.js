@@ -10,6 +10,7 @@ import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary, Divider }
 export default function LightAlarm(props) {
     const [open, setOpen] = useState(false);
     const [edited, setEdited] = useState(false);
+    const [days, setDays] = useState(props.task.alarm_days);
     const [time, setTime] = useState(props.task.alarm_time);
     const [daysOfWeek, setDaysOfWeek] = useState([{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }]);
 
@@ -20,7 +21,6 @@ export default function LightAlarm(props) {
 
     const saveTask = async () => {
         const task = props.task;
-        const days = daysOfWeek.filter(x => x.on === true).map(y => y.id).join('')
         await updateScheduledTasks(getStore().getUserId(), task.task_id, task.alarm_light_group, task.alarm_group_name, days, time);
     }
 
@@ -31,6 +31,7 @@ export default function LightAlarm(props) {
               : day
           );
         setDaysOfWeek(newProjects);
+        setDays(newProjects.filter(x => x.on === true).map(y => y.id).join(''));
     }
 
     const clickDelete = async () => {
@@ -59,7 +60,7 @@ export default function LightAlarm(props) {
                         {
                             !open &&
                             <div className="settings-row alarm-row">
-                                <p className="settings-text measure-unit">{props.task.alarm_days}</p>
+                                <p className="settings-text measure-unit">{days}</p>
                             </div>
                         }
                     </div>

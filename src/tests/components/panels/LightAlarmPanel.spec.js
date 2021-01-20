@@ -95,4 +95,13 @@ describe('Light Alarm Panel', () => {
         fireEvent.click(screen.getByText('Update'));
         expect(spyUpdate).toHaveBeenCalledWith(userId, taskId, groupId, groupName, 'Fri', alarmTime);
     });
+
+    it('should updated the displayed selected days of the week on the event banner', async () => {
+        spyUpdate.mockReturnValue({ok: true})
+        await renderComponent();
+        fireEvent.click(screen.getByText('F'));
+        fireEvent.click(screen.getByText('Update'));
+        const actual = screen.getByText('Fri').textContent;
+        expect(actual).toEqual('Fri');
+    });
 });
