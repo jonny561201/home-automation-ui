@@ -8,11 +8,12 @@ import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary, Divider }
 
 
 export default function LightAlarm(props) {
+    const initialDays = [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }];
     const [open, setOpen] = useState(false);
     const [edited, setEdited] = useState(false);
     const [days, setDays] = useState(props.task.alarm_days);
     const [time, setTime] = useState(props.task.alarm_time);
-    const [daysOfWeek, setDaysOfWeek] = useState([{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }]);
+    const [daysOfWeek, setDaysOfWeek] = useState(initialDays.map(day => props.task.alarm_days.includes(day.id) ? { ...day, on: true } : day));
 
     const updateTime = (dateTime) => {
         setEdited(true);
@@ -25,11 +26,10 @@ export default function LightAlarm(props) {
     }
 
     const toggleDay = (task, newState) => {
-        const newProjects = daysOfWeek.map(day =>
-            day.id === task.id
-              ? { ...day, on: newState }
-              : day
-          );
+        const newProjects = daysOfWeek.map(day => day.id === task.id
+            ? { ...day, on: newState }
+            : day
+        );
         setDaysOfWeek(newProjects);
         setDays(newProjects.filter(x => x.on === true).map(y => y.id).join(''));
     }
