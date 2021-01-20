@@ -38,8 +38,8 @@ describe('Light Alarm Panel', () => {
 
     it('should display the current alarm time setting stored in state', async () => {
         await renderComponent();
-        const actual = screen.getByText(alarmTime).textContent;
-        expect(actual).toEqual(alarmTime);
+        const actual = screen.getByText('01:00').textContent;
+        expect(actual).toEqual('01:00');
     });
 
     it('should display the current alarm days setting stored in state', async () => {
@@ -93,7 +93,7 @@ describe('Light Alarm Panel', () => {
         await renderComponent();
         fireEvent.click(screen.getByText('F'));
         fireEvent.click(screen.getByText('Update'));
-        expect(spyUpdate).toHaveBeenCalledWith(userId, taskId, groupId, groupName, 'Fri', alarmTime);
+        expect(spyUpdate).toHaveBeenCalledWith(userId, taskId, groupId, groupName, 'MonFri', alarmTime);
     });
 
     it('should updated the displayed selected days of the week on the event banner', async () => {
@@ -101,7 +101,7 @@ describe('Light Alarm Panel', () => {
         await renderComponent();
         fireEvent.click(screen.getByText('F'));
         fireEvent.click(screen.getByText('Update'));
-        const actual = screen.getByText('Fri').textContent;
-        expect(actual).toEqual('Fri');
+        const actual = screen.getByText('MonFri').textContent;
+        expect(actual).toEqual('MonFri');
     });
 });

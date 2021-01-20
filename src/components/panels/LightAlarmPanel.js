@@ -50,7 +50,7 @@ export default function LightAlarm(props) {
                             {
                                 !open &&
                                 <div className="settings-row alarm-row">
-                                    <p className="settings-text alarm-time">{time}</p>
+                                    <p className="settings-text alarm-time">{time.slice(0, -3)}</p>
                                 </div>
                             }
                             <div className="settings-row alarm-row">
