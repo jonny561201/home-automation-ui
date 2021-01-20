@@ -49,7 +49,22 @@ describe('Light Alarm Edit Panel', () => {
         await act(async () => {
             fireEvent.click(screen.getByTestId('alarm-room-picker'));
         });
-        const actual = screen.getByText(groupName).textContent;
+        const actual = screen.getAllByText(groupName)[1].textContent;
         expect(actual).toEqual(groupName);
      });
+
+    it('should not display the days when expansion panel opened', async () => {
+        await renderComponent();
+        fireEvent.click(screen.getByTestId('light-alarm-group'));
+        fireEvent.click(screen.getByText('F'));
+        const actual = screen.queryByText(days);
+        expect(actual).toBeDefined();
+    });
+
+    it('should display the time when expansion panel closed', async () => {
+        await renderComponent();
+        fireEvent.click(screen.getByTestId('light-alarm-group'));
+        const actual = screen.queryByText(time);
+        expect(actual).toBeDefined();
+    });
 });

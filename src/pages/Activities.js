@@ -4,12 +4,14 @@ import { getStore } from '../state/GlobalState';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import LightAlarm from '../components/panels/LightAlarmPanel';
 import { getScheduledTasks } from '../utilities/RestApi';
+import LightAlarmEditPanel from '../components/panels/LightAlarmCreatePanel';
 import './Activities.css';
 
 
 export default function ActivitiesPage() {
     getStore().setActivePage('Activities');
     const [tasks, setTasks] = useState([]);
+    const [addTask, setAddTask] = useState(false)
 
 
     useEffect(() => {
@@ -22,6 +24,10 @@ export default function ActivitiesPage() {
 
     const deleteTask = (taskId) => {
         setTasks(tasks.filter(x => x.task_id !== taskId));
+    }
+
+    const addNewTask = () => {
+        setAddTask(true);
     }
 
     return (
@@ -37,13 +43,17 @@ export default function ActivitiesPage() {
                         <h2>Light Alarm</h2>
                     </div>
                     {
+                        addTask &&
+                        <LightAlarmEditPanel />
+                    }
+                    {
                         tasks.map(x => {
                             return <LightAlarm key={`${x.alarm_group_name}-${x.alarm_days}-${x.alarm_time}`} task={x} deleteTask={deleteTask} />
                         })
                     }
                 </div>
                 <div className="add-task-container">
-                    <AddCircleIcon data-testid="add-task-button" className="add-task-button" />
+                    <AddCircleIcon data-testid="add-task-button" className="add-task-button" onClick={addNewTask} />
                 </div>
             </div>
             {/* } */}
