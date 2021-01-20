@@ -59,4 +59,10 @@ describe('Activities Page', () => {
         const actual = screen.queryByTestId('light-alarm-group');
         expect(actual).toBeNull();
     });
+
+    it('should display the add tasl button', async () => {
+        await renderComponent();
+        const actual = screen.queryByTestId('add-task-button');
+        expect(actual).toBeDefined();
+    });
 });

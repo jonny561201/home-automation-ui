@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/header/Header';
 import { getStore } from '../state/GlobalState';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import LightAlarm from '../components/panels/LightAlarmPanel';
 import { getScheduledTasks } from '../utilities/RestApi';
 import './Activities.css';
@@ -30,18 +31,21 @@ export default function ActivitiesPage() {
             </div>
             {/* {
                 state.roles.some(x => x.role_name === 'lighting') && */}
-                <div className="activities-body">
-                    <div className="activites-wrapper">
-                        <div className="settings-group settings-text">
-                            <h2>Light Alarm</h2>
-                        </div>
-                        {
-                            tasks.map(x => {
-                                return <LightAlarm key={`${x.alarm_group_name}-${x.alarm_days}-${x.alarm_time}`} task={x} deleteTask={deleteTask} />
-                            })
-                        }
+            <div className="activities-body">
+                <div className="activites-wrapper">
+                    <div className="settings-group settings-text">
+                        <h2>Light Alarm</h2>
                     </div>
+                    {
+                        tasks.map(x => {
+                            return <LightAlarm key={`${x.alarm_group_name}-${x.alarm_days}-${x.alarm_time}`} task={x} deleteTask={deleteTask} />
+                        })
+                    }
                 </div>
+                <div className="add-task-container">
+                    <AddCircleIcon data-testid="add-task-button" className="add-task-button" />
+                </div>
+            </div>
             {/* } */}
         </div>
     )

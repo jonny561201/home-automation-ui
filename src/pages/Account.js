@@ -7,6 +7,7 @@ import { updateUserAccount } from '../utilities/RestApi';
 import AccountChildUser from '../components/segments/AccountChildUser';
 import './Account.css';
 
+
 export default function Account() {
     getStore().setActivePage('Account');
     const [arePasswordsMismatched, setPasswordsMismatched] = useState(null);

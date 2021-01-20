@@ -10,6 +10,12 @@
     .activities-body {
         min-width: 615px;
     }
+
+    .add-task-container {
+        display: flex;
+        justify-content: flex-end;
+        padding: 0 1rem 1rem 0;
+    }
 }
 
 @media (max-width: 479px) {
@@ -25,6 +31,12 @@
         right: 0;
         width: 100%;
         border-radius: 0px 0px 12px 12px;
+    }
+
+    .add-task-container {
+        top: 35.5rem;
+        right: 2rem;
+        position: absolute;
     }
 }
 
@@ -51,3 +63,15 @@
 .alarm-row {
     flex: 1;
 }
+
+.add-task-button{
+    height: 3.5rem !important;
+    width: 3.5rem !important;
+    color: #00c774;
+}
+
+.add-task-button:active {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+ }
