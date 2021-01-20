@@ -1,25 +1,21 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Context } from '../../state/Store';
 import TimePicker from '../controls/TimePicker';
 import WeekPicker from '../controls/WeekPicker';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary,  FormControl, MenuItem, Select, InputLabel } from '@material-ui/core';
+import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary,  FormControl, MenuItem, Select, InputLabel, Divider } from '@material-ui/core';
 
 
 export default function LightAlarmEditPanel(props) {
     const initialDays = [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }];
     const [state,] = useContext(Context);
-    const [opened, setOpened] = useState(true);
-    const [time, setTime] = useState(new Date().toLocaleTimeString().slice(0, -3));
     const [days, setDays] = useState();
+    const [groupId, setGroupId] = useState();
+    const [opened, setOpened] = useState(true);
     const [edited, setEdited] = useState(false);
     const [selectedRoom, setSelectedRoom] = useState();
     const [daysOfWeek, setDaysOfWeek] = useState(initialDays);
-
-    useEffect(() => {
-        if (state.userLightGroups.filter(x => x.groupName === props.groupName).length > 0)
-            setSelectedRoom(props.groupName);
-    }, []);
+    const [time, setTime] = useState(new Date().toLocaleTimeString().slice(0, -3));
 
 
     const updateTime = (dateTime) => {
@@ -29,6 +25,7 @@ export default function LightAlarmEditPanel(props) {
 
     const updateSelectedRoom = (item) => {
         setEdited(true);
+        setGroupId(state.userLightGroups.find(x => x.groupName === item.target.value).groupId);
         setSelectedRoom(item.target.value)
     }
 
@@ -39,6 +36,11 @@ export default function LightAlarmEditPanel(props) {
         );
         setDaysOfWeek(newProjects);
         setDays(newProjects.filter(x => x.on === true).map(y => y.id).join(''));
+    }
+
+    const save = () => {
+        const task = {alarmGroupName: selectedRoom, alarmLightGroup: groupId, alarmTime: time, alarmDays: days};
+        props.saveNewTask(task);
     }
 
     return (
@@ -89,6 +91,10 @@ export default function LightAlarmEditPanel(props) {
                         <TimePicker className="light-alarm-component" initialTime={props.time} setTime={updateTime} />
                     </div>
                     <WeekPicker daysOfWeek={daysOfWeek} toggleDay={toggleDay} setEdited={() => setEdited(true)} />
+                    <Divider />
+                        <div className="tasks-button-group">
+                            <button className="save-button" data-testid="save-task-button" disabled={!edited} onClick={save}>Save</button>
+                        </div>
                 </ExpansionPanelDetails>
             </ExpansionPanel>
         </>

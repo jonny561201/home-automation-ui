@@ -3,7 +3,7 @@ import Header from '../components/header/Header';
 import { getStore } from '../state/GlobalState';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import LightAlarm from '../components/panels/LightAlarmPanel';
-import { getScheduledTasks } from '../utilities/RestApi';
+import { getScheduledTasks, insertScheduledTasks } from '../utilities/RestApi';
 import LightAlarmEditPanel from '../components/panels/LightAlarmCreatePanel';
 import './Activities.css';
 
@@ -30,6 +30,12 @@ export default function ActivitiesPage() {
         setAddTask(true);
     }
 
+    const saveNewTask = async (task) => {
+        const response = await insertScheduledTasks(getStore().getUserId(), task.alarmLightGroup, task.alarmGroupName, task.alarmDays, task.alarmTime);
+        setTasks([...response])
+        setAddTask(false);
+    }    
+
     return (
         <div>
             <div className="activities-header">
@@ -44,7 +50,7 @@ export default function ActivitiesPage() {
                     </div>
                     {
                         addTask &&
-                        <LightAlarmEditPanel />
+                        <LightAlarmEditPanel saveNewTask={saveNewTask} />
                     }
                     {
                         tasks.map(x => {
