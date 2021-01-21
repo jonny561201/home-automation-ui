@@ -22,7 +22,10 @@ export default function LightAlarm(props) {
 
     const saveTask = async () => {
         const task = props.task;
-        await updateScheduledTasks(getStore().getUserId(), task.task_id, task.alarm_light_group, task.alarm_group_name, days, time);
+        const response = await updateScheduledTasks(getStore().getUserId(), task.task_id, task.alarm_light_group, task.alarm_group_name, days, time);
+        if (response.ok) {
+            setOpen(false);
+        }
     }
 
     const toggleDay = (task, newState) => {
@@ -43,8 +46,8 @@ export default function LightAlarm(props) {
 
     return (
         <>
-            <ExpansionPanel className="task-panel">
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={() => { setOpen(!open) }}>
+            <ExpansionPanel className="task-panel" expanded={open} onChange={() => { setOpen(!open) }}>
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <div>
                         <div className="alarm-setting-group" data-testid="light-alarm-group">
                             {
