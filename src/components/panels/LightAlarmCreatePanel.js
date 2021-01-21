@@ -94,12 +94,12 @@ export default function LightAlarmEditPanel(props) {
                     <Divider />
                     <div className="tasks-button-group">
                         <div className="task-button-container" onClick={props.cancelNewTask}>
-                            <Delete className="task-button" />
-                            <p>Cancel</p>
+                            <Delete className="task-button task-delete" />
+                            <p className="task-delete">Cancel</p>
                         </div>
                         <div className="task-button-container" onClick={save}>
-                            <Save className="task-button" />
-                            <p>Save</p>
+                            <Save className={`task-button ${edited ? "edited" : ""}`} />
+                            <p className={edited ? "edited" : ""}>Save</p>
                         </div>
                     </div>
                 </ExpansionPanelDetails>

@@ -78,12 +78,12 @@ export default function LightAlarm(props) {
                         <Divider />
                         <div className="tasks-button-group">
                             <div className="task-button-container" onClick={clickDelete}>
-                                <Delete className="task-button"/>
-                                <p>Delete</p>
+                                <Delete className="task-button task-delete"/>
+                                <p className="task-delete">Delete</p>
                             </div>
                             <div className="task-button-container" onClick={saveTask}>
-                                <Save className="task-button"/>
-                                <p>Update</p>
+                                <Save className={`task-button ${edited ? "edited" : ""}`}/>
+                                <p className={edited ? "edited" : ''}>Update</p>
                             </div>
                         </div>  
                     </div>
