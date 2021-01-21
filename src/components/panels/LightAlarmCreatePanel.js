@@ -4,7 +4,7 @@ import TimePicker from '../controls/TimePicker';
 import WeekPicker from '../controls/WeekPicker';
 import { Save, Delete } from '@material-ui/icons';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary,  FormControl, MenuItem, Select, InputLabel, Divider } from '@material-ui/core';
+import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary, FormControl, MenuItem, Select, InputLabel, Divider } from '@material-ui/core';
 
 
 export default function LightAlarmEditPanel(props) {
@@ -14,9 +14,9 @@ export default function LightAlarmEditPanel(props) {
     const [groupId, setGroupId] = useState();
     const [opened, setOpened] = useState(true);
     const [edited, setEdited] = useState(false);
-    const [selectedRoom, setSelectedRoom] = useState();
+    const [selectedRoom, setSelectedRoom] = useState('');
     const [daysOfWeek, setDaysOfWeek] = useState(initialDays);
-    const [time, setTime] = useState(new Date().toLocaleTimeString().slice(0, -3));
+    const [time, setTime] = useState(new Date().toLocaleTimeString('en-GB'));
 
 
     const updateTime = (dateTime) => {
@@ -40,15 +40,17 @@ export default function LightAlarmEditPanel(props) {
     }
 
     const save = () => {
-        const task = {alarmGroupName: selectedRoom, alarmLightGroup: groupId, alarmTime: time, alarmDays: days};
-        props.saveNewTask(task);
+        if (edited) {
+            const task = { alarmGroupName: selectedRoom, alarmLightGroup: groupId, alarmTime: time, alarmDays: days };
+            props.saveNewTask(task);
+        }
     }
 
     return (
         <>
-            <ExpansionPanel className="task-panel" defaultExpanded={opened}>
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={() => { setOpened(!opened) }}>
-                <div>
+            <ExpansionPanel className="task-panel" defaultExpanded={opened} expanded={opened} onChange={() => { setOpened(!opened) }}>
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                    <div>
                         <div className="alarm-setting-group" data-testid="light-alarm-group">
                             {
                                 !opened &&
@@ -89,20 +91,20 @@ export default function LightAlarmEditPanel(props) {
                                 ))}
                             </Select>
                         </FormControl>
-                        <TimePicker className="light-alarm-component" initialTime={props.time} setTime={updateTime} />
+                        <TimePicker className="light-alarm-component" initialTime={time} setTime={updateTime} />
                     </div>
                     <WeekPicker daysOfWeek={daysOfWeek} toggleDay={toggleDay} setEdited={() => setEdited(true)} />
                     <Divider />
                     <div className="tasks-button-group">
-                            <div className="task-button-container" onClick={props.cancelNewTask}>
-                                <Delete className="task-button"/>
-                                <p>Cancel</p>
-                            </div>
-                            <div className="task-button-container" onClick={save}>
-                                <Save className="task-button"/>
-                                <p>Save</p>
-                            </div>
-                        </div>  
+                        <div className="task-button-container" onClick={props.cancelNewTask}>
+                            <Delete className="task-button" />
+                            <p>Cancel</p>
+                        </div>
+                        <div className="task-button-container" onClick={save}>
+                            <Save className="task-button" />
+                            <p>Save</p>
+                        </div>
+                    </div>
                 </ExpansionPanelDetails>
             </ExpansionPanel>
         </>
