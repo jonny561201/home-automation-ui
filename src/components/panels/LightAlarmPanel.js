@@ -27,6 +27,7 @@ export default function LightAlarm(props) {
             const response = await updateScheduledTasks(getStore().getUserId(), task.task_id, task.alarm_light_group, task.alarm_group_name, days, time);
             if (response.ok) {
                 setOpen(false);
+                setEdited(false);
             }
         }
     }

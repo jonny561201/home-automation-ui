@@ -43,6 +43,7 @@ export default function LightAlarmEditPanel(props) {
         if (edited) {
             const task = { alarmGroupName: selectedRoom, alarmLightGroup: groupId, alarmTime: time, alarmDays: days };
             props.saveNewTask(task);
+            setEdited(false);
         }
     }
 
