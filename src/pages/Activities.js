@@ -50,7 +50,7 @@ export default function ActivitiesPage() {
                     </div>
                     {
                         addTask &&
-                        <LightAlarmEditPanel saveNewTask={saveNewTask} cancelNewTask={() => {setAddTask(false)}} />
+                        <LightAlarmEditPanel saveNewTask={saveNewTask} cancelNewTask={() => { setAddTask(false) }} />
                     }
                     {
                         tasks.map(x => {
@@ -59,7 +59,9 @@ export default function ActivitiesPage() {
                     }
                 </div>
                 <div className="add-task-container">
-                    <AddCircleIcon data-testid="add-task-button" className="add-task-button" onClick={addNewTask} />
+                    <div className="add-task-button-border">
+                        <AddCircleIcon data-testid="add-task-button" className="add-task-button" onClick={addNewTask} />
+                    </div>
                 </div>
             </div>
             {/* } */}

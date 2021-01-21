@@ -83,7 +83,7 @@ export default function LightAlarm(props) {
                                 <Save className="task-button"/>
                                 <p>Update</p>
                             </div>
-                        </div>
+                        </div>  
                     </div>
                 </ExpansionPanelDetails>
             </ExpansionPanel>
