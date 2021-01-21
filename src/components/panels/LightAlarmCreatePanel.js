@@ -81,9 +81,6 @@ export default function LightAlarmEditPanel(props) {
                                 onChange={updateSelectedRoom}
                                 label="Room"
                             >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
                                 {state.userLightGroups.map((group) => (
                                     <MenuItem key={group.groupId} value={group.groupName}>
                                         {group.groupName}
