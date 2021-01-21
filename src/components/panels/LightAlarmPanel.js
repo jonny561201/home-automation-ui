@@ -22,10 +22,12 @@ export default function LightAlarm(props) {
     }
 
     const saveTask = async () => {
-        const task = props.task;
-        const response = await updateScheduledTasks(getStore().getUserId(), task.task_id, task.alarm_light_group, task.alarm_group_name, days, time);
-        if (response.ok) {
-            setOpen(false);
+        if (edited) {
+            const task = props.task;
+            const response = await updateScheduledTasks(getStore().getUserId(), task.task_id, task.alarm_light_group, task.alarm_group_name, days, time);
+            if (response.ok) {
+                setOpen(false);
+            }
         }
     }
 
