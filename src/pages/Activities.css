@@ -40,6 +40,25 @@
     }
 }
 
+.tasks-button-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+}
+
+.task-button-container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    cursor: pointer;
+}
+
+.task-button {
+    height: 2rem !important;
+    width: 2rem !important;
+}
+
 .activites-wrapper {
     margin: 1rem;
 }
