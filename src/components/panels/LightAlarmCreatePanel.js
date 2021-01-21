@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Context } from '../../state/Store';
 import TimePicker from '../controls/TimePicker';
 import WeekPicker from '../controls/WeekPicker';
+import { Save, Delete } from '@material-ui/icons';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary,  FormControl, MenuItem, Select, InputLabel, Divider } from '@material-ui/core';
 
@@ -92,10 +93,16 @@ export default function LightAlarmEditPanel(props) {
                     </div>
                     <WeekPicker daysOfWeek={daysOfWeek} toggleDay={toggleDay} setEdited={() => setEdited(true)} />
                     <Divider />
-                        <div className="tasks-button-group">
-                            <button className="submit" data-testid="save-task-button" disabled={!edited} onClick={save}>Save</button>
-                            <button className="cancel" data-testid="cancel-task-button" onClick={props.cancelNewTask}>Cancel</button>
-                        </div>
+                    <div className="tasks-button-group">
+                            <div className="task-button-container" onClick={props.cancelNewTask}>
+                                <Delete className="task-button"/>
+                                <p>Cancel</p>
+                            </div>
+                            <div className="task-button-container" onClick={save}>
+                                <Save className="task-button"/>
+                                <p>Save</p>
+                            </div>
+                        </div>  
                 </ExpansionPanelDetails>
             </ExpansionPanel>
         </>
