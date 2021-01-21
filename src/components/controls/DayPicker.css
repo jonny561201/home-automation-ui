@@ -6,14 +6,14 @@
     display: flex;
     justify-content: center;
     align-self: center;
-    color: #1a75ff;
+    color: #00c774;
     font-size: 1.5rem;
     margin: 0.5rem;
     outline: none,
 }
 
 .selected {
-    background-color: #1a75ff;
+    background-color: #00c774;
     color: white;
 }
 
