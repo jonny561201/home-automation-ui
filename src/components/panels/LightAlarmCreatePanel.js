@@ -1,15 +1,17 @@
 import React, { useContext, useState } from 'react';
 import { Context } from '../../state/Store';
+import { getStore } from '../../state/GlobalState';
 import TimePicker from '../controls/TimePicker';
 import WeekPicker from '../controls/WeekPicker';
 import { Save, Delete } from '@material-ui/icons';
+import { insertScheduledTasks } from '../../utilities/RestApi';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary, FormControl, MenuItem, Select, InputLabel, Divider } from '@material-ui/core';
 
 
 export default function LightAlarmEditPanel(props) {
     const initialDays = [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }];
-    const [state,] = useContext(Context);
+    const [state, dispatch] = useContext(Context);
     const [days, setDays] = useState();
     const [groupId, setGroupId] = useState();
     const [opened, setOpened] = useState(true);
@@ -39,11 +41,11 @@ export default function LightAlarmEditPanel(props) {
         setDays(newProjects.filter(x => x.on === true).map(y => y.id).join(''));
     }
 
-    const save = () => {
+    const save = async () => {
         if (edited) {
-            const task = { alarmGroupName: selectedRoom, alarmLightGroup: groupId, alarmTime: time, alarmDays: days };
-            props.saveNewTask(task);
-            setEdited(false);
+            const tasks = await insertScheduledTasks(getStore().getUserId(), groupId, selectedRoom, days, time);
+            dispatch({type: 'SET_SCHEDULED_TASK', payload: tasks});
+            props.saveNewTask();
         }
     }
 

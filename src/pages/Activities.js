@@ -1,40 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { Context } from '../state/Store';
 import Header from '../components/header/Header';
 import { getStore } from '../state/GlobalState';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import LightAlarm from '../components/panels/LightAlarmPanel';
-import { getScheduledTasks, insertScheduledTasks } from '../utilities/RestApi';
+import { getScheduledTasks } from '../utilities/RestApi';
 import LightAlarmEditPanel from '../components/panels/LightAlarmCreatePanel';
 import './Activities.css';
 
 
 export default function ActivitiesPage() {
     getStore().setActivePage('Activities');
-    const [tasks, setTasks] = useState([]);
+    const [state, dispatch] = useContext(Context);
     const [addTask, setAddTask] = useState(false)
 
 
     useEffect(() => {
         const getData = async () => {
             const responseTasks = await getScheduledTasks(getStore().getUserId());
-            setTasks(responseTasks);
+            dispatch({ type: 'SET_SCHEDULED_TASK', payload: responseTasks });
         };
         getData();
     }, []);
-
-    const deleteTask = (taskId) => {
-        setTasks(tasks.filter(x => x.task_id !== taskId));
-    }
-
-    const addNewTask = () => {
-        setAddTask(true);
-    }
-
-    const saveNewTask = async (task) => {
-        const response = await insertScheduledTasks(getStore().getUserId(), task.alarmLightGroup, task.alarmGroupName, task.alarmDays, task.alarmTime);
-        setTasks([...response])
-        setAddTask(false);
-    }
 
     return (
         <div>
@@ -50,17 +37,17 @@ export default function ActivitiesPage() {
                     </div>
                     {
                         addTask &&
-                        <LightAlarmEditPanel saveNewTask={saveNewTask} cancelNewTask={() => { setAddTask(false) }} />
+                        <LightAlarmEditPanel saveNewTask={() => {setAddTask(false)}} cancelNewTask={() => { setAddTask(false) }} />
                     }
                     {
-                        tasks.map(x => {
-                            return <LightAlarm key={`${x.alarm_group_name}-${x.alarm_days}-${x.alarm_time}`} task={x} deleteTask={deleteTask} />
+                        state.tasks.map(x => {
+                            return <LightAlarm key={`${x.alarm_group_name}-${x.alarm_days}-${x.alarm_time}`} task={x} />
                         })
                     }
                 </div>
                 <div className="add-task-container">
                     <div className="add-task-button-border">
-                        <AddCircleIcon data-testid="add-task-button" className="add-task-button" onClick={addNewTask} />
+                        <AddCircleIcon data-testid="add-task-button" className="add-task-button" onClick={() => {setAddTask(true)}} />
                     </div>
                 </div>
             </div>

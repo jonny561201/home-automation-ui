@@ -3,6 +3,7 @@ import * as lib from '../../../utilities/RestApi';
 import LightAlarm from '../../../components/panels/LightAlarmPanel';
 import { render, screen, act, fireEvent } from '@testing-library/react';
 import { getStore } from '../../../state/GlobalState';
+import { Context } from '../../../state/Store';
 
 describe('Light Alarm Panel', () => {
     const days = 'Mon';
@@ -11,7 +12,7 @@ describe('Light Alarm Panel', () => {
     const taskId = 'kasdf9sf';
     const groupName = 'Bedroom';
     const alarmTime = '01:00:00';
-    const task = {task_id: taskId, alarm_group_name: groupName, alarm_days: days, alarm_time: alarmTime, alarm_light_group: groupId};
+    const task = { task_id: taskId, alarm_group_name: groupName, alarm_days: days, alarm_time: alarmTime, alarm_light_group: groupId };
 
     const spyDelete = jest.spyOn(lib, 'deleteScheduledTask');
     const spyUpdate = jest.spyOn(lib, 'updateScheduledTasks');
@@ -19,7 +20,9 @@ describe('Light Alarm Panel', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <LightAlarm deleteTask={() => {}} task={task} />
+                <Context.Provider value={[{}, () => { }]}>
+                    <LightAlarm deleteTask={() => { }} task={task} />
+                </Context.Provider>
             );
         });
     }
@@ -97,7 +100,7 @@ describe('Light Alarm Panel', () => {
     });
 
     it('should updated the displayed selected days of the week on the event banner', async () => {
-        spyUpdate.mockReturnValue({ok: true})
+        spyUpdate.mockReturnValue({ ok: true })
         await renderComponent();
         fireEvent.click(screen.getByText('F'));
         fireEvent.click(screen.getByText('Update'));

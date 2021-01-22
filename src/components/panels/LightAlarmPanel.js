@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { Context } from '../../state/Store';
 import WeekPicker from '../controls/WeekPicker';
 import TimePicker from '../controls/TimePicker';
 import { getStore } from '../../state/GlobalState';
@@ -10,6 +11,7 @@ import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary, Divider }
 
 export default function LightAlarm(props) {
     const initialDays = [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }];
+    const [state, dispatch] = useContext(Context);
     const [open, setOpen] = useState(false);
     const [edited, setEdited] = useState(false);
     const [days, setDays] = useState(props.task.alarm_days);
@@ -25,9 +27,9 @@ export default function LightAlarm(props) {
         if (edited) {
             const task = props.task;
             const response = await updateScheduledTasks(getStore().getUserId(), task.task_id, task.alarm_light_group, task.alarm_group_name, days, time);
-            if (response.ok) {
-                setOpen(false);
-                setEdited(false);
+            if (response) {
+                dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: task.task_id });
+                dispatch({ type: 'ADD_SCHEDULED_TASK', payload: response });
             }
         }
     }
@@ -44,7 +46,7 @@ export default function LightAlarm(props) {
     const clickDelete = async () => {
         const response = await deleteScheduledTask(getStore().getUserId(), props.task.task_id);
         if (response.ok) {
-            props.deleteTask(props.task.task_id);
+            dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.task_id });
         }
     }
 
@@ -79,14 +81,14 @@ export default function LightAlarm(props) {
                         <Divider />
                         <div className="tasks-button-group">
                             <div className="task-button-container" onClick={clickDelete}>
-                                <Delete className="task-button task-delete"/>
+                                <Delete className="task-button task-delete" />
                                 <p className="task-delete">Delete</p>
                             </div>
                             <div className="task-button-container" onClick={saveTask}>
-                                <Save className={`task-button ${edited ? "edited" : ""}`}/>
+                                <Save className={`task-button ${edited ? "edited" : ""}`} />
                                 <p className={edited ? "edited" : ''}>Update</p>
                             </div>
-                        </div>  
+                        </div>
                     </div>
                 </ExpansionPanelDetails>
             </ExpansionPanel>

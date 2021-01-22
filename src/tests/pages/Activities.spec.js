@@ -18,7 +18,7 @@ describe('Activities Page', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{}, () => { }]}>
+                <Context.Provider value={[{tasks: []}, () => { }]}>
                     <ActivitiesPage />
                 </Context.Provider>
             );
