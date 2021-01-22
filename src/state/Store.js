@@ -20,8 +20,7 @@ const initialState = {
     userCoords: null,
     userLights: [],
     userLightGroups: [],
-    // daysOfWeek: [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false },
-    //             { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }],
+    tasks: [],
 };
 
 const Store = ({ children }) => {

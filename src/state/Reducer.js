@@ -91,6 +91,21 @@ const Reducer = (state, action) => {
                 ...state,
                 garageDoors: doorIndex > -1 ? state.garageDoors.map(door => door.doorName === action.payload.doorName ? {...door, "isOpen": action.payload.isOpen} : door) : [...state.garageDoors, action.payload]
             }
+        case 'SET_SCHEDULED_TASK':
+            return {
+                ...state,
+                tasks: action.payload
+            }
+        case 'DELETE_SCHEDULED_TASK':
+            return {
+                ...state,
+                tasks: state.tasks.filter(task => task.task_id !== action.payload) 
+            }
+        case 'ADD_SCHEDULED_TASK':
+            return {
+                ...state,
+                tasks: [...state.tasks, action.payload]
+            }
         default:
             return state;
     }
