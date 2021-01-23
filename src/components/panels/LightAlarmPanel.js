@@ -6,16 +6,17 @@ import { getStore } from '../../state/GlobalState';
 import { Save, Delete } from '@material-ui/icons';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { deleteScheduledTask, updateScheduledTasks } from '../../utilities/RestApi';
-import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary, Divider } from '@material-ui/core';
+import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary, Divider, Switch } from '@material-ui/core';
 
 
 export default function LightAlarm(props) {
     const initialDays = [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }];
-    const [state, dispatch] = useContext(Context);
+    const [, dispatch] = useContext(Context);
     const [open, setOpen] = useState(false);
     const [edited, setEdited] = useState(false);
     const [days, setDays] = useState(props.task.alarm_days);
     const [time, setTime] = useState(props.task.alarm_time);
+    const [enabled, setEnabled] = useState(props.task.enabled);
     const [daysOfWeek, setDaysOfWeek] = useState(initialDays.map(day => props.task.alarm_days.includes(day.id) ? { ...day, on: true } : day));
 
     const updateTime = (dateTime) => {
@@ -26,7 +27,7 @@ export default function LightAlarm(props) {
     const saveTask = async () => {
         if (edited) {
             const task = props.task;
-            const response = await updateScheduledTasks(getStore().getUserId(), task.task_id, task.alarm_light_group, task.alarm_group_name, days, time, true, 'turn off');
+            const response = await updateScheduledTasks(getStore().getUserId(), task.task_id, task.alarm_light_group, task.alarm_group_name, days, time, enabled, 'turn off');
             if (response) {
                 dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: task.task_id });
                 dispatch({ type: 'ADD_SCHEDULED_TASK', payload: response });
@@ -50,6 +51,17 @@ export default function LightAlarm(props) {
         }
     }
 
+    const toggleTask = async () => {
+        const updated = !enabled;
+        setEnabled(updated)
+        const task = props.task;
+        const response = await updateScheduledTasks(getStore().getUserId(), task.task_id, task.alarm_light_group, task.alarm_group_name, days, time, updated, 'turn off');
+        if (response) {
+            dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: task.task_id });
+            dispatch({ type: 'ADD_SCHEDULED_TASK', payload: response });
+        }
+    }
+
     return (
         <>
             <ExpansionPanel className="task-panel" expanded={open} onChange={() => { setOpen(!open) }}>
@@ -68,8 +80,15 @@ export default function LightAlarm(props) {
                         </div>
                         {
                             !open &&
-                            <div className="settings-row alarm-row">
-                                <p className="settings-text measure-unit">{days}</p>
+                            <div className="alarm-setting-group">
+                                <div className="settings-row alarm-row">
+                                    <p className="settings-text measure-unit">{days}</p>
+                                </div>
+                                <div className="settings-row alarm-row">
+                                    <Switch className="task-switch" onClick={(event) => event.stopPropagation()} onFocus={(event) => event.stopPropagation()}
+                                        checked={enabled} onChange={toggleTask} color="primary" inputProps={{ 'aria-label': 'primary checkbox' }} />
+                                </div>
+
                             </div>
                         }
                     </div>

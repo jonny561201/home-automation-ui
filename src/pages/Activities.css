@@ -113,3 +113,7 @@
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
  }
+
+ .task-switch {
+     margin-left: 5rem;
+ }
