@@ -125,6 +125,10 @@ describe('AccountChildUser', () => {
 
     describe('Api Calls', () => {
 
+        beforeEach(() => {
+            spyPost.mockReturnValue([]);
+        });
+
         it('should make api call to create child account when submitted', async () => {
             const email = 'test@test.com';
             const roles = ['garage_door', 'security'];

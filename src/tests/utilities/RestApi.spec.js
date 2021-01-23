@@ -380,7 +380,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             });
 
-            const actual = await insertScheduledTasks(userId, body.alarmLightGroup, body.alarmGroupName, body.alarmDays, body.alarmTime);
+            const actual = await insertScheduledTasks(userId, body.alarmLightGroup, body.alarmGroupName, body.alarmDays, body.alarmTime, body.enabled, body.taskType);
 
             expect(actual[0].task_id).toEqual(response[0].task_id);
         });

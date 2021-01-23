@@ -83,6 +83,10 @@ describe('Account Page', () => {
 
     describe('Password Update Errors', () => {
 
+        beforeEach(() => {
+            spyPost.mockReturnValue({ok: true})
+        })
+
         it('should display error when passwords do not match', async () => {
             await renderComponent();
             await act(async () => {

@@ -87,6 +87,7 @@ describe('Light Alarm Panel', () => {
     });
 
     it('should make api call to delete task when delete button clicked', async () => {
+        spyDelete.mockReturnValue({ ok: true })
         await renderComponent();
         fireEvent.click(screen.getByText('Delete'));
         expect(spyDelete).toHaveBeenCalledWith(userId, taskId);
@@ -96,7 +97,7 @@ describe('Light Alarm Panel', () => {
         await renderComponent();
         fireEvent.click(screen.getByText('F'));
         fireEvent.click(screen.getByText('Update'));
-        expect(spyUpdate).toHaveBeenCalledWith(userId, taskId, groupId, groupName, 'MonFri', alarmTime);
+        expect(spyUpdate).toHaveBeenCalledWith(userId, taskId, groupId, groupName, 'MonFri', alarmTime, true, 'turn off');
     });
 
     it('should updated the displayed selected days of the week on the event banner', async () => {

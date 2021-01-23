@@ -31,6 +31,10 @@ describe('Register Device', () => {
 
     describe('Before Transition', () => {
 
+        beforeEach(() => {
+            spyAdd.mockReturnValue({json: () => {return {deviceId: ""}}});
+        })
+
         it('should display Add Device text', () => {
             renderComponent();
             const actual = screen.getByTestId('data-add-device');
