@@ -6,7 +6,7 @@ import { getStore } from '../../state/GlobalState';
 import { Save, Delete } from '@material-ui/icons';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { deleteScheduledTask, updateScheduledTasks } from '../../utilities/RestApi';
-import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary, Divider, Switch } from '@material-ui/core';
+import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary, Divider, Switch, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 
 
 export default function LightAlarm(props) {
@@ -14,6 +14,7 @@ export default function LightAlarm(props) {
     const [state, dispatch] = useContext(Context);
     const [open, setOpen] = useState(false);
     const [edited, setEdited] = useState(false);
+    const [type, setType] = useState(props.task.task_type);
     const [days, setDays] = useState(props.task.alarm_days);
     const [time, setTime] = useState(props.task.alarm_time);
     const [enabled, setEnabled] = useState(props.task.enabled);
@@ -27,7 +28,7 @@ export default function LightAlarm(props) {
     const saveTask = async () => {
         if (edited) {
             const task = props.task;
-            const response = await updateScheduledTasks(getStore().getUserId(), task.task_id, task.alarm_light_group, task.alarm_group_name, days, time, enabled, 'turn off');
+            const response = await updateScheduledTasks(getStore().getUserId(), task.task_id, task.alarm_light_group, task.alarm_group_name, days, time, enabled, type);
             if (response) {
                 dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: task.task_id });
                 dispatch({ type: 'ADD_SCHEDULED_TASK', payload: response });
@@ -55,11 +56,16 @@ export default function LightAlarm(props) {
         const updated = !enabled;
         setEnabled(updated)
         const task = props.task;
-        const response = await updateScheduledTasks(getStore().getUserId(), task.task_id, task.alarm_light_group, task.alarm_group_name, days, time, updated, 'turn off');
+        const response = await updateScheduledTasks(getStore().getUserId(), task.task_id, task.alarm_light_group, task.alarm_group_name, days, time, updated, type);
         if (response) {
             dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: task.task_id });
             dispatch({ type: 'ADD_SCHEDULED_TASK', payload: response });
         }
+    }
+
+    const updateSelectedType = (item) => {
+        setEdited(true);
+        setType(state.taskTypes.find(x => x === item.target.value));
     }
 
     return (
@@ -95,7 +101,23 @@ export default function LightAlarm(props) {
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className="center">
                     <div>
-                        <TimePicker className="light-alarm-component" initialTime={time} setTime={updateTime} />
+                        <div style={{display: 'flex'}}>
+                            <FormControl className="light-alarm-component" variant="outlined">
+                                <InputLabel id="light-group-dropdown">Task Type</InputLabel>
+                                <Select
+                                    value={type}
+                                    onChange={updateSelectedType}
+                                    label="Task Type"
+                                >
+                                    {state.taskTypes.map(x => (
+                                        <MenuItem key={x} value={x}>
+                                            {x}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                            <TimePicker className="light-alarm-component" initialTime={time} setTime={updateTime} />
+                        </div>
                         <WeekPicker daysOfWeek={daysOfWeek} toggleDay={toggleDay} setEdited={() => setEdited(true)} />
                         <Divider />
                         <div className="tasks-button-group">

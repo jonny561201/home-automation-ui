@@ -127,3 +127,7 @@
  .MuiExpansionPanelDetails-root {
      padding: 8px 18px 8px 18px !important;
  }
+
+ .task-room-picker-row {
+     margin: 0 0 1rem 1rem !important;
+ }

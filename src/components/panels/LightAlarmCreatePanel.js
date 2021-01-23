@@ -13,6 +13,7 @@ export default function LightAlarmEditPanel(props) {
     const initialDays = [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }];
     const [state, dispatch] = useContext(Context);
     const [days, setDays] = useState();
+    const [type, setType] = useState('');
     const [groupId, setGroupId] = useState();
     const [opened, setOpened] = useState(true);
     const [edited, setEdited] = useState(false);
@@ -43,10 +44,15 @@ export default function LightAlarmEditPanel(props) {
 
     const save = async () => {
         if (edited && selectedRoom !== '' && days !== null) {
-            const tasks = await insertScheduledTasks(getStore().getUserId(), groupId, selectedRoom, days, time, true, 'turn off');
-            dispatch({type: 'SET_SCHEDULED_TASK', payload: tasks});
+            const tasks = await insertScheduledTasks(getStore().getUserId(), groupId, selectedRoom, days, time, true, type);
+            dispatch({ type: 'SET_SCHEDULED_TASK', payload: tasks });
             props.saveNewTask();
         }
+    }
+    
+    const updateSelectedType = (item) => {
+        setEdited(true);
+        setType(state.taskTypes.find(x => x === item.target.value));
     }
 
     return (
@@ -74,19 +80,33 @@ export default function LightAlarmEditPanel(props) {
                     </div>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className="center">
+                    <FormControl className="task-room-picker-row" variant="outlined">
+                        <InputLabel id="light-group-dropdown">Room</InputLabel>
+                        <Select
+                            data-testid="alarm-room-picker"
+                            id="settings-light-rooms"
+                            value={selectedRoom}
+                            onChange={updateSelectedRoom}
+                            label="Room"
+                        >
+                            {state.userLightGroups.map((group) => (
+                                <MenuItem key={group.groupId} value={group.groupName}>
+                                    {group.groupName}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                     <div className="settings-row">
-                        <FormControl className="light-alarm-component settings-first-item" variant="outlined">
-                            <InputLabel id="light-group-dropdown">Room</InputLabel>
+                        <FormControl className="light-alarm-component" variant="outlined">
+                            <InputLabel id="light-group-dropdown">Task Type</InputLabel>
                             <Select
-                                data-testid="alarm-room-picker"
-                                id="settings-light-rooms"
-                                value={selectedRoom}
-                                onChange={updateSelectedRoom}
-                                label="Room"
+                                value={type}
+                                onChange={updateSelectedType}
+                                label="Task Type"
                             >
-                                {state.userLightGroups.map((group) => (
-                                    <MenuItem key={group.groupId} value={group.groupName}>
-                                        {group.groupName}
+                                {state.taskTypes.map(x => (
+                                    <MenuItem key={x} value={x}>
+                                        {x}
                                     </MenuItem>
                                 ))}
                             </Select>

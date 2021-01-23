@@ -117,8 +117,8 @@ export default function TemperaturePanel() {
                             </div>
                         </div>
                         <div className="form-column">
-                            <Knob value={desiredTemp} lineCap={"round"} fgColor={displayColor} inputColor={displayColor}
-                                onChange={knobChange} angleArc={240} angleOffset={240} min={minThermostatTemp} max={maxThermostatTemp} />
+                            {/* <Knob value={desiredTemp} lineCap={"round"} fgColor={displayColor} inputColor={displayColor}
+                                onChange={knobChange} angleArc={240} angleOffset={240} min={minThermostatTemp} max={maxThermostatTemp} /> */}
                             <FormControl>
                                 <FormGroup>
                                     <FormControlLabel label="Heat" control={<Switch data-testid={"heating-switch"} color="secondary" checked={isHeating} onChange={() => toggleHvac("heating")} />} />
