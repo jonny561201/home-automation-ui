@@ -21,6 +21,7 @@ const initialState = {
     userLights: [],
     userLightGroups: [],
     tasks: [],
+    taskTypes: ['sunrise alarm', 'turn on', 'turn off']
 };
 
 const Store = ({ children }) => {
