@@ -190,8 +190,8 @@ export const getScheduledTasks = async (userId) => {
     return response.json()
 }
 
-export const insertScheduledTasks = async (userId, alarmLightGroup, alarmGroupName, alarmDays, alarmTime) => {
-    const request = { 'alarmLightGroup': alarmLightGroup, 'alarmGroupName': alarmGroupName, 'alarmDays': alarmDays, 'alarmTime': alarmTime };
+export const insertScheduledTasks = async (userId, alarmLightGroup, alarmGroupName, alarmDays, alarmTime, enabled, taskType) => {
+    const request = { 'alarmLightGroup': alarmLightGroup, 'alarmGroupName': alarmGroupName, 'alarmDays': alarmDays, 'alarmTime': alarmTime, 'enabled': enabled, 'taskType': taskType };
     const options = {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
@@ -201,8 +201,8 @@ export const insertScheduledTasks = async (userId, alarmLightGroup, alarmGroupNa
     return response.json()
 }
 
-export const updateScheduledTasks = async (userId, taskId, alarmLightGroup, alarmGroupName, alarmDays, alarmTime) => {
-    const request = { 'taskId': taskId, 'alarmLightGroup': alarmLightGroup, 'alarmGroupName': alarmGroupName, 'alarmDays': alarmDays, 'alarmTime': alarmTime };
+export const updateScheduledTasks = async (userId, taskId, alarmLightGroup, alarmGroupName, alarmDays, alarmTime, enabled, taskType) => {
+    const request = { 'taskId': taskId, 'alarmLightGroup': alarmLightGroup, 'alarmGroupName': alarmGroupName, 'alarmDays': alarmDays, 'alarmTime': alarmTime, 'enabled': enabled, 'taskType': taskType };
     const options = {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },

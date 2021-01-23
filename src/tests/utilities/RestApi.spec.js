@@ -372,7 +372,7 @@ describe('RestApi', () => {
         });
 
         it('should make rest call to insert scheduled tasks for a user account', async () => {
-            const body = { 'alarmLightGroup': '1', 'alarmGroupName': 'potty', 'alarmDays': 'Wed', 'alarmTime': '00:23:34' };
+            const body = { 'alarmLightGroup': '1', 'alarmGroupName': 'potty', 'alarmDays': 'Wed', 'alarmTime': '00:23:34', 'enabled': false, 'taskType': 'off' };
             const response = [{ 'task_id': 'asdf678', 'alarm_time': '00:00:01', 'alarm_days': 'Mon' }];
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
@@ -388,14 +388,14 @@ describe('RestApi', () => {
         it('should make rest call to update scheduled tasks for a user account', async () => {
             const taskId = 'asbcasd34345';
             const response = {'task_id': taskId}
-            const body = { 'taskId': 'abc','alarmLightGroup': '1', 'alarmGroupName': 'potty', 'alarmDays': 'Wed', 'alarmTime': '00:23:34' };
+            const body = { 'taskId': 'abc','alarmLightGroup': '1', 'alarmGroupName': 'potty', 'alarmDays': 'Wed', 'alarmTime': '00:23:34', 'enabled': true, 'taskType': 'no' };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
             fetchMock.mock(`${baseUrl}/userId/${userId}/tasks/update`, response, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
-            const actual = await updateScheduledTasks(userId, body.taskId, body.alarmLightGroup, body.alarmGroupName, body.alarmDays, body.alarmTime);
+            const actual = await updateScheduledTasks(userId, body.taskId, body.alarmLightGroup, body.alarmGroupName, body.alarmDays, body.alarmTime, body.enabled, body.taskType);
             
             expect(actual.task_id).toEqual(taskId);
         });
