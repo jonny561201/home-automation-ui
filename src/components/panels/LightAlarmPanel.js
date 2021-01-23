@@ -26,7 +26,7 @@ export default function LightAlarm(props) {
     const saveTask = async () => {
         if (edited) {
             const task = props.task;
-            const response = await updateScheduledTasks(getStore().getUserId(), task.task_id, task.alarm_light_group, task.alarm_group_name, days, time);
+            const response = await updateScheduledTasks(getStore().getUserId(), task.task_id, task.alarm_light_group, task.alarm_group_name, days, time, true, 'turn off');
             if (response) {
                 dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: task.task_id });
                 dispatch({ type: 'ADD_SCHEDULED_TASK', payload: response });

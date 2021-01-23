@@ -42,8 +42,8 @@ export default function LightAlarmEditPanel(props) {
     }
 
     const save = async () => {
-        if (edited) {
-            const tasks = await insertScheduledTasks(getStore().getUserId(), groupId, selectedRoom, days, time);
+        if (edited && selectedRoom !== '' && days !== null) {
+            const tasks = await insertScheduledTasks(getStore().getUserId(), groupId, selectedRoom, days, time, true, 'turn off');
             dispatch({type: 'SET_SCHEDULED_TASK', payload: tasks});
             props.saveNewTask();
         }
