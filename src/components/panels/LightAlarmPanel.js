@@ -11,7 +11,7 @@ import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary, Divider, 
 
 export default function LightAlarm(props) {
     const initialDays = [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }];
-    const [, dispatch] = useContext(Context);
+    const [state, dispatch] = useContext(Context);
     const [open, setOpen] = useState(false);
     const [edited, setEdited] = useState(false);
     const [days, setDays] = useState(props.task.alarm_days);
@@ -66,7 +66,7 @@ export default function LightAlarm(props) {
         <>
             <ExpansionPanel className="task-panel" expanded={open} onChange={() => { setOpen(!open) }}>
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                    <div>
+                    <div className="alarm-summary-panel">
                         <div className="alarm-setting-group" data-testid="light-alarm-group">
                             {
                                 !open &&

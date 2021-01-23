@@ -117,3 +117,9 @@
  .task-switch {
      margin-left: 5rem;
  }
+
+ .alarm-summary-panel {
+     display: flex;
+     flex-direction: column;
+     flex: 100%;
+ }
