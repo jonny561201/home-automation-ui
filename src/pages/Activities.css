@@ -123,3 +123,7 @@
      flex-direction: column;
      flex: 100%;
  }
+
+ .MuiExpansionPanelDetails-root {
+     padding: 8px 18px 8px 18px !important;
+ }
