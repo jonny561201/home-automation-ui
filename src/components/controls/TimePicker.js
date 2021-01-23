@@ -8,7 +8,7 @@ export default function TimePicker(props) {
     const [dateValue, setDateValue] = useState();
 
     useEffect(() => {
-        if (props.initialTime != undefined) {
+        if (props.initialTime !== undefined) {
             const date = new Date();
             const initialDate = props.initialTime.split(":");
             date.setHours(initialDate[0]);
