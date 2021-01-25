@@ -12,7 +12,7 @@ import { getStore } from '../../state/GlobalState';
 describe('RestApi', () => {
     const username = 'fakeUser';
     const password = 'fakepass';
-    const baseUrl = 'https://soaringleafsolutions.com';
+    const baseUrl = 'https://www.soaringleafsolutions.com';
     const userId = "e97febc0-fd10-11e9-8f0b-362b9e155667";
     const fakeBearerToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJlOTdmZWJjMC1mZDEwLTExZTktOGYwYi0zNjJiOWUxNTU2NjciLCJyb2xlcyI6WyJnYXJhZ2VfZG9vciIsInNlY3VyaXR5IiwidGhlcm1vc3RhdCIsImxpZ2h0aW5nIiwic3VtcF9wdW1wIl0sImZpcnN0X25hbWUiOiJKb24iLCJsYXN0X25hbWUiOiJUZXN0ZXIifSwiZXhwIjoxNTg1OTY3MDIwfQ.AfGoDyYuMhdQh4UYsMUEFenTDxnQnKg3iMhX3RxXac4";
     const credentials = username + ":" + password;
