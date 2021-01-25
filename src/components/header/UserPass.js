@@ -55,7 +55,7 @@ export default function UserPass() {
     };
 
     if (state.isAuthenticated) {
-        return <Redirect to='/home' />
+        return <Redirect to='/home-automation-ui/home' />
     }
     return (
         <div>
