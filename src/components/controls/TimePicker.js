@@ -19,7 +19,7 @@ export default function TimePicker(props) {
 
     const handleDateChange = (date) => {
         setDateValue(date);
-        props.setTime(date.toLocaleTimeString('it-IT'));
+        props.setTime(date.toLocaleTimeString('it-IT', {hour12: false}));
     }
 
     return (
