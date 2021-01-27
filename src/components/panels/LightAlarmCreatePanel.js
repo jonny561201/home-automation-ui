@@ -29,10 +29,10 @@ export default function LightAlarmEditPanel(props) {
 
     const updateSelectedRoom = (item) => {
         setEdited(true);
-        item.target.value === "All Rooms"
+        item.target.value === "0"
             ? setGroupId(item.target.value)
             : setGroupId(state.userLightGroups.find(x => x.groupName === item.target.value).groupId)
-        setSelectedRoom(item.target.value)
+        setSelectedRoom(item.target.value === "0" ? "All Rooms" :item.target.value);
     }
 
     const toggleDay = (task, newState) => {
@@ -91,7 +91,7 @@ export default function LightAlarmEditPanel(props) {
                             onChange={updateSelectedRoom}
                             label="Room"
                         >
-                            <MenuItem key="all-rooms" value="All Rooms">All Rooms</MenuItem>
+                            <MenuItem key="all-rooms" value="0">All Rooms</MenuItem>
                             {state.userLightGroups.map((group) => (
                                 <MenuItem key={group.groupId} value={group.groupName}>
                                     {group.groupName}
