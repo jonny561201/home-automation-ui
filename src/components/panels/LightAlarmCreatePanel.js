@@ -19,7 +19,7 @@ export default function LightAlarmEditPanel(props) {
     const [edited, setEdited] = useState(false);
     const [selectedRoom, setSelectedRoom] = useState('');
     const [daysOfWeek, setDaysOfWeek] = useState(initialDays);
-    const [time, setTime] = useState(new Date().toLocaleTimeString('it-IT', {hour12: false}));
+    const [time, setTime] = useState(new Date().toLocaleTimeString('it-IT', { hour12: false }));
 
 
     const updateTime = (dateTime) => {

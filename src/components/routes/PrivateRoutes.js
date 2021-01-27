@@ -7,7 +7,7 @@ export default function PrivateRoute({component: Component, authed, ...rest}) {
           {...rest}
           render={(props) => authed === true
             ? <Component {...props} />
-            : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
+            : <Redirect to={{pathname: '/home-automation-ui', state: {from: props.location}}} />}
         />
       )
 }
