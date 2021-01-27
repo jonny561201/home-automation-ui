@@ -29,7 +29,9 @@ export default function LightAlarmEditPanel(props) {
 
     const updateSelectedRoom = (item) => {
         setEdited(true);
-        setGroupId(state.userLightGroups.find(x => x.groupName === item.target.value).groupId);
+        item.target.value === "All Rooms"
+            ? setGroupId(item.target.value)
+            : setGroupId(state.userLightGroups.find(x => x.groupName === item.target.value).groupId)
         setSelectedRoom(item.target.value)
     }
 
@@ -49,7 +51,7 @@ export default function LightAlarmEditPanel(props) {
             props.saveNewTask();
         }
     }
-    
+
     const updateSelectedType = (item) => {
         setEdited(true);
         setType(state.taskTypes.find(x => x === item.target.value));
@@ -89,6 +91,7 @@ export default function LightAlarmEditPanel(props) {
                             onChange={updateSelectedRoom}
                             label="Room"
                         >
+                            <MenuItem key="all-rooms" value="All Rooms">All Rooms</MenuItem>
                             {state.userLightGroups.map((group) => (
                                 <MenuItem key={group.groupId} value={group.groupName}>
                                     {group.groupName}
