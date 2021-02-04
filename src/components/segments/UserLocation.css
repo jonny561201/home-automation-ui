@@ -1,0 +1,30 @@
+.auto-open-menu {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+    width: 250px;
+    height: 125px;
+    position: absolute;
+    z-index: 10;
+    top: 10%;
+    left: 30%;
+    box-shadow: 0px 10px 15px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+}
+
+@media(max-width: 479px) {
+    .auto-open-menu {
+        top: 10%;
+        left: 20%;
+    }
+}
+
+.auto-open-menu-text {
+    color: black;
+    align-self: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+}
+
+.auto-open-menu-button {
+    background-color: #c73200;
+}

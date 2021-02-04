@@ -4,13 +4,13 @@ import AccountIcon from './AccountIcon';
 import AccountMenu from '../header/AccountMenu';
 import './Header.css';
 import { getStore } from '../../state/GlobalState';
-import UserInformation from '../segments/UserInformation';
+import UserLocation from '../segments/UserLocation';
 
 
 export default function Header() {
     const activePage = getStore().getActivePage();
     const [settingsActive, setSettingsActive] = useState(null);
-    const [wrapperRef, setWrapperRef] = useState(null);
+    const [accountWrapperRef, setAccountWrapperRef] = useState(null);
 
     return (
         <div className="header">
@@ -22,15 +22,15 @@ export default function Header() {
                 <div>
                     <h1 className="home-header-text">{activePage}</h1>
                 </div>
-                <div ref={(node) => {setWrapperRef(node)}}>
+                <div ref={(node) => { setAccountWrapperRef(node) }}>
                     <AccountIcon toggle={() => setSettingsActive(!settingsActive)} />
                 </div>
             </div>
             {settingsActive
-                ? <AccountMenu toggle={() => setSettingsActive(!settingsActive)} parentRef={wrapperRef} />
+                ? <AccountMenu toggle={() => setSettingsActive(!settingsActive)} parentRef={accountWrapperRef} />
                 : <div></div>
             }
-            <UserInformation />
+            <UserLocation />
         </div>
     );
 }

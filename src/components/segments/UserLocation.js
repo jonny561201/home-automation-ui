@@ -3,20 +3,37 @@ import { updateGarageState } from '../../utilities/RestApi';
 import { useInterval } from '../../utilities/UseInterval';
 import { Context } from '../../state/Store';
 import { calculateDistanceInMeters } from '../../utilities/Location';
+import './UserLocation.css';
 
 export default function UserLocation() {
     const [state, dispatch] = useContext(Context);
+    const [cancel, setCancel] = useState(false);
+    const [wrapperRef, setWrapperRef] = useState(null);
     const [firstCheck, setFirstCheck] = useState(false);
     const [secondCheck, setSecondCheck] = useState(false);
+    const [displayMenu, setDisplayMenu] = useState(false);
 
     useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside);
         calculateDistance();
-    }, []);
+    }, [wrapperRef]);
 
     //TODO: may not need this with watch position
     useInterval(() => {
         calculateDistance();
     }, 5000);
+
+    
+    const handleClickOutside = (event) => {
+        if (wrapperRef && !wrapperRef.contains(event.target)) {
+            setDisplayMenu(false);
+        }
+    }
+
+    const cancelDoorOpen = () => {
+        setCancel(true);
+        setDisplayMenu(false);
+    }
 
     const shouldOpenGarage = (distance) => {
         // DISTANCE COMES IN AS MILES!!!
@@ -27,20 +44,24 @@ export default function UserLocation() {
                 return false;
             } else if (distance <= 0.2 && firstCheck && !secondCheck) {
                 setSecondCheck(true);
+                setDisplayMenu(true);
                 return false;
-            } else if (distance <= 0.05 && secondCheck && firstCheck) {
+            } else if (distance <= 0.05 && secondCheck && firstCheck && !cancel) {
+                setDisplayMenu(false);
                 return true;
-            } 
+            }
         } else {
             setFirstCheck(false);
             setSecondCheck(false);
+            setDisplayMenu(false);
+            setCancel(false);
             return false;
         }
     }
 
     const calculateDistance = () => {
         navigator.geolocation.getCurrentPosition((position) => {
-        // navigator.geolocation.watchPosition((position) => {
+            // navigator.geolocation.watchPosition((position) => {
             const userCoords = position.coords;
             dispatch({ type: "SET_USER_COORDS", payload: userCoords });
             if (state.garageCoords !== null) {
@@ -55,6 +76,14 @@ export default function UserLocation() {
     }
 
     return (
-        <></>
+        <div>
+            {
+                displayMenu &&
+                <div className="auto-open-menu" ref={(node) => { setWrapperRef(node) }}>
+                    <p className="auto-open-menu-text">Garage opens in 250ft</p>
+                    <button className="auto-open-menu-button" onClick={cancelDoorOpen}>Cancel</button>
+                </div>
+            }
+        </div>
     )
 }
