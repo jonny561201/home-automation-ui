@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/home-automation-ui/static/css/main.05f95ecc.chunk.css",
-    "main.js": "/home-automation-ui/static/js/main.cb3a23f5.chunk.js",
-    "main.js.map": "/home-automation-ui/static/js/main.cb3a23f5.chunk.js.map",
+    "main.css": "/home-automation-ui/static/css/main.b5f2bd7a.chunk.css",
+    "main.js": "/home-automation-ui/static/js/main.d3484d00.chunk.js",
+    "main.js.map": "/home-automation-ui/static/js/main.d3484d00.chunk.js.map",
     "runtime-main.js": "/home-automation-ui/static/js/runtime-main.4c5577e4.js",
     "runtime-main.js.map": "/home-automation-ui/static/js/runtime-main.4c5577e4.js.map",
-    "static/js/2.88cb899c.chunk.js": "/home-automation-ui/static/js/2.88cb899c.chunk.js",
-    "static/js/2.88cb899c.chunk.js.map": "/home-automation-ui/static/js/2.88cb899c.chunk.js.map",
+    "static/js/2.0125ac2b.chunk.js": "/home-automation-ui/static/js/2.0125ac2b.chunk.js",
+    "static/js/2.0125ac2b.chunk.js.map": "/home-automation-ui/static/js/2.0125ac2b.chunk.js.map",
     "index.html": "/home-automation-ui/index.html",
-    "static/css/main.05f95ecc.chunk.css.map": "/home-automation-ui/static/css/main.05f95ecc.chunk.css.map",
-    "static/js/2.88cb899c.chunk.js.LICENSE.txt": "/home-automation-ui/static/js/2.88cb899c.chunk.js.LICENSE.txt",
+    "static/css/main.b5f2bd7a.chunk.css.map": "/home-automation-ui/static/css/main.b5f2bd7a.chunk.css.map",
+    "static/js/2.0125ac2b.chunk.js.LICENSE.txt": "/home-automation-ui/static/js/2.0125ac2b.chunk.js.LICENSE.txt",
     "static/media/CompanyLogo.dbd96a99.png": "/home-automation-ui/static/media/CompanyLogo.dbd96a99.png",
     "static/media/GarageDoorIcon.a5f44f42.png": "/home-automation-ui/static/media/GarageDoorIcon.a5f44f42.png",
     "static/media/LightingIcon.f44cd925.png": "/home-automation-ui/static/media/LightingIcon.f44cd925.png",
@@ -35,8 +35,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.4c5577e4.js",
-    "static/js/2.88cb899c.chunk.js",
-    "static/css/main.05f95ecc.chunk.css",
-    "static/js/main.cb3a23f5.chunk.js"
+    "static/js/2.0125ac2b.chunk.js",
+    "static/css/main.b5f2bd7a.chunk.css",
+    "static/js/main.d3484d00.chunk.js"
   ]
 }
