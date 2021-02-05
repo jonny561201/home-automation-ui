@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Context } from '../../state/Store';
+import CloseIcon from '@material-ui/icons/Close';
 import { updateGarageState } from '../../utilities/RestApi';
 import { useInterval } from '../../utilities/UseInterval';
-import { Context } from '../../state/Store';
 import { calculateDistanceInMeters } from '../../utilities/Location';
 import './UserLocation.css';
 
@@ -14,21 +15,13 @@ export default function UserLocation() {
     const [displayMenu, setDisplayMenu] = useState(false);
 
     useEffect(() => {
-        document.addEventListener("mousedown", handleClickOutside);
         calculateDistance();
-    }, [wrapperRef]);
+    });
 
     //TODO: may not need this with watch position
     useInterval(() => {
         calculateDistance();
     }, 5000);
-
-    
-    const handleClickOutside = (event) => {
-        if (wrapperRef && !wrapperRef.contains(event.target)) {
-            setDisplayMenu(false);
-        }
-    }
 
     const cancelDoorOpen = () => {
         setCancel(true);
@@ -79,9 +72,12 @@ export default function UserLocation() {
         <div>
             {
                 displayMenu &&
-                <div className="auto-open-menu" ref={(node) => { setWrapperRef(node) }}>
-                    <p className="auto-open-menu-text">Garage opens in 250ft</p>
-                    <button className="auto-open-menu-button" onClick={cancelDoorOpen}>Cancel</button>
+                <div className="auto-open-menu">
+                    <CloseIcon className="location-close-icon" onClick={() => setDisplayMenu(false)} />
+                    <div className="location-menu-group">
+                        <p className="auto-open-menu-text reduce-margin">Garage opens in 250ft</p>
+                        <button className="auto-open-menu-button reduce-margin" onClick={cancelDoorOpen}>Cancel</button>
+                    </div>
                 </div>
             }
         </div>
