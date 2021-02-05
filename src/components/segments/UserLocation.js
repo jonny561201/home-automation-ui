@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
+import useSound from 'use-sound';
+import dingSound from '../../resources/ding.mp3';
 import { Context } from '../../state/Store';
 import CloseIcon from '@material-ui/icons/Close';
 import { updateGarageState } from '../../utilities/RestApi';
@@ -7,6 +9,7 @@ import { calculateDistanceInMeters } from '../../utilities/Location';
 import './UserLocation.css';
 
 export default function UserLocation() {
+    const [bing] = useSound(dingSound);
     const [state, dispatch] = useContext(Context);
     const [cancel, setCancel] = useState(false);
     const [firstCheck, setFirstCheck] = useState(false);
@@ -40,6 +43,7 @@ export default function UserLocation() {
                 return false;
             } else if (distance <= 0.05 && secondCheck && firstCheck && !cancel) {
                 setDisplayMenu(false);
+                bing();
                 return true;
             }
         } else {
