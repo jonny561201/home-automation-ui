@@ -9,7 +9,6 @@ import './UserLocation.css';
 export default function UserLocation() {
     const [state, dispatch] = useContext(Context);
     const [cancel, setCancel] = useState(false);
-    const [wrapperRef, setWrapperRef] = useState(null);
     const [firstCheck, setFirstCheck] = useState(false);
     const [secondCheck, setSecondCheck] = useState(false);
     const [displayMenu, setDisplayMenu] = useState(false);
