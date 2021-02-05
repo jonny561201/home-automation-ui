@@ -9,7 +9,7 @@ import { calculateDistanceInMeters } from '../../utilities/Location';
 import './UserLocation.css';
 
 export default function UserLocation() {
-    const [bing] = useSound(dingSound);
+    const [ding] = useSound(dingSound);
     const [state, dispatch] = useContext(Context);
     const [cancel, setCancel] = useState(false);
     const [firstCheck, setFirstCheck] = useState(false);
@@ -43,7 +43,7 @@ export default function UserLocation() {
                 return false;
             } else if (distance <= 0.05 && secondCheck && firstCheck && !cancel) {
                 setDisplayMenu(false);
-                bing();
+                ding();
                 return true;
             }
         } else {
