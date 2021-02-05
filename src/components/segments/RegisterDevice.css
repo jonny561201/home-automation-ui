@@ -24,6 +24,7 @@
 }
 
 .close-icon {
+    cursor: pointer;
     color: grey;
     align-self: center;
     margin: 1rem;
