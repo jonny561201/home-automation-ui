@@ -15,7 +15,7 @@ export default function UserLocation() {
 
     useEffect(() => {
         calculateDistance();
-    });
+    }, []);
 
     //TODO: may not need this with watch position
     useInterval(() => {
