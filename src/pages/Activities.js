@@ -13,7 +13,7 @@ import './Activities.css';
 
 export default function ActivitiesPage() {
     getStore().setActivePage('Activities');
-    const [click] = useSound(clickSound, {volume: 0.5});
+    const [click] = useSound(clickSound, {volume: 0.25});
     const [state, dispatch] = useContext(Context);
     const [addTask, setAddTask] = useState(false)
 

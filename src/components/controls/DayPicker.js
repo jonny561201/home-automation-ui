@@ -5,7 +5,7 @@ import './DayPicker.css';
 
 
 export default function DayPicker(props) {
-    const [pop] = useSound(PopSound, {volume: 0.5});
+    const [pop] = useSound(PopSound, {volume: 0.25});
     const [on, setOn] = useState(props.day.on);
 
     const toggleDay = () => {

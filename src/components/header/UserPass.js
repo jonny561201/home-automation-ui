@@ -9,7 +9,7 @@ import './UserPass.css';
 
 
 export default function UserPass() {
-    const [click] = useSound(clickSound, {volume: 0.5});
+    const [click] = useSound(clickSound, {volume: 0.25});
     const [state, dispatch] = useContext(Context);
     const [username, setUsername] = useState(undefined);
     const [password, setPassword] = useState(undefined);

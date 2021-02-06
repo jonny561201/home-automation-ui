@@ -5,7 +5,7 @@ import { Divider } from '@material-ui/core';
 
 
 export default function SettingsPanel(props) {
-    const [click] = useSound(clickSound, {volume: 0.5});
+    const [click] = useSound(clickSound, {volume: 0.25});
 
     const handleClick = () => {
         props.toggleEdit();

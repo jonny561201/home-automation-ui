@@ -9,8 +9,8 @@ import { toggleGarageDoor, updateGarageState, getGarageStatus } from '../../util
 
 
 export default function GarageDoor(props) {
-    const [ding] = useSound(dingSound, {volume: 0.5});
-    const [click] = useSound(clickSound, {volume: 0.5});
+    const [ding] = useSound(dingSound, {volume: 0.25});
+    const [click] = useSound(clickSound, {volume: 0.25});
     const [state, dispatch] = useContext(Context);
     const [isOpen, setIsOpen] = useState();
     const [duration, setDuration] = useState();
