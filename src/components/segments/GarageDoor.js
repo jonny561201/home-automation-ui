@@ -1,14 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
-import useSound from 'use-sound';
-import { Context } from '../../state/Store';
-import dingSound from '../../resources/ding.mp3';
 import { useInterval } from '../../utilities/UseInterval';
-import { ExpansionPanelDetails, ExpansionPanelActions } from '@material-ui/core';
+import { Context } from '../../state/Store';
 import { toggleGarageDoor, updateGarageState, getGarageStatus } from '../../utilities/RestApi';
+import { ExpansionPanelDetails, ExpansionPanelActions } from '@material-ui/core';
 
 
 export default function GarageDoor(props) {
-    const [ding] = useSound(dingSound);
     const [state, dispatch] = useContext(Context);
     const [isOpen, setIsOpen] = useState();
     const [duration, setDuration] = useState();
@@ -46,7 +43,6 @@ export default function GarageDoor(props) {
     const openCloseGarageDoor = (newState) => {
         updateGarageState(newState, state.userId, props.device.node_device);
         setIsOpen(newState);
-        ding();
     }
 
     return (
