@@ -8,7 +8,7 @@ import './SettingsEditPanel.css'
 
 
 export default function SettingsEditPanel(props) {
-    const [click] = useSound(clickSound);
+    const [click] = useSound(clickSound, {volume: 0.5});
     const [edited, setEdited] = useState();
     const [newCity, setNewCity] = useState(props.city);
     const [newTempUnit, setNewTempUnit] = useState(props.tempUnit);

@@ -6,7 +6,7 @@ import { getStore } from '../../state/GlobalState';
 
 
 export default function Account(props) {
-    const [click] = useSound(singleClickSound);
+    const [click] = useSound(singleClickSound, {volume: 0.5});
     const firstInitial = getStore().getFirstName().trim().charAt(0);
     const lastInitial = getStore().getLastName().trim().charAt(0);
 

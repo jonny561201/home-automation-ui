@@ -14,7 +14,7 @@ import './TemperaturePanel.css';
 
 
 export default function TemperaturePanel() {
-    const [click] = useSound(singleClickSound);
+    const [click] = useSound(singleClickSound, {volume: 0.5});
     const [open, setOpen] = useState(false);
     const [mode, setMode] = useState("heating");
     const [description, setDescription] = useState("");

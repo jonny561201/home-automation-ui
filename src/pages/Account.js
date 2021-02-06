@@ -12,7 +12,7 @@ import './Account.css';
 
 export default function Account() {
     getStore().setActivePage('Account');
-    const [click] = useSound(clickSound);
+    const [click] = useSound(clickSound, {volume: 0.5});
     const [arePasswordsMismatched, setPasswordsMismatched] = useState(null);
     const [changed, setChanged] = useState(false);
     const [oldPasswordError, setPasswordError] = useState(null);

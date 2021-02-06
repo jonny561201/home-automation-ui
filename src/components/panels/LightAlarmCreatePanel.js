@@ -13,7 +13,7 @@ import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary, FormContr
 
 export default function LightAlarmEditPanel(props) {
     const initialDays = [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }];
-    const [click] = useSound(clickSound);
+    const [click] = useSound(clickSound, {volume: 0.5});
     const [state, dispatch] = useContext(Context);
     const [days, setDays] = useState();
     const [type, setType] = useState('');
