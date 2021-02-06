@@ -1,11 +1,16 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { useInterval } from '../../utilities/UseInterval';
 import { Context } from '../../state/Store';
-import { toggleGarageDoor, updateGarageState, getGarageStatus } from '../../utilities/RestApi';
+import { useInterval } from '../../utilities/UseInterval';
+import useSound from 'use-sound';
+import dingSound from '../../resources/ding.mp3';
+import cowbellSound from '../../resources/cowbell.mp3';
 import { ExpansionPanelDetails, ExpansionPanelActions } from '@material-ui/core';
+import { toggleGarageDoor, updateGarageState, getGarageStatus } from '../../utilities/RestApi';
 
 
 export default function GarageDoor(props) {
+    const [ding] = useSound(dingSound);
+    const [dong] = useSound(cowbellSound);
     const [state, dispatch] = useContext(Context);
     const [isOpen, setIsOpen] = useState();
     const [duration, setDuration] = useState();
@@ -41,8 +46,14 @@ export default function GarageDoor(props) {
     };
 
     const openCloseGarageDoor = (newState) => {
+        ding();
         updateGarageState(newState, state.userId, props.device.node_device);
         setIsOpen(newState);
+    }
+
+    const toggleDoor = () => {
+        toggleGarageDoor(state.userId, props.device.node_device);
+        dong();
     }
 
     return (
@@ -73,7 +84,7 @@ export default function GarageDoor(props) {
                 {isOpen
                     ? <button data-testid={"update-garage-close"} className="close-button" onClick={() => openCloseGarageDoor(false)}>Close</button>
                     : <button data-testid={"update-garage-open"} className="open-button" onClick={() => openCloseGarageDoor(true)}>Open</button>}
-                <button data-testid={"toggle-garage-button"} className="toggle-button" onClick={() => toggleGarageDoor(state.userId, props.device.node_device)}>Toggle</button>
+                <button data-testid={"toggle-garage-button"} className="toggle-button" onClick={toggleDoor}>Toggle</button>
             </ExpansionPanelActions>
         </div>
     );
