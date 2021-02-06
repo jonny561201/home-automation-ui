@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { Context } from '../../state/Store';
 import { getStore } from '../../state/GlobalState';
+import useSound from 'use-sound';
+import clickSound from '../../resources/click.mp3';
 import TimePicker from '../controls/TimePicker';
 import WeekPicker from '../controls/WeekPicker';
 import { Save, Delete } from '@material-ui/icons';
@@ -11,6 +13,7 @@ import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary, FormContr
 
 export default function LightAlarmEditPanel(props) {
     const initialDays = [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }];
+    const [click] = useSound(clickSound);
     const [state, dispatch] = useContext(Context);
     const [days, setDays] = useState();
     const [type, setType] = useState('');
@@ -44,12 +47,18 @@ export default function LightAlarmEditPanel(props) {
         setDays(newProjects.filter(x => x.on === true).map(y => y.id).join(''));
     }
 
-    const save = async () => {
+    const saveActivity = async () => {
         if (edited && selectedRoom !== '' && days !== null) {
             const tasks = await insertScheduledTasks(getStore().getUserId(), groupId, selectedRoom, days, time, true, type);
             dispatch({ type: 'SET_SCHEDULED_TASK', payload: tasks });
             props.saveNewTask();
+            click();
         }
+    }
+
+    const deleteActivity = () => {
+        props.cancelNewTask();
+        click();
     }
 
     const updateSelectedType = (item) => {
@@ -119,11 +128,11 @@ export default function LightAlarmEditPanel(props) {
                     <WeekPicker daysOfWeek={daysOfWeek} toggleDay={toggleDay} setEdited={() => setEdited(true)} />
                     <Divider />
                     <div className="tasks-button-group">
-                        <div className="task-button-container" onClick={props.cancelNewTask}>
+                        <div className="task-button-container" onClick={deleteActivity}>
                             <Delete className="task-button task-delete" />
                             <p className="task-delete">Cancel</p>
                         </div>
-                        <div className="task-button-container" onClick={save}>
+                        <div className="task-button-container" onClick={saveActivity}>
                             <Save className={`task-button ${edited ? "edited" : ""}`} />
                             <p className={edited ? "edited" : ""}>Save</p>
                         </div>

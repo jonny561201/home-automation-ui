@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Context } from '../state/Store';
+import useSound from 'use-sound';
+import clickSound from '../resources/singleClick.mp3';
 import Header from '../components/header/Header';
 import { getStore } from '../state/GlobalState';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
@@ -11,6 +13,7 @@ import './Activities.css';
 
 export default function ActivitiesPage() {
     getStore().setActivePage('Activities');
+    const [click] = useSound(clickSound);
     const [state, dispatch] = useContext(Context);
     const [addTask, setAddTask] = useState(false)
 
@@ -22,6 +25,11 @@ export default function ActivitiesPage() {
         };
         getData();
     }, []);
+
+    const createNewTask = () => {
+        setAddTask(true);
+        click();
+    }
 
     return (
         <div>
@@ -47,7 +55,7 @@ export default function ActivitiesPage() {
                 </div>
                 <div className="add-task-container">
                     <div className="add-task-button-border">
-                        <AddCircleIcon data-testid="add-task-button" className="add-task-button" onClick={() => {setAddTask(true)}} />
+                        <AddCircleIcon data-testid="add-task-button" className="add-task-button" onClick={createNewTask} />
                     </div>
                 </div>
             </div>
