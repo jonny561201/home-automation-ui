@@ -3,14 +3,14 @@ import { Context } from '../../state/Store';
 import { useInterval } from '../../utilities/UseInterval';
 import useSound from 'use-sound';
 import dingSound from '../../resources/ding.mp3';
-import cowbellSound from '../../resources/cowbell.mp3';
+import clickSound from '../../resources/click.mp3';
 import { ExpansionPanelDetails, ExpansionPanelActions } from '@material-ui/core';
 import { toggleGarageDoor, updateGarageState, getGarageStatus } from '../../utilities/RestApi';
 
 
 export default function GarageDoor(props) {
     const [ding] = useSound(dingSound);
-    const [dong] = useSound(cowbellSound);
+    const [click] = useSound(clickSound);
     const [state, dispatch] = useContext(Context);
     const [isOpen, setIsOpen] = useState();
     const [duration, setDuration] = useState();
@@ -42,18 +42,18 @@ export default function GarageDoor(props) {
         setIsOpen(garageStatus.isGarageOpen);
         setDuration(garageStatus.statusDuration);
         dispatch({ type: 'SET_GARAGE_COORDS', payload: garageStatus.coordinates });
-        dispatch({ type: 'UPDATE_GARAGE_DOORS', payload: {'doorName': props.device.node_name, 'isOpen': garageStatus.isGarageOpen} });
+        dispatch({ type: 'UPDATE_GARAGE_DOORS', payload: { 'doorName': props.device.node_name, 'isOpen': garageStatus.isGarageOpen } });
     };
 
     const openCloseGarageDoor = (newState) => {
-        ding();
+        newState ? ding() : click()
         updateGarageState(newState, state.userId, props.device.node_device);
         setIsOpen(newState);
     }
 
     const toggleDoor = () => {
         toggleGarageDoor(state.userId, props.device.node_device);
-        dong();
+        click();
     }
 
     return (

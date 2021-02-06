@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
-import { updateUserPreferences } from '../../utilities/RestApi';
+import useSound from 'use-sound';
+import clickSound from '../../resources/click.mp3';
 import { getStore } from '../../state/GlobalState';
+import { updateUserPreferences } from '../../utilities/RestApi';
 import { Divider, TextField, FormControlLabel, RadioGroup, FormControl, Radio } from '@material-ui/core';
 import './SettingsEditPanel.css'
 
 
 export default function SettingsEditPanel(props) {
+    const [click] = useSound(clickSound);
     const [edited, setEdited] = useState();
     const [newCity, setNewCity] = useState(props.city);
     const [newTempUnit, setNewTempUnit] = useState(props.tempUnit);
     const [newMeasureUnit, setNewMeasureUnit] = useState(props.measureUnit);
 
     const savePreferences = () => {
+        click();
         const isFahrenheit = newTempUnit === "fahrenheit";
         const isImperial = newMeasureUnit === "imperial";
         updateUserPreferences(getStore().getUserId(), isFahrenheit, isImperial, newCity);
@@ -24,6 +28,7 @@ export default function SettingsEditPanel(props) {
     }
 
     const cancelPreferences = () => {
+        click();
         setNewCity(props.city);
         setNewTempUnit(props.tempUnit);
         setNewMeasureUnit(props.measureUnit);

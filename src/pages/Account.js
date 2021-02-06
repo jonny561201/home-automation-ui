@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { getStore } from '../state/GlobalState';
+import useSound from 'use-sound';
+import clickSound from '../resources/click.mp3';
 import Header from '../components/header/Header';
 import { Divider, TextField } from '@material-ui/core';
 import { CheckCircle, Error } from '@material-ui/icons';
-import { getStore } from '../state/GlobalState';
 import { updateUserAccount } from '../utilities/RestApi';
 import AccountChildUser from '../components/segments/AccountChildUser';
 import './Account.css';
@@ -10,6 +12,7 @@ import './Account.css';
 
 export default function Account() {
     getStore().setActivePage('Account');
+    const [click] = useSound(clickSound);
     const [arePasswordsMismatched, setPasswordsMismatched] = useState(null);
     const [changed, setChanged] = useState(false);
     const [oldPasswordError, setPasswordError] = useState(null);
@@ -40,6 +43,7 @@ export default function Account() {
 
     const submitAccountChange = async (event) => {
         event.preventDefault();
+        click();
         setSubmitted(true);
         if (!oldPasswordError && !arePasswordsMismatched && changed) {
             const response = await updateUserAccount(getStore().getUserId(), oldPassword, secondNewPassword);

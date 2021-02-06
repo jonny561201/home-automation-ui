@@ -1,8 +1,16 @@
 import React from 'react';
+import useSound from 'use-sound';
+import clickSound from '../../resources/click.mp3';
 import { Divider } from '@material-ui/core';
 
 
 export default function SettingsPanel(props) {
+    const [click] = useSound(clickSound);
+
+    const handleClick = () => {
+        props.toggleEdit();
+        click();
+    }
 
     return (
         <>
@@ -29,7 +37,7 @@ export default function SettingsPanel(props) {
                 </div>
             </div>
             <div>
-                <button onClick={props.toggleEdit}>Edit</button>
+                <button onClick={handleClick}>Edit</button>
             </div>
         </>
     );

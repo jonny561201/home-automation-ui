@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { useInterval } from '../../utilities/UseInterval';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { ExpansionPanel, Typography, ExpansionPanelSummary, Divider, FormControl, FormGroup, Switch, FormControlLabel } from '@material-ui/core';
-import './TemperaturePanel.css';
-import TemperatureIcon from '../../resources/panelIcons/TemperatureIcon.png';
-import { getCurrentTemperature, setUserTemperature } from '../../utilities/RestApi';
+import useSound from 'use-sound';
+import Knob from '../controls/Knob';
 import { getStore } from '../../state/GlobalState';
 import { debounchApi } from '../../utilities/Services';
+import { useInterval } from '../../utilities/UseInterval';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import TemperatureImage from '../segments/TemperatureImage';
-import Knob from '../controls/Knob';
+import singleClickSound from '../../resources/singleClick.mp3';
+import TemperatureIcon from '../../resources/panelIcons/TemperatureIcon.png';
+import { getCurrentTemperature, setUserTemperature } from '../../utilities/RestApi';
+import { ExpansionPanel, Typography, ExpansionPanelSummary, Divider, FormControl, FormGroup, Switch, FormControlLabel } from '@material-ui/core';
+import './TemperaturePanel.css';
 
 
 export default function TemperaturePanel() {
+    const [click] = useSound(singleClickSound);
     const [open, setOpen] = useState(false);
     const [mode, setMode] = useState("heating");
     const [description, setDescription] = useState("");
@@ -56,6 +59,7 @@ export default function TemperaturePanel() {
     }
 
     const toggleHvac = (newMode) => {
+        click();
         const heatState = (newMode === "heating" && !isHeating) ? true : false
         const coldState = (newMode === "cooling" && !isCooling) ? true : false;
         const modeState = getToggledMode(heatState, coldState);
@@ -86,7 +90,7 @@ export default function TemperaturePanel() {
     return (
         <div>
             <ExpansionPanel data-testid={"temperature-panel"} className="temperature-panel">
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={() => { setOpen(!open) }}>
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={() => setOpen(!open)}>
                     <div className="summary">
                         <div>
                             <img alt="temperature" className="logo-image" src={TemperatureIcon} />
