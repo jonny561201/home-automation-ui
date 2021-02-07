@@ -14,7 +14,7 @@ export default function SettingsPanel(props) {
 
     return (
         <>
-            <div className="settings-wrapper">
+            <div className="settings-wrapper body">
                 <div className="settings-group settings-text">
                     <h2>Temperature</h2>
                 </div>

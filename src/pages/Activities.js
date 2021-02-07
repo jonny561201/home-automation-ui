@@ -38,7 +38,7 @@ export default function ActivitiesPage() {
             </div>
             {/* {
                 state.roles.some(x => x.role_name === 'lighting') && */}
-            <div className="activities-body">
+            <div className="activities-body body">
                 <div className="activites-wrapper">
                     <div className="settings-group settings-text">
                         <h2>Light Alarm</h2>

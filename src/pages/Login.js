@@ -15,7 +15,7 @@ export default function Login() {
                 <LogoHeader />
                 <h1>Member Login</h1>
             </div>
-            <div className="login-body">
+            <div className="login-body body">
                 <UserPass />
             </div>
         </div>

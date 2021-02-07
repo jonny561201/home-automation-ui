@@ -34,7 +34,7 @@ export default function Settings() {
             <div className="settings-header">
                 <Header />
             </div>
-            <div className="settings-body">
+            <div className="settings-body body">
                 {isEditMode
                     ? <SettingsEditPanel
                         city={city} setCity={setCity}
