@@ -1,5 +1,6 @@
 .account-container {
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .account-border {
