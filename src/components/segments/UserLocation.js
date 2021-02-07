@@ -38,7 +38,7 @@ export default function UserLocation() {
             if (distance > 0.1 && distance <= 0.3 && !firstCheck && !secondCheck) {
                 setFirstCheck(true);
                 return false;
-            } else if (distance > 0.06 && distance <= 0.2 && firstCheck && !secondCheck) {
+            } else if (distance > 0.06 && distance <= 0.1 && firstCheck && !secondCheck) {
                 setSecondCheck(true);
                 setDisplayMenu(true);
                 return false;
