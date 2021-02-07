@@ -12,6 +12,7 @@ export default function UserLocation() {
     const [ding] = useSound(dingSound, {volume: 0.25});
     const [state, dispatch] = useContext(Context);
     const [cancel, setCancel] = useState(false);
+    const [opened, setOpened] = useState(false);
     const [displayMenu, setDisplayMenu] = useState(false);
 
     useEffect(() => {
