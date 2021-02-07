@@ -59,7 +59,7 @@ export default function RegisterDevice(props) {
                         <div className="account-row">
                             <TextField value={ipAddress} error={!isIpValid} onChange={checkIpAddress} variant="outlined" label="IP Address" />
                         </div>
-                        <button type="submit">Next</button>
+                        <button type="submit" className="success-ripple">Next</button>
                     </form>
                 </div>
             }

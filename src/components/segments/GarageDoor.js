@@ -82,9 +82,9 @@ export default function GarageDoor(props) {
             </ExpansionPanelDetails>
             <ExpansionPanelActions>
                 {isOpen
-                    ? <button data-testid={"update-garage-close"} className="close-button" onClick={() => openCloseGarageDoor(false)}>Close</button>
-                    : <button data-testid={"update-garage-open"} className="open-button" onClick={() => openCloseGarageDoor(true)}>Open</button>}
-                <button data-testid={"toggle-garage-button"} className="toggle-button" onClick={toggleDoor}>Toggle</button>
+                    ? <button data-testid={"update-garage-close"} className="close-button cancel-ripple" onClick={() => openCloseGarageDoor(false)}>Close</button>
+                    : <button data-testid={"update-garage-open"} className="open-button success-ripple" onClick={() => openCloseGarageDoor(true)}>Open</button>}
+                <button data-testid={"toggle-garage-button"} className="toggle-button ripple" onClick={toggleDoor}>Toggle</button>
             </ExpansionPanelActions>
         </div>
     );

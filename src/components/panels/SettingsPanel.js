@@ -37,7 +37,7 @@ export default function SettingsPanel(props) {
                 </div>
             </div>
             <div>
-                <button onClick={handleClick}>Edit</button>
+                <button onClick={handleClick} className="success-ripple">Edit</button>
             </div>
         </>
     );

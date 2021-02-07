@@ -88,7 +88,7 @@ export default function Account() {
                             <TextField data-testid={"confirm-pass"} error={arePasswordsMismatched} value={secondNewPassword} variant="outlined" label="Confirm New Password" type="password" onChange={(input) => setSecondPassword(input.target.value)} />
                         </div>
                         {passwordMessage()}
-                        <button data-testid={"password-submit"} type="submit">Submit</button>
+                        <button data-testid="password-submit" className="success-ripple" type="submit">Submit</button>
                     </form>
                     <AccountChildUser />
                 </div>

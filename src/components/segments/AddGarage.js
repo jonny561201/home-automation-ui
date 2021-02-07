@@ -69,7 +69,7 @@ export default function AddGarage(props) {
                     <div className="device-row">
                         <p className="device-text">Would you like to setup the remaining ({availableNodes}) openers?</p>
                     </div>
-                    <button onClick={resetDevices}>Add</button>
+                    <button onClick={resetDevices} className="success-ripple">Add</button>
                 </div>
                 : <div>
                     <div className="device-group">
@@ -80,7 +80,7 @@ export default function AddGarage(props) {
                         <div className="account-row">
                             <TextField value={garageName} error={!isNameValid} onChange={checkGarageName} variant="outlined" label="Garage Name" />
                         </div>
-                        <button type="submit">Add</button>
+                        <button type="submit" className="success-ripple">Add</button>
                     </form>
                 </div>
             }

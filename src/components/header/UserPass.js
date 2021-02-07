@@ -78,7 +78,7 @@ export default function UserPass() {
                         : <p>ERROR: Username or Password is invalid!</p>
                     }
                 </div>
-                <button type="submit" className="column">Login</button>
+                <button type="submit" className="column success-ripple">Login</button>
             </form>
         </div>
     )
