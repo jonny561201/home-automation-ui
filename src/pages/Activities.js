@@ -4,7 +4,7 @@ import useSound from 'use-sound';
 import clickSound from '../resources/singleClick.mp3';
 import Header from '../components/header/Header';
 import { getStore } from '../state/GlobalState';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import AddIcon from '@material-ui/icons/Add';
 import LightAlarm from '../components/panels/LightAlarmPanel';
 import { getScheduledTasks } from '../utilities/RestApi';
 import LightAlarmEditPanel from '../components/panels/LightAlarmCreatePanel';
@@ -55,7 +55,9 @@ export default function ActivitiesPage() {
                 </div>
                 <div className="add-task-container">
                     <div className="add-task-button-border">
-                        <AddCircleIcon data-testid="add-task-button" className="add-task-button" onClick={createNewTask} />
+                        <div className="add-task-button success-ripple">
+                        <AddIcon data-testid="add-task-button" className="add-task-button-plus" onClick={createNewTask} />
+                        </div>
                     </div>
                 </div>
             </div>

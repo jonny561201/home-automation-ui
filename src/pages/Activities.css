@@ -102,13 +102,23 @@
     color: #ff6666;
 }
 
-.add-task-button{
-    height: 3.5rem !important;
-    width: 3.5rem !important;
-    color: #00c774;
+.add-task-button-plus {
+    height: 3rem !important;
+    width: 3rem !important;
+    color: white;
+}
+
+.add-task-button {
+    display: flex;
+    justify-content: center;
+    border-radius: 2rem;
+    height: 2.9rem;
+    width: 2.9rem;
+    background-color: #00c774;
 }
 
 .add-task-button:active {
+    transition: linear 80ms;
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
@@ -131,3 +141,4 @@
  .task-room-picker-row {
      margin: 0 0 1rem 1rem !important;
  }
+ 
