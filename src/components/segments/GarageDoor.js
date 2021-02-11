@@ -24,7 +24,7 @@ export default function GarageDoor(props) {
 
     useInterval(() => {
         updateGarageDuration();
-    }, 1000);
+    }, 10000);
 
     useInterval(async () => {
         await getGarageData();
