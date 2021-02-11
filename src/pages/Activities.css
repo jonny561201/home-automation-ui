@@ -115,13 +115,13 @@
     height: 2.9rem;
     width: 2.9rem;
     background-color: #00c774;
+    transition: transform 250ms;
 }
 
 .add-task-button:active {
-    transition: linear 80ms;
-    transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
  }
 
  .task-switch {
