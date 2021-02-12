@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Context } from '../../state/Store';
+import LightSwitch from '../controls/LightSwitch';
+import {useInterval} from '../../utilities/UseInterval';
+import { getLightGroups } from '../../utilities/RestApi';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import LightingIcon from '../../resources/panelIcons/LightingIcon.png';
-import { getLightGroups } from '../../utilities/RestApi';
-import './LightingPanel.css'
 import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, Divider } from '@material-ui/core';
-import LightSwitch from '../controls/LightSwitch';
+import './LightingPanel.css'
 
 
 export default function LightingPanel() {
@@ -15,6 +16,10 @@ export default function LightingPanel() {
     useEffect(() => {
         getData();
     }, [dispatch]);
+
+    useInterval(async () => {
+        await getData();
+    }, 60000);
 
     const getData = async () => {
         const groups = await getLightGroups();
