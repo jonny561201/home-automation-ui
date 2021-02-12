@@ -28,13 +28,6 @@ describe('AccountChildUser', () => {
         spyGet.mockReturnValue(response);
     });
 
-    it('should display the Account users header', async () => {
-        await renderComponent();
-        const actual = screen.getByText('Account Users').textContent;
-
-        expect(actual).toEqual('Account Users');
-    });
-
     it('should display the add account users button', async () => {
         await renderComponent();
         const actual = screen.getByTestId('add-user-button');

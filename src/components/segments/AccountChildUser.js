@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { getStore } from '../../state/GlobalState';
 import { addUserChildAccount, getUserChildAccounts, deleteUserChildAccount } from '../../utilities/RestApi';
-import RemoveIcon from '@material-ui/icons/RemoveCircle';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import RemoveIcon from '@material-ui/icons/Remove';
+import AddIcon from '@material-ui/icons/Add';
 import { Divider, MenuItem, Select, InputLabel, Input, FormControl, Chip } from '@material-ui/core';
 import "./AccountChildUser.css"
 
@@ -57,12 +57,17 @@ export default function AccountChildUser() {
                 <Divider />
                 <table className="table-container">
                     <tbody>
-                        <tr className="table-header" ><th>User</th><th>Roles</th><th></th></tr>
                         {test.map(x => (
                             <tr className="table-rows" key={`user-${x.user_name}`}>
                                 <td>{x.user_name}</td>
                                 <td>{x.roles.join(', ')}</td>
-                                <td className="table-end-item"><RemoveIcon data-testid={`user-${x.user_name}`} className="table-delete-user" onClick={() => deleteChildUser(x.user_id)} /></td>
+                                <td className="table-end-item">
+                                    <div className="user-button-border">
+                                        <div className="table-delete-user cancel-ripple">
+                                            <RemoveIcon data-testid={`user-${x.user_name}`} className="table-delete-user-minus" onClick={() => deleteChildUser(x.user_id)} />
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
                         ))}
                         <tr>
@@ -89,8 +94,10 @@ export default function AccountChildUser() {
                                 </FormControl>
                             </td>
                             <td className="table-end-item">
-                                <div onClick={(event) => { submitChildAccount(event) }}>
-                                    <AddCircleIcon type="submit" className="table-add-user" data-testid="add-user-button" />
+                                <div className="user-button-border" onClick={(event) => { submitChildAccount(event) }}>
+                                    <div className="table-add-user success-ripple">
+                                        <AddIcon type="submit" data-testid="add-user-button" className="table-add-user-plus" />
+                                    </div>
                                 </div>
                             </td>
                         </tr>

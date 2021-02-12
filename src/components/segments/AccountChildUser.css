@@ -1,27 +1,67 @@
 .table-container {
     display: flex;
     flex-direction: column;
-    margin-left: 1rem;
+    margin: 1rem 0 0 1rem;
 }
 
 .table-delete-user {
-    color: lightgray;
+    background-color: lightgray;
     cursor: pointer;
-    width: 2rem !important;
-    height: 2rem !important; 
+    border-radius: 2rem;
+    width: 2.4rem !important;
+    height: 2.4rem !important; 
+    transition: transform 250ms;
 }
 
 .table-delete-user:hover {
-    color: red;
+    background-color: red;
     cursor: pointer;
 }
 
-.table-add-user {
-    color: #00c774;
-    cursor: pointer;
-    width: 2rem !important;
-    height: 2rem !important; 
+.table-delete-user:active {
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
 }
+
+.table-delete-user-minus {
+    height: 2.4rem !important;
+    width: 2.4rem !important;
+    color: white;
+}
+
+.table-add-user-plus {
+    height: 2.4rem !important;
+    width: 2.4rem !important;
+    color: white;
+}
+
+.user-button-border {
+    height: 2.8rem;
+    width: 2.8rem;
+    border-radius: 2rem;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    box-shadow: 0px 10px 15px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)
+}
+
+.table-add-user {
+    display: flex;
+    justify-content: center;
+    border-radius: 2rem;
+    height: 2.4rem;
+    width: 2.4rem;
+    background-color: #00c774;
+    transition: transform 250ms;
+}
+
+.table-add-user:active {
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+ }
 
 .table-end-item {
     flex-direction: row-reverse;
@@ -32,7 +72,7 @@ table {
     justify-content: space-between;
 }
 
-td, tr, th {
+td, tr {
     display: flex;
     flex: 1 1 0px;
 
