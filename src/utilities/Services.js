@@ -27,33 +27,35 @@ export const isValidIpAddress = (ipAddress) => {
 export const isNightTime = (garageCoords, userCoords) => {
     if (garageCoords !== null) {
         const today = new Date();
-        const sunrise = calculateSunrise(garageCoords.latitude, garageCoords.longitude, today)
-        const sunset = calculateSunset(garageCoords.latitude, garageCoords.longitude, today);
-        return (today >= sunset && today < sunrise);
+        const sunrise = calculateSunrise(garageCoords.latitude, garageCoords.longitude)
+        const sunset = calculateSunset(garageCoords.latitude, garageCoords.longitude);
+        const isNight = (today >= sunset && today < sunrise);
+        return isNight;
     } else if (userCoords !== null) {
         const today = new Date();
-        const sunrise = calculateSunrise(userCoords.latitude, userCoords.longitude, today);
-        const sunset = calculateSunset(userCoords.latitude, userCoords.longitude, today);
+        const sunrise = calculateSunrise(userCoords.latitude, userCoords.longitude);
+        const sunset = calculateSunset(userCoords.latitude, userCoords.longitude);
         return (today >= sunset && today < sunrise);
     }
 }
 
-const calculateSunrise = (latitude, longitude, today) => {
+const calculateSunrise = (latitude, longitude) => {
+    const today = new Date();
     if (today.getHours() < 12) {
         return getSunrise(latitude, longitude, today);
     } else {
-        const tomorrow = new Date();
-        tomorrow.setDate(new Date().getDate() +1);
-        return getSunrise(latitude, longitude, tomorrow);
+        today.setDate(new Date().getDate() +1);
+        return getSunrise(latitude, longitude, today);
     }
 }
 
-const calculateSunset = (latitude, longitude, today) => {
+const calculateSunset = (latitude, longitude) => {
+    const today = new Date();
     if (today.getHours() < 12) {
-        const yesterday = new Date();
-        yesterday.setDate(new Date().getDate() -1);
-        return getSunset(latitude, longitude, yesterday);
+        today.setDate(new Date().getDate() -1);
+        return getSunset(latitude, longitude, today);
     } else {
-        return getSunset(latitude, longitude);
+        today.setDate(new Date().getDate() +1)
+        return getSunset(latitude, longitude, today);
     }
 }
