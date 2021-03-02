@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/home-automation-ui/static/css/main.819fc574.chunk.css",
-    "main.js": "/home-automation-ui/static/js/main.1508a14f.chunk.js",
-    "main.js.map": "/home-automation-ui/static/js/main.1508a14f.chunk.js.map",
+    "main.js": "/home-automation-ui/static/js/main.9bd8c436.chunk.js",
+    "main.js.map": "/home-automation-ui/static/js/main.9bd8c436.chunk.js.map",
     "runtime-main.js": "/home-automation-ui/static/js/runtime-main.8fde71aa.js",
     "runtime-main.js.map": "/home-automation-ui/static/js/runtime-main.8fde71aa.js.map",
     "static/js/2.e8bde5bd.chunk.js": "/home-automation-ui/static/js/2.e8bde5bd.chunk.js",
@@ -44,6 +44,6 @@
     "static/js/runtime-main.8fde71aa.js",
     "static/js/2.e8bde5bd.chunk.js",
     "static/css/main.819fc574.chunk.css",
-    "static/js/main.1508a14f.chunk.js"
+    "static/js/main.9bd8c436.chunk.js"
   ]
 }
