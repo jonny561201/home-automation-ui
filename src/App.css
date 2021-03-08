@@ -3,17 +3,23 @@
 }
 
 .theme-light {
+  --primary-mobile-color: #282c34;
   --primary-color: #ffffff;
-  --secondary-color: #fbfbfe;
+  --secondary-color: #282c34;
+  --input-color: #ffffff;
+  --input-font: #000000;
   --font-color: #000000;
   --header-font-color: #ffffff;
 }
 
 .theme-dark {
-  --primary-color: #3e3e3e;
-  --secondary-color: #888888;
+  --primary-mobile-color: #282c34;
+  --primary-color: #282c34;
+  --secondary-color: #181616;
+  --input-color: #6e6e6e;
+  --input-font: #000000;
   --font-color: #aaaaaa;
-  --header-font-color: #000000;
+  --header-font-color: #ffffff;
 }
 
 .text{
@@ -31,12 +37,24 @@ button {
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;  
 }
 
+input {
+  background-color: var(--input-color);
+}
+
+::placeholder {
+  color: var(--input-font)
+}
+
+.MuiPaper-root {
+  background-color: var(--primary-color) !important;
+}
+
 
 .App-header {
   min-height: 100vh;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--primary-color);
 }
 
 
@@ -46,13 +64,13 @@ button {
     flex-direction: column;
   }
   body {
-    background-color: #282c34;
+    background-color: var(--secondary-color);
   }
 }
 
 @media (max-width: 479px) {
   body {
-    background-color: white;
+    background-color: var(--primary-mobile-color);
   }
 
   .body {

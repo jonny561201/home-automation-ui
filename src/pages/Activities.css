@@ -1,5 +1,5 @@
 .activities-body {
-    background-color: white;
+    background-color: var(--primary-color);
     color: black;
     display: flex;
     flex-direction: column;

@@ -4,7 +4,7 @@
 
 .login-menu {
     border-radius: 20px;
-    background-color: white;
+    background-color: var(--primary-color);
     min-height: 550px;
     min-width: 350px;
 }
@@ -47,6 +47,6 @@ h1 {
 .login-body {
     flex-grow: 10;
     border-radius: 0px 0px 12px 12px;
-    background-color: white;
+    background-color: var(--primary-color);
     margin-top: 2em;
 }

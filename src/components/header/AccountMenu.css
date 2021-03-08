@@ -1,6 +1,6 @@
 .account-menu {
     margin: 0.5rem;
-    background-color: white;
+    background-color: var(--primary-color);
     border-radius: 10px;
     width: 150px;
     height: 135x;

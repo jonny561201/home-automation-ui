@@ -1,5 +1,5 @@
 .home-body {
-    background-color: white;
+    background-color: var(--primary-color);
     color: black;
     border-radius: 0 0 20px 20px;
 
