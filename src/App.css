@@ -50,6 +50,10 @@ input {
   background-color: var(--input-color);
 }
 
+input:focus {
+  background-color: var(--input-color) !important;
+}
+
 .MuiExpansionPanelSummary-expandIcon {
   color: var(--font-color) !important;
 }
