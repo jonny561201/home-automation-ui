@@ -50,6 +50,14 @@ input {
   background-color: var(--input-color);
 }
 
+.MuiPickersClockNumber-clockNumber {
+  color: var(--font-color) !important;
+}
+
+.MuiPickersClockNumber-clockNumberSelected {
+  color: var(--header-font-color) !important;
+}
+
 input:focus {
   background-color: var(--input-color) !important;
 }
@@ -90,6 +98,7 @@ input:focus {
 .MuiIconButton-root {
     color: var(--switch-color) !important;
 }
+
 
 .App-header {
   min-height: 100vh;
