@@ -70,13 +70,9 @@ input:focus {
   color: var(--font-color) !important;
 }
 
-.MuiInputBase-input{
+.MuiInputBase-input {
   color: var(--font-color) !important;
 }
-
-/* .MuiFormLabel-root {
-  color: var(--font-color) !important;
-} */
 
 .MuiOutlinedInput-notchedOutline {
   border-color: var(--font-color) !important;
@@ -100,7 +96,7 @@ input:focus {
   color: var(--font-color) !important;
 }
 
-.MuiListItem-root, .MuiButton-text, .MuiSelect-icon, .MuiFormLabel-root {
+.MuiListItem-root, .MuiButton-text, .MuiSelect-icon, .MuiFormLabel-root, .MuiInputBase-input {
   color: var(--font-color) !important;
 }
 
