@@ -56,7 +56,6 @@ export default function SettingsEditPanel(props) {
     }
 
     const toggleDarkMode = () => {
-        console.log('Toggling theme')
         localStorage.getItem('theme') === 'theme-dark'
         ? setTheme('theme-light')
         : setTheme('theme-dark')

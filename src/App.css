@@ -44,6 +44,27 @@ button {
 
 input {
   background-color: var(--input-color) !important;
+} */
+
+/* Working on this one */
+/* .MuiInputBase-input {
+  background-color: var(--input-color) !important;
+} */
+
+.MuiExpansionPanelSummary-expandIcon {
+  color: var(--font-color) !important;
+}
+
+.MuiInputBase-input{
+  color: var(--font-color) !important;
+}
+
+.MuiFormLabel-root {
+  color: var(--font-color) !important;
+}
+
+.MuiOutlinedInput-notchedOutline {
+  border-color: var(--font-color) !important;
 }
 
 ::placeholder {
