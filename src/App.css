@@ -54,26 +54,11 @@ input {
   background-color: var(--input-color);
 }
 
-.MuiPickersClockNumber-clockNumber {
-  color: var(--font-color) !important;
-}
-
-.MuiPickersClockNumber-clockNumberSelected {
-  color: var(--header-font-color) !important;
-}
-
 input:focus {
   background-color: var(--input-color) !important;
 }
 
-.MuiExpansionPanelSummary-expandIcon {
-  color: var(--font-color) !important;
-}
-
-.MuiInputBase-input {
-  color: var(--font-color) !important;
-}
-
+/* white - no longer highlighting input box selection as blue */
 .MuiOutlinedInput-notchedOutline {
   border-color: var(--font-color) !important;
 }
@@ -96,7 +81,7 @@ input:focus {
   color: var(--font-color) !important;
 }
 
-.MuiListItem-root, .MuiButton-text, .MuiSelect-icon, .MuiFormLabel-root, .MuiInputBase-input {
+.MuiListItem-root, .MuiButton-text, .MuiSelect-icon, .MuiFormLabel-root, .MuiInputBase-input, .MuiExpansionPanelSummary-expandIcon, .MuiPickersClockNumber-clockNumber {
   color: var(--font-color) !important;
 }
 
@@ -104,6 +89,9 @@ input:focus {
   color: var(--radio-ring) !important;
 }
 
+.MuiPickersClockNumber-clockNumberSelected {
+  color: var(--header-font-color) !important;
+}
 
 .App-header {
   min-height: 100vh;
