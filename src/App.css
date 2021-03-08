@@ -45,13 +45,8 @@ button {
 }
 
 input {
-  background-color: var(--input-color) !important;
-} */
-
-/* Working on this one */
-/* .MuiInputBase-input {
-  background-color: var(--input-color) !important;
-} */
+  background-color: var(--input-color);
+}
 
 .MuiExpansionPanelSummary-expandIcon {
   color: var(--font-color) !important;
@@ -69,8 +64,16 @@ input {
   border-color: var(--font-color) !important;
 }
 
+.MuiRadio-colorPrimary.Mui-checked {
+  color: var(--radio-color) !important;
+}
+
 ::placeholder {
-  color: var(--input-font)
+  color: var(--input-font);
+}
+
+.MuiSelect-icon {
+  color: var(--font-color) !important;
 }
 
 .MuiPaper-root {
@@ -78,6 +81,9 @@ input {
   color: var(--font-color) !important;
 }
 
+.MuiIconButton-root {
+    color: var(--font-color) !important;
+}
 
 .App-header {
   min-height: 100vh;
