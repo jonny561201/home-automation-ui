@@ -18,7 +18,7 @@ export default function SecurityPanel() {
                 </ExpansionPanelSummary>
                 <Divider />
                 <ExpansionPanelDetails className="center">
-                    <Typography>Test Detail line 2</Typography>
+                    <Typography className="text">Test Detail line 2</Typography>
                 </ExpansionPanelDetails>
             </ExpansionPanel>
         </div>
