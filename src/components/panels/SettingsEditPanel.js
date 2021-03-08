@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useSound from 'use-sound';
 import clickSound from '../../resources/click.mp3';
 import { getStore } from '../../state/GlobalState';
@@ -10,9 +10,14 @@ import './SettingsEditPanel.css'
 export default function SettingsEditPanel(props) {
     const [click] = useSound(clickSound, { volume: 0.25 });
     const [edited, setEdited] = useState();
+    const [darkMode, setDarkMode] = useState(false);
     const [newCity, setNewCity] = useState(props.city);
     const [newTempUnit, setNewTempUnit] = useState(props.tempUnit);
     const [newMeasureUnit, setNewMeasureUnit] = useState(props.measureUnit);
+
+    useEffect(() => {
+        setDarkMode(localStorage.getItem('theme') === 'theme-dark');
+    }, []);
 
     const savePreferences = () => {
         click();
@@ -23,7 +28,7 @@ export default function SettingsEditPanel(props) {
         setEdited(true);
         props.setCity(newCity);
         props.setTempUnit(newTempUnit);
-        props.setEditMode(!props.isEditMode)
+        props.setEditMode(!props.isEditMode);
         props.setMeasureUnit(newMeasureUnit);
     }
 
@@ -50,15 +55,16 @@ export default function SettingsEditPanel(props) {
         setNewMeasureUnit(input.target.value);
     }
 
-    const setTheme = (themeName) =>  {
+    const setTheme = (themeName, isDark) =>  {
         localStorage.setItem('theme', themeName);
         document.documentElement.className = themeName;
+        setDarkMode(isDark);
     }
 
     const toggleDarkMode = () => {
         localStorage.getItem('theme') === 'theme-dark'
-        ? setTheme('theme-light')
-        : setTheme('theme-dark')
+        ? setTheme('theme-light', false)
+        : setTheme('theme-dark', true)
     }
 
     return (
@@ -89,7 +95,7 @@ export default function SettingsEditPanel(props) {
                 </div>
                 <div className="settings-row">
                     <FormControl>
-                        <FormControlLabel label="Dark Mode" control={<Switch onChange={toggleDarkMode}/>}/>
+                        <FormControlLabel label="Dark Mode" control={<Switch onChange={toggleDarkMode} checked={darkMode}/>}/>
                     </FormControl>
                 </div>
             </div>
