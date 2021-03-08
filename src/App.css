@@ -27,6 +27,11 @@
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
 }
 
+a {
+  color: var(--font-color);
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+}
+
 .header-text {
   color: var(--header-font-color);
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;  
@@ -38,7 +43,7 @@ button {
 }
 
 input {
-  background-color: var(--input-color);
+  background-color: var(--input-color) !important;
 }
 
 ::placeholder {
