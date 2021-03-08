@@ -3,12 +3,12 @@ import useSound from 'use-sound';
 import clickSound from '../../resources/click.mp3';
 import { getStore } from '../../state/GlobalState';
 import { updateUserPreferences } from '../../utilities/RestApi';
-import { Divider, TextField, FormControlLabel, RadioGroup, FormControl, Radio } from '@material-ui/core';
+import { Divider, TextField, FormControlLabel, RadioGroup, FormControl, Radio, Switch } from '@material-ui/core';
 import './SettingsEditPanel.css'
 
 
 export default function SettingsEditPanel(props) {
-    const [click] = useSound(clickSound, {volume: 0.25});
+    const [click] = useSound(clickSound, { volume: 0.25 });
     const [edited, setEdited] = useState();
     const [newCity, setNewCity] = useState(props.city);
     const [newTempUnit, setNewTempUnit] = useState(props.tempUnit);
@@ -50,9 +50,21 @@ export default function SettingsEditPanel(props) {
         setNewMeasureUnit(input.target.value);
     }
 
+    const setTheme = (themeName) =>  {
+        localStorage.setItem('theme', themeName);
+        document.documentElement.className = themeName;
+    }
+
+    const toggleDarkMode = () => {
+        console.log('Toggling theme')
+        localStorage.getItem('theme') === 'theme-dark'
+        ? setTheme('theme-light')
+        : setTheme('theme-dark')
+    }
+
     return (
         <div className="settings-wrapper body">
-            <div className="settings-group settings-text">
+            <div className="settings-group setting text">
                 <h2>Temperature</h2>
                 <Divider />
                 <div className="settings-row">
@@ -74,6 +86,11 @@ export default function SettingsEditPanel(props) {
                             <FormControlLabel onChange={updateMeasureRadioButton} value="imperial" checked={newMeasureUnit === "imperial"} control={<Radio color="primary" />} label="Imperial" />
                             <FormControlLabel onChange={updateMeasureRadioButton} value="metric" checked={newMeasureUnit === "metric"} control={<Radio color="primary" />} label="Metric" />
                         </RadioGroup>
+                    </FormControl>
+                </div>
+                <div className="settings-row">
+                    <FormControl>
+                        <FormControlLabel label="Dark Mode" control={<Switch onChange={toggleDarkMode}/>}/>
                     </FormControl>
                 </div>
             </div>
