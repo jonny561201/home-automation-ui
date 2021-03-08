@@ -67,9 +67,9 @@ export default function TemperatureImage(props) {
     return (
         <div className="temp-container">
             <img className="weather-icon" alt="description" src={weatherIcon} label={weatherDesc} />
-            <p data-testid={"internal-temp"} className="internal-temp">{props.internal}&deg;</p>
+            <p data-testid={"internal-temp"} className="internal-temp text">{props.internal}&deg;</p>
             <img className="home-icon" alt="home" src={HomeIcon} />
-            <p data-testid={"external-temp"} className="external-temp">{props.external}&deg;</p>
+            <p data-testid={"external-temp"} className="external-temp text">{props.external}&deg;</p>
         </div>
     );
 }

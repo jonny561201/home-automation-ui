@@ -85,18 +85,18 @@ export default function LightAlarm(props) {
                             {
                                 !open &&
                                 <div className="settings-row alarm-row">
-                                    <p className="settings-text alarm-time">{time.slice(0, -3)}</p>
+                                    <p className="setting text alarm-time">{time.slice(0, -3)}</p>
                                 </div>
                             }
                             <div className="settings-row alarm-row">
-                                <p className="settings-text alarm-group-name">{props.task.alarm_group_name}</p>
+                                <p className="setting text alarm-group-name">{props.task.alarm_group_name}</p>
                             </div>
                         </div>
                         {
                             !open &&
                             <div className="alarm-setting-group">
                                 <div className="settings-row alarm-row">
-                                    <p className="settings-text measure-unit">{days}</p>
+                                    <p className="setting text measure-unit">{days}</p>
                                 </div>
                                 <div className="settings-row alarm-row">
                                     <Switch className="task-switch" onClick={(event) => event.stopPropagation()} onFocus={(event) => event.stopPropagation()}
@@ -128,7 +128,7 @@ export default function LightAlarm(props) {
                         </div>
                         <WeekPicker daysOfWeek={daysOfWeek} toggleDay={toggleDay} setEdited={() => setEdited(true)} />
                         <Divider />
-                        <div className="tasks-button-group">
+                        <div className="tasks-button-group text">
                             <div className="task-button-container" onClick={clickDelete}>
                                 <Delete className="task-button task-delete" />
                                 <p className="task-delete">Delete</p>

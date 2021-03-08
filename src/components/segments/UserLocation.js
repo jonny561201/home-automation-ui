@@ -81,7 +81,7 @@ export default function UserLocation() {
                 <div className="auto-open-menu">
                     <CloseIcon className="location-close-icon" onClick={() => setDisplayMenu(false)} />
                     <div className="location-menu-group">
-                        <p className="auto-open-menu-text reduce-margin">Garage opens in 250ft</p>
+                        <p className="auto-open-menu-text text reduce-margin">Garage opens in 250ft</p>
                         <button className="auto-open-menu-button reduce-margin" onClick={cancelDoorOpen}>Cancel</button>
                     </div>
                 </div>

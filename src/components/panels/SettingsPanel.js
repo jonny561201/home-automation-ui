@@ -14,26 +14,26 @@ export default function SettingsPanel(props) {
 
     return (
         <>
-            <div className="settings-wrapper body">
-                <div className="settings-group settings-text">
+            <div className="settings-wrapper body text">
+                <div className="settings-group setting">
                     <h2>Temperature</h2>
                 </div>
                 <Divider />
                 <div className="settings-row">
-                    <p className="settings-text temp-unit">Unit:</p>
-                    <p className="settings-text temp-unit">{props.tempUnit}</p>
+                    <p className="setting temp-unit">Unit:</p>
+                    <p className="setting temp-unit">{props.tempUnit}</p>
                 </div>
                 <div className="settings-row">
-                    <p className="settings-text temp-city">City:</p>
-                    <p className="settings-text temp-city">{props.city}</p>
+                    <p className="setting temp-city">City:</p>
+                    <p className="setting temp-city">{props.city}</p>
                 </div>
-                <div className="settings-text settings-text">
+                <div className="setting text">
                     <h2>Measurement</h2>
                 </div>
                 <Divider />
                 <div className="settings-row">
-                    <p className="settings-text measure-unit">Unit:</p>
-                    <p className="settings-text measure-unit">{props.measureUnit}</p>
+                    <p className="setting measure-unit">Unit:</p>
+                    <p className="setting measure-unit">{props.measureUnit}</p>
                 </div>
             </div>
             <div>

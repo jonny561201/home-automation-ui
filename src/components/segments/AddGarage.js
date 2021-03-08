@@ -62,18 +62,18 @@ export default function AddGarage(props) {
                     <div className="device-group">
                         <div className="device-group">
                             <CheckCircle className="success-text" />
-                            <h2 data-testid={"data-add-device"} className="device-text success-text">Successfully Added</h2>
+                            <h2 data-testid={"data-add-device"} className="device-text text success-text">Successfully Added</h2>
                         </div>
                         <CloseIcon data-testid={"garage-close-button"} onClick={() => props.close()} className="close-icon" />
                     </div>
                     <div className="device-row">
-                        <p className="device-text">Would you like to setup the remaining ({availableNodes}) openers?</p>
+                        <p className="device-text text">Would you like to setup the remaining ({availableNodes}) openers?</p>
                     </div>
                     <button onClick={resetDevices} className="success-ripple">Add</button>
                 </div>
                 : <div>
                     <div className="device-group">
-                        <h2 data-testid={"data-add-device"} className=" device-text">Add Garage Door</h2>
+                        <h2 data-testid={"data-add-device"} className=" device-text text">Add Garage Door</h2>
                         <CloseIcon data-testid={"garage-close-button"} onClick={() => props.close()} className="close-icon" />
                     </div>
                     <form onSubmit={submitGarageDoor}>

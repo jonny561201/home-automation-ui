@@ -18,7 +18,7 @@ export default function Account(props) {
     return (
         <div className="account-container" onClick={handleClick} >
             <div data-testid={"account-border"} className="account-border">
-                <div data-testid={"account-center"} className="account-center ripple">
+                <div data-testid={"account-center"} className="account-center header-text ripple">
                     <p data-testid={"user-initials"}>{firstInitial + lastInitial}</p>
                 </div>
             </div>

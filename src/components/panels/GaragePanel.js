@@ -38,13 +38,13 @@ export default function GaragePanel() {
                             <img data-testid={"garage-icon"} alt="garage" className="logo-image" src={GarageIcon} />
                         </div>
                         <div>
-                            <Typography className="panel-text">Garage</Typography>
+                            <Typography className="panel-text text">Garage</Typography>
                             <div className="small-text-container">
                                 {!open &&
                                     state.garageDoors.map(x => {
                                         return <div className="small-text-group" key={`door-notify-${x.doorName}`}>
-                                            <p className="small-text">{x.doorName}:</p>
-                                            <p className="small-text">{x.isOpen === true ? 'Open' : 'Closed'}</p>
+                                            <p className="small-text text">{x.doorName}:</p>
+                                            <p className="small-text text">{x.isOpen === true ? 'Open' : 'Closed'}</p>
                                         </div>
                                     })
                                 }
@@ -56,10 +56,10 @@ export default function GaragePanel() {
                 {state.devicesToRegister
                     ? <ExpansionPanelDetails className="center">
                         <div>
-                            <h2 className="status-text-bold">Register New Device!</h2>
+                            <h2 className="status-text-bold text">Register New Device!</h2>
                             <Divider />
                             <div>
-                                <p className="status-text">A new device has been detected and needs to be registered.</p>
+                                <p className="status-text text">A new device has been detected and needs to be registered.</p>
                             </div>
                             <button data-testid={"register-device-button"} onClick={() => setDisplayRegister(true)}>Register</button>
                             <div ref={(node) => { setWrapperRef(node) }}>

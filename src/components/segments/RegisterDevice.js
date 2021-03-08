@@ -52,7 +52,7 @@ export default function RegisterDevice(props) {
                 ? <AddGarage close={props.close} />
                 : <div>
                     <div className="device-group">
-                        <h2 data-testid={"data-add-device"} className=" device-text">Add Device</h2>
+                        <h2 data-testid={"data-add-device"} className=" device-text text">Add Device</h2>
                         <CloseIcon data-testid={"close-button"} onClick={() => props.close()} className="close-icon" />
                     </div>
                     <form onSubmit={submitDevice}>

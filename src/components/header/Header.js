@@ -20,7 +20,7 @@ export default function Header() {
                 </div>
                 <div></div>
                 <div>
-                    <h1 className="home-header-text">{activePage}</h1>
+                    <h1 className="home-header-text header-text">{activePage}</h1>
                 </div>
                 <div ref={(node) => { setAccountWrapperRef(node) }}>
                     <AccountIcon toggle={() => setSettingsActive(!settingsActive)} />

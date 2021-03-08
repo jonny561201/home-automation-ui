@@ -60,23 +60,23 @@ export default function GarageDoor(props) {
         <div>
             <ExpansionPanelDetails className="center">
                 <div className="status-text-group">
-                    <p className="door-status">Door: </p>
-                    <p className="status-text-bold">{props.device.node_name}</p>
+                    <p className="door-status text">Door: </p>
+                    <p className="status-text-bold text">{props.device.node_name}</p>
                 </div>
                 <div className="status-text-group">
-                    <p className="door-status">Status: </p>
+                    <p className="door-status text">Status: </p>
                     {isOpen
-                        ? <p className="status-text-bold close">Open</p>
-                        : <p className="status-text-bold open">Closed</p>}
+                        ? <p className="status-text-bold text close">Open</p>
+                        : <p className="status-text-bold text open">Closed</p>}
                 </div>
                 <div className="status-text-group">
-                    <p className="door-status">Duration: </p>
+                    <p className="door-status text">Duration: </p>
                     {statusDays === 0
                         ? <div />
-                        : <p className="status-text-bold">{statusDays}Days</p>}
-                    <p className="status-text-bold">{statusHours}Hr</p>
+                        : <p className="status-text-bold text">{statusDays}Days</p>}
+                    <p className="status-text-bold text">{statusHours}Hr</p>
                     {statusDays === 0
-                        ? <p className="status-text-bold">{statusMins}Min</p>
+                        ? <p className="status-text-bold text">{statusMins}Min</p>
                         : <div />}
                 </div>
             </ExpansionPanelDetails>

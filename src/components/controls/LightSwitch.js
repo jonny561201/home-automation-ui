@@ -30,18 +30,18 @@ export default function LightSwitch(props) {
                 <SwitchSlider key={`switch-${x.lightId}`}  data={x} lightId={x.lightId} />
             ));
         }
-        return <p className="panel-text">No lights assigned to group</p>
+        return <p className="panel-text text">No lights assigned to group</p>
     };
 
     return (
         <div data-testid={"light-group"}>
-            <div className="light-group">
+            <div className="light-group text">
                 <ButtonBase onClick={() => setLightsOpen(!areLightsOpen)} style={{ "borderRadius": "50%" }}>
                     <div className={`light-chevron ${areLightsOpen ? "expanded" : ""}`}>
                         <ChevronRightIcon data-testid={"expansion-chevron"} />
                     </div>
                 </ButtonBase>
-                <p className="light-text">{groupName}</p>
+                <p className="light-text text">{groupName}</p>
                 <CustomSlider data-testid={"light-group-switch"} onChange={sliderToggleLightGroup} value={brightness} valueLabelDisplay="auto" aria-label="slider" />
             </div>
             {areLightsOpen

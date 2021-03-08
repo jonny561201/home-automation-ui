@@ -74,7 +74,7 @@ export default function AccountSettings(props) {
 
     return (
         <div className="account-menu" ref={(node) => { wrapperRef = node }}>
-            <ul>{getLinks()}
+            <ul className="text">{getLinks()}
                 <Link to='/home-automation-ui'>
                     <li><div className="account-button" onClick={() => dispatch({ type: 'SET_AUTHENTICATION', payload: false })}>Sign Out</div></li>
                 </Link>

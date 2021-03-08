@@ -56,12 +56,12 @@ export default function BasementPanel() {
                             <img data-testid={"sump-logo"} alt="basement" className="logo-image" src={BasementIcon} />
                         </div>
                         <div>
-                            <Typography className="panel-text">Basement</Typography>
+                            <Typography className="panel-text text">Basement</Typography>
                             {!open &&
                                 <div className="small-text-group">
-                                    <p className="small-text">Depth:</p>
-                                    <p className={"small-text " + (warningLevel === 3 ? 'alert' : 'healthy')}>{currentSumpDepth}</p>
-                                    <p className={"small-text " + (warningLevel === 3 ? 'alert' : 'healthy')}>{depthUnit}</p>
+                                    <p className="small-text text">Depth:</p>
+                                    <p className={"small-text text " + (warningLevel === 3 ? 'alert' : 'healthy')}>{currentSumpDepth}</p>
+                                    <p className={"small-text text " + (warningLevel === 3 ? 'alert' : 'healthy')}>{depthUnit}</p>
                                 </div>
                             }
                         </div>
@@ -73,14 +73,14 @@ export default function BasementPanel() {
                         {getSumpIcon()}
                         <div className="sump-measure-group">
                             <div className="sump-text-group">
-                                <p className="current-text sump-text">Current: </p>
-                                <p className={"current-depth sump-text " + (warningLevel === 3 ? 'alert' : 'healthy')}>{currentSumpDepth}</p>
-                                <p className={"current-text sump-text " + (warningLevel === 3 ? 'alert' : 'healthy')}>{depthUnit}</p>
+                                <p className="current-text sump-text text">Current: </p>
+                                <p className={"current-depth sump-text text " + (warningLevel === 3 ? 'alert' : 'healthy')}>{currentSumpDepth}</p>
+                                <p className={"current-text sump-text text " + (warningLevel === 3 ? 'alert' : 'healthy')}>{depthUnit}</p>
                             </div>
                             <div className="sump-text-group">
-                                <p className="average-text sump-text">Average: </p>
-                                <p className="average-depth sump-text">{averageSumpDepth}</p>
-                                <p className="average-text sump-text">{depthUnit}</p>
+                                <p className="average-text sump-text text">Average: </p>
+                                <p className="average-depth sump-text text">{averageSumpDepth}</p>
+                                <p className="average-text sump-text text">{depthUnit}</p>
                             </div>
                         </div>
                     </div>

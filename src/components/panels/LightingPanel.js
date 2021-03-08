@@ -34,7 +34,7 @@ export default function LightingPanel() {
         if (groups && groups.length) {
             return groups.map(group => <LightSwitch key={`switch-${group.groupId}`} data={group} />)
         }
-        return <p className="lighting-text">No Light Groups were found</p>
+        return <p className="text">No Light Groups were found</p>
     };
 
     return (
@@ -45,7 +45,7 @@ export default function LightingPanel() {
                         <div>
                             <img alt="lighting" className="logo-image" src={LightingIcon} />
                         </div>
-                        <Typography className="panel-text">Lighting</Typography>
+                        <Typography className="panel-text text">Lighting</Typography>
                     </div>
                 </ExpansionPanelSummary>
                 <Divider />

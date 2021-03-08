@@ -75,17 +75,17 @@ export default function LightAlarmEditPanel(props) {
                             {
                                 !opened &&
                                 <div className="settings-row alarm-row">
-                                    <p className="settings-text alarm-time">{time.slice(0, -3)}</p>
+                                    <p className="setting text alarm-time">{time.slice(0, -3)}</p>
                                 </div>
                             }
                             <div className="settings-row alarm-row">
-                                <p className="settings-text alarm-group-name">{selectedRoom}</p>
+                                <p className="setting text alarm-group-name">{selectedRoom}</p>
                             </div>
                         </div>
                         {
                             !opened &&
                             <div className="settings-row alarm-row">
-                                <p className="settings-text measure-unit">{days}</p>
+                                <p className="setting text measure-unit">{days}</p>
                             </div>
                         }
                     </div>
@@ -127,7 +127,7 @@ export default function LightAlarmEditPanel(props) {
                     </div>
                     <WeekPicker daysOfWeek={daysOfWeek} toggleDay={toggleDay} setEdited={() => setEdited(true)} />
                     <Divider />
-                    <div className="tasks-button-group">
+                    <div className="tasks-button-group text">
                         <div className="task-button-container" onClick={deleteActivity}>
                             <Delete className="task-button task-delete" />
                             <p className="task-delete">Cancel</p>

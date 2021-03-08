@@ -96,16 +96,16 @@ export default function TemperaturePanel() {
                             <img alt="temperature" className="logo-image" src={TemperatureIcon} />
                         </div>
                         <div>
-                            <Typography className="panel-text">Temperature</Typography>
+                            <Typography className="panel-text text">Temperature</Typography>
                             {!open &&
                                 <div className="small-text-container">
                                     <div className="small-text-group">
-                                        <p className="small-text">Outside:</p>
-                                        <p className="small-text">{externalTemp}&deg;</p>
+                                        <p className="small-text text">Outside:</p>
+                                        <p className="small-text text">{externalTemp}&deg;</p>
                                     </div>
                                     <div className="small-text-group" style={{ marginLeft: '1rem' }}>
-                                        <p className="small-text">Inside:</p>
-                                        <p className="small-text">{internalTemp}&deg;</p>
+                                        <p className="small-text text">Inside:</p>
+                                        <p className="small-text text">{internalTemp}&deg;</p>
                                     </div>
                                 </div>
                             }
