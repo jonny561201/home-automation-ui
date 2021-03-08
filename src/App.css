@@ -2,6 +2,35 @@
   text-align: center;
 }
 
+.theme-light {
+  --primary-color: #ffffff;
+  --secondary-color: #fbfbfe;
+  --font-color: #000000;
+  --header-font-color: #ffffff;
+}
+
+.theme-dark {
+  --primary-color: #3e3e3e;
+  --secondary-color: #888888;
+  --font-color: #aaaaaa;
+  --header-font-color: #000000;
+}
+
+.text{
+  color: var(--font-color);
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+}
+
+.header-text {
+  color: var(--header-font-color);
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;  
+}
+
+button {
+  color: var(--header-font-color);
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;  
+}
+
 
 .App-header {
   min-height: 100vh;
