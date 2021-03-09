@@ -56,7 +56,7 @@ export default function BasementPanel() {
                             <img data-testid={"sump-logo"} alt="basement" className="logo-image" src={BasementIcon} />
                         </div>
                         <div>
-                            <Typography className="panel-text text">Basement</Typography>
+                            <Typography className="panel-text panel-header-text">Basement</Typography>
                             {!open &&
                                 <div className="small-text-group">
                                     <p className="small-text text">Depth:</p>

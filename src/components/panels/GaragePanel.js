@@ -38,7 +38,7 @@ export default function GaragePanel() {
                             <img data-testid={"garage-icon"} alt="garage" className="logo-image" src={GarageIcon} />
                         </div>
                         <div>
-                            <Typography className="panel-text text">Garage</Typography>
+                            <Typography className="panel-text panel-header-text">Garage</Typography>
                             <div className="small-text-container">
                                 {!open &&
                                     state.garageDoors.map(x => {

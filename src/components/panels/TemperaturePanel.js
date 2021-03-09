@@ -96,7 +96,7 @@ export default function TemperaturePanel() {
                             <img alt="temperature" className="logo-image" src={TemperatureIcon} />
                         </div>
                         <div>
-                            <Typography className="panel-text text">Temperature</Typography>
+                            <Typography className="panel-text panel-header-text">Temperature</Typography>
                             {!open &&
                                 <div className="small-text-container">
                                     <div className="small-text-group">

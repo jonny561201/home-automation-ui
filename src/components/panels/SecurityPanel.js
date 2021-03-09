@@ -13,7 +13,7 @@ export default function SecurityPanel() {
                         <div>
                             <img alt="security" className="logo-image" src={SecurityIcon} />
                         </div>
-                        <Typography className="panel-text text">Security</Typography>
+                        <Typography className="panel-text panel-header-text">Security</Typography>
                     </div>
                 </ExpansionPanelSummary>
                 <Divider />

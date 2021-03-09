@@ -45,7 +45,7 @@ export default function LightingPanel() {
                         <div>
                             <img alt="lighting" className="logo-image" src={LightingIcon} />
                         </div>
-                        <Typography className="panel-text text">Lighting</Typography>
+                        <Typography className="panel-text panel-header-text">Lighting</Typography>
                     </div>
                 </ExpansionPanelSummary>
                 <Divider />
