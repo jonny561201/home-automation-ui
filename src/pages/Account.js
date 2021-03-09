@@ -75,7 +75,7 @@ export default function Account() {
             </div>
             <div className="account-body body">
                 <div className="account-wrapper account-text text">
-                    <form className="account-group account-text text" onSubmit={submitAccountChange}>
+                    <form className="account-group account-text panel-header-text" onSubmit={submitAccountChange}>
                         <h2>Change Password</h2>
                         <Divider />
                         <div className="account-row">

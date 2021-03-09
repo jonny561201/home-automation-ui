@@ -53,7 +53,7 @@ export default function AccountChildUser() {
     return (
         <div>
             <form onSubmit={submitChildAccount}>
-                <h2>Account Users</h2>
+                <h2 className="panel-header-text">Account Users</h2>
                 <Divider />
                 <table className="table-container">
                     <tbody>
