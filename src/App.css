@@ -40,7 +40,7 @@
 }
 
 a {
-  color: var(--font-color);
+  color: var(--panel-font-color);
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
 }
 
