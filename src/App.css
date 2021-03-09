@@ -15,6 +15,7 @@
   --radio-color: #ffffff;
   --radio-ring: #6e6e6e;
   --header-font-color: #ffffff;
+  --panel-font-color: #000000;
 }
 
 .theme-dark {
@@ -30,6 +31,7 @@
   --radio-color: #aaaaaa;
   --radio-ring: #aaaaaa;
   --header-font-color: #ffffff;
+  --panel-font-color: #ffffff;
 }
 
 .text{
@@ -44,6 +46,11 @@ a {
 
 .header-text {
   color: var(--header-font-color);
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;  
+}
+
+.panel-header-text {
+  color: var(--panel-font-color);
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;  
 }
 
