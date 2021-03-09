@@ -70,7 +70,7 @@ export default function SettingsEditPanel(props) {
     return (
         <div className="settings-wrapper body">
             <div className="settings-group setting text">
-                <h2>Temperature</h2>
+                <h2 className="panel-header-text">Temperature</h2>
                 <Divider />
                 <div className="settings-row">
                     <FormControl>
@@ -83,7 +83,7 @@ export default function SettingsEditPanel(props) {
                 <div className="settings-row">
                     <TextField variant="outlined" label="City" value={newCity} onChange={updateCity} />
                 </div>
-                <h2>Measurement</h2>
+                <h2 className="panel-header-text">Measurement</h2>
                 <Divider />
                 <div className="settings-row">
                     <FormControl>
