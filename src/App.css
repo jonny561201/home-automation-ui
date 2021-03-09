@@ -86,6 +86,10 @@ input:focus {
   color: var(--font-color) !important;
 }
 
+.MuiInput-underline:before {
+  border-bottom-color: var(--font-color) !important;
+}
+
 .MuiRadio-colorPrimary {
   color: var(--radio-ring) !important;
 }
