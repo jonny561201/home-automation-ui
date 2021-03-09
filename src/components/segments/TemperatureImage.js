@@ -27,7 +27,7 @@ export default function TemperatureImage(props) {
     useEffect(() => {
         setIsNight(isNightTime(state.garageCoords, state.userCoords));
         getWeatherImage();
-    }, [isNight]);
+    });
 
     useInterval(() => {
         setIsNight(isNightTime(state.garageCoords, state.userCoords));
