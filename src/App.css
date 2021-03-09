@@ -5,7 +5,7 @@
 .theme-light {
   --primary-mobile-color: #ffffff;
   --primary-color: #ffffff;
-  --secondary-color: #282c34;
+  --secondary-color: #2f343d;
   --input-color: #ffffff;
   --switch-color: #ffffff;
   --input-font: #000000;
@@ -18,8 +18,8 @@
 }
 
 .theme-dark {
-  --primary-mobile-color: #282c34;
-  --primary-color: #282c34;
+  --primary-mobile-color: #2f343d;
+  --primary-color: #2f343d;
   --secondary-color: #181616;
   --input-color: #6e6e6e;
   --switch-color: #aaaaaa;
