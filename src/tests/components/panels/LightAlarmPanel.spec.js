@@ -20,7 +20,7 @@ describe('Light Alarm Panel', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{}, () => { }]}>
+                <Context.Provider value={[{taskTypes: []}, () => { }]}>
                     <LightAlarm deleteTask={() => { }} task={task} />
                 </Context.Provider>
             );

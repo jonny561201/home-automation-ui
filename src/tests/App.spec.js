@@ -4,9 +4,10 @@ import { render, screen } from '@testing-library/react';
 
 
 describe('App Component', () => {
+
   it('renders', () => {
     render(<App />);
-    const actual = screen.getByText('Member Login');
+    const actual = screen.getByTestId('app-routes');
     expect(actual).toBeDefined()
   });
 });

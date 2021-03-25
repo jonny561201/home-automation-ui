@@ -2,7 +2,6 @@ import React from 'react';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import * as lib from '../../../utilities/RestApi';
 import { Context } from '../../../state/Store';
-import App from '../../../App';
 import UserPass from '../../../components/header/UserPass';
 
 

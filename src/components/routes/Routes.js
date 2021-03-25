@@ -14,7 +14,7 @@ export default function Routes() {
     
     return (
         <Router>
-        <header className="App-header">
+        <header className="App-header" data-testid="app-routes">
           <Route exact path="/home-automation-ui" render={() => <Login />} />
             <div>
               <PrivateRoute authed={state.isAuthenticated} path='/home-automation-ui/home' component={Home} />
