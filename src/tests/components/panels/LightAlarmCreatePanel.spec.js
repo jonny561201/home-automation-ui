@@ -58,14 +58,6 @@ describe('Light Alarm Edit Panel', () => {
     //     expect(actual).toEqual(groupName);
     //  });
 
-    it('should not display the days when expansion panel opened', async () => {
-        await renderComponent();
-        fireEvent.click(screen.getByTestId('light-alarm-group'));
-        fireEvent.click(screen.getByText('F'));
-        const actual = screen.queryByText(days);
-        expect(actual).toBeDefined();
-    });
-
     it('should display the time when expansion panel closed', async () => {
         await renderComponent();
         fireEvent.click(screen.getByTestId('light-alarm-group'));

@@ -17,7 +17,7 @@ describe('Time Picker', () => {
     });
 
     it('should display the current time when initial value not supplied', async () => {
-        await renderComponent(null);
+        await renderComponent(undefined);
         const actual = screen.getByRole('textbox');
         const date = new Date();
         expect(actual.value).toContain(`${date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}`)
