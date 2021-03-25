@@ -12,7 +12,8 @@ describe('Light Alarm Panel', () => {
     const taskId = 'kasdf9sf';
     const groupName = 'Bedroom';
     const alarmTime = '01:00:00';
-    const task = { task_id: taskId, alarm_group_name: groupName, alarm_days: days, alarm_time: alarmTime, alarm_light_group: groupId };
+    const taskType = 'turn off';
+    const task = { task_id: taskId, alarm_group_name: groupName, alarm_days: days, alarm_time: alarmTime, alarm_light_group: groupId, enabled: true, task_type: taskType};
 
     const spyDelete = jest.spyOn(lib, 'deleteScheduledTask');
     const spyUpdate = jest.spyOn(lib, 'updateScheduledTasks');
@@ -49,13 +50,6 @@ describe('Light Alarm Panel', () => {
         await renderComponent();
         const actual = screen.getByText(days).textContent;
         expect(actual).toEqual(days);
-    });
-
-    it('should not display the days when expansion panel opened', async () => {
-        await renderComponent();
-        fireEvent.click(screen.getByTestId('light-alarm-group'))
-        const actual = screen.queryByText(days);
-        expect(actual).toBeNull();
     });
 
     it('should not display the time when expansion panel opened', async () => {

@@ -19,7 +19,7 @@ describe('Light Alarm Edit Panel', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{userLightGroups: groups, daysOfWeek: []}, () => { }]}>
+                <Context.Provider value={[{userLightGroups: groups, daysOfWeek: [], taskTypes: []}, () => { }]}>
                     <LightAlarmCreatePanel/>
                 </Context.Provider>
             );
