@@ -13,11 +13,11 @@ describe('UserPass', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <App>
+                <div>
                     <Context.Provider value={[{}, () => { }]}>
                         <UserPass />
                     </Context.Provider>
-                </App>
+                </div>
             );
         });
     }
