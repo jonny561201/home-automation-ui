@@ -3,17 +3,17 @@ import { Context } from '../../state/Store';
 import { getStore } from '../../state/GlobalState';
 import useSound from 'use-sound';
 import clickSound from '../../resources/click.mp3';
-import TimePicker from '../controls/TimePicker';
-import WeekPicker from '../controls/WeekPicker';
 import { Save, Delete } from '@material-ui/icons';
 import { insertScheduledTasks } from '../../utilities/RestApi';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import CreateLightActivity from '../segments/CreateLightActivity';
+import CreateHvacActivity from '../segments/CreateHvacActivity';
 import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary, FormControl, MenuItem, Select, InputLabel, Divider } from '@material-ui/core';
 
 
 export default function LightAlarmEditPanel(props) {
     const initialDays = [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }];
-    const [click] = useSound(clickSound, {volume: 0.25});
+    const [click] = useSound(clickSound, { volume: 0.25 });
     const [state, dispatch] = useContext(Context);
     const [days, setDays] = useState();
     const [type, setType] = useState('');
@@ -22,8 +22,9 @@ export default function LightAlarmEditPanel(props) {
     const [edited, setEdited] = useState(false);
     const [selectedRoom, setSelectedRoom] = useState('');
     const [daysOfWeek, setDaysOfWeek] = useState(initialDays);
+    const [startTime, setStartTime] = useState(new Date().toLocaleTimeString('it-IT', { hour12: false }));
+    const [stopTime, setStopTime] = useState(new Date().toLocaleTimeString('it-IT', { hour12: false }));
     const [time, setTime] = useState(new Date().toLocaleTimeString('it-IT', { hour12: false }));
-
 
     const updateTime = (dateTime) => {
         setEdited(true);
@@ -56,6 +57,16 @@ export default function LightAlarmEditPanel(props) {
         }
     }
 
+    const updateStopTime = (dateTime) => {
+        setEdited(true);
+        setStopTime(dateTime);
+    }
+
+    const updateStartTime = (dateTime) => {
+        setEdited(true);
+        setStartTime(dateTime);
+    }
+
     const deleteActivity = () => {
         props.cancelNewTask();
         click();
@@ -64,6 +75,16 @@ export default function LightAlarmEditPanel(props) {
     const updateSelectedType = (item) => {
         setEdited(true);
         setType(state.taskTypes.find(x => x === item.target.value));
+    }
+
+    const selectedComponents = () => {
+        if (type === 'hvac') {
+            return <CreateHvacActivity toggleDay={toggleDay} updateStartTime={updateStartTime} updateStopTime={updateStopTime} daysOfWeek={daysOfWeek} startTime={startTime} stopTime={stopTime}/>
+        } else if (type !== '') {
+            return <CreateLightActivity toggleDay={toggleDay} updateSelectedRoom={updateSelectedRoom} updateTime={updateTime} selectedRoom={selectedRoom} time={time} daysOfWeek={daysOfWeek}/>
+        } else {
+            return <></>
+        }
     }
 
     return (
@@ -91,25 +112,8 @@ export default function LightAlarmEditPanel(props) {
                     </div>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className="center">
-                    <FormControl className="task-room-picker-row" variant="outlined">
-                        <InputLabel id="light-group-dropdown">Room</InputLabel>
-                        <Select
-                            data-testid="alarm-room-picker"
-                            id="settings-light-rooms"
-                            value={selectedRoom}
-                            onChange={updateSelectedRoom}
-                            label="Room"
-                        >
-                            <MenuItem key="all-rooms" value="All Rooms">All Rooms</MenuItem>
-                            {state.userLightGroups.map((group) => (
-                                <MenuItem key={group.groupId} value={group.groupName}>
-                                    {group.groupName}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
                     <div className="settings-row">
-                        <FormControl className="light-alarm-component" variant="outlined">
+                        <FormControl className="light-alarm-component task-room-picker-row" variant="outlined">
                             <InputLabel id="light-group-dropdown">Task Type</InputLabel>
                             <Select
                                 value={type}
@@ -123,9 +127,8 @@ export default function LightAlarmEditPanel(props) {
                                 ))}
                             </Select>
                         </FormControl>
-                        <TimePicker className="light-alarm-component" initialTime={time} setTime={updateTime} />
                     </div>
-                    <WeekPicker daysOfWeek={daysOfWeek} toggleDay={toggleDay} setEdited={() => setEdited(true)} />
+                    {selectedComponents()}
                     <Divider />
                     <div className="tasks-button-group text">
                         <div className="task-button-container" onClick={deleteActivity}>
