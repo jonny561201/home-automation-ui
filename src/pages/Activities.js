@@ -36,8 +36,6 @@ export default function ActivitiesPage() {
             <div className="activities-header">
                 <Header />
             </div>
-            {/* {
-                state.roles.some(x => x.role_name === 'lighting') && */}
             <div className="activities-body body">
                 <div className="activites-wrapper">
                     <div className="settings-group setting panel-header-text">
@@ -61,7 +59,6 @@ export default function ActivitiesPage() {
                     </div>
                 </div>
             </div>
-            {/* } */}
         </div>
     )
 }
