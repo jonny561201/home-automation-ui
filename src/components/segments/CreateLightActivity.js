@@ -1,12 +1,61 @@
 import React, { useContext, useState } from 'react';
+import useSound from 'use-sound';
+import clickSound from '../../resources/click.mp3';
 import { Context } from '../../state/Store';
 import TimePicker from '../controls/TimePicker';
 import WeekPicker from '../controls/WeekPicker';
-import {FormControl, MenuItem, Select, InputLabel } from '@material-ui/core';
+import { getStore } from '../../state/GlobalState';
+import { Save, Delete } from '@material-ui/icons';
+import { insertScheduledTasks } from '../../utilities/RestApi';
+import { FormControl, MenuItem, Select, InputLabel, Divider } from '@material-ui/core';
 
 export default function CreateLightActivity(props) {
-    const [state, ] = useContext(Context);
+    const [state, dispatch] = useContext(Context);
     const [edited, setEdited] = useState(false);
+    const initialDays = [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }];
+    const [click] = useSound(clickSound, { volume: 0.25 });
+    const [days, setDays] = useState();
+    const [groupId, setGroupId] = useState();
+    const [selectedRoom, setSelectedRoom] = useState('');
+    const [daysOfWeek, setDaysOfWeek] = useState(initialDays);
+    const [time, setTime] = useState(new Date().toLocaleTimeString('it-IT', { hour12: false }));
+
+
+    const saveActivity = async () => {
+        if (edited && selectedRoom !== '' && days !== null) {
+            const tasks = await insertScheduledTasks(getStore().getUserId(), groupId, selectedRoom, days, time, true, props.type);
+            dispatch({ type: 'SET_SCHEDULED_TASK', payload: tasks });
+            props.saveNewTask();
+            click();
+        }
+    }
+
+    const updateSelectedRoom = (item) => {
+        setEdited(true);
+        item.target.value === "All Rooms"
+            ? setGroupId("0")
+            : setGroupId(state.userLightGroups.find(x => x.groupName === item.target.value).groupId)
+        setSelectedRoom(item.target.value);
+    }
+
+    const updateTime = (dateTime) => {
+        setEdited(true);
+        setTime(dateTime);
+    }
+
+    const deleteActivity = () => {
+        props.cancel();
+        click();
+    }
+
+    const toggleDay = (task, newState) => {
+        const newProjects = daysOfWeek.map(day => day.id === task.id
+            ? { ...day, on: newState }
+            : day
+        );
+        setDaysOfWeek(newProjects);
+        setDays(newProjects.filter(x => x.on === true).map(y => y.id).join(''));
+    }
 
     return (
         <>
@@ -16,8 +65,8 @@ export default function CreateLightActivity(props) {
                     <Select
                         data-testid="alarm-room-picker"
                         id="settings-light-rooms"
-                        value={props.selectedRoom}
-                        onChange={props.updateSelectedRoom}
+                        value={selectedRoom}
+                        onChange={updateSelectedRoom}
                         label="Room"
                     >
                         <MenuItem key="all-rooms" value="All Rooms">All Rooms</MenuItem>
@@ -28,9 +77,20 @@ export default function CreateLightActivity(props) {
                         ))}
                     </Select>
                 </FormControl>
-                <TimePicker className="light-alarm-component" initialTime={props.time} setTime={props.updateTime} />
+                <TimePicker className="light-alarm-component" initialTime={time} setTime={updateTime} />
             </div>
-            <WeekPicker daysOfWeek={props.daysOfWeek} toggleDay={props.toggleDay} setEdited={() => setEdited(true)} />
+            <WeekPicker daysOfWeek={daysOfWeek} toggleDay={toggleDay} setEdited={() => setEdited(true)} />
+            <Divider />
+            <div className="tasks-button-group text">
+                <div className="task-button-container" onClick={deleteActivity}>
+                    <Delete className="task-button task-delete" />
+                    <p className="task-delete">Cancel</p>
+                </div>
+                <div className="task-button-container" onClick={saveActivity}>
+                    <Save className={`task-button ${edited ? "edited" : ""}`} />
+                    <p className={edited ? "edited" : ""}>Save</p>
+                </div>
+            </div>
         </>
     )
 }

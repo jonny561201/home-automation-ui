@@ -1,87 +1,25 @@
 import React, { useContext, useState } from 'react';
 import { Context } from '../../state/Store';
-import { getStore } from '../../state/GlobalState';
-import useSound from 'use-sound';
-import clickSound from '../../resources/click.mp3';
-import { Save, Delete } from '@material-ui/icons';
-import { insertScheduledTasks } from '../../utilities/RestApi';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CreateLightActivity from '../segments/CreateLightActivity';
 import CreateHvacActivity from '../segments/CreateHvacActivity';
-import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary, FormControl, MenuItem, Select, InputLabel, Divider } from '@material-ui/core';
+import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary, FormControl, MenuItem, Select, InputLabel } from '@material-ui/core';
 
 
 export default function LightAlarmEditPanel(props) {
-    const initialDays = [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }];
-    const [click] = useSound(clickSound, { volume: 0.25 });
-    const [state, dispatch] = useContext(Context);
-    const [days, setDays] = useState();
-    const [type, setType] = useState('');
-    const [groupId, setGroupId] = useState();
+    const [state, ] = useContext(Context);
+    const [type, setType] = useState('New Activity');
     const [opened, setOpened] = useState(true);
-    const [edited, setEdited] = useState(false);
-    const [selectedRoom, setSelectedRoom] = useState('');
-    const [daysOfWeek, setDaysOfWeek] = useState(initialDays);
-    const [startTime, setStartTime] = useState(new Date().toLocaleTimeString('it-IT', { hour12: false }));
-    const [stopTime, setStopTime] = useState(new Date().toLocaleTimeString('it-IT', { hour12: false }));
-    const [time, setTime] = useState(new Date().toLocaleTimeString('it-IT', { hour12: false }));
-
-    const updateTime = (dateTime) => {
-        setEdited(true);
-        setTime(dateTime);
-    }
-
-    const updateSelectedRoom = (item) => {
-        setEdited(true);
-        item.target.value === "All Rooms"
-            ? setGroupId("0")
-            : setGroupId(state.userLightGroups.find(x => x.groupName === item.target.value).groupId)
-        setSelectedRoom(item.target.value);
-    }
-
-    const toggleDay = (task, newState) => {
-        const newProjects = daysOfWeek.map(day => day.id === task.id
-            ? { ...day, on: newState }
-            : day
-        );
-        setDaysOfWeek(newProjects);
-        setDays(newProjects.filter(x => x.on === true).map(y => y.id).join(''));
-    }
-
-    const saveActivity = async () => {
-        if (edited && selectedRoom !== '' && days !== null) {
-            const tasks = await insertScheduledTasks(getStore().getUserId(), groupId, selectedRoom, days, time, true, type);
-            dispatch({ type: 'SET_SCHEDULED_TASK', payload: tasks });
-            props.saveNewTask();
-            click();
-        }
-    }
-
-    const updateStopTime = (dateTime) => {
-        setEdited(true);
-        setStopTime(dateTime);
-    }
-
-    const updateStartTime = (dateTime) => {
-        setEdited(true);
-        setStartTime(dateTime);
-    }
-
-    const deleteActivity = () => {
-        props.cancelNewTask();
-        click();
-    }
 
     const updateSelectedType = (item) => {
-        setEdited(true);
         setType(state.taskTypes.find(x => x === item.target.value));
     }
 
     const selectedComponents = () => {
         if (type === 'hvac') {
-            return <CreateHvacActivity toggleDay={toggleDay} updateStartTime={updateStartTime} updateStopTime={updateStopTime} daysOfWeek={daysOfWeek} startTime={startTime} stopTime={stopTime}/>
-        } else if (type !== '') {
-            return <CreateLightActivity toggleDay={toggleDay} updateSelectedRoom={updateSelectedRoom} updateTime={updateTime} selectedRoom={selectedRoom} time={time} daysOfWeek={daysOfWeek}/>
+            return <CreateHvacActivity type={type} cancel={props.cancelNewTask} />
+        } else if (type !== 'New Activity') {
+            return <CreateLightActivity type={type} cancel={props.cancelNewTask} />
         } else {
             return <></>
         }
@@ -96,19 +34,10 @@ export default function LightAlarmEditPanel(props) {
                             {
                                 !opened &&
                                 <div className="settings-row alarm-row">
-                                    <p className="setting text alarm-time">{time.slice(0, -3)}</p>
+                                    <p className="setting text alarm-group-name">{type}</p>
                                 </div>
                             }
-                            <div className="settings-row alarm-row">
-                                <p className="setting text alarm-group-name">{selectedRoom}</p>
-                            </div>
                         </div>
-                        {
-                            !opened &&
-                            <div className="settings-row alarm-row">
-                                <p className="setting text measure-unit">{days}</p>
-                            </div>
-                        }
                     </div>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className="center">
@@ -129,17 +58,6 @@ export default function LightAlarmEditPanel(props) {
                         </FormControl>
                     </div>
                     {selectedComponents()}
-                    <Divider />
-                    <div className="tasks-button-group text">
-                        <div className="task-button-container" onClick={deleteActivity}>
-                            <Delete className="task-button task-delete" />
-                            <p className="task-delete">Cancel</p>
-                        </div>
-                        <div className="task-button-container" onClick={saveActivity}>
-                            <Save className={`task-button ${edited ? "edited" : ""}`} />
-                            <p className={edited ? "edited" : ""}>Save</p>
-                        </div>
-                    </div>
                 </ExpansionPanelDetails>
             </ExpansionPanel>
         </>
