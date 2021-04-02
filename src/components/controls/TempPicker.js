@@ -8,7 +8,7 @@ export default function TempPicker(props) {
     const minThermostatTemp = 50;
     const maxThermostatTemp = 90;
     const [desiredTemp, setDesiredTemp] = useState(72);
-    const [displayColor, setDisplayColor] = useState("#A0A0A0");
+    const [displayColor, setDisplayColor] = useState("#00c774");
 
     const knobChange = (newValue) => {
         setDesiredTemp(newValue);
