@@ -47,10 +47,10 @@ describe('Activities Page', () => {
         expect(spyGet).toHaveBeenCalledWith(userId)
     });
 
-    it('should display the light alarm component', async () => {
+    it('should display the Activities component', async () => {
         await renderComponent();
-        const actual = screen.getByText('Light Alarm').textContent;
-        expect(actual).toEqual('Light Alarm');
+        const actual = screen.getByText('Activities').textContent;
+        expect(actual).toEqual('Activities');
     });
 
     it('should not display the light alarm component when zero alarms', async () => {
