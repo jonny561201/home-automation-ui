@@ -1,10 +1,10 @@
-.MuiPaper-root {
+.MyuiPaper-root {
     color: rgba(0, 0, 0, 0.87);
     transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     background-color: #fff;
 }
 
-.MuiTouchRipple-root {
+.MyuiTouchRipple-root {
     top: 0;
     left: 0;
     right: 0;
@@ -16,24 +16,24 @@
     pointer-events: none;
 }
 
-.MuiPickersToolbar-toolbar {
+.MyuiPickersToolbar-toolbar {
     height: 100px;
     display: flex;
     align-items: center;
     flex-direction: row;
     justify-content: center;
-    background-color: #3f51b5;
+    background-color: #00c774;
 }
 
-.MuiToolbar-regular {
+.MyuiToolbar-regular {
     min-height: 56px;
 }
 
-.MuiPickersModal-dialog:first-child {
+.MyuiPickersModal-dialog:first-child {
     padding: 0;
 }
 
-.MuiDialogActions-root {
+.MyuiDialogActions-root {
     flex: 0 0 auto;
     display: flex;
     padding: 8px;
@@ -41,14 +41,14 @@
     justify-content: flex-end;
 }
 
-.MuiPickersClock-container {
+.MyuiPickersClock-container {
     margin: 16px 0 8px;
     display: flex;
     align-items: flex-end;
     justify-content: center;
 }
 
-.MuiPickersBasePicker-pickerView {
+.MyuiPickersBasePicker-pickerView {
     display: flex;
     max-width: 320px;
     min-width: 280px;
@@ -58,18 +58,18 @@
     justify-content: center;
 }
 
-.MuiButton-text {
+.MyuiButton-text {
     padding: 6px 8px;
 }
 
-.MuiButton-label {
+.MyuiButton-label {
     width: 100%;
     display: inherit;
     align-items: inherit;
     justify-content: inherit;
 }
 
-.MuiButton-root {
+.MyuiButton-root {
     color: rgba(0, 0, 0, 0.87);
     padding: 6px 16px;
     font-size: 0.875rem;
@@ -84,7 +84,7 @@
     text-transform: uppercase;
 }
 
-.MuiButtonBase-root {
+.MyuiButtonBase-root {
     color: inherit;
     border: 0;
     cursor: pointer;
@@ -105,7 +105,7 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-.MuiTouchRipple-root {
+.MyuiTouchRipple-root {
     top: 0;
     left: 0;
     right: 0;

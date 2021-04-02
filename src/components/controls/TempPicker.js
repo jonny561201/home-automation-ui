@@ -17,28 +17,28 @@ export default function TempPicker(props) {
 
     return (
         <Dialog open={props.open}>
-            <div className="MuiDialogContent-root MuiPickersModal-dialog">
-                <div className="MuiPickersBasePicker-container">
-                    <div className="MuiToolbar-root MuiToolbar-regular MuiPickersToolbar-toolbar MuiToolbar-gutters">
-                        <div className="MuiPickersTimePickerToolbar-hourMinuteLabel">
+            <div className="MyuiDialogContent-root MyuiPickersModal-dialog">
+                <div className="MyuiPickersBasePicker-container">
+                    <div className="MyuiToolbar-root MyuiToolbar-regular MyuiPickersToolbar-toolbar MyuiToolbar-gutters">
+                        <div className="MyuiPickersTimePickerToolbar-hourMinuteLabel">
                             <h2 className="header-text">Temperature</h2>
                         </div>
                     </div>
-                    <div className="MuiPickersBasePicker-pickerView">
-                        <div className="MuiPickersClock-container">
+                    <div className="MyuiPickersBasePicker-pickerView">
+                        <div className="MyuiPickersClock-container">
                             <Knob value={desiredTemp} lineCap={"round"} fgColor={displayColor} inputColor={displayColor} onChange={knobChange} angleArc={240} angleOffset={240} min={minThermostatTemp} max={maxThermostatTemp} />
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="MuiDialogActions-root MuiDialogActions-spacing">
-                <button className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary" type="button" onClick={props.toggle}>
-                    <span class="MuiButton-label">Cancel</span>
-                    <span class="MuiTouchRipple-root"></span>
+            <div className="MyuiDialogActions-root MyuiDialogActions-spacing">
+                <button className="MyuiButtonBase-root MyuiButton-root MyuiButton-text MyuiButton-textPrimary" type="button" onClick={props.toggle}>
+                    <span class="MyuiButton-label">Cancel</span>
+                    <span class="MyuiTouchRipple-root"></span>
                 </button>
-                <button className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary" type="button" onClick={props.toggle}>
-                    <span class="MuiButton-label">OK</span>
-                    <span class="MuiTouchRipple-root"></span>
+                <button className="MyuiButtonBase-root MyuiButton-root MyuiButton-text MyuiButton-textPrimary" type="button" onClick={props.toggle}>
+                    <span class="MyuiButton-label">OK</span>
+                    <span class="MyuiTouchRipple-root"></span>
                 </button>
             </div>
         </Dialog>
