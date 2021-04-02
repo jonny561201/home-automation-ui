@@ -34,7 +34,7 @@ export default function LightAlarmEditPanel(props) {
     return (
         <>
             <ExpansionPanel className="task-panel" expanded={true}>
-                <ExpansionPanelSummary style={{ height: "0px"}}/>
+                <ExpansionPanelSummary style={{ height: "0px", minHeight: "0px"}}/>
                 <ExpansionPanelDetails className="center">
                     <div className="settings-row">
                         <FormControl className="light-alarm-component task-room-picker-row" variant="outlined">
