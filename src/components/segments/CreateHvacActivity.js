@@ -1,30 +1,31 @@
 import React, { useState, useContext } from 'react';
 import { Context } from '../../state/Store';
 import useSound from 'use-sound';
+import { getStore } from '../../state/GlobalState';
 import clickSound from '../../resources/click.mp3';
 import TimePicker from '../controls/TimePicker';
 import WeekPicker from '../controls/WeekPicker';
-import { FormControl, Divider } from '@material-ui/core';
 import TempPicker from '../controls/TempPicker';
 import { Save, Delete } from '@material-ui/icons';
+import { Divider } from '@material-ui/core';
+import { insertScheduledTasks } from '../../utilities/RestApi';
 
 
 export default function CreateHvacActivity(props) {
     const initialDays = [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }];
-    const [state, dispatch] = useContext(Context);
+    const [, dispatch] = useContext(Context);
     const [edited, setEdited] = useState(false);
     const [open, setOpen] = useState(false);
     const [click] = useSound(clickSound, { volume: 0.25 });
     const [days, setDays] = useState();
-    const [groupId, setGroupId] = useState();
     const [daysOfWeek, setDaysOfWeek] = useState(initialDays);
     const [startTime, setStartTime] = useState(new Date().toLocaleTimeString('it-IT', { hour12: false }));
     const [stopTime, setStopTime] = useState(new Date().toLocaleTimeString('it-IT', { hour12: false }));
 
     const saveActivity = async () => {
         if (edited && days !== null) {
-            // const tasks = await insertScheduledTasks(getStore().getUserId(), groupId, selectedRoom, days, time, true, type);
-            // dispatch({ type: 'SET_SCHEDULED_TASK', payload: tasks });
+            const tasks = await insertScheduledTasks(getStore().getUserId(), null, null, days, null, true, props.type);
+            dispatch({ type: 'SET_SCHEDULED_TASK', payload: tasks });
             props.save();
             click();
         }
@@ -56,11 +57,6 @@ export default function CreateHvacActivity(props) {
 
     return (
         <>
-            <div className="settings-row">
-                <FormControl className="light-alarm-component" variant="outlined">
-
-                </FormControl>
-            </div>
             <div className="settings-row">
                 <TimePicker className="light-alarm-component" initialTime={startTime} setTime={updateStartTime} label="start time" />
                 <TimePicker className="light-alarm-component" initialTime={stopTime} setTime={updateStopTime} label="stop time" />
