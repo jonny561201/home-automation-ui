@@ -3,13 +3,12 @@ import { Context } from '../../state/Store';
 import CreateLightActivity from '../segments/CreateLightActivity';
 import CreateHvacActivity from '../segments/CreateHvacActivity';
 import { Delete } from '@material-ui/icons';
-import { ExpansionPanelDetails, ExpansionPanel, FormControl, MenuItem, Select, InputLabel, Divider } from '@material-ui/core';
+import { ExpansionPanelDetails, ExpansionPanel, FormControl, MenuItem, Select, InputLabel, ExpansionPanelSummary } from '@material-ui/core';
 
 
 export default function LightAlarmEditPanel(props) {
     const [state,] = useContext(Context);
     const [type, setType] = useState('');
-    const [opened, setOpened] = useState(true);
 
     const updateSelectedType = (item) => {
         setType(state.taskTypes.find(x => x === item.target.value));
@@ -34,7 +33,8 @@ export default function LightAlarmEditPanel(props) {
 
     return (
         <>
-            <ExpansionPanel className="task-panel" defaultExpanded={opened} expanded={opened} onChange={() => { setOpened(!opened) }}>
+            <ExpansionPanel className="task-panel" expanded={true}>
+                <ExpansionPanelSummary style={{ height: "0px"}}/>
                 <ExpansionPanelDetails className="center">
                     <div className="settings-row">
                         <FormControl className="light-alarm-component task-room-picker-row" variant="outlined">
@@ -49,7 +49,6 @@ export default function LightAlarmEditPanel(props) {
                         </FormControl>
                     </div>
                     {selectedComponents()}
-                    <Divider />
                 </ExpansionPanelDetails>
             </ExpansionPanel>
         </>
