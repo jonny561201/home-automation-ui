@@ -17,9 +17,9 @@ export default function LightAlarmEditPanel(props) {
 
     const selectedComponents = () => {
         if (type === 'hvac') {
-            return <CreateHvacActivity type={type} cancel={props.cancelNewTask} />
+            return <CreateHvacActivity type={type} cancel={props.cancelNewTask} save={props.saveNewTask}/>
         } else if (type !== 'New Activity') {
-            return <CreateLightActivity type={type} cancel={props.cancelNewTask} />
+            return <CreateLightActivity type={type} cancel={props.cancelNewTask} save={props.saveNewTask}/>
         } else {
             return <></>
         }

@@ -25,7 +25,7 @@ export default function CreateHvacActivity(props) {
         if (edited && days !== null) {
             // const tasks = await insertScheduledTasks(getStore().getUserId(), groupId, selectedRoom, days, time, true, type);
             // dispatch({ type: 'SET_SCHEDULED_TASK', payload: tasks });
-            props.saveNewTask();
+            props.save();
             click();
         }
     }

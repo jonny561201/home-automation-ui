@@ -25,7 +25,7 @@ export default function CreateLightActivity(props) {
         if (edited && selectedRoom !== '' && days !== null) {
             const tasks = await insertScheduledTasks(getStore().getUserId(), groupId, selectedRoom, days, time, true, props.type);
             dispatch({ type: 'SET_SCHEDULED_TASK', payload: tasks });
-            props.saveNewTask();
+            props.save();
             click();
         }
     }
