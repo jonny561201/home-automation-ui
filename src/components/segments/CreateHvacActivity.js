@@ -14,10 +14,10 @@ import { insertScheduledTasks } from '../../utilities/RestApi';
 export default function CreateHvacActivity(props) {
     const initialDays = [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }];
     const [, dispatch] = useContext(Context);
-    const [edited, setEdited] = useState(false);
-    const [open, setOpen] = useState(false);
-    const [click] = useSound(clickSound, { volume: 0.25 });
     const [days, setDays] = useState();
+    const [inTemp, setInTemp] = useState(72);
+    const [edited, setEdited] = useState(false);
+    const [click] = useSound(clickSound, { volume: 0.25 });
     const [daysOfWeek, setDaysOfWeek] = useState(initialDays);
     const [startTime, setStartTime] = useState(new Date().toLocaleTimeString('it-IT', { hour12: false }));
     const [stopTime, setStopTime] = useState(new Date().toLocaleTimeString('it-IT', { hour12: false }));
@@ -62,8 +62,8 @@ export default function CreateHvacActivity(props) {
                 <TimePicker className="light-alarm-component" initialTime={stopTime} setTime={updateStopTime} label="stop time" />
             </div>
             <div className="settings-row">
-                <TempPicker open={open} toggle={() => setOpen(!open)} />
-                <button onClick={() => setOpen(!open)}>Toggle</button>
+                <TempPicker value={inTemp} onChange={setInTemp} label="Start Temp"/>
+                <TempPicker value={inTemp} onChange={setInTemp} label="Stop Temp"/>
             </div>
             <WeekPicker daysOfWeek={daysOfWeek} toggleDay={toggleDay} setEdited={() => setEdited(true)} />
             <Divider />

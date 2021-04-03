@@ -19,8 +19,8 @@ export default function TempPicker(props) {
 
     return (
         <>
-            <div className="MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal">
-                <label className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled" data-shrink="true">Run Temp</label>
+            <div className="MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal light-alarm-component">
+                <label className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled" data-shrink="true">{props.label}</label>
                 <div className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd">
                     <input aria-invalid="false" className="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd" value={props.value} onChange={() => { }} />
                     <div className="MuiInputAdornment-root MuiInputAdornment-positionEnd">
