@@ -49,7 +49,7 @@ describe('Activities Page', () => {
 
     it('should display the Activities component', async () => {
         await renderComponent();
-        const actual = screen.getByText('Activities').textContent;
+        const actual = screen.getByTestId('activities-sub-header').textContent;
         expect(actual).toEqual('Activities');
     });
 

@@ -39,7 +39,7 @@ export default function ActivitiesPage() {
             <div className="activities-body body">
                 <div className="activites-wrapper">
                     <div className="settings-group setting panel-header-text">
-                        <h2>Activities</h2>
+                        <h2 data-testid="activities-sub-header">Activities</h2>
                     </div>
                     {
                         addTask &&

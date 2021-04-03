@@ -39,11 +39,4 @@ describe('Light Alarm Edit Panel', () => {
     //     const actual = screen.getAllByText(groupName)[1].textContent;
     //     expect(actual).toEqual(groupName);
     //  });
-
-    it('should display the time when expansion panel closed', async () => {
-        await renderComponent();
-        fireEvent.click(screen.getByTestId('light-alarm-group'));
-        const actual = screen.queryByText(time);
-        expect(actual).toBeDefined();
-    });
 });
