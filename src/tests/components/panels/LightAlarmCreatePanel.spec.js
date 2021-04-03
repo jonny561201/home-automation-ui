@@ -2,24 +2,20 @@ import React from 'react';
 import { Context } from '../../../state/Store';
 import * as lib from '../../../utilities/RestApi';
 import { getStore } from '../../../state/GlobalState';
-import { render, screen, act, fireEvent } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import LightAlarmCreatePanel from '../../../components/panels/LightAlarmCreatePanel';
 
 
 describe('Light Alarm Edit Panel', () => {
-    const groupId = '1';
-    const days = 'MonTue';
-    const time = '01:00:00';
-    const groupName = 'Bedroom';
     const userId = 'fakeUserId';
-    const groups = [{groupId: groupId, groupName: groupName}];
+    const tasks = ['hvac', 'turn on']
 
     const spyPost = jest.spyOn(lib, 'insertLightTask');
 
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{userLightGroups: groups, daysOfWeek: [], taskTypes: []}, () => { }]}>
+                <Context.Provider value={[{taskTypes: tasks}, () => { }]}>
                     <LightAlarmCreatePanel/>
                 </Context.Provider>
             );
@@ -29,6 +25,12 @@ describe('Light Alarm Edit Panel', () => {
     beforeEach(() => {
         spyPost.mockClear();
         getStore().setUserId(userId);
+    });
+
+    it('should display the Task Type label', async () => {
+        await renderComponent();
+        const actual = screen.getByLabelText('Task Type')
+        expect(actual).toEqual('Task Type');
     });
 
     //  it('should display the drop down options in the menu', async () => {

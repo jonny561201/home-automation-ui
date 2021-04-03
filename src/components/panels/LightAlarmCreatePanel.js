@@ -38,8 +38,8 @@ export default function LightAlarmEditPanel(props) {
                 <ExpansionPanelDetails className="center">
                     <div className="settings-row">
                         <FormControl className="light-alarm-component task-room-picker-row" variant="outlined">
-                            <InputLabel id="light-group-dropdown">Task Type</InputLabel>
-                            <Select value={type} onChange={updateSelectedType} label="Task Type" >
+                            <InputLabel for="light-group-dropdown">Task Type</InputLabel>
+                            <Select id="light-group-dropdown" value={type} onChange={updateSelectedType} label="Task Type" >
                                 {state.taskTypes.map(x => (
                                     <MenuItem key={x} value={x}>
                                         {x}
