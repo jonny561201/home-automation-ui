@@ -5,7 +5,7 @@ import clickSound from '../resources/singleClick.mp3';
 import Header from '../components/header/Header';
 import { getStore } from '../state/GlobalState';
 import AddIcon from '@material-ui/icons/Add';
-import LightAlarm from '../components/panels/LightAlarmPanel';
+import LightActivity from '../components/panels/LightActivityPanel';
 import { getScheduledTasks } from '../utilities/RestApi';
 import CreateNewActivityPanel from '../components/panels/CreateNewActivityPanel';
 import './Activities.css';
@@ -47,7 +47,7 @@ export default function ActivitiesPage() {
                     }
                     {
                         state.tasks.map(x => {
-                            return <LightAlarm key={`${x.alarm_group_name}-${x.alarm_days}-${x.alarm_time}`} task={x} />
+                            return <LightActivity key={`${x.alarm_group_name}-${x.alarm_days}-${x.alarm_time}`} task={x} />
                         })
                     }
                 </div>
