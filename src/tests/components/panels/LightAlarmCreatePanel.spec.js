@@ -64,16 +64,4 @@ describe('Light Alarm Edit Panel', () => {
         const actual = screen.queryByText(time);
         expect(actual).toBeDefined();
     });
-
-    it('should display the save button', async () => {
-        await renderComponent();
-        const actual = screen.getByText('Save').textContent;
-        expect(actual).toEqual('Save');
-    });
-
-    it('should display the cancel button', async () => {
-        await renderComponent();
-        const actual = screen.getByText('Cancel').textContent;
-        expect(actual).toEqual('Cancel');
-    });
 });

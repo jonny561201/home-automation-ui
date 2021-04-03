@@ -212,7 +212,6 @@ export const insertHvacTask = async (userId, enabled, taskType, hvacMode, hvacSt
     return response.json()
 }
 
-//hvacStopTemp   hvacStartTemp   hvacMode   hvacStart   hvacStop
 export const updateScheduledTasks = async (userId, taskId, alarmLightGroup, alarmGroupName, alarmDays, alarmTime, enabled, taskType) => {
     const request = { 'taskId': taskId, 'alarmLightGroup': alarmLightGroup, 'alarmGroupName': alarmGroupName, 'alarmDays': alarmDays, 'alarmTime': alarmTime, 'enabled': enabled, 'taskType': taskType };
     const options = {
