@@ -3,7 +3,7 @@ import fetchMock from 'fetch-mock';
 import {
     getBearerToken, getGarageStatus, updateGarageState, addUserDevice, getUserChildAccounts, insertLightTask,
     toggleGarageDoor, getSumpLevels, getCurrentTemperature, addUserDeviceNode, deleteUserChildAccount, updateScheduledTasks,
-    getUserPreferences, updateUserPreferences, setUserTemperature, addUserChildAccount, deleteScheduledTask,
+    getUserPreferences, updateUserPreferences, setUserTemperature, addUserChildAccount, deleteScheduledTask, insertHvacTask,
     getLightGroups, setLightGroupState, setLightState, updateUserAccount, getRolesByUserId, getScheduledTasks
 } from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
@@ -380,7 +380,21 @@ describe('RestApi', () => {
                 return { status: 400 }
             });
 
-            const actual = await insertScheduledTasks(userId, body.alarmLightGroup, body.alarmGroupName, body.alarmDays, body.alarmTime, body.enabled, body.taskType);
+            const actual = await insertLightTask(userId, body.enabled, body.taskType, body.alarmLightGroup, body.alarmGroupName, body.alarmDays, body.alarmTime);
+
+            expect(actual[0].task_id).toEqual(response[0].task_id);
+        });
+
+        it('should make rest call to insert scheduled hvac task for a user account', async () => {
+            const body = { 'hvacStart': '', 'hvacStop': '', 'hvacStopTemp': '1', 'hvacStartTemp': 'potty', 'alarmDays': 'Wed', 'hvacMode': '00:23:34', 'enabled': false, 'taskType': 'off' };
+            const response = [{ 'task_id': 'defg12345', 'alarm_time': '00:00:01', 'alarm_days': 'Mon' }];
+            const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
+
+            fetchMock.mock(`${baseUrl}/userId/${userId}/tasks`, response, options).catch(unmatchedUrl => {
+                return { status: 400 }
+            });
+
+            const actual = await insertHvacTask(userId, body.enabled, body.taskType, body.hvacMode, body.hvacStart, body.hvacStop, body.hvacStartTemp, body.hvacStopTemp, body.alarmDays);
 
             expect(actual[0].task_id).toEqual(response[0].task_id);
         });

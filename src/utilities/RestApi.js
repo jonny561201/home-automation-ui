@@ -201,6 +201,18 @@ export const insertLightTask = async (userId, enabled, taskType, alarmLightGroup
     return response.json()
 }
 
+export const insertHvacTask = async (userId, enabled, taskType, hvacMode, hvacStart, hvacStop, hvacStartTemp, hvacStopTemp, alarmDays) => {
+    const request = { 'hvacMode': hvacMode, 'hvacStart': hvacStart, 'hvacStop': hvacStop, 'hvacStartTemp': hvacStartTemp, 'hvacStopTemp': hvacStopTemp, 'alarmDays': alarmDays, 'enabled': enabled, 'taskType': taskType };
+    const options = {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
+        body: JSON.stringify(request)
+    };
+    const response = await fetch(`${baseUrl}/userId/${userId}/tasks`, options);
+    return response.json()
+}
+
+//hvacStopTemp   hvacStartTemp   hvacMode   hvacStart   hvacStop
 export const updateScheduledTasks = async (userId, taskId, alarmLightGroup, alarmGroupName, alarmDays, alarmTime, enabled, taskType) => {
     const request = { 'taskId': taskId, 'alarmLightGroup': alarmLightGroup, 'alarmGroupName': alarmGroupName, 'alarmDays': alarmDays, 'alarmTime': alarmTime, 'enabled': enabled, 'taskType': taskType };
     const options = {
