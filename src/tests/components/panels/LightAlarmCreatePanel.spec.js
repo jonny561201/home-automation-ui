@@ -31,21 +31,9 @@ describe('Light Alarm Edit Panel', () => {
         getStore().setUserId(userId);
     });
 
-    it('should display the time picker', async () => {
-        await renderComponent();
-        const actual = screen.getByTestId('time-picker');
-        expect(actual).toBeDefined();
-     });
-
      it('should display the light room label', async () => {
         await renderComponent();
         const actual = screen.getByText('Room');
-        expect(actual).toBeDefined();
-     });
-
-     it('should display the light room name selector', async () => {
-        await renderComponent();
-        const actual = screen.getByTestId('alarm-room-picker');
         expect(actual).toBeDefined();
      });
 
