@@ -38,7 +38,7 @@ export default function CreateNewActivityPanel(props) {
                 <ExpansionPanelDetails className="center">
                     <div className="settings-row">
                         <FormControl className="light-alarm-component task-room-picker-row" variant="outlined">
-                            <InputLabel for="light-group-dropdown">Task Type</InputLabel>
+                            <InputLabel htmlFor="light-group-dropdown">Task Type</InputLabel>
                             <Select id="light-group-dropdown" value={type} onChange={updateSelectedType} label="Task Type" >
                                 {state.taskTypes.map(x => (
                                     <MenuItem key={x} value={x}>
