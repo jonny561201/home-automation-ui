@@ -14,7 +14,7 @@ describe('Light Alarm Edit Panel', () => {
     const userId = 'fakeUserId';
     const groups = [{groupId: groupId, groupName: groupName}];
 
-    const spyPost = jest.spyOn(lib, 'insertScheduledTasks');
+    const spyPost = jest.spyOn(lib, 'insertLightTask');
 
     const renderComponent = async () => {
         await act(async () => {

@@ -6,7 +6,7 @@ import TimePicker from '../controls/TimePicker';
 import WeekPicker from '../controls/WeekPicker';
 import { getStore } from '../../state/GlobalState';
 import { Save, Delete } from '@material-ui/icons';
-import { insertScheduledTasks } from '../../utilities/RestApi';
+import { insertLightTask } from '../../utilities/RestApi';
 import { FormControl, MenuItem, Select, InputLabel, Divider } from '@material-ui/core';
 
 export default function CreateLightActivity(props) {
@@ -23,7 +23,7 @@ export default function CreateLightActivity(props) {
 
     const saveActivity = async () => {
         if (edited && selectedRoom !== '' && days !== null) {
-            const tasks = await insertScheduledTasks(getStore().getUserId(), groupId, selectedRoom, days, time, true, props.type);
+            const tasks = await insertLightTask(getStore().getUserId(), true, props.type, groupId, selectedRoom, days, time);
             dispatch({ type: 'SET_SCHEDULED_TASK', payload: tasks });
             props.save();
             click();

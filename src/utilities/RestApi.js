@@ -190,7 +190,7 @@ export const getScheduledTasks = async (userId) => {
     return response.json()
 }
 
-export const insertScheduledTasks = async (userId, alarmLightGroup, alarmGroupName, alarmDays, alarmTime, enabled, taskType) => {
+export const insertLightTask = async (userId, enabled, taskType, alarmLightGroup, alarmGroupName, alarmDays, alarmTime) => {
     const request = { 'alarmLightGroup': alarmLightGroup, 'alarmGroupName': alarmGroupName, 'alarmDays': alarmDays, 'alarmTime': alarmTime, 'enabled': enabled, 'taskType': taskType };
     const options = {
         method: 'POST',

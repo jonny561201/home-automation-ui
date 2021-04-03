@@ -1,7 +1,7 @@
 import base64 from 'base-64';
 import fetchMock from 'fetch-mock';
 import {
-    getBearerToken, getGarageStatus, updateGarageState, addUserDevice, getUserChildAccounts, insertScheduledTasks,
+    getBearerToken, getGarageStatus, updateGarageState, addUserDevice, getUserChildAccounts, insertLightTask,
     toggleGarageDoor, getSumpLevels, getCurrentTemperature, addUserDeviceNode, deleteUserChildAccount, updateScheduledTasks,
     getUserPreferences, updateUserPreferences, setUserTemperature, addUserChildAccount, deleteScheduledTask,
     getLightGroups, setLightGroupState, setLightState, updateUserAccount, getRolesByUserId, getScheduledTasks
@@ -371,7 +371,7 @@ describe('RestApi', () => {
             expect(actual[0].task_id).toEqual(taskId);
         });
 
-        it('should make rest call to insert scheduled tasks for a user account', async () => {
+        it('should make rest call to insert scheduled light tasks for a user account', async () => {
             const body = { 'alarmLightGroup': '1', 'alarmGroupName': 'potty', 'alarmDays': 'Wed', 'alarmTime': '00:23:34', 'enabled': false, 'taskType': 'off' };
             const response = [{ 'task_id': 'asdf678', 'alarm_time': '00:00:01', 'alarm_days': 'Mon' }];
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };

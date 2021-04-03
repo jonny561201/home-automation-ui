@@ -8,7 +8,7 @@ import WeekPicker from '../controls/WeekPicker';
 import TempPicker from '../controls/TempPicker';
 import { Save, Delete } from '@material-ui/icons';
 import { Divider } from '@material-ui/core';
-import { insertScheduledTasks } from '../../utilities/RestApi';
+import { insertLightTask } from '../../utilities/RestApi';
 import './CreateHvacActivity.css';
 
 
@@ -25,7 +25,7 @@ export default function CreateHvacActivity(props) {
 
     const saveActivity = async () => {
         if (edited && days !== null) {
-            const tasks = await insertScheduledTasks(getStore().getUserId(), null, null, days, null, true, props.type);
+            const tasks = await insertLightTask(getStore().getUserId(), null, null, days, null, true, props.type);
             dispatch({ type: 'SET_SCHEDULED_TASK', payload: tasks });
             props.save();
             click();
