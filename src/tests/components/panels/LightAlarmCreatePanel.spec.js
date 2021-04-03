@@ -31,12 +31,6 @@ describe('Light Alarm Edit Panel', () => {
         getStore().setUserId(userId);
     });
 
-     it('should display the light room label', async () => {
-        await renderComponent();
-        const actual = screen.getByText('Room');
-        expect(actual).toBeDefined();
-     });
-
     //  it('should display the drop down options in the menu', async () => {
     //     await renderComponent();
     //     await act(async () => {
