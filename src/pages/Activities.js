@@ -7,7 +7,7 @@ import { getStore } from '../state/GlobalState';
 import AddIcon from '@material-ui/icons/Add';
 import LightAlarm from '../components/panels/LightAlarmPanel';
 import { getScheduledTasks } from '../utilities/RestApi';
-import LightAlarmEditPanel from '../components/panels/LightAlarmCreatePanel';
+import CreateNewActivityPanel from '../components/panels/CreateNewActivityPanel';
 import './Activities.css';
 
 
@@ -43,7 +43,7 @@ export default function ActivitiesPage() {
                     </div>
                     {
                         addTask &&
-                        <LightAlarmEditPanel saveNewTask={() => {setAddTask(false)}} cancelNewTask={() => { setAddTask(false) }} />
+                        <CreateNewActivityPanel saveNewTask={() => {setAddTask(false)}} cancelNewTask={() => { setAddTask(false) }} />
                     }
                     {
                         state.tasks.map(x => {
