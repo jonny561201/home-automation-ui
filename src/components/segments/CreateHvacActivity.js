@@ -9,6 +9,7 @@ import TempPicker from '../controls/TempPicker';
 import { Save, Delete } from '@material-ui/icons';
 import { Divider } from '@material-ui/core';
 import { insertScheduledTasks } from '../../utilities/RestApi';
+import './CreateHvacActivity.css';
 
 
 export default function CreateHvacActivity(props) {
@@ -58,12 +59,16 @@ export default function CreateHvacActivity(props) {
     return (
         <>
             <div className="settings-row">
-                <TimePicker className="light-alarm-component" initialTime={startTime} setTime={updateStartTime} label="start time" />
-                <TimePicker className="light-alarm-component" initialTime={stopTime} setTime={updateStopTime} label="stop time" />
+                <div className="picker-row">
+                    <TimePicker initialTime={startTime} setTime={updateStartTime} label="start time" />
+                    <TimePicker initialTime={stopTime} setTime={updateStopTime} label="stop time" />
+                </div>
             </div>
             <div className="settings-row">
-                <TempPicker value={inTemp} onChange={setInTemp} label="Start Temp"/>
-                <TempPicker value={inTemp} onChange={setInTemp} label="Stop Temp"/>
+                <div className="picker-row">
+                    <TempPicker value={inTemp} onChange={setInTemp} label="Start Temp" />
+                    <TempPicker value={inTemp} onChange={setInTemp} label="Stop Temp" />
+                </div>
             </div>
             <WeekPicker daysOfWeek={daysOfWeek} toggleDay={toggleDay} setEdited={() => setEdited(true)} />
             <Divider />

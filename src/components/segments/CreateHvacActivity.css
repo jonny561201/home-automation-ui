@@ -1,0 +1,5 @@
+.picker-row {
+    display: flex;
+    flex-direction: row;
+    margin: 0 0 0 1rem !important;
+}
