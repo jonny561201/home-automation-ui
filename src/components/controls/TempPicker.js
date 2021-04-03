@@ -51,12 +51,12 @@ export default function TempPicker(props) {
             </div>
             <div className="MyuiDialogActions-root MyuiDialogActions-spacing">
                 <button className="MyuiButtonBase-root MyuiButton-root MyuiButton-text MyuiButton-textPrimary" type="button" onClick={() => setOpen(false)}>
-                    <span class="MyuiButton-label">Cancel</span>
-                    <span class="MyuiTouchRipple-root"></span>
+                    <span className="MyuiButton-label">Cancel</span>
+                    <span className="MyuiTouchRipple-root"></span>
                 </button>
                 <button className="MyuiButtonBase-root MyuiButton-root MyuiButton-text MyuiButton-textPrimary" type="button" onClick={knobChange}>
-                    <span class="MyuiButton-label">OK</span>
-                    <span class="MyuiTouchRipple-root"></span>
+                    <span className="MyuiButton-label">OK</span>
+                    <span className="MyuiTouchRipple-root"></span>
                 </button>
             </div>
         </Dialog>
