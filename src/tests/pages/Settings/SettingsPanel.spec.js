@@ -3,7 +3,7 @@ import { Context } from '../../../state/Store';
 import * as lib from '../../../utilities/RestApi';
 import { getStore } from '../../../state/GlobalState';
 import { render, screen } from '@testing-library/react';
-import SettingsPanel from '../../../components/panels/SettingsPanel';
+import SettingsPanel from '../../../pages/Settings/SettingsPanel';
 
 
 describe('Settings Panel', () => {
