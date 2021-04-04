@@ -6,6 +6,7 @@ import Header from '../components/header/Header';
 import { getStore } from '../state/GlobalState';
 import AddIcon from '@material-ui/icons/Add';
 import LightActivity from './Activities/LightActivity';
+import HvacActivity from '../pages/Activities/HvacActivity';
 import { getScheduledTasks } from '../utilities/RestApi';
 import CreateNewActivityPanel from './Activities/CreateNewActivity';
 import './Activities.css';
@@ -31,6 +32,12 @@ export default function ActivitiesPage() {
         click();
     }
 
+    const createActivities = (task) => {
+        return task.task_type === 'hvac'
+        ? <HvacActivity key={task.task_id} task={task}/>
+        : <LightActivity key={task.task_id} task={task} />
+    }
+
     return (
         <div>
             <div className="activities-header">
@@ -46,10 +53,7 @@ export default function ActivitiesPage() {
                         <CreateNewActivityPanel saveNewTask={() => {setAddTask(false)}} cancelNewTask={() => { setAddTask(false) }} />
                     }
                     {
-                        // TODO: need to map to either light or hvac activity
-                        state.tasks.map(x => {
-                            return <LightActivity key={`${x.alarm_group_name}-${x.alarm_days}-${x.alarm_time}`} task={x} />
-                        })
+                        state.tasks.map(x => createActivities(x))
                     }
                 </div>
                 <div className="add-task-container">
