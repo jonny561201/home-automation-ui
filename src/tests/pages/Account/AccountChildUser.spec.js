@@ -1,5 +1,5 @@
 import React from 'react';
-import AccountChildUser from '../../../components/segments/AccountChildUser';
+import AccountChildUser from '../../../pages/Account/AccountChildUser';
 import { getStore } from '../../../state/GlobalState';
 import * as lib from '../../../utilities/RestApi';
 import { render, screen, fireEvent, within, act } from '@testing-library/react';
