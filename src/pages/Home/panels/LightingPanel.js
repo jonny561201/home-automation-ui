@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Context } from '../../state/Store';
-import LightSwitch from '../controls/LightSwitch';
-import {useInterval} from '../../utilities/UseInterval';
-import { getLightGroups } from '../../utilities/RestApi';
+import { Context } from '../../../state/Store';
+import LightSwitch from '../../../components/controls/LightSwitch';
+import {useInterval} from '../../../utilities/UseInterval';
+import { getLightGroups } from '../../../utilities/RestApi';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import LightingIcon from '../../resources/panelIcons/LightingIcon.png';
+import LightingIcon from '../../../resources/panelIcons/LightingIcon.png';
 import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, Divider } from '@material-ui/core';
 import './LightingPanel.css'
 

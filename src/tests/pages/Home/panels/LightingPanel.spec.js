@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen, act, fireEvent } from '@testing-library/react';
-import * as lib from '../../../utilities/RestApi';
-import { Context } from '../../../state/Store';
-import LightingPanel from '../../../components/panels/LightingPanel';
+import * as lib from '../../../../utilities/RestApi';
+import { Context } from '../../../../state/Store';
+import LightingPanel from '../../../../pages/Home/panels/LightingPanel';
 
 describe('LightingPanel', () => {
 

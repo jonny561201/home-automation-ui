@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import SecurityPanel from '../../../components/panels/SecurityPanel';
+import SecurityPanel from '../../../../pages/Home/panels/SecurityPanel';
 
 describe('SecurityPanel', () => {
 

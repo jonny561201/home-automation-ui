@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, act, fireEvent } from '@testing-library/react';
-import GaragePanel from "../../../components/panels/GaragePanel";
-import { Context } from '../../../state/Store';
+import GaragePanel from "../../../../pages/Home/panels/GaragePanel";
+import { Context } from '../../../../state/Store';
 
 
 describe('GaragePanel', () => {

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import useSound from 'use-sound';
-import Knob from '../controls/Knob';
-import { getStore } from '../../state/GlobalState';
-import { debounchApi } from '../../utilities/Services';
-import { useInterval } from '../../utilities/UseInterval';
+import Knob from '../../../components/controls/Knob';
+import { getStore } from '../../../state/GlobalState';
+import { debounchApi } from '../../../utilities/Services';
+import { useInterval } from '../../../utilities/UseInterval';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import TemperatureImage from '../segments/TemperatureImage';
-import singleClickSound from '../../resources/singleClick.mp3';
-import TemperatureIcon from '../../resources/panelIcons/TemperatureIcon.png';
-import { getCurrentTemperature, setUserTemperature } from '../../utilities/RestApi';
+import TemperatureImage from '../../../components/segments/TemperatureImage';
+import singleClickSound from '../../../resources/singleClick.mp3';
+import TemperatureIcon from '../../../resources/panelIcons/TemperatureIcon.png';
+import { getCurrentTemperature, setUserTemperature } from '../../../utilities/RestApi';
 import { ExpansionPanel, Typography, ExpansionPanelSummary, Divider, FormControl, FormGroup, Switch, FormControlLabel } from '@material-ui/core';
 import './TemperaturePanel.css';
 

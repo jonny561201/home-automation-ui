@@ -1,7 +1,7 @@
 import React from 'react';
-import * as lib from '../../../utilities/RestApi';
-import { getStore } from '../../../state/GlobalState';
-import BasementPanel from '../../../components/panels/BasementPanel';
+import * as lib from '../../../../utilities/RestApi';
+import { getStore } from '../../../../state/GlobalState';
+import BasementPanel from '../../../../pages/Home/panels/BasementPanel';
 import { render, screen, act, fireEvent } from '@testing-library/react';
 
 describe('BasementPanel', () => {
@@ -20,6 +20,7 @@ describe('BasementPanel', () => {
             );
         });
     }
+
 
     beforeEach(() => {
         getStore().setUserId(fakeUserId);

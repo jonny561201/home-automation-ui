@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useInterval } from '../../utilities/UseInterval';
+import { useInterval } from '../../../utilities/UseInterval';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import BasementIcon from '../../resources/panelIcons/BasementIcon.png';
-import SumpPumpLowIcon from '../../resources/panelIcons/SumpPumpLowIcon.png';
-import SumpPumpMediumLowIcon from '../../resources/panelIcons/SumpPumpMediumLowIcon.png';
-import SumpPumpMediumHighIcon from '../../resources/panelIcons/SumpPumpMediumHighIcon.png';
-import SumpPumpHighIcon from '../../resources/panelIcons/SumpPumpHighIcon.png';
+import BasementIcon from '../../../resources/panelIcons/BasementIcon.png';
+import SumpPumpLowIcon from '../../../resources/panelIcons/SumpPumpLowIcon.png';
+import SumpPumpMediumLowIcon from '../../../resources/panelIcons/SumpPumpMediumLowIcon.png';
+import SumpPumpMediumHighIcon from '../../../resources/panelIcons/SumpPumpMediumHighIcon.png';
+import SumpPumpHighIcon from '../../../resources/panelIcons/SumpPumpHighIcon.png';
 import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, Divider } from '@material-ui/core';
 import './BasementPanel.css';
-import { getSumpLevels } from '../../utilities/RestApi';
-import { getStore } from '../../state/GlobalState';
+import { getSumpLevels } from '../../../utilities/RestApi';
+import { getStore } from '../../../state/GlobalState';
 
 
 export default function BasementPanel() {

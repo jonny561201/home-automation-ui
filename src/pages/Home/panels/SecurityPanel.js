@@ -1,6 +1,6 @@
 import React from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import SecurityIcon from '../../resources/panelIcons/SecurityIcon.png';
+import SecurityIcon from '../../../resources/panelIcons/SecurityIcon.png';
 import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, Divider } from '@material-ui/core';
 
 

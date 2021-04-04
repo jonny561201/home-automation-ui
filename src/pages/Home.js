@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../components/header/Header';
-import DashboardPanel from '../components/panels/DashboardPanels';
+import DashboardPanel from './Home/panels/DashboardPanels';
 import './Home.css';
 import { getStore } from '../state/GlobalState';
 

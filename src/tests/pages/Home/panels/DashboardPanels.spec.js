@@ -1,10 +1,10 @@
 import React from 'react';
 import 'jest-canvas-mock';
-import { Context } from '../../../state/Store';
-import * as lib from '../../../utilities/RestApi';
-import { getStore } from '../../../state/GlobalState';
+import { Context } from '../../../../state/Store';
+import * as lib from '../../../../utilities/RestApi';
+import { getStore } from '../../../../state/GlobalState';
 import { render, screen, act } from '@testing-library/react';
-import DashboardPanels from '../../../components/panels/DashboardPanels';
+import DashboardPanels from '../../../../pages/Home/panels/DashboardPanels';
 
 describe('DashboardPanel', () => {
     const store = getStore();
