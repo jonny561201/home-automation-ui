@@ -2,12 +2,13 @@ import React, { useContext, useState } from 'react';
 import useSound from 'use-sound';
 import clickSound from '../../resources/click.mp3';
 import { Context } from '../../state/Store';
-import TimePicker from '../controls/TimePicker';
-import WeekPicker from '../controls/WeekPicker';
+import TimePicker from '../../components/controls/TimePicker';
+import WeekPicker from '../../components/controls/WeekPicker';
 import { getStore } from '../../state/GlobalState';
 import { Save, Delete } from '@material-ui/icons';
 import { insertLightTask } from '../../utilities/RestApi';
 import { FormControl, MenuItem, Select, InputLabel, Divider } from '@material-ui/core';
+
 
 export default function CreateLightActivity(props) {
     const [state, dispatch] = useContext(Context);

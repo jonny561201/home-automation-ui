@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Context } from '../../state/Store';
-import CreateLightActivity from '../segments/CreateLightActivity';
-import CreateHvacActivity from '../segments/CreateHvacActivity';
+import CreateLightActivity from './CreateLightActivity';
+import CreateHvacActivity from './CreateHvacActivity';
 import { Delete } from '@material-ui/icons';
 import { ExpansionPanelDetails, ExpansionPanel, FormControl, MenuItem, Select, InputLabel, ExpansionPanelSummary } from '@material-ui/core';
 

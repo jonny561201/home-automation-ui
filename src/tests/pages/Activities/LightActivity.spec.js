@@ -1,11 +1,11 @@
 import React from 'react';
 import * as lib from '../../../utilities/RestApi';
-import LightAlarm from '../../../components/panels/LightAlarmPanel';
+import LightActivity from '../../../pages/Activities/LightActivity';
 import { render, screen, act, fireEvent } from '@testing-library/react';
 import { getStore } from '../../../state/GlobalState';
 import { Context } from '../../../state/Store';
 
-describe('Light Alarm Panel', () => {
+describe('Light Activity Panel', () => {
     const days = 'Mon';
     const groupId = '3';
     const userId = 'abc123';
@@ -22,7 +22,7 @@ describe('Light Alarm Panel', () => {
         await act(async () => {
             render(
                 <Context.Provider value={[{taskTypes: []}, () => { }]}>
-                    <LightAlarm deleteTask={() => { }} task={task} />
+                    <LightActivity deleteTask={() => { }} task={task} />
                 </Context.Provider>
             );
         });

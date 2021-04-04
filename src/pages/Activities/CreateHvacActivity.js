@@ -3,12 +3,12 @@ import { Context } from '../../state/Store';
 import useSound from 'use-sound';
 import { getStore } from '../../state/GlobalState';
 import clickSound from '../../resources/click.mp3';
-import TimePicker from '../controls/TimePicker';
-import WeekPicker from '../controls/WeekPicker';
-import TempPicker from '../controls/TempPicker';
+import TimePicker from '../../components/controls/TimePicker';
+import WeekPicker from '../../components/controls/WeekPicker';
+import TempPicker from '../../components/controls/TempPicker';
 import { Save, Delete } from '@material-ui/icons';
 import { Divider } from '@material-ui/core';
-import { insertLightTask } from '../../utilities/RestApi';
+import { insertHvacTask } from '../../utilities/RestApi';
 import './CreateHvacActivity.css';
 
 
@@ -17,6 +17,7 @@ export default function CreateHvacActivity(props) {
     const [, dispatch] = useContext(Context);
     const [days, setDays] = useState();
     const [inTemp, setInTemp] = useState(72);
+    const [outTemp, setOutTemp] = useState(72);
     const [edited, setEdited] = useState(false);
     const [click] = useSound(clickSound, { volume: 0.25 });
     const [daysOfWeek, setDaysOfWeek] = useState(initialDays);
@@ -25,7 +26,7 @@ export default function CreateHvacActivity(props) {
 
     const saveActivity = async () => {
         if (edited && days !== null) {
-            const tasks = await insertLightTask(getStore().getUserId(), null, null, days, null, true, props.type);
+            const tasks = await insertHvacTask(getStore().getUserId(), true, props.type, '', startTime, stopTime, inTemp, outTemp, days);
             dispatch({ type: 'SET_SCHEDULED_TASK', payload: tasks });
             props.save();
             click();
@@ -67,7 +68,7 @@ export default function CreateHvacActivity(props) {
             <div className="settings-row">
                 <div className="picker-row">
                     <TempPicker value={inTemp} onChange={setInTemp} label="Start Temp" />
-                    <TempPicker value={inTemp} onChange={setInTemp} label="Stop Temp" />
+                    <TempPicker value={outTemp} onChange={setOutTemp} label="Stop Temp" />
                 </div>
             </div>
             <WeekPicker daysOfWeek={daysOfWeek} toggleDay={toggleDay} setEdited={() => setEdited(true)} />

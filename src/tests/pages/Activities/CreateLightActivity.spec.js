@@ -1,6 +1,6 @@
 import React from 'react';
 import { Context } from '../../../state/Store';
-import CreateLightActivity from '../../../components/segments/CreateLightActivity';
+import CreateLightActivity from '../../../pages/Activities/CreateLightActivity';
 import {render, screen, act} from '@testing-library/react'
 
 describe('Create Light Activity Panel', () => {

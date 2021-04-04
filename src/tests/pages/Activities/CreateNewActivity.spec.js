@@ -1,7 +1,7 @@
 import React from 'react';
-import { Context } from '../../../state//Store';
+import { Context } from '../../../state/Store';
 import { render, screen, act, fireEvent } from '@testing-library/react';
-import CreateNewActivityPanel from '../../../components/panels/CreateNewActivityPanel';
+import CreateNewActivity from '../../../pages/Activities/CreateNewActivity';
 
 
 describe('Light Alarm Edit Panel', () => {
@@ -11,7 +11,7 @@ describe('Light Alarm Edit Panel', () => {
         await act(async () => {
             render(
                 <Context.Provider value={[{taskTypes: tasks}, () => { }]}>
-                    <CreateNewActivityPanel/>
+                    <CreateNewActivity/>
                 </Context.Provider>
             );
         });

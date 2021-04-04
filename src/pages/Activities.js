@@ -5,9 +5,9 @@ import clickSound from '../resources/singleClick.mp3';
 import Header from '../components/header/Header';
 import { getStore } from '../state/GlobalState';
 import AddIcon from '@material-ui/icons/Add';
-import LightActivity from '../components/panels/LightActivityPanel';
+import LightActivity from './Activities/LightActivity';
 import { getScheduledTasks } from '../utilities/RestApi';
-import CreateNewActivityPanel from '../components/panels/CreateNewActivityPanel';
+import CreateNewActivityPanel from './Activities/CreateNewActivity';
 import './Activities.css';
 
 
@@ -46,6 +46,7 @@ export default function ActivitiesPage() {
                         <CreateNewActivityPanel saveNewTask={() => {setAddTask(false)}} cancelNewTask={() => { setAddTask(false) }} />
                     }
                     {
+                        // TODO: need to map to either light or hvac activity
                         state.tasks.map(x => {
                             return <LightActivity key={`${x.alarm_group_name}-${x.alarm_days}-${x.alarm_time}`} task={x} />
                         })
