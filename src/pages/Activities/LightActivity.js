@@ -85,8 +85,8 @@ export default function LightActivity(props) {
                             <div className="settings-row alarm-column-one">
                                 <p className="setting panel-header-text alarm-time">{time.slice(0, -3)}</p>
                             </div>
-                            <div className="settings-row alarm-row">
-                                <p className="setting text alarm-group-name">{props.task.alarm_group_name}</p>
+                            <div className="settings-row alarm-column-two">
+                                <p className="setting text alarm-group-name">{props.task.task_type}</p>
                             </div>
                         </div>
                         <div className="alarm-setting-group">
