@@ -12,7 +12,7 @@ import { deleteScheduledTask, updateScheduledTasks } from '../../utilities/RestA
 import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary, Divider, Switch, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 
 
-export default function LightActivityPanel(props) {
+export default function LightActivity(props) {
     const initialDays = [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }];
     const [click] = useSound(ClickSound, { volume: 0.25 });
     const [singleClick] = useSound(SingleClickSound, { volume: 0.25 });
