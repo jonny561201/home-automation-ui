@@ -1,9 +1,9 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
 import { render, screen, act } from '@testing-library/react';
-import * as lib from '../../../utilities/RestApi';
-import GarageDoor from "../../../components/segments/GarageDoor";
-import { Context } from '../../../state/Store';
+import * as lib from '../../../../utilities/RestApi';
+import GarageDoor from '../../../../pages/Home/segments/GarageDoor';
+import { Context } from '../../../../state/Store';
 
 
 describe('Garage Door', () => {

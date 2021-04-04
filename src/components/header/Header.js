@@ -4,7 +4,7 @@ import AccountIcon from './AccountIcon';
 import AccountMenu from '../header/AccountMenu';
 import './Header.css';
 import { getStore } from '../../state/GlobalState';
-import UserLocation from '../segments/UserLocation';
+import UserLocation from '../../pages/Home/segments/UserLocation';
 
 
 export default function Header() {

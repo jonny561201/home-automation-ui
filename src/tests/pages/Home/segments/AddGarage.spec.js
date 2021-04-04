@@ -1,7 +1,7 @@
 import React from 'react';
-import { Context } from '../../../state/Store';
-import * as lib from '../../../utilities/RestApi';
-import AddGarage from "../../../components/segments/AddGarage";
+import { Context } from '../../../../state/Store';
+import * as lib from '../../../../utilities/RestApi';
+import AddGarage from '../../../../pages/Home/segments/AddGarage';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 
 

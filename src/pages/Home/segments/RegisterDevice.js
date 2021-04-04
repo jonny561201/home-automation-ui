@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { TextField } from '@material-ui/core';
-import { isValidIpAddress, debounchApi } from '../../utilities/Services';
-import { addUserDevice } from '../../utilities/RestApi';
+import { isValidIpAddress, debounchApi } from '../../../utilities/Services';
+import { addUserDevice } from '../../../utilities/RestApi';
 import CloseIcon from '@material-ui/icons/Close';
 import AddGarage from './AddGarage';
 import './RegisterDevice.css';
-import { Context } from '../../state/Store';
+import { Context } from '../../../state/Store';
 
 
 export default function RegisterDevice(props) {

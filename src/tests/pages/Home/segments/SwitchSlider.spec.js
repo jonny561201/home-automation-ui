@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, act, fireEvent, screen } from '@testing-library/react';
-import * as lib from '../../../utilities/RestApi';
-import { Context } from '../../../state/Store';
-import SwitchSlider from '../../../components/segments/SwitchSlider';
+import * as lib from '../../../../utilities/RestApi';
+import { Context } from '../../../../state/Store';
+import SwitchSlider from '../../../../pages/Home/segments/SwitchSlider';
 
 
 describe('SwitchSlider', () => {

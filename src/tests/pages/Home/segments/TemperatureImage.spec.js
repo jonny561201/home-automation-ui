@@ -1,7 +1,7 @@
 import React from 'react';
-import { Context } from '../../../state/Store';
+import { Context } from '../../../../state/Store';
 import * as lib from 'sunrise-sunset-js';
-import TemperatureImage from '../../../components/segments/TemperatureImage';
+import TemperatureImage from '../../../../pages/Home/segments/TemperatureImage';
 import { render, screen, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 

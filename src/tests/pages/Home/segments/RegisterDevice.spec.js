@@ -1,9 +1,9 @@
 import React from 'react';
 import { render, screen, act, fireEvent } from '@testing-library/react';
-import * as lib from '../../../utilities/Services';
-import * as api from '../../../utilities/RestApi'
-import RegisterDevice from '../../../components/segments/RegisterDevice';
-import { Context } from '../../../state/Store';
+import * as lib from '../../../../utilities/Services';
+import * as api from '../../../../utilities/RestApi'
+import RegisterDevice from '../../../../pages/Home/segments/RegisterDevice';
+import { Context } from '../../../../state/Store';
 
 
 describe('Register Device', () => {

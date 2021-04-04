@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Context } from '../../state/Store';
-import { useInterval } from '../../utilities/UseInterval';
+import { Context } from '../../../state/Store';
+import { useInterval } from '../../../utilities/UseInterval';
 import useSound from 'use-sound';
-import dingSound from '../../resources/ding.mp3';
-import clickSound from '../../resources/click.mp3';
+import dingSound from '../../../resources/ding.mp3';
+import clickSound from '../../../resources/click.mp3';
 import { ExpansionPanelDetails, ExpansionPanelActions } from '@material-ui/core';
-import { toggleGarageDoor, updateGarageState, getGarageStatus } from '../../utilities/RestApi';
+import { toggleGarageDoor, updateGarageState, getGarageStatus } from '../../../utilities/RestApi';
 
 
 export default function GarageDoor(props) {

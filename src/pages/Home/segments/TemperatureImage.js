@@ -1,20 +1,20 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { isNightTime } from '../../utilities/Services';
-import { useInterval } from '../../utilities/UseInterval';
-import { Context } from '../../state/Store';
-import ClearIcon from '../../resources/weatherIcons/sunny.png';
-import DrizzleIcon from '../../resources/weatherIcons/drizzle.png';
-import CloudyIcon from '../../resources/weatherIcons/cloudy.png';
-import PartlyCloudyIcon from '../../resources/weatherIcons/partly_cloudy.png';
-import PartlyCloudNightIcon from '../../resources/weatherIcons/partly_cloudy_night.png';
-import SnowyIcon from '../../resources/weatherIcons/heavy_snow.png';
-import LightSnowIcon from '../../resources/weatherIcons/light_snow.png';
-import LightRainIcon from '../../resources/weatherIcons/light_rain.png';
-import HeavyRainIcon from '../../resources/weatherIcons/heavy_rain.png';
-import ThunderstormIcon from '../../resources/weatherIcons/thunderstorm.png';
-import HomeIcon from '../../resources/weatherIcons/home.png';
-import ClearNightIcon from '../../resources/weatherIcons/clear_night.png';
-import MistIcon from '../../resources/weatherIcons/misty.png';
+import { isNightTime } from '../../../utilities/Services';
+import { useInterval } from '../../../utilities/UseInterval';
+import { Context } from '../../../state/Store';
+import ClearIcon from '../../../resources/weatherIcons/sunny.png';
+import DrizzleIcon from '../../../resources/weatherIcons/drizzle.png';
+import CloudyIcon from '../../../resources/weatherIcons/cloudy.png';
+import PartlyCloudyIcon from '../../../resources/weatherIcons/partly_cloudy.png';
+import PartlyCloudNightIcon from '../../../resources/weatherIcons/partly_cloudy_night.png';
+import SnowyIcon from '../../../resources/weatherIcons/heavy_snow.png';
+import LightSnowIcon from '../../../resources/weatherIcons/light_snow.png';
+import LightRainIcon from '../../../resources/weatherIcons/light_rain.png';
+import HeavyRainIcon from '../../../resources/weatherIcons/heavy_rain.png';
+import ThunderstormIcon from '../../../resources/weatherIcons/thunderstorm.png';
+import HomeIcon from '../../../resources/weatherIcons/home.png';
+import ClearNightIcon from '../../../resources/weatherIcons/clear_night.png';
+import MistIcon from '../../../resources/weatherIcons/misty.png';
 import './TemperatureImage.css'
 
 

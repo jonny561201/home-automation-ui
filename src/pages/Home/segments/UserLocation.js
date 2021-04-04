@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Context } from '../../state/Store';
+import { Context } from '../../../state/Store';
 import useSound from 'use-sound';
-import dingSound from '../../resources/ding.mp3';
+import dingSound from '../../../resources/ding.mp3';
 import CloseIcon from '@material-ui/icons/Close';
-import { updateGarageState } from '../../utilities/RestApi';
-import { useInterval } from '../../utilities/UseInterval';
-import { calculateDistanceInMeters } from '../../utilities/Location';
+import { updateGarageState } from '../../../utilities/RestApi';
+import { useInterval } from '../../../utilities/UseInterval';
+import { calculateDistanceInMeters } from '../../../utilities/Location';
 import './UserLocation.css';
 
 export default function UserLocation() {

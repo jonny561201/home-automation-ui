@@ -5,7 +5,7 @@ import { getStore } from '../../../state/GlobalState';
 import { debounchApi } from '../../../utilities/Services';
 import { useInterval } from '../../../utilities/UseInterval';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import TemperatureImage from '../../../components/segments/TemperatureImage';
+import TemperatureImage from '../segments/TemperatureImage';
 import singleClickSound from '../../../resources/singleClick.mp3';
 import TemperatureIcon from '../../../resources/panelIcons/TemperatureIcon.png';
 import { getCurrentTemperature, setUserTemperature } from '../../../utilities/RestApi';

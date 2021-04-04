@@ -3,7 +3,7 @@ import { Context } from '../../state/Store';
 import { debounchApi } from '../../utilities/Services';
 import { CustomSlider } from '../../components/controls/Slider';
 import { ButtonBase } from '@material-ui/core';
-import SwitchSlider from '../segments/SwitchSlider';
+import SwitchSlider from '../../pages/Home/segments/SwitchSlider';
 import { setLightGroupState } from '../../utilities/RestApi';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import './LightSwitch.css';

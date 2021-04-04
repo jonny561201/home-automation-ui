@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Context } from '../../state/Store';
-import { debounchApi } from '../../utilities/Services';
-import { setLightState } from '../../utilities/RestApi';
-import { CustomSlider } from '../controls/Slider';
+import { Context } from '../../../state/Store';
+import { debounchApi } from '../../../utilities/Services';
+import { setLightState } from '../../../utilities/RestApi';
+import { CustomSlider } from '../../../components/controls/Slider';
 
 
 export default function SwitchSlider(props) {
