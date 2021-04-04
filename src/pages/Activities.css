@@ -82,7 +82,11 @@
     align-self: center;
 }
 
-.alarm-row {
+.alarm-column-one {
+    flex: 3;
+}
+
+.alarm-column-two {
     flex: 1;
 }
 

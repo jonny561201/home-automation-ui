@@ -82,7 +82,7 @@ export default function LightActivity(props) {
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <div className="alarm-summary-panel">
                         <div className="alarm-setting-group" data-testid="light-alarm-group">
-                            <div className="settings-row alarm-row">
+                            <div className="settings-row alarm-column-one">
                                 <p className="setting panel-header-text alarm-time">{time.slice(0, -3)}</p>
                             </div>
                             <div className="settings-row alarm-row">
@@ -90,10 +90,10 @@ export default function LightActivity(props) {
                             </div>
                         </div>
                         <div className="alarm-setting-group">
-                            <div className="settings-row alarm-row">
+                            <div className="settings-row alarm-column-one">
                                 <p className="setting text measure-unit">{days}</p>
                             </div>
-                            <div className="settings-row alarm-row">
+                            <div className="settings-row alarm-column-two">
                                 <Switch className="task-switch" onClick={(event) => event.stopPropagation()} onFocus={(event) => event.stopPropagation()}
                                     checked={enabled} onChange={toggleTask} color="primary" inputProps={{ 'aria-label': 'primary checkbox' }} />
                             </div>
