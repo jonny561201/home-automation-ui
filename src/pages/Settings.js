@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Header from '../components/header/Header';
 import { getStore } from '../state/GlobalState';
 import { getUserPreferences } from '../utilities/RestApi';
-import SettingsPanel from '../components/panels/SettingsPanel';
-import SettingsEditPanel from '../components/panels/SettingsEditPanel';
+import SettingsPanel from './Settings/SettingsPanel';
+import SettingsEditPanel from './Settings/SettingsEditPanel';
 import './Settings.css'
 
 
