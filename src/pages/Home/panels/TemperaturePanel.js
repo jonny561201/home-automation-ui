@@ -9,8 +9,9 @@ import TemperatureImage from '../segments/TemperatureImage';
 import singleClickSound from '../../../resources/singleClick.mp3';
 import TemperatureIcon from '../../../resources/panelIcons/TemperatureIcon.png';
 import { getCurrentTemperature, setUserTemperature } from '../../../utilities/RestApi';
-import { ExpansionPanel, Typography, ExpansionPanelSummary, Divider, FormControl, FormGroup, Switch, FormControlLabel } from '@material-ui/core';
+import { ExpansionPanel, Typography, ExpansionPanelSummary, Divider, FormControl, FormGroup, FormControlLabel } from '@material-ui/core';
 import './TemperaturePanel.css';
+import { AutoSwitch, CoolSwitch, HeatSwitch } from '../../../components/controls/Switches';
 
 
 export default function TemperaturePanel() {
@@ -125,10 +126,19 @@ export default function TemperaturePanel() {
                                 onChange={knobChange} angleArc={240} angleOffset={240} min={minThermostatTemp} max={maxThermostatTemp} />
                             <FormControl>
                                 <FormGroup>
-                                    <FormControlLabel label="Heat" control={<Switch data-testid={"heating-switch"} color="secondary" checked={isHeating} onChange={() => toggleHvac("heating")} />} />
-                                    <FormControlLabel label="Cool" control={<Switch data-testid={"cooling-switch"} color="primary" checked={isCooling} onChange={() => toggleHvac("cooling")} />} />
+                                    <FormControlLabel label="Heat" control={<HeatSwitch data-testid={"heating-switch"} checked={isHeating} onChange={() => toggleHvac("heating")} />} />
+                                    <FormControlLabel label="Cool" control={<CoolSwitch data-testid={"cooling-switch"} checked={isCooling} onChange={() => toggleHvac("cooling")} />} />
                                 </FormGroup>
                             </FormControl>
+                            {
+                                !isAuto &&
+                                <FormControl>
+                                    <FormGroup>
+                                        <FormControlLabel label="Heat" control={<HeatSwitch data-testid={"heating-switch"} checked={isHeating} onChange={() => toggleHvac("heating")} />} />
+                                        <FormControlLabel label="Cool" control={<CoolSwitch data-testid={"cooling-switch"} checked={isCooling} onChange={() => toggleHvac("cooling")} />} />
+                                    </FormGroup>
+                                </FormControl>
+                            }
                         </div>
                     </div>
                 </div>

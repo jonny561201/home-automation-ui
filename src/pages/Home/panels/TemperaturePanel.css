@@ -59,19 +59,3 @@
 .MuiFormLabel-root {
     align-self: center;
 }
-
-.MuiSwitch-colorSecondary.Mui-checked{
-    color: #db5127 !important;
-}
-
-.MuiSwitch-colorSecondary.Mui-checked + .MuiSwitch-track {
-    background-color: #db5127 !important;
-}
-
-.MuiSwitch-colorPrimary.Mui-checked{
-    color: #27aedb !important;
-}
-
-.MuiSwitch-colorPrimary.Mui-checked + .MuiSwitch-track {
-    background-color: #27aedb !important;
-}
