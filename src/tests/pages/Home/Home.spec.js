@@ -1,8 +1,8 @@
 import React from 'react';
-import { Context } from '../../state/Store';
+import { Context } from '../../../state/Store';
 import { render, screen, act } from '@testing-library/react';
-import Home from '../../pages/Home';
-import { getStore } from '../../state/GlobalState';
+import Home from '../../../pages/Home/Home';
+import { getStore } from '../../../state/GlobalState';
 
 describe('Home', () => {
 

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import Login from '../../pages/Login';
 import PrivateRoute from '../routes/PrivateRoutes';
-import Home from '../../pages/Home';
+import Home from '../../pages/Home/Home';
 import Activities from '../../pages/Activities/Activities';
 import Account from '../../pages/Account/Account';
 import Settings from '../../pages/Settings';
