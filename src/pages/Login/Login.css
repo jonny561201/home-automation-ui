@@ -29,6 +29,11 @@
     }
 }
 
+/* .login-header:hover {
+    height: 4rem;
+    transition: 0.5s ease-out;
+} */
+
 .login-header {
     padding: 1rem;
     flex-grow: 1;
@@ -37,6 +42,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: height 0.5s ease-in;
+    height: 10rem;
 }
 
 h1 {

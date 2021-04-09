@@ -1,9 +1,8 @@
 import React from 'react';
 import './Login.css';
-// import '../components/header/UserPass';
-import LogoHeader from '../components/header/LogoHeader';
-import UserPass from './Login/UserPass';
-import { getStore } from '../state/GlobalState';
+import LogoHeader from '../../components/header/LogoHeader';
+import UserPass from './UserPass';
+import { getStore } from '../../state/GlobalState';
 
 
 export default function Login() {

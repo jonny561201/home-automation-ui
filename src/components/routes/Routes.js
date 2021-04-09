@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import Login from '../../pages/Login';
+import Login from '../../pages/Login/Login';
 import PrivateRoute from '../routes/PrivateRoutes';
 import Home from '../../pages/Home/Home';
 import Activities from '../../pages/Activities/Activities';

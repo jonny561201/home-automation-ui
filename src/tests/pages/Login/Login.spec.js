@@ -1,6 +1,6 @@
 import React from 'react';
-import Login from '../../pages/Login';
-import { Context } from '../../state/Store';
+import Login from '../../../pages/Login/Login';
+import { Context } from '../../../state/Store';
 import { render, screen, act } from '@testing-library/react';
 
 describe('Login Component', () => {
