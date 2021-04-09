@@ -1,8 +1,8 @@
 import React from 'react';
 import './Login.css';
-import '../components/header/UserPass';
+// import '../components/header/UserPass';
 import LogoHeader from '../components/header/LogoHeader';
-import UserPass from '../components/header/UserPass';
+import UserPass from './Login/UserPass';
 import { getStore } from '../state/GlobalState';
 
 
