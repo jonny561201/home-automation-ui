@@ -1,9 +1,9 @@
 import React from 'react';
-import { Context } from '../../state/Store';
-import * as lib from '../../utilities/RestApi';
-import { getStore } from '../../state/GlobalState';
+import { Context } from '../../../state/Store';
+import * as lib from '../../../utilities/RestApi';
+import { getStore } from '../../../state/GlobalState';
 import { render, screen, act } from '@testing-library/react';
-import ActivitiesPage from '../../pages/Activities';
+import ActivitiesPage from '../../../pages/Activities/Activities';
 
 
 describe('Activities Page', () => {

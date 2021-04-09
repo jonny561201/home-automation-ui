@@ -1,14 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Context } from '../state/Store';
+import { Context } from '../../state/Store';
 import useSound from 'use-sound';
-import clickSound from '../resources/singleClick.mp3';
-import Header from '../components/header/Header';
-import { getStore } from '../state/GlobalState';
+import clickSound from '../../resources/singleClick.mp3';
+import Header from '../../components/header/Header';
+import { getStore } from '../../state/GlobalState';
 import AddIcon from '@material-ui/icons/Add';
-import LightActivity from './Activities/LightActivity';
-import HvacActivity from '../pages/Activities/HvacActivity';
-import { getScheduledTasks } from '../utilities/RestApi';
-import CreateNewActivityPanel from './Activities/CreateNewActivity';
+import LightActivity from './LightActivity';
+import HvacActivity from './HvacActivity';
+import { getScheduledTasks } from '../../utilities/RestApi';
+import CreateNewActivityPanel from './CreateNewActivity';
 import './Activities.css';
 
 
