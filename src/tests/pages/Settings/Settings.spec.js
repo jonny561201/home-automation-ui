@@ -1,8 +1,8 @@
 import React from 'react';
-import { Context } from '../../state/Store';
-import Settings from '../../pages/Settings'
-import * as lib from '../../utilities/RestApi';
-import { getStore } from '../../state/GlobalState';
+import { Context } from '../../../state/Store';
+import Settings from '../../../pages/Settings/Settings'
+import * as lib from '../../../utilities/RestApi';
+import { getStore } from '../../../state/GlobalState';
 import { render, screen, act, fireEvent } from '@testing-library/react';
 
 

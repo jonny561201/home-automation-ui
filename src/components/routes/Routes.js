@@ -4,7 +4,7 @@ import PrivateRoute from '../routes/PrivateRoutes';
 import Home from '../../pages/Home/Home';
 import Activities from '../../pages/Activities/Activities';
 import Account from '../../pages/Account/Account';
-import Settings from '../../pages/Settings';
+import Settings from '../../pages/Settings/Settings';
 import { Context } from '../../state/Store';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../components/header/Header';
-import { getStore } from '../state/GlobalState';
-import { getUserPreferences } from '../utilities/RestApi';
-import SettingsPanel from './Settings/SettingsPanel';
-import SettingsEditPanel from './Settings/SettingsEditPanel';
+import Header from '../../components/header/Header';
+import { getStore } from '../../state/GlobalState';
+import { getUserPreferences } from '../../utilities/RestApi';
+import SettingsPanel from './SettingsPanel';
+import SettingsEditPanel from './SettingsEditPanel';
 import './Settings.css'
 
 
