@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { getStore } from '../state/GlobalState';
+import { getStore } from '../../state/GlobalState';
 import useSound from 'use-sound';
-import clickSound from '../resources/click.mp3';
-import Header from '../components/header/Header';
+import clickSound from '../../resources/click.mp3';
+import Header from '../../components/header/Header';
 import { Divider, TextField } from '@material-ui/core';
 import { CheckCircle, Error } from '@material-ui/icons';
-import { updateUserAccount } from '../utilities/RestApi';
-import AccountChildUser from '../pages/Account/AccountChildUser';
+import { updateUserAccount } from '../../utilities/RestApi';
+import AccountChildUser from '../../pages/Account/AccountChildUser';
 import './Account.css';
 
 

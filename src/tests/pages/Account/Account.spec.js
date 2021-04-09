@@ -1,8 +1,8 @@
 import React from 'react';
-import { Context } from '../../state/Store';
-import Account from '../../pages/Account';
-import * as lib from '../../utilities/RestApi';
-import { getStore } from '../../state/GlobalState';
+import { Context } from '../../../state/Store';
+import Account from '../../../pages/Account/Account';
+import * as lib from '../../../utilities/RestApi';
+import { getStore } from '../../../state/GlobalState';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 
 describe('Account Page', () => {
