@@ -6,6 +6,7 @@ import { ButtonBase } from '@material-ui/core';
 import SwitchSlider from '../../pages/Home/segments/SwitchSlider';
 import { setLightGroupState } from '../../utilities/RestApi';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import BrightnessIcon from '../../resources/panelIcons/BrightnessHigh.png';
 import './LightSwitch.css';
 
 export default function LightSwitch(props) {
@@ -18,16 +19,16 @@ export default function LightSwitch(props) {
 
     const sliderToggleLightGroup = async (event, value) => {
         const newBrightness = Math.round(value * 2.55);
-        const updatedLights = state.userLights.map(x => x.groupId === groupId ? {...x, brightness: newBrightness} : x);
+        const updatedLights = state.userLights.map(x => x.groupId === groupId ? { ...x, brightness: newBrightness } : x);
         debounchApi(() => setLightGroupState(groupId, true, newBrightness));
-        dispatch({type: 'SET_ALL_USER_LIGHTS', payload: updatedLights});
+        dispatch({ type: 'SET_ALL_USER_LIGHTS', payload: updatedLights });
         setBrightness(value)
     };
 
     const getLightSwitches = () => {
         if (lights && lights.length > 0) {
             return lights.map(x => (
-                <SwitchSlider key={`switch-${x.lightId}`}  data={x} lightId={x.lightId} />
+                <SwitchSlider key={`switch-${x.lightId}`} data={x} lightId={x.lightId} />
             ));
         }
         return <p className="panel-text text">No lights assigned to group</p>
@@ -43,6 +44,7 @@ export default function LightSwitch(props) {
                 </ButtonBase>
                 <p className="light-text text">{groupName}</p>
                 <CustomSlider data-testid={"light-group-switch"} onChange={sliderToggleLightGroup} value={brightness} valueLabelDisplay="auto" aria-label="slider" />
+                <img alt="brightness" className="brightness-image" src={BrightnessIcon} />
             </div>
             {areLightsOpen
                 ? <div data-testid={"light-group-expansion"} className="light-group-expansion">{getLightSwitches()}</div>
