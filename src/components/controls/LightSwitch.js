@@ -11,7 +11,7 @@ import './LightSwitch.css';
 
 export default function LightSwitch(props) {
     const [state, dispatch] = useContext(Context);
-    const [lights, ] = useState(props.data.lights);
+    const [lights,] = useState(props.data.lights);
     const [groupId,] = useState(props.data.groupId);
     const [groupName,] = useState(props.data.groupName);
     const [brightness, setBrightness] = useState(Math.round(props.data.brightness / 2.55));

@@ -15,11 +15,12 @@ import { AutoSwitch, CoolSwitch, HeatSwitch } from '../../../components/controls
 
 
 export default function TemperaturePanel() {
-    const [click] = useSound(singleClickSound, {volume: 0.25});
+    const [click] = useSound(singleClickSound, { volume: 0.25 });
     const [open, setOpen] = useState(false);
     const [mode, setMode] = useState("heating");
     const [description, setDescription] = useState("");
     const [displayColor, setDisplayColor] = useState("#A0A0A0");
+    const [isAuto, setIsAuto] = useState(false);
     const [isHeating, setIsHeating] = useState(false);
     const [isCooling, setIsCooling] = useState(false);
     const [isFahrenheit, setIsFahrenheit] = useState(true);
@@ -47,6 +48,7 @@ export default function TemperaturePanel() {
         setMaxThermostatTemp(response.maxThermostatTemp);
         setIsCooling(response.mode === "cooling" ? true : false);
         setIsHeating(response.mode === "heating" ? true : false);
+        setIsAuto(response.mode === "auto" ? true : false);
         setMode(response.mode);
         setDescription(response.description);
         toggleColor(response.mode);
@@ -63,19 +65,23 @@ export default function TemperaturePanel() {
         click();
         const heatState = (newMode === "heating" && !isHeating) ? true : false
         const coldState = (newMode === "cooling" && !isCooling) ? true : false;
-        const modeState = getToggledMode(heatState, coldState);
+        const autoState = (newMode === "auto" && !isAuto) ? true : false;
+        const modeState = getToggledMode(heatState, coldState, autoState);
         setIsHeating(heatState);
         setIsCooling(coldState);
+        setIsAuto(autoState)
         setMode(newMode);
         toggleColor(modeState);
         setUserTemperature(getStore().getUserId(), desiredTemp, modeState, isFahrenheit);
     }
 
-    const getToggledMode = (heatState, coldState) => {
+    const getToggledMode = (heatState, coldState, autoState) => {
         if (heatState)
             return "heating";
         else if (coldState)
             return "cooling";
+        else if (autoState)
+            return "auto";
         return null;
     }
 
@@ -84,6 +90,8 @@ export default function TemperaturePanel() {
             setDisplayColor("#27aedb");
         else if (mode === "heating")
             setDisplayColor("#db5127");
+        else if (mode === "auto")
+            setDisplayColor("#00c774");
         else
             setDisplayColor("#A0A0A0");
     }
@@ -126,8 +134,7 @@ export default function TemperaturePanel() {
                                 onChange={knobChange} angleArc={240} angleOffset={240} min={minThermostatTemp} max={maxThermostatTemp} />
                             <FormControl>
                                 <FormGroup>
-                                    <FormControlLabel label="Heat" control={<HeatSwitch data-testid={"heating-switch"} checked={isHeating} onChange={() => toggleHvac("heating")} />} />
-                                    <FormControlLabel label="Cool" control={<CoolSwitch data-testid={"cooling-switch"} checked={isCooling} onChange={() => toggleHvac("cooling")} />} />
+                                    <FormControlLabel label="Auto" control={<AutoSwitch data-testid={"auto-switch"} checked={isAuto} onChange={() => toggleHvac("auto")} />} />
                                 </FormGroup>
                             </FormControl>
                             {
