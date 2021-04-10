@@ -21,6 +21,10 @@
 }
 
 .light-text {
+    width: 100px;
+}
+
+.light-text-small {
     font-size: 0.7rem;
     width: 100px;
 }
