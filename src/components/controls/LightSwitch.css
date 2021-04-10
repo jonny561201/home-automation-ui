@@ -31,6 +31,9 @@
 .light-text-small {
     font-size: 0.75rem;
     width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .brightness-image {
