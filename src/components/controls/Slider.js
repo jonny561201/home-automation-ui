@@ -25,7 +25,7 @@ export const CustomSlider = withStyles({
   root: {
     color: '#52af77',
     height: 8,
-    margin: '0 20px 0 20px',
+    margin: '0 15px 0 15px',
   },
   thumb: {
     height: 24,
