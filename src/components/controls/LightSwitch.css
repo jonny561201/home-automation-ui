@@ -24,7 +24,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 140px;
+    width: 135px;
     font-size: 0.9rem;
 }
 
@@ -36,6 +36,7 @@
     white-space: nowrap;
 }
 
-.brightness-image {
-    height: 1rem;
+.brightness-icon {
+    height: 16px !important;
+    width: 16px !important;
 }

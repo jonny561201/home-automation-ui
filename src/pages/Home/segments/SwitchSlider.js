@@ -23,7 +23,7 @@ export default function SwitchSlider(props) {
 
     return (
         <div className="light-group">
-            <p className="light-text text">{light.lightName}</p>
+            <p className="light-text-small text">{light.lightName}</p>
             <CustomSlider data-testid={"light-switch"} onChange={(event, val) => toggleCheckedLight(event, val)} value={Math.round(light.brightness / 2.55)} valueLabelDisplay="auto" aria-label="slider" />
             <div style={{ height: '16px', width: '16px' }} />
         </div>
