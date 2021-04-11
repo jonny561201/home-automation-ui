@@ -37,7 +37,7 @@ export default function TemperatureImage(props) {
     const weatherTypes = {
         "light intensity drizzle": DrizzleIcon, "drizzle": DrizzleIcon, "drizzle rain": DrizzleIcon, "heavy intensity drizzle": DrizzleIcon, "mist": MistIcon,
         "light intensity drizzle rain": DrizzleIcon, "shower drizzle": DrizzleIcon, "light rain": LightRainIcon, "moderate rain": LightRainIcon,
-        "heavy intensity rain": HeavyRainIcon, "very heavy rain": HeavyRainIcon, "extreme rain": HeavyRainIcon, "shower rain": HeavyRainIcon,"light snow": LightSnowIcon, 
+        "heavy intensity rain": HeavyRainIcon, "very heavy rain": HeavyRainIcon, "extreme rain": HeavyRainIcon, "shower rain": HeavyRainIcon, "light snow": LightSnowIcon,
         "heavy intensity shower rain": HeavyRainIcon, "clear sky": ClearIcon, "few clouds": PartlyCloudyIcon, "scattered clouds": PartlyCloudyIcon, "snow": LightSnowIcon,
         "heavy snow": SnowyIcon, "sleet": SnowyIcon, "few clouds night": PartlyCloudNightIcon, "clear sky night": ClearNightIcon, "scattered clouds night": PartlyCloudNightIcon
     };
@@ -66,10 +66,14 @@ export default function TemperatureImage(props) {
 
     return (
         <div className="temp-container">
-            <img className="weather-icon" alt="description" src={weatherIcon} label={weatherDesc} />
-            <p data-testid={"internal-temp"} className="internal-temp text">{props.internal}&deg;</p>
-            <img className="home-icon" alt="home" src={HomeIcon} />
-            <p data-testid={"external-temp"} className="external-temp text">{props.external}&deg;</p>
+            <div className="temp-external-container">
+                <img className="weather-icon" alt="description" src={weatherIcon} label={weatherDesc} />
+                <p data-testid={"external-temp"} className="external-temp text">{props.external}&deg;</p>
+            </div>
+            <div className="temp-home-container">
+                <img className="home-icon" alt="home" src={HomeIcon} />
+                <p data-testid={"internal-temp"} className="internal-temp text">{props.internal}&deg;</p>
+            </div>
         </div>
     );
 }

@@ -3,20 +3,61 @@
 }
 
 .home-icon {
+    height: 100px;
     width: 200px;
 }
 
+.temp-container {
+    display: flex;
+}
+
+.temp-external-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.temp-home-container {
+    align-items: flex-end;
+    display: flex;
+    flex-direction: row;
+}
+
+.internal-temp {
+    position: absolute;
+    top: 63%;
+    left: 42%;
+    font-size: 40px;
+    font-weight: bolder;
+}
+
+.external-temp {
+    margin-left: -1rem;
+    padding-top: 1.5rem;
+    font-size: 30px;
+    font-weight: bolder;
+}
+
 @media (max-width: 479px) {
-    .temp-container {
-        display: flex;
-    }
     .weather-icon {
         height: 150px;
         object-fit: contain;
     }
+
     .home-icon {
         padding-top: 4rem;
         height: 75px;
         object-fit: contain;
+    }
+
+    .external-temp {
+        margin-left: -0.5rem;
+        padding-top: 1rem;
+        font-size: 25px;
+    }
+
+    .internal-temp {
+        font-size: 35px;
+        top: 36%;
+        left: 60%;
     }
 }
