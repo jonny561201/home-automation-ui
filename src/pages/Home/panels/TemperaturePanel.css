@@ -62,22 +62,22 @@
 
 .expansion-enter, .expansion-appear {
   opacity: 0;
-  height: 0px;
+  max-height: 0px;
 }
 
 .expansion-enter-active, .expansion-appear-active {
   opacity: 1;
-  height: 36px;
+  max-height: 40px;
   transition: all 400ms;
 }
 
 .expansion-exit {
   opacity: 1;
-  height: 36px;
+  max-height: 40px;
 }
 
 .expansion-exit-active {
   opacity: 0;
-  height: 0px;
+  max-height: 0px;
   transition: all 400ms;
 }
