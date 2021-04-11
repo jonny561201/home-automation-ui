@@ -23,9 +23,7 @@
 }
 
 .internal-temp {
-    position: absolute;
-    top: 63%;
-    left: 42%;
+    margin: 0 4rem 0 -7.7rem;
     font-size: 40px;
     font-weight: bolder;
 }
@@ -57,7 +55,5 @@
 
     .internal-temp {
         font-size: 35px;
-        top: 36%;
-        left: 60%;
     }
 }
