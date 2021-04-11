@@ -153,7 +153,7 @@ input:focus {
 .expansion-enter-active, .expansion-appear-active {
   opacity: 1;
   max-height: 500px;
-  transition: all 400ms;
+  transition: all 500ms;
 }
 
 .expansion-exit {
@@ -164,5 +164,5 @@ input:focus {
 .expansion-exit-active {
   opacity: 0;
   max-height: 0px;
-  transition: all 400ms;
+  transition: all 500ms;
 }
