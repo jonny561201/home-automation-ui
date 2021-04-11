@@ -35,7 +35,7 @@ export default function LightSwitch(props) {
     };
 
     return (
-        <div data-testid={"light-group"}>
+        <div data-testid="light-group">
             <div className="light-group text">
                 <ButtonBase onClick={() => setLightsOpen(!areLightsOpen)} style={{ "borderRadius": "50%" }}>
                     <div className={`light-chevron ${areLightsOpen ? "expanded" : ""}`}>

@@ -12,6 +12,7 @@ import { getCurrentTemperature, setUserTemperature } from '../../../utilities/Re
 import { ExpansionPanel, Typography, ExpansionPanelSummary, Divider, FormControl, FormGroup, FormControlLabel } from '@material-ui/core';
 import './TemperaturePanel.css';
 import { AutoSwitch, CoolSwitch, HeatSwitch } from '../../../components/controls/Switches';
+import { CSSTransition } from 'react-transition-group';
 
 
 export default function TemperaturePanel() {
@@ -137,15 +138,14 @@ export default function TemperaturePanel() {
                                     <FormControlLabel label="Auto" control={<AutoSwitch data-testid={"auto-switch"} checked={isAuto} onChange={() => toggleHvac("auto")} />} />
                                 </FormGroup>
                             </FormControl>
-                            {
-                                !isAuto &&
+                            <CSSTransition in={!isAuto} timeout={400} classNames="expansion" unmountOnExit appear >
                                 <FormControl>
                                     <FormGroup>
                                         <FormControlLabel label="Heat" control={<HeatSwitch data-testid={"heating-switch"} checked={isHeating} onChange={() => toggleHvac("heating")} />} />
                                         <FormControlLabel label="Cool" control={<CoolSwitch data-testid={"cooling-switch"} checked={isCooling} onChange={() => toggleHvac("cooling")} />} />
                                     </FormGroup>
                                 </FormControl>
-                            }
+                            </CSSTransition>
                         </div>
                     </div>
                 </div>
