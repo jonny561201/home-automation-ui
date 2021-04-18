@@ -67,10 +67,17 @@ input:focus {
   background-color: var(--input-color) !important;
 }
 
+.MuiFormLabel-root.Mui-error {
+  color: #e60000 !important;
+}
+
+.MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
+  border-color: #e60000 !important;
+}
+
 .MuiOutlinedInput-notchedOutline {
   border-color: var(--selected-border-color) !important;
 }
-
 
 .MuiRadio-colorPrimary.Mui-checked {
   color: var(--selected-radio-color) !important;
