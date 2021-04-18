@@ -28,6 +28,8 @@ export default function AccountChildUser() {
         if ((!isEmailInvalid && !isRoleInvalid) && (selectedRole.length !== 0 && email !== null && email !== "")) {
             const response = await addUserChildAccount(getStore().getUserId(), email, selectedRole);
             setTest(response);
+            setEmail("");
+            setSelectedRole([]);
         } else {
             setIsEmailInvalid(email === "" || email === null);
             setIsRoleInvalid(selectedRole.length === 0);
