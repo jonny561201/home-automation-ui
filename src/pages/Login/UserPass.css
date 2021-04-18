@@ -51,7 +51,6 @@ input {
 
 .error-text {
     margin: 2px;
-    height: 16px;
     color: #e60000;
     font-size: 12px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -64,4 +63,14 @@ input {
 
 .error-input {
     border-color: #e60000;
+}
+
+.user-pass-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-pass-input {
+  width: 275px;
 }

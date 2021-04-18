@@ -53,24 +53,24 @@ describe('UserPass', () => {
                 fireEvent.click(screen.getByRole('button'));
             });
             const actual = screen.getByTestId('user-name').className;
-            expect(actual).toEqual('');
+            expect(actual).not.toContain('Mui-error');
         });
 
         it('should display error styles when username is an empty string', async () => {
             await renderComponent();
-            fireEvent.change(screen.getByTestId('user-name'), { target: { value: '' } });
             await act(async () => {
-                fireEvent.click(screen.getByRole('button'));
+                fireEvent.change(screen.getByTestId('user-name'), { target: { value: '' } });
             });
-            const actual = screen.getByTestId('user-name').className;
-            expect(actual).toEqual('error-input');
+            fireEvent.click(screen.getByRole('button'));
+            const actual = screen.getByText('Username').className;
+            expect(actual).toContain('Mui-error');
         });
 
         it('should display error styles when username is undefined', async () => {
             await renderComponent();
             fireEvent.click(screen.getByRole('button'));
-            const actual = screen.getByTestId('password').className;
-            expect(actual).toEqual('error-input');
+            const actual = screen.getByText('Username').className;
+            expect(actual).toContain('Mui-error');
         });
 
         it('should not display error styles when password is valid', async () => {
@@ -80,7 +80,7 @@ describe('UserPass', () => {
                 fireEvent.click(screen.getByRole('button'));
             });
             const actual = screen.getByTestId('password').className;
-            expect(actual).toEqual('');
+            expect(actual).not.toContain('Mui-error');
         });
 
         it('should display error styles when password is an empty string', async () => {
@@ -89,15 +89,15 @@ describe('UserPass', () => {
                 fireEvent.change(screen.getByTestId('password'), { target: { value: '' } });
             });
             fireEvent.click(screen.getByRole('button'));
-            const actual = screen.getByTestId('password').className;
-            expect(actual).toEqual('error-input');
+            const actual = screen.getByText('Password').className;
+            expect(actual).toContain('Mui-error');
         });
 
         it('should display error styles when password is undefined', async () => {
             await renderComponent();
             fireEvent.click(screen.getByRole('button'));
-            const actual = screen.getByTestId('password').className;
-            expect(actual).toEqual('error-input');
+            const actual = screen.getByText('Password').className;
+            expect(actual).toContain('Mui-error');
         });
 
         it('should make api call to get bearer token when user and pass are valid', async () => {

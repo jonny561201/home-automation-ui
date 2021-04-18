@@ -5,6 +5,7 @@ import clickSound from '../../resources/click.mp3';
 import { Redirect } from 'react-router-dom';
 import { Context } from '../../state/Store';
 import { getBearerToken } from '../../utilities/RestApi';
+import { TextField } from '@material-ui/core';
 import './UserPass.css';
 
 
@@ -63,15 +64,13 @@ export default function UserPass() {
     }
     return (
         <div>
-            <form onSubmit={validateCredentials}>
+            <form onSubmit={validateCredentials} className="user-pass-body">
                 <div className="column">
-                    <input data-testid={"user-name"} className={(isUsernameInvalid ? 'error-input' : '')} onChange={(event) => setUsername(event.target.value)} type="text" name="Username" placeholder="Username" />
+                    <TextField inputProps={{"data-testid": "user-name"}} className="user-pass-input" error={isUsernameInvalid} onChange={(event) => setUsername(event.target.value)} value={username} variant="outlined" label="Username"/>
                 </div>
-                <p></p>
                 <div className="column">
-                    <input data-testid={"password"} className={(isPasswordInvalid ? 'error-input' : '')} onChange={(event) => setPassword(event.target.value)} type="password" name="Password" placeholder="Password" />
+                    <TextField inputProps={{"data-testid":"password"}} className="user-pass-input" error={isPasswordInvalid} onChange={(event) => setPassword(event.target.value)} value={password} variant="outlined" label="Password" type="password"/>
                 </div>
-                <p></p>
                 <div className="error-text">
                     {isValidLogin
                         ? <p></p>
