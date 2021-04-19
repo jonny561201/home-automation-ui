@@ -3,7 +3,7 @@ import { getStore } from '../../state/GlobalState';
 import { addUserChildAccount, getUserChildAccounts, deleteUserChildAccount } from '../../utilities/RestApi';
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
-import { Divider, MenuItem, Select, InputLabel, Input, FormControl, Chip } from '@material-ui/core';
+import { Divider, MenuItem, Select, InputLabel, Input, FormControl, Checkbox, TextField, ListItemText } from '@material-ui/core';
 import "./AccountChildUser.css"
 
 export default function AccountChildUser() {
@@ -74,22 +74,17 @@ export default function AccountChildUser() {
                         ))}
                         <tr>
                             <td>
-                                <input data-testid="email-account-user" className={(isEmailInvalid ? "input-error" : "")} onChange={(input) => validateEmail(input)} name="Email" placeholder="Email" />
+                                <TextField inputProps={{"data-testid":"email-account-user"}} error={isEmailInvalid} onChange={(input) => validateEmail(input)} value={email} label="Email" />
                             </td>
                             <td className="account-roles">
                                 <FormControl error={isRoleInvalid}>
                                     <InputLabel className="child-user-label" id="demo-mutiple-name-label">Roles</InputLabel>
                                     <Select className="child-user-input" data-testid="roles-account-user" multiple value={selectedRole} onChange={(input) => validateRole(input)} input={<Input />}
-                                        renderValue={(selectedRole) => (
-                                            <div >
-                                                {selectedRole.map((value) => (
-                                                    <Chip key={value} label={value} />
-                                                ))}
-                                            </div>
-                                        )}>
+                                        renderValue={(selectedRole) => (selectedRole.join(', '))}>
                                         {roles.map((role) => (
                                             <MenuItem key={role.role_name} value={role.role_name}>
-                                                {role.role_name}
+                                                <Checkbox checked={selectedRole.indexOf(role.role_name) > -1} />
+                                                <ListItemText primary={role.role_name} />
                                             </MenuItem>
                                         ))}
                                     </Select>
