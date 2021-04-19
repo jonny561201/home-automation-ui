@@ -101,11 +101,3 @@ input:focus {
 .input-error {
     border-color: #e60000;
 }
-
-.child-user-label {
-    top: -1rem !important;
-}
-
-.child-user-input {
-    margin-top: 0 !important;
-}
