@@ -47,6 +47,12 @@ describe('Settings Page', () => {
         expect(actual).toEqual('Settings');
     });
 
+    it('should display preferences text', async () => {
+        await renderComponent();
+        const actual = screen.getByText('Preferences').textContent;
+        expect(actual).toEqual('Preferences');
+    });
+
     it('should display the settings panel by default', async () => {
         await renderComponent();
         const actual = screen.getByRole('button').textContent;

@@ -1,23 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import useSound from 'use-sound';
 import clickSound from '../../resources/click.mp3';
 import { getStore } from '../../state/GlobalState';
 import { updateUserPreferences } from '../../utilities/RestApi';
-import { Divider, TextField, FormControlLabel, RadioGroup, FormControl, Radio, Switch } from '@material-ui/core';
+import { Divider, TextField, FormControlLabel, RadioGroup, FormControl, Radio } from '@material-ui/core';
 import './SettingsEditPanel.css'
 
 
 export default function SettingsEditPanel(props) {
     const [click] = useSound(clickSound, { volume: 0.25 });
     const [edited, setEdited] = useState();
-    const [darkMode, setDarkMode] = useState(false);
     const [newCity, setNewCity] = useState(props.city);
     const [newTempUnit, setNewTempUnit] = useState(props.tempUnit);
     const [newMeasureUnit, setNewMeasureUnit] = useState(props.measureUnit);
-
-    useEffect(() => {
-        setDarkMode(localStorage.getItem('theme') === 'theme-dark');
-    }, []);
 
     const savePreferences = () => {
         click();
@@ -55,20 +50,8 @@ export default function SettingsEditPanel(props) {
         setNewMeasureUnit(input.target.value);
     }
 
-    const setTheme = (themeName, isDark) =>  {
-        localStorage.setItem('theme', themeName);
-        document.documentElement.className = themeName;
-        setDarkMode(isDark);
-    }
-
-    const toggleDarkMode = () => {
-        localStorage.getItem('theme') === 'theme-dark'
-        ? setTheme('theme-light', false)
-        : setTheme('theme-dark', true)
-    }
-
     return (
-        <div className="settings-wrapper body">
+        <>
             <div className="settings-group setting text">
                 <h2 className="panel-header-text">Temperature</h2>
                 <Divider />
@@ -93,17 +76,12 @@ export default function SettingsEditPanel(props) {
                         </RadioGroup>
                     </FormControl>
                 </div>
-                <div className="settings-row">
-                    <FormControl>
-                        <FormControlLabel label="Dark Mode" control={<Switch onChange={toggleDarkMode} checked={darkMode}/>}/>
-                    </FormControl>
-                </div>
             </div>
             <Divider />
             <div className="settings-button-group">
                 <button className="submit success-ripple" disabled={!edited} onClick={savePreferences}>Save</button>
                 <button className="cancel cancel-ripple" onClick={cancelPreferences}>Cancel</button>
             </div>
-        </div>
+        </>
     );
 }
