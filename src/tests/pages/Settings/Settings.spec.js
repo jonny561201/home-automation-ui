@@ -53,6 +53,18 @@ describe('Settings Page', () => {
         expect(actual).toEqual('Preferences');
     });
 
+    it('should use the css variable to toggle dark mode', async () => {
+        await renderComponent();
+        const actual = screen.getByText('Dark Mode');
+        expect(actual).toHaveStyle('color: var(--font-color)');
+    });
+
+    it('should display the dark mode radio button', async () => {
+        await renderComponent();
+        const actual = screen.getByRole('checkbox');
+        expect(actual).toBeDefined();
+    });
+
     it('should display the settings panel by default', async () => {
         await renderComponent();
         const actual = screen.getByRole('button').textContent;
