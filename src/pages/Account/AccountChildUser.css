@@ -72,10 +72,18 @@ table {
     justify-content: space-between;
 }
 
-td, tr {
-    display: flex;
-    flex: 1 1 0px;
+@media (max-width: 479px) {
+    td, tr {
+        flex: 0;
+    }
 
+    td {
+        max-width: 160px;
+    }
+}
+
+td {
+    max-width: 250px;
 }
 
 tr {
