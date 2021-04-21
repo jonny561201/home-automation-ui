@@ -72,5 +72,11 @@ input {
 }
 
 .user-pass-input {
-  width: 275px;
+  width: 270px;
+}
+
+@media (max-width: 479px) {
+  .user-pass-input {
+    width: 300px;
+  }
 }
