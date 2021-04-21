@@ -8,8 +8,8 @@
     background-color: lightgray;
     cursor: pointer;
     border-radius: 2rem;
-    width: 2.4rem !important;
-    height: 2.4rem !important; 
+    width: 2rem !important;
+    height: 2rem !important; 
     transition: transform 250ms;
 }
 
@@ -25,20 +25,20 @@
 }
 
 .table-delete-user-minus {
-    height: 2.4rem !important;
-    width: 2.4rem !important;
+    height: 2rem !important;
+    width: 2rem !important;
     color: white;
 }
 
 .table-add-user-plus {
-    height: 2.4rem !important;
-    width: 2.4rem !important;
+    height: 2rem !important;
+    width: 2rem !important;
     color: white;
 }
 
 .user-button-border {
-    height: 2.8rem;
-    width: 2.8rem;
+    height: 2.3rem;
+    width: 2.3rem;
     border-radius: 2rem;
     justify-content: center;
     display: flex;
@@ -51,8 +51,8 @@
     display: flex;
     justify-content: center;
     border-radius: 2rem;
-    height: 2.4rem;
-    width: 2.4rem;
+    height: 2rem;
+    width: 2rem;
     background-color: #00c774;
     transition: transform 250ms;
 }
@@ -80,6 +80,7 @@ td, tr {
 
 tr {
     margin-top: 0.5rem;
+    align-items: center;
 }
 
 .table-header {
