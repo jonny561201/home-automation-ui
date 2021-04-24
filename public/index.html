@@ -9,18 +9,6 @@
   <link rel="apple-touch-icon" href="logo192.png" />
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
   <title>Home Automation</title>
-  <script>
-    function setTheme(themeName) {
-      localStorage.setItem('theme', themeName);
-      document.documentElement.className = themeName;
-    }
-
-    (function () {
-      localStorage.getItem('theme') === 'theme-dark'
-        ? setTheme('theme-dark')
-        : setTheme('theme-light')
-    })();
-  </script>
 </head>
 
 <body>
