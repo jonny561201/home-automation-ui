@@ -23,7 +23,7 @@ export default function Header() {
           ? setTheme('theme-dark')
           : setTheme('theme-light')
         }
-    }, 5000);
+    }, 60000);
 
     return (
         <div className="header">
