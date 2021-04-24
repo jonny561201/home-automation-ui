@@ -12,8 +12,8 @@ import './UserPass.css';
 export default function UserPass() {
     const [click] = useSound(clickSound, {volume: 0.25});
     const [state, dispatch] = useContext(Context);
-    const [username, setUsername] = useState(undefined);
-    const [password, setPassword] = useState(undefined);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const [isUsernameInvalid, setIsUsernameInvalid] = useState(undefined);
     const [isPasswordInvalid, setIsPasswordInvalid] = useState(undefined);
     const [isValidLogin, setIsValidLogin] = useState(true);
@@ -21,8 +21,8 @@ export default function UserPass() {
     const validateCredentials = async (event) => {
         event.preventDefault();
         click();
-        const userInvalid = username == null || username === '';
-        const passInvalid = password == null || password === '';
+        const userInvalid = username === '';
+        const passInvalid = password === '';
         setIsUsernameInvalid(userInvalid);
         setIsPasswordInvalid(passInvalid)
         await getBearerTokenFromLogin(userInvalid, passInvalid);
