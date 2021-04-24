@@ -67,7 +67,7 @@ export const toggleDarkMode = () => {
 }
 
 
-const setTheme = (themeName) =>  {
+export const setTheme = (themeName) =>  {
     localStorage.setItem('theme', themeName);
     document.documentElement.className = themeName;
 }
