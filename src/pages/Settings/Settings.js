@@ -3,6 +3,7 @@ import Header from '../../components/header/Header';
 import { getStore } from '../../state/GlobalState';
 import { getUserPreferences } from '../../utilities/RestApi';
 import SettingsPanel from './SettingsPanel';
+import { toggleDarkMode } from '../../utilities/Services';
 import SettingsEditPanel from './SettingsEditPanel';
 import { HeatSwitch } from '../../components/controls/Switches';
 import { FormControlLabel, FormControl } from '@material-ui/core';
@@ -33,16 +34,9 @@ export default function Settings() {
         setEditMode(!isEditMode);
     }
 
-    const setTheme = (themeName, isDark) =>  {
-        localStorage.setItem('theme', themeName);
-        document.documentElement.className = themeName;
-        setDarkMode(isDark);
-    }
-
-    const toggleDarkMode = () => {
-        localStorage.getItem('theme') === 'theme-dark'
-        ? setTheme('theme-light', false)
-        : setTheme('theme-dark', true)
+    const toggleTheme = () => {
+        toggleDarkMode()
+        setDarkMode(!darkMode);
     }
 
     return (
@@ -57,7 +51,7 @@ export default function Settings() {
                 </div>
                 <div className="settings-row text">
                     <FormControl>
-                        <FormControlLabel label="Dark Mode" control={<HeatSwitch onChange={toggleDarkMode} checked={darkMode}/>}/>
+                        <FormControlLabel label="Dark Mode" control={<HeatSwitch onChange={toggleTheme} checked={darkMode}/>}/>
                     </FormControl>
                 </div>
                     {isEditMode

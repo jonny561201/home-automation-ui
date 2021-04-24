@@ -59,3 +59,15 @@ const calculateSunset = (latitude, longitude) => {
         return getSunset(latitude, longitude, today);
     }
 }
+
+export const toggleDarkMode = () => {
+    localStorage.getItem('theme') === 'theme-dark'
+    ? setTheme('theme-light')
+    : setTheme('theme-dark')
+}
+
+
+const setTheme = (themeName) =>  {
+    localStorage.setItem('theme', themeName);
+    document.documentElement.className = themeName;
+}
