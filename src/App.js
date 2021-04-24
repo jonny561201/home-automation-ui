@@ -6,7 +6,6 @@ import { setTheme } from './utilities/Services';
 
 
 export default function App() {
-
   const theme = localStorage.getItem('theme');
   setTheme(theme);
   

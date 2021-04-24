@@ -3,7 +3,7 @@ import Header from '../../components/header/Header';
 import { getStore } from '../../state/GlobalState';
 import { getUserPreferences } from '../../utilities/RestApi';
 import SettingsPanel from './SettingsPanel';
-import { toggleDarkMode } from '../../utilities/Services';
+import { setTheme, toggleDarkMode } from '../../utilities/Services';
 import SettingsEditPanel from './SettingsEditPanel';
 import { CoolSwitch, HeatSwitch } from '../../components/controls/Switches';
 import { FormControlLabel, FormControl } from '@material-ui/core';
@@ -43,7 +43,9 @@ export default function Settings() {
 
     const toggleAutoTheme = () => {
         localStorage.setItem('auto-theme', !isAutoMode);
-        setIsAutoMode(!isAutoMode)
+        setIsAutoMode(!isAutoMode);
+        if (!isAutoMode === false && !darkMode)
+            setTheme('theme-light');
     }
 
     return (

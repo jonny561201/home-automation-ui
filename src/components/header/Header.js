@@ -1,16 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import LogoHeader from '../header/LogoHeader';
 import AccountIcon from './AccountIcon';
+import { Context } from '../../state/Store';
 import AccountMenu from '../header/AccountMenu';
-import './Header.css';
 import { getStore } from '../../state/GlobalState';
+import { setTheme, isNightTime } from '../../utilities/Services';
+import { useInterval } from '.././../utilities/UseInterval';
 import UserLocation from '../../pages/Home/segments/UserLocation';
+import './Header.css';
 
 
 export default function Header() {
+    const [state,] = useContext(Context);
     const activePage = getStore().getActivePage();
     const [settingsActive, setSettingsActive] = useState(null);
     const [accountWrapperRef, setAccountWrapperRef] = useState(null);
+
+    useInterval(async () => {
+        const isAuto = localStorage.getItem('auto-theme');
+        if (isAuto === 'true') {
+          isNightTime(state.garageCoords, state.userCoords)
+          ? setTheme('theme-dark')
+          : setTheme('theme-light')
+        }
+    }, 5000);
 
     return (
         <div className="header">
