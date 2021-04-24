@@ -22,7 +22,7 @@ export default function Settings() {
 
     useEffect(() => {
         setDarkMode(localStorage.getItem('theme') === 'theme-dark');
-        setIsAutoMode(localStorage.getItem('auto-theme'));
+        setIsAutoMode(localStorage.getItem('auto-theme') === 'true');
         const getData = async () => {
             const response = await getUserPreferences(userId);
             setCity(response.city);
@@ -42,7 +42,8 @@ export default function Settings() {
     }
 
     const toggleAutoTheme = () => {
-        localStorage.setItem('auto-theme', isAutoMode);
+        localStorage.setItem('auto-theme', !isAutoMode);
+        setIsAutoMode(!isAutoMode)
     }
 
     return (
