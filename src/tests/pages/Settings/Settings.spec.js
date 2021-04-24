@@ -65,6 +65,12 @@ describe('Settings Page', () => {
         expect(actual).toBeDefined();
     });
 
+    it('should display the dark mode label text', async () => {
+        await renderComponent();
+        const actual = screen.getByText('Dark Mode').textContent;
+        expect(actual).toEqual('Dark Mode');
+    });
+
     it('should display the settings panel by default', async () => {
         await renderComponent();
         const actual = screen.getByRole('button').textContent;
