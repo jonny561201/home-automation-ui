@@ -20,7 +20,7 @@ describe('Settings Page', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{roles: roles}, () => { }]}>
+                <Context.Provider value={[{ roles: roles }, () => { }]}>
                     <Settings />
                 </Context.Provider>
             );
@@ -32,11 +32,11 @@ describe('Settings Page', () => {
         spyGetPrefs.mockClear();
         spyGetTasks.mockClear();
         getStore().setUserId(userId);
-        spyGetPrefs.mockReturnValue({ city: city, temp_unit: tempUnit, measure_unit: unitMeasure});
+        spyGetPrefs.mockReturnValue({ city: city, temp_unit: tempUnit, measure_unit: unitMeasure });
         spyGetTasks.mockReturnValue([{ alarm_group_name: 'bathroom', alarm_light_group: '2', alarm_days: 'Mon', alarm_time: '00:00:00' }]);
     });
-    
-    it('should set the active page to Settings',async () => {
+
+    it('should set the active page to Settings', async () => {
         await renderComponent();
         expect(getStore().getActivePage()).toEqual('Settings');
     });
@@ -61,7 +61,7 @@ describe('Settings Page', () => {
 
     it('should display the dark mode radio button', async () => {
         await renderComponent();
-        const actual = screen.getByRole('checkbox');
+        const actual = screen.getAllByRole('checkbox')[0];
         expect(actual).toBeDefined();
     });
 
@@ -191,6 +191,12 @@ describe('Settings Page', () => {
 
         const actual = screen.getByText(tempUnit);
 
+        expect(actual).toBeDefined();
+    });
+
+    it('should display the auto dark mode toggle', async () => {
+        await renderComponent();
+        const actual = screen.getAllByRole('checkbox')[1];
         expect(actual).toBeDefined();
     });
 });

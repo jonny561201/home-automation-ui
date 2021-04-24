@@ -5,7 +5,7 @@ import { getUserPreferences } from '../../utilities/RestApi';
 import SettingsPanel from './SettingsPanel';
 import { toggleDarkMode } from '../../utilities/Services';
 import SettingsEditPanel from './SettingsEditPanel';
-import { HeatSwitch } from '../../components/controls/Switches';
+import { CoolSwitch, HeatSwitch } from '../../components/controls/Switches';
 import { FormControlLabel, FormControl } from '@material-ui/core';
 import './Settings.css'
 
@@ -52,6 +52,11 @@ export default function Settings() {
                 <div className="settings-row text">
                     <FormControl>
                         <FormControlLabel label="Dark Mode" control={<HeatSwitch onChange={toggleTheme} checked={darkMode}/>}/>
+                    </FormControl>
+                </div>
+                <div>
+                    <FormControl>
+                        <CoolSwitch onChange={() => {}}/>
                     </FormControl>
                 </div>
                     {isEditMode
