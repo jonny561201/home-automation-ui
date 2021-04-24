@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { Context } from '../../state/Store';
+import SettingsPanel from './SettingsPanel';
 import Header from '../../components/header/Header';
 import { getStore } from '../../state/GlobalState';
-import { getUserPreferences } from '../../utilities/RestApi';
-import SettingsPanel from './SettingsPanel';
-import { setTheme, toggleDarkMode } from '../../utilities/Services';
 import SettingsEditPanel from './SettingsEditPanel';
+import { getUserPreferences } from '../../utilities/RestApi';
+import { setTheme, toggleDarkMode, isNightTime } from '../../utilities/Services';
 import { CoolSwitch, HeatSwitch } from '../../components/controls/Switches';
 import { FormControlLabel, FormControl } from '@material-ui/core';
 import './Settings.css'
@@ -12,6 +13,7 @@ import './Settings.css'
 
 export default function Settings() {
     getStore().setActivePage('Settings');
+    const [state, ] = useContext(Context);
     const [isAutoMode, setIsAutoMode] = useState(false);
     const [userId,] = useState(getStore().getUserId());
     const [darkMode, setDarkMode] = useState(false);
@@ -44,6 +46,9 @@ export default function Settings() {
     const toggleAutoTheme = () => {
         localStorage.setItem('auto-theme', !isAutoMode);
         setIsAutoMode(!isAutoMode);
+        isNightTime(state.garageCoords, state.userCoords)
+        ? setTheme('theme-dark')
+        : setTheme('theme-light')
         if (!isAutoMode === false && !darkMode)
             setTheme('theme-light');
     }
