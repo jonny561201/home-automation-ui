@@ -12,6 +12,7 @@ import './Settings.css'
 
 export default function Settings() {
     getStore().setActivePage('Settings');
+    const [isAutoMode, setIsAutoMode] = useState(false);
     const [userId,] = useState(getStore().getUserId());
     const [darkMode, setDarkMode] = useState(false);
     const [city, setCity] = useState();
@@ -21,6 +22,7 @@ export default function Settings() {
 
     useEffect(() => {
         setDarkMode(localStorage.getItem('theme') === 'theme-dark');
+        setIsAutoMode(localStorage.getItem('auto-theme'));
         const getData = async () => {
             const response = await getUserPreferences(userId);
             setCity(response.city);
@@ -37,6 +39,10 @@ export default function Settings() {
     const toggleTheme = () => {
         toggleDarkMode()
         setDarkMode(!darkMode);
+    }
+
+    const toggleAutoTheme = () => {
+        localStorage.setItem('auto-theme', isAutoMode);
     }
 
     return (
@@ -56,7 +62,7 @@ export default function Settings() {
                 </div>
                 <div className="settings-row text">
                     <FormControl>
-                        <FormControlLabel label="Auto Theme" control={<CoolSwitch onChange={() => {}}/>} />
+                        <FormControlLabel label="Auto Theme" control={<CoolSwitch onChange={toggleAutoTheme} checked={isAutoMode}/>} />
                     </FormControl>
                 </div>
                     {isEditMode
