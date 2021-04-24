@@ -56,7 +56,7 @@ export default function Settings() {
                 </div>
                 <div>
                     <FormControl>
-                        <CoolSwitch onChange={() => {}}/>
+                        <FormControlLabel label="Auto Theme" control={<CoolSwitch onChange={() => {}}/>} />
                     </FormControl>
                 </div>
                     {isEditMode

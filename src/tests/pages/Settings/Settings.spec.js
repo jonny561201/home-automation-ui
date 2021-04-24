@@ -194,9 +194,15 @@ describe('Settings Page', () => {
         expect(actual).toBeDefined();
     });
 
-    it('should display the auto dark mode toggle', async () => {
+    it('should display the auto theme mode toggle', async () => {
         await renderComponent();
         const actual = screen.getAllByRole('checkbox')[1];
         expect(actual).toBeDefined();
+    });
+
+    it('should display the auto theme mode label text', async () => {
+        await renderComponent();
+        const actual = screen.getByText('Auto Theme').textContent;
+        expect(actual).toEqual('Auto Theme');
     });
 });
