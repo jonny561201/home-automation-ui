@@ -211,4 +211,11 @@ describe('Settings Page', () => {
         const actual = screen.getByText('Auto Theme').textContent;
         expect(actual).toEqual('Auto Theme');
     });
+
+    it('should disable the dark mode button when in auto theme mode', async () => {
+        await renderComponent();
+        fireEvent.click(screen.getAllByRole('checkbox')[1]);
+        const actual = screen.getAllByRole('checkbox')[0];
+        expect(actual).toHaveAttribute('disabled');
+    });
 });

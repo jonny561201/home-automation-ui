@@ -58,7 +58,7 @@ export default function Settings() {
                 </div>
                 <div className="settings-row text">
                     <FormControl>
-                        <FormControlLabel label="Dark Mode" control={<HeatSwitch onChange={toggleTheme} checked={darkMode}/>}/>
+                        <FormControlLabel label="Dark Mode" control={<HeatSwitch onChange={toggleTheme} disabled={isAutoMode} checked={darkMode && !isAutoMode}/>}/>
                     </FormControl>
                 </div>
                 <div className="settings-row text">
