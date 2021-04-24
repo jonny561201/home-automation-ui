@@ -20,7 +20,7 @@ describe('Settings Page', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ roles: roles }, () => { }]}>
+                <Context.Provider value={[{ roles: roles, garageCoords: {latitude: 43.123, longitude: 23.23423} }, () => { }]}>
                     <Settings />
                 </Context.Provider>
             );
