@@ -23,9 +23,10 @@ describe('RestApi', () => {
 
     it('should make rest call to login api using auth header', async () => {
         const response = { 'bearerToken': fakeBearerToken };
-        const options = { "method": "GET", "headers": { 'Authorization': `Basic ${base64.encode(credentials)}` } };
+        const body = { 'grant_type': 'client_credentials', 'client_id': username, 'client_secret': password };
+        const options = { "method": "POST", "body": body };
 
-        fetchMock.mock(`${baseUrl}/login`, response, options).catch(unmatchedUrl => {
+        fetchMock.mock(`${baseUrl}/token`, response, options).catch(unmatchedUrl => {
             return {
                 status: 400,
                 body: { details: 'Bad Request' }
@@ -38,9 +39,10 @@ describe('RestApi', () => {
 
     it('should store bearer token after successful login', async () => {
         const response = { 'bearerToken': fakeBearerToken };
-        const options = { 'method': 'GET', 'headers': { 'Authorization': `Basic ${base64.encode(credentials)}` }, overwriteRoutes: false };
+        const body = { 'grant_type': 'client_credentials', 'client_id': username, 'client_secret': password };
+        const options = { "method": "POST", "body": body };
 
-        fetchMock.mock(`${baseUrl}/login`, response, options).catch(unmatchedUrl => {
+        fetchMock.mock(`${baseUrl}/token`, response, options).catch(unmatchedUrl => {
             return { status: 400 };
         });
 
@@ -50,9 +52,10 @@ describe('RestApi', () => {
 
     it('should store user id after successful login', async () => {
         const response = { 'bearerToken': fakeBearerToken };
-        const options = { 'method': 'GET', 'headers': { 'Authorization': `Basic ${base64.encode(credentials)}` }, overwriteRoutes: false };
+        const body = { 'grant_type': 'client_credentials', 'client_id': username, 'client_secret': password };
+        const options = { "method": "POST", "body": body };
 
-        fetchMock.mock(`${baseUrl}/login`, response, options).catch(unmatchedUrl => {
+        fetchMock.mock(`${baseUrl}/token`, response, options).catch(unmatchedUrl => {
             return { status: 400 };
         });
 
@@ -62,9 +65,10 @@ describe('RestApi', () => {
 
     it('should store roles after successful login', async () => {
         const response = { 'bearerToken': fakeBearerToken };
-        const options = { 'method': 'GET', 'headers': { 'Authorization': `Basic ${base64.encode(credentials)}` }, overwriteRoutes: false };
+        const body = { 'grant_type': 'client_credentials', 'client_id': username, 'client_secret': password };
+        const options = { "method": "POST", "body": body };
 
-        fetchMock.mock(`${baseUrl}/login`, response, options).catch(unmatchedUrl => {
+        fetchMock.mock(`${baseUrl}/token`, response, options).catch(unmatchedUrl => {
             return { status: 400 };
         });
 
@@ -74,9 +78,10 @@ describe('RestApi', () => {
 
     it('should store user first name after successful login', async () => {
         const response = { 'bearerToken': fakeBearerToken };
-        const options = { 'method': 'GET', 'headers': { 'Authorization': `Basic ${base64.encode(credentials)}` }, overwriteRoutes: false };
+        const body = { 'grant_type': 'client_credentials', 'client_id': username, 'client_secret': password };
+        const options = { "method": "POST", "body": body };
 
-        fetchMock.mock(`${baseUrl}/login`, response, options).catch(unmatchedUrl => {
+        fetchMock.mock(`${baseUrl}/token`, response, options).catch(unmatchedUrl => {
             return { status: 400 };
         });
 
@@ -86,9 +91,10 @@ describe('RestApi', () => {
 
     it('should store user last name after successful login', async () => {
         const response = { 'bearerToken': fakeBearerToken };
-        const options = { 'method': 'GET', 'headers': { 'Authorization': `Basic ${base64.encode(credentials)}` }, overwriteRoutes: false };
+        const body = { 'grant_type': 'client_credentials', 'client_id': username, 'client_secret': password };
+        const options = { "method": "POST", "body": body };
 
-        fetchMock.mock(`${baseUrl}/login`, response, options).catch(unmatchedUrl => {
+        fetchMock.mock(`${baseUrl}/token`, response, options).catch(unmatchedUrl => {
             return { status: 400 };
         });
 
@@ -401,8 +407,8 @@ describe('RestApi', () => {
 
         it('should make rest call to update scheduled tasks for a user account', async () => {
             const taskId = 'asbcasd34345';
-            const response = {'task_id': taskId}
-            const body = { 'taskId': 'abc','alarmLightGroup': '1', 'alarmGroupName': 'potty', 'alarmDays': 'Wed', 'alarmTime': '00:23:34', 'enabled': true, 'taskType': 'no' };
+            const response = { 'task_id': taskId }
+            const body = { 'taskId': 'abc', 'alarmLightGroup': '1', 'alarmGroupName': 'potty', 'alarmDays': 'Wed', 'alarmTime': '00:23:34', 'enabled': true, 'taskType': 'no' };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
             fetchMock.mock(`${baseUrl}/userId/${userId}/tasks/update`, response, options).catch(unmatchedUrl => {
@@ -410,7 +416,7 @@ describe('RestApi', () => {
             });
 
             const actual = await updateScheduledTasks(userId, body.taskId, body.alarmLightGroup, body.alarmGroupName, body.alarmDays, body.alarmTime, body.enabled, body.taskType);
-            
+
             expect(actual.task_id).toEqual(taskId);
         });
     });

@@ -12,9 +12,14 @@ const sumpBaseUrl = `${baseUrl}/sumpPump`;
 const thermostatBaseUrl = `${baseUrl}/thermostat`;
 
 export const getBearerToken = async (username, password) => {
-    const options = { method: 'GET', headers: { 'Authorization': `Basic ${base64.encode(username + ":" + password)}` } };
+    const request = { 'grant_type': 'client_credentials', 'client_id': username, 'client_secret': password }
+    const options = {
+        method: 'POST',
+        body: JSON.stringify(request)
+        // headers: { 'Authorization': `Basic ${base64.encode(username + ":" + password)}` } 
+    };
 
-    const response = await fetch(`${baseUrl}/login`, options);
+    const response = await fetch(`${baseUrl}/token`, options);
     if (response.ok) {
         const jsonResponse = await response.json();
         const bearerToken = jsonResponse.bearerToken;
