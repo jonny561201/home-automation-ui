@@ -29,8 +29,7 @@ export const isNightTime = (garageCoords, userCoords) => {
         const today = new Date();
         const sunrise = calculateSunrise(garageCoords.latitude, garageCoords.longitude)
         const sunset = calculateSunset(garageCoords.latitude, garageCoords.longitude);
-        const isNight = (today >= sunset && today < sunrise);
-        return isNight;
+        return (today >= sunset && today < sunrise);
     } else if (userCoords !== null) {
         const today = new Date();
         const sunrise = calculateSunrise(userCoords.latitude, userCoords.longitude);
@@ -44,7 +43,7 @@ const calculateSunrise = (latitude, longitude) => {
     if (today.getHours() < 12) {
         return getSunrise(latitude, longitude, today);
     } else {
-        today.setDate(new Date().getDate() +1);
+        today.setDate(new Date().getDate() + 1);
         return getSunrise(latitude, longitude, today);
     }
 }
@@ -52,22 +51,22 @@ const calculateSunrise = (latitude, longitude) => {
 const calculateSunset = (latitude, longitude) => {
     const today = new Date();
     if (today.getHours() < 12) {
-        today.setDate(new Date().getDate() -1);
+        today.setDate(new Date().getDate() - 1);
         return getSunset(latitude, longitude, today);
     } else {
-        today.setDate(new Date().getDate() +1)
+        today.setDate(new Date().getDate())
         return getSunset(latitude, longitude, today);
     }
 }
 
 export const toggleDarkMode = () => {
     localStorage.getItem('theme') === 'theme-dark'
-    ? setTheme('theme-light')
-    : setTheme('theme-dark')
+        ? setTheme('theme-light')
+        : setTheme('theme-dark')
 }
 
 
-export const setTheme = (themeName) =>  {
+export const setTheme = (themeName) => {
     localStorage.setItem('theme', themeName);
     document.documentElement.className = themeName;
 }
