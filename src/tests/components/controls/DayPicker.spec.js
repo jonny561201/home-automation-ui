@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import DayPicker from '../../../components/controls/DayPicker';
 import { Context } from '../../../state/Store';
 
@@ -10,11 +10,13 @@ describe('Day Picker', () => {
     const daysOfWeek = [{ id: 'Mon', day: 'M', on: false }];
 
     const renderComponent = async (day) => {
-        render(
-            <Context.Provider value={[{ daysOfWeek: daysOfWeek }, () => { }]}>
-                <DayPicker toggleDay={() => {}} day={day} setEdited={() => { }} />
-            </Context.Provider>
-        );
+        await act(async () => {
+            render(
+                <Context.Provider value={[{ daysOfWeek: daysOfWeek }, () => { }]}>
+                    <DayPicker toggleDay={() => {}} day={day} setEdited={() => { }} />
+                </Context.Provider>
+            );
+        });
     }
 
     it('should display the button with the day name passed into the component', async () => {
