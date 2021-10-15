@@ -21,7 +21,7 @@ describe('Light Activity Panel', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ taskTypes: [] }, () => { }]}>
+                <Context.Provider value={[{ taskTypes: [taskType] }, () => { }]}>
                     <LightActivity deleteTask={() => { }} task={task} />
                 </Context.Provider>
             );
