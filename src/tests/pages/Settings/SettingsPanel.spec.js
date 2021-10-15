@@ -2,8 +2,9 @@ import React from 'react';
 import { Context } from '../../../state/Store';
 import * as lib from '../../../utilities/RestApi';
 import { getStore } from '../../../state/GlobalState';
-import { render, screen } from '@testing-library/react';
+import { render, screen, } from '@testing-library/react';
 import SettingsPanel from '../../../pages/Settings/SettingsPanel';
+import { act } from 'react-dom/test-utils';
 
 
 describe('Settings Panel', () => {
@@ -19,19 +20,23 @@ describe('Settings Panel', () => {
     const spyGet = jest.spyOn(lib, 'getScheduledTasks');
 
     const renderComponent = async () => {
-        render(
-            <Context.Provider value={[{ roles: roles }, () => { }]}>
-                <SettingsPanel/>
-            </Context.Provider>
-        );
+        await act(async () => {
+            render(
+                <Context.Provider value={[{ roles: roles }, () => { }]}>
+                    <SettingsPanel/>
+                </Context.Provider>
+            );
+        });
     }
 
     const renderComponentCustom = async () => {
-        render(
-            <Context.Provider value={[{ roles: roles }, () => { }]}>
-                <SettingsPanel tempUnit={tempUnit} city={city} measureUnit={measureUnit}/>
-            </Context.Provider>
-        );
+        await act(async () => {
+            render(
+                <Context.Provider value={[{ roles: roles }, () => { }]}>
+                    <SettingsPanel tempUnit={tempUnit} city={city} measureUnit={measureUnit}/>
+                </Context.Provider>
+            );
+        });
     }
 
     beforeEach(() => {

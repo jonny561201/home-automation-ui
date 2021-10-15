@@ -1,30 +1,27 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import WeekPicker from '../../../components/controls/WeekPicker';
 
 
 describe('Week Picker', () => {
-    let daysOfWeek;
-
-    const renderComponent = async () => {
-        render(
-                <WeekPicker daysOfWeek={daysOfWeek}/>
-        );
+    const renderComponent = async (daysOfWeek) => {
+        await act(async () => {
+            render(
+                <WeekPicker daysOfWeek={daysOfWeek} />
+            );
+        });
     }
 
-    beforeEach(() => {
-        daysOfWeek = [{id: 'Mon', on: false, day: 'M'}]
-    });
-
     it('should display a daypicker component', async () => {
-        await renderComponent();
+        const daysOfWeek = [{id: 'Mon', on: false, day: 'M'}];
+        await renderComponent(daysOfWeek);
         const actual = screen.getByText('M').textContent;
         expect(actual).toEqual('M');
     });
 
     it('should display multiple days of the week', async () => {
-        daysOfWeek.push({id: 'Tue', on: false, day: 'T'});
-        await renderComponent();
+        const daysOfWeek = [{id: 'Mon', on: false, day: 'M'}, {id: 'Tue', on: false, day: 'T'}];
+        await renderComponent(daysOfWeek);
         const actualMon = screen.getByText('M').textContent;
         const actualTues = screen.getByText('T').textContent;
 
