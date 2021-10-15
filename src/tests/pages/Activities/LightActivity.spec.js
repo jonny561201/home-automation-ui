@@ -13,7 +13,7 @@ describe('Light Activity Panel', () => {
     const groupName = 'Bedroom';
     const alarmTime = '01:00:00';
     const taskType = 'turn off';
-    const task = { task_id: taskId, alarm_group_name: groupName, alarm_days: days, alarm_time: alarmTime, alarm_light_group: groupId, enabled: true, task_type: taskType};
+    const task = { task_id: taskId, alarm_group_name: groupName, alarm_days: days, alarm_time: alarmTime, alarm_light_group: groupId, enabled: true, task_type: taskType };
 
     const spyDelete = jest.spyOn(lib, 'deleteScheduledTask');
     const spyUpdate = jest.spyOn(lib, 'updateScheduledTasks');
@@ -21,7 +21,7 @@ describe('Light Activity Panel', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{taskTypes: []}, () => { }]}>
+                <Context.Provider value={[{ taskTypes: [] }, () => { }]}>
                     <LightActivity deleteTask={() => { }} task={task} />
                 </Context.Provider>
             );
@@ -33,12 +33,6 @@ describe('Light Activity Panel', () => {
         spyDelete.mockClear();
         spyUpdate.mockClear();
     })
-
-    it('should display the current alarm room setting stored in state', async () => {
-        await renderComponent();
-        const actual = screen.getByText(groupName).textContent;
-        expect(actual).toEqual(groupName);
-    });
 
     it('should display the current alarm time setting stored in state', async () => {
         await renderComponent();
