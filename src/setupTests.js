@@ -6,3 +6,5 @@ const mockGeolocation = {
   };
   
   global.navigator.geolocation = mockGeolocation;
+  window.HTMLMediaElement.prototype.load = () => {};
+  window.HTMLMediaElement.prototype.play = () => {};

@@ -79,7 +79,9 @@ describe('Settings Page', () => {
 
     it('should display the edit settings panel when click edit button', async () => {
         await renderComponent();
-        fireEvent.click(screen.getByRole('button'));
+        await act(async () => {
+            fireEvent.click(screen.getByRole('button'));
+        });
         const actual = screen.getByText('Save').textContent;
         expect(actual).toEqual('Save');
     });
@@ -122,9 +124,11 @@ describe('Settings Page', () => {
         fireEvent.click(screen.getByRole('button'));
         fireEvent.click(screen.getByText('Cancel'));
 
-        const actual = screen.getByText('Edit');
+        await act(async () => {
+            const actual = screen.getByText('Edit');
+            expect(actual).toBeDefined();
+        });
 
-        expect(actual).toBeDefined();
     });
 
     it('should update the city on the normal screen after saving', async () => {
@@ -132,7 +136,9 @@ describe('Settings Page', () => {
         await renderComponent();
         fireEvent.click(screen.getByRole('button'));
         fireEvent.change(screen.getAllByRole('textbox')[0], { target: { value: city } });
-        fireEvent.click(screen.getByText('Save'));
+        await act(async() => {
+            fireEvent.click(screen.getByText('Save'));
+        });
 
         const actual = screen.getByText(city);
 
@@ -143,7 +149,9 @@ describe('Settings Page', () => {
         await renderComponent();
         fireEvent.click(screen.getByRole('button'));
         fireEvent.change(screen.getAllByRole('textbox')[0], { target: { value: 'Berlin' } });
-        fireEvent.click(screen.getByText('Cancel'));
+        await act(async() => {
+            fireEvent.click(screen.getByText('Cancel'));
+        });
 
         const actual = screen.getByText(city);
 
@@ -154,7 +162,9 @@ describe('Settings Page', () => {
         await renderComponent();
         fireEvent.click(screen.getByRole('button'));
         fireEvent.click(screen.getAllByRole('radio')[3]);
-        fireEvent.click(screen.getByText('Save'));
+        await act(async() => {
+            fireEvent.click(screen.getByText('Save'));
+        });
 
         const actual = screen.getByText('metric');
 
@@ -165,7 +175,9 @@ describe('Settings Page', () => {
         await renderComponent();
         fireEvent.click(screen.getByRole('button'));
         fireEvent.click(screen.getAllByRole('radio')[3]);
-        fireEvent.click(screen.getByText('Cancel'));
+        await act(async() => {
+            fireEvent.click(screen.getByText('Cancel'));
+        });
 
         const actual = screen.getByText(unitMeasure);
 
@@ -193,7 +205,9 @@ describe('Settings Page', () => {
         await renderComponent();
         fireEvent.click(screen.getByRole('button'));
         fireEvent.click(screen.getAllByRole('radio')[1]);
-        fireEvent.click(screen.getByText('Cancel'));
+        await act(async() => {
+            fireEvent.click(screen.getByText('Cancel'));
+        });
 
         const actual = screen.getByText(tempUnit);
 
