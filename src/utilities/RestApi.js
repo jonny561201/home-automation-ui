@@ -1,8 +1,8 @@
-import base64 from 'base-64';
 import jwt_decode from 'jwt-decode';
 import { getStore } from '../state/GlobalState';
 
 
+// const baseUrl = 'http://localhost:5000';
 const baseUrl = 'https://www.soaringleafsolutions.com';
 const accountBaseUrl = `${baseUrl}/account`;
 const deviceBaseUrl = `${baseUrl}/devices`;
