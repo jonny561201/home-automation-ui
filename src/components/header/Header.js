@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import LogoHeader from '../header/LogoHeader';
 import AccountIcon from './AccountIcon';
+import StateUtil from '../../utilities/StateUtil';
 import { Context } from '../../state/Store';
 import AccountMenu from '../header/AccountMenu';
 import { getStore } from '../../state/GlobalState';
@@ -24,6 +25,8 @@ export default function Header() {
           : setTheme('theme-light')
         }
     }, 60000);
+    
+    StateUtil();
 
     return (
         <div className="header">
