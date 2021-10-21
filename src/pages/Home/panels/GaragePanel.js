@@ -16,9 +16,9 @@ export default function GaragePanel() {
 
     const renderDoors = () => {
         //TODO: need to test all of this behavior
-        const devices = state.garageRole.devices;
+        const devices = state.garageDoors;
         if (devices && devices.length > 0) {
-            return devices.map(x => <GarageDoor key={`door-${x.node_device}`} device={x} />);
+            return devices.map(x => <GarageDoor key={`door-${x.doorName}`} device={x} />);
         }
         return <p>No Garge devices have been registered</p>
     }

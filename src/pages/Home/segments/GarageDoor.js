@@ -1,54 +1,36 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { Context } from '../../../state/Store';
 import { useInterval } from '../../../utilities/UseInterval';
 import useSound from 'use-sound';
 import dingSound from '../../../resources/ding.mp3';
 import clickSound from '../../../resources/click.mp3';
 import { ExpansionPanelDetails, ExpansionPanelActions } from '@material-ui/core';
-import { toggleGarageDoor, updateGarageState, getGarageStatus } from '../../../utilities/RestApi';
+import { toggleGarageDoor, updateGarageState } from '../../../utilities/RestApi';
 
 
 export default function GarageDoor(props) {
-    const [ding] = useSound(dingSound, {volume: 0.25});
-    const [click] = useSound(clickSound, {volume: 0.25});
+    const [ding] = useSound(dingSound, { volume: 0.25 });
+    const [click] = useSound(clickSound, { volume: 0.25 });
     const [state, dispatch] = useContext(Context);
-    const [isOpen, setIsOpen] = useState();
-    const [duration, setDuration] = useState();
     const [statusDays, setStatusDays] = useState();
     const [statusMins, setStatusMins] = useState();
     const [statusHours, setStatusHours] = useState();
-
-    useEffect(() => {
-        getGarageData();
-    }, []);
 
     useInterval(() => {
         updateGarageDuration();
     }, 1000);
 
-    useInterval(async () => {
-        await getGarageData();
-    }, 20000);
-
     const updateGarageDuration = () => {
-        const diffMs = new Date() - new Date(duration);
+        const diffMs = new Date() - new Date(props.device.duration);
         setStatusDays(Math.floor(diffMs / 86400000));
         setStatusHours(Math.floor((diffMs % 86400000) / 3600000));
         setStatusMins(Math.round(((diffMs % 86400000) % 3600000) / 60000));
     };
 
-    const getGarageData = async () => {
-        const garageStatus = await getGarageStatus(state.userId, props.device.node_device);
-        setIsOpen(garageStatus.isGarageOpen);
-        setDuration(garageStatus.statusDuration);
-        dispatch({ type: 'SET_GARAGE_COORDS', payload: garageStatus.coordinates });
-        dispatch({ type: 'UPDATE_GARAGE_DOORS', payload: { 'doorName': props.device.node_name, 'isOpen': garageStatus.isGarageOpen } });
-    };
-
     const openCloseGarageDoor = (newState) => {
-        newState ? ding() : click()
-        updateGarageState(newState, state.userId, props.device.node_device);
-        setIsOpen(newState);
+        newState ? ding() : click();
+        const response = updateGarageState(newState, state.userId, props.device.node_device);
+        dispatch({ type: 'UPDATE_GARAGE_DOORS', payload: { 'doorName': props.device.doorName, 'isOpen': response.garageDoorOpen, 'duration': new Date() } });
     }
 
     const toggleDoor = () => {
@@ -61,11 +43,11 @@ export default function GarageDoor(props) {
             <ExpansionPanelDetails className="center">
                 <div className="status-text-group">
                     <p className="door-status text">Door: </p>
-                    <p className="status-text-bold text">{props.device.node_name}</p>
+                    <p className="status-text-bold text">{props.device.doorName}</p>
                 </div>
                 <div className="status-text-group">
                     <p className="door-status text">Status: </p>
-                    {isOpen
+                    {props.device.isOpen
                         ? <p className="status-text-bold text close">Open</p>
                         : <p className="status-text-bold text open">Closed</p>}
                 </div>
@@ -81,7 +63,7 @@ export default function GarageDoor(props) {
                 </div>
             </ExpansionPanelDetails>
             <ExpansionPanelActions>
-                {isOpen
+                {props.device.isOpen
                     ? <button data-testid={"update-garage-close"} className="close-button cancel-ripple" onClick={() => openCloseGarageDoor(false)}>Close</button>
                     : <button data-testid={"update-garage-open"} className="open-button success-ripple" onClick={() => openCloseGarageDoor(true)}>Open</button>}
                 <button data-testid={"toggle-garage-button"} className="toggle-button ripple" onClick={toggleDoor}>Toggle</button>
