@@ -40,14 +40,14 @@ export default function RegisterDevice(props) {
         if (isIpValid && touched) {
             const response = await addUserDevice(state.userId, 'garage_door', ipAddress)
             const responseObj = await response.json();
-            dispatch({type: 'SET_STARTED_GARAGE_REGISTRATION', payload: true})
-            dispatch({type: 'SET_DEVICE_ID', payload: responseObj.deviceId});
+            dispatch({ type: 'SET_STARTED_GARAGE_REGISTRATION', payload: true })
+            dispatch({ type: 'SET_DEVICE_ID', payload: responseObj.deviceId });
             setTransitionComponent(response.ok);
         }
     }
 
     return (
-        <div className="device-menu" ref={(node) => {setWrapperRef(node)}}>
+        <div className="device-menu" ref={(node) => { setWrapperRef(node) }}>
             {transitionComponent || startedRegistration
                 ? <AddGarage close={props.close} />
                 : <div>
@@ -63,6 +63,6 @@ export default function RegisterDevice(props) {
                     </form>
                 </div>
             }
-            </div>
+        </div>
     );
 }
