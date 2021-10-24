@@ -10,7 +10,7 @@ import './UserPass.css';
 
 
 export default function UserPass() {
-    const [click] = useSound(clickSound, {volume: 0.25});
+    const [click] = useSound(clickSound, { volume: 0.25 });
     const [state, dispatch] = useContext(Context);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -44,7 +44,7 @@ export default function UserPass() {
                 await dispatch({ type: 'SET_DEVICES_TO_REGISTER', payload: unregisteredDevices(decodedToken.user.roles) });
                 await dispatch({ type: 'SET_AUTHENTICATION', payload: true });
                 await dispatch({ type: 'SET_STARTED_GARAGE_REGISTRATION', payload: garageRole && garageRole.device_id ? true : false });
-                await dispatch({ type: 'SET_DEVICE_ID', payload: garageRole && garageRole.device_id ? garageRole.device_id : null })
+                await dispatch({ type: 'SET_DEVICE_ID', payload: garageRole && garageRole.device_id ? garageRole.device_id : null });
             }
         }
     };
@@ -66,10 +66,10 @@ export default function UserPass() {
         <div>
             <form onSubmit={validateCredentials} className="user-pass-body">
                 <div className="column">
-                    <TextField inputProps={{"data-testid": "user-name"}} className="user-pass-input" error={isUsernameInvalid} onChange={(event) => setUsername(event.target.value)} value={username} variant="outlined" label="Username"/>
+                    <TextField inputProps={{ "data-testid": "user-name" }} className="user-pass-input" error={isUsernameInvalid} onChange={(event) => setUsername(event.target.value)} value={username} variant="outlined" label="Username" />
                 </div>
                 <div className="column">
-                    <TextField inputProps={{"data-testid":"password"}} className="user-pass-input" error={isPasswordInvalid} onChange={(event) => setPassword(event.target.value)} value={password} variant="outlined" label="Password" type="password"/>
+                    <TextField inputProps={{ "data-testid": "password" }} className="user-pass-input" error={isPasswordInvalid} onChange={(event) => setPassword(event.target.value)} value={password} variant="outlined" label="Password" type="password" />
                 </div>
                 <div className="error-text">
                     {isValidLogin
@@ -81,4 +81,4 @@ export default function UserPass() {
             </form>
         </div>
     )
-}   
+}

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { useInterval } from '../../../utilities/UseInterval';
+import React, { useContext, useState } from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import BasementIcon from '../../../resources/panelIcons/BasementIcon.png';
 import SumpPumpLowIcon from '../../../resources/panelIcons/SumpPumpLowIcon.png';
@@ -8,41 +7,21 @@ import SumpPumpMediumHighIcon from '../../../resources/panelIcons/SumpPumpMedium
 import SumpPumpHighIcon from '../../../resources/panelIcons/SumpPumpHighIcon.png';
 import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, Divider } from '@material-ui/core';
 import './BasementPanel.css';
-import { getSumpLevels } from '../../../utilities/RestApi';
-import { getStore } from '../../../state/GlobalState';
+import { Context } from '../../../state/Store';
 
 
 export default function BasementPanel() {
     const [open, setOpen] = useState(false);
-    const [depthUnit, setDepthUnit] = useState(null);
-    const [warningLevel, setWarningLevel] = useState(0);
-    const [currentSumpDepth, setCurrentSumpDepth] = useState(0.0);
-    const [averageSumpDepth, setAverageSumpDepth] = useState(0.0);
-
-    useEffect(() => {
-        getSumpData();
-    }, []);
-
-    useInterval(async () => {
-        await getSumpData();
-    }, 120000);
-
-    const getSumpData = async () => {
-        const response = await getSumpLevels(getStore().getUserId());
-        setWarningLevel(response.warningLevel);
-        setDepthUnit(response.depthUnit);
-        setCurrentSumpDepth(response.currentDepth.toFixed(1));
-        setAverageSumpDepth(response.averageDepth.toFixed(1));
-    };
+    const [state,] = useContext(Context);
 
     const getSumpIcon = () => {
-        if (warningLevel === 0) {
+        if (state.sumpData.warningLevel === 0) {
             return <img data-testid={"warning-low"} alt="sump pump" className="sump-icon" src={SumpPumpLowIcon} label="warning-low" />
-        } else if (warningLevel === 1) {
+        } else if (state.sumpData.warningLevel === 1) {
             return <img data-testid={"warning-medium-low"} alt="sump pump" className="sump-icon" src={SumpPumpMediumLowIcon} label="warning-medium-low" />
-        } else if (warningLevel === 2) {
+        } else if (state.sumpData.warningLevel === 2) {
             return <img data-testid={"warning-medium-high"} alt="sump pump" className="sump-icon" src={SumpPumpMediumHighIcon} label="warning-medium-high" />
-        } else if (warningLevel === 3) {
+        } else if (state.sumpData.warningLevel === 3) {
             return <img data-testid={"warning-high"} alt="sump pump" className="sump-icon" src={SumpPumpHighIcon} label="warning-high" />
         }
     }
@@ -52,16 +31,14 @@ export default function BasementPanel() {
             <ExpansionPanel data-testid={"basement-panel"} className="basement-panel">
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={() => { setOpen(!open) }}>
                     <div className="summary">
-                        <div>
-                            <img data-testid={"sump-logo"} alt="basement" className="logo-image" src={BasementIcon} />
-                        </div>
+                        <img data-testid={"sump-logo"} alt="basement" className="logo-image" src={BasementIcon} />
                         <div>
                             <Typography className="panel-text panel-header-text">Basement</Typography>
                             {!open &&
                                 <div className="small-text-group">
                                     <p className="small-text text">Depth:</p>
-                                    <p className={"small-text text " + (warningLevel === 3 ? 'alert' : 'healthy')}>{currentSumpDepth}</p>
-                                    <p className={"small-text text " + (warningLevel === 3 ? 'alert' : 'healthy')}>{depthUnit}</p>
+                                    <p className={"small-text text " + (state.sumpData.warningLevel === 3 ? 'alert' : 'healthy')}>{state.sumpData.currentDepth}</p>
+                                    <p className={"small-text text " + (state.sumpData.warningLevel === 3 ? 'alert' : 'healthy')}>{state.sumpData.depthUnit}</p>
                                 </div>
                             }
                         </div>
@@ -74,13 +51,13 @@ export default function BasementPanel() {
                         <div className="sump-measure-group">
                             <div className="sump-text-group">
                                 <p className="current-text sump-text text">Current: </p>
-                                <p className={"current-depth sump-text text " + (warningLevel === 3 ? 'alert' : 'healthy')}>{currentSumpDepth}</p>
-                                <p className={"current-text sump-text text " + (warningLevel === 3 ? 'alert' : 'healthy')}>{depthUnit}</p>
+                                <p className={"current-depth sump-text text " + (state.sumpData.warningLevel === 3 ? 'alert' : 'healthy')}>{state.sumpData.currentDepth}</p>
+                                <p className={"current-text sump-text text " + (state.sumpData.warningLevel === 3 ? 'alert' : 'healthy')}>{state.sumpData.depthUnit}</p>
                             </div>
                             <div className="sump-text-group">
                                 <p className="average-text sump-text text">Average: </p>
-                                <p className="average-depth sump-text text">{averageSumpDepth}</p>
-                                <p className="average-text sump-text text">{depthUnit}</p>
+                                <p className="average-depth sump-text text">{state.sumpData.averageDepth}</p>
+                                <p className="average-text sump-text text">{state.sumpData.depthUnit}</p>
                             </div>
                         </div>
                     </div>

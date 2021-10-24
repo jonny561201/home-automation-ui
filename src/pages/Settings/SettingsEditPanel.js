@@ -1,30 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import useSound from 'use-sound';
 import clickSound from '../../resources/click.mp3';
-import { getStore } from '../../state/GlobalState';
 import { updateUserPreferences } from '../../utilities/RestApi';
 import { Divider, TextField, FormControlLabel, RadioGroup, FormControl, Radio } from '@material-ui/core';
 import './SettingsEditPanel.css'
+import { Context } from '../../state/Store';
 
 
 export default function SettingsEditPanel(props) {
+    const [state, dispatch] = useContext(Context);
     const [click] = useSound(clickSound, { volume: 0.25 });
     const [edited, setEdited] = useState();
-    const [newCity, setNewCity] = useState(props.city);
-    const [newTempUnit, setNewTempUnit] = useState(props.tempUnit);
-    const [newMeasureUnit, setNewMeasureUnit] = useState(props.measureUnit);
+    const [newCity, setNewCity] = useState(state.preferences.city);
+    const [newTempUnit, setNewTempUnit] = useState(state.preferences.temp_unit);
+    const [newMeasureUnit, setNewMeasureUnit] = useState(state.preferences.measure_unit);
 
     const savePreferences = () => {
         click();
         const isFahrenheit = newTempUnit === "fahrenheit";
         const isImperial = newMeasureUnit === "imperial";
-        updateUserPreferences(getStore().getUserId(), isFahrenheit, isImperial, newCity);
+        updateUserPreferences(state.userId, isFahrenheit, isImperial, newCity);
 
         setEdited(true);
-        props.setCity(newCity);
-        props.setTempUnit(newTempUnit);
-        props.setEditMode(!props.isEditMode);
-        props.setMeasureUnit(newMeasureUnit);
+        dispatch({ type: 'SET_USER_PREFERENCES', payload: { ...state.preferences, city: newCity, temp_unit: newTempUnit, measure_unit: newMeasureUnit } });
     }
 
     const cancelPreferences = () => {

@@ -1,100 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import useSound from 'use-sound';
 import Knob from '../../../components/controls/Knob';
-import { getStore } from '../../../state/GlobalState';
 import { debounchApi } from '../../../utilities/Services';
-import { useInterval } from '../../../utilities/UseInterval';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import TemperatureImage from '../segments/TemperatureImage';
 import singleClickSound from '../../../resources/singleClick.mp3';
 import TemperatureIcon from '../../../resources/panelIcons/TemperatureIcon.png';
-import { getCurrentTemperature, setUserTemperature } from '../../../utilities/RestApi';
+import { setUserTemperature } from '../../../utilities/RestApi';
 import { ExpansionPanel, Typography, ExpansionPanelSummary, Divider, FormControl, FormGroup, FormControlLabel } from '@material-ui/core';
 import './TemperaturePanel.css';
 import { AutoSwitch, CoolSwitch, HeatSwitch } from '../../../components/controls/Switches';
 import { CSSTransition } from 'react-transition-group';
+import { Context } from '../../../state/Store';
 
 
 export default function TemperaturePanel() {
-    const [click] = useSound(singleClickSound, { volume: 0.25 });
+    const [state, dispatch] = useContext(Context);
     const [open, setOpen] = useState(false);
-    const [mode, setMode] = useState("heating");
-    const [description, setDescription] = useState("");
-    const [displayColor, setDisplayColor] = useState("#A0A0A0");
-    const [isAuto, setIsAuto] = useState(false);
-    const [isHeating, setIsHeating] = useState(false);
-    const [isCooling, setIsCooling] = useState(false);
-    const [isFahrenheit, setIsFahrenheit] = useState(true);
-    const [desiredTemp, setDesiredTemp] = useState(0.0);
-    const [externalTemp, setExternalTemp] = useState(0.0);
-    const [internalTemp, setInternalTemp] = useState(0.0);
-    const [minThermostatTemp, setMinThermostatTemp] = useState(0.0);
-    const [maxThermostatTemp, setMaxThermostatTemp] = useState(0.0);
+    const [click] = useSound(singleClickSound, { volume: 0.25 });
 
-    useEffect(() => {
-        getTempData();
-    }, []);
-
-    useInterval(async () => {
-        await getTempData();
-    }, 60000);
-
-    const getTempData = async () => {
-        const response = await getCurrentTemperature(getStore().getUserId());
-        setExternalTemp(Math.round(response.temp));
-        setInternalTemp(Math.round(response.currentTemp));
-        setIsFahrenheit(response.isFahrenheit);
-        setDesiredTemp(response.desiredTemp === null ? parseFloat(response.currentTemp.toFixed(0)) : parseFloat(response.desiredTemp.toFixed(0)));
-        setMinThermostatTemp(response.minThermostatTemp);
-        setMaxThermostatTemp(response.maxThermostatTemp);
-        setIsCooling(response.mode === "cooling" ? true : false);
-        setIsHeating(response.mode === "heating" ? true : false);
-        setIsAuto(response.mode === "auto" ? true : false);
-        setMode(response.mode);
-        setDescription(response.description);
-        toggleColor(response.mode);
-    };
 
     const knobChange = (newValue) => {
-        if (isHeating || isCooling) {
-            setDesiredTemp(newValue);
-            debounchApi(() => setUserTemperature(getStore().getUserId(), newValue, mode, isFahrenheit));
+        if (state.tempData.mode === 'heating' || state.tempData.mode === 'cooling') {
+            dispatch({ type: 'SET_TEMP_DATA', payload: { ...state.tempData, desiredTemp: newValue } });
+            debounchApi(() => setUserTemperature(state.userId, newValue, state.tempData.mode, state.tempData.isFahrenheit));
         }
     }
 
-    const toggleHvac = (newMode) => {
+    const toggleHvac = async (newMode) => {
         click();
-        const heatState = (newMode === "heating" && !isHeating) ? true : false
-        const coldState = (newMode === "cooling" && !isCooling) ? true : false;
-        const autoState = (newMode === "auto" && !isAuto) ? true : false;
-        const modeState = getToggledMode(heatState, coldState, autoState);
-        setIsHeating(heatState);
-        setIsCooling(coldState);
-        setIsAuto(autoState)
-        setMode(newMode);
-        toggleColor(modeState);
-        setUserTemperature(getStore().getUserId(), desiredTemp, modeState, isFahrenheit);
-    }
-
-    const getToggledMode = (heatState, coldState, autoState) => {
-        if (heatState)
-            return "heating";
-        else if (coldState)
-            return "cooling";
-        else if (autoState)
-            return "auto";
-        return null;
-    }
-
-    const toggleColor = (mode) => {
-        if (mode === "cooling")
-            setDisplayColor("#27aedb");
-        else if (mode === "heating")
-            setDisplayColor("#db5127");
-        else if (mode === "auto")
-            setDisplayColor("#00c774");
-        else
-            setDisplayColor("#A0A0A0");
+        const modeState = state.tempData.mode === newMode ? null : newMode;
+        await dispatch({ type: 'SET_TEMP_DATA', payload: { ...state.tempData, mode: modeState } });
+        setUserTemperature(state.userId, state.tempData.desiredTemp, modeState, state.tempData.isFahrenheit);
     }
 
     return (
@@ -102,20 +39,18 @@ export default function TemperaturePanel() {
             <ExpansionPanel data-testid={"temperature-panel"} className="temperature-panel">
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={() => setOpen(!open)}>
                     <div className="summary">
-                        <div>
-                            <img alt="temperature" className="logo-image" src={TemperatureIcon} />
-                        </div>
+                        <img alt="temperature" className="logo-image" src={TemperatureIcon} />
                         <div>
                             <Typography className="panel-text panel-header-text">Temperature</Typography>
                             {!open &&
                                 <div className="small-text-container">
                                     <div className="small-text-group">
                                         <p className="small-text text">Outside:</p>
-                                        <p className="small-text text">{externalTemp}&deg;</p>
+                                        <p className="small-text text">{state.tempData.temp}&deg;</p>
                                     </div>
                                     <div className="small-text-group" style={{ marginLeft: '1rem' }}>
                                         <p className="small-text text">Inside:</p>
-                                        <p className="small-text text">{internalTemp}&deg;</p>
+                                        <p className="small-text text">{state.tempData.currentTemp}&deg;</p>
                                     </div>
                                 </div>
                             }
@@ -126,23 +61,21 @@ export default function TemperaturePanel() {
                 <div>
                     <div className="form-container">
                         <div className="form-column">
-                            <div>
-                                <TemperatureImage description={description} internal={internalTemp} external={externalTemp} />
-                            </div>
+                            <TemperatureImage />
                         </div>
                         <div className="form-column">
-                            <Knob value={desiredTemp} lineCap={"round"} fgColor={displayColor} inputColor={displayColor}
-                                onChange={knobChange} angleArc={240} angleOffset={240} min={minThermostatTemp} max={maxThermostatTemp} />
+                            <Knob value={state.tempData.desiredTemp ? state.tempData.desiredTemp : 0} lineCap={"round"} fgColor={state.tempData.gaugeColor} inputColor={state.tempData.gaugeColor}
+                                onChange={knobChange} angleArc={240} angleOffset={240} min={state.tempData.minThermostatTemp} max={state.tempData.maxThermostatTemp} />
                             <FormControl>
                                 <FormGroup>
-                                    <FormControlLabel label="Auto" control={<AutoSwitch data-testid={"auto-switch"} checked={isAuto} onChange={() => toggleHvac("auto")} />} />
+                                    <FormControlLabel label="Auto" control={<AutoSwitch data-testid={"auto-switch"} checked={state.tempData.mode === 'auto'} onChange={() => toggleHvac("auto")} />} />
                                 </FormGroup>
                             </FormControl>
-                            <CSSTransition in={!isAuto} timeout={400} classNames="expansion" unmountOnExit appear >
+                            <CSSTransition in={state.tempData.mode !== 'auto'} timeout={400} classNames="expansion" unmountOnExit appear >
                                 <FormControl>
                                     <FormGroup>
-                                        <FormControlLabel label="Heat" control={<HeatSwitch data-testid={"heating-switch"} checked={isHeating} onChange={() => toggleHvac("heating")} />} />
-                                        <FormControlLabel label="Cool" control={<CoolSwitch data-testid={"cooling-switch"} checked={isCooling} onChange={() => toggleHvac("cooling")} />} />
+                                        <FormControlLabel label="Heat" control={<HeatSwitch data-testid={"heating-switch"} checked={state.tempData.mode === 'heating'} onChange={() => toggleHvac("heating")} />} />
+                                        <FormControlLabel label="Cool" control={<CoolSwitch data-testid={"cooling-switch"} checked={state.tempData.mode === 'cooling'} onChange={() => toggleHvac("cooling")} />} />
                                     </FormGroup>
                                 </FormControl>
                             </CSSTransition>

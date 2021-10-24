@@ -106,9 +106,36 @@ const Reducer = (state, action) => {
                 ...state,
                 tasks: [...state.tasks, action.payload]
             }
+        case 'SET_SUMP_DATA':
+            return {
+                ...state,
+                sumpData: action.payload
+            }
+        case 'SET_TEMP_DATA':
+            const color = toggleColor(action.payload.mode)
+            return {
+                ...state,
+                tempData: { ...action.payload, gaugeColor: color }
+            }
+        case 'SET_USER_PREFERENCES':
+            return {
+                ...state,
+                preferences: action.payload
+            }
         default:
             return state;
     }
 };
+
+const toggleColor = (mode) => {
+    if (mode === "cooling")
+        return "#27aedb";
+    else if (mode === "heating")
+        return "#db5127";
+    else if (mode === "auto")
+        return "#00c774";
+    else
+        return "#A0A0A0";
+}
 
 export default Reducer;

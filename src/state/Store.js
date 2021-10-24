@@ -20,6 +20,9 @@ const initialState = {
     userCoords: null,
     userLights: [],
     userLightGroups: [],
+    sumpData: {},
+    tempData: { description: '', gaugeColor: '#A0A0A0' },
+    preferences: {},
     tasks: [],
     taskTypes: ['sunrise alarm', 'turn on', 'turn off', 'hvac']
 };

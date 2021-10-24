@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import LogoHeader from '../header/LogoHeader';
 import AccountIcon from './AccountIcon';
-import StateUtil from '../../utilities/StateUtil';
 import { Context } from '../../state/Store';
 import AccountMenu from '../header/AccountMenu';
 import { getStore } from '../../state/GlobalState';
@@ -9,6 +8,7 @@ import { setTheme, isNightTime } from '../../utilities/Services';
 import { useInterval } from '.././../utilities/UseInterval';
 import UserLocation from '../../pages/Home/segments/UserLocation';
 import './Header.css';
+import StateUtil from '../../utilities/StateUtil';
 
 
 export default function Header() {
@@ -17,16 +17,16 @@ export default function Header() {
     const [settingsActive, setSettingsActive] = useState(null);
     const [accountWrapperRef, setAccountWrapperRef] = useState(null);
 
+    StateUtil();
+
     useInterval(async () => {
         const isAuto = localStorage.getItem('auto-theme');
         if (isAuto === 'true') {
-          isNightTime(state.garageCoords, state.userCoords)
-          ? setTheme('theme-dark')
-          : setTheme('theme-light')
+            isNightTime(state.garageCoords, state.userCoords)
+                ? setTheme('theme-dark')
+                : setTheme('theme-light')
         }
     }, 60000);
-    
-    StateUtil();
 
     return (
         <div className="header">

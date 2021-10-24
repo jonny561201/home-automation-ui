@@ -18,7 +18,7 @@ import MistIcon from '../../../resources/weatherIcons/misty.png';
 import './TemperatureImage.css'
 
 
-export default function TemperatureImage(props) {
+export default function TemperatureImage() {
     const [state,] = useContext(Context);
     const [isNight, setIsNight] = useState(false);
     const [weatherIcon, setWeatherIcon] = useState();
@@ -47,7 +47,7 @@ export default function TemperatureImage(props) {
     }
 
     const getWeatherImage = () => {
-        const weatherDesc = props.description.toLowerCase();
+        const weatherDesc = state.tempData.description.toLowerCase();
         if (weatherDesc.includes("thunderstorm")) {
             setWeatherIcon(ThunderstormIcon);
             setWeatherDesc("thunderstorms");
@@ -68,11 +68,11 @@ export default function TemperatureImage(props) {
         <div className="temp-container">
             <div className="temp-external-container">
                 <img className="weather-icon" alt="description" src={weatherIcon} label={weatherDesc} />
-                <p data-testid={"external-temp"} className="external-temp text">{props.external}&deg;</p>
+                <p data-testid={"external-temp"} className="external-temp text">{state.tempData.temp}&deg;</p>
             </div>
             <div className="temp-home-container">
                 <img className="home-icon" alt="home" src={HomeIcon} />
-                <p data-testid={"internal-temp"} className="internal-temp text">{props.internal}&deg;</p>
+                <p data-testid={"internal-temp"} className="internal-temp text">{state.tempData.currentTemp}&deg;</p>
             </div>
         </div>
     );
