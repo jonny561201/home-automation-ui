@@ -15,7 +15,7 @@ import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary, Divider, 
 
 export default function HvacActivity(props) {
     const initialDays = [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }];
-    const [state, dispatch] = useContext(Context);
+    const [_, dispatch] = useContext(Context);
     const [enabled, setEnabled] = useState(props.task.enabled);
     const [days, setDays] = useState(props.task.alarm_days);
     const [open, setOpen] = useState(false);
