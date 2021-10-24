@@ -1,5 +1,5 @@
 import React from 'react';
-import * as lib from '../../../../utilities/RestApi';
+import { Context } from '../../../../state/Store';
 import { getStore } from '../../../../state/GlobalState';
 import BasementPanel from '../../../../pages/Home/panels/BasementPanel';
 import { render, screen, act, fireEvent } from '@testing-library/react';
@@ -10,13 +10,14 @@ describe('BasementPanel', () => {
     const averageDepth = 12.2;
     const currentDepth = 11.1;
     const fakeUserId = "fakeUserId";
-    const spyGet = jest.spyOn(lib, 'getSumpLevels');
-    let response = { warningLevel: 1, depthUnit: depthUnit, averageDepth: averageDepth, currentDepth: currentDepth };
+    let sumpData = { warningLevel: 1, depthUnit: depthUnit, averageDepth: averageDepth, currentDepth: currentDepth };
 
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <BasementPanel />
+                <Context.Provider value={[{ sumpData: sumpData }, () => { }]}>
+                    <BasementPanel />
+                </Context.Provider>
             );
         });
     }
@@ -24,8 +25,6 @@ describe('BasementPanel', () => {
 
     beforeEach(() => {
         getStore().setUserId(fakeUserId);
-        spyGet.mockClear();
-        spyGet.mockReturnValue(response)
     });
 
     it('should show the Basement Panel', async () => {
@@ -49,28 +48,28 @@ describe('BasementPanel', () => {
     describe('Sump Pump Icon', () => {
 
         it('should display the low icon when warning level 0', async () => {
-            response.warningLevel = 0;
+            sumpData.warningLevel = 0;
             await renderComponent();
             const actual = screen.getByTestId('warning-low');
             expect(actual).toBeDefined();
         });
 
         it('should display the medium low icon when warning level 1', async () => {
-            response.warningLevel = 1;
+            sumpData.warningLevel = 1;
             await renderComponent();
             const actual = screen.getByTestId('warning-medium-low');
             expect(actual).toBeDefined();
         });
 
         it('should display the medium high icon when warning level 2', async () => {
-            response.warningLevel = 2;
+            sumpData.warningLevel = 2;
             await renderComponent();
             const actual = screen.getByTestId('warning-medium-high')
             expect(actual).toBeDefined();
         });
 
         it('should display the high icon when warning level 3', async () => {
-            response.warningLevel = 3
+            sumpData.warningLevel = 3
             await renderComponent();
             const actual = screen.getByTestId('warning-high')
             expect(actual).toBeDefined();
@@ -78,11 +77,6 @@ describe('BasementPanel', () => {
     });
 
     describe('Sump Details', () => {
-
-        it('should make call to get sump pump depth', async () => {
-            await renderComponent();
-            expect(spyGet).toBeCalledWith(fakeUserId);
-        });
 
         it('should display current sump depth text', async () => {
             await renderComponent();
@@ -126,28 +120,28 @@ describe('BasementPanel', () => {
         });
 
         it('should display the sump text in alert status', async () => {
-            response.warningLevel = 3;
+            sumpData.warningLevel = 3;
             await renderComponent();
             const actual = screen.getAllByText(currentDepth.toString())[1].classList;
             expect(actual).toContain('alert');
         });
 
         it('should display the sump text in healthy status', async () => {
-            response.warningLevel = 1;
+            sumpData.warningLevel = 1;
             await renderComponent();
             const actual = screen.getAllByText(currentDepth.toString())[1].classList;
             expect(actual).toContain('healthy');
         });
 
         it('should display the sump unit in alert status', async () => {
-            response.warningLevel = 3;
+            sumpData.warningLevel = 3;
             await renderComponent();
             const actual = screen.getAllByText(depthUnit.toString())[1].classList;
             expect(actual).toContain('alert');
         });
 
         it('should display the sump unit in healthy status', async () => {
-            response.warningLevel = 1;
+            sumpData.warningLevel = 1;
             await renderComponent();
             const actual = screen.getAllByText(depthUnit.toString())[1].classList;
             expect(actual).toContain('healthy');
@@ -170,28 +164,28 @@ describe('BasementPanel', () => {
         });
 
         it('should display the sump text in alert status', async () => {
-            response.warningLevel = 3;
+            sumpData.warningLevel = 3;
             await renderComponent();
             const actual = screen.getAllByText(currentDepth.toString())[0].classList;
             expect(actual).toContain('alert');
         });
 
         it('should display the sump text in healthy status', async () => {
-            response.warningLevel = 1;
+            sumpData.warningLevel = 1;
             await renderComponent();
             const actual = screen.getAllByText(currentDepth.toString())[0].classList;
             expect(actual).toContain('healthy');
         });
 
         it('should display the status sump unit in alert status', async () => {
-            response.warningLevel = 3;
+            sumpData.warningLevel = 3;
             await renderComponent();
             const actual = screen.getAllByText(depthUnit.toString())[0].classList;
             expect(actual).toContain('alert');
         });
 
         it('should display the status sump unit in healthy status', async () => {
-            response.warningLevel = 1;
+            sumpData.warningLevel = 1;
             await renderComponent();
             const actual = screen.getAllByText(depthUnit.toString())[0].classList;
             expect(actual).toContain('healthy');
