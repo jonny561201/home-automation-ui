@@ -1,50 +1,27 @@
 import React from 'react';
 import { Context } from '../../../state/Store';
-import * as lib from '../../../utilities/RestApi';
-import { getStore } from '../../../state/GlobalState';
 import { render, screen, } from '@testing-library/react';
 import SettingsPanel from '../../../pages/Settings/SettingsPanel';
 import { act } from 'react-dom/test-utils';
 
 
 describe('Settings Panel', () => {
-    let roles;
-    const userId = 'ascv123';
+    const roles = [{ "role_name": "lighting" }];
     const city = 'Vienna';
-    const room = 'BedRoom';
-    const time = '07:30:00';
     const tempUnit = 'fahrenheit';
     const measureUnit = 'imperial';
-    const days = 'MonTueWedThuFri';
+    const preference = { temp_unit: tempUnit, city: city, measure_unit: measureUnit };
 
-    const spyGet = jest.spyOn(lib, 'getScheduledTasks');
 
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ roles: roles }, () => { }]}>
-                    <SettingsPanel/>
+                <Context.Provider value={[{ preferences: preference, roles: roles }, () => { }]}>
+                    <SettingsPanel />
                 </Context.Provider>
             );
         });
     }
-
-    const renderComponentCustom = async () => {
-        await act(async () => {
-            render(
-                <Context.Provider value={[{ roles: roles }, () => { }]}>
-                    <SettingsPanel tempUnit={tempUnit} city={city} measureUnit={measureUnit}/>
-                </Context.Provider>
-            );
-        });
-    }
-
-    beforeEach(() => {
-        spyGet.mockClear();
-        getStore().setUserId(userId);
-        roles = [{"role_name": "lighting"}];
-        spyGet.mockReturnValue([{ alarm_group_name: room, alarm_light_group: '2', alarm_days: days, alarm_time: time }]);
-    });
 
     it('should display edit button', async () => {
         await renderComponent();
@@ -59,7 +36,7 @@ describe('Settings Panel', () => {
     });
 
     it('should display the fahrenheit setting stored in state', async () => {
-        await renderComponentCustom();
+        await renderComponent();
         const actual = screen.getByText(tempUnit).textContent;
         expect(actual).toEqual(tempUnit);
     });
@@ -71,7 +48,7 @@ describe('Settings Panel', () => {
     });
 
     it('should display the currently city setting stored in state', async () => {
-        await renderComponentCustom();
+        await renderComponent();
         const actual = screen.getByText(city).textContent;
         expect(actual).toEqual(city);
     });
@@ -95,7 +72,7 @@ describe('Settings Panel', () => {
     });
 
     it('should display the measurement unit stored in state', async () => {
-        await renderComponentCustom();
+        await renderComponent();
         const actual = screen.getByText(measureUnit).textContent;
         expect(actual).toEqual(measureUnit);
     });
