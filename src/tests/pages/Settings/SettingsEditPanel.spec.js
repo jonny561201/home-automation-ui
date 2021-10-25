@@ -3,22 +3,18 @@ import * as lib from '../../../utilities/RestApi';
 import { render, screen, act } from '@testing-library/react';
 import SettingsEditPanel from '../../../pages/Settings/SettingsEditPanel';
 import '@testing-library/jest-dom';
-import { getStore } from '../../../state/GlobalState';
 import { Context } from '../../../state/Store';
 
 describe('Settings Edit Panel', () => {
     const userId = 'fakeUserId';
-    // const days = 'MonTue';
-    // const time = '01:00:00';
-    // const groupName = 'Bedroom';
-    // const groups = [{groupId: '1', groupName: groupName}];
+    const preference = { city: 'Des Moines', temp_unit: 'fahrenheit', measureUnit: 'impreial' };
     const spyUpdate = jest.spyOn(lib, 'updateUserPreferences');
     let roles;
 
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{daysOfWeek: [], roles:  roles}, () => { }]}>
+                <Context.Provider value={[{ preferences: preference, daysOfWeek: [], roles: roles, userId: userId }, () => { }]}>
                     <SettingsEditPanel tempUnit={"fahrenheit"} measureUnit={"imperial"} />
                 </Context.Provider>
             );
@@ -26,8 +22,7 @@ describe('Settings Edit Panel', () => {
     }
 
     beforeEach(() => {
-        roles = [{"role_name": "lighting"}];
-        getStore().setUserId(userId);
+        roles = [{ "role_name": "lighting" }];
         spyUpdate.mockClear();
     });
 
