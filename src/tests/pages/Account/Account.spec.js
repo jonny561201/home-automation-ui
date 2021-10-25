@@ -27,7 +27,7 @@ describe('Account Page', () => {
         spyGet.mockReturnValue([]);
     });
 
-    it('should set the active page to Account',async () => {
+    it('should set the active page to Account', async () => {
         await renderComponent();
         expect(getStore().getActivePage()).toEqual('Account');
     });
@@ -84,7 +84,7 @@ describe('Account Page', () => {
     describe('Password Update Errors', () => {
 
         beforeEach(() => {
-            spyPost.mockReturnValue({ok: true})
+            spyPost.mockReturnValue({ ok: true })
         })
 
         it('should display error when passwords do not match', async () => {
@@ -123,7 +123,9 @@ describe('Account Page', () => {
         it('should not display old password error when it is populated on submit', async () => {
             await renderComponent();
             fireEvent.change(screen.getByTestId('old-pass').querySelector('input'), { target: { value: 'validPass' } });
-            fireEvent.click(screen.getByTestId('password-submit'));
+            await act(async () => {
+                fireEvent.click(screen.getByTestId('password-submit'));
+            });
             const actual = screen.getByTestId('old-pass').querySelector('label').className;
 
             expect(actual).not.toContain('error');
