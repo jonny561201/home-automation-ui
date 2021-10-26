@@ -4,6 +4,10 @@ import { render, screen, act } from '@testing-library/react';
 import Home from '../../../pages/Home/Home';
 import { getStore } from '../../../state/GlobalState';
 
+
+jest.mock('../../../utilities/StateUtil', () => () => { });
+
+
 describe('Home', () => {
 
     const renderComponent = async () => {
@@ -34,7 +38,7 @@ describe('Home', () => {
         expect(actual).toBeDefined();
     });
 
-    it('should set the active page to Home',async () => {
+    it('should set the active page to Home', async () => {
         expect(getStore().getActivePage()).toEqual('Home Automation');
     });
 });
