@@ -5,6 +5,10 @@ import * as lib from '../../../utilities/RestApi';
 import { getStore } from '../../../state/GlobalState';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 
+
+jest.mock('../../../utilities/StateUtil', () => () => { });
+
+
 describe('Account Page', () => {
 
     const userId = 'fakeUserId';
