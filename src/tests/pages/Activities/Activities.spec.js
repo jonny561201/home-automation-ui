@@ -6,8 +6,10 @@ import { render, screen, act } from '@testing-library/react';
 import ActivitiesPage from '../../../pages/Activities/Activities';
 
 
+jest.mock('../../../utilities/StateUtil', () => () => { });
+
+
 describe('Activities Page', () => {
-    const roles = [{"role_name": "lighting"}];
     const userId = 'ascv123';
     const room = 'BedRoom';
     const time = '07:30:00';
@@ -18,7 +20,7 @@ describe('Activities Page', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{tasks: []}, () => { }]}>
+                <Context.Provider value={[{ tasks: [] }, () => { }]}>
                     <ActivitiesPage />
                 </Context.Provider>
             );
@@ -31,7 +33,7 @@ describe('Activities Page', () => {
         spyGet.mockReturnValue([{ alarm_group_name: room, alarm_light_group: '2', alarm_days: days, alarm_time: time }]);
     });
 
-    it('should set the active page to Activites',async () => {
+    it('should set the active page to Activites', async () => {
         await renderComponent();
         expect(getStore().getActivePage()).toEqual('Activities');
     });
