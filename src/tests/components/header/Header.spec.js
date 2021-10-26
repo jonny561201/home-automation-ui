@@ -4,6 +4,10 @@ import { render, screen, act } from '@testing-library/react';
 import Header from '../../../components/header/Header';
 import { getStore } from '../../../state/GlobalState';
 
+
+jest.mock('../../../utilities/StateUtil', () => () => { });
+
+
 describe('HeaderComponent', () => {
     const expectedPage = 'Home Automation';
 
