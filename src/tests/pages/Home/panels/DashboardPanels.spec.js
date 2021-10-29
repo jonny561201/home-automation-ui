@@ -11,7 +11,7 @@ describe('DashboardPanel', () => {
     const garageRole = { devices: [{ node_name: 'test' }] };
     const coords = { latitude: 1, longitude: -1 };
     const sumpData = { warningLevel: 1, depthUnit: 'in' };
-    const tempData = { temp: 2.0, currentTemp: 12.0, desiredTemp: 1.0, mode: 'auto', minThermostatTemp: 1.0, maxThermostatTemp: 3.0 };
+    const tempData = { temp: 2.0, currentTemp: 12.0, desiredTemp: 1.0, mode: 'auto', minThermostatTemp: 1.0, maxThermostatTemp: 3.0, description: 'thunderstorm' };
     const userLights = [{ groupId: '1', lightId: '1', lightName: 'room', brightness: 0, on: false }];
     const lightGroups = [{ groupId: '1', groupName: 'test', brightness: 0, lights: userLights, on: false }];
 
