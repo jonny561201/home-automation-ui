@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Context } from '../../state/Store';
 import useSound from 'use-sound';
 import clickSound from '../../resources/singleClick.mp3';
@@ -7,25 +7,15 @@ import { getStore } from '../../state/GlobalState';
 import AddIcon from '@material-ui/icons/Add';
 import LightActivity from './LightActivity';
 import HvacActivity from './HvacActivity';
-import { getScheduledTasks } from '../../utilities/RestApi';
 import CreateNewActivityPanel from './CreateNewActivity';
 import './Activities.css';
 
 
 export default function ActivitiesPage() {
     getStore().setActivePage('Activities');
-    const [click] = useSound(clickSound, {volume: 0.25});
-    const [state, dispatch] = useContext(Context);
+    const [click] = useSound(clickSound, { volume: 0.25 });
+    const [state,] = useContext(Context);
     const [addTask, setAddTask] = useState(false)
-
-
-    useEffect(() => {
-        const getData = async () => {
-            const responseTasks = await getScheduledTasks(getStore().getUserId());
-            dispatch({ type: 'SET_SCHEDULED_TASK', payload: responseTasks });
-        };
-        getData();
-    }, []);
 
     const createNewTask = () => {
         setAddTask(true);
@@ -34,8 +24,8 @@ export default function ActivitiesPage() {
 
     const createActivities = (task) => {
         return task.task_type === 'hvac'
-        ? <HvacActivity key={task.task_id} task={task}/>
-        : <LightActivity key={task.task_id} task={task} />
+            ? <HvacActivity key={task.task_id} task={task} />
+            : <LightActivity key={task.task_id} task={task} />
     }
 
     return (
@@ -50,7 +40,7 @@ export default function ActivitiesPage() {
                     </div>
                     {
                         addTask &&
-                        <CreateNewActivityPanel saveNewTask={() => {setAddTask(false)}} cancelNewTask={() => { setAddTask(false) }} />
+                        <CreateNewActivityPanel saveNewTask={() => { setAddTask(false) }} cancelNewTask={() => { setAddTask(false) }} />
                     }
                     {
                         state.tasks.map(x => createActivities(x))
@@ -59,7 +49,7 @@ export default function ActivitiesPage() {
                 <div className="add-task-container">
                     <div className="add-task-button-border">
                         <div className="add-task-button success-ripple">
-                        <AddIcon data-testid="add-task-button" className="add-task-button-plus" onClick={createNewTask} />
+                            <AddIcon data-testid="add-task-button" className="add-task-button-plus" onClick={createNewTask} />
                         </div>
                     </div>
                 </div>
