@@ -36,7 +36,7 @@ export default function UserPass() {
                 const decodedToken = jwt_decode(response.bearerToken);
                 await dispatch({ type: 'SET_BEARER_TOKEN', payload: response.bearerToken });
                 await dispatch({ type: 'SET_REFRESH_TOKEN', payload: decodedToken.refresh_token });
-                await dispatch({ type: 'SET_USER_DATA', payload: decodedToken.user });
+                await dispatch({ type: 'SET_USER_DATA', payload: { userId: decodedToken.user.user_id, firstName: decodedToken.user.first_name, lastName: decodedToken.user.last_name, roles: decodedToken.user.roles } });
                 const garageRole = decodedToken.user.roles.find(x => x.role_name === 'garage_door');
                 await dispatch({ type: 'SET_GARAGE_ROLE', payload: garageRole });
                 await dispatch({ type: 'SET_DEVICES_TO_REGISTER', payload: unregisteredDevices(decodedToken.user.roles) });

@@ -16,10 +16,9 @@ const Reducer = (state, action) => {
                 refreshToken: action.payload
             }
         case 'SET_USER_DATA':
-            const payload = action.payload;
             return {
                 ...state,
-                user: { userId: payload.user_id, roles: payload.roles, firstName: payload.first_name, lastName: payload.last_name }
+                user: action.payload
             }
         case 'SET_DEVICE_ID':
             return {
