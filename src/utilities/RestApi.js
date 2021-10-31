@@ -35,6 +35,14 @@ export const getBearerToken = async (username, password) => {
     return null;
 }
 
+export const getRefreshedBearerToken = async (refreshToken) => {
+    const request = { 'grant_type': 'refresh_token', 'refresh_token': refreshToken };
+    const options = { method: 'POST', body: JSON.stringify(request) };
+
+    const response = await fetch(`${baseUrl}/token`, options);
+    return await response.json()
+}
+
 export const getGarageStatus = async (userId, garageId) => {
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
     const response = await fetch(`${garageBaseUrl}/${garageId}/user/${userId}/status`, options);

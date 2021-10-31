@@ -4,7 +4,7 @@ import {
     getBearerToken, getGarageStatus, updateGarageState, addUserDevice, getUserChildAccounts, insertLightTask,
     toggleGarageDoor, getSumpLevels, getCurrentTemperature, addUserDeviceNode, deleteUserChildAccount, updateScheduledTasks,
     getUserPreferences, updateUserPreferences, setUserTemperature, addUserChildAccount, deleteScheduledTask, insertHvacTask,
-    getLightGroups, setLightGroupState, setLightState, updateUserAccount, getRolesByUserId, getScheduledTasks
+    getLightGroups, setLightGroupState, setLightState, updateUserAccount, getRolesByUserId, getScheduledTasks, getRefreshedBearerToken
 } from '../../utilities/RestApi';
 import { getStore } from '../../state/GlobalState';
 
@@ -418,6 +418,22 @@ describe('RestApi', () => {
             const actual = await updateScheduledTasks(userId, body.taskId, body.alarmLightGroup, body.alarmGroupName, body.alarmDays, body.alarmTime, body.enabled, body.taskType);
 
             expect(actual.task_id).toEqual(taskId);
+        });
+
+        it('should make rest call to refresh bearer token', async () => {
+            const refresh = ',jkasdfkjgasdf8673';
+            const bearer = '345kh3jbk435iuy';
+            const body = { 'grant_type': 'refresh_token', 'refresh_token': refresh };
+            const response = { 'bearerToken': bearer };
+            const options = { 'method': 'POST', 'body': body };
+
+            fetchMock.mock(`${baseUrl}/token`, response, options).catch(unmatchedUrl => {
+                return { status: 400 }
+            });
+
+            const actual = await getRefreshedBearerToken(refresh);
+
+            expect(actual.bearerToken).toEqual(bearer);
         });
     });
 });
