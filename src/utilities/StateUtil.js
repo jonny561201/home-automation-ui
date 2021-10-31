@@ -73,7 +73,7 @@ export default function StateUtil() {
 
     const refreshBearerToken = async () => {
         const bearer = await getRefreshedBearerToken(state.refreshToken);
-        const decodedToken = jwt_decode(response.bearerToken);
+        const decodedToken = jwt_decode(bearer.bearerToken);
         dispatch({ type: 'SET_BEARER_TOKEN', payload: bearer.bearerToken });
         dispatch({ type: 'SET_REFRESH_TOKEN', payload: decodedToken.refresh_token });
     }

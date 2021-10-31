@@ -5,11 +5,9 @@ import Reducer from './Reducer'
 const initialState = {
     activePage: null,
     bearerToken: null,
-    userId: null,
+    refreshToken: null,
     isAuthenticated: false,
-    firstName: "",
-    lastName: "",
-    roles: [],
+    user: { userId: null, firstName: '', lastName: '', roles: [] },
     deviceId: null,
     startedGarageRegistration: false,
     devicesToRegister: false,

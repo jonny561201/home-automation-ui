@@ -16,7 +16,7 @@ describe('Register Device', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{userId: userId}, () => {}]}>
+                <Context.Provider value={[{ user: { userId: userId } }, () => { }]}>
                     <RegisterDevice />
                 </Context.Provider>
             );
@@ -59,26 +59,26 @@ describe('Register Device', () => {
             const actual = screen.getByTestId('close-button');
             expect(actual).toBeDefined();
         });
-    
+
         it('should call debounce function on change', async () => {
             const ipAddress = "12.12.12.12";
             renderComponent();
             const inputBox = screen.getByRole('textbox');
-            fireEvent.change(inputBox, {target: {value: ipAddress}});
+            fireEvent.change(inputBox, { target: { value: ipAddress } });
             expect(spyDebounce).toBeCalled();
         });
-    
+
         it('should make api call to add device when IP not in error', () => {
             const ipAddress = "12.12.12.12";
             renderComponent();
             const inputBox = screen.getByRole('textbox');
-            fireEvent.change(inputBox, {target: {value: ipAddress}});
-    
+            fireEvent.change(inputBox, { target: { value: ipAddress } });
+
             const button = screen.getByRole('button');
             fireEvent.submit(button);
             expect(spyAdd).toBeCalledWith(userId, 'garage_door', ipAddress);
         });
-    
+
         // it('should not make api call to add device when IP in error', async () => {
         //     spyValidate.mockReturnValue(false);
         //     await act(() => {

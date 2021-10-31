@@ -9,7 +9,7 @@ import { calculateDistanceInMeters } from '../../../utilities/Location';
 import './UserLocation.css';
 
 export default function UserLocation() {
-    const [ding] = useSound(dingSound, {volume: 0.25});
+    const [ding] = useSound(dingSound, { volume: 0.25 });
     const [state, dispatch] = useContext(Context);
     const [cancel, setCancel] = useState(false);
     const [opened, setOpened] = useState(false);
@@ -68,7 +68,7 @@ export default function UserLocation() {
                 const userDistance = calculateDistanceInMeters(garageCoords.latitude, garageCoords.longitude, userCoords.latitude, userCoords.longitude);
                 if (shouldOpenGarage(userDistance)) {
                     console.log('gonna open')
-                    updateGarageState(true, state.userId, 1);
+                    updateGarageState(true, state.user.userId, 1);
                 }
             }
         }, (error) => { alert('Enable GPS position feature.') }, { enableHighAccuracy: true });

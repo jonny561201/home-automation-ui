@@ -14,17 +14,17 @@ describe('Add Garage', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{deviceId: deviceId, userId: userId}, () => {}]}>
+                <Context.Provider value={[{ deviceId: deviceId, user: { userId: userId } }, () => { }]}>
                     <AddGarage />
                 </Context.Provider>
             );
         });
     }
-    
+
     beforeEach(() => {
         spyGet.mockClear();
         spyAdd.mockClear();
-        spyGet.mockReturnValue({roles: [{}]});
+        spyGet.mockReturnValue({ roles: [{}] });
         spyAdd.mockReturnValue({ ok: false, json: () => { return { availableNodes: 2 } } });
     });
 

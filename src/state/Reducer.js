@@ -10,35 +10,26 @@ const Reducer = (state, action) => {
                 ...state,
                 bearerToken: action.payload
             };
-        case 'SET_USER_ID':
+        case 'SET_REFRESH_TOKEN':
             return {
                 ...state,
-                userId: action.payload
-            };
+                refreshToken: action.payload
+            }
+        case 'SET_USER_DATA':
+            const payload = action.payload;
+            return {
+                ...state,
+                user: { userId: payload.user_id, roles: payload.roles, firstName: payload.first_name, lastName: payload.last_name }
+            }
         case 'SET_DEVICE_ID':
             return {
                 ...state,
                 deviceId: action.payload
             };
-        case 'SET_FIRST_NAME':
-            return {
-                ...state,
-                firstName: action.payload
-            };
-        case 'SET_LAST_NAME':
-            return {
-                ...state,
-                lastName: action.payload
-            };
         case 'SET_AUTHENTICATION':
             return {
                 ...state,
                 isAuthenticated: action.payload
-            };
-        case 'SET_ROLES':
-            return {
-                ...state,
-                roles: action.payload
             };
         case 'SET_STARTED_GARAGE_REGISTRATION':
             return {
