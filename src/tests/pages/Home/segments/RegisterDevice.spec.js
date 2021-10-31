@@ -32,22 +32,21 @@ describe('Register Device', () => {
     describe('Before Transition', () => {
 
         beforeEach(() => {
-            spyAdd.mockReturnValue({json: () => {return {deviceId: ""}}});
+            spyAdd.mockReturnValue({ json: () => { return { deviceId: "" } } });
         })
 
         it('should display Add Device text', () => {
             renderComponent();
             const actual = screen.getByTestId('data-add-device');
-    
             expect(actual.textContent).toEqual("Add Device");
         });
-    
+
         it('should have an input box for the ip address', () => {
             renderComponent();
             const actual = screen.getByRole('textbox');
             expect(actual).toBeDefined();
         });
-    
+
         it('should display button for submitting request', () => {
             renderComponent();
             const actual = screen.getByRole('button');
@@ -86,7 +85,7 @@ describe('Register Device', () => {
         //     });
         //     const inputBox = screen.getByRole('textbox');
         //     fireEvent.change(inputBox, {target: {value: "I dont matter"}});
-    
+
         //     const button = screen.getByRole('button');
         //     // screen.getByText('Add Device')
         //     fireEvent.submit(button);
