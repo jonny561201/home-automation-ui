@@ -19,10 +19,6 @@ class GlobalState {
         return this.state.activePage;
     }
 
-    updateAuth = (isAuthenticated) => {
-        this.state.isAuthenticated = isAuthenticated;
-    }
-
     isAuthenticated = () => {
         return this.state.isAuthenticated;
     }
@@ -65,26 +61,6 @@ class GlobalState {
 
     getLastName = () => {
         return this.state.lastName;
-    }
-
-    hasUnregisteredDevices = () => {
-        const garageRole = this.state.userRoles.find(x => x.role_name === 'garage_door');
-        if (garageRole) {
-            if (!garageRole.devices || garageRole.devices.length === 0) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    startedGarageRegistration = () => {
-        const garageRole = this.state.userRoles.find(x => x.role_name === 'garage_door');
-        return garageRole && garageRole.device_id;
-    }
-
-    getGarageDeviceId = () => {
-        const garageRole = this.state.userRoles.find(x => x.role_name === 'garage_door');
-        return garageRole && garageRole.device_id ? garageRole.device_id : null;
     }
 }
 
