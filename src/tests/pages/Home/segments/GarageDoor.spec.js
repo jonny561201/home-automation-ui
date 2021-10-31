@@ -16,7 +16,7 @@ describe('Garage Door', () => {
     const renderComponent = async (door) => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ userId: userId }, () => { }]}>
+                <Context.Provider value={[{ user: { userId: userId } }, () => { }]}>
                     <GarageDoor device={door} />
                 </Context.Provider>
             );

@@ -16,7 +16,6 @@ export const getBearerToken = async (username, password) => {
     const options = {
         method: 'POST',
         body: JSON.stringify(request)
-        // headers: { 'Authorization': `Basic ${base64.encode(username + ":" + password)}` } 
     };
 
     const response = await fetch(`${baseUrl}/token`, options);

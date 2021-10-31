@@ -7,14 +7,15 @@ import { Context } from '../../../state/Store';
 
 describe('Settings Edit Panel', () => {
     const userId = 'fakeUserId';
+    const roles = [{ "role_name": "lighting" }];
+    const user = { userId: userId, roles: roles }
     const preference = { city: 'Des Moines', temp_unit: 'fahrenheit', measureUnit: 'impreial' };
     const spyUpdate = jest.spyOn(lib, 'updateUserPreferences');
-    let roles;
 
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ preferences: preference, daysOfWeek: [], roles: roles, userId: userId }, () => { }]}>
+                <Context.Provider value={[{ preferences: preference, daysOfWeek: [], user: user }, () => { }]}>
                     <SettingsEditPanel tempUnit={"fahrenheit"} measureUnit={"imperial"} />
                 </Context.Provider>
             );
@@ -22,7 +23,6 @@ describe('Settings Edit Panel', () => {
     }
 
     beforeEach(() => {
-        roles = [{ "role_name": "lighting" }];
         spyUpdate.mockClear();
     });
 

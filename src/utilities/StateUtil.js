@@ -1,8 +1,12 @@
 
 import { useContext, useEffect } from 'react';
+import jwt_decode from 'jwt-decode';
 import { Context } from '../state/Store';
 import { useInterval } from './UseInterval';
-import { getGarageStatus, getSumpLevels, getCurrentTemperature, getUserPreferences } from './RestApi';
+import {
+    getGarageStatus, getSumpLevels, getCurrentTemperature, getUserPreferences,
+    getScheduledTasks, getRefreshedBearerToken
+} from './RestApi';
 
 
 export default function StateUtil() {
@@ -19,6 +23,7 @@ export default function StateUtil() {
     useInterval(async () => {
         await getSumpData();
         await getPreferences();
+        await getActivities();
     }, 120000);
 
     useEffect(() => {
@@ -26,13 +31,14 @@ export default function StateUtil() {
         getSumpData();
         getTempData();
         getPreferences();
+        getActivities();
     }, []);
 
     const getGarageData = async () => {
         const doors = state.garageRole.devices;
         if (doors) {
             doors.forEach(async (door) => {
-                const garageStatus = await getGarageStatus(state.userId, door.node_device);
+                const garageStatus = await getGarageStatus(state.user.userId, door.node_device);
                 dispatch({ type: 'SET_GARAGE_COORDS', payload: garageStatus.coordinates });
                 dispatch({ type: 'UPDATE_GARAGE_DOORS', payload: { 'doorName': door.node_name, 'isOpen': garageStatus.isGarageOpen, 'duration': garageStatus.statusDuration } });
             });
@@ -40,12 +46,12 @@ export default function StateUtil() {
     };
 
     const getSumpData = async () => {
-        const sump = await getSumpLevels(state.userId);
+        const sump = await getSumpLevels(state.user.userId);
         dispatch({ type: 'SET_SUMP_DATA', payload: { ...sump, currentDepth: sump.currentDepth.toFixed(1), averageDepth: sump.averageDepth.toFixed(1) } });
     }
 
     const getTempData = async () => {
-        const temp = await getCurrentTemperature(state.userId);
+        const temp = await getCurrentTemperature(state.user.userId);
         const updatedTemp = {
             ...temp,
             desiredTemp: Math.round(temp.desiredTemp),
@@ -56,7 +62,19 @@ export default function StateUtil() {
     }
 
     const getPreferences = async () => {
-        const preferences = await getUserPreferences(state.userId);
+        const preferences = await getUserPreferences(state.user.userId);
         dispatch({ type: 'SET_USER_PREFERENCES', payload: preferences })
+    }
+
+    const getActivities = async () => {
+        const activities = await getScheduledTasks(state.user.userId);
+        dispatch({ type: 'SET_SCHEDULED_TASK', payload: activities });
+    }
+
+    const refreshBearerToken = async () => {
+        const bearer = await getRefreshedBearerToken(state.refreshToken);
+        const decodedToken = jwt_decode(response.bearerToken);
+        dispatch({ type: 'SET_BEARER_TOKEN', payload: bearer.bearerToken });
+        dispatch({ type: 'SET_REFRESH_TOKEN', payload: decodedToken.refresh_token });
     }
 }

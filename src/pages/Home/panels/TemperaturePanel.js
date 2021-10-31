@@ -23,7 +23,7 @@ export default function TemperaturePanel() {
     const knobChange = (newValue) => {
         if (state.tempData.mode === 'heating' || state.tempData.mode === 'cooling') {
             dispatch({ type: 'SET_TEMP_DATA', payload: { ...state.tempData, desiredTemp: newValue } });
-            debounchApi(() => setUserTemperature(state.userId, newValue, state.tempData.mode, state.tempData.isFahrenheit));
+            debounchApi(() => setUserTemperature(state.user.userId, newValue, state.tempData.mode, state.tempData.isFahrenheit));
         }
     }
 
@@ -31,7 +31,7 @@ export default function TemperaturePanel() {
         click();
         const modeState = state.tempData.mode === newMode ? null : newMode;
         await dispatch({ type: 'SET_TEMP_DATA', payload: { ...state.tempData, mode: modeState } });
-        setUserTemperature(state.userId, state.tempData.desiredTemp, modeState, state.tempData.isFahrenheit);
+        setUserTemperature(state.user.userId, state.tempData.desiredTemp, modeState, state.tempData.isFahrenheit);
     }
 
     return (
