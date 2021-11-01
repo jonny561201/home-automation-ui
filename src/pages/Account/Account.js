@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { Context } from '../../state/Store';
 import { getStore } from '../../state/GlobalState';
 import useSound from 'use-sound';
 import clickSound from '../../resources/click.mp3';
@@ -12,7 +13,8 @@ import './Account.css';
 
 export default function Account() {
     getStore().setActivePage('Account');
-    const [click] = useSound(clickSound, {volume: 0.25});
+    const [click] = useSound(clickSound, { volume: 0.25 });
+    const [state,] = useContext(Context);
     const [arePasswordsMismatched, setPasswordsMismatched] = useState(null);
     const [changed, setChanged] = useState(false);
     const [oldPasswordError, setPasswordError] = useState(null);
@@ -46,7 +48,7 @@ export default function Account() {
         click();
         setSubmitted(true);
         if (!oldPasswordError && !arePasswordsMismatched && changed) {
-            const response = await updateUserAccount(getStore().getUserId(), oldPassword, secondNewPassword);
+            const response = await updateUserAccount(state.user.userId, state.auth.bearer, oldPassword, secondNewPassword);
             setSucceeded(response.ok);
         }
     }

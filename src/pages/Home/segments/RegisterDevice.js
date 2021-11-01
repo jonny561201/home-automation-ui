@@ -38,7 +38,7 @@ export default function RegisterDevice(props) {
     const submitDevice = async (event) => {
         event.preventDefault();
         if (isIpValid && touched) {
-            const response = await addUserDevice(state.user.userId, 'garage_door', ipAddress)
+            const response = await addUserDevice(state.user.userId, state.auth.bearer, 'garage_door', ipAddress)
             const responseObj = await response.json();
             dispatch({ type: 'SET_STARTED_GARAGE_REGISTRATION', payload: true })
             dispatch({ type: 'SET_DEVICE_ID', payload: responseObj.deviceId });

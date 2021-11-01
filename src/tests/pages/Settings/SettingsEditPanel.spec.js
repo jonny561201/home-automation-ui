@@ -5,8 +5,10 @@ import SettingsEditPanel from '../../../pages/Settings/SettingsEditPanel';
 import '@testing-library/jest-dom';
 import { Context } from '../../../state/Store';
 
+
 describe('Settings Edit Panel', () => {
     const userId = 'fakeUserId';
+    const bearer = 'asdf8o6sdf';
     const roles = [{ "role_name": "lighting" }];
     const user = { userId: userId, roles: roles }
     const preference = { city: 'Des Moines', temp_unit: 'fahrenheit', measureUnit: 'impreial' };
@@ -15,7 +17,7 @@ describe('Settings Edit Panel', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ preferences: preference, daysOfWeek: [], user: user }, () => { }]}>
+                <Context.Provider value={[{ auth: { bearer: bearer }, preferences: preference, daysOfWeek: [], user: user }, () => { }]}>
                     <SettingsEditPanel tempUnit={"fahrenheit"} measureUnit={"imperial"} />
                 </Context.Provider>
             );

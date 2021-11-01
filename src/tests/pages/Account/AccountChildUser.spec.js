@@ -1,4 +1,5 @@
 import React from 'react';
+import { Context } from '../../../state/Store';
 import AccountChildUser from '../../../pages/Account/AccountChildUser';
 import { getStore } from '../../../state/GlobalState';
 import * as lib from '../../../utilities/RestApi';
@@ -7,6 +8,7 @@ import { render, screen, fireEvent, within, act } from '@testing-library/react';
 describe('AccountChildUser', () => {
     const userId = 'fakeUserId';
     const childUserId = 'abc123';
+    const bearer = ',kasdf8723';
     const spyGet = jest.spyOn(lib, 'getUserChildAccounts');
     const spyPost = jest.spyOn(lib, 'addUserChildAccount');
     const spyDelete = jest.spyOn(lib, 'deleteUserChildAccount');
@@ -15,12 +17,15 @@ describe('AccountChildUser', () => {
 
     const renderComponent = async () => {
         await act(async () => {
-            render(<AccountChildUser />);
+            render(
+                <Context.Provider value={[{ user: { userId: userId }, auth: { bearer: bearer } }, () => { }]}>
+                    <AccountChildUser />
+                </Context.Provider>
+            );
         });
     }
 
     beforeEach(() => {
-        getStore().setUserId(userId);
         getStore().setUserRoles(roles);
         spyGet.mockClear();
         spyPost.mockClear();
@@ -136,7 +141,7 @@ describe('AccountChildUser', () => {
                 fireEvent.click(screen.getByTestId('add-user-button'));
             });
 
-            expect(spyPost).toHaveBeenCalledWith(userId, email, roles);
+            expect(spyPost).toHaveBeenCalledWith(userId, bearer, email, roles);
         });
 
         it('should remove item from list after clicking the delete', async () => {

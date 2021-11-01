@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { Context } from '../../state/Store';
-import { getStore } from '../../state/GlobalState';
 import useSound from 'use-sound';
 import { Save, Delete } from '@material-ui/icons';
 import clickSound from '../../resources/click.mp3';
@@ -15,7 +14,7 @@ import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary, Divider, 
 
 export default function HvacActivity(props) {
     const initialDays = [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }];
-    const [_, dispatch] = useContext(Context);
+    const [state, dispatch] = useContext(Context);
     const [enabled, setEnabled] = useState(props.task.enabled);
     const [days, setDays] = useState(props.task.alarm_days);
     const [open, setOpen] = useState(false);
@@ -40,7 +39,7 @@ export default function HvacActivity(props) {
 
     const clickDelete = async () => {
         click();
-        const response = await deleteScheduledTask(getStore().getUserId(), props.task.task_id);
+        const response = await deleteScheduledTask(state.user.userId, state.auth.bearer, props.task.task_id);
         if (response.ok) {
             dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.task_id });
         }

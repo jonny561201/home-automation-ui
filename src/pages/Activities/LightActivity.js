@@ -34,7 +34,7 @@ export default function LightActivity(props) {
         if (edited) {
             click();
             const task = props.task;
-            const response = await updateScheduledTasks(getStore().getUserId(), task.task_id, task.alarm_light_group, task.alarm_group_name, days, time, enabled, type);
+            const response = await updateScheduledTasks(state.user.userId, state.auth.bearer, task.task_id, task.alarm_light_group, task.alarm_group_name, days, time, enabled, type);
             if (response) {
                 dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: task.task_id });
                 dispatch({ type: 'ADD_SCHEDULED_TASK', payload: response });
@@ -53,7 +53,7 @@ export default function LightActivity(props) {
 
     const clickDelete = async () => {
         click();
-        const response = await deleteScheduledTask(getStore().getUserId(), props.task.task_id);
+        const response = await deleteScheduledTask(state.user.userId, state.auth.bearer, props.task.task_id);
         if (response.ok) {
             dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.task_id });
         }
@@ -64,7 +64,7 @@ export default function LightActivity(props) {
         const updated = !enabled;
         setEnabled(updated)
         const task = props.task;
-        const response = await updateScheduledTasks(getStore().getUserId(), task.task_id, task.alarm_light_group, task.alarm_group_name, days, time, updated, type);
+        const response = await updateScheduledTasks(state.user.userId, state.auth.bearer, task.task_id, task.alarm_light_group, task.alarm_group_name, days, time, updated, type);
         if (response) {
             dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: task.task_id });
             dispatch({ type: 'ADD_SCHEDULED_TASK', payload: response });

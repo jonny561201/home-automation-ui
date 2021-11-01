@@ -10,7 +10,7 @@ jest.mock('../../../utilities/StateUtil', () => () => { });
 
 
 describe('Account Page', () => {
-
+    const bearer = 'alkjsdf897';
     const userId = 'fakeUserId';
     const spyPost = jest.spyOn(lib, 'updateUserAccount');
     const spyGet = jest.spyOn(lib, 'getUserChildAccounts');
@@ -18,7 +18,7 @@ describe('Account Page', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{}, () => { }]}>
+                <Context.Provider value={[{ user: { userId: userId }, auth: { bearer: bearer } }, () => { }]}>
                     <Account />
                 </Context.Provider>
             );
@@ -146,7 +146,7 @@ describe('Account Page', () => {
             await act(async () => {
                 fireEvent.click(screen.getByTestId('password-submit'));
             });
-            expect(spyPost).toHaveBeenCalledWith(userId, oldPass, matchingPass);
+            expect(spyPost).toHaveBeenCalledWith(userId, bearer, oldPass, matchingPass);
         });
     });
 });

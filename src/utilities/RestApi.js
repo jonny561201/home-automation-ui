@@ -42,193 +42,193 @@ export const getRefreshedBearerToken = async (refreshToken) => {
     return await response.json()
 }
 
-export const getGarageStatus = async (userId, garageId) => {
-    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
+export const getGarageStatus = async (userId, bearer, garageId) => {
+    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
     const response = await fetch(`${garageBaseUrl}/${garageId}/user/${userId}/status`, options);
     return await response.json();
 }
 
-export const updateGarageState = async (shouldOpen, userId, garageId) => {
+export const updateGarageState = async (userId, bearer, shouldOpen, garageId) => {
     const request = { 'garageDoorOpen': shouldOpen };
     const options = {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
+        headers: { 'Authorization': `Bearer ${bearer}` },
         body: JSON.stringify(request)
     };
     const response = await fetch(`${garageBaseUrl}/${garageId}/user/${userId}/state`, options);
     return await response.json();
 }
 
-export const toggleGarageDoor = async (userId, garageId) => {
-    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } }
+export const toggleGarageDoor = async (userId, bearer, garageId) => {
+    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } }
     return await fetch(`${garageBaseUrl}/${garageId}/user/${userId}/toggle`, options);
 }
 
-export const getSumpLevels = async (userId) => {
-    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
+export const getSumpLevels = async (userId, bearer) => {
+    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
     const response = await fetch(`${sumpBaseUrl}/user/${userId}/depth`, options);
     return await response.json();
 }
 
-export const getCurrentTemperature = async (userId) => {
-    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
+export const getCurrentTemperature = async (userId, bearer) => {
+    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
     const response = await fetch(`${thermostatBaseUrl}/temperature/${userId}`, options);
     return await response.json();
 }
 
-export const setUserTemperature = async (userId, desiredTemp, mode, isFahrenheit) => {
+export const setUserTemperature = async (userId, bearer, desiredTemp, mode, isFahrenheit) => {
     const request = { 'desiredTemp': desiredTemp, 'mode': mode, 'isFahrenheit': isFahrenheit }
     const options = {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
+        headers: { 'Authorization': `Bearer ${bearer}` },
         body: JSON.stringify(request)
     };
 
     return await fetch(`${thermostatBaseUrl}/temperature/${userId}`, options);
 }
 
-export const getUserPreferences = async (userId) => {
-    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
+export const getUserPreferences = async (userId, bearer) => {
+    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
     const response = await fetch(`${baseUrl}/userId/${userId}/preferences`, options);
     return await response.json();
 }
 
-export const updateUserPreferences = async (userId, isFahrenheit, isImperial, city) => {
+export const updateUserPreferences = async (userId, bearer, isFahrenheit, isImperial, city) => {
     const request = { 'isFahrenheit': isFahrenheit, 'city': city, 'isImperial': isImperial }
     const options = {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
+        headers: { 'Authorization': `Bearer ${bearer}` },
         body: JSON.stringify(request)
     }
 
     return await fetch(`${baseUrl}/userId/${userId}/preferences/update`, options);
 }
 
-export const getLightGroups = async () => {
-    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
+export const getLightGroups = async (bearer) => {
+    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
     const response = await fetch(`${lightBaseUrl}/groups`, options);
     return response.json();
 }
 
-export const setLightGroupState = async (groupId, state, brightness) => {
+export const setLightGroupState = async (bearer, groupId, state, brightness) => {
     const request = { 'groupId': groupId, 'on': state, 'brightness': brightness };
     const options = {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
+        headers: { 'Authorization': `Bearer ${bearer}` },
         body: JSON.stringify(request)
     };
 
     return await fetch(`${lightBaseUrl}/group/state`, options);
 }
 
-export const setLightState = async (lightId, state, brightness) => {
+export const setLightState = async (bearer, lightId, state, brightness) => {
     const request = { 'lightId': lightId, 'on': state, 'brightness': brightness };
     const options = {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
+        headers: { 'Authorization': `Bearer ${bearer}` },
         body: JSON.stringify(request)
     };
 
     return await fetch(`${lightBaseUrl}/group/light`, options);
 }
 
-export const updateUserAccount = async (userId, oldPass, newPass) => {
+export const updateUserAccount = async (userId, bearer, oldPass, newPass) => {
     const request = { 'oldPassword': oldPass, 'newPassword': newPass };
     const options = {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
+        headers: { 'Authorization': `Bearer ${bearer}` },
         body: JSON.stringify(request)
     };
 
     return await fetch(`${accountBaseUrl}/userId/${userId}/updateAccount`, options);
 }
 
-export const addUserDevice = async (userId, roleName, ipAddress) => {
+export const addUserDevice = async (userId, bearer, roleName, ipAddress) => {
     const request = { 'roleName': roleName, 'ipAddress': ipAddress }
     const options = {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
+        headers: { 'Authorization': `Bearer ${bearer}` },
         body: JSON.stringify(request)
     };
     return await fetch(`${deviceBaseUrl}/userId/${userId}/devices`, options);
 }
 
-export const addUserDeviceNode = async (userId, deviceId, nodeName) => {
+export const addUserDeviceNode = async (userId, bearer, deviceId, nodeName) => {
     const request = { 'nodeName': nodeName };
     const options = {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
+        headers: { 'Authorization': `Bearer ${bearer}` },
         body: JSON.stringify(request)
     };
     return await fetch(`${deviceBaseUrl}/userId/${userId}/devices/${deviceId}/node`, options);
 }
 
-export const getRolesByUserId = async (userId) => {
-    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
+export const getRolesByUserId = async (userId, bearer) => {
+    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
     const response = await fetch(`${accountBaseUrl}/userId/${userId}/roles`, options);
     return response.json();
 }
 
-export const addUserChildAccount = async (userId, email, roles) => {
+export const addUserChildAccount = async (userId, bearer, email, roles) => {
     const request = { 'email': email, 'roles': roles };
     const options = {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
+        headers: { 'Authorization': `Bearer ${bearer}` },
         body: JSON.stringify(request)
     };
     const response = await fetch(`${accountBaseUrl}/userId/${userId}/createChildAccount`, options);
     return response.json();
 }
 
-export const getUserChildAccounts = async (userId) => {
-    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
+export const getUserChildAccounts = async (userId, bearer) => {
+    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
     const response = await fetch(`${accountBaseUrl}/userId/${userId}/childAccounts`, options);
     return response.json();
 }
 
-export const deleteUserChildAccount = async (userId, childAccountId) => {
-    const options = { method: 'DELETE', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
+export const deleteUserChildAccount = async (userId, bearer, childAccountId) => {
+    const options = { method: 'DELETE', headers: { 'Authorization': `Bearer ${bearer}` } };
     return await fetch(`${accountBaseUrl}/userId/${userId}/childUserId/${childAccountId}`, options);
 }
 
-export const deleteScheduledTask = async (userId, taskId) => {
-    const options = { method: 'DELETE', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
+export const deleteScheduledTask = async (userId, bearer, taskId) => {
+    const options = { method: 'DELETE', headers: { 'Authorization': `Bearer ${bearer}` } };
     return await fetch(`${baseUrl}/userId/${userId}/tasks/${taskId}`, options);
 }
 
-export const getScheduledTasks = async (userId) => {
-    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` } };
+export const getScheduledTasks = async (userId, bearer) => {
+    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
     const response = await fetch(`${baseUrl}/userId/${userId}/tasks`, options);
     return response.json()
 }
 
-export const insertLightTask = async (userId, enabled, taskType, alarmLightGroup, alarmGroupName, alarmDays, alarmTime) => {
+export const insertLightTask = async (userId, bearer, enabled, taskType, alarmLightGroup, alarmGroupName, alarmDays, alarmTime) => {
     const request = { 'alarmLightGroup': alarmLightGroup, 'alarmGroupName': alarmGroupName, 'alarmDays': alarmDays, 'alarmTime': alarmTime, 'enabled': enabled, 'taskType': taskType };
     const options = {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
+        headers: { 'Authorization': `Bearer ${bearer}` },
         body: JSON.stringify(request)
     };
     const response = await fetch(`${baseUrl}/userId/${userId}/tasks`, options);
     return response.json()
 }
 
-export const insertHvacTask = async (userId, enabled, taskType, hvacMode, hvacStart, hvacStop, hvacStartTemp, hvacStopTemp, alarmDays) => {
+export const insertHvacTask = async (userId, bearer, enabled, taskType, hvacMode, hvacStart, hvacStop, hvacStartTemp, hvacStopTemp, alarmDays) => {
     const request = { 'hvacMode': hvacMode, 'hvacStart': hvacStart, 'hvacStop': hvacStop, 'hvacStartTemp': hvacStartTemp, 'hvacStopTemp': hvacStopTemp, 'alarmDays': alarmDays, 'enabled': enabled, 'taskType': taskType };
     const options = {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
+        headers: { 'Authorization': `Bearer ${bearer}` },
         body: JSON.stringify(request)
     };
     const response = await fetch(`${baseUrl}/userId/${userId}/tasks`, options);
     return response.json()
 }
 
-export const updateScheduledTasks = async (userId, taskId, alarmLightGroup, alarmGroupName, alarmDays, alarmTime, enabled, taskType) => {
+export const updateScheduledTasks = async (userId, bearer, taskId, alarmLightGroup, alarmGroupName, alarmDays, alarmTime, enabled, taskType) => {
     const request = { 'taskId': taskId, 'alarmLightGroup': alarmLightGroup, 'alarmGroupName': alarmGroupName, 'alarmDays': alarmDays, 'alarmTime': alarmTime, 'enabled': enabled, 'taskType': taskType };
     const options = {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${getStore().getBearerToken()}` },
+        headers: { 'Authorization': `Bearer ${bearer}` },
         body: JSON.stringify(request)
     }
     const response = await fetch(`${baseUrl}/userId/${userId}/tasks/update`, options);

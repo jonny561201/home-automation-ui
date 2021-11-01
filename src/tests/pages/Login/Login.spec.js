@@ -7,7 +7,7 @@ describe('Login Component', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{}, () => {}]}>
+                <Context.Provider value={[{ auth: { isAuthenticated: false } }, () => { }]}>
                     <Login />
                 </Context.Provider>
             );
@@ -37,4 +37,4 @@ describe('Login Component', () => {
         const actual = screen.getByText('Login');
         expect(actual).toBeDefined();
     });
-}); 
+});

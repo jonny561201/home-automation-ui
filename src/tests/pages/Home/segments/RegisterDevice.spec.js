@@ -9,6 +9,7 @@ import { Context } from '../../../../state/Store';
 describe('Register Device', () => {
 
     const userId = 'fakeUserId';
+    const bearer = 'kljahsdf86';
     const spyAdd = jest.spyOn(api, 'addUserDevice')
     const spyDebounce = jest.spyOn(lib, 'debounchApi');
     const spyValidate = jest.spyOn(lib, 'isValidIpAddress');
@@ -16,7 +17,7 @@ describe('Register Device', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ user: { userId: userId } }, () => { }]}>
+                <Context.Provider value={[{ user: { userId: userId }, auth: { bearer: bearer } }, () => { }]}>
                     <RegisterDevice />
                 </Context.Provider>
             );
@@ -75,7 +76,7 @@ describe('Register Device', () => {
 
             const button = screen.getByRole('button');
             fireEvent.submit(button);
-            expect(spyAdd).toBeCalledWith(userId, 'garage_door', ipAddress);
+            expect(spyAdd).toBeCalledWith(userId, bearer, 'garage_door', ipAddress);
         });
 
         // it('should not make api call to add device when IP in error', async () => {

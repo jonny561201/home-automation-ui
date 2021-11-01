@@ -8,13 +8,14 @@ import { render, screen, fireEvent, act } from '@testing-library/react';
 describe('Add Garage', () => {
     const deviceId = 'abc123';
     const userId = 'fakeUserId';
+    const bearer = 'alkjsdf987';
     const spyAdd = jest.spyOn(lib, 'addUserDeviceNode');
     const spyGet = jest.spyOn(lib, 'getRolesByUserId');
 
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ deviceId: deviceId, user: { userId: userId } }, () => { }]}>
+                <Context.Provider value={[{ deviceId: deviceId, user: { userId: userId }, auth: { bearer: bearer } }, () => { }]}>
                     <AddGarage />
                 </Context.Provider>
             );
@@ -60,7 +61,7 @@ describe('Add Garage', () => {
             await act(async () => {
                 fireEvent.click(screen.getByRole('button'));
             });
-            expect(spyAdd).toBeCalledWith(userId, deviceId, name);
+            expect(spyAdd).toBeCalledWith(userId, bearer, deviceId, name);
         });
 
         it('should make api call to get roles if valid name', async () => {
@@ -70,7 +71,7 @@ describe('Add Garage', () => {
             await act(async () => {
                 fireEvent.click(screen.getByRole('button'));
             });
-            expect(spyGet).toBeCalledWith(userId);
+            expect(spyGet).toBeCalledWith(userId, bearer);
         });
 
         it('should not make api call if the when invalid name', async () => {

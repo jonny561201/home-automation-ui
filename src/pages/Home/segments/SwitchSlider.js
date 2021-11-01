@@ -17,7 +17,7 @@ export default function SwitchSlider(props) {
     const toggleCheckedLight = (event, value) => {
         const newLight = { ...light, brightness: value * 2.55 };
         setLight(newLight);
-        debounchApi(() => setLightState(lightId, true, value * 2.55));
+        debounchApi(() => setLightState(state.auth.bearer, lightId, true, value * 2.55));
         dispatch({ type: 'SET_USER_LIGHT', payload: newLight });
     }
 

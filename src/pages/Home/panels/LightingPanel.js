@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Context } from '../../../state/Store';
 import LightSwitch from '../../../components/controls/LightSwitch';
-import {useInterval} from '../../../utilities/UseInterval';
+import { useInterval } from '../../../utilities/UseInterval';
 import { getLightGroups } from '../../../utilities/RestApi';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import LightingIcon from '../../../resources/panelIcons/LightingIcon.png';
@@ -11,7 +11,7 @@ import './LightingPanel.css'
 
 export default function LightingPanel() {
     const [groups, setGroups] = useState(null);
-    const [, dispatch] = useContext(Context);
+    const [state, dispatch] = useContext(Context);
 
     useEffect(() => {
         getData();
@@ -22,11 +22,11 @@ export default function LightingPanel() {
     }, 60000);
 
     const getData = async () => {
-        const groups = await getLightGroups();
+        const groups = await getLightGroups(state.auth.bearer);
         setGroups(groups);
         if (groups && groups.length) {
             dispatch({ type: 'SET_ALL_USER_LIGHTS', payload: groups.map(x => x.lights).flat(1) });
-            dispatch({type: 'SET_USER_LIGHT_GROUPS', payload: groups.map(({ lights, ...item }) => item)});
+            dispatch({ type: 'SET_USER_LIGHT_GROUPS', payload: groups.map(({ lights, ...item }) => item) });
         }
     };
 

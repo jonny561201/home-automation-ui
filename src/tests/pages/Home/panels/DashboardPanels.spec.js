@@ -6,8 +6,10 @@ import { getStore } from '../../../../state/GlobalState';
 import { render, screen, act } from '@testing-library/react';
 import DashboardPanels from '../../../../pages/Home/panels/DashboardPanels';
 
+
 describe('DashboardPanel', () => {
     const store = getStore();
+    const bearer = 'kjahsd987s798';
     const garageRole = { devices: [{ node_name: 'test' }] };
     const coords = { latitude: 1, longitude: -1 };
     const sumpData = { warningLevel: 1, depthUnit: 'in' };
@@ -18,7 +20,7 @@ describe('DashboardPanel', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ sumpData: sumpData, tempData: tempData, garageRole: garageRole, garageCoords: coords, userLights: [], garageDoors: [] }, () => { }]}>
+                <Context.Provider value={[{ auth: { bearer: bearer }, sumpData: sumpData, tempData: tempData, garageRole: garageRole, garageCoords: coords, userLights: [], garageDoors: [] }, () => { }]}>
                     <DashboardPanels />
                 </Context.Provider>
             );

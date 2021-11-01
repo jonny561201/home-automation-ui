@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Context } from '../../state/Store';
 import useSound from 'use-sound';
-import { getStore } from '../../state/GlobalState';
 import clickSound from '../../resources/click.mp3';
 import TimePicker from '../../components/controls/TimePicker';
 import WeekPicker from '../../components/controls/WeekPicker';
@@ -14,7 +13,7 @@ import './CreateHvacActivity.css';
 
 export default function CreateHvacActivity(props) {
     const initialDays = [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }];
-    const [, dispatch] = useContext(Context);
+    const [state, dispatch] = useContext(Context);
     const [days, setDays] = useState();
     const [inTemp, setInTemp] = useState(72);
     const [outTemp, setOutTemp] = useState(72);
@@ -26,7 +25,7 @@ export default function CreateHvacActivity(props) {
 
     const saveActivity = async () => {
         if (edited && days !== null) {
-            const tasks = await insertHvacTask(getStore().getUserId(), true, props.type, '', startTime, stopTime, inTemp, outTemp, days);
+            const tasks = await insertHvacTask(state.user.userId, state.auth.bearer, true, props.type, '', startTime, stopTime, inTemp, outTemp, days);
             dispatch({ type: 'SET_SCHEDULED_TASK', payload: tasks });
             props.save();
             click();

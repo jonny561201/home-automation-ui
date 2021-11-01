@@ -2,7 +2,6 @@ import React from 'react';
 import * as lib from '../../../utilities/RestApi';
 import LightActivity from '../../../pages/Activities/LightActivity';
 import { render, screen, act, fireEvent } from '@testing-library/react';
-import { getStore } from '../../../state/GlobalState';
 import { Context } from '../../../state/Store';
 
 describe('Light Activity Panel', () => {
@@ -10,6 +9,7 @@ describe('Light Activity Panel', () => {
     const groupId = '3';
     const userId = 'abc123';
     const taskId = 'kasdf9sf';
+    const bearer = 'akjsdf783e';
     const groupName = 'Bedroom';
     const alarmTime = '01:00:00';
     const taskType = 'turn off';
@@ -21,7 +21,7 @@ describe('Light Activity Panel', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ taskTypes: [taskType] }, () => { }]}>
+                <Context.Provider value={[{ user: { userId: userId }, auth: { bearer: bearer }, taskTypes: [taskType] }, () => { }]}>
                     <LightActivity deleteTask={() => { }} task={task} />
                 </Context.Provider>
             );
@@ -29,7 +29,6 @@ describe('Light Activity Panel', () => {
     }
 
     beforeEach(() => {
-        getStore().setUserId(userId);
         spyDelete.mockClear();
         spyUpdate.mockClear();
     })
@@ -78,14 +77,14 @@ describe('Light Activity Panel', () => {
         spyDelete.mockReturnValue({ ok: true })
         await renderComponent();
         fireEvent.click(screen.getByText('Delete'));
-        expect(spyDelete).toHaveBeenCalledWith(userId, taskId);
+        expect(spyDelete).toHaveBeenCalledWith(userId, bearer, taskId);
     });
 
     it('should make api call to update task when update button clicked', async () => {
         await renderComponent();
         fireEvent.click(screen.getByText('F'));
         fireEvent.click(screen.getByText('Update'));
-        expect(spyUpdate).toHaveBeenCalledWith(userId, taskId, groupId, groupName, 'MonFri', alarmTime, true, 'turn off');
+        expect(spyUpdate).toHaveBeenCalledWith(userId, bearer, taskId, groupId, groupName, 'MonFri', alarmTime, true, 'turn off');
     });
 
     it('should updated the displayed selected days of the week on the event banner', async () => {

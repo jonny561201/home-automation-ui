@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { getStore } from '../../state/GlobalState';
 import { addUserChildAccount, getUserChildAccounts, deleteUserChildAccount } from '../../utilities/RestApi';
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
+import { Context } from '../../state/Store';
 import { Divider, MenuItem, Select, InputLabel, Input, FormControl, Checkbox, TextField, ListItemText } from '@material-ui/core';
 import "./AccountChildUser.css"
 
 export default function AccountChildUser() {
+    const [state, _] = useContext(Context);
     const [roles,] = useState(getStore().getUserRoles());
     const [selectedRole, setSelectedRole] = useState([]);
     const [email, setEmail] = useState("");
@@ -16,7 +18,7 @@ export default function AccountChildUser() {
 
     useEffect(() => {
         const getData = async () => {
-            const response = await getUserChildAccounts(getStore().getUserId());
+            const response = await getUserChildAccounts(state.user.userId, state.auth.bearer);
             setTest(response);
         };
         getData();
@@ -26,7 +28,7 @@ export default function AccountChildUser() {
     const submitChildAccount = async (event) => {
         event.preventDefault();
         if ((!isEmailInvalid && !isRoleInvalid) && (selectedRole.length !== 0 && email !== null && email !== "")) {
-            const response = await addUserChildAccount(getStore().getUserId(), email, selectedRole);
+            const response = await addUserChildAccount(state.user.userId, state.auth.bearer, email, selectedRole);
             setTest(response);
             setEmail("");
             setSelectedRole([]);
@@ -37,7 +39,7 @@ export default function AccountChildUser() {
     }
 
     const deleteChildUser = async (childUserId) => {
-        const response = await deleteUserChildAccount(getStore().getUserId(), childUserId);
+        const response = await deleteUserChildAccount(state.user.userId, state.auth.bearer, childUserId);
         if (response.ok)
             setTest(test.filter(x => x.user_id !== childUserId));
     }
@@ -74,7 +76,7 @@ export default function AccountChildUser() {
                         ))}
                         <tr>
                             <td>
-                                <TextField inputProps={{"data-testid":"email-account-user"}} error={isEmailInvalid} onChange={(input) => validateEmail(input)} value={email} label="Email" />
+                                <TextField inputProps={{ "data-testid": "email-account-user" }} error={isEmailInvalid} onChange={(input) => validateEmail(input)} value={email} label="Email" />
                             </td>
                             <td className="account-roles">
                                 <FormControl error={isRoleInvalid}>

@@ -7,13 +7,14 @@ import SwitchSlider from '../../../../pages/Home/segments/SwitchSlider';
 
 describe('SwitchSlider', () => {
     const lightId = '1';
+    const bearer = 'aksjdf876';
     const light = { lightName: 'desk lamp', on: true, brightness: 123, lightId: lightId, groupId: 1 };
     const spySetLight = jest.spyOn(lib, 'setLightState');
 
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ userLights: [light] }, () => { }]}>
+                <Context.Provider value={[{ userLights: [light], auth: { bearer: bearer } }, () => { }]}>
                     <SwitchSlider data={light} lightId={lightId} />
                 </Context.Provider>
             );
@@ -28,7 +29,7 @@ describe('SwitchSlider', () => {
         await renderComponent();
 
         await act(async () => {
-            fireEvent.change(screen.getByTestId('light-switch').querySelector('input'), {target: {value: 100}});
+            fireEvent.change(screen.getByTestId('light-switch').querySelector('input'), { target: { value: 100 } });
         });
 
         // expect(spySetLight).toHaveBeenCalled();

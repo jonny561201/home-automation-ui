@@ -103,14 +103,8 @@ describe('RestApi', () => {
     });
 
     describe('after successful login', () => {
-        let state;
         const garageId = 1;
         const bearerToken2 = 'abc123';
-
-        beforeEach(() => {
-            state = getStore();
-            state.state.bearerToken = bearerToken2;
-        });
 
         it('should make rest call to get garage door state', async () => {
             const response = { 'isGarageOpen': true };
@@ -120,7 +114,7 @@ describe('RestApi', () => {
                 return { status: 400 };
             });
 
-            const actual = await getGarageStatus(userId, garageId);
+            const actual = await getGarageStatus(userId, bearerToken2, garageId);
             expect(actual.isGarageOpen).toEqual(true);
         });
 
@@ -132,7 +126,7 @@ describe('RestApi', () => {
                 return { status: 400 };
             });
 
-            const actual = await updateGarageState(false, userId, garageId);
+            const actual = await updateGarageState(userId, bearerToken2, false, garageId);
             expect(actual.garageDoorOpen).toEqual(false);
         });
 
@@ -143,7 +137,7 @@ describe('RestApi', () => {
                 return { status: 400 };
             });
 
-            const actual = await toggleGarageDoor(userId, garageId);
+            const actual = await toggleGarageDoor(userId, bearerToken2, garageId);
             expect(actual.status).toEqual(200);
         });
 
@@ -157,7 +151,7 @@ describe('RestApi', () => {
                 return { status: 400 };
             });
 
-            const actual = await getSumpLevels(userId);
+            const actual = await getSumpLevels(userId, bearerToken2);
             expect(actual.currentDepth).toEqual(expectedDepth);
         })
 
@@ -171,7 +165,7 @@ describe('RestApi', () => {
                 return { status: 400 };
             });
 
-            const actual = await getCurrentTemperature(userId);
+            const actual = await getCurrentTemperature(userId, bearerToken2);
             expect(actual.currentTemp).toEqual(expectedTemp);
         });
 
@@ -186,7 +180,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             })
 
-            const actual = await setUserTemperature(userId, desiredTemp, mode, isFahrenheit)
+            const actual = await setUserTemperature(userId, bearerToken2, desiredTemp, mode, isFahrenheit)
             expect(actual.status).toEqual(200);
         });
 
@@ -200,7 +194,7 @@ describe('RestApi', () => {
                 return { status: 400 };
             });
 
-            const actual = await getUserPreferences(userId);
+            const actual = await getUserPreferences(userId, bearerToken2);
             expect(actual.unit).toEqual(expectedUnit);
         });
 
@@ -215,7 +209,7 @@ describe('RestApi', () => {
                 return { status: 400 };
             });
 
-            const actual = await updateUserPreferences(userId, true, true, 'Praha');
+            const actual = await updateUserPreferences(userId, bearerToken2, true, true, 'Praha');
 
             expect(actual.status).toEqual(200);
         });
@@ -228,7 +222,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             });
 
-            const actual = await getLightGroups();
+            const actual = await getLightGroups(bearerToken2);
 
             expect(actual[0].groupName).toEqual('Bathroom');
         });
@@ -241,7 +235,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             });
 
-            const actual = await setLightGroupState(body.groupId, body.on, body.brightness);
+            const actual = await setLightGroupState(bearerToken2, body.groupId, body.on, body.brightness);
 
             expect(actual.status).toEqual(200);
         });
@@ -254,7 +248,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             });
 
-            const actual = await setLightState(body.lightId, body.on, body.brightness);
+            const actual = await setLightState(bearerToken2, body.lightId, body.on, body.brightness);
 
             expect(actual.status).toEqual(200);
         });
@@ -267,7 +261,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             });
 
-            const actual = await updateUserAccount(userId, body.oldPassword, body.newPassword);
+            const actual = await updateUserAccount(userId, bearerToken2, body.oldPassword, body.newPassword);
 
             expect(actual.status).toEqual(200);
         });
@@ -280,7 +274,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             });
 
-            const actual = await addUserDevice(userId, body.roleName, body.ipAddress);
+            const actual = await addUserDevice(userId, bearerToken2, body.roleName, body.ipAddress);
 
             expect(actual.status).toEqual(200);
         });
@@ -294,7 +288,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             });
 
-            const actual = await addUserDeviceNode(userId, deviceId, body.nodeName);
+            const actual = await addUserDeviceNode(userId, bearerToken2, deviceId, body.nodeName);
 
             expect(actual.status).toEqual(200);
         });
@@ -308,7 +302,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             });
 
-            const actual = await getRolesByUserId(userId);
+            const actual = await getRolesByUserId(userId, bearerToken2);
 
             expect(actual.roles).toEqual([{}]);
         });
@@ -322,7 +316,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             });
 
-            const actual = await addUserChildAccount(userId, body.email, body.roles);
+            const actual = await addUserChildAccount(userId, bearerToken2, body.email, body.roles);
 
             expect(actual).toEqual(response);
         });
@@ -335,7 +329,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             });
 
-            const actual = await getUserChildAccounts(userId);
+            const actual = await getUserChildAccounts(userId, bearerToken2);
 
             expect(actual[0].user_name).toEqual('test');
         });
@@ -347,7 +341,7 @@ describe('RestApi', () => {
             fetchMock.mock(`${baseUrl}/account/userId/${userId}/childUserId/${childAccount}`, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
-            const actual = await deleteUserChildAccount(userId, childAccount);
+            const actual = await deleteUserChildAccount(userId, bearerToken2, childAccount);
 
             expect(actual.status).toEqual(200);
         });
@@ -359,7 +353,7 @@ describe('RestApi', () => {
             fetchMock.mock(`${baseUrl}/userId/${userId}/tasks/${taskId}`, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
-            const actual = await deleteScheduledTask(userId, taskId);
+            const actual = await deleteScheduledTask(userId, bearerToken2, taskId);
 
             expect(actual.status).toEqual(200);
         });
@@ -372,7 +366,7 @@ describe('RestApi', () => {
             fetchMock.mock(`${baseUrl}/userId/${userId}/tasks`, response, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
-            const actual = await getScheduledTasks(userId);
+            const actual = await getScheduledTasks(userId, bearerToken2);
 
             expect(actual[0].task_id).toEqual(taskId);
         });
@@ -386,7 +380,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             });
 
-            const actual = await insertLightTask(userId, body.enabled, body.taskType, body.alarmLightGroup, body.alarmGroupName, body.alarmDays, body.alarmTime);
+            const actual = await insertLightTask(userId, bearerToken2, body.enabled, body.taskType, body.alarmLightGroup, body.alarmGroupName, body.alarmDays, body.alarmTime);
 
             expect(actual[0].task_id).toEqual(response[0].task_id);
         });
@@ -400,7 +394,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             });
 
-            const actual = await insertHvacTask(userId, body.enabled, body.taskType, body.hvacMode, body.hvacStart, body.hvacStop, body.hvacStartTemp, body.hvacStopTemp, body.alarmDays);
+            const actual = await insertHvacTask(userId, bearerToken2, body.enabled, body.taskType, body.hvacMode, body.hvacStart, body.hvacStop, body.hvacStartTemp, body.hvacStopTemp, body.alarmDays);
 
             expect(actual[0].task_id).toEqual(response[0].task_id);
         });
@@ -415,7 +409,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             });
 
-            const actual = await updateScheduledTasks(userId, body.taskId, body.alarmLightGroup, body.alarmGroupName, body.alarmDays, body.alarmTime, body.enabled, body.taskType);
+            const actual = await updateScheduledTasks(userId, bearerToken2, body.taskId, body.alarmLightGroup, body.alarmGroupName, body.alarmDays, body.alarmTime, body.enabled, body.taskType);
 
             expect(actual.task_id).toEqual(taskId);
         });

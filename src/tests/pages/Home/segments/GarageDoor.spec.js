@@ -9,6 +9,7 @@ import { Context } from '../../../../state/Store';
 describe('Garage Door', () => {
     const userId = 'fakeuserid';
     const doorName = 'testNode';
+    const bearer = '986adsfjg';
     const device = { doorName: doorName, node_device: 1, isOpen: true };
     const spyUpdate = jest.spyOn(lib, 'updateGarageState');
     const spyToggle = jest.spyOn(lib, 'toggleGarageDoor');
@@ -16,7 +17,7 @@ describe('Garage Door', () => {
     const renderComponent = async (door) => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ user: { userId: userId } }, () => { }]}>
+                <Context.Provider value={[{ auth: { bearer: bearer }, user: { userId: userId } }, () => { }]}>
                     <GarageDoor device={door} />
                 </Context.Provider>
             );
@@ -89,21 +90,21 @@ describe('Garage Door', () => {
             spyUpdate.mockReturnValue({ isOpen: false });
             await renderComponent({ ...device, isOpen: true });
             userEvent.click(screen.getByTestId("update-garage-close"));
-            expect(spyUpdate).toBeCalledWith(false, userId, 1);
+            expect(spyUpdate).toBeCalledWith(userId, bearer, false, 1);
         });
 
         it('should call update function with true when opening', async () => {
             spyUpdate.mockReturnValue({ isOpen: true });
             await renderComponent({ ...device, isOpen: false });
             userEvent.click(screen.getByTestId("update-garage-open"));
-            expect(spyUpdate).toBeCalledWith(true, userId, 1);
+            expect(spyUpdate).toBeCalledWith(userId, bearer, true, 1);
         });
 
         it('should call toggle function', async () => {
             await renderComponent(device);
             userEvent.click(screen.getByTestId("toggle-garage-button"));
 
-            expect(spyToggle).toBeCalledWith(userId, 1);
+            expect(spyToggle).toBeCalledWith(userId, bearer, 1);
         });
     });
 });

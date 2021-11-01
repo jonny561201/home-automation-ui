@@ -68,7 +68,7 @@ export default function UserLocation() {
                 const userDistance = calculateDistanceInMeters(garageCoords.latitude, garageCoords.longitude, userCoords.latitude, userCoords.longitude);
                 if (shouldOpenGarage(userDistance)) {
                     console.log('gonna open')
-                    updateGarageState(true, state.user.userId, 1);
+                    updateGarageState(state.user.userId, state.auth.bearer, true, 1);
                 }
             }
         }, (error) => { alert('Enable GPS position feature.') }, { enableHighAccuracy: true });

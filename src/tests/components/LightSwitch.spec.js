@@ -5,7 +5,7 @@ import LightSwitch from '../../components/controls/LightSwitch';
 import { Context } from '../../state/Store';
 
 describe('LightSwitch', () => {
-    const spySetGroup = jest.spyOn(lib, 'setLightGroupState');
+    const bearer = 'akjshdf897';
     const groupName = 'DinningRoom';
     const lights = [
         { 'lightName': 'desk lamp', 'on': true, 'brightness': 123, 'lightId': 1, 'groupId': 1 },
@@ -15,13 +15,14 @@ describe('LightSwitch', () => {
         'groupId': '1', 'groupName': groupName, 'on': true,
         'brightness': 155, 'lights': lights
     }
+    const spySetGroup = jest.spyOn(lib, 'setLightGroupState');
 
     const renderComponent = async (userLights, groupData) => {
         await act(async () => {
             render(
-                <Context.Provider value={[{userLights: userLights}, () => {}]}>
+                <Context.Provider value={[{ userLights: userLights, auth: { bearer: bearer } }, () => { }]}>
                     <LightSwitch data={groupData} />
-                </Context.Provider>
+                </Context.Provider >
             );
         });
     }
@@ -53,11 +54,11 @@ describe('LightSwitch', () => {
     it('should call set light group state on toggleChecked', async () => {
         await renderComponent(lights, groups);
         await act(async () => {
-            fireEvent.change(screen.getByTestId('light-group-switch').querySelector('input'), {target: {value: 0}});
+            fireEvent.change(screen.getByTestId('light-group-switch').querySelector('input'), { target: { value: 0 } });
             // fireEvent.click(screen.getByRole('checkbox'));
         });
 
-        // expect(spySetGroup).toBeCalledWith(groups.groupId, true, 0);
+        // expect(spySetGroup).toBeCalledWith(bearer, groups.groupId, true, 0);
     });
 
     describe('Light Expansion', () => {

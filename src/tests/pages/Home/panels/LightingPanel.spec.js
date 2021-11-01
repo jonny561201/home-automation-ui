@@ -6,12 +6,13 @@ import LightingPanel from '../../../../pages/Home/panels/LightingPanel';
 
 describe('LightingPanel', () => {
 
+    const bearer = 'sdfa098s7';
     const spyGet = jest.spyOn(lib, 'getLightGroups');
 
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ userLights: [] }, () => { }]}>
+                <Context.Provider value={[{ userLights: [], auth: { bearer: bearer } }, () => { }]}>
                     <LightingPanel />
                 </Context.Provider>
             );
@@ -39,7 +40,7 @@ describe('LightingPanel', () => {
 
         it('should make api call to get lighting groups', async () => {
             await renderComponent();
-            expect(spyGet).toHaveBeenCalledTimes(1);
+            expect(spyGet).toBeCalledWith(bearer);
         });
 
         it('should render a button for every group in response', async () => {
@@ -68,6 +69,5 @@ describe('LightingPanel', () => {
             const actual = screen.getByText('No Light Groups were found').textContent;
             expect(actual).toEqual('No Light Groups were found');
         });
-
     });
 });
