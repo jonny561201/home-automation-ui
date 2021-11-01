@@ -8,7 +8,7 @@ import { Context } from '../../state/Store';
 export default function AccountSettings(props) {
     let wrapperRef;
     const [activePage,] = useState(getStore().getActivePage());
-    const [, dispatch] = useContext(Context);
+    const [state, dispatch] = useContext(Context);
 
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
@@ -18,6 +18,10 @@ export default function AccountSettings(props) {
         if (wrapperRef && !props.parentRef.contains(event.target) && !wrapperRef.contains(event.target)) {
             props.toggle();
         }
+    }
+
+    const logOut = async () => {
+        dispatch({ type: 'SET_AUTH_DATA', payload: { ...state.auth, isAuthenticated: false } });
     }
 
     const getLinks = () => {
@@ -76,7 +80,7 @@ export default function AccountSettings(props) {
         <div className="account-menu" ref={(node) => { wrapperRef = node }}>
             <ul className="text">{getLinks()}
                 <Link to='/home-automation-ui'>
-                    <li><div className="account-button" onClick={() => dispatch({ type: 'SET_AUTHENTICATION', payload: false })}>Sign Out</div></li>
+                    <li><div className="account-button" onClick={logOut}>Sign Out</div></li>
                 </Link>
             </ul>
         </div>

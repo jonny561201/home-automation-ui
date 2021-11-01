@@ -5,15 +5,10 @@ const Reducer = (state, action) => {
                 ...state,
                 activePage: action.payload
             };
-        case 'SET_BEARER_TOKEN':
+        case 'SET_AUTH_DATA':
             return {
                 ...state,
-                bearerToken: action.payload
-            };
-        case 'SET_REFRESH_TOKEN':
-            return {
-                ...state,
-                refreshToken: action.payload
+                auth: action.payload
             }
         case 'SET_USER_DATA':
             return {
@@ -24,11 +19,6 @@ const Reducer = (state, action) => {
             return {
                 ...state,
                 deviceId: action.payload
-            };
-        case 'SET_AUTHENTICATION':
-            return {
-                ...state,
-                isAuthenticated: action.payload
             };
         case 'SET_STARTED_GARAGE_REGISTRATION':
             return {

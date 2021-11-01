@@ -4,9 +4,7 @@ import Reducer from './Reducer'
 
 const initialState = {
     activePage: null,
-    bearerToken: null,
-    refreshToken: null,
-    isAuthenticated: false,
+    auth: { bearer: null, refresh: null, isAuthenticated: false },
     user: { userId: null, firstName: '', lastName: '', roles: [] },
     deviceId: null,
     startedGarageRegistration: false,
