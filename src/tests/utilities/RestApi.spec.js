@@ -37,19 +37,6 @@ describe('RestApi', () => {
         expect(actual).toBeTruthy();
     });
 
-    it('should store user id after successful login', async () => {
-        const response = { 'bearerToken': fakeBearerToken };
-        const body = { 'grant_type': 'client_credentials', 'client_id': username, 'client_secret': password };
-        const options = { "method": "POST", "body": body };
-
-        fetchMock.mock(`${baseUrl}/token`, response, options).catch(unmatchedUrl => {
-            return { status: 400 };
-        });
-
-        await getBearerToken(username, password);
-        expect(getStore().getUserId()).toEqual(userId);
-    });
-
     it('should store roles after successful login', async () => {
         const response = { 'bearerToken': fakeBearerToken };
         const body = { 'grant_type': 'client_credentials', 'client_id': username, 'client_secret': password };

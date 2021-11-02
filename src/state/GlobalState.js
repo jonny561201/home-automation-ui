@@ -3,7 +3,6 @@ class GlobalState {
         this.state = {
             activePage: null,
             isAuthenticated: false,
-            userId: null,
             userRoles: [],
             firstName: "",
             lastName: "",
@@ -20,14 +19,6 @@ class GlobalState {
 
     isAuthenticated = () => {
         return this.state.isAuthenticated;
-    }
-
-    setUserId = (userId) => {
-        this.state.userId = userId;
-    }
-
-    getUserId = () => {
-        return this.state.userId;
     }
 
     setUserRoles = (roles) => {

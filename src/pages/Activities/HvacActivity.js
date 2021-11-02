@@ -49,7 +49,7 @@ export default function HvacActivity(props) {
         if (edited) {
             click();
             // const task = props.task;
-            // const response = await updateScheduledTasks(getStore().getUserId(), task.task_id, task.alarm_light_group, task.alarm_group_name, days, time, enabled, type);
+            // const response = await updateScheduledTasks(state.user.userId, state.auth.bearer, task.task_id, task.alarm_light_group, task.alarm_group_name, days, time, enabled, type);
             // if (response) {
             //     dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: task.task_id });
             //     dispatch({ type: 'ADD_SCHEDULED_TASK', payload: response });
@@ -71,7 +71,7 @@ export default function HvacActivity(props) {
         const updated = !enabled;
         setEnabled(updated)
         // const task = props.task;
-        // const response = await updateScheduledTasks(getStore().getUserId(), task.task_id, task.alarm_light_group, task.alarm_group_name, days, time, updated, type);
+        // const response = await updateScheduledTasks(state.user.userId, state.auth.bearer, task.task_id, task.alarm_light_group, task.alarm_group_name, days, time, updated, type);
         // if (response) {
         //     dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: task.task_id });
         //     dispatch({ type: 'ADD_SCHEDULED_TASK', payload: response });
