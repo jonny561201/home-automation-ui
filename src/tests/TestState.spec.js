@@ -36,25 +36,6 @@ describe('GlobalState', () => {
         });
     });
 
-    describe('BearerToken', () => {
-        let state;
-        const bearerToken = 'ImAFakeBearerToken';
-
-        beforeEach(() => {
-            state = getStore();
-        });
-
-        it('should set bearer token', () => {
-            state.setBearerToken(bearerToken);
-            expect(state.state.bearerToken).toEqual(bearerToken);
-        });
-
-        it('should get bearer token', () => {
-            state.state.bearerToken = bearerToken;
-            expect(state.getBearerToken()).toEqual(bearerToken);
-        });
-    });
-
     describe('UserId', () => {
         let state;
         const userId = 'fakeUserId';

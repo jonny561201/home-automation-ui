@@ -3,7 +3,6 @@ class GlobalState {
         this.state = {
             activePage: null,
             isAuthenticated: false,
-            bearerToken: null,
             userId: null,
             userRoles: [],
             firstName: "",
@@ -21,14 +20,6 @@ class GlobalState {
 
     isAuthenticated = () => {
         return this.state.isAuthenticated;
-    }
-
-    setBearerToken = (token) => {
-        this.state.bearerToken = token;
-    }
-
-    getBearerToken = () => {
-        return this.state.bearerToken;
     }
 
     setUserId = (userId) => {
