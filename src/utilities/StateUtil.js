@@ -14,6 +14,7 @@ export default function StateUtil() {
 
     useInterval(async () => {
         await getGarageData();
+        await refreshBearerToken();
     }, 20000);
 
     useInterval(async () => {
@@ -72,8 +73,13 @@ export default function StateUtil() {
     }
 
     const refreshBearerToken = async () => {
-        const bearer = await getRefreshedBearerToken(state.auth.refreshToken);
-        const decodedToken = jwt_decode(bearer.bearerToken);
-        dispatch({ type: 'SET_AUTH_DATA', payload: { bearer: bearer.bearerToken, refresh: decodedToken.refresh_token, isAuthenticated: true } });
+        const fiveMinutes = 300000;
+        const refreshInterval = Date.now() + fiveMinutes;
+        const newDate = state.auth.exp * 1000
+        if (newDate <= refreshInterval) {
+            const bearer = await getRefreshedBearerToken(state.auth.refresh);
+            const decodedToken = jwt_decode(bearer.bearerToken);
+            dispatch({ type: 'SET_AUTH_DATA', payload: { bearer: bearer.bearerToken, refresh: decodedToken.refresh_token, isAuthenticated: true, exp: decodedToken.exp } });
+        }
     }
 }
