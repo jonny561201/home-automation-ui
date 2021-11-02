@@ -14,14 +14,13 @@ export default function Settings() {
     getStore().setActivePage('Settings');
     const [state,] = useContext(Context);
     const [isAutoMode, setIsAutoMode] = useState(false);
-    const [userId,] = useState(getStore().getUserId());
     const [darkMode, setDarkMode] = useState(false);
     const [isEditMode, setEditMode] = useState();
 
     useEffect(() => {
         setDarkMode(localStorage.getItem('theme') === 'theme-dark');
         setIsAutoMode(localStorage.getItem('auto-theme') === 'true');
-    }, [userId]);
+    });
 
     const toggleEditMode = () => {
         setEditMode(!isEditMode);
