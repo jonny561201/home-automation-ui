@@ -42,7 +42,7 @@ export default function GaragePanel() {
                                     state.garageDoors.map(x => {
                                         return <div className="small-text-group" key={`door-notify-${x.doorName}`}>
                                             <p className="small-text text">{x.doorName}:</p>
-                                            <p className="small-text text">{x.isOpen === true ? 'Open' : 'Closed'}</p>
+                                            <p className={"small-text text " + (x.isOpen ? 'alert' : 'healthy')}>{x.isOpen ? 'Open' : 'Closed'}</p>
                                         </div>
                                     })
                                 }
