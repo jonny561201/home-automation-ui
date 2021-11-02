@@ -22,17 +22,4 @@ describe('GlobalState', () => {
             expect(state.getActivePage()).toEqual(activePage);
         });
     });
-
-    describe('Authorization', () => {
-        let state;
-
-        beforeEach(() => {
-            state = getStore();
-        });
-
-        it('should get the authorization', () => {
-            state.state.isAuthenticated = true;
-            expect(state.isAuthenticated()).toBeTruthy();
-        });
-    });
 });

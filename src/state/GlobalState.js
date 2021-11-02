@@ -2,7 +2,6 @@ class GlobalState {
     constructor() {
         this.state = {
             activePage: null,
-            isAuthenticated: false,
             userRoles: [],
             firstName: "",
             lastName: "",
@@ -15,10 +14,6 @@ class GlobalState {
 
     getActivePage = () => {
         return this.state.activePage;
-    }
-
-    isAuthenticated = () => {
-        return this.state.isAuthenticated;
     }
 
     setUserRoles = (roles) => {

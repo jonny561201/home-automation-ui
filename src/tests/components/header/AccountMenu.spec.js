@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import { getStore } from '../../../state/GlobalState';
 import AccountMenu from '../../../components/header/AccountMenu';
 import { BrowserRouter } from 'react-router-dom';
@@ -18,7 +18,7 @@ describe('AccountSettings', () => {
                 </Context.Provider>
             );
         });
-    }    
+    }
 
     it('should display sign out link', async () => {
         await renderComponent();
@@ -60,13 +60,6 @@ describe('AccountSettings', () => {
         expect(settings).toEqual('Settings');
         expect(home).toEqual('Home');
         expect(activities).toEqual('Activities');
-    });
-
-    it('should deauthenticate user when click sign out', async () => {
-        await renderComponent();
-        const signOut = screen.getByText('Sign Out');
-        fireEvent.click(signOut);
-        expect(getStore().isAuthenticated()).toBeFalsy();
     });
 
     it('should display Home, Account, and Settings links when active page is set to Activities', async () => {
