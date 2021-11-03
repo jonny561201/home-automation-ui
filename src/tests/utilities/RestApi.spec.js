@@ -50,32 +50,6 @@ describe('RestApi', () => {
         expect(getStore().getUserRoles()).toEqual(["garage_door", "security", "thermostat", "lighting", "sump_pump"]);
     });
 
-    it('should store user first name after successful login', async () => {
-        const response = { 'bearerToken': fakeBearerToken };
-        const body = { 'grant_type': 'client_credentials', 'client_id': username, 'client_secret': password };
-        const options = { "method": "POST", "body": body };
-
-        fetchMock.mock(`${baseUrl}/token`, response, options).catch(unmatchedUrl => {
-            return { status: 400 };
-        });
-
-        await getBearerToken(username, password);
-        expect(getStore().getFirstName()).toEqual("Jon");
-    });
-
-    it('should store user last name after successful login', async () => {
-        const response = { 'bearerToken': fakeBearerToken };
-        const body = { 'grant_type': 'client_credentials', 'client_id': username, 'client_secret': password };
-        const options = { "method": "POST", "body": body };
-
-        fetchMock.mock(`${baseUrl}/token`, response, options).catch(unmatchedUrl => {
-            return { status: 400 };
-        });
-
-        await getBearerToken(username, password);
-        expect(getStore().getLastName()).toEqual("Tester");
-    });
-
     describe('after successful login', () => {
         const garageId = 1;
         const bearerToken2 = 'abc123';

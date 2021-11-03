@@ -2,9 +2,7 @@ class GlobalState {
     constructor() {
         this.state = {
             activePage: null,
-            userRoles: [],
-            firstName: "",
-            lastName: "",
+            userRoles: []
         }
     }
 
@@ -22,22 +20,6 @@ class GlobalState {
 
     getUserRoles = () => {
         return this.state.userRoles;
-    }
-
-    setFirstName = (name) => {
-        this.state.firstName = name;
-    }
-
-    getFirstName = () => {
-        return this.state.firstName;
-    }
-
-    setLastName = (name) => {
-        this.state.lastName = name;
-    }
-
-    getLastName = () => {
-        return this.state.lastName;
     }
 }
 
