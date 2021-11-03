@@ -10,4 +10,12 @@ describe('Services', () => {
 
         expect(actual.getHours()).toEqual(7);
     });
+
+    it('should convert minutes date object with matching hours', () => {
+        const time = '08:23:00';
+
+        const actual = convertDate(time);
+
+        expect(actual.getMinutes()).toEqual(23);
+    });
 });

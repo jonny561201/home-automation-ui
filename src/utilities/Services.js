@@ -26,7 +26,8 @@ export const isValidIpAddress = (ipAddress) => {
 export const convertDate = (time) => {
     const [hours, minutes, seconds] = time.split(":");
     const date = new Date();
-    date.setHours(hours)
+    date.setHours(hours);
+    date.setMinutes(minutes);
     return date;
 }
 
