@@ -17,6 +17,7 @@ import { Context } from '../../../state/Store';
 export default function TemperaturePanel() {
     const [state, dispatch] = useContext(Context);
     const [open, setOpen] = useState(false);
+    const defaultTemp = (state.tempData.minThermostatTemp + state.tempData.maxThermostatTemp) / 2;
     const [click] = useSound(singleClickSound, { volume: 0.25 });
 
 
@@ -64,8 +65,8 @@ export default function TemperaturePanel() {
                             <TemperatureImage />
                         </div>
                         <div className="form-column">
-                            <Knob value={state.tempData.desiredTemp ? state.tempData.desiredTemp : 0} lineCap={"round"} fgColor={state.tempData.gaugeColor} inputColor={state.tempData.gaugeColor}
-                                onChange={knobChange} angleArc={240} angleOffset={240} min={state.tempData.minThermostatTemp} max={state.tempData.maxThermostatTemp} />
+                            <Knob value={state.tempData.desiredTemp ? state.tempData.desiredTemp : defaultTemp} lineCap={"round"} inputColor={state.tempData.gaugeColor}
+                                onChange={knobChange} angleArc={240} angleOffset={240} min={state.tempData.minThermostatTemp} max={state.tempData.maxThermostatTemp} fgColor={state.tempData.gaugeColor} />
                             <FormControl>
                                 <FormGroup>
                                     <FormControlLabel label="Auto" control={<AutoSwitch data-testid={"auto-switch"} checked={state.tempData.mode === 'auto'} onChange={() => toggleHvac("auto")} />} />
