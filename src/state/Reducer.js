@@ -92,7 +92,7 @@ const Reducer = (state, action) => {
                 sumpData: action.payload
             }
         case 'SET_TEMP_DATA':
-            const color = toggleColor(action.payload.mode)
+            const color = toggleColor(action.payload.mode);
             return {
                 ...state,
                 tempData: { ...action.payload, gaugeColor: color }

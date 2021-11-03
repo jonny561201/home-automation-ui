@@ -23,6 +23,13 @@ export const isValidIpAddress = (ipAddress) => {
     return (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipAddress));
 }
 
+export const convertDate = (time) => {
+    const [hours, minutes, seconds] = time.split(":");
+    const date = new Date();
+    date.setHours(hours)
+    return date;
+}
+
 //TODO: test this function???
 export const isNightTime = (garageCoords, userCoords) => {
     if (garageCoords !== null) {
