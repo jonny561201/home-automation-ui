@@ -12,13 +12,14 @@ jest.mock('../../../utilities/StateUtil', () => () => { });
 describe('Account Page', () => {
     const bearer = 'alkjsdf897';
     const userId = 'fakeUserId';
+    const user = { firstName: 'test', lastName: 'test', userId: userId };
     const spyPost = jest.spyOn(lib, 'updateUserAccount');
     const spyGet = jest.spyOn(lib, 'getUserChildAccounts');
 
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ user: { userId: userId }, auth: { bearer: bearer } }, () => { }]}>
+                <Context.Provider value={[{ user: user, auth: { bearer: bearer } }, () => { }]}>
                     <Account />
                 </Context.Provider>
             );

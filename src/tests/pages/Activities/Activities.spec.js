@@ -9,11 +9,12 @@ jest.mock('../../../utilities/StateUtil', () => () => { });
 
 
 describe('Activities Page', () => {
+    const user = { firstName: 'test', lastName: 'test' };
 
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ tasks: [] }, () => { }]}>
+                <Context.Provider value={[{ user: user, tasks: [] }, () => { }]}>
                     <ActivitiesPage />
                 </Context.Provider>
             );

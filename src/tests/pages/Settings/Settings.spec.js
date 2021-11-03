@@ -16,6 +16,7 @@ describe('Settings Page', () => {
     const tempUnit = 'fahrenheit';
     const unitMeasure = 'imperial';
     const coords = { latitude: 43.123, longitude: 23.23423 };
+    const user = { firstName: 'test', lastName: 'test', userId: userId };
     const preference = { temp_unit: tempUnit, measure_unit: unitMeasure, city: city };
 
     const spyUpdate = jest.spyOn(lib, 'updateUserPreferences');
@@ -23,7 +24,7 @@ describe('Settings Page', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ userId: userId, preferences: preference, roles: roles, garageCoords: coords }, () => { }]}>
+                <Context.Provider value={[{ user: user, preferences: preference, roles: roles, garageCoords: coords }, () => { }]}>
                     <Settings />
                 </Context.Provider>
             );

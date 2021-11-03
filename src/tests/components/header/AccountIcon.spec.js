@@ -2,51 +2,44 @@ import React from 'react';
 import { Context } from '../../../state/Store';
 import { render, screen, act } from '@testing-library/react';
 import Account from '../../../components/header/AccountIcon';
-import { getStore } from '../../../state/GlobalState';
 
-describe('Account', () => {
+
+describe('Account Icon', () => {
     const firstName = "Jon";
     const lastName = "Rox";
 
-    const renderComponent = async () => {
+    const renderComponent = async (first, last) => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ user: { firstName: firstName, lastName: lastName } }, () => { }]}>
+                <Context.Provider value={[{ user: { firstName: first, lastName: last } }, () => { }]}>
                     <Account />
                 </Context.Provider>
             );
         });
     }
 
-    beforeEach(() => {
-        getStore().setFirstName(firstName);
-        getStore().setLastName(lastName);
-    });
-
     it('should display account login border', async () => {
-        await renderComponent();
+        await renderComponent(firstName, lastName);
         const actual = screen.getByTestId('account-border');
         expect(actual).toBeDefined();
     });
 
     it('should display account login token', async () => {
-        await renderComponent();
+        await renderComponent(firstName, lastName);
         const actual = screen.getByTestId('account-center');
         expect(actual).toBeDefined();
     });
 
     it('should display the first letter of users first name and first letter of users last name', async () => {
-        await renderComponent();
+        await renderComponent(firstName, lastName);
         const actual = screen.getByText('JR').textContent;
         expect(actual).toEqual("JR");
     });
 
     it('should trim whitespace from users first and last name', async () => {
-        const firstName = " Jon";
-        const lastName = " Rox";
-        getStore().setFirstName(firstName);
-        getStore().setLastName(lastName);
-        await renderComponent();
+        const newFirst = " Jon";
+        const newLast = " Rox";
+        await renderComponent(newFirst, newLast);
 
         const actual = screen.getByText('JR').textContent;
         expect(actual).toEqual("JR");
