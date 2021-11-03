@@ -1,6 +1,5 @@
 import React from 'react';
 import { Context } from '../../../../state/Store';
-import { getStore } from '../../../../state/GlobalState';
 import BasementPanel from '../../../../pages/Home/panels/BasementPanel';
 import { render, screen, act, fireEvent } from '@testing-library/react';
 
@@ -15,17 +14,12 @@ describe('BasementPanel', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ sumpData: sumpData }, () => { }]}>
+                <Context.Provider value={[{ user: { userId: fakeUserId }, sumpData: sumpData }, () => { }]}>
                     <BasementPanel />
                 </Context.Provider>
             );
         });
     }
-
-
-    beforeEach(() => {
-        getStore().setUserId(fakeUserId);
-    });
 
     it('should show the Basement Panel', async () => {
         await renderComponent();

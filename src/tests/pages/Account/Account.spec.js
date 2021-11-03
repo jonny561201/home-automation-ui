@@ -26,7 +26,6 @@ describe('Account Page', () => {
     }
 
     beforeEach(() => {
-        getStore().setUserId(userId);
         spyPost.mockClear();
         spyGet.mockReturnValue([]);
     });

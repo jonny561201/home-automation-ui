@@ -1,4 +1,5 @@
 import React from 'react';
+import { Context } from '../../../state/Store';
 import { render, screen, act } from '@testing-library/react';
 import Account from '../../../components/header/AccountIcon';
 import { getStore } from '../../../state/GlobalState';
@@ -10,7 +11,9 @@ describe('Account', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Account />
+                <Context.Provider value={[{ user: { firstName: firstName, lastName: lastName } }, () => { }]}>
+                    <Account />
+                </Context.Provider>
             );
         });
     }

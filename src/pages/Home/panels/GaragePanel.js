@@ -59,7 +59,7 @@ export default function GaragePanel() {
                             <p className="status-text text">A new device has been detected and needs to be registered.</p>
                         </div>
                         <div>
-                            <button class="success-ripple" data-testid={"register-device-button"} onClick={() => setDisplayRegister(true)}>Register</button>
+                            <button className="success-ripple" data-testid={"register-device-button"} onClick={() => setDisplayRegister(true)}>Register</button>
                         </div>
                         <div ref={(node) => { setWrapperRef(node) }}>
                             {displayRegister && <RegisterDevice close={closeModal} parentRef={wrapperRef} />}
