@@ -17,9 +17,7 @@ import { Context } from '../../../state/Store';
 export default function TemperaturePanel() {
     const [state, dispatch] = useContext(Context);
     const [open, setOpen] = useState(false);
-    const defaultTemp = (state.tempData.minThermostatTemp + state.tempData.maxThermostatTemp) / 2;
     const [click] = useSound(singleClickSound, { volume: 0.25 });
-
 
     const knobChange = (newValue) => {
         if (state.tempData.mode === 'heating' || state.tempData.mode === 'cooling') {
@@ -29,10 +27,12 @@ export default function TemperaturePanel() {
     }
 
     const toggleHvac = async (newMode) => {
-        click();
-        const modeState = state.tempData.mode === newMode ? null : newMode;
-        await dispatch({ type: 'SET_TEMP_DATA', payload: { ...state.tempData, mode: modeState } });
-        setUserTemperature(state.user.userId, state.auth.bearer, state.tempData.desiredTemp, modeState, state.tempData.isFahrenheit);
+        if (newMode !== 'auto' || state.tasks.some(x => x.task_type === 'hvac')) {
+            click();
+            const modeState = state.tempData.mode === newMode ? null : newMode;
+            await dispatch({ type: 'SET_TEMP_DATA', payload: { ...state.tempData, mode: modeState } });
+            setUserTemperature(state.user.userId, state.auth.bearer, state.tempData.desiredTemp, modeState, state.tempData.isFahrenheit);
+        }
     }
 
     return (
@@ -65,14 +65,18 @@ export default function TemperaturePanel() {
                             <TemperatureImage />
                         </div>
                         <div className="form-column">
-                            <Knob value={state.tempData.desiredTemp ? state.tempData.desiredTemp : defaultTemp} lineCap={"round"} inputColor={state.tempData.gaugeColor}
-                                onChange={knobChange} angleArc={240} angleOffset={240} min={state.tempData.minThermostatTemp} max={state.tempData.maxThermostatTemp} fgColor={state.tempData.gaugeColor} />
-                            <FormControl>
-                                <FormGroup>
-                                    <FormControlLabel label="Auto" control={<AutoSwitch data-testid={"auto-switch"} checked={state.tempData.mode === 'auto'} onChange={() => toggleHvac("auto")} />} />
-                                </FormGroup>
-                            </FormControl>
-                            <CSSTransition in={state.tempData.mode !== 'auto'} timeout={400} classNames="expansion" unmountOnExit appear >
+                            <Knob value={state.tempData.currentDesiredTemp} lineCap={"round"} inputColor={state.tempData.gaugeColor} fgColor={state.tempData.gaugeColor} title="Desired Temp"
+                                onChange={knobChange} angleArc={240} angleOffset={240} min={state.tempData.minThermostatTemp} max={state.tempData.maxThermostatTemp} />
+                            {
+                                state.tasks.some(x => x.task_type === 'hvac') ?
+                                    <FormControl>
+                                        <FormGroup>
+                                            <FormControlLabel label="Auto" control={<AutoSwitch data-testid={"auto-switch"} checked={state.tempData.mode === 'auto' && state.tasks.some(x => x.task_type === 'hvac')} onChange={() => toggleHvac("auto")} />} />
+                                        </FormGroup>
+                                    </FormControl>
+                                    : null
+                            }
+                            <CSSTransition in={state.tempData.mode !== 'auto' || !state.tasks.some(x => x.task_type === 'hvac')} timeout={400} classNames="expansion" unmountOnExit appear >
                                 <FormControl>
                                     <FormGroup>
                                         <FormControlLabel label="Heat" control={<HeatSwitch data-testid={"heating-switch"} checked={state.tempData.mode === 'heating'} onChange={() => toggleHvac("heating")} />} />

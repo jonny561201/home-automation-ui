@@ -17,7 +17,7 @@ const initialState = {
     userLights: [],
     userLightGroups: [],
     sumpData: {},
-    tempData: { description: '', gaugeColor: '#A0A0A0' },
+    tempData: { description: '', gaugeColor: '#A0A0A0', currentDesiredTemp: 0.0 },
     preferences: {},
     tasks: [],
     taskTypes: ['sunrise alarm', 'turn on', 'turn off', 'hvac']

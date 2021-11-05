@@ -1,3 +1,5 @@
+import { parseDate } from "../utilities/Services";
+
 const Reducer = (state, action) => {
     switch (action.type) {
         case 'SET_ACTIVE_PAGE':
@@ -92,10 +94,11 @@ const Reducer = (state, action) => {
                 sumpData: action.payload
             }
         case 'SET_TEMP_DATA':
-            const color = toggleColor(action.payload.mode);
+            const color = toggleColor(action.payload.mode, state);
+            const current = determineDesired(state, action.payload);
             return {
                 ...state,
-                tempData: { ...action.payload, gaugeColor: color }
+                tempData: { ...action.payload, gaugeColor: color, currentDesiredTemp: current }
             }
         case 'SET_USER_PREFERENCES':
             return {
@@ -107,15 +110,29 @@ const Reducer = (state, action) => {
     }
 };
 
-const toggleColor = (mode) => {
+const toggleColor = (mode, state) => {
     if (mode === "cooling")
         return "#27aedb";
     else if (mode === "heating")
         return "#db5127";
-    else if (mode === "auto")
+    else if (mode === "auto" && state.tasks.some(x => x.task_type === 'hvac'))
         return "#00c774";
     else
         return "#A0A0A0";
+}
+
+const determineDesired = (state, payload) => {
+    const now = new Date();
+    const tasks = state.tasks.filter(x => x.task_type === 'hvac');
+    const activeTask = tasks.find(x => now > parseDate(x.hvac_start) && now < parseDate(x.hvac_stop));
+    if (payload.mode === 'auto' && activeTask)
+        return activeTask.hvac_start_temp;
+    else if (payload.mode === 'auto' && tasks.size > 0)
+        return tasks.find(x => x.task_type === 'hvac').hvac_stop_temp;
+    else if (payload.minThermostatTemp && payload.mode === 'auto')
+        return (payload.minThermostatTemp + payload.maxThermostatTemp) / 2;
+    else
+        return payload.desiredTemp;
 }
 
 export default Reducer;

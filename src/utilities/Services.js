@@ -17,13 +17,13 @@ export const debounce = (func, wait) => {
 
 export const debounchApi = debounce(fn => {
     fn();
-}, 200);
+}, 300);
 
 export const isValidIpAddress = (ipAddress) => {
     return (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipAddress));
 }
 
-export const convertDate = (time) => {
+export const parseDate = (time) => {
     const [hours, minutes, seconds] = time.split(":");
     const date = new Date();
     date.setHours(hours);
