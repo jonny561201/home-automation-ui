@@ -22,6 +22,7 @@ export default function SettingsPanel(props) {
             <Divider />
             <div className="settings-row text">
                 <p className="setting measure-unit">Open Door:</p>
+                <p className="setting temp-unit">{state.preferences.garage_door ? state.preferences.garage_door : "None"}</p>
             </div>
             <div className="settings-group setting panel-header-text">
                 <h2>Temperature</h2>
