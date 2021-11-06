@@ -82,4 +82,10 @@ describe('Settings Panel', () => {
         const actual = screen.getByText('Garage').textContent;
         expect(actual).toEqual('Garage');
     });
+
+    it('should display the door text for garage', async () => {
+        await renderComponent();
+        const actual = screen.getByText('Open Door:').textContent;
+        expect(actual).toEqual('Open Door:');
+    });
 });
