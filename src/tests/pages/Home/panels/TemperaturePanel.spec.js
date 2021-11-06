@@ -28,7 +28,7 @@ describe('TemperaturePanel', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ auth: { bearer: bearer }, user: { userId: userId }, tempData: tempData, garageCoords: coords }, () => { }]}>
+                <Context.Provider value={[{ tasks: [], auth: { bearer: bearer }, user: { userId: userId }, tempData: tempData, garageCoords: coords }, () => { }]}>
                     <TemperaturePanel />
                 </Context.Provider>
             );
