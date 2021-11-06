@@ -73,4 +73,10 @@ describe('Settings Edit Panel', () => {
         expect(imperialRadio).toHaveAttribute('value', 'imperial');
         expect(metricRadio).toHaveAttribute('value', 'metric');
     });
+
+    it('should display the Garage header', async () => {
+        await renderComponent();
+        const actual = screen.getByText('Garage').textContent;
+        expect(actual).toEqual('Garage');
+    });
 });

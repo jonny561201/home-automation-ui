@@ -76,4 +76,10 @@ describe('Settings Panel', () => {
         const actual = screen.getByText(measureUnit).textContent;
         expect(actual).toEqual(measureUnit);
     });
+
+    it('should display the Garage header', async () => {
+        await renderComponent();
+        const actual = screen.getByText('Garage').textContent;
+        expect(actual).toEqual('Garage');
+    });
 });

@@ -51,6 +51,8 @@ export default function SettingsEditPanel(props) {
     return (
         <>
             <div className="settings-group setting text">
+                <h2 className="panel-header-text">Garage</h2>
+                <Divider />
                 <h2 className="panel-header-text">Temperature</h2>
                 <Divider />
                 <div className="settings-row">

@@ -17,6 +17,10 @@ export default function SettingsPanel(props) {
     return (
         <>
             <div className="settings-group setting panel-header-text">
+                <h2>Garage</h2>
+            </div>
+            <Divider />
+            <div className="settings-group setting panel-header-text">
                 <h2>Temperature</h2>
             </div>
             <Divider />
