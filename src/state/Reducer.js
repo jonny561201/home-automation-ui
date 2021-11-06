@@ -121,13 +121,16 @@ const toggleColor = (mode, state) => {
         return "#A0A0A0";
 }
 
+
+//TODO: doesnt handle multiple hvac events well..what if more than one are active?
 const determineDesired = (state, payload) => {
     const now = new Date();
+    const name = now.toLocaleString('en-us', { weekday: 'long' }).substring(0, 3);
     const tasks = state.tasks.filter(x => x.task_type === 'hvac');
-    const activeTask = tasks.find(x => now > parseDate(x.hvac_start) && now < parseDate(x.hvac_stop));
+    const activeTask = tasks.find(x => now > parseDate(x.hvac_start) && now < parseDate(x.hvac_stop) && x.alarm_days.includes(name));
     if (payload.mode === 'auto' && activeTask)
         return activeTask.hvac_start_temp;
-    else if (payload.mode === 'auto' && tasks.size > 0)
+    else if (payload.mode === 'auto' && tasks.length > 0 && x.alarm_days.includes(name))
         return tasks.find(x => x.task_type === 'hvac').hvac_stop_temp;
     else if (payload.minThermostatTemp && payload.mode === 'auto')
         return (payload.minThermostatTemp + payload.maxThermostatTemp) / 2;
