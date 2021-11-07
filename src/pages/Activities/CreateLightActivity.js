@@ -6,7 +6,7 @@ import TimePicker from '../../components/controls/TimePicker';
 import WeekPicker from '../../components/controls/WeekPicker';
 import { Save, Delete } from '@material-ui/icons';
 import { insertLightTask } from '../../utilities/RestApi';
-import { FormControl, MenuItem, Select, InputLabel, Divider } from '@material-ui/core';
+import { MenuItem, TextField, Divider } from '@material-ui/core';
 
 
 export default function CreateLightActivity(props) {
@@ -60,17 +60,14 @@ export default function CreateLightActivity(props) {
     return (
         <>
             <div className="settings-row">
-                <FormControl className="light-alarm-component task-room-picker-row" variant="outlined">
-                    <InputLabel id="light-group-dropdown">Room</InputLabel>
-                    <Select data-testid="alarm-room-picker" value={selectedRoom} onChange={updateSelectedRoom} label="Room" >
-                        <MenuItem key="all-rooms" value="All Rooms">All Rooms</MenuItem>
-                        {state.userLightGroups.map((group) => (
-                            <MenuItem key={group.groupId} value={group.groupName}>
-                                {group.groupName}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
+                <TextField className="light-alarm-component task-room-picker-row" select variant="outlined" value={selectedRoom} onChange={updateSelectedRoom} label="Room">
+                    <MenuItem key="all-rooms" value="All Rooms">All Rooms</MenuItem>
+                    {state.userLightGroups.map((group) => (
+                        <MenuItem key={group.groupId} value={group.groupName}>
+                            {group.groupName}
+                        </MenuItem>
+                    ))}
+                </TextField>
                 <TimePicker className="light-alarm-component" initialTime={time} setTime={updateTime} />
             </div>
             <WeekPicker daysOfWeek={daysOfWeek} toggleDay={toggleDay} setEdited={() => setEdited(true)} />

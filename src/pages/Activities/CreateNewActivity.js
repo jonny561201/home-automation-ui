@@ -3,7 +3,7 @@ import { Context } from '../../state/Store';
 import CreateLightActivity from './CreateLightActivity';
 import CreateHvacActivity from './CreateHvacActivity';
 import { Delete } from '@material-ui/icons';
-import { ExpansionPanelDetails, ExpansionPanel, FormControl, MenuItem, Select, InputLabel, ExpansionPanelSummary } from '@material-ui/core';
+import { ExpansionPanelDetails, ExpansionPanel, TextField, MenuItem, ExpansionPanelSummary } from '@material-ui/core';
 
 
 export default function CreateNewActivityPanel(props) {
@@ -34,19 +34,16 @@ export default function CreateNewActivityPanel(props) {
     return (
         <>
             <ExpansionPanel className="task-panel" expanded={true}>
-                <ExpansionPanelSummary style={{ height: "0px", minHeight: "0px"}}/>
+                <ExpansionPanelSummary style={{ height: "0px", minHeight: "0px" }} />
                 <ExpansionPanelDetails className="center">
                     <div className="settings-row">
-                        <FormControl className="light-alarm-component task-room-picker-row" variant="outlined">
-                            <InputLabel htmlFor="light-group-dropdown">Task Type</InputLabel>
-                            <Select id="light-group-dropdown" value={type} onChange={updateSelectedType} label="Task Type" >
-                                {state.taskTypes.map(x => (
-                                    <MenuItem key={x} value={x}>
-                                        {x}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
+                        <TextField className="light-alarm-component task-room-picker-row" select variant="outlined" value={type} onChange={updateSelectedType} label="Task Type">
+                            {state.taskTypes.map(x => (
+                                <MenuItem key={x} value={x}>
+                                    {x}
+                                </MenuItem>
+                            ))}
+                        </TextField>
                     </div>
                     {selectedComponents()}
                 </ExpansionPanelDetails>
