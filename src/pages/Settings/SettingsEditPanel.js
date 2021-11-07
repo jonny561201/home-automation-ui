@@ -2,15 +2,17 @@ import React, { useState, useContext } from 'react';
 import useSound from 'use-sound';
 import clickSound from '../../resources/click.mp3';
 import { updateUserPreferences } from '../../utilities/RestApi';
-import { Divider, TextField, FormControlLabel, RadioGroup, FormControl, Radio } from '@material-ui/core';
 import './SettingsEditPanel.css'
 import { Context } from '../../state/Store';
+import { Divider, TextField, InputLabel, Select, MenuItem, FormControlLabel, RadioGroup, FormControl, Radio } from '@material-ui/core';
 
 
 export default function SettingsEditPanel(props) {
     const [state, dispatch] = useContext(Context);
     const [click] = useSound(clickSound, { volume: 0.25 });
     const [edited, setEdited] = useState();
+    const [garage, setGarage] = useState(state.preferences.garage_door ? state.preferences.garage_door : '');
+    const [garageId, setGarageId] = useState();
     const [newCity, setNewCity] = useState(state.preferences.city);
     const [newTempUnit, setNewTempUnit] = useState(state.preferences.temp_unit);
     const [newMeasureUnit, setNewMeasureUnit] = useState(state.preferences.measure_unit);
@@ -19,10 +21,11 @@ export default function SettingsEditPanel(props) {
         click();
         const isFahrenheit = newTempUnit === "fahrenheit";
         const isImperial = newMeasureUnit === "imperial";
-        updateUserPreferences(state.user.userId, state.auth.bearer, isFahrenheit, isImperial, newCity);
+        const request = { isImperial, isFahrenheit, 'city': newCity, 'garageDoor': garage, 'garageId': garageId };
+        updateUserPreferences(state.user.userId, state.auth.bearer, request);
 
-        props.setEditMode(!props.isEditMode)
-        dispatch({ type: 'SET_USER_PREFERENCES', payload: { ...state.preferences, city: newCity, temp_unit: newTempUnit, measure_unit: newMeasureUnit } });
+        dispatch({ type: 'SET_USER_PREFERENCES', payload: { ...state.preferences, city: newCity, temp_unit: newTempUnit, measure_unit: newMeasureUnit, garage_id: garageId, garage_door: garage } });
+        props.setEditMode(!props.isEditMode);
     }
 
     const cancelPreferences = () => {
@@ -30,7 +33,7 @@ export default function SettingsEditPanel(props) {
         setNewCity(props.city);
         setNewTempUnit(props.tempUnit);
         setNewMeasureUnit(props.measureUnit);
-        props.setEditMode(!props.isEditMode)
+        props.setEditMode(!props.isEditMode);
     }
 
     const updateCity = (input) => {
@@ -48,11 +51,31 @@ export default function SettingsEditPanel(props) {
         setNewMeasureUnit(input.target.value);
     }
 
+    const updateGarageDoor = (input) => {
+        const door = state.garageDoors.find(x => x.doorName === input.target.value);
+        setEdited(true);
+        setGarage(input.target.value);
+        setGarageId(door ? door.doorId : null);
+    }
+
     return (
         <>
             <div className="settings-group setting text">
                 <h2 className="panel-header-text">Garage</h2>
                 <Divider />
+                <div className="settings-row">
+                    <FormControl variant="outlined">
+                        <InputLabel htmlFor="select-garage-dropdown">Garage Door</InputLabel>
+                        <Select id="select-garage-dropdown" value={garage} onChange={updateGarageDoor} label="Garage Door" >
+                            <MenuItem value="">None</MenuItem>
+                            {state.garageDoors.map(x => (
+                                <MenuItem key={x.doorName} value={x.doorName}>
+                                    {x.doorName}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </div>
                 <h2 className="panel-header-text">Temperature</h2>
                 <Divider />
                 <div className="settings-row">

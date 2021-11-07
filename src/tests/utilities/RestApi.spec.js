@@ -148,6 +148,7 @@ describe('RestApi', () => {
 
         it('should make rest call to post user preferences', async () => {
             const userId = 'abc12345';
+            const request = { 'isFahrenheit': true, 'isImperial': true, 'city': 'Praha', 'garageDoor': 1 }
             const options = {
                 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` },
                 'body': { 'isFahrenheit': true, 'city': 'Praha', 'isImperial': false }
@@ -157,7 +158,7 @@ describe('RestApi', () => {
                 return { status: 400 };
             });
 
-            const actual = await updateUserPreferences(userId, bearerToken2, true, true, 'Praha');
+            const actual = await updateUserPreferences(userId, bearerToken2, request);
 
             expect(actual.status).toEqual(200);
         });

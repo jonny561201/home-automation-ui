@@ -17,7 +17,7 @@ describe('Settings Edit Panel', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ auth: { bearer: bearer }, preferences: preference, daysOfWeek: [], user: user }, () => { }]}>
+                <Context.Provider value={[{ garageDoors: [], auth: { bearer: bearer }, preferences: preference, daysOfWeek: [], user: user }, () => { }]}>
                     <SettingsEditPanel tempUnit={"fahrenheit"} measureUnit={"imperial"} />
                 </Context.Provider>
             );
@@ -78,5 +78,13 @@ describe('Settings Edit Panel', () => {
         await renderComponent();
         const actual = screen.getByText('Garage').textContent;
         expect(actual).toEqual('Garage');
+    });
+
+    it('should display the garage door drop down', async () => {
+        await renderComponent();
+        const imperialRadio = screen.getAllByRole('radio')[2];
+        const metricRadio = screen.getAllByRole('radio')[3];
+        expect(imperialRadio).toHaveAttribute('value', 'imperial');
+        expect(metricRadio).toHaveAttribute('value', 'metric');
     });
 });

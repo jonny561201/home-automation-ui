@@ -89,8 +89,7 @@ export const getUserPreferences = async (userId, bearer) => {
     return await response.json();
 }
 
-export const updateUserPreferences = async (userId, bearer, isFahrenheit, isImperial, city) => {
-    const request = { 'isFahrenheit': isFahrenheit, 'city': city, 'isImperial': isImperial }
+export const updateUserPreferences = async (userId, bearer, request) => {
     const options = {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${bearer}` },
