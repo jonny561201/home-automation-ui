@@ -6,3 +6,8 @@
 .settings-first-item {
     margin-top: 1rem !important;
 }
+
+.garage-setting-row {
+    margin-top: 1rem !important;
+    min-width: 194px !important;
+}

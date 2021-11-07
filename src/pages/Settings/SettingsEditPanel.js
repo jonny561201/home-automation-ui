@@ -4,7 +4,7 @@ import clickSound from '../../resources/click.mp3';
 import { updateUserPreferences } from '../../utilities/RestApi';
 import './SettingsEditPanel.css'
 import { Context } from '../../state/Store';
-import { Divider, TextField, InputLabel, Select, MenuItem, FormControlLabel, RadioGroup, FormControl, Radio } from '@material-ui/core';
+import { Divider, TextField, MenuItem, FormControlLabel, RadioGroup, FormControl, Radio } from '@material-ui/core';
 
 
 export default function SettingsEditPanel(props) {
@@ -64,17 +64,14 @@ export default function SettingsEditPanel(props) {
                 <h2 className="panel-header-text">Garage</h2>
                 <Divider />
                 <div className="settings-row">
-                    <FormControl variant="outlined">
-                        <InputLabel htmlFor="select-garage-dropdown">Garage Door</InputLabel>
-                        <Select id="select-garage-dropdown" value={garage} onChange={updateGarageDoor} label="Garage Door" >
-                            <MenuItem value="">None</MenuItem>
-                            {state.garageDoors.map(x => (
-                                <MenuItem key={x.doorName} value={x.doorName}>
-                                    {x.doorName}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
+                    <TextField className="garage-setting-row" variant="outlined" select value={garage} onChange={updateGarageDoor} label="Garage Door">
+                        <MenuItem value="">None</MenuItem>
+                        {state.garageDoors.map(x => (
+                            <MenuItem key={x.doorName} value={x.doorName}>
+                                {x.doorName}
+                            </MenuItem>
+                        ))}
+                    </TextField>
                 </div>
                 <h2 className="panel-header-text">Temperature</h2>
                 <Divider />
@@ -100,7 +97,6 @@ export default function SettingsEditPanel(props) {
                     </FormControl>
                 </div>
             </div>
-            <Divider />
             <div className="settings-button-group">
                 <button className="submit success-ripple" disabled={!edited} onClick={savePreferences}>Save</button>
                 <button className="cancel cancel-ripple" onClick={cancelPreferences}>Cancel</button>
