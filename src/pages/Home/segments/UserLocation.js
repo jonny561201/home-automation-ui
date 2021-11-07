@@ -68,7 +68,7 @@ export default function UserLocation() {
                 const userDistance = calculateDistanceInMeters(garageCoords.latitude, garageCoords.longitude, userCoords.latitude, userCoords.longitude);
                 if (shouldOpenGarage(userDistance)) {
                     console.log('gonna open')
-                    updateGarageState(state.user.userId, state.auth.bearer, true, 1);
+                    updateGarageState(state.user.userId, state.auth.bearer, true, state.preferences.garage_id);
                 }
             }
         }, (error) => { alert('Enable GPS position feature.') }, { enableHighAccuracy: true });
@@ -81,7 +81,7 @@ export default function UserLocation() {
                 <div className="auto-open-menu">
                     <CloseIcon className="location-close-icon" onClick={() => setDisplayMenu(false)} />
                     <div className="location-menu-group">
-                        <p className="auto-open-menu-text text reduce-margin">Garage opens in 250ft</p>
+                        <p className="auto-open-menu-text text reduce-margin">Garage will open in 250ft</p>
                         <button className="auto-open-menu-button reduce-margin" onClick={cancelDoorOpen}>Cancel</button>
                     </div>
                 </div>
