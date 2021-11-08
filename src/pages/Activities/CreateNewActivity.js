@@ -37,7 +37,7 @@ export default function CreateNewActivityPanel(props) {
                 <ExpansionPanelSummary style={{ height: "0px", minHeight: "0px" }} />
                 <ExpansionPanelDetails className="center">
                     <div className="settings-row">
-                        <TextField className="light-alarm-component task-room-picker-row" select variant="outlined" value={type} onChange={updateSelectedType} label="Task Type">
+                        <TextField data-testid="task-type" className="light-alarm-component task-room-picker-row" select variant="outlined" value={type} onChange={updateSelectedType} label="Task Type">
                             {state.taskTypes.map(x => (
                                 <MenuItem key={x} value={x}>
                                     {x}

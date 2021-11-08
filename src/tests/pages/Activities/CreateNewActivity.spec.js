@@ -19,7 +19,7 @@ describe('Light Alarm Edit Panel', () => {
 
     it('should display the Task Type label', async () => {
         await renderComponent();
-        const actual = screen.getByLabelText('Task Type');
+        const actual = screen.getByTestId('task-type');
         expect(actual).toBeDefined();
     });
 

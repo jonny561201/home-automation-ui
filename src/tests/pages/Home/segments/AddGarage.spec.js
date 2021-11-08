@@ -61,7 +61,7 @@ describe('Add Garage', () => {
             await act(async () => {
                 fireEvent.click(screen.getByRole('button'));
             });
-            expect(spyAdd).toBeCalledWith(userId, bearer, deviceId, name);
+            expect(spyAdd).toBeCalledWith(userId, bearer, deviceId, name, false);
         });
 
         it('should make api call to get roles if valid name', async () => {

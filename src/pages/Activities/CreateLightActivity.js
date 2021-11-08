@@ -60,7 +60,7 @@ export default function CreateLightActivity(props) {
     return (
         <>
             <div className="settings-row">
-                <TextField className="light-alarm-component task-room-picker-row" select variant="outlined" value={selectedRoom} onChange={updateSelectedRoom} label="Room">
+                <TextField className="light-alarm-component task-room-picker-row" select variant="outlined" value={selectedRoom} onChange={updateSelectedRoom} label="Room" data-testid="alarm-room-picker">
                     <MenuItem key="all-rooms" value="All Rooms">All Rooms</MenuItem>
                     {state.userLightGroups.map((group) => (
                         <MenuItem key={group.groupId} value={group.groupName}>
