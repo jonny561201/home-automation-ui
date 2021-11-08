@@ -1,14 +1,16 @@
 import React, { useState, useContext } from 'react';
-import { TextField } from '@material-ui/core';
+import { TextField, FormControlLabel } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { addUserDeviceNode, getRolesByUserId } from '../../../utilities/RestApi';
 import { CheckCircle } from '@material-ui/icons';
 import { Context } from '../../../state/Store';
+import { GreenCheckbox } from '../../../components/controls/CheckBox';
 import './AddGarage.css';
 
 export default function AddGarage(props) {
     const [state, dispatch] = useContext(Context);
     const [succeeded, setSucceeded] = useState();
+    const [preferred, setPreferred] = useState(false);
     const [garageName, setGarageName] = useState('');
     const [isNameValid, setIsNameValid] = useState(true);
     const [garageTouched, setGarageTouched] = useState(false);
@@ -79,6 +81,9 @@ export default function AddGarage(props) {
                     <form onSubmit={submitGarageDoor}>
                         <div className="account-row">
                             <TextField value={garageName} error={!isNameValid} onChange={checkGarageName} variant="outlined" label="Garage Name" />
+                        </div>
+                        <div className="account-row">
+                            <FormControlLabel control={<GreenCheckbox checked={state.checkedG} onChange={() => setPreferred(!preferred)} name="checkedG" />} label="Preferred Garage Door" />
                         </div>
                         <button type="submit" className="success-ripple">Add</button>
                     </form>
