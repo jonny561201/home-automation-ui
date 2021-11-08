@@ -148,8 +148,8 @@ export const addUserDevice = async (userId, bearer, roleName, ipAddress) => {
     return await fetch(`${deviceBaseUrl}/userId/${userId}/devices`, options);
 }
 
-export const addUserDeviceNode = async (userId, bearer, deviceId, nodeName) => {
-    const request = { 'nodeName': nodeName };
+export const addUserDeviceNode = async (userId, bearer, deviceId, nodeName, preferred) => {
+    const request = { 'nodeName': nodeName, 'preferred': preferred };
     const options = {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${bearer}` },

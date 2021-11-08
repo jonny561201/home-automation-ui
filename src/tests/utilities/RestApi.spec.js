@@ -229,15 +229,15 @@ describe('RestApi', () => {
         });
 
         it('should make rest call to add device node for a user', async () => {
-            const deviceId = '456def'
-            const body = { 'nodeName': 'fakeName' };
+            const deviceId = '456def';
+            const body = { 'nodeName': 'fakeName', 'preferred': false };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
             fetchMock.mock(`${baseUrl}/devices/userId/${userId}/devices/${deviceId}/node`, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
-            const actual = await addUserDeviceNode(userId, bearerToken2, deviceId, body.nodeName);
+            const actual = await addUserDeviceNode(userId, bearerToken2, deviceId, body.nodeName, false);
 
             expect(actual.status).toEqual(200);
         });
