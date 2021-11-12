@@ -4,7 +4,6 @@ import ClickSound from '../../resources/click.mp3';
 import { Context } from '../../state/Store';
 import WeekPicker from '../../components/controls/WeekPicker';
 import TimePicker from '../../components/controls/TimePicker';
-import { getStore } from '../../state/GlobalState';
 import { Save, Delete } from '@material-ui/icons';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SingleClickSound from '../../resources/singleClick.mp3';
@@ -34,11 +33,8 @@ export default function LightActivity(props) {
         if (edited) {
             click();
             const task = props.task;
-            const response = await updateScheduledTasks(state.user.userId, state.auth.bearer, task.task_id, task.alarm_light_group, task.alarm_group_name, days, time, enabled, type);
-            if (response) {
-                dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: task.task_id });
-                dispatch({ type: 'ADD_SCHEDULED_TASK', payload: response });
-            }
+            const request = { 'taskId': task.task_id, 'alarmLightGroup': task.alarm_light_group, 'alarmGroupName': task.alarm_group_name, 'alarmDays': days, 'alarmTime': time, 'enabled': enabled, 'taskType': type };
+            await updateTask(request, task)
         }
     }
 
@@ -64,16 +60,21 @@ export default function LightActivity(props) {
         const updated = !enabled;
         setEnabled(updated)
         const task = props.task;
-        const response = await updateScheduledTasks(state.user.userId, state.auth.bearer, task.task_id, task.alarm_light_group, task.alarm_group_name, days, time, updated, type);
-        if (response) {
-            dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: task.task_id });
-            dispatch({ type: 'ADD_SCHEDULED_TASK', payload: response });
-        }
+        const request = { 'taskId': task.task_id, 'alarmLightGroup': task.alarm_light_group, 'alarmGroupName': task.alarm_group_name, 'alarmDays': days, 'alarmTime': time, 'enabled': updated, 'taskType': type };
+        await updateTask(request, task);
     }
 
     const updateSelectedType = (item) => {
         setEdited(true);
         setType(state.taskTypes.find(x => x === item.target.value));
+    }
+
+    const updateTask = async (request, task) => {
+        const response = await updateScheduledTasks(state.user.userId, state.auth.bearer, request);
+        if (response) {
+            dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: task.task_id });
+            dispatch({ type: 'ADD_SCHEDULED_TASK', payload: response });
+        }
     }
 
     return (

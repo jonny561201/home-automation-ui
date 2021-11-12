@@ -84,7 +84,8 @@ describe('Light Activity Panel', () => {
         await renderComponent();
         fireEvent.click(screen.getByText('F'));
         fireEvent.click(screen.getByText('Update'));
-        expect(spyUpdate).toHaveBeenCalledWith(userId, bearer, taskId, groupId, groupName, 'MonFri', alarmTime, true, 'turn off');
+        const request = {'taskId': taskId, 'alarmLightGroup': groupId, 'alarmGroupName': groupName, 'alarmDays': 'MonFri', 'alarmTime': alarmTime, 'enabled': true, 'taskType': 'turn off'};
+        expect(spyUpdate).toHaveBeenCalledWith(userId, bearer, request);
     });
 
     it('should updated the displayed selected days of the week on the event banner', async () => {
