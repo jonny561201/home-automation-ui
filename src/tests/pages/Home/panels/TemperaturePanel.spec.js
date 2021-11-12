@@ -7,6 +7,16 @@ import { render, screen, act, fireEvent } from '@testing-library/react';
 import TemperaturePanel from '../../../../pages/Home/panels/TemperaturePanel';
 
 
+jest.mock('../../../../components/controls/Knob', () => {
+    return {
+      __esModule: true,
+      default: () => {
+        return <div></div>;
+      },
+    };
+  });
+
+
 describe('TemperaturePanel', () => {
     let userId = 'fakeUserId'
     const bearer = 'sdf987';

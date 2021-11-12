@@ -1,4 +1,3 @@
-import base64 from 'base-64';
 import fetchMock from 'fetch-mock';
 import {
     getBearerToken, getGarageStatus, updateGarageState, addUserDevice, getUserChildAccounts, insertLightTask,

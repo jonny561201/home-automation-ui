@@ -7,6 +7,16 @@ import { render, screen, act } from '@testing-library/react';
 import DashboardPanels from '../../../../pages/Home/panels/DashboardPanels';
 
 
+jest.mock('../../../../components/controls/Knob', () => {
+    return {
+      __esModule: true,
+      default: () => {
+        return <div></div>;
+      },
+    };
+  });
+
+
 describe('DashboardPanel', () => {
     const store = getStore();
     const bearer = 'kjahsd987s798';
