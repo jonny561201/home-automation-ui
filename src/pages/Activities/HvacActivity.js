@@ -8,24 +8,25 @@ import TempPicker from '../../components/controls/TempPicker';
 import TimePicker from '../../components/controls/TimePicker';
 import WeekPicker from '../../components/controls/WeekPicker';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { deleteScheduledTask } from '../../utilities/RestApi';
+import { deleteScheduledTask, updateScheduledTasks } from '../../utilities/RestApi';
 import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary, Divider, Switch } from '@material-ui/core';
 
 
 export default function HvacActivity(props) {
     const initialDays = [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }];
     const [state, dispatch] = useContext(Context);
-    const [enabled, setEnabled] = useState(props.task.enabled);
-    const [days, setDays] = useState(props.task.alarm_days);
     const [open, setOpen] = useState(false);
+    const [edited, setEdited] = useState(false);
+    const [type,] = useState(props.task.task_type);
+    const [days, setDays] = useState(props.task.alarm_days);
+    const [enabled, setEnabled] = useState(props.task.enabled);
+    const [stopTime, setStopTime] = useState(props.task.hvac_stop);
+    const [startTime, setStartTime] = useState(props.task.hvac_start);
     const [inTemp, setInTemp] = useState(props.task.hvac_start_temp);
     const [outTemp, setOutTemp] = useState(props.task.hvac_stop_temp);
-    const [edited, setEdited] = useState(false);
     const [click] = useSound(clickSound, { volume: 0.25 });
     const [singleClick] = useSound(SingleClickSound, { volume: 0.25 });
     const [daysOfWeek, setDaysOfWeek] = useState(initialDays.map(day => props.task.alarm_days.includes(day.id) ? { ...day, on: true } : day));
-    const [startTime, setStartTime] = useState(props.task.hvac_start);
-    const [stopTime, setStopTime] = useState(props.task.hvac_stop);
 
     const updateStopTime = (dateTime) => {
         setEdited(true);
@@ -40,20 +41,33 @@ export default function HvacActivity(props) {
     const clickDelete = async () => {
         click();
         const response = await deleteScheduledTask(state.user.userId, state.auth.bearer, props.task.task_id);
-        if (response.ok) {
+        if (response.ok)
             dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.task_id });
-        }
     }
 
     const saveTask = async () => {
         if (edited) {
             click();
-            // const task = props.task;
-            // const response = await updateScheduledTasks(state.user.userId, state.auth.bearer, task.task_id, task.alarm_light_group, task.alarm_group_name, days, time, enabled, type);
-            // if (response) {
-            //     dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: task.task_id });
-            //     dispatch({ type: 'ADD_SCHEDULED_TASK', payload: response });
-            // }
+            await updateTask(enabled);
+        }
+    }
+    
+    const toggleTask = async () => {
+        singleClick();
+        const updated = !enabled;
+        setEnabled(updated);
+        await updateTask(updated);
+    }
+
+    const updateTask = async (isEnabled) => {
+        const request = {
+            'taskId': props.task.task_id, 'alarmLightGroup': props.task.alarm_light_group, 'alarmGroupName': props.task.alarm_group_name,
+            'alarmDays': days, 'hvacStart': startTime, 'hvacStop': stopTime, 'hvacStartTemp': inTemp, 'hvacStopTemp': outTemp, 'enabled': isEnabled, 'taskType': type
+        };
+        const response = await updateScheduledTasks(state.user.userId, state.auth.bearer, request);
+        if (response) {
+            dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.task_id });
+            dispatch({ type: 'ADD_SCHEDULED_TASK', payload: response });
         }
     }
 
@@ -64,18 +78,6 @@ export default function HvacActivity(props) {
         );
         setDaysOfWeek(newProjects);
         setDays(newProjects.filter(x => x.on === true).map(y => y.id).join(''));
-    }
-
-    const toggleTask = async () => {
-        singleClick();
-        const updated = !enabled;
-        setEnabled(updated)
-        // const task = props.task;
-        // const response = await updateScheduledTasks(state.user.userId, state.auth.bearer, task.task_id, task.alarm_light_group, task.alarm_group_name, days, time, updated, type);
-        // if (response) {
-        //     dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: task.task_id });
-        //     dispatch({ type: 'ADD_SCHEDULED_TASK', payload: response });
-        // }
     }
 
     return (
