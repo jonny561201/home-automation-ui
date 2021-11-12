@@ -18,8 +18,8 @@ export default function HvacActivity(props) {
     const [enabled, setEnabled] = useState(props.task.enabled);
     const [days, setDays] = useState(props.task.alarm_days);
     const [open, setOpen] = useState(false);
-    const [inTemp, setInTemp] = useState(72);
-    const [outTemp, setOutTemp] = useState(72);
+    const [inTemp, setInTemp] = useState(props.task.hvac_start_temp);
+    const [outTemp, setOutTemp] = useState(props.task.hvac_stop_temp);
     const [edited, setEdited] = useState(false);
     const [click] = useSound(clickSound, { volume: 0.25 });
     const [singleClick] = useSound(SingleClickSound, { volume: 0.25 });
