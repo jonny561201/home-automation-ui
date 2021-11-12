@@ -350,14 +350,14 @@ describe('RestApi', () => {
         it('should make rest call to update scheduled tasks for a user account', async () => {
             const taskId = 'asbcasd34345';
             const response = { 'task_id': taskId }
-            const body = { 'taskId': 'abc', 'alarmLightGroup': '1', 'alarmGroupName': 'potty', 'alarmDays': 'Wed', 'alarmTime': '00:23:34', 'enabled': true, 'taskType': 'no' };
-            const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
+            const request = { 'taskId': 'abc', 'alarmLightGroup': '1', 'alarmGroupName': 'potty', 'alarmDays': 'Wed', 'alarmTime': '00:23:34', 'enabled': true, 'taskType': 'no' };
+            const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': request };
 
             fetchMock.mock(`${baseUrl}/userId/${userId}/tasks/update`, response, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
-            const actual = await updateScheduledTasks(userId, bearerToken2, body.taskId, body.alarmLightGroup, body.alarmGroupName, body.alarmDays, body.alarmTime, body.enabled, body.taskType);
+            const actual = await updateScheduledTasks(userId, bearerToken2, request);
 
             expect(actual.task_id).toEqual(taskId);
         });

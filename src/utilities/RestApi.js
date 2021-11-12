@@ -219,8 +219,8 @@ export const insertHvacTask = async (userId, bearer, enabled, taskType, hvacMode
     return response.json()
 }
 
-export const updateScheduledTasks = async (userId, bearer, taskId, alarmLightGroup, alarmGroupName, alarmDays, alarmTime, enabled, taskType) => {
-    const request = { 'taskId': taskId, 'alarmLightGroup': alarmLightGroup, 'alarmGroupName': alarmGroupName, 'alarmDays': alarmDays, 'alarmTime': alarmTime, 'enabled': enabled, 'taskType': taskType };
+export const updateScheduledTasks = async (userId, bearer, request) => {
+    // const request = { 'taskId': taskId, 'alarmLightGroup': alarmLightGroup, 'alarmGroupName': alarmGroupName, 'alarmDays': alarmDays, 'alarmTime': alarmTime, 'enabled': enabled, 'taskType': taskType };
     const options = {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${bearer}` },
