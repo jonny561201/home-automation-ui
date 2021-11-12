@@ -32,9 +32,23 @@ export default function LightActivity(props) {
     const saveTask = async () => {
         if (edited) {
             click();
-            const task = props.task;
-            const request = { 'taskId': task.task_id, 'alarmLightGroup': task.alarm_light_group, 'alarmGroupName': task.alarm_group_name, 'alarmDays': days, 'alarmTime': time, 'enabled': enabled, 'taskType': type };
-            await updateTask(request, task)
+            await updateTask(enabled);
+        }
+    }
+    
+    const toggleTask = async () => {
+        singleClick();
+        const updated = !enabled;
+        setEnabled(updated);
+        await updateTask(updated);
+    }
+
+    const updateTask = async (isEnabled) => {
+        const request = { 'taskId': props.task.task_id, 'alarmLightGroup': props.task.alarm_light_group, 'alarmGroupName': props.task.alarm_group_name, 'alarmDays': days, 'alarmTime': time, 'enabled': isEnabled, 'taskType': type };
+        const response = await updateScheduledTasks(state.user.userId, state.auth.bearer, request);
+        if (response) {
+            dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.task_id });
+            dispatch({ type: 'ADD_SCHEDULED_TASK', payload: response });
         }
     }
 
@@ -55,26 +69,9 @@ export default function LightActivity(props) {
         }
     }
 
-    const toggleTask = async () => {
-        singleClick();
-        const updated = !enabled;
-        setEnabled(updated)
-        const task = props.task;
-        const request = { 'taskId': task.task_id, 'alarmLightGroup': task.alarm_light_group, 'alarmGroupName': task.alarm_group_name, 'alarmDays': days, 'alarmTime': time, 'enabled': updated, 'taskType': type };
-        await updateTask(request, task);
-    }
-
     const updateSelectedType = (item) => {
         setEdited(true);
         setType(state.taskTypes.find(x => x === item.target.value));
-    }
-
-    const updateTask = async (request, task) => {
-        const response = await updateScheduledTasks(state.user.userId, state.auth.bearer, request);
-        if (response) {
-            dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: task.task_id });
-            dispatch({ type: 'ADD_SCHEDULED_TASK', payload: response });
-        }
     }
 
     return (
