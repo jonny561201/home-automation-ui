@@ -8,7 +8,7 @@ import { Save, Delete } from '@material-ui/icons';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SingleClickSound from '../../resources/singleClick.mp3';
 import { deleteScheduledTask, updateScheduledTasks } from '../../utilities/RestApi';
-import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary, Divider, Switch, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
+import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary, Divider, Switch, MenuItem, TextField } from '@material-ui/core';
 
 
 export default function LightActivity(props) {
@@ -35,7 +35,7 @@ export default function LightActivity(props) {
             await updateTask(enabled);
         }
     }
-    
+
     const toggleTask = async () => {
         singleClick();
         const updated = !enabled;
@@ -102,20 +102,13 @@ export default function LightActivity(props) {
                 <ExpansionPanelDetails className="center">
                     <div>
                         <div style={{ display: 'flex' }}>
-                            <FormControl className="light-alarm-component" variant="outlined">
-                                <InputLabel id="light-group-dropdown">Task Type</InputLabel>
-                                <Select
-                                    value={type}
-                                    onChange={updateSelectedType}
-                                    label="Task Type"
-                                >
-                                    {state.taskTypes.map(x => (
-                                        <MenuItem key={x} value={x}>
-                                            {x}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
+                            <TextField data-testid="task-type" className="light-alarm-component" select variant="outlined" value={type} onChange={updateSelectedType} label="Task Type">
+                                {state.taskTypes.map(x => (
+                                    <MenuItem key={x} value={x}>
+                                        {x}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
                             <TimePicker className="light-alarm-component" initialTime={time} setTime={updateTime} />
                         </div>
                         <WeekPicker daysOfWeek={daysOfWeek} toggleDay={toggleDay} setEdited={() => setEdited(true)} />
