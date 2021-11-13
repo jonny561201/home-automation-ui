@@ -12,6 +12,7 @@ import { CSSTransition } from 'react-transition-group';
 
 export default function LightSwitch(props) {
     const [state, dispatch] = useContext(Context);
+    const [isOn, setIsOn] = useState(props.data.on);
     const [lights,] = useState(props.data.lights);
     const [groupId,] = useState(props.data.groupId);
     const [groupName,] = useState(props.data.groupName);
@@ -25,6 +26,12 @@ export default function LightSwitch(props) {
         dispatch({ type: 'SET_ALL_USER_LIGHTS', payload: updatedLights });
         setBrightness(value);
     };
+
+    const toggleLightGroup = async () => {
+        const newState = !isOn;
+        setIsOn(!isOn);
+        await setLightGroupState(state.auth.bearer, groupId, newState);
+    }
 
     const getLightSwitches = () => {
         if (lights && lights.length > 0) {
