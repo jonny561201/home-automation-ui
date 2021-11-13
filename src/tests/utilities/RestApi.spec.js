@@ -188,6 +188,19 @@ describe('RestApi', () => {
             expect(actual.status).toEqual(200);
         });
 
+        it('should make rest call to set the state of a light group without brightness', async () => {
+            const body = { 'groupId': 1, 'on': true };
+            const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
+
+            fetchMock.mock(`${baseUrl}/lights/group/state`, options).catch(unmatchedUrl => {
+                return { status: 400 }
+            });
+
+            const actual = await setLightGroupState(bearerToken2, body.groupId, body.on);
+
+            expect(actual.status).toEqual(200);
+        });
+
         it('should make rest call to set the state of an individual light', async () => {
             const body = { 'lightId': 1, 'on': true, 'brightness': 211 };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
