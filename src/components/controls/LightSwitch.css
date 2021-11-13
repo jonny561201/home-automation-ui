@@ -40,3 +40,20 @@
     height: 16px !important;
     width: 16px !important;
 }
+
+.light-ripple {
+    border-radius: 10px;
+    background-position: center;
+    transition: background 0.8s;
+  }
+
+  .light-ripple:hover {
+    cursor: pointer;
+    background: var(--primary-color) radial-gradient(circle, transparent 1%, var(--primary-color) 1%) center/15000%;
+  }
+  
+  .light-ripple:active {
+    background-color: var(--light-button);
+    background-size: 100%;
+    transition: background 0s;
+  }

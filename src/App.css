@@ -16,6 +16,7 @@
   --radio-ring: #6e6e6e;
   --header-font-color: #ffffff;
   --panel-font-color: #000000;
+  --light-button: #c7c7c7;
 }
 
 .theme-dark {
@@ -32,6 +33,7 @@
   --radio-ring: #aaaaaa;
   --header-font-color: #ffffff;
   --panel-font-color: #ffffff;
+  --light-button: #aaaaaa
 }
 
 .text{
