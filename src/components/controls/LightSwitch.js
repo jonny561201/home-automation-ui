@@ -24,6 +24,8 @@ export default function LightSwitch(props) {
         const updatedLights = state.userLights.map(x => x.groupId === groupId ? { ...x, brightness: newBrightness } : x);
         debounchApi(() => setLightGroupState(state.auth.bearer, groupId, true, newBrightness));
         dispatch({ type: 'SET_ALL_USER_LIGHTS', payload: updatedLights });
+        if (newBrightness > 0)
+            setIsOn(true);
         setBrightness(value);
     };
 
