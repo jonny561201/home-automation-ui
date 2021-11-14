@@ -21,12 +21,13 @@ export default function LightSwitch(props) {
 
     const sliderToggleLightGroup = async (event, value) => {
         const newBrightness = Math.round(value * 2.55);
-        const updatedLights = state.userLights.map(x => x.groupId === groupId ? { ...x, brightness: newBrightness } : x);
         debounchApi(() => setLightGroupState(state.auth.bearer, groupId, true, newBrightness));
-        dispatch({ type: 'SET_ALL_USER_LIGHTS', payload: updatedLights });
         if (newBrightness > 0)
             setIsOn(true);
         setBrightness(value);
+        const newList = state.lights.map(x => (x.groupId === groupId) ? {...x, brightness: newBrightness } : x);
+        // TODO: update lights in group to the same level as the group?????
+        dispatch({ type: 'SET_LIGHTS', payload: newList });
     };
 
     const toggleLightGroup = async () => {
@@ -38,7 +39,7 @@ export default function LightSwitch(props) {
     const getLightSwitches = () => {
         if (lights && lights.length > 0) {
             return lights.map(x => (
-                <SwitchSlider key={`switch-${x.lightId}`} data={x} lightId={x.lightId} />
+                <SwitchSlider key={`switch-${x.lightId}`} data={x} />
             ));
         }
         return <p className="panel-text text">No lights assigned to group</p>

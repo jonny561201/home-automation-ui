@@ -62,16 +62,6 @@ const Reducer = (state, action) => {
                 ...state,
                 lights: action.payload
             }
-        case 'SET_USER_LIGHT':
-            return {
-                ...state,
-                userLights: state.userLights.map(light => [action.payload].find(p => p.lightId === light.lightId) || light)
-            };
-        case 'SET_USER_LIGHT_GROUPS':
-            return {
-                ...state,
-                userLightGroups: action.payload
-            };
         case 'UPDATE_GARAGE_DOORS':
             const doorIndex = state.garageDoors.findIndex(door => door.doorName === action.payload.doorName);
             return {

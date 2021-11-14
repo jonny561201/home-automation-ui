@@ -81,10 +81,7 @@ export default function StateUtil() {
     const getLights = async () => {
         const groups = await getLightGroups(state.auth.bearer);
         if (groups && groups.length) {
-            // TODO: !!!!!!!!!!!!!!! REDUCE TO ONE LIGHT GROUP !!!!!!!!!!!!!!!
             dispatch({ type: 'SET_LIGHTS', payload: groups});
-            dispatch({ type: 'SET_ALL_USER_LIGHTS', payload: groups.map(x => x.lights).flat(1) });
-            dispatch({ type: 'SET_USER_LIGHT_GROUPS', payload: groups });
         }
 
     }

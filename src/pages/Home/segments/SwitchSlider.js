@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { Context } from '../../../state/Store';
 import { debounchApi } from '../../../utilities/Services';
 import { setLightState } from '../../../utilities/RestApi';
@@ -7,18 +7,16 @@ import { CustomSlider } from '../../../components/controls/Slider';
 
 export default function SwitchSlider(props) {
     const [state, dispatch] = useContext(Context);
-    const [lightId,] = useState(props.lightId);
     const [light, setLight] = useState(props.data);
-
-    useEffect(() => {
-        setLight(state.userLights.find(x => x.lightId === props.lightId));
-    });
+    const [lightId,] = useState(props.data.lightId);
+    const [groupId,] = useState(props.data.groupId);
 
     const toggleCheckedLight = (event, value) => {
         const newLight = { ...light, brightness: value * 2.55 };
         setLight(newLight);
         debounchApi(() => setLightState(state.auth.bearer, lightId, true, value * 2.55));
-        dispatch({ type: 'SET_USER_LIGHT', payload: newLight });
+        const newList = state.lights.map(x => (x.groupId === groupId) ? {...x, lights: x.lights.map(y => (y.lightId === lightId) ? newLight : y)} : x);
+        dispatch({ type: 'SET_LIGHTS', payload: newList });
     }
 
     return (
