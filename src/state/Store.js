@@ -15,6 +15,7 @@ const initialState = {
     garageDoors: [],
     userCoords: null,
     userLights: [],
+    lights: [],
     userLightGroups: [],
     sumpData: {},
     tempData: { description: '', gaugeColor: '#A0A0A0', currentDesiredTemp: 0.0 },

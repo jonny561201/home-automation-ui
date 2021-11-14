@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Context } from '../../../state/Store';
 import LightSwitch from '../../../components/controls/LightSwitch';
-import { useInterval } from '../../../utilities/UseInterval';
-import { getLightGroups } from '../../../utilities/RestApi';
+// import { useInterval } from '../../../utilities/UseInterval';
+// import { getLightGroups } from '../../../utilities/RestApi';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import LightingIcon from '../../../resources/panelIcons/LightingIcon.png';
 import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, Divider } from '@material-ui/core';
@@ -10,29 +10,29 @@ import './LightingPanel.css'
 
 
 export default function LightingPanel() {
-    const [groups, setGroups] = useState(null);
+    // const [groups, setGroups] = useState(null);
     const [state, dispatch] = useContext(Context);
 
-    useEffect(() => {
-        getData();
-    }, [dispatch]);
+    // useEffect(() => {
+    //     getData();
+    // }, [dispatch]);
 
-    useInterval(async () => {
-        await getData();
-    }, 60000);
+    // useInterval(async () => {
+    //     await getData();
+    // }, 60000);
 
-    const getData = async () => {
-        const groups = await getLightGroups(state.auth.bearer);
-        setGroups(groups);
-        if (groups && groups.length) {
-            dispatch({ type: 'SET_ALL_USER_LIGHTS', payload: groups.map(x => x.lights).flat(1) });
-            dispatch({ type: 'SET_USER_LIGHT_GROUPS', payload: groups.map(({ lights, ...item }) => item) });
-        }
-    };
+    // const getData = async () => {
+    //     const groups = await getLightGroups(state.auth.bearer);
+    //     setGroups(groups);
+    //     if (groups && groups.length) {
+    //         dispatch({ type: 'SET_ALL_USER_LIGHTS', payload: groups.map(x => x.lights).flat(1) });
+    //         dispatch({ type: 'SET_USER_LIGHT_GROUPS', payload: groups.map(({ lights, ...item }) => item) });
+    //     }
+    // };
 
     const renderGroups = () => {
-        if (groups && groups.length) {
-            return groups.map(group => <LightSwitch key={`switch-${group.groupId}`} data={group} />)
+        if (state.lights && state.lights.length) {
+            return state.lights.map(group => <LightSwitch key={`switch-${group.groupId}`} data={group} />)
         }
         return <p className="text">No Light Groups were found</p>
     };

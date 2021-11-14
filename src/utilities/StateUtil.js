@@ -5,7 +5,7 @@ import { Context } from '../state/Store';
 import { useInterval } from './UseInterval';
 import {
     getGarageStatus, getSumpLevels, getCurrentTemperature, getUserPreferences,
-    getScheduledTasks, getRefreshedBearerToken
+    getScheduledTasks, getRefreshedBearerToken, getLightGroups
 } from './RestApi';
 
 
@@ -19,6 +19,7 @@ export default function StateUtil() {
 
     useInterval(async () => {
         await getTempData();
+        await getLights();
     }, 60000);
 
     useInterval(async () => {
@@ -28,6 +29,7 @@ export default function StateUtil() {
     }, 120000);
 
     useEffect(() => {
+        getLights();
         getGarageData();
         getSumpData();
         getTempData();
@@ -70,6 +72,18 @@ export default function StateUtil() {
     const getActivities = async () => {
         const activities = await getScheduledTasks(state.user.userId, state.auth.bearer);
         dispatch({ type: 'SET_SCHEDULED_TASK', payload: activities });
+    }
+
+    const getLights = async () => {
+        const groups = await getLightGroups(state.auth.bearer);
+        // setGroups(groups);
+        if (groups && groups.length) {
+            // TODO: !!!!!!!!!!!!!!! REDUCE TO ONE LIGHT GROUP !!!!!!!!!!!!!!!
+            dispatch({ type: 'SET_LIGHTS', payload: groups});
+            dispatch({ type: 'SET_ALL_USER_LIGHTS', payload: groups.map(x => x.lights).flat(1) });
+            dispatch({ type: 'SET_USER_LIGHT_GROUPS', payload: groups });
+        }
+
     }
 
     const refreshBearerToken = async () => {
