@@ -44,7 +44,7 @@
 }
 
 .top-fade {
-    background: -webkit-linear-gradient(#fff, #27aedb);
+    background: -webkit-linear-gradient(var(--primary-color), #27aedb);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -54,7 +54,7 @@
 }
 
 .bottom-fade {
-    background: -webkit-linear-gradient(#db5127, #fff);
+    background: -webkit-linear-gradient(#db5127, var(--primary-color));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
