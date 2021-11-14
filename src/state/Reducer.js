@@ -105,6 +105,11 @@ const Reducer = (state, action) => {
                 ...state,
                 tempData: { ...action.payload, gaugeColor: color, currentDesiredTemp: current }
             }
+        case 'SET_LOADED_UTILS':
+            return {
+                ...state,
+                loadedUtils: action.payload
+            }
         case 'SET_USER_PREFERENCES':
             return {
                 ...state,

@@ -9,6 +9,7 @@ import {
 } from './RestApi';
 
 
+
 export default function StateUtil() {
     const [state, dispatch] = useContext(Context);
 
@@ -29,12 +30,15 @@ export default function StateUtil() {
     }, 120000);
 
     useEffect(() => {
-        getLights();
-        getGarageData();
-        getSumpData();
-        getTempData();
-        getPreferences();
-        getActivities();
+        if (!state.loadedUtils) {
+            getLights();
+            getGarageData();
+            getSumpData();
+            getTempData();
+            getPreferences();
+            getActivities();
+            dispatch({type: 'SET_LOADED_UTILS', payload: true});
+        }
     }, []);
 
     const getGarageData = async () => {
@@ -76,7 +80,6 @@ export default function StateUtil() {
 
     const getLights = async () => {
         const groups = await getLightGroups(state.auth.bearer);
-        // setGroups(groups);
         if (groups && groups.length) {
             // TODO: !!!!!!!!!!!!!!! REDUCE TO ONE LIGHT GROUP !!!!!!!!!!!!!!!
             dispatch({ type: 'SET_LIGHTS', payload: groups});

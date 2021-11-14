@@ -21,6 +21,7 @@ const initialState = {
     tempData: { description: '', gaugeColor: '#A0A0A0', currentDesiredTemp: 0.0 },
     preferences: {},
     tasks: [],
+    loadedUtils: false,
     taskTypes: ['sunrise alarm', 'turn on', 'turn off', 'hvac']
 };
 
