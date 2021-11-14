@@ -105,8 +105,8 @@ export const getLightGroups = async (bearer) => {
     return response.json();
 }
 
-export const setLightGroupState = async (bearer, groupId, state, brightness=null) => {
-    const request = {'groupId': groupId, 'on': state,...(brightness !== null && {'brightness': brightness})};
+export const setLightGroupState = async (bearer, groupId, state, brightness = null) => {
+    const request = { 'groupId': groupId, 'on': state, ...(brightness !== null && { 'brightness': brightness }) };
     const options = {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${bearer}` },
