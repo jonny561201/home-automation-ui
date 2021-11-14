@@ -52,11 +52,6 @@ const Reducer = (state, action) => {
                 ...state,
                 userCoords: action.payload
             };
-        case 'SET_ALL_USER_LIGHTS':
-            return {
-                ...state,
-                userLights: action.payload
-            };
         case 'SET_LIGHTS':
             return {
                 ...state,

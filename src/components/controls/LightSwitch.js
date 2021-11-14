@@ -25,8 +25,7 @@ export default function LightSwitch(props) {
         if (newBrightness > 0)
             setIsOn(true);
         setBrightness(value);
-        const newList = state.lights.map(x => (x.groupId === groupId) ? {...x, brightness: newBrightness } : x);
-        // TODO: update lights in group to the same level as the group?????
+        const newList = state.lights.map(x => (x.groupId === groupId) ? {...x, brightness: newBrightness, lights: x.lights.map(y => ({...y, brightness: newBrightness})) } : x);
         dispatch({ type: 'SET_LIGHTS', payload: newList });
     };
 

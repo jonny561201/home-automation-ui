@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Context } from '../../../state/Store';
 import { debounchApi } from '../../../utilities/Services';
 import { setLightState } from '../../../utilities/RestApi';
@@ -10,6 +10,10 @@ export default function SwitchSlider(props) {
     const [light, setLight] = useState(props.data);
     const [lightId,] = useState(props.data.lightId);
     const [groupId,] = useState(props.data.groupId);
+
+    useEffect(() => {
+        setLight(state.lights.find(x => x.groupId === groupId).lights.find(y => y.lightId === lightId));
+    });
 
     const toggleCheckedLight = (event, value) => {
         const newLight = { ...light, brightness: value * 2.55 };
