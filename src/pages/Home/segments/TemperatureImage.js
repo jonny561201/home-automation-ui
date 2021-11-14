@@ -68,7 +68,11 @@ export default function TemperatureImage() {
         <div className="temp-container">
             <div className="temp-external-container">
                 <img className="weather-icon" alt="description" src={weatherIcon} label={weatherDesc} />
-                <p data-testid={"external-temp"} className="external-temp text">{state.tempData.temp}&deg;</p>
+                <div className="external-temp">
+                    <p className="bottom-fade min-max text">{state.tempData.maxTemp}</p>
+                    <p data-testid={"external-temp"} className="external text">{state.tempData.temp}&deg;</p>
+                    <p className="top-fade min-max text">{state.tempData.minTemp}</p>
+                </div>
             </div>
             <div className="temp-home-container">
                 <img className="home-icon" alt="home" src={HomeIcon} />

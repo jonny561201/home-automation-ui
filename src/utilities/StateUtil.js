@@ -37,7 +37,7 @@ export default function StateUtil() {
             getTempData();
             getPreferences();
             getActivities();
-            dispatch({type: 'SET_LOADED_UTILS', payload: true});
+            dispatch({ type: 'SET_LOADED_UTILS', payload: true });
         }
     }, []);
 
@@ -63,7 +63,9 @@ export default function StateUtil() {
             ...temp,
             desiredTemp: Math.round(temp.desiredTemp),
             temp: Math.round(temp.temp),
-            currentTemp: Math.round(temp.currentTemp)
+            currentTemp: Math.round(temp.currentTemp),
+            minTemp: Math.round(temp.minTemp),
+            maxTemp: Math.round(temp.maxTemp)
         };
         dispatch({ type: 'SET_TEMP_DATA', payload: updatedTemp });
     }
@@ -81,7 +83,7 @@ export default function StateUtil() {
     const getLights = async () => {
         const groups = await getLightGroups(state.auth.bearer);
         if (groups && groups.length) {
-            dispatch({ type: 'SET_LIGHTS', payload: groups});
+            dispatch({ type: 'SET_LIGHTS', payload: groups });
         }
 
     }
