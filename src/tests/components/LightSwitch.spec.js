@@ -20,7 +20,7 @@ describe('LightSwitch', () => {
     const renderComponent = async (userLights, groupData) => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ userLights: userLights, auth: { bearer: bearer } }, () => { }]}>
+                <Context.Provider value={[{ lights: userLights, auth: { bearer: bearer } }, () => { }]}>
                     <LightSwitch data={groupData} />
                 </Context.Provider >
             );

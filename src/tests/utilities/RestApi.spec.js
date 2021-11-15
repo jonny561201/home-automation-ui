@@ -387,8 +387,9 @@ describe('RestApi', () => {
             });
 
             const actual = await getRefreshedBearerToken(refresh);
+            const jsonResponse = await actual.json();
 
-            expect(actual.bearerToken).toEqual(bearer);
+            expect(jsonResponse.bearerToken).toEqual(bearer);
         });
     });
 });

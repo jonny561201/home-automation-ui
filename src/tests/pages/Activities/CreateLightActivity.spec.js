@@ -8,7 +8,7 @@ describe('Create Light Activity Panel', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{userLightGroups: []}, () => { }]}>
+                <Context.Provider value={[{lights: []}, () => { }]}>
                     <CreateLightActivity type="" cancel={() => {}} save={() => {}}/>
                 </Context.Provider>
             );
