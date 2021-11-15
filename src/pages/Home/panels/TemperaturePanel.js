@@ -61,10 +61,10 @@ export default function TemperaturePanel() {
                 <Divider />
                 <div>
                     <div className="form-container">
-                        <div className="form-column">
+                        <div className="form-column image-column">
                             <TemperatureImage />
                         </div>
-                        <div className="form-column">
+                        <div className="form-column gauge-column">
                             <Knob value={state.tempData.currentDesiredTemp} lineCap={"round"} inputColor={state.tempData.gaugeColor} fgColor={state.tempData.gaugeColor} title="Desired Temp"
                                 onChange={knobChange} angleArc={240} angleOffset={240} min={state.tempData.minThermostatTemp} max={state.tempData.maxThermostatTemp} />
                             {

@@ -11,11 +11,24 @@
     .form-container {
         flex-direction: column;
     }
+
+    .form-column {
+        margin-left: auto;
+        margin-right: auto;
+    }
+ }
+
+ @media (min-width: 480px) {
+    .image-column {
+        margin-right: 10px;
+    }
+    
+    .gauge-column {
+        margin-left: 10px;
+    }
  }
 
 .form-column {
-    margin-left: auto;
-    margin-right: auto;
     margin-top: 1rem;
     margin-bottom: 0.5rem;
 }
