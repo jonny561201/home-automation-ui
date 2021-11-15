@@ -2,6 +2,7 @@ import React from 'react';
 import './LogoHeader.css';
 import Logo from '../../resources/CompanyLogo.png';
 
+
 export default function LogoHeader() {
     return (
         <div>
