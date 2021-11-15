@@ -20,6 +20,10 @@ export default function RegisterDevice(props) {
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
         setStartedRegistration(state.startedGarageRegistration);
+
+        return function cleanupListener() {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
     });
 
     const checkIpAddress = (input) => {
