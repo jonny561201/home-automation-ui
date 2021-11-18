@@ -61,7 +61,7 @@ const Reducer = (state, action) => {
             const doorIndex = state.garageDoors.findIndex(door => door.doorName === action.payload.doorName);
             return {
                 ...state,
-                garageDoors: doorIndex > -1 ? state.garageDoors.map(door => door.doorName === action.payload.doorName ? { ...door, "isOpen": action.payload.isOpen } : door) : [...state.garageDoors, action.payload]
+                garageDoors: doorIndex > -1 ? state.garageDoors.map(door => door.doorName === action.payload.doorName ? { ...door, isOpen: action.payload.isOpen, duration: action.payload.duration } : door) : [...state.garageDoors, action.payload]
             }
         case 'SET_SCHEDULED_TASK':
             return {

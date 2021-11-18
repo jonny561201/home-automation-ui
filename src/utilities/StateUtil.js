@@ -47,7 +47,7 @@ export default function StateUtil() {
             doors.forEach(async (door) => {
                 const garageStatus = await getGarageStatus(state.user.userId, state.auth.bearer, door.node_device);
                 dispatch({ type: 'SET_GARAGE_COORDS', payload: garageStatus.coordinates });
-                dispatch({ type: 'UPDATE_GARAGE_DOORS', payload: { 'doorName': door.node_name, 'doorId': door.node_device, 'isOpen': garageStatus.isGarageOpen, 'duration': garageStatus.statusDuration } });
+                dispatch({ type: 'UPDATE_GARAGE_DOORS', payload: { doorName: door.node_name, doorId: door.node_device, isOpen: garageStatus.isGarageOpen, duration: garageStatus.statusDuration } });
             });
         }
     };

@@ -18,7 +18,7 @@ export default function GarageDoor(props) {
 
     useInterval(() => {
         updateGarageDuration();
-    }, 1000);
+    }, 2000);
 
     const updateGarageDuration = () => {
         const diffMs = new Date() - new Date(props.device.duration);
@@ -27,10 +27,10 @@ export default function GarageDoor(props) {
         setStatusMins(Math.round(((diffMs % 86400000) % 3600000) / 60000));
     };
 
-    const openCloseGarageDoor = (newState) => {
+    const openCloseGarageDoor = async (newState) => {
         newState ? ding() : click();
-        const response = updateGarageState(state.user.userId, state.auth.bearer, newState, props.device.doorId);
-        dispatch({ type: 'UPDATE_GARAGE_DOORS', payload: { 'doorName': props.device.doorName, 'doorId': props.device.doorId, 'isOpen': response.isGarageOpen, 'duration': new Date() } });
+        const response = await updateGarageState(state.user.userId, state.auth.bearer, newState, props.device.doorId);
+        dispatch({ type: 'UPDATE_GARAGE_DOORS', payload: { doorName: props.device.doorName, doorId: props.device.doorId, isOpen: response.isGarageOpen, duration: new Date() } });
     }
 
     const toggleDoor = () => {
