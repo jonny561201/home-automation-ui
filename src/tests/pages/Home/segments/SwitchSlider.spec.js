@@ -9,12 +9,16 @@ describe('SwitchSlider', () => {
     const lightId = '1';
     const bearer = 'aksjdf876';
     const light = { lightName: 'desk lamp', on: true, brightness: 123, lightId: lightId, groupId: 1 };
+    const group = {
+        'groupId': '1', 'groupName': 'Living Room', 'on': true,
+        'brightness': 155, 'lights': [light]
+    }
     const spySetLight = jest.spyOn(lib, 'setLightState');
 
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ userLights: [light], auth: { bearer: bearer } }, () => { }]}>
+                <Context.Provider value={[{ lights: [], auth: { bearer: bearer } }, () => { }]}>
                     <SwitchSlider data={light} lightId={lightId} />
                 </Context.Provider>
             );
