@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/home-automation-ui/static/css/main.78f15847.chunk.css",
-    "main.js": "/home-automation-ui/static/js/main.df630771.chunk.js",
-    "main.js.map": "/home-automation-ui/static/js/main.df630771.chunk.js.map",
-    "runtime-main.js": "/home-automation-ui/static/js/runtime-main.a7ed693f.js",
-    "runtime-main.js.map": "/home-automation-ui/static/js/runtime-main.a7ed693f.js.map",
-    "static/js/2.fe11d77d.chunk.js": "/home-automation-ui/static/js/2.fe11d77d.chunk.js",
-    "static/js/2.fe11d77d.chunk.js.map": "/home-automation-ui/static/js/2.fe11d77d.chunk.js.map",
-    "static/js/3.96923411.chunk.js": "/home-automation-ui/static/js/3.96923411.chunk.js",
-    "static/js/3.96923411.chunk.js.map": "/home-automation-ui/static/js/3.96923411.chunk.js.map",
+    "main.css": "/home-automation-ui/static/css/main.2a515750.chunk.css",
+    "main.js": "/home-automation-ui/static/js/main.6b3f6be4.chunk.js",
+    "main.js.map": "/home-automation-ui/static/js/main.6b3f6be4.chunk.js.map",
+    "runtime-main.js": "/home-automation-ui/static/js/runtime-main.a0a1dd26.js",
+    "runtime-main.js.map": "/home-automation-ui/static/js/runtime-main.a0a1dd26.js.map",
+    "static/js/2.8a215a3a.chunk.js": "/home-automation-ui/static/js/2.8a215a3a.chunk.js",
+    "static/js/2.8a215a3a.chunk.js.map": "/home-automation-ui/static/js/2.8a215a3a.chunk.js.map",
+    "static/js/3.b50e260b.chunk.js": "/home-automation-ui/static/js/3.b50e260b.chunk.js",
+    "static/js/3.b50e260b.chunk.js.map": "/home-automation-ui/static/js/3.b50e260b.chunk.js.map",
     "index.html": "/home-automation-ui/index.html",
-    "static/css/main.78f15847.chunk.css.map": "/home-automation-ui/static/css/main.78f15847.chunk.css.map",
-    "static/js/2.fe11d77d.chunk.js.LICENSE.txt": "/home-automation-ui/static/js/2.fe11d77d.chunk.js.LICENSE.txt",
-    "static/js/3.96923411.chunk.js.LICENSE.txt": "/home-automation-ui/static/js/3.96923411.chunk.js.LICENSE.txt",
+    "static/css/main.2a515750.chunk.css.map": "/home-automation-ui/static/css/main.2a515750.chunk.css.map",
+    "static/js/2.8a215a3a.chunk.js.LICENSE.txt": "/home-automation-ui/static/js/2.8a215a3a.chunk.js.LICENSE.txt",
+    "static/js/3.b50e260b.chunk.js.LICENSE.txt": "/home-automation-ui/static/js/3.b50e260b.chunk.js.LICENSE.txt",
     "static/media/CompanyLogo.dbd96a99.png": "/home-automation-ui/static/media/CompanyLogo.dbd96a99.png",
     "static/media/GarageDoorIcon.a5f44f42.png": "/home-automation-ui/static/media/GarageDoorIcon.a5f44f42.png",
     "static/media/LightingIcon.f44cd925.png": "/home-automation-ui/static/media/LightingIcon.f44cd925.png",
@@ -41,9 +41,9 @@
     "static/media/thunderstorm.30c83f95.png": "/home-automation-ui/static/media/thunderstorm.30c83f95.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.a7ed693f.js",
-    "static/js/2.fe11d77d.chunk.js",
-    "static/css/main.78f15847.chunk.css",
-    "static/js/main.df630771.chunk.js"
+    "static/js/runtime-main.a0a1dd26.js",
+    "static/js/2.8a215a3a.chunk.js",
+    "static/css/main.2a515750.chunk.css",
+    "static/js/main.6b3f6be4.chunk.js"
   ]
 }
