@@ -29,12 +29,12 @@ export default function GarageDoor(props) {
 
     const openCloseGarageDoor = (newState) => {
         newState ? ding() : click();
-        const response = updateGarageState(state.user.userId, state.auth.bearer, newState, props.device.node_device);
-        dispatch({ type: 'UPDATE_GARAGE_DOORS', payload: { 'doorName': props.device.doorName, 'doorId': props.device.node_device, 'isOpen': response.isGarageOpen, 'duration': new Date() } });
+        const response = updateGarageState(state.user.userId, state.auth.bearer, newState, props.device.doorId);
+        dispatch({ type: 'UPDATE_GARAGE_DOORS', payload: { 'doorName': props.device.doorName, 'doorId': props.device.doorId, 'isOpen': response.isGarageOpen, 'duration': new Date() } });
     }
 
     const toggleDoor = () => {
-        toggleGarageDoor(state.user.userId, state.auth.bearer, props.device.node_device);
+        toggleGarageDoor(state.user.userId, state.auth.bearer, props.device.doorId);
         click();
     }
 
