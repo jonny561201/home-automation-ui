@@ -10,6 +10,7 @@ import BrightnessMediumIcon from '@material-ui/icons/BrightnessMedium';
 import './LightSwitch.css';
 import { CSSTransition } from 'react-transition-group';
 
+
 export default function LightSwitch(props) {
     const [state, dispatch] = useContext(Context);
     const [isOn, setIsOn] = useState(props.data.on);
@@ -25,7 +26,7 @@ export default function LightSwitch(props) {
         if (newBrightness > 0)
             setIsOn(true);
         setBrightness(value);
-        const newList = state.lights.map(x => (x.groupId === groupId) ? {...x, brightness: newBrightness, lights: x.lights.map(y => ({...y, brightness: newBrightness})) } : x);
+        const newList = state.lights.map(x => (x.groupId === groupId) ? { ...x, brightness: newBrightness, lights: x.lights.map(y => ({ ...y, brightness: newBrightness })) } : x);
         dispatch({ type: 'SET_LIGHTS', payload: newList });
     };
 

@@ -4,6 +4,10 @@ import * as lib from '../../utilities/RestApi';
 import LightSwitch from '../../components/controls/LightSwitch';
 import { Context } from '../../state/Store';
 
+
+jest.mock('../../pages/Home/segments/SwitchSlider', () => () => <div data-testid="light-switch"></div>);
+
+
 describe('LightSwitch', () => {
     const bearer = 'akjshdf897';
     const groupName = 'DinningRoom';

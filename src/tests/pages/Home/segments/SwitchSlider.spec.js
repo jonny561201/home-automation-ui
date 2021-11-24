@@ -18,7 +18,7 @@ describe('SwitchSlider', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ lights: [], auth: { bearer: bearer } }, () => { }]}>
+                <Context.Provider value={[{ lights: [group], auth: { bearer: bearer } }, () => { }]}>
                     <SwitchSlider data={light} lightId={lightId} />
                 </Context.Provider>
             );

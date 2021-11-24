@@ -141,8 +141,8 @@ describe('RestApi', () => {
                 return { status: 400 }
             })
 
-            const actual = await getUserForecast(userId, bearerToken2)
-            expect(actual.status).toEqual(200);
+            const actual = await getUserForecast(userId, bearerToken2);
+            expect(actual.minTemp).toEqual(expectedTemp);
         });
 
         it('should query the user settings', async () => {
