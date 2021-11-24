@@ -1,6 +1,6 @@
 import fetchMock from 'fetch-mock';
 import {
-    getBearerToken, getGarageStatus, updateGarageState, addUserDevice, getUserChildAccounts, insertLightTask,
+    getBearerToken, getGarageStatus, updateGarageState, addUserDevice, getUserChildAccounts, insertLightTask, getUserForecast,
     toggleGarageDoor, getSumpLevels, getCurrentTemperature, addUserDeviceNode, deleteUserChildAccount, updateScheduledTasks,
     getUserPreferences, updateUserPreferences, setUserTemperature, addUserChildAccount, deleteScheduledTask, insertHvacTask,
     getLightGroups, setLightGroupState, setLightState, updateUserAccount, getRolesByUserId, getScheduledTasks, getRefreshedBearerToken
@@ -120,14 +120,28 @@ describe('RestApi', () => {
             const desiredTemp = 54.9;
             const mode = "cooling";
             const isFahrenheit = true;
-            const body = { 'desiredTemp': desiredTemp, 'mode': mode, 'isFahrenheit': isFahrenheit }
-            const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body }
+            const body = { 'desiredTemp': desiredTemp, 'mode': mode, 'isFahrenheit': isFahrenheit };
+            const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
             fetchMock.mock(`${baseUrl}/thermostat/temperature/${userId}`, options).catch(unmatchedUrl => {
                 return { status: 400 }
             })
 
-            const actual = await setUserTemperature(userId, bearerToken2, desiredTemp, mode, isFahrenheit)
+            const actual = await setUserTemperature(userId, bearerToken2, desiredTemp, mode, isFahrenheit);
+            expect(actual.status).toEqual(200);
+        });
+
+        it('should make rest call to get the forecast temperature', async () => {
+            const userId = 'abc123';
+            const expectedTemp = 74.9;
+            const response = { 'minTemp': expectedTemp };
+            const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
+
+            fetchMock.mock(`${baseUrl}/thermostat/forecast/${userId}`, response, options).catch(unmatchedUrl => {
+                return { status: 400 }
+            })
+
+            const actual = await getUserForecast(userId, bearerToken2)
             expect(actual.status).toEqual(200);
         });
 
