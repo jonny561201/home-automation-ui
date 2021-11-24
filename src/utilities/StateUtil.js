@@ -5,7 +5,7 @@ import { Context } from '../state/Store';
 import { useInterval } from './UseInterval';
 import {
     getGarageStatus, getSumpLevels, getCurrentTemperature, getUserPreferences,
-    getScheduledTasks, getRefreshedBearerToken, getLightGroups
+    getScheduledTasks, getRefreshedBearerToken, getLightGroups, getUserForecast
 } from './RestApi';
 
 
@@ -19,8 +19,9 @@ export default function StateUtil() {
     }, 20000);
 
     useInterval(async () => {
-        await getTempData();
-        await getLights();
+        getTempData();
+        getForecastData();
+        getLights();
     }, 60000);
 
     useInterval(async () => {
@@ -35,6 +36,7 @@ export default function StateUtil() {
             getGarageData();
             getSumpData();
             getTempData();
+            getForecastData();
             getPreferences();
             getActivities();
             dispatch({ type: 'SET_LOADED_UTILS', payload: true });
@@ -62,12 +64,20 @@ export default function StateUtil() {
         const updatedTemp = {
             ...temp,
             desiredTemp: Math.round(temp.desiredTemp),
-            temp: Math.round(temp.temp),
             currentTemp: Math.round(temp.currentTemp),
-            minTemp: Math.round(temp.minTemp),
-            maxTemp: Math.round(temp.maxTemp)
         };
         dispatch({ type: 'SET_TEMP_DATA', payload: updatedTemp });
+    }
+
+    const getForecastData = async () => {
+        const forecast = await getUserForecast(state.user.userId, state.auth.bearer);
+        const updatedForecast = {
+            ...forecast,
+            temp: Math.round(forecast.temp),
+            minTemp: Math.round(forecast.minTemp),
+            maxTemp: Math.round(forecast.maxTemp)
+        };
+        dispatch({ type: 'SET_FORECAST_DATA', payload: updatedForecast });
     }
 
     const getPreferences = async () => {
