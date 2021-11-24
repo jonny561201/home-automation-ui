@@ -47,7 +47,7 @@ export default function TemperatureImage() {
     }
 
     const getWeatherImage = () => {
-        const weatherDesc = state.tempData.description.toLowerCase();
+        const weatherDesc = state.forecastData.description.toLowerCase();
         if (weatherDesc.includes("thunderstorm")) {
             setWeatherIcon(ThunderstormIcon);
             setWeatherDesc("thunderstorms");
@@ -69,9 +69,9 @@ export default function TemperatureImage() {
             <div className="temp-external-container">
                 <img className="weather-icon" alt="description" src={weatherIcon} label={weatherDesc} />
                 <div className="external-temp">
-                    <p className="bottom-fade min-max text">{state.tempData.maxTemp}</p>
-                    <p data-testid={"external-temp"} className="external text">{state.tempData.temp}&deg;</p>
-                    <p className="top-fade min-max text">{state.tempData.minTemp}</p>
+                    <p className="bottom-fade min-max text">{state.forecastData.maxTemp}</p>
+                    <p data-testid={"external-temp"} className="external text">{state.forecastData.temp}&deg;</p>
+                    <p className="top-fade min-max text">{state.forecastData.minTemp}</p>
                 </div>
             </div>
             <div className="temp-home-container">

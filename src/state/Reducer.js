@@ -1,3 +1,4 @@
+import { act } from "@testing-library/react";
 import { parseDate } from "../utilities/Services";
 
 const Reducer = (state, action) => {
@@ -89,6 +90,11 @@ const Reducer = (state, action) => {
             return {
                 ...state,
                 tempData: { ...action.payload, gaugeColor: color, currentDesiredTemp: current }
+            }
+        case 'SET_FORECAST_DATA':
+            return {
+                ...state,
+                forecastData: action.payload
             }
         case 'SET_LOADED_UTILS':
             return {

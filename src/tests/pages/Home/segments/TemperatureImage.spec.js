@@ -12,13 +12,14 @@ describe('TemperatureImage', () => {
     const externalTemp = 33;
     const spyRise = jest.spyOn(lib, 'getSunrise');
     const spySet = jest.spyOn(lib, 'getSunset');
-    const tempData = { temp: externalTemp, currentTemp: internalTemp }
+    const tempData = { currentTemp: internalTemp };
+    const forecastData = { temp: externalTemp }
 
 
     const renderComponent = async (desc) => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ garageCoords: coords, tempData: { ...tempData, description: desc } }, () => { }]}>
+                <Context.Provider value={[{ garageCoords: coords, tempData: tempData, forecastData: { ...forecastData, description: desc } }, () => { }]}>
                     <TemperatureImage />
                 </Context.Provider>
             );

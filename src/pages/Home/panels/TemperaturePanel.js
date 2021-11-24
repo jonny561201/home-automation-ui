@@ -47,7 +47,7 @@ export default function TemperaturePanel() {
                                 <div className="small-text-container">
                                     <div className="small-text-group">
                                         <p className="small-text text">Outside:</p>
-                                        <p className="small-text text">{state.tempData.temp}&deg;</p>
+                                        <p className="small-text text">{state.forecastData.temp}&deg;</p>
                                     </div>
                                     <div className="small-text-group" style={{ marginLeft: '1rem' }}>
                                         <p className="small-text text">Inside:</p>

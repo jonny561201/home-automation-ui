@@ -1,20 +1,12 @@
 import React from 'react';
 import { Context } from '../../../../state/Store';
-import 'jest-canvas-mock';
 import * as lib from '../../../../utilities/RestApi';
 import * as services from '../../../../utilities/Services';
 import { render, screen, act, fireEvent } from '@testing-library/react';
 import TemperaturePanel from '../../../../pages/Home/panels/TemperaturePanel';
 
 
-jest.mock('../../../../components/controls/Knob', () => {
-    return {
-      __esModule: true,
-      default: () => {
-        return <div></div>;
-      },
-    };
-  });
+jest.mock('../../../../components/controls/Knob', () => () => <div></div>);
 
 
 describe('TemperaturePanel', () => {
@@ -27,9 +19,10 @@ describe('TemperaturePanel', () => {
     const externalTemp = 33;
     const desiredTemp = 36;
     const coords = { latitude: 1, longitude: -1 };
+    const forecastData = { temp: externalTemp, description: description };
     const tempData = {
-        temp: externalTemp, currentTemp: internalTemp, description: description,
-        minThermostatTemp: minTemp, maxThermostatTemp: maxTemp, mode: 'heating',
+        currentTemp: internalTemp, mode: 'heating',
+        minThermostatTemp: minTemp, maxThermostatTemp: maxTemp,
         desiredTemp: desiredTemp, isFahrenheit: true
     };
     const spySet = jest.spyOn(services, 'debounchApi');
@@ -38,7 +31,7 @@ describe('TemperaturePanel', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ tasks: [], auth: { bearer: bearer }, user: { userId: userId }, tempData: tempData, garageCoords: coords }, () => { }]}>
+                <Context.Provider value={[{ forecastData: forecastData, tasks: [], auth: { bearer: bearer }, user: { userId: userId }, tempData: tempData, garageCoords: coords }, () => { }]}>
                     <TemperaturePanel />
                 </Context.Provider>
             );
