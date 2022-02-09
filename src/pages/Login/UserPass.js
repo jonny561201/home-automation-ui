@@ -5,7 +5,7 @@ import clickSound from '../../resources/click.mp3';
 import { Redirect } from 'react-router-dom';
 import { Context } from '../../state/Store';
 import { getBearerToken } from '../../utilities/RestApi';
-import { TextField } from '@material-ui/core';
+import { ButtonBase, TextField } from '@material-ui/core';
 import './UserPass.css';
 
 
@@ -73,7 +73,9 @@ export default function UserPass() {
                         : <p>ERROR: Username or Password is invalid!</p>
                     }
                 </div>
-                <button type="submit" className="column success-ripple">Login</button>
+                <ButtonBase>
+                    <button type="submit" className="column">Login</button>
+                </ButtonBase>
             </form>
         </div>
     )

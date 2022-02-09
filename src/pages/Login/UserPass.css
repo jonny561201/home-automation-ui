@@ -8,22 +8,6 @@ button {
     outline: none;
     -webkit-tap-highlight-color: transparent;
 }
-
-.success-ripple {
-    background-position: center;
-    transition: background 0.8s;
-  }
-
-.success-ripple:hover {
-    background: #00c774 radial-gradient(circle, transparent 1%, #47d69a 1%) center/15000%;
-  }
-  
-.success-ripple:active {
-    background-color: #47d69a;
-    background-size: 100%;
-    transition: background 0s;
-  }
-
   
 .cancel-ripple {
     background-position: center;
