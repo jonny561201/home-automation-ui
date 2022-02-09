@@ -2,50 +2,24 @@
     box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 2px rgba(0,0,0,0.12) !important;
 }
 
-.status-text-group {
-    display: flex;
-}
-
-.door-status {
-    flex-direction: row;
-    /* margin-right: 0.25rem; */
-    margin: 0rem 0.5rem 0rem 0.5rem;
-}
-
-.toggle-button {
-    background-color: #1a75ff;
-}
-
-.close-button {
-    background-color: #ff3333;
-}
-
 .status-text-bold {
+    font-size: 0.8rem;
     font-weight: bold;
-    margin: 0rem 0.5rem 0.5rem 0rem;
+    margin: 0 0.5rem 0 0;
 }
 
 .status-text {
-    margin-top: 0.5rem;
-}
-
-.open {
-    color: #00c774;
-}
-
-.close {
-    color: #ff3333;
+    font-size: 0.8rem;
+    margin: 0 0.5rem 0 0;
 }
 
 .door-groups {
     display: flex;
     justify-content: space-between;
+    flex-direction: column;
 }
 
 @media (max-width: 479px) {
-    .door-groups {
-        flex-direction: column;
-    }
     .MuiExpansionPanelActions-root {
         justify-content: center !important;
     }

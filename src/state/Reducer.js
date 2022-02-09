@@ -1,4 +1,3 @@
-import { act } from "@testing-library/react";
 import { parseDate } from "../utilities/Services";
 
 const Reducer = (state, action) => {

@@ -6,6 +6,7 @@ import dingSound from '../../../resources/ding.mp3';
 import clickSound from '../../../resources/click.mp3';
 import { ExpansionPanelDetails, ExpansionPanelActions } from '@material-ui/core';
 import { toggleGarageDoor, updateGarageState } from '../../../utilities/RestApi';
+import './GarageDoor.css'
 
 
 export default function GarageDoor(props) {
@@ -41,33 +42,24 @@ export default function GarageDoor(props) {
     return (
         <div>
             <ExpansionPanelDetails className="center">
-                <div className="status-text-group">
-                    <p className="door-status text">Door: </p>
-                    <p className="status-text-bold text">{props.device.doorName}</p>
-                </div>
-                <div className="status-text-group">
-                    <p className="door-status text">Status: </p>
-                    {props.device.isOpen
-                        ? <p className="status-text-bold text close">Open</p>
-                        : <p className="status-text-bold text open">Closed</p>}
-                </div>
-                <div className="status-text-group">
-                    <p className="door-status text">Duration: </p>
-                    {statusDays === 0
-                        ? <div />
-                        : <p className="status-text-bold text">{statusDays}Days</p>}
-                    <p className="status-text-bold text">{statusHours}Hr</p>
-                    {statusDays === 0
-                        ? <p className="status-text-bold text">{statusMins}Min</p>
-                        : <div />}
+                <div className="other">
+                    <div className="status-text-group">
+                        <p className="status-text-bold text">{props.device.doorName}</p>
+                        {props.device.isOpen
+                            ? <p className="garage-big-text text">Open</p>
+                            : <p className="garage-big-text text">Closed</p>}
+                        {statusDays === 0
+                            ? <p className="status-text text">{statusHours}Hrs {statusMins}Min</p>
+                            : <p className="status-text text">{statusDays}Days {statusHours}Hrs</p>}
+                    </div>
+                    <div className="status-button-group">
+                        {props.device.isOpen
+                            ? <button data-testid={"update-garage-close"} className="close-button cancel-ripple" onClick={() => openCloseGarageDoor(false)}>Close</button>
+                            : <button data-testid={"update-garage-open"} className="open-button success-ripple" onClick={() => openCloseGarageDoor(true)}>Open</button>}
+                        <button data-testid={"toggle-garage-button"} className="toggle-button ripple" onClick={toggleDoor}><p></p></button>
+                    </div>
                 </div>
             </ExpansionPanelDetails>
-            <ExpansionPanelActions>
-                {props.device.isOpen
-                    ? <button data-testid={"update-garage-close"} className="close-button cancel-ripple" onClick={() => openCloseGarageDoor(false)}>Close</button>
-                    : <button data-testid={"update-garage-open"} className="open-button success-ripple" onClick={() => openCloseGarageDoor(true)}>Open</button>}
-                <button data-testid={"toggle-garage-button"} className="toggle-button ripple" onClick={toggleDoor}>Toggle</button>
-            </ExpansionPanelActions>
         </div>
     );
 }
