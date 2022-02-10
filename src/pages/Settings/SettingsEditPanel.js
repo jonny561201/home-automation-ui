@@ -5,6 +5,7 @@ import { updateUserPreferences } from '../../utilities/RestApi';
 import './SettingsEditPanel.css'
 import { Context } from '../../state/Store';
 import { Divider, TextField, MenuItem, FormControlLabel, RadioGroup, FormControl, Radio } from '@material-ui/core';
+import { GreenButton, RedButton } from '../../components/controls/Buttons';
 
 
 export default function SettingsEditPanel(props) {
@@ -98,8 +99,8 @@ export default function SettingsEditPanel(props) {
                 </div>
             </div>
             <div className="settings-button-group">
-                <button className="submit success-ripple" disabled={!edited} onClick={savePreferences}>Save</button>
-                <button className="cancel cancel-ripple" onClick={cancelPreferences}>Cancel</button>
+                <GreenButton disabled={!edited} onClick={savePreferences}>Save</GreenButton>
+                <RedButton onClick={cancelPreferences}>Cancel</RedButton>
             </div>
         </>
     );
