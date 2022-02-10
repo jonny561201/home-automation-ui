@@ -1,0 +1,28 @@
+.button-container {
+    margin: 1rem !important;
+    border-radius: 12px !important;
+}
+
+.green-button {
+    background-color: #00c774;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 10px 20px;
+}
+
+.blue-button {
+    background-color: #1a75ff;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 10px 20px;
+}
+
+.red-button {
+    background-color: #ff3333;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 10px 20px;
+}
