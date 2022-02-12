@@ -64,6 +64,12 @@ describe('TemperatureImage', () => {
             expect(actual).toHaveAttribute('label', 'cloudy');
         });
 
+        it('should return mostly cloudy weather icon', async () => {
+            await renderComponent('broken clouds');
+            const actual = screen.getByAltText('description');
+            expect(actual).toHaveAttribute('label', 'mostly cloudy');
+        });
+
         it('should show heavy rain icon when heavy intensity rain', async () => {
             await renderComponent('heavy intensity rain');
             const actual = screen.getByAltText('description');
