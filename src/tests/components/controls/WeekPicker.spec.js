@@ -6,9 +6,7 @@ import WeekPicker from '../../../components/controls/WeekPicker';
 describe('Week Picker', () => {
     const renderComponent = async (daysOfWeek) => {
         await act(async () => {
-            render(
-                <WeekPicker daysOfWeek={daysOfWeek} />
-            );
+            render(<WeekPicker daysOfWeek={daysOfWeek} />);
         });
     }
 
