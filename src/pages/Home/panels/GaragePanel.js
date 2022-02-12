@@ -6,6 +6,7 @@ import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummar
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import './GaragePanel.css';
 import GarageDoor from '../segments/GarageDoor';
+import { GreenButton } from '../../../components/controls/Buttons';
 
 
 export default function GaragePanel() {
@@ -59,7 +60,7 @@ export default function GaragePanel() {
                             <p className="status-text text">A new device has been detected and needs to be registered.</p>
                         </div>
                         <div>
-                            <button className="success-ripple" data-testid={"register-device-button"} onClick={() => setDisplayRegister(true)}>Register</button>
+                            <GreenButton onClick={() => setDisplayRegister(true)}>Register</GreenButton>
                         </div>
                         <div ref={(node) => { setWrapperRef(node) }}>
                             {displayRegister && <RegisterDevice close={closeModal} parentRef={wrapperRef} />}

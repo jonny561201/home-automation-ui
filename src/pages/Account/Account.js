@@ -8,6 +8,7 @@ import { Divider, TextField } from '@material-ui/core';
 import { CheckCircle, Error } from '@material-ui/icons';
 import { updateUserAccount } from '../../utilities/RestApi';
 import AccountChildUser from '../../pages/Account/AccountChildUser';
+import { GreenButton } from '../../components/controls/Buttons';
 import './Account.css';
 
 
@@ -81,16 +82,16 @@ export default function Account() {
                         <h2>Change Password</h2>
                         <Divider />
                         <div className="account-row">
-                            <TextField data-testid={"old-pass"} error={oldPasswordError} value={oldPassword} variant="outlined" label="Old Password" type="password" onChange={onOldPasswordChange} />
+                            <TextField data-testid="old-pass" error={oldPasswordError} value={oldPassword} variant="outlined" label="Old Password" type="password" onChange={onOldPasswordChange} />
                         </div>
                         <div className="account-row">
-                            <TextField data-testid={"new-pass"} error={arePasswordsMismatched} value={firstNewPassword} variant="outlined" label="New Password" type="password" onChange={(input) => setFirstPassword(input.target.value)} />
+                            <TextField data-testid="new-pass" error={arePasswordsMismatched} value={firstNewPassword} variant="outlined" label="New Password" type="password" onChange={(input) => setFirstPassword(input.target.value)} />
                         </div>
                         <div className="account-row">
-                            <TextField data-testid={"confirm-pass"} error={arePasswordsMismatched} value={secondNewPassword} variant="outlined" label="Confirm New Password" type="password" onChange={(input) => setSecondPassword(input.target.value)} />
+                            <TextField data-testid="confirm-pass" error={arePasswordsMismatched} value={secondNewPassword} variant="outlined" label="Confirm New Password" type="password" onChange={(input) => setSecondPassword(input.target.value)} />
                         </div>
                         {passwordMessage()}
-                        <button data-testid="password-submit" className="success-ripple" type="submit">Submit</button>
+                        <GreenButton type="submit">Submit</GreenButton>
                     </form>
                     <AccountChildUser />
                 </div>

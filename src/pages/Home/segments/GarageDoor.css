@@ -17,6 +17,12 @@
     color: var(--panel-font-color);
 }
 
+.garage-text-bold {
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin: 0 0.5rem 0 0;
+}
+
 .status-button-group {
     display: flex;
     flex-direction: row;   

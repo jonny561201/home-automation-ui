@@ -33,13 +33,13 @@ describe('GaragePanel', () => {
 
         it('should display the register device button', async () => {
             await renderComponent(true, []);
-            const actual = screen.getByTestId('register-device-button').textContent;
+            const actual = screen.getByText('Register').textContent;
             expect(actual).toEqual('Register');
         });
 
         it('should display the register device modal when clicking the register button', async ( )=> {
             await renderComponent(true, []);
-            fireEvent.click(screen.getByTestId('register-device-button'));
+            fireEvent.click(screen.getByText('Register'));
             const actual = screen.getByTestId('data-add-device');
             expect(actual).toBeDefined();
         });

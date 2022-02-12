@@ -6,6 +6,7 @@ import { CheckCircle } from '@material-ui/icons';
 import { Context } from '../../../state/Store';
 import { GreenCheckbox } from '../../../components/controls/CheckBox';
 import './AddGarage.css';
+import { GreenButton } from '../../../components/controls/Buttons';
 
 export default function AddGarage(props) {
     const [state, dispatch] = useContext(Context);
@@ -65,18 +66,18 @@ export default function AddGarage(props) {
                     <div className="device-group">
                         <div className="device-group">
                             <CheckCircle className="success-text" />
-                            <h2 data-testid={"data-add-device"} className="device-text text success-text">Successfully Added</h2>
+                            <h2 className="device-text text success-text">Successfully Added</h2>
                         </div>
                         <CloseIcon data-testid={"garage-close-button"} onClick={() => props.close()} className="close-icon" />
                     </div>
                     <div className="device-row">
                         <p className="device-text text">Would you like to setup the remaining ({availableNodes}) openers?</p>
                     </div>
-                    <button onClick={resetDevices} className="success-ripple">Add</button>
+                    <GreenButton onClick={resetDevices}>Add</GreenButton>
                 </div>
                 : <div>
                     <div className="device-group">
-                        <h2 data-testid={"data-add-device"} className=" device-text text">Add Garage Door</h2>
+                        <h2 className=" device-text text">Add Garage Door</h2>
                         <CloseIcon data-testid={"garage-close-button"} onClick={() => props.close()} className="close-icon" />
                     </div>
                     <form onSubmit={submitGarageDoor}>
@@ -86,7 +87,7 @@ export default function AddGarage(props) {
                         <div className="account-row">
                             <FormControlLabel control={<GreenCheckbox checked={state.checkedG} onChange={() => setPreferred(!preferred)} name="checkedG" />} label="Preferred Garage Door" />
                         </div>
-                        <button type="submit" className="success-ripple">Add</button>
+                        <GreenButton className="success-ripple">Add</GreenButton>
                     </form>
                 </div>
             }

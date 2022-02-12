@@ -38,7 +38,7 @@ describe('Register Device', () => {
 
         it('should display Add Device text', () => {
             renderComponent();
-            const actual = screen.getByTestId('data-add-device');
+            const actual = screen.getByText('Add Device');
             expect(actual.textContent).toEqual("Add Device");
         });
 

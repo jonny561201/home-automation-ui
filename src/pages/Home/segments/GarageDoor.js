@@ -46,7 +46,7 @@ export default function GarageDoor(props) {
             <ExpansionPanelDetails className="center">
                 <div className="other">
                     <div className="status-text-group">
-                        <p className="status-text-bold text">{props.device.doorName}</p>
+                        <p className="garage-text-bold text">{props.device.doorName}</p>
                         {props.device.isOpen
                             ? <p className="garage-big-text text">Opened</p>
                             : <p className="garage-big-text text">Closed</p>}

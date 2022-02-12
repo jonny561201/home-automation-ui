@@ -6,6 +6,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import AddGarage from './AddGarage';
 import './RegisterDevice.css';
 import { Context } from '../../../state/Store';
+import { GreenButton } from '../../../components/controls/Buttons';
 
 
 export default function RegisterDevice(props) {
@@ -56,14 +57,14 @@ export default function RegisterDevice(props) {
                 ? <AddGarage close={props.close} />
                 : <div>
                     <div className="device-group">
-                        <h2 data-testid={"data-add-device"} className=" device-text text">Add Device</h2>
+                        <h2 className=" device-text text">Add Device</h2>
                         <CloseIcon data-testid={"close-button"} onClick={() => props.close()} className="close-icon" />
                     </div>
                     <form onSubmit={submitDevice}>
                         <div className="account-row">
                             <TextField value={ipAddress} error={!isIpValid} onChange={checkIpAddress} variant="outlined" label="IP Address" />
                         </div>
-                        <button type="submit" className="success-ripple">Next</button>
+                        <GreenButton>Next</GreenButton>
                     </form>
                 </div>
             }

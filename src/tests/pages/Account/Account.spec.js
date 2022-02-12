@@ -81,7 +81,7 @@ describe('Account Page', () => {
 
     it('should display the submit button', async () => {
         await renderComponent();
-        const actual = screen.getByTestId('password-submit').textContent;
+        const actual = screen.getByRole('button', {name: 'Submit'}).textContent;
         expect(actual).toEqual('Submit');
     });
 
@@ -118,7 +118,7 @@ describe('Account Page', () => {
 
         it('should display old password error when it is empty string on submit', async () => {
             await renderComponent();
-            fireEvent.click(screen.getByTestId('password-submit'));
+            fireEvent.click(screen.getByRole('button', {name: 'Submit'}));
             const actual = screen.getByTestId('old-pass').querySelector('label').className;
 
             expect(actual).toContain('error');
@@ -128,7 +128,7 @@ describe('Account Page', () => {
             await renderComponent();
             fireEvent.change(screen.getByTestId('old-pass').querySelector('input'), { target: { value: 'validPass' } });
             await act(async () => {
-                fireEvent.click(screen.getByTestId('password-submit'));
+                fireEvent.click(screen.getByRole('button', {name: 'Submit'}));
             });
             const actual = screen.getByTestId('old-pass').querySelector('label').className;
 
@@ -144,7 +144,7 @@ describe('Account Page', () => {
             fireEvent.change(screen.getByTestId('confirm-pass').querySelector('input'), { target: { value: matchingPass } });
 
             await act(async () => {
-                fireEvent.click(screen.getByTestId('password-submit'));
+                fireEvent.click(screen.getByRole('button', {name: 'Submit'}));
             });
             expect(spyPost).toHaveBeenCalledWith(userId, bearer, oldPass, matchingPass);
         });
