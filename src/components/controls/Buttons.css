@@ -3,26 +3,31 @@
     border-radius: 12px !important;
 }
 
-.green-button {
-    background-color: #00c774;
-    border-radius: 12px;
-    font-size: 16px;
-    cursor: pointer;
-    padding: 10px 20px;
+.green {
+    background-color: #00c774 !important;
+
 }
 
-.blue-button {
-    background-color: #1a75ff;
-    border-radius: 12px;
-    font-size: 16px;
-    cursor: pointer;
-    padding: 10px 20px;
+.blue {
+    background-color: #1a75ff !important;
 }
 
-.red-button {
-    background-color: #ff3333;
-    border-radius: 12px;
-    font-size: 16px;
-    cursor: pointer;
-    padding: 10px 20px;
+.red {
+    background-color: #ff3333 !important;
+}
+
+.my-button {
+    color: var(--header-font-color) !important;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif !important;  
+    border-radius: 12px !important;
+    font-size: 16px !important;
+    cursor: pointer !important;
+    padding: 10px 20px !important;
+    border-color: #5c5c5c !important;
+    border-width: 2px !important;
+    border-style: outset !important;
+}
+
+.my-button:active {
+    border-style: inset !important;
 }
