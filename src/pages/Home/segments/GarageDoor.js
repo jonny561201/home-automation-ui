@@ -4,7 +4,9 @@ import { useInterval } from '../../../utilities/UseInterval';
 import useSound from 'use-sound';
 import dingSound from '../../../resources/ding.mp3';
 import clickSound from '../../../resources/click.mp3';
-import { ExpansionPanelDetails, ExpansionPanelActions } from '@material-ui/core';
+import { ExpansionPanelDetails } from '@material-ui/core';
+import UpDownIcon from '../../../resources/panelIcons/UpDown.png';
+import { BlueButton, GreenButton, RedButton } from '../../../components/controls/Buttons';
 import { toggleGarageDoor, updateGarageState } from '../../../utilities/RestApi';
 import './GarageDoor.css'
 
@@ -46,7 +48,7 @@ export default function GarageDoor(props) {
                     <div className="status-text-group">
                         <p className="status-text-bold text">{props.device.doorName}</p>
                         {props.device.isOpen
-                            ? <p className="garage-big-text text">Open</p>
+                            ? <p className="garage-big-text text">Opened</p>
                             : <p className="garage-big-text text">Closed</p>}
                         {statusDays === 0
                             ? <p className="status-text text">{statusHours}Hrs {statusMins}Min</p>
@@ -54,9 +56,11 @@ export default function GarageDoor(props) {
                     </div>
                     <div className="status-button-group">
                         {props.device.isOpen
-                            ? <button data-testid={"update-garage-close"} className="close-button cancel-ripple" onClick={() => openCloseGarageDoor(false)}>Close</button>
-                            : <button data-testid={"update-garage-open"} className="open-button success-ripple" onClick={() => openCloseGarageDoor(true)}>Open</button>}
-                        <button data-testid={"toggle-garage-button"} className="toggle-button ripple" onClick={toggleDoor}><p></p></button>
+                            ? <RedButton onClick={() => openCloseGarageDoor(false)}>Close</RedButton>
+                            : <GreenButton onClick={() => openCloseGarageDoor(false)}>Open</GreenButton>}
+                        <BlueButton onClick={toggleDoor}>
+                            <img alt="UpDown" className="icon-image" src={UpDownIcon} />
+                        </BlueButton>
                     </div>
                 </div>
             </ExpansionPanelDetails>
