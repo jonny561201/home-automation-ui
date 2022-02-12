@@ -6,7 +6,7 @@ import './Buttons.css';
 export function GreenButton(props) {
     return (
         <div className="button-container">
-            <ButtonBase type="submit" className="green my-button" disabled={props.disabled} onClick={() => props.onClick()}>{props.children}</ButtonBase>
+            <ButtonBase type="submit" className="green my-button" disabled={props.disabled} onClick={props.onClick}>{props.children}</ButtonBase>
         </div>
     )
 }
@@ -14,7 +14,7 @@ export function GreenButton(props) {
 export function BlueButton(props) {
     return (
         <div className="button-container">
-            <ButtonBase type="submit" className="blue my-button" disabled={props.disabled} onClick={() => props.onClick()}>{props.children}</ButtonBase>
+            <ButtonBase type="submit" className="blue my-button" disabled={props.disabled} onClick={props.onClick}>{props.children}</ButtonBase>
         </div>
     )
 }
@@ -22,7 +22,7 @@ export function BlueButton(props) {
 export function RedButton(props) {
     return (
         <div className="button-container">
-            <ButtonBase type="submit" className="red my-button" disabled={props.disabled} onClick={() => props.onClick()}>{props.children}</ButtonBase>
+            <ButtonBase type="submit" className="red my-button" disabled={props.disabled} onClick={props.onClick}>{props.children}</ButtonBase>
         </div>
     )
 }

@@ -3,11 +3,6 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { GreenButton, BlueButton, RedButton } from '../../../components/controls/Buttons';
 
 describe('Buttons', () => {
-    let count = 0;
-
-    beforeEach(() => {
-        count = 0;
-    });
 
     describe('Green Button', () => {
         it('should display the text provided to the buttons inner html', () => {
@@ -17,10 +12,21 @@ describe('Buttons', () => {
         });
 
         it('should execute function on click', () => {
-            const click = () => {count ++}
+            const click = jest.fn();
             render(<GreenButton onClick={click}>Test</GreenButton>);
             fireEvent.click(screen.getByText('Test'));
-            expect(count).toEqual(1);
+            expect(click).toHaveBeenCalled();
+        });
+
+        it('should execute function when in a form', () => {
+            const click = jest.fn(e => e.preventDefault());
+            render(
+                <form onSubmit={click}>
+                    <GreenButton>Test</GreenButton>
+                </form>
+            );
+            fireEvent.click(screen.getByText('Test'));
+            expect(click).toHaveBeenCalled();
         });
     });
 
@@ -32,10 +38,21 @@ describe('Buttons', () => {
         });
 
         it('should execute function on click', () => {
-            const click = () => {count ++}
+            const click = jest.fn();
             render(<BlueButton onClick={click}>Test</BlueButton>);
             fireEvent.click(screen.getByText('Test'));
-            expect(count).toEqual(1);
+            expect(click).toHaveBeenCalled();
+        });
+
+        it('should execute function when in a form', () => {
+            const click = jest.fn(e => e.preventDefault());
+            render(
+                <form onSubmit={click}>
+                    <BlueButton>Test</BlueButton>
+                </form>
+            );
+            fireEvent.click(screen.getByText('Test'));
+            expect(click).toHaveBeenCalled();
         });
     });
 
@@ -48,10 +65,21 @@ describe('Buttons', () => {
         });
 
         it('should execute function on click', () => {
-            const click = () => {count ++}
+            const click = jest.fn();
             render(<RedButton onClick={click}>Test</RedButton>);
             fireEvent.click(screen.getByText('Test'));
-            expect(count).toEqual(1);
+            expect(click).toHaveBeenCalled();
+        });
+
+        it('should execute function when in a form', () => {
+            const click = jest.fn(e => e.preventDefault());
+            render(
+                <form onSubmit={click}>
+                    <RedButton>Test</RedButton>
+                </form>
+            );
+            fireEvent.click(screen.getByText('Test'));
+            expect(click).toHaveBeenCalled();
         });
     });
 });
