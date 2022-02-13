@@ -52,10 +52,9 @@ export default function LightSwitch(props) {
                     <div className={`light-chevron ${areLightsOpen ? "expanded" : ""}`}>
                         <ChevronRightIcon data-testid={"expansion-chevron"} />
                     </div>
+                <ButtonBase className="light-button" onClick={toggleLightGroup}>
+                    <p className="light-text text">{groupName}</p>
                 </ButtonBase>
-                <div className="light-ripple">
-                    <p className="light-text text" onClick={toggleLightGroup}>{groupName}</p>
-                </div>
                 <CustomSlider data-testid={"light-group-switch"} onChange={sliderToggleLightGroup} value={brightness} valueLabelDisplay="auto" aria-label="slider" />
                 <BrightnessMediumIcon className="brightness-icon text" />
             </div>

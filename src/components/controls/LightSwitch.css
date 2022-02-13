@@ -26,6 +26,9 @@
     white-space: nowrap;
     width: 70px;
     font-size: 0.9rem;
+    display: flex;
+    justify-content: center;
+    margin: 0.5rem 0 0.5rem 0;
 }
 
 .light-text-small {
@@ -42,7 +45,6 @@
 }
 
 .light-ripple {
-    width: 130px;
     border-radius: 10px;
     background-position: center;
     transition: background 0.8s;
@@ -57,4 +59,9 @@
     background-color: var(--light-button);
     background-size: 100%;
     transition: background 0s;
+  }
+
+  .light-button {
+    border: 1px solid rgba(0, 0, 0, 0.23) !important;
+    border-radius: 10px !important;
   }
