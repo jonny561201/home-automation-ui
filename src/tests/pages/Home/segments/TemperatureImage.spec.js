@@ -277,5 +277,11 @@ describe('TemperatureImage', () => {
             const actual = screen.getByAltText('description');
             expect(actual).toHaveAttribute('label', 'partly cloudy night');
         });
+
+        it('should return mostly cloudy night icon for broken clouds', async () => {
+            await renderComponent('broken clouds');
+            const actual = screen.getByAltText('description');
+            expect(actual).toHaveAttribute('label', 'mostly cloudy night');
+        });
     });
 });
