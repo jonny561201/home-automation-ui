@@ -44,8 +44,8 @@ describe('Garage Door', () => {
 
     it('should show toggle garage button', async () => {
         await renderComponent(device);
-        const actual = screen.getByText('Toggle').textContent;
-        expect(actual).toEqual('Toggle');
+        const actual = screen.getByAltText('UpDown');
+        expect(actual).toBeTruthy();
     });
 
     it('should show Door Name text', async () => {
@@ -84,7 +84,7 @@ describe('Garage Door', () => {
 
         it('should call toggle function', async () => {
             await renderComponent(device);
-            userEvent.click(screen.getByText('Toggle'));
+            userEvent.click(screen.getByAltText('UpDown'));
 
             expect(spyToggle).toBeCalledWith(userId, bearer, 1);
         });

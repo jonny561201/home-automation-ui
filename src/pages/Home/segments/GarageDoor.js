@@ -57,7 +57,7 @@ export default function GarageDoor(props) {
                     <div className="status-button-group">
                         {props.device.isOpen
                             ? <RedButton onClick={() => openCloseGarageDoor(false)}>Close</RedButton>
-                            : <GreenButton onClick={() => openCloseGarageDoor(false)}>Open</GreenButton>}
+                            : <GreenButton onClick={() => openCloseGarageDoor(true)}>Open</GreenButton>}
                         <BlueButton onClick={toggleDoor}>
                             <img alt="UpDown" className="icon-image" src={UpDownIcon} />
                         </BlueButton>
