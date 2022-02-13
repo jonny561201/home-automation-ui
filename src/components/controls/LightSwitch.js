@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Context } from '../../state/Store';
 import { debounchApi } from '../../utilities/Services';
 import { CustomSlider } from '../../components/controls/Slider';
-import { ButtonBase } from '@material-ui/core';
+import { ButtonBase, IconButton } from '@material-ui/core';
 import SwitchSlider from '../../pages/Home/segments/SwitchSlider';
 import { setLightGroupState } from '../../utilities/RestApi';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -48,10 +48,9 @@ export default function LightSwitch(props) {
     return (
         <div data-testid="light-group">
             <div className="light-group text">
-                <ButtonBase onClick={() => setLightsOpen(!areLightsOpen)} style={{ "borderRadius": "50%" }}>
-                    <div className={`light-chevron ${areLightsOpen ? "expanded" : ""}`}>
-                        <ChevronRightIcon data-testid={"expansion-chevron"} />
-                    </div>
+                <IconButton className={`light-chevron ${areLightsOpen ? "expanded" : ""}`} onClick={() => setLightsOpen(!areLightsOpen)} style={{ "borderRadius": "50%" }}>
+                    <ChevronRightIcon data-testid={"expansion-chevron"} />
+                </IconButton>
                 <ButtonBase className="light-button" onClick={toggleLightGroup}>
                     <p className="light-text text">{groupName}</p>
                 </ButtonBase>
