@@ -31,3 +31,47 @@
 .my-button:active {
     border-style: inset !important;
 }
+
+
+.button-border {
+    height: 2.3rem;
+    width: 2.3rem;
+    border-radius: 2rem !important;
+    background-color: white !important;
+    box-shadow: 0px 10px 15px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)
+}
+
+.add-item {
+    background-color: #00c774;
+    display: flex;
+    justify-content: center;
+}
+
+.remove-item {
+    background-color: lightgray;
+}
+
+.button-item {
+    cursor: pointer;
+    border-radius: 2rem;
+    width: 2rem !important;
+    height: 2rem !important; 
+    transition: transform 250ms;
+}
+
+.button-item:active {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+}
+
+.button-icon {
+    height: 2rem !important;
+    width: 2rem !important;
+    color: white;
+}
+
+.remove-item:hover {
+    background-color: red;
+    cursor: pointer;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { GreenButton, BlueButton, RedButton } from '../../../components/controls/Buttons';
+import { GreenButton, BlueButton, RedButton, AddButton } from '../../../components/controls/Buttons';
 
 describe('Buttons', () => {
 
@@ -80,6 +80,33 @@ describe('Buttons', () => {
             );
             fireEvent.click(screen.getByText('Test'));
             expect(click).toHaveBeenCalled();
+        });
+    });
+
+    describe('Add Button', () => {
+
+        it('should execute function on click', () => {
+            const click = jest.fn();
+            render(<AddButton onClick={click}></AddButton>);
+            fireEvent.click(screen.getByRole('button'));
+            expect(click).toHaveBeenCalled();
+        });
+
+        it('should execute function when in a form', () => {
+            const click = jest.fn(e => e.preventDefault());
+            render(
+                <form onSubmit={click}>
+                    <AddButton></AddButton>
+                </form>
+            );
+            fireEvent.click(screen.getByRole('button'));
+            expect(click).toHaveBeenCalled();
+        });
+
+        it('should display the aria-label of add', () => {
+            render(<AddButton aria-label="test"></AddButton>);
+            const actual = screen.getByRole('button', {name: 'Add'});
+            expect(actual).toBeTruthy();
         });
     });
 });
