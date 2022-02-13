@@ -28,11 +28,16 @@ export function RedButton(props) {
     )
 }
 
-//TODO: fix issue where button rolls backwards after click!!!!!
 export function AddButton(props) {
+    const [rotate, setRotate] = React.useState(0)
+    const myClick = (event) => {
+        props.onClick(event);
+        setRotate(1);
+    }
+
     return (
-        <ButtonBase type="submit" aria-label="Add" className="button-border" onClick={props.onClick}>
-            <div className="button-item add-item">
+        <ButtonBase type="submit" aria-label="Add" className="button-border" onClick={myClick}>
+            <div className="button-item add-item" rotate={rotate} onAnimationEnd={() => setRotate(0)}>
                 <Add className="button-icon" />
             </div>
         </ButtonBase>
@@ -40,9 +45,15 @@ export function AddButton(props) {
 }
 
 export function RemoveButton(props) {
+    const [rotate, setRotate] = React.useState(0)
+    const myClick = (event) => {
+        props.onClick(event);
+        setRotate(1);
+    }
+
     return (
-        <ButtonBase type="submit" aria-label={props['aria-label']} className="button-border" onClick={props.onClick}>
-            <div className="button-item remove-item">
+        <ButtonBase type="submit" aria-label={props['aria-label']} className="button-border" onClick={myClick}>
+            <div className="button-item remove-item" rotate={rotate} onAnimationEnd={() => setRotate(0)}>
                 <Remove className="button-icon"/>
             </div>
         </ButtonBase>

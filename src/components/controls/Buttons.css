@@ -56,13 +56,6 @@
     border-radius: 2rem;
     width: 2rem !important;
     height: 2rem !important; 
-    transition: transform 250ms;
-}
-
-.button-item:active {
-    transform: rotate(90deg);
-    -webkit-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
 }
 
 .button-icon {
@@ -74,4 +67,19 @@
 .remove-item:hover {
     background-color: red;
     cursor: pointer;
+}
+
+.button-item {
+    display: block;
+    margin: 0 auto;
+  }
+
+.button-item[rotate='1'] {
+    animation: rotate 500ms 1;
+}
+  
+@keyframes rotate {
+100% {
+    transform: rotate(180deg);
+}
 }
