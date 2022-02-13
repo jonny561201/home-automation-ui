@@ -51,16 +51,13 @@ export default function TemperatureImage() {
 
     const getWeatherImage = () => {
         const weatherDesc = state.forecastData.description.toLowerCase();
+        const weatherType = isNight ? `${weatherDesc} night` : weatherDesc;
         if (weatherDesc.includes("thunderstorm")) {
             setWeatherIcon(ThunderstormIcon);
             setWeatherDesc("thunderstorms");
-        } else if (isNight && (weatherDesc === "clear sky" || weatherDesc === "few clouds" || weatherDesc === "scattered clouds" || weatherDesc == "broken clouds")) {
-            const nightWeatherDesc = `${weatherDesc} night`
-            setWeatherIcon(weatherTypes[nightWeatherDesc]);
-            setWeatherDesc(getWeatherLabel(weatherTypes[nightWeatherDesc]));
-        } else if (weatherDesc in weatherTypes) {
-            setWeatherIcon(weatherTypes[weatherDesc]);
-            setWeatherDesc(getWeatherLabel(weatherTypes[weatherDesc]));
+        } else if (weatherType in weatherTypes) {
+            setWeatherIcon(weatherTypes[weatherType]);
+            setWeatherDesc(getWeatherLabel(weatherTypes[weatherType]));
         } else {
             setWeatherIcon(CloudyIcon);
             setWeatherDesc("cloudy");
