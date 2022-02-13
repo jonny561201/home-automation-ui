@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { GreenButton, BlueButton, RedButton, AddButton } from '../../../components/controls/Buttons';
+import { GreenButton, BlueButton, RedButton, AddButton, RemoveButton } from '../../../components/controls/Buttons';
 
 describe('Buttons', () => {
 
@@ -103,9 +103,36 @@ describe('Buttons', () => {
             expect(click).toHaveBeenCalled();
         });
 
-        it('should display the aria-label of add', () => {
-            render(<AddButton aria-label="test"></AddButton>);
+        it('should display the aria-label of Add', () => {
+            render(<AddButton></AddButton>);
             const actual = screen.getByRole('button', {name: 'Add'});
+            expect(actual).toBeTruthy();
+        });
+    });
+
+    describe('Remove Button', () => {
+
+        it('should execute function on click', () => {
+            const click = jest.fn();
+            render(<RemoveButton onClick={click}></RemoveButton>);
+            fireEvent.click(screen.getByRole('button'));
+            expect(click).toHaveBeenCalled();
+        });
+
+        it('should execute function when in a form', () => {
+            const click = jest.fn(e => e.preventDefault());
+            render(
+                <form onSubmit={click}>
+                    <RemoveButton></RemoveButton>
+                </form>
+            );
+            fireEvent.click(screen.getByRole('button'));
+            expect(click).toHaveBeenCalled();
+        });
+
+        it('should display the aria-label being passed into the component', () => {
+            render(<RemoveButton aria-label="test"></RemoveButton>);
+            const actual = screen.getByRole('button', {name: 'test'});
             expect(actual).toBeTruthy();
         });
     });

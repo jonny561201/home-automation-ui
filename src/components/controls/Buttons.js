@@ -38,3 +38,13 @@ export function AddButton(props) {
         </ButtonBase>
     )
 }
+
+export function RemoveButton(props) {
+    return (
+        <ButtonBase type="submit" aria-label={props['aria-label']} className="button-border" onClick={props.onClick}>
+            <div className="button-item remove-item">
+                <Remove className="button-icon"/>
+            </div>
+        </ButtonBase>
+    )
+}
