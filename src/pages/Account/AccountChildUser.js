@@ -1,10 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { getStore } from '../../state/GlobalState';
 import { addUserChildAccount, getUserChildAccounts, deleteUserChildAccount } from '../../utilities/RestApi';
-import RemoveIcon from '@material-ui/icons/Remove';
-import AddIcon from '@material-ui/icons/Add';
 import { Context } from '../../state/Store';
-import { Divider, MenuItem, Select, InputLabel, Input, FormControl, Checkbox, TextField, ListItemText, ButtonBase } from '@material-ui/core';
+import { Divider, MenuItem, Select, InputLabel, Input, FormControl, Checkbox, TextField, ListItemText } from '@material-ui/core';
+import { AddButton, RemoveButton } from '../../components/controls/Buttons';
 import "./AccountChildUser.css"
 
 export default function AccountChildUser() {
@@ -66,11 +65,7 @@ export default function AccountChildUser() {
                                 <td>{x.user_name}</td>
                                 <td>{x.roles.join(', ')}</td>
                                 <td className="table-end-item">
-                                    <ButtonBase aria-label={`user-${x.user_name}`} className="user-button-border" onClick={() => deleteChildUser(x.user_id)}>
-                                        <div className="table-delete-user">
-                                            <RemoveIcon className="table-delete-user-minus" onClick={() => deleteChildUser(x.user_id)} />
-                                        </div>
-                                    </ButtonBase>
+                                    <RemoveButton aria-label={`user-${x.user_name}`} onClick={() => deleteChildUser(x.user_id)}></RemoveButton>
                                 </td>
                             </tr>
                         ))}
@@ -93,11 +88,7 @@ export default function AccountChildUser() {
                                 </FormControl>
                             </td>
                             <td className="table-end-item">
-                                <ButtonBase aria-label="Add" className="user-button-border" onClick={(event) => { submitChildAccount(event) }}>
-                                    <div className="table-add-user">
-                                        <AddIcon className="table-add-user-plus" />
-                                    </div>
-                                </ButtonBase>
+                                <AddButton onClick={(event) => { submitChildAccount(event) }}></AddButton>
                             </td>
                         </tr>
                     </tbody>
