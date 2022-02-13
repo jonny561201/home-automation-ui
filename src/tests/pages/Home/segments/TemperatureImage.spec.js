@@ -40,16 +40,16 @@ describe('TemperatureImage', () => {
 
         it('should show the rounded external temperature', async () => {
             await renderComponent('clear sky');
-            const actual = screen.getByTestId('external-temp').textContent;
+            const actual = screen.getByText('33°');
 
-            expect(actual).toEqual("33°");
+            expect(actual).toBeTruthy();
         });
 
         it('should show the rounded internal temperature', async () => {
             await renderComponent('clear sky');
-            const actual = screen.getByTestId('internal-temp').textContent;
+            const actual = screen.getByText("73°");
 
-            expect(actual).toEqual("73°");
+            expect(actual).toBeTruthy();
         });
 
         it('should return sunny weather icon', async () => {
