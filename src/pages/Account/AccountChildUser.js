@@ -4,7 +4,7 @@ import { addUserChildAccount, getUserChildAccounts, deleteUserChildAccount } fro
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 import { Context } from '../../state/Store';
-import { Divider, MenuItem, Select, InputLabel, Input, FormControl, Checkbox, TextField, ListItemText } from '@material-ui/core';
+import { Divider, MenuItem, Select, InputLabel, Input, FormControl, Checkbox, TextField, ListItemText, ButtonBase } from '@material-ui/core';
 import "./AccountChildUser.css"
 
 export default function AccountChildUser() {
@@ -66,11 +66,11 @@ export default function AccountChildUser() {
                                 <td>{x.user_name}</td>
                                 <td>{x.roles.join(', ')}</td>
                                 <td className="table-end-item">
-                                    <div className="user-button-border">
-                                        <div className="table-delete-user cancel-ripple">
-                                            <RemoveIcon data-testid={`user-${x.user_name}`} className="table-delete-user-minus" onClick={() => deleteChildUser(x.user_id)} />
+                                    <ButtonBase aria-label={`user-${x.user_name}`} className="user-button-border" onClick={() => deleteChildUser(x.user_id)}>
+                                        <div className="table-delete-user">
+                                            <RemoveIcon className="table-delete-user-minus" onClick={() => deleteChildUser(x.user_id)} />
                                         </div>
-                                    </div>
+                                    </ButtonBase>
                                 </td>
                             </tr>
                         ))}
@@ -93,11 +93,11 @@ export default function AccountChildUser() {
                                 </FormControl>
                             </td>
                             <td className="table-end-item">
-                                <div className="user-button-border" onClick={(event) => { submitChildAccount(event) }}>
-                                    <div className="table-add-user success-ripple">
-                                        <AddIcon type="submit" data-testid="add-user-button" className="table-add-user-plus" />
+                                <ButtonBase aria-label="Add" className="user-button-border" onClick={(event) => { submitChildAccount(event) }}>
+                                    <div className="table-add-user">
+                                        <AddIcon className="table-add-user-plus" />
                                     </div>
-                                </div>
+                                </ButtonBase>
                             </td>
                         </tr>
                     </tbody>

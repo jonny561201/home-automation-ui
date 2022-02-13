@@ -87,7 +87,7 @@ export default function AddGarage(props) {
                         <div className="account-row">
                             <FormControlLabel control={<GreenCheckbox checked={state.checkedG} onChange={() => setPreferred(!preferred)} name="checkedG" />} label="Preferred Garage Door" />
                         </div>
-                        <GreenButton className="success-ripple">Add</GreenButton>
+                        <GreenButton>Add</GreenButton>
                     </form>
                 </div>
             }

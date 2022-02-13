@@ -35,7 +35,7 @@ describe('AccountChildUser', () => {
 
     it('should display the add account users button', async () => {
         await renderComponent();
-        const actual = screen.getByTestId('add-user-button');
+        const actual = screen.getByRole('button', {name: 'Add'});
 
         expect(actual).toBeDefined();
     });
@@ -71,7 +71,7 @@ describe('AccountChildUser', () => {
         it('should mark input in error state when trying to submit empty', async () => {
             await renderComponent();
             await act(async () => {
-                fireEvent.submit(screen.getByTestId('add-user-button'));
+                fireEvent.submit(screen.getByRole('button', {name: 'Add'}));
             });
             const actual = screen.getByText('Email');
 
@@ -82,7 +82,7 @@ describe('AccountChildUser', () => {
             await renderComponent();
             fireEvent.change(screen.getByTestId('email-account-user'), { target: { value: "" } });
             await act(async () => {
-                fireEvent.submit(screen.getByTestId('add-user-button'));
+                fireEvent.submit(screen.getByRole('button', {name: 'Add'}));
             });
             const actual = screen.getByText('Email');
 
@@ -92,7 +92,7 @@ describe('AccountChildUser', () => {
         it('should mark roles in error state when no role is selected on submission', async () => {
             await renderComponent();
             await act(async () => {
-                fireEvent.submit(screen.getByTestId('add-user-button'));
+                fireEvent.submit(screen.getByRole('button', {name: 'Add'}));
             });
             const actual = screen.getByTestId('roles-account-user');
 
@@ -101,12 +101,13 @@ describe('AccountChildUser', () => {
 
         it('should not allow submission when email in an error state', async () => {
             await renderComponent();
+            const addButton = screen.getByRole('button', {name: 'Add'});
             fireEvent.click(screen.getByTestId('roles-account-user').querySelector('div'));
             const listbox = within(screen.getByRole('listbox'));
 
-            fireEvent.click(listbox.getByText(/garage_door/i));
+            fireEvent.click(listbox.getByText('garage_door'));
             await act(async () => {
-                fireEvent.submit(screen.getByTestId('add-user-button'));
+                fireEvent.submit(addButton);
             });
             expect(spyPost).not.toHaveBeenCalled();
         });
@@ -115,7 +116,7 @@ describe('AccountChildUser', () => {
             await renderComponent();
             fireEvent.change(screen.getByTestId('email-account-user'), { target: { value: 'test@test.com' } });
             await act(async () => {
-                fireEvent.submit(screen.getByTestId('add-user-button'));
+                fireEvent.submit(screen.getByRole('button', {name: 'Add'}));
             });
             expect(spyPost).not.toHaveBeenCalled();
         });
@@ -131,14 +132,15 @@ describe('AccountChildUser', () => {
             const email = 'test@test.com';
             const roles = ['garage_door', 'security'];
             await renderComponent();
+            const addButton = screen.getByRole('button', {name: 'Add'});
             fireEvent.click(screen.getByTestId('roles-account-user').querySelector('div'));
             const listbox = within(screen.getByRole('listbox'));
 
-            fireEvent.click(listbox.getByText(/garage_door/i));
-            fireEvent.click(listbox.getByText(/security/i));
+            fireEvent.click(listbox.getByText('garage_door'));
+            fireEvent.click(listbox.getByText('security'));
             fireEvent.change(screen.getByTestId('email-account-user'), { target: { value: email } });
             await act(async () => {
-                fireEvent.click(screen.getByTestId('add-user-button'));
+                fireEvent.click(addButton);
             });
 
             expect(spyPost).toHaveBeenCalledWith(userId, bearer, email, roles);
@@ -151,7 +153,7 @@ describe('AccountChildUser', () => {
             await renderComponent();
 
             await act(async () => {
-                fireEvent.click(screen.getByTestId('user-Jon'));
+                fireEvent.click(screen.getByRole('button', {name: 'user-Jon'}));
             });
             const actual = screen.queryByText('Jon');
             expect(actual).toBeNull();
