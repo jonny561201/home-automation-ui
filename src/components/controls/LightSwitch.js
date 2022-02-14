@@ -12,12 +12,14 @@ import { CSSTransition } from 'react-transition-group';
 
 
 export default function LightSwitch(props) {
+    const initalBrightness = Math.round(props.data.brightness / 2.55);
     const [state, dispatch] = useContext(Context);
     const [isOn, setIsOn] = useState(props.data.on);
     const [lights,] = useState(props.data.lights);
     const [groupId,] = useState(props.data.groupId);
     const [groupName,] = useState(props.data.groupName);
-    const [brightness, setBrightness] = useState(Math.round(props.data.brightness / 2.55));
+    const [brightness, setBrightness] = useState(initalBrightness);
+    const [prevBrightness, setPrevBrightness] = useState(initalBrightness);
     const [areLightsOpen, setLightsOpen] = useState(false);
 
     const sliderToggleLightGroup = async (event, value) => {
@@ -34,6 +36,16 @@ export default function LightSwitch(props) {
         const newState = !isOn;
         setIsOn(!isOn);
         await setLightGroupState(state.auth.bearer, groupId, newState);
+        if (!newState) {
+            setPrevBrightness(brightness);            
+            setBrightness(0);
+            const newList = state.lights.map(x => (x.groupId === groupId) ? { ...x, brightness: 0, lights: x.lights.map(y => ({ ...y, brightness: 0 })) } : x);
+            dispatch({ type: 'SET_LIGHTS', payload: newList });
+        } else {
+            setBrightness(prevBrightness);
+            const newList = state.lights.map(x => (x.groupId === groupId) ? { ...x, brightness: prevBrightness, lights: x.lights.map(y => ({ ...y, brightness: Math.round(prevBrightness * 2.55) })) } : x);
+            dispatch({ type: 'SET_LIGHTS', payload: newList });
+        }
     }
 
     const getLightSwitches = () => {
