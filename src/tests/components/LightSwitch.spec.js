@@ -43,7 +43,7 @@ describe('LightSwitch', () => {
 
     it('should display the expansion icon', async () => {
         await renderComponent(group);
-        const actual = screen.getByTestId('expansion-chevron');
+        const actual = screen.getByRole('button', {name: 'expand'});
 
         expect(actual).toBeDefined();
     });
@@ -69,22 +69,22 @@ describe('LightSwitch', () => {
 
         it('should display expansion panel when areLightsOpen is true', async () => {
             await renderComponent(group);
-            fireEvent.click(screen.getByRole('button'));
-            const actual = screen.getByTestId('light-group-expansion');
+            fireEvent.click(screen.getByRole('button', {name: 'expand'}));
+            const actual = screen.queryByTestId('light-group-expansion');
 
-            expect(actual).toBeDefined();
+            expect(actual).toBeTruthy();
         });
 
         it('should not display expansion panel when areLightsOpen is false', async () => {
             await renderComponent(group);
             const actual = screen.queryByTestId('light-group-expansion');
 
-            expect(actual).toBeNull();
+            expect(actual).toBeFalsy();
         });
 
         it('should display all light switches', async () => {
             await renderComponent(group);
-            fireEvent.click(screen.getByRole('button'));
+            fireEvent.click(screen.getByRole('button', {name: 'expand'}));
             const actual = screen.getAllByTestId('light-switch');
 
             expect(actual).toHaveLength(2);
@@ -103,10 +103,10 @@ describe('LightSwitch', () => {
                 'brightness': 155, 'lights': null
             }
             await renderComponent(data);
-            fireEvent.click(screen.getByRole('button'));
-            const actual = screen.getByText('No lights assigned to group').textContent;
+            fireEvent.click(screen.getByRole('button', {name: 'expand'}));
+            const actual = screen.getByText('No lights assigned to group');
 
-            expect(actual).toEqual('No lights assigned to group');
+            expect(actual).toBeTruthy();
         });
 
         it('should display message that there are empty lights for a group when zero lights', async () => {
@@ -115,10 +115,10 @@ describe('LightSwitch', () => {
                 'brightness': 155, 'lights': []
             }
             await renderComponent(data);
-            fireEvent.click(screen.getByRole('button'));
-            const actual = screen.getByText('No lights assigned to group').textContent;
+            fireEvent.click(screen.getByRole('button', {name: 'expand'}));
+            const actual = screen.getByText('No lights assigned to group');
 
-            expect(actual).toEqual('No lights assigned to group');
+            expect(actual).toBeTruthy();
         });
     });
 })

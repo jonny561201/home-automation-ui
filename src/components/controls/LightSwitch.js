@@ -60,17 +60,17 @@ export default function LightSwitch(props) {
     return (
         <div data-testid="light-group">
             <div className="light-group text">
-                <IconButton className={`light-chevron ${areLightsOpen ? "expanded" : ""}`} onClick={() => setLightsOpen(!areLightsOpen)} style={{ "borderRadius": "50%" }}>
-                    <ChevronRightIcon data-testid={"expansion-chevron"} />
+                <IconButton aria-label="expand" className={`light-chevron ${areLightsOpen ? "expanded" : ""}`} onClick={() => setLightsOpen(!areLightsOpen)}>
+                    <ChevronRightIcon/>
                 </IconButton>
                 <ButtonBase className="light-button" onClick={toggleLightGroup}>
                     <p className="light-text text">{groupName}</p>
                 </ButtonBase>
-                <CustomSlider data-testid={"light-group-switch"} onChange={sliderToggleLightGroup} value={brightness} valueLabelDisplay="auto" aria-label="slider" />
+                <CustomSlider data-testid="light-group-switch" onChange={sliderToggleLightGroup} value={brightness} valueLabelDisplay="auto" aria-label="slider" />
                 <BrightnessMediumIcon className="brightness-icon text" />
             </div>
             <CSSTransition in={areLightsOpen} timeout={500} classNames="expansion" unmountOnExit appear >
-                <div data-testid={"light-group-expansion"} className="light-group-expansion expansion">{getLightSwitches()}</div>
+                <div data-testid="light-group-expansion" className="light-group-expansion">{getLightSwitches()}</div>
             </CSSTransition>
         </div>
     );
