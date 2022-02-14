@@ -27,9 +27,7 @@
     white-space: nowrap;
     width: 70px;
     font-size: 0.9rem;
-    display: flex;
-    justify-content: center;
-    margin: 0.5rem 0 0.5rem 0;
+    margin: 0.5rem 0.2rem 0.5rem 0.2rem;
 }
 
 .light-text-small {
@@ -46,6 +44,6 @@
 }
 
 .light-button {
-    border: 1px solid rgba(0, 0, 0, 0.23) !important;
+    border: 1px solid rgb(160, 160, 160) !important;
     border-radius: 10px !important;
 }
