@@ -1,6 +1,6 @@
 import React from 'react';
-import {Add, Remove} from '@material-ui/icons';
-import { ButtonBase } from "@material-ui/core";
+import { Add, Remove, ChevronRight } from '@material-ui/icons';
+import { ButtonBase, IconButton } from "@material-ui/core";
 import './Buttons.css';
 
 
@@ -28,6 +28,14 @@ export function RedButton(props) {
     )
 }
 
+export function ExpandButton(props) {
+    return (
+        <IconButton aria-label="expand" className={props.className} onClick={props.onClick}>
+            <ChevronRight />
+        </IconButton>
+    )
+}
+
 export function AddButton(props) {
     const [rotate, setRotate] = React.useState(0)
     const myClick = (event) => {
@@ -36,7 +44,7 @@ export function AddButton(props) {
     }
 
     return (
-        <ButtonBase type="submit" aria-label="Add" className="button-border" onClick={myClick}>
+        <ButtonBase aria-label="Add" className="button-border" onClick={myClick}>
             <div className="button-item add-item" rotate={rotate} onAnimationEnd={() => setRotate(0)}>
                 <Add className="button-icon" />
             </div>
@@ -52,9 +60,9 @@ export function RemoveButton(props) {
     }
 
     return (
-        <ButtonBase type="submit" aria-label={props['aria-label']} className="button-border" onClick={myClick}>
+        <ButtonBase aria-label={props['aria-label']} className="button-border" onClick={myClick}>
             <div className="button-item remove-item" rotate={rotate} onAnimationEnd={() => setRotate(0)}>
-                <Remove className="button-icon"/>
+                <Remove className="button-icon" />
             </div>
         </ButtonBase>
     )

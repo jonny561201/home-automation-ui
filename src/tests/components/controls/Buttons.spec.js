@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { GreenButton, BlueButton, RedButton, AddButton, RemoveButton } from '../../../components/controls/Buttons';
+import { GreenButton, BlueButton, RedButton, AddButton, RemoveButton, ExpandButton } from '../../../components/controls/Buttons';
 
 describe('Buttons', () => {
 
@@ -83,22 +83,27 @@ describe('Buttons', () => {
         });
     });
 
+    describe('Expand Button', () => {
+
+        it('should execute function on click', () => {
+            const click = jest.fn();
+            render(<ExpandButton onClick={click}></ExpandButton>);
+            fireEvent.click(screen.getByRole('button'));
+            expect(click).toHaveBeenCalled();
+        });
+
+        it('should display the aria-label of Expand', () => {
+            render(<ExpandButton></ExpandButton>);
+            const actual = screen.getByRole('button', {name: 'expand'});
+            expect(actual).toBeTruthy();
+        });
+    });
+
     describe('Add Button', () => {
 
         it('should execute function on click', () => {
             const click = jest.fn();
             render(<AddButton onClick={click}></AddButton>);
-            fireEvent.click(screen.getByRole('button'));
-            expect(click).toHaveBeenCalled();
-        });
-
-        it('should execute function when in a form', () => {
-            const click = jest.fn(e => e.preventDefault());
-            render(
-                <form onSubmit={click}>
-                    <AddButton></AddButton>
-                </form>
-            );
             fireEvent.click(screen.getByRole('button'));
             expect(click).toHaveBeenCalled();
         });
@@ -115,17 +120,6 @@ describe('Buttons', () => {
         it('should execute function on click', () => {
             const click = jest.fn();
             render(<RemoveButton onClick={click}></RemoveButton>);
-            fireEvent.click(screen.getByRole('button'));
-            expect(click).toHaveBeenCalled();
-        });
-
-        it('should execute function when in a form', () => {
-            const click = jest.fn(e => e.preventDefault());
-            render(
-                <form onSubmit={click}>
-                    <RemoveButton></RemoveButton>
-                </form>
-            );
             fireEvent.click(screen.getByRole('button'));
             expect(click).toHaveBeenCalled();
         });
