@@ -3,7 +3,6 @@
 }
 
 .form-container {
-    margin: 1rem;
     display: flex;
 }
 
@@ -19,6 +18,10 @@
  }
 
  @media (min-width: 480px) {
+     .form-container {
+        margin: 1rem;
+     }
+     
     .image-column {
         margin-right: 10px;
     }

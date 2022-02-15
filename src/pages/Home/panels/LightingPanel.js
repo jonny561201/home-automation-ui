@@ -30,7 +30,7 @@ export default function LightingPanel() {
                 </ExpansionPanelSummary>
                 <Divider />
                 <ExpansionPanelDetails className="center">
-                    <div>
+                    <div className="light-panel-group">
                         {renderGroups()}
                     </div>
                 </ExpansionPanelDetails>

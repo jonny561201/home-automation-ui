@@ -111,6 +111,10 @@ input:focus {
   color: var(--header-font-color) !important;
 }
 
+.MuiExpansionPanelDetails-root {
+  padding: 0 !important;
+}
+
 .App-header {
   min-height: 100vh;
   align-items: center;
