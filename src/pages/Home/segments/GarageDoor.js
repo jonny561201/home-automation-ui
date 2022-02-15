@@ -44,7 +44,7 @@ export default function GarageDoor(props) {
     return (
         <div>
             <ExpansionPanelDetails className="center">
-                <div className="other">
+                <div className="garage-door-container">
                     <div className="status-text-group">
                         <p className="garage-text-bold text">{props.device.doorName}</p>
                         {props.device.isOpen
