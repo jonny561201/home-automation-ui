@@ -18,7 +18,7 @@
 .light-group-expansion {
     border-color: darkgray;
     border-radius: 1px;
-    margin-left: 3.4rem;
+    /* margin-left: 2.4rem; */
 }
 
 .light-text {
@@ -28,6 +28,10 @@
     width: 70px;
     font-size: 0.9rem;
     margin: 0.5rem 0.2rem 0.5rem 0.2rem;
+}
+
+.light-spacer {
+    padding: 18px;
 }
 
 .light-text-small {
@@ -41,6 +45,7 @@
 .brightness-icon {
     height: 16px !important;
     width: 16px !important;
+    padding: 8px;
 }
 
 .light-button {

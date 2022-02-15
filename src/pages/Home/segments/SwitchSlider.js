@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Context } from '../../../state/Store';
+import { ButtonBase } from '@material-ui/core';
 import { debounchApi } from '../../../utilities/Services';
 import { setLightState } from '../../../utilities/RestApi';
 import { CustomSlider } from '../../../components/controls/Slider';
@@ -27,9 +28,12 @@ export default function SwitchSlider(props) {
 
     return (
         <div className="light-group">
-            <p className="light-text-small text">{light.lightName}</p>
+            <div className="light-spacer"></div>
+            <ButtonBase>
+                <p className="light-text-small text">{light.lightName}</p>
+            </ButtonBase>
             <CustomSlider onChange={(event, val) => updateSlider(event, val)} value={Math.round(light.brightness / 2.55)} valueLabelDisplay="auto" aria-label="slider" />
-            <div style={{ height: '18px', width: '18px' }} />
+            <div className="light-spacer" />
         </div>
     )
 }
