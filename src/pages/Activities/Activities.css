@@ -44,6 +44,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding: 8px;
 }
 
 .task-button-container {
@@ -135,10 +136,6 @@
      display: flex;
      flex-direction: column;
      flex: 100%;
- }
-
- .MuiExpansionPanelDetails-root {
-     padding: 8px 15px 8px 15px !important;
  }
 
  .task-room-picker-row {
