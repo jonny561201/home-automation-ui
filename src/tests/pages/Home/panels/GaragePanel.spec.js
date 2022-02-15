@@ -40,8 +40,8 @@ describe('GaragePanel', () => {
         it('should display the register device modal when clicking the register button', async ( )=> {
             await renderComponent(true, []);
             fireEvent.click(screen.getByText('Register'));
-            const actual = screen.getByTestId('data-add-device');
-            expect(actual).toBeDefined();
+            const actual = screen.getByText('Add Device');
+            expect(actual).toBeTruthy();
         });
     });
 
