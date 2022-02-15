@@ -7,6 +7,7 @@ import { updateGarageState } from '../../../utilities/RestApi';
 import { useInterval } from '../../../utilities/UseInterval';
 import { calculateDistanceInMeters } from '../../../utilities/Location';
 import './UserLocation.css';
+import { RedButton } from '../../../components/controls/Buttons';
 
 export default function UserLocation() {
     const [ding] = useSound(dingSound, { volume: 0.25 });
@@ -81,8 +82,8 @@ export default function UserLocation() {
                 <div className="auto-open-menu">
                     <CloseIcon className="location-close-icon" onClick={() => setDisplayMenu(false)} />
                     <div className="location-menu-group">
-                        <p className="auto-open-menu-text text reduce-margin">Garage will open in 250ft</p>
-                        <button className="auto-open-menu-button reduce-margin" onClick={cancelDoorOpen}>Cancel</button>
+                        <p className="auto-open-text text reduce-margin">Garage will open in 250ft</p>
+                        <RedButton className="auto-open-button" onClick={cancelDoorOpen}>Cancel</RedButton>
                     </div>
                 </div>
             }

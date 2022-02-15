@@ -19,12 +19,12 @@
     }
 }
 
-.auto-open-menu-text {
+.auto-open-text {
     align-self: center;
 }
 
-.auto-open-menu-button {
-    background-color: #c73200;
+.auto-open-button {
+    width: 100%;
 }
 
 .location-menu-group {
