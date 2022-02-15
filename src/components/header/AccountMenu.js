@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './AccountMenu.css';
 import { getStore } from '../../state/GlobalState';
 import { Context } from '../../state/Store';
+import { Divider } from '@material-ui/core';
 
 
 export default function AccountSettings(props) {
@@ -78,7 +79,9 @@ export default function AccountSettings(props) {
 
     return (
         <div className="account-menu" ref={(node) => { wrapperRef = node }}>
-            <ul className="text">{getLinks()}
+            <ul className="text">{getLinks()}</ul>
+            <Divider />
+            <ul>
                 <Link to='/home-automation-ui'>
                     <li><div className="account-button" onClick={logOut}>Sign Out</div></li>
                 </Link>
