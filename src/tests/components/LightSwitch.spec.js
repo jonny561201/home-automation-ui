@@ -43,7 +43,7 @@ describe('LightSwitch', () => {
 
     it('should display the expansion icon', async () => {
         await renderComponent(group);
-        const actual = screen.getByRole('button', {name: 'expand'});
+        const actual = screen.getByRole('button', { name: 'expand' });
 
         expect(actual).toBeDefined();
     });
@@ -69,7 +69,9 @@ describe('LightSwitch', () => {
 
         it('should display expansion panel when areLightsOpen is true', async () => {
             await renderComponent(group);
-            fireEvent.click(screen.getByRole('button', {name: 'expand'}));
+            await act(async () => {
+                fireEvent.click(screen.getByRole('button', { name: 'expand' }));
+            });
             const actual = screen.queryByTestId('light-group-expansion');
 
             expect(actual).toBeTruthy();
@@ -84,7 +86,9 @@ describe('LightSwitch', () => {
 
         it('should display all light switches', async () => {
             await renderComponent(group);
-            fireEvent.click(screen.getByRole('button', {name: 'expand'}));
+            await act(async () => {
+                fireEvent.click(screen.getByRole('button', { name: 'expand' }));
+            });
             const actual = screen.getAllByTestId('light-switch');
 
             expect(actual).toHaveLength(2);
@@ -103,7 +107,9 @@ describe('LightSwitch', () => {
                 'brightness': 155, 'lights': null
             }
             await renderComponent(data);
-            fireEvent.click(screen.getByRole('button', {name: 'expand'}));
+            await act(async () => {
+                fireEvent.click(screen.getByRole('button', { name: 'expand' }));
+            });
             const actual = screen.getByText('No lights assigned to group');
 
             expect(actual).toBeTruthy();
@@ -115,10 +121,20 @@ describe('LightSwitch', () => {
                 'brightness': 155, 'lights': []
             }
             await renderComponent(data);
-            fireEvent.click(screen.getByRole('button', {name: 'expand'}));
+            await act(async () => {
+                fireEvent.click(screen.getByRole('button', { name: 'expand' }));
+            });
             const actual = screen.getByText('No lights assigned to group');
 
             expect(actual).toBeTruthy();
+        });
+
+        it('should call api to turn off light when button clicked', async () => {
+            await renderComponent(group);
+            await act(async () => {
+                fireEvent.click(screen.getByRole('button', { name: group.groupName }));
+            });
+            expect(spySetGroup).toHaveBeenCalledWith(bearer, group.groupId, !group.on);
         });
     });
 })
