@@ -30,7 +30,7 @@ export default function SwitchSlider(props) {
     const toggleLight = async () => {
         const newState = !light.on;
         const newBrightness = !newState ? 0 : prevBrightness;
-        await setLightState(state.auth.bearer, lightId, true, newBrightness)
+        await setLightState(state.auth.bearer, lightId, newState, newBrightness)
         setPrevBrightness(light.brightness);
 
         const newLight = { ...light, brightness: newBrightness, on: newState };

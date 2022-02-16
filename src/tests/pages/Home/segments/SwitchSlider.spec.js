@@ -49,4 +49,13 @@ describe('SwitchSlider', () => {
         await renderComponent();
         expect((screen.getByRole('slider'))).toBeDefined();
     });
+
+    it('should make api call when clicking the turn light off button', async () => {
+        await renderComponent();
+        await act(async () => {
+            fireEvent.click(screen.getByRole('button', {name: light.lightName}));
+        });
+
+        expect(spySetLight).toHaveBeenCalledWith(bearer, light.lightId, !light.on, 0);
+    });
 });
