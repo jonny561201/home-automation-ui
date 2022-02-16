@@ -28,12 +28,12 @@ export default function SwitchSlider(props) {
 
     return (
         <div className="light-group">
-            <div className="light-spacer"></div>
-            <ButtonBase>
+            <div className="light-spacer-one"/>
+            <ButtonBase className="light-button">
                 <p className="light-text-small text">{light.lightName}</p>
             </ButtonBase>
             <CustomSlider onChange={(event, val) => updateSlider(event, val)} value={Math.round(light.brightness / 2.55)} valueLabelDisplay="auto" aria-label="slider" />
-            <div className="light-spacer" />
+            <div className="light-spacer-two"/>
         </div>
     )
 }
