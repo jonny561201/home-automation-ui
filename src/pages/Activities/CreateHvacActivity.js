@@ -6,7 +6,7 @@ import TimePicker from '../../components/controls/TimePicker';
 import WeekPicker from '../../components/controls/WeekPicker';
 import TempPicker from '../../components/controls/TempPicker';
 import { Save, Delete } from '@material-ui/icons';
-import { Divider } from '@material-ui/core';
+import { Divider, Button } from '@material-ui/core';
 import { insertHvacTask } from '../../utilities/RestApi';
 import './CreateHvacActivity.css';
 
@@ -73,13 +73,11 @@ export default function CreateHvacActivity(props) {
             <WeekPicker daysOfWeek={daysOfWeek} toggleDay={toggleDay} setEdited={() => setEdited(true)} />
             <Divider />
             <div className="tasks-button-group text">
-                <div className="task-button-container" onClick={deleteActivity}>
-                    <Delete className="task-button task-delete" />
-                    <p className="task-delete">Cancel</p>
+                <div className="task-button-container">
+                    <Button className="task-delete" onClick={deleteActivity} startIcon={<Delete/>}>Cancel</Button>
                 </div>
-                <div className="task-button-container" onClick={saveActivity}>
-                    <Save className={`task-button ${edited ? "edited" : ""}`} />
-                    <p className={edited ? "edited" : ""}>Save</p>
+                <div className="task-button-container">
+                    <Button className={`${edited ? "edited" : ""}`} onClick={saveActivity} startIcon={<Save/>}>Save</Button>
                 </div>
             </div>
         </>

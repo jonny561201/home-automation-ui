@@ -64,11 +64,6 @@
     cursor: pointer;
 }
 
-.task-button {
-    height: 2rem !important;
-    width: 2rem !important;
-}
-
 .activites-wrapper {
     margin: 1rem;
 }
@@ -118,7 +113,7 @@
 }
 
 .task-delete {
-    color: #ff6666;
+    color: #ff6666 !important;
 }
 
 .add-task-button-plus {

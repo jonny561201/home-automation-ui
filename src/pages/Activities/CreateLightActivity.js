@@ -6,7 +6,7 @@ import TimePicker from '../../components/controls/TimePicker';
 import WeekPicker from '../../components/controls/WeekPicker';
 import { Save, Delete } from '@material-ui/icons';
 import { insertLightTask } from '../../utilities/RestApi';
-import { MenuItem, TextField, Divider } from '@material-ui/core';
+import { MenuItem, TextField, Divider, Button } from '@material-ui/core';
 
 
 export default function CreateLightActivity(props) {
@@ -74,12 +74,10 @@ export default function CreateLightActivity(props) {
             <Divider />
             <div className="tasks-button-group text">
                 <div className="task-button-container" onClick={deleteActivity}>
-                    <Delete className="task-button task-delete" />
-                    <p className="task-delete">Cancel</p>
+                    <Button className="task-delete" onClick={deleteActivity} startIcon={<Delete/>}>Cancel</Button>
                 </div>
-                <div className="task-button-container" onClick={saveActivity}>
-                    <Save className={`task-button ${edited ? "edited" : ""}`} />
-                    <p className={edited ? "edited" : ""}>Save</p>
+                <div className="task-button-container">
+                    <Button className={`${edited ? "edited" : ""}`} onClick={saveActivity} startIcon={<Save/>}>Save</Button>
                 </div>
             </div>
         </>

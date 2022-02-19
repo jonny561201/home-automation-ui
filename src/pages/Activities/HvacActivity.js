@@ -9,7 +9,7 @@ import TimePicker from '../../components/controls/TimePicker';
 import WeekPicker from '../../components/controls/WeekPicker';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { deleteScheduledTask, updateScheduledTasks } from '../../utilities/RestApi';
-import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary, Divider, Switch } from '@material-ui/core';
+import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary, Divider, Switch, Button } from '@material-ui/core';
 
 
 export default function HvacActivity(props) {
@@ -120,13 +120,11 @@ export default function HvacActivity(props) {
                     <WeekPicker daysOfWeek={daysOfWeek} toggleDay={toggleDay} setEdited={() => setEdited(true)} />
                     <Divider />
                     <div className="tasks-button-group text">
-                        <div className="task-button-container" onClick={clickDelete}>
-                            <Delete className="task-button task-delete" />
-                            <p className="task-delete">Delete</p>
+                        <div className="task-button-container">
+                            <Button className="task-delete" onClick={clickDelete} startIcon={<Delete/>}>Delete</Button>
                         </div>
-                        <div className="task-button-container" onClick={saveTask}>
-                            <Save className={`task-button ${edited ? "edited" : ""}`} />
-                            <p className={edited ? "edited" : ''}>Update</p>
+                        <div className="task-button-container">
+                            <Button className={`${edited ? "edited" : ""}`} onClick={saveTask} startIcon={<Save/>}>Update</Button>
                         </div>
                     </div>
                 </div>

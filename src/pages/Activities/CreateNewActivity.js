@@ -3,7 +3,7 @@ import { Context } from '../../state/Store';
 import CreateLightActivity from './CreateLightActivity';
 import CreateHvacActivity from './CreateHvacActivity';
 import { Delete } from '@material-ui/icons';
-import { ExpansionPanelDetails, ExpansionPanel, TextField, MenuItem, ExpansionPanelSummary } from '@material-ui/core';
+import { ExpansionPanelDetails, ExpansionPanel, TextField, MenuItem, ExpansionPanelSummary, Button } from '@material-ui/core';
 
 
 export default function CreateNewActivityPanel(props) {
@@ -22,10 +22,7 @@ export default function CreateNewActivityPanel(props) {
         } else {
             return (
                 <div className="tasks-button-group text">
-                    <div className="task-button-container" onClick={() => props.cancelNewTask()}>
-                        <Delete className="task-button task-delete" />
-                        <p className="task-delete">Cancel</p>
-                    </div>
+                    <Button className="task-delete" onClick={props.cancelNewTask} startIcon={<Delete/>}>Cancel</Button>
                 </div>
             )
         }
