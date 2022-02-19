@@ -54,16 +54,18 @@ export default function GaragePanel() {
                 <Divider />
                 {state.devicesToRegister
                     ? <ExpansionPanelDetails className="center">
-                        <h2 className="status-text-bold text">Register New Device!</h2>
-                        <Divider />
-                        <div>
-                            <p className="status-text text">A new device has been detected and needs to be registered.</p>
-                        </div>
-                        <div>
-                            <GreenButton onClick={() => setDisplayRegister(true)}>Register</GreenButton>
-                        </div>
-                        <div ref={(node) => { setWrapperRef(node) }}>
-                            {displayRegister && <RegisterDevice close={closeModal} parentRef={wrapperRef} />}
+                        <div className="door-groups">
+                            <h2 className="status-text-bold text">Register New Device!</h2>
+                            <Divider />
+                            <div>
+                                <p className="status-text text">A new device has been detected and needs to be registered.</p>
+                            </div>
+                            <div>
+                                <GreenButton onClick={() => setDisplayRegister(true)}>Register</GreenButton>
+                            </div>
+                            <div ref={(node) => { setWrapperRef(node) }}>
+                                {displayRegister && <RegisterDevice close={closeModal} parentRef={wrapperRef} />}
+                            </div>
                         </div>
                     </ExpansionPanelDetails>
                     : <div className="door-groups">{renderDoors()}</div>
