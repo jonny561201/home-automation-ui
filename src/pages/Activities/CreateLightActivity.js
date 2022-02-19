@@ -34,7 +34,7 @@ export default function CreateLightActivity(props) {
         setEdited(true);
         item.target.value === "All Rooms"
             ? setGroupId("0")
-            : setGroupId(state.userLightGroups.find(x => x.groupName === item.target.value).groupId)
+            : setGroupId(state.lights.find(x => x.groupName === item.target.value).groupId)
         setSelectedRoom(item.target.value);
     }
 
