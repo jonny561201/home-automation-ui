@@ -62,7 +62,7 @@ export default function Settings() {
                         </FormControl>
                     </div>
                     {isEditMode
-                        ? <SettingsEditPanel isEditMode={isEditMode} setEditMode={setEditMode} />
+                        ? <SettingsEditPanel setEditMode={setEditMode} />
                         : <SettingsPanel toggleEdit={toggleEditMode} />
                     }
                 </div>

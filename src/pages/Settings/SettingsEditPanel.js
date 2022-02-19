@@ -26,7 +26,7 @@ export default function SettingsEditPanel(props) {
         updateUserPreferences(state.user.userId, state.auth.bearer, request);
 
         dispatch({ type: 'SET_USER_PREFERENCES', payload: { ...state.preferences, city: newCity, temp_unit: newTempUnit, measure_unit: newMeasureUnit, garage_id: garageId, garage_door: garage } });
-        props.setEditMode(!props.isEditMode);
+        props.setEditMode(false);
     }
 
     const cancelPreferences = () => {
@@ -34,7 +34,7 @@ export default function SettingsEditPanel(props) {
         setNewCity(props.city);
         setNewTempUnit(props.tempUnit);
         setNewMeasureUnit(props.measureUnit);
-        props.setEditMode(!props.isEditMode);
+        props.setEditMode(false);
     }
 
     const updateCity = (input) => {
