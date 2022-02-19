@@ -6,6 +6,12 @@
     border-radius: 0 0 10px 10px;
 }
 
+.activity-subtext {
+    font-size: 14px;
+    margin: 0 !important;
+    align-self: center;
+}
+
 @media (min-width: 480px) {
     .activities-body {
         min-width: 670px;
@@ -67,6 +73,11 @@
     color: cornflowerblue;
 }
 
+.activity-group-name {
+    font-weight: bold;
+    margin: 0 !important;
+}
+
 .alarm-time-divider {
     width: 85%;
     align-self: center;
@@ -84,7 +95,7 @@
 }
 
 .alarm-column-one {
-    flex: 3;
+    flex: 4;
 }
 
 .alarm-column-two {
@@ -126,10 +137,6 @@
     transform: rotate(-90deg);
     -webkit-transform: rotate(-90deg);
     -ms-transform: rotate(-90deg);
- }
-
- .task-switch {
-     margin-left: 5rem;
  }
 
  .alarm-summary-panel {

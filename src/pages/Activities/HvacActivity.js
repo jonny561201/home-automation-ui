@@ -51,7 +51,7 @@ export default function HvacActivity(props) {
             await updateTask(enabled);
         }
     }
-    
+
     const toggleTask = async () => {
         singleClick();
         const updated = !enabled;
@@ -84,35 +84,34 @@ export default function HvacActivity(props) {
         <ExpansionPanel className="task-panel" expanded={open} onChange={() => { setOpen(!open) }}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                 <div className="alarm-summary-panel">
+                    <div className="alarm-setting-group">
+                        <p className="text activity-group-name">{props.task.task_type}</p>
+                    </div>
                     <div className="alarm-setting-group" data-testid="light-alarm-group">
-                        <div className="settings-row alarm-column-one">
-                            <p className="setting panel-header-text alarm-time">{`${startTime.slice(0, -3)} - ${stopTime.slice(0, -3)}`}</p>
+                        <div className="alarm-column-one">
+                            <p className="panel-header-text alarm-time">{`${startTime.slice(0, -3)} - ${stopTime.slice(0, -3)}`}</p>
                         </div>
-                        <div className="settings-row alarm-column-two">
-                            <p className="setting text alarm-group-name">{props.task.task_type}</p>
+                        <div className="alarm-column-two">
+                            <Switch onClick={(event) => event.stopPropagation()} onFocus={(event) => event.stopPropagation()}
+                                checked={enabled} onChange={toggleTask} color="primary" inputProps={{ 'aria-label': 'primary checkbox' }} />
                         </div>
                     </div>
                     <div className="alarm-setting-group">
-                        <div className="settings-row alarm-column-one">
-                            <p className="setting text measure-unit">{days}</p>
+                        <div className="alarm-column-one">
+                            <p className="text activity-subtext">{days}</p>
                         </div>
-                        <div className="settings-row alarm-column-two">
-                            <Switch className="task-switch" onClick={(event) => event.stopPropagation()} onFocus={(event) => event.stopPropagation()}
-                                checked={enabled} onChange={toggleTask} color="primary" inputProps={{ 'aria-label': 'primary checkbox' }} />
-                        </div>
-
                     </div>
                 </div>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails className="center">
                 <div>
-                    <div className="settings-row">
+                    <div>
                         <div className="picker-row">
                             <TimePicker initialTime={startTime} setTime={updateStartTime} label="start time" />
                             <TimePicker initialTime={stopTime} setTime={updateStopTime} label="stop time" />
                         </div>
                     </div>
-                    <div className="settings-row">
+                    <div>
                         <div className="picker-row">
                             <TempPicker value={inTemp} onChange={setInTemp} label="Start Temp" />
                             <TempPicker value={outTemp} onChange={setOutTemp} label="Stop Temp" />

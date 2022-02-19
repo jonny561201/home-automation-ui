@@ -79,23 +79,22 @@ export default function LightActivity(props) {
             <ExpansionPanel className="task-panel" expanded={open} onChange={() => { setOpen(!open) }}>
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <div className="alarm-summary-panel">
+                        <div className="alarm-setting-group">
+                            <p className="text activity-group-name">{props.task.task_type}</p>
+                        </div>
                         <div className="alarm-setting-group" data-testid="light-alarm-group">
-                            <div className="settings-row alarm-column-one">
-                                <p className="setting panel-header-text alarm-time">{time.slice(0, -3)}</p>
+                            <div className="alarm-column-one">
+                                <p className="panel-header-text alarm-time">{time.slice(0, -3)}</p>
                             </div>
-                            <div className="settings-row alarm-column-two">
-                                <p className="setting text alarm-group-name">{props.task.task_type}</p>
+                            <div className="alarm-column-two">
+                                <Switch onClick={(event) => event.stopPropagation()} onFocus={(event) => event.stopPropagation()}
+                                    checked={enabled} onChange={toggleTask} color="primary" inputProps={{ 'aria-label': 'primary checkbox' }} />
                             </div>
                         </div>
                         <div className="alarm-setting-group">
-                            <div className="settings-row alarm-column-one">
-                                <p className="setting text measure-unit">{days}</p>
+                            <div className="alarm-column-one">
+                                <p className="text activity-subtext">{days}</p>
                             </div>
-                            <div className="settings-row alarm-column-two">
-                                <Switch className="task-switch" onClick={(event) => event.stopPropagation()} onFocus={(event) => event.stopPropagation()}
-                                    checked={enabled} onChange={toggleTask} color="primary" inputProps={{ 'aria-label': 'primary checkbox' }} />
-                            </div>
-
                         </div>
                     </div>
                 </ExpansionPanelSummary>
