@@ -15,7 +15,7 @@ export default function Settings() {
     const [state,] = useContext(Context);
     const [isAutoMode, setIsAutoMode] = useState(false);
     const [darkMode, setDarkMode] = useState(false);
-    const [isEditMode, setEditMode] = useState();
+    const [isEditMode, setEditMode] = useState(false);
 
     useEffect(() => {
         setDarkMode(localStorage.getItem('theme') === 'theme-dark');
