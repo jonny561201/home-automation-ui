@@ -6,7 +6,7 @@ import { setTheme } from './utilities/Services';
 
 
 export default function App() {
-  const theme = localStorage.getItem('theme');
+  const theme = localStorage.hasOwnProperty('theme') ? localStorage.getItem('theme') : 'theme-light';
   setTheme(theme);
 
   return (
