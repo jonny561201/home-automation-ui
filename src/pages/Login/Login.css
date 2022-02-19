@@ -4,7 +4,7 @@
 }
 
 .login-menu {
-    border-radius: 20px;
+    border-radius: 10px;
     background-color: var(--primary-color);
     min-height: 550px;
     min-width: 350px;
@@ -30,15 +30,10 @@
     }
 }
 
-/* .login-header:hover {
-    height: 4rem;
-    transition: 0.5s ease-out;
-} */
-
 .login-header {
     padding: 1rem;
     flex-grow: 1;
-    border-radius: 20px 20px 0px 0px;
+    border-radius: 10px 10px 0px 0px;
     background-color: #00c774;
     display: flex;
     flex-direction: column;
