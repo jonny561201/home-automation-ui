@@ -104,7 +104,7 @@ export default function HvacActivity(props) {
                 </div>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails className="center">
-                <div>
+                <div className="activity-detail-panel">
                     <div>
                         <div className="picker-row">
                             <TimePicker initialTime={startTime} setTime={updateStartTime} label="start time" />

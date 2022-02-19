@@ -99,7 +99,7 @@ export default function LightActivity(props) {
                     </div>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className="center">
-                    <div>
+                    <div className="activity-detail-panel">
                         <div style={{ display: 'flex' }}>
                             <TextField data-testid="task-type" className="light-alarm-component" select variant="outlined" value={type} onChange={updateSelectedType} label="Task Type">
                                 {state.taskTypes.map(x => (
