@@ -65,8 +65,10 @@ export default function AddGarage(props) {
                 ? <div>
                     <div className="device-group">
                         <div className="device-group">
-                            <CheckCircle className="success-text" />
-                            <h2 className="device-text text success-text">Successfully Added</h2>
+                            <div className="border-success-icon">
+                                <CheckCircle className="garage-success-text" />
+                            </div>
+                            <h2 className="device-text text garage-success-text">Successfully Added</h2>
                         </div>
                         <CloseIcon data-testid={"garage-close-button"} onClick={() => props.close()} className="close-icon" />
                     </div>

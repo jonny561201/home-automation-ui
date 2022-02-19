@@ -1,14 +1,19 @@
-.success-text {
+.garage-success-text {
     color: #055219;
     align-self: center;
-    /* margin-left: 0.25rem; */
-    /* margin-right: 0.25rem; */
+}
+
+.border-success-icon {
+    border-radius: 40px;
+    background-color: white;
+    height: 1.5rem;
+    width: 1.5rem;
+    align-self: center;
 }
 
 .device-text {
     margin-left: 1rem;
 }
-
 
 .device-group {
     display: flex;
