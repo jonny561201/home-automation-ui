@@ -134,7 +134,20 @@ describe('LightSwitch', () => {
             await act(async () => {
                 fireEvent.click(screen.getByRole('button', { name: group.groupName }));
             });
-            expect(spySetGroup).toHaveBeenCalledWith(bearer, group.groupId, !group.on);
+            expect(spySetGroup).toHaveBeenCalledWith(bearer, group.groupId, false);
+        });
+
+        it('should call api to turn on light when button clicked', async () => {
+            const newGroup = {
+                'groupId': '1', 'groupName': groupName, 'on': false,
+                'brightness': 155, 'lights': [{'lightName': 'test lamp'}]
+            }
+
+            await renderComponent(newGroup);
+            await act(async () => {
+                fireEvent.click(screen.getByRole('button', { name: group.groupName }));
+            });
+            expect(spySetGroup).toHaveBeenCalledWith(bearer, group.groupId, true);
         });
     });
 })
