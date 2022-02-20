@@ -22,10 +22,6 @@ export default function Settings() {
         setIsAutoMode(localStorage.getItem('auto-theme') === 'true');
     });
 
-    const toggleEditMode = () => {
-        setEditMode(!isEditMode);
-    }
-
     const toggleTheme = () => {
         toggleDarkMode()
         setDarkMode(!darkMode);
@@ -62,8 +58,8 @@ export default function Settings() {
                         </FormControl>
                     </div>
                     {isEditMode
-                        ? <SettingsEditPanel setEditMode={setEditMode} />
-                        : <SettingsPanel toggleEdit={toggleEditMode} />
+                        ? <SettingsEditPanel setEditMode={() => setEditMode(!isEditMode)} />
+                        : <SettingsPanel toggleEdit={() => setEditMode(!isEditMode)} />
                     }
                 </div>
             </div>
