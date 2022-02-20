@@ -1,19 +1,21 @@
 import React from 'react';
 import * as lib from '../../../utilities/RestApi';
-import LightActivity from '../../../pages/Activities/LightActivity';
 import { render, screen, act, fireEvent } from '@testing-library/react';
 import { Context } from '../../../state/Store';
+import HvacActivity from '../../../pages/Activities/HvacActivity';
 
-describe('Light Activity Panel', () => {
+process.env.DEBUG_PRINT_LIMIT = 100000
+
+describe('HVAC Activity Panel', () => {
     const days = 'Mon';
-    const groupId = '3';
     const userId = 'abc123';
     const taskId = 'kasdf9sf';
     const bearer = 'akjsdf783e';
     const groupName = 'Bedroom';
-    const alarmTime = '01:00:00';
+    const hvacStart = '01:00:00';
+    const hvacStop = '14:00:00';
     const taskType = 'turn off';
-    const task = { task_id: taskId, alarm_group_name: groupName, alarm_days: days, alarm_time: alarmTime, alarm_light_group: groupId, enabled: true, task_type: taskType };
+    const task = { task_id: taskId, alarm_group_name: groupName, alarm_days: days, hvac_start: hvacStart, hvac_stop: hvacStop, enabled: true, task_type: taskType };
 
     const spyDelete = jest.spyOn(lib, 'deleteScheduledTask');
     const spyUpdate = jest.spyOn(lib, 'updateScheduledTasks');
@@ -22,7 +24,7 @@ describe('Light Activity Panel', () => {
         await act(async () => {
             render(
                 <Context.Provider value={[{ user: { userId: userId }, auth: { bearer: bearer }, taskTypes: [taskType] }, () => { }]}>
-                    <LightActivity deleteTask={() => { }} task={task} />
+                    <HvacActivity deleteTask={() => { }} task={task} />
                 </Context.Provider>
             );
         });
@@ -33,15 +35,15 @@ describe('Light Activity Panel', () => {
         spyUpdate.mockClear();
     })
 
-    it('should display the event type and affected lights stored in state', async () => {
+    it('should display the event type stored in state', async () => {
         await renderComponent();
-        const actual = screen.getByText(`${task.task_type} - ${task.alarm_group_name}`);
+        const actual = screen.getByText(`${task.task_type}`);
         expect(actual).toBeTruthy();
     });
 
     it('should display the current alarm time setting stored in state', async () => {
         await renderComponent();
-        const actual = screen.getByText('01:00');
+        const actual = screen.getByText('01:00 - 14:00');
         expect(actual).toBeTruthy();
     });
 
@@ -73,20 +75,49 @@ describe('Light Activity Panel', () => {
             expect(actual).toEqual('Delete');
         });
 
-        it('should display the time picker when expansion panel opened', async () => {
+        it('should display the start time header', async () => {
             await renderComponent();
-            fireEvent.click(screen.getByTestId('light-alarm-group'))
-            const actual = screen.getByTestId('time-picker');
+            await act(async () => {
+                fireEvent.click(screen.getByTestId('light-alarm-group'))
+            });
+            const actual = screen.getByText('start time');
             expect(actual).toBeTruthy();
         });
 
-        it('should display the task type combobox', async () => {
+        it('should display the stop time header', async () => {
             await renderComponent();
             await act(async () => {
-                fireEvent.click(screen.getByTestId('light-alarm-group'));
+                fireEvent.click(screen.getByTestId('light-alarm-group'))
             });
-            const actual = screen.getByTestId('task-type');
+            const actual = screen.getByText('stop time');
             expect(actual).toBeTruthy();
+        });
+
+        it('should display the Start Temp header', async () => {
+            await renderComponent();
+            await act(async () => {
+                fireEvent.click(screen.getByTestId('light-alarm-group'))
+            });
+            const actual = screen.getByText('Start Temp');
+            expect(actual).toBeTruthy();
+        });
+
+        it('should display the Stop Temp header', async () => {
+            await renderComponent();
+            await act(async () => {
+                fireEvent.click(screen.getByTestId('light-alarm-group'))
+            });
+            const actual = screen.getByText('Stop Temp');
+            expect(actual).toBeTruthy();
+        });
+
+        it('should display the start time and stop time picker when expansion panel opened', async () => {
+            await renderComponent();
+            await act(async () => {
+                fireEvent.click(screen.getByTestId('light-alarm-group'))
+            });
+            const actual = screen.getAllByTestId('time-picker');
+            expect(actual.length).toEqual(2);
         });
 
         it('should make api call to delete task when delete button clicked', async () => {
@@ -100,7 +131,7 @@ describe('Light Activity Panel', () => {
             await renderComponent();
             fireEvent.click(screen.getByText('F'));
             fireEvent.click(screen.getByText('Update'));
-            const request = { 'taskId': taskId, 'alarmLightGroup': groupId, 'alarmGroupName': groupName, 'alarmDays': 'MonFri', 'alarmTime': alarmTime, 'enabled': true, 'taskType': 'turn off' };
+            const request = { 'taskId': taskId, 'alarmGroupName': groupName, 'alarmDays': 'MonFri', 'hvacStart': hvacStart, 'hvacStop': hvacStop, 'enabled': true, 'taskType': 'turn off' };
             expect(spyUpdate).toHaveBeenCalledWith(userId, bearer, request);
         });
 

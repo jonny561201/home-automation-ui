@@ -80,7 +80,7 @@ export default function LightActivity(props) {
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <div className="alarm-summary-panel">
                         <div className="alarm-setting-group">
-                            <p className="text activity-group-name">{props.task.task_type}</p>
+                            <p className="text activity-group-name">{props.task.task_type} - {props.task.alarm_group_name}</p>
                         </div>
                         <div className="alarm-setting-group" data-testid="light-alarm-group">
                             <div className="alarm-column-one">
