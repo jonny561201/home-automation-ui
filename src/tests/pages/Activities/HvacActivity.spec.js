@@ -4,7 +4,6 @@ import { render, screen, act, fireEvent } from '@testing-library/react';
 import { Context } from '../../../state/Store';
 import HvacActivity from '../../../pages/Activities/HvacActivity';
 
-process.env.DEBUG_PRINT_LIMIT = 100000
 
 describe('HVAC Activity Panel', () => {
     const days = 'Mon';
@@ -73,6 +72,21 @@ describe('HVAC Activity Panel', () => {
             fireEvent.click(screen.getByTestId('light-alarm-group'))
             const actual = screen.getByText('Delete').textContent;
             expect(actual).toEqual('Delete');
+        });
+
+        it('should display the days of the week buttons', async () => {
+            await renderComponent();
+            fireEvent.click(screen.getByTestId('light-alarm-group'))
+            const friday = screen.getByText('F');
+            const monday = screen.getByText('M');
+            const wednesday = screen.getByText('W');
+            const satSun = screen.getAllByText('S');
+            const tueThu = screen.getAllByText('T');
+            expect(friday).toBeTruthy();
+            expect(tueThu).toBeTruthy();
+            expect(monday).toBeTruthy();
+            expect(wednesday).toBeTruthy();
+            expect(satSun).toBeTruthy();
         });
 
         it('should display the start time header', async () => {
