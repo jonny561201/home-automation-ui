@@ -19,7 +19,7 @@
     "react-transform-hmr": "^1.0.4",
     "react-transition-group": "^4.4.1",
     "redbox-react": "^1.6.0",
-    "sunrise-sunset-js": "^2.1.2",
+    "sunrise-sunset-js": "2.2.1",
     "use-sound": "2.0.1"
   },
   "devDependencies": {
