@@ -4,7 +4,7 @@ import SettingsPanel from './SettingsPanel';
 import Header from '../../components/header/Header';
 import { getStore } from '../../state/GlobalState';
 import SettingsEditPanel from './SettingsEditPanel';
-import { setTheme, toggleDarkMode, isNightTime } from '../../utilities/Services';
+import { setTheme, toggleDarkMode, isDayLight } from '../../utilities/Services';
 import { CoolSwitch, HeatSwitch } from '../../components/controls/Switches';
 import { FormControlLabel, FormControl } from '@material-ui/core';
 import './Settings.css'
@@ -30,9 +30,9 @@ export default function Settings() {
     const toggleAutoTheme = () => {
         localStorage.setItem('auto-theme', !isAutoMode);
         setIsAutoMode(!isAutoMode);
-        isNightTime(state.garageCoords, state.userCoords)
-            ? setTheme('theme-dark')
-            : setTheme('theme-light')
+        isDayLight(state.garageCoords, state.userCoords)
+            ? setTheme('theme-light')
+            : setTheme('theme-dark')
         if (!isAutoMode === false && !darkMode)
             setTheme('theme-light');
     }

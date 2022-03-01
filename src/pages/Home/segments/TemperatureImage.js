@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { isNightTime } from '../../../utilities/Services';
+import { isDayLight } from '../../../utilities/Services';
 import { useInterval } from '../../../utilities/UseInterval';
 import { Context } from '../../../state/Store';
 import ClearIcon from '../../../resources/weatherIcons/sunny.png';
@@ -27,12 +27,12 @@ export default function TemperatureImage() {
     const [weatherDesc, setWeatherDesc] = useState("");
 
     useEffect(() => {
-        setIsNight(isNightTime(state.garageCoords, state.userCoords));
+        setIsNight(!isDayLight(state.garageCoords, state.userCoords));
         getWeatherImage();
     });
 
     useInterval(() => {
-        setIsNight(isNightTime(state.garageCoords, state.userCoords));
+        setIsNight(!isDayLight(state.garageCoords, state.userCoords));
         getWeatherImage();
     }, 20000);
 

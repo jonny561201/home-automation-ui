@@ -4,7 +4,7 @@ import AccountIcon from './AccountIcon';
 import { Context } from '../../state/Store';
 import AccountMenu from '../header/AccountMenu';
 import { getStore } from '../../state/GlobalState';
-import { setTheme, isNightTime } from '../../utilities/Services';
+import { setTheme, isDayLight } from '../../utilities/Services';
 import { useInterval } from '.././../utilities/UseInterval';
 import UserLocation from '../../pages/Home/segments/UserLocation';
 import './Header.css';
@@ -22,9 +22,9 @@ export default function Header() {
     useInterval(async () => {
         const isAuto = localStorage.getItem('auto-theme');
         if (isAuto === 'true') {
-            isNightTime(state.garageCoords, state.userCoords)
-                ? setTheme('theme-dark')
-                : setTheme('theme-light')
+            isDayLight(state.garageCoords, state.userCoords)
+                ? setTheme('theme-light')
+                : setTheme('theme-dark')
         }
     }, 60000);
 
