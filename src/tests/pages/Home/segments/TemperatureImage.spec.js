@@ -1,6 +1,6 @@
 import React from 'react';
 import { Context } from '../../../../state/Store';
-import * as lib from 'sunrise-sunset-js';
+import * as lib from '../../../../utilities/Services';
 import TemperatureImage from '../../../../pages/Home/segments/TemperatureImage';
 import { render, screen, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
@@ -10,8 +10,7 @@ describe('TemperatureImage', () => {
     const coords = { latitude: 1, longitude: -1 };
     const internalTemp = 73;
     const externalTemp = 33;
-    const spyRise = jest.spyOn(lib, 'getSunrise');
-    const spySet = jest.spyOn(lib, 'getSunset');
+    const isDayLight = jest.spyOn(lib, 'isDayLight');
     const tempData = { currentTemp: internalTemp };
     const forecastData = { temp: externalTemp }
 
@@ -27,15 +26,13 @@ describe('TemperatureImage', () => {
     }
 
     beforeEach(() => {
-        spyRise.mockClear();
-        spySet.mockClear();
+        isDayLight.mockClear();
     });
 
     describe('day time', () => {
 
         beforeEach(() => {
-            const now = new Date();
-            spySet.mockReturnValue(new Date(now.setTime(now.getTime() + 86400000)));
+            isDayLight.mockReturnValue(true);
         });
 
         it('should show the rounded external temperature', async () => {
@@ -254,10 +251,7 @@ describe('TemperatureImage', () => {
     describe('night time', () => {
 
         beforeEach(() => {
-            const firstNow = new Date();
-            const secondNow = new Date();
-            spySet.mockReturnValue(new Date(firstNow.setTime(firstNow.getTime() - 20 * 86400000)));
-            spyRise.mockReturnValue(new Date(secondNow.setTime(secondNow.getTime() + 20 * 86400000)));
+            isDayLight.mockReturnValue(false);
         });
 
         it('should show partly cloudy night icon when few clouds at night', async () => {
