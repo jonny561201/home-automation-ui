@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/home-automation-ui/static/css/main.6f61d89e.css",
-    "main.js": "/home-automation-ui/static/js/main.da93828a.js",
+    "main.js": "/home-automation-ui/static/js/main.a475b3a3.js",
     "static/js/845.ed4cab5d.chunk.js": "/home-automation-ui/static/js/845.ed4cab5d.chunk.js",
     "static/media/CompanyLogo.png": "/home-automation-ui/static/media/CompanyLogo.dbd96a9946fcb0d3cd53.png",
     "static/media/thunderstorm.png": "/home-automation-ui/static/media/thunderstorm.30c83f95b799be325ee4.png",
@@ -33,11 +33,11 @@
     "static/media/singleClick.mp3": "/home-automation-ui/static/media/singleClick.4b7e387e503fce348bc8.mp3",
     "index.html": "/home-automation-ui/index.html",
     "main.6f61d89e.css.map": "/home-automation-ui/static/css/main.6f61d89e.css.map",
-    "main.da93828a.js.map": "/home-automation-ui/static/js/main.da93828a.js.map",
+    "main.a475b3a3.js.map": "/home-automation-ui/static/js/main.a475b3a3.js.map",
     "845.ed4cab5d.chunk.js.map": "/home-automation-ui/static/js/845.ed4cab5d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6f61d89e.css",
-    "static/js/main.da93828a.js"
+    "static/js/main.a475b3a3.js"
   ]
 }
