@@ -3,7 +3,7 @@ import { getStore } from '../state/GlobalState';
 
 
 // const baseUrl = 'http://localhost:5000';
-const baseUrl = 'https://www.soaringleafsolutions.com';
+const baseUrl = 'https://www.home.soaringleafsolutions.com';
 const accountBaseUrl = `${baseUrl}/account`;
 const deviceBaseUrl = `${baseUrl}/devices`;
 const garageBaseUrl = `${baseUrl}/garageDoor`;
