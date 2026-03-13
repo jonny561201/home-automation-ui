@@ -87,7 +87,7 @@ export default function StateUtil() {
 
     const getActivities = async () => {
         const activities = await getScheduledTasks(state.user.userId, state.auth.bearer);
-        dispatch({ type: 'SET_SCHEDULED_TASK', payload: activities });
+        dispatch({ type: 'SET_SCHEDULED_TASK', payload: activities.tasks });
     }
 
     const getLights = async () => {
