@@ -28,49 +28,49 @@ export default function AccountSettings(props) {
     const getLinks = () => {
         if (activePage === "Home Automation") {
             return <div>
-                <Link to='/home-automation-ui/activities'>
+                <Link to='/activities'>
                     <li><div className="account-button">Activities</div></li>
                 </Link>
-                <Link to='/home-automation-ui/settings'>
+                <Link to='/settings'>
                     <li><div className="account-button">Settings</div></li>
                 </Link>
-                <Link to='/home-automation-ui/account'>
+                <Link to='/account'>
                     <li><div className="account-button">Account</div></li>
                 </Link>
             </div>
         } else if (activePage === "Settings") {
             return <div>
-                <Link to='/home-automation-ui/home'>
+                <Link to='/home'>
                     <li><div className="account-button">Home</div></li>
                 </Link>
-                <Link to='/home-automation-ui/activities'>
+                <Link to='/activities'>
                     <li><div className="account-button">Activities</div></li>
                 </Link>
-                <Link to='/home-automation-ui/account'>
+                <Link to='/account'>
                     <li><div className="account-button">Account</div></li>
                 </Link>
             </div>
         } else if (activePage === "Activities") {
             return <div>
-                <Link to='/home-automation-ui/home'>
+                <Link to='/home'>
                     <li><div className="account-button">Home</div></li>
                 </Link>
-                <Link to='/home-automation-ui/settings'>
+                <Link to='/settings'>
                     <li><div className="account-button">Settings</div></li>
                 </Link>
-                <Link to='/home-automation-ui/account'>
+                <Link to='/account'>
                     <li><div className="account-button">Account</div></li>
                 </Link>
             </div>
         } else {
             return <div>
-                <Link to='/home-automation-ui/home'>
+                <Link to='/home'>
                     <li><div className="account-button">Home</div></li>
                 </Link>
-                <Link to='/home-automation-ui/activities'>
+                <Link to='/activities'>
                     <li><div className="account-button">Activities</div></li>
                 </Link>
-                <Link to='/home-automation-ui/settings'>
+                <Link to='/settings'>
                     <li><div className="account-button">Settings</div></li>
                 </Link>
             </div>
@@ -82,7 +82,7 @@ export default function AccountSettings(props) {
             <ul className="text">{getLinks()}</ul>
             <Divider />
             <ul>
-                <Link to='/home-automation-ui'>
+                <Link to='/'>
                     <li><div className="account-button" onClick={logOut}>Sign Out</div></li>
                 </Link>
             </ul>

@@ -15,12 +15,12 @@ export default function Routes() {
   return (
     <Router>
       <header className="App-header" data-testid="app-routes">
-        <Route exact path="/home-automation-ui" render={() => <Login />} />
+        <Route exact path="/" render={() => <Login />} />
         <div>
-          <PrivateRoute authed={state.auth.isAuthenticated} path='/home-automation-ui/home' component={Home} />
-          <PrivateRoute authed={state.auth.isAuthenticated} path='/home-automation-ui/activities' component={Activities} />
-          <PrivateRoute authed={state.auth.isAuthenticated} path='/home-automation-ui/settings' component={Settings} />
-          <PrivateRoute authed={state.auth.isAuthenticated} path='/home-automation-ui/account' component={Account} />
+          <PrivateRoute authed={state.auth.isAuthenticated} path='/home' component={Home} />
+          <PrivateRoute authed={state.auth.isAuthenticated} path='/activities' component={Activities} />
+          <PrivateRoute authed={state.auth.isAuthenticated} path='/settings' component={Settings} />
+          <PrivateRoute authed={state.auth.isAuthenticated} path='/account' component={Account} />
         </div>
       </header>
     </Router>

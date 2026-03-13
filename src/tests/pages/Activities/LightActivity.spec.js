@@ -73,6 +73,21 @@ describe('Light Activity Panel', () => {
             expect(actual).toEqual('Delete');
         });
 
+        it('should display the days of the week buttons', async () => {
+            await renderComponent();
+            fireEvent.click(screen.getByTestId('light-alarm-group'))
+            const friday = screen.getByText('F');
+            const monday = screen.getByText('M');
+            const wednesday = screen.getByText('W');
+            const satSun = screen.getAllByText('S');
+            const tueThu = screen.getAllByText('T');
+            expect(friday).toBeTruthy();
+            expect(tueThu).toBeTruthy();
+            expect(monday).toBeTruthy();
+            expect(wednesday).toBeTruthy();
+            expect(satSun).toBeTruthy();
+        });
+
         it('should display the time picker when expansion panel opened', async () => {
             await renderComponent();
             fireEvent.click(screen.getByTestId('light-alarm-group'))
@@ -104,7 +119,7 @@ describe('Light Activity Panel', () => {
             expect(spyUpdate).toHaveBeenCalledWith(userId, bearer, request);
         });
 
-        it('should updated the displayed selected days of the week on the event banner', async () => {
+        it('should update the displayed selected days of the week on the event banner', async () => {
             spyUpdate.mockReturnValue({ ok: true })
             await renderComponent();
             fireEvent.click(screen.getByText('F'));
