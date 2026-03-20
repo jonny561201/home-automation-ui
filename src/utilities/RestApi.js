@@ -37,13 +37,13 @@ export const getRefreshedBearerToken = async (refreshToken) => {
     return await fetch(`${baseUrl}/token`, options);
 }
 
-export const getGarageStatus = async (userId, bearer, garageId) => {
+export const getGarageStatus = async (bearer, garageId) => {
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
-    const response = await fetch(`${garageBaseUrl}/${garageId}/user/${userId}/status`, options);
+    const response = await fetch(`${garageBaseUrl}/${garageId}/status`, options);
     return await response.json();
 }
 
-export const updateGarageState = async (userId, bearer, shouldOpen, garageId) => {
+export const updateGarageState = async (bearer, shouldOpen, garageId) => {
     const request = { 'garageDoorOpen': shouldOpen };
     const options = {
         method: 'POST',
@@ -54,7 +54,7 @@ export const updateGarageState = async (userId, bearer, shouldOpen, garageId) =>
     return await response.json();
 }
 
-export const toggleGarageDoor = async (userId, bearer, garageId) => {
+export const toggleGarageDoor = async (bearer, garageId) => {
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } }
     return await fetch(`${garageBaseUrl}/${garageId}/toggle`, options);
 }
@@ -88,20 +88,20 @@ export const getUserForecast = async (userId, bearer) => {
     return await response.json();
 }
 
-export const getUserPreferences = async (userId, bearer) => {
+export const getUserPreferences = async (bearer) => {
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
-    const response = await fetch(`${baseUrl}/userId/${userId}/preferences`, options);
+    const response = await fetch(`${baseUrl}/preferences`, options);
     return await response.json();
 }
 
-export const updateUserPreferences = async (userId, bearer, request) => {
+export const updateUserPreferences = async (bearer, request) => {
     const options = {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
         body: JSON.stringify(request)
     }
 
-    return await fetch(`${baseUrl}/userId/${userId}/preferences/update`, options);
+    return await fetch(`${baseUrl}/preferences/update`, options);
 }
 
 export const getLightGroups = async (bearer) => {

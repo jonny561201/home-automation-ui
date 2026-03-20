@@ -57,11 +57,11 @@ describe('RestApi', () => {
             const response = { 'isGarageOpen': true };
             const options = { "method": "GET", "headers": { 'Authorization': `Bearer ${bearerToken2}` } };
 
-            fetchMock.mock(`${baseUrl}/garageDoor/${garageId}/user/${userId}/status`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/garageDoor/${garageId}/status`, response, options).catch(unmatchedUrl => {
                 return { status: 400 };
             });
 
-            const actual = await getGarageStatus(userId, bearerToken2, garageId);
+            const actual = await getGarageStatus(bearerToken2, garageId);
             expect(actual.isGarageOpen).toEqual(true);
         });
 
@@ -69,22 +69,22 @@ describe('RestApi', () => {
             const response = { 'garageDoorOpen': false };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': { "garageDoorOpen": false } };
 
-            fetchMock.mock(`${baseUrl}/garageDoor/${garageId}/user/${userId}/state`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/garageDoor/${garageId}/state`, response, options).catch(unmatchedUrl => {
                 return { status: 400 };
             });
 
-            const actual = await updateGarageState(userId, bearerToken2, false, garageId);
+            const actual = await updateGarageState(bearerToken2, false, garageId);
             expect(actual.garageDoorOpen).toEqual(false);
         });
 
         it('should make rest call to toggle garage door state', async () => {
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } }
 
-            fetchMock.mock(`${baseUrl}/garageDoor/${garageId}/user/${userId}/toggle`, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/garageDoor/${garageId}/toggle`, options).catch(unmatchedUrl => {
                 return { status: 400 };
             });
 
-            const actual = await toggleGarageDoor(userId, bearerToken2, garageId);
+            const actual = await toggleGarageDoor(bearerToken2, garageId);
             expect(actual.status).toEqual(200);
         });
 
@@ -146,32 +146,30 @@ describe('RestApi', () => {
         });
 
         it('should query the user settings', async () => {
-            const userId = 'abc1234';
             const expectedUnit = 'imperial';
             const response = { 'unit': expectedUnit, 'city': 'Des Moines', 'is_fahrenheit': true };
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
 
-            fetchMock.mock(`${baseUrl}/userId/${userId}/preferences`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/preferences`, response, options).catch(unmatchedUrl => {
                 return { status: 400 };
             });
 
-            const actual = await getUserPreferences(userId, bearerToken2);
+            const actual = await getUserPreferences(bearerToken2);
             expect(actual.unit).toEqual(expectedUnit);
         });
 
         it('should make rest call to post user preferences', async () => {
-            const userId = 'abc12345';
             const request = { 'isFahrenheit': true, 'isImperial': true, 'city': 'Praha', 'garageDoor': 1 }
             const options = {
                 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` },
                 'body': { 'isFahrenheit': true, 'city': 'Praha', 'isImperial': false }
             }
 
-            fetchMock.mock(`${baseUrl}/userId/${userId}/preferences/update`, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/preferences/update`, options).catch(unmatchedUrl => {
                 return { status: 400 };
             });
 
-            const actual = await updateUserPreferences(userId, bearerToken2, request);
+            const actual = await updateUserPreferences(bearerToken2, request);
 
             expect(actual.status).toEqual(200);
         });

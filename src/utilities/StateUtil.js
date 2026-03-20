@@ -81,7 +81,7 @@ export default function StateUtil() {
     }
 
     const getPreferences = async () => {
-        const preferences = await getUserPreferences(state.user.userId, state.auth.bearer);
+        const preferences = await getUserPreferences(state.auth.bearer);
         dispatch({ type: 'SET_USER_PREFERENCES', payload: preferences })
     }
 

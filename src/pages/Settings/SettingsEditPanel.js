@@ -23,7 +23,7 @@ export default function SettingsEditPanel(props) {
         const isFahrenheit = newTempUnit === "fahrenheit";
         const isImperial = newMeasureUnit === "imperial";
         const request = { isImperial, isFahrenheit, 'city': newCity, 'garageDoor': garage, 'garageId': garageId };
-        updateUserPreferences(state.user.userId, state.auth.bearer, request);
+        updateUserPreferences(state.auth.bearer, request);
 
         dispatch({ type: 'SET_USER_PREFERENCES', payload: { ...state.preferences, city: newCity, temp_unit: newTempUnit, measure_unit: newMeasureUnit, garage_id: garageId, garage_door: garage } });
         props.setEditMode(false);
