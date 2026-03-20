@@ -1,3 +1,4 @@
+//TODO: kill this off
 class GlobalState {
     constructor() {
         this.state = {
