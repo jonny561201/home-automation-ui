@@ -14,6 +14,7 @@ export default function UserLocation() {
     const [state, dispatch] = useContext(Context);
     const [cancel, setCancel] = useState(false);
     const [opened, setOpened] = useState(false);
+    const [notified, setNotified] = useState(false);
     const [firstCheck, setFirstCheck] = useState(false);
     const [secondCheck, setSecondCheck] = useState(false);
     const [displayMenu, setDisplayMenu] = useState(false);
@@ -72,7 +73,11 @@ export default function UserLocation() {
                     updateGarageState(state.user.userId, state.auth.bearer, true, state.preferences.garage_id);
                 }
             }
-        }, (error) => { alert('Enable GPS position feature.') }, { enableHighAccuracy: true });
+        }, (error) => {
+            if (!notified)
+                alert('Enable GPS position feature.');
+            setNotified(true);
+        }, { enableHighAccuracy: true });
     }
 
     return (
