@@ -35,11 +35,11 @@ export default function UserPass() {
             setIsValidLogin(response);
             if (response) {
                 const decodedToken = jwt_decode(response.bearerToken);
-                await dispatch({ type: 'SET_USER_DATA', payload: { userId: decodedToken.user.user_id, firstName: decodedToken.user.first_name, lastName: decodedToken.user.last_name, roles: decodedToken.user.roles } });
-                const garageRole = decodedToken.user.roles.find(x => x.role_name === 'garage_door');
+                await dispatch({ type: 'SET_USER_DATA', payload: { userId: decodedToken.sub, firstName: decodedToken.first_name, lastName: decodedToken.last_name, roles: decodedToken.roles } });
+                const garageRole = decodedToken.roles.find(x => x.role_name === 'garage_door');
                 await dispatch({ type: 'SET_GARAGE_ROLE', payload: garageRole });
-                await dispatch({ type: 'SET_DEVICES_TO_REGISTER', payload: unregisteredDevices(decodedToken.user.roles) });
-                await dispatch({ type: 'SET_STARTED_GARAGE_REGISTRATION', payload: garageRole && garageRole.device_id ? true : false });
+                await dispatch({ type: 'SET_DEVICES_TO_REGISTER', payload: unregisteredDevices(decodedToken.roles) });
+                await dispatch({ type: 'SET_STARTED_GARAGE_REGISTRATION', payload: Boolean(garageRole && garageRole.device_id) });
                 await dispatch({ type: 'SET_DEVICE_ID', payload: garageRole && garageRole.device_id ? garageRole.device_id : null });
                 await dispatch({ type: 'SET_AUTH_DATA', payload: { bearer: response.bearerToken, refresh: decodedToken.refresh_token, isAuthenticated: true, exp: decodedToken.exp } });
             }
