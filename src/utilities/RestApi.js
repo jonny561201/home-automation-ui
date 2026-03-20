@@ -47,16 +47,16 @@ export const updateGarageState = async (userId, bearer, shouldOpen, garageId) =>
     const request = { 'garageDoorOpen': shouldOpen };
     const options = {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${bearer}` },
+        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
         body: JSON.stringify(request)
     };
-    const response = await fetch(`${garageBaseUrl}/${garageId}/user/${userId}/state`, options);
+    const response = await fetch(`${garageBaseUrl}/${garageId}/state`, options);
     return await response.json();
 }
 
 export const toggleGarageDoor = async (userId, bearer, garageId) => {
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } }
-    return await fetch(`${garageBaseUrl}/${garageId}/user/${userId}/toggle`, options);
+    return await fetch(`${garageBaseUrl}/${garageId}/toggle`, options);
 }
 
 export const getSumpLevels = async (userId, bearer) => {
@@ -75,7 +75,7 @@ export const setUserTemperature = async (userId, bearer, desiredTemp, mode, isFa
     const request = { 'desiredTemp': desiredTemp, 'mode': mode, 'isFahrenheit': isFahrenheit }
     const options = {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${bearer}` },
+        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
         body: JSON.stringify(request)
     };
 
@@ -97,7 +97,7 @@ export const getUserPreferences = async (userId, bearer) => {
 export const updateUserPreferences = async (userId, bearer, request) => {
     const options = {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${bearer}` },
+        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
         body: JSON.stringify(request)
     }
 
@@ -114,7 +114,7 @@ export const setLightGroupState = async (bearer, groupId, state, brightness = nu
     const request = { 'groupId': groupId, 'on': state, ...(brightness !== null && { 'brightness': brightness }) };
     const options = {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${bearer}` },
+        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
         body: JSON.stringify(request)
     };
 
@@ -125,7 +125,7 @@ export const setLightState = async (bearer, lightId, state, brightness) => {
     const request = { 'lightId': lightId, 'on': state, 'brightness': brightness };
     const options = {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${bearer}` },
+        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
         body: JSON.stringify(request)
     };
 
@@ -136,7 +136,7 @@ export const updateUserAccount = async (userId, bearer, oldPass, newPass) => {
     const request = { 'oldPassword': oldPass, 'newPassword': newPass };
     const options = {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${bearer}` },
+        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
         body: JSON.stringify(request)
     };
 
@@ -147,7 +147,7 @@ export const addUserDevice = async (userId, bearer, roleName, ipAddress) => {
     const request = { 'roleName': roleName, 'ipAddress': ipAddress }
     const options = {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${bearer}` },
+        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
         body: JSON.stringify(request)
     };
     return await fetch(`${deviceBaseUrl}/userId/${userId}/devices`, options);
@@ -157,7 +157,7 @@ export const addUserDeviceNode = async (userId, bearer, deviceId, nodeName, pref
     const request = { 'nodeName': nodeName, 'preferred': preferred };
     const options = {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${bearer}` },
+        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
         body: JSON.stringify(request)
     };
     return await fetch(`${deviceBaseUrl}/userId/${userId}/devices/${deviceId}/node`, options);
@@ -173,7 +173,7 @@ export const addUserChildAccount = async (userId, bearer, email, roles) => {
     const request = { 'email': email, 'roles': roles };
     const options = {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${bearer}` },
+        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
         body: JSON.stringify(request)
     };
     const response = await fetch(`${accountBaseUrl}/userId/${userId}/createChildAccount`, options);
@@ -206,7 +206,7 @@ export const insertLightTask = async (userId, bearer, enabled, taskType, alarmLi
     const request = { 'alarmLightGroup': alarmLightGroup, 'alarmGroupName': alarmGroupName, 'alarmDays': alarmDays, 'alarmTime': alarmTime, 'enabled': enabled, 'taskType': taskType };
     const options = {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${bearer}` },
+        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
         body: JSON.stringify(request)
     };
     const response = await fetch(`${baseUrl}/userId/${userId}/tasks`, options);
@@ -217,7 +217,7 @@ export const insertHvacTask = async (userId, bearer, enabled, taskType, hvacMode
     const request = { 'hvacMode': hvacMode, 'hvacStart': hvacStart, 'hvacStop': hvacStop, 'hvacStartTemp': hvacStartTemp, 'hvacStopTemp': hvacStopTemp, 'alarmDays': alarmDays, 'enabled': enabled, 'taskType': taskType };
     const options = {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${bearer}` },
+        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
         body: JSON.stringify(request)
     };
     const response = await fetch(`${baseUrl}/userId/${userId}/tasks`, options);
@@ -227,7 +227,7 @@ export const insertHvacTask = async (userId, bearer, enabled, taskType, hvacMode
 export const updateScheduledTasks = async (userId, bearer, request) => {
     const options = {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${bearer}` },
+        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
         body: JSON.stringify(request)
     }
     const response = await fetch(`${baseUrl}/userId/${userId}/tasks/update`, options);
