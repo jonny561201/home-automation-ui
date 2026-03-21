@@ -64,7 +64,7 @@ export default function HvacActivity(props) {
             'taskId': props.task.task_id, 'alarmLightGroup': props.task.alarm_light_group, 'alarmGroupName': props.task.alarm_group_name,
             'alarmDays': days, 'hvacStart': startTime, 'hvacStop': stopTime, 'hvacStartTemp': inTemp, 'hvacStopTemp': outTemp, 'enabled': isEnabled, 'taskType': type
         };
-        const response = await updateScheduledTasks(state.user.userId, state.auth.bearer, request);
+        const response = await updateScheduledTasks(state.auth.bearer, request);
         if (response) {
             dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.task_id });
             dispatch({ type: 'ADD_SCHEDULED_TASK', payload: response });

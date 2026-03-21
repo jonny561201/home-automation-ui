@@ -349,11 +349,11 @@ describe('RestApi', () => {
             const response = [{ 'task_id': 'asdf678', 'alarm_time': '00:00:01', 'alarm_days': 'Mon' }];
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.mock(`${baseUrl}/userId/${userId}/tasks`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/tasks`, response, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
-            const actual = await insertLightTask(userId, bearerToken2, body.enabled, body.taskType, body.alarmLightGroup, body.alarmGroupName, body.alarmDays, body.alarmTime);
+            const actual = await insertLightTask(bearerToken2, body.enabled, body.taskType, body.alarmLightGroup, body.alarmGroupName, body.alarmDays, body.alarmTime);
 
             expect(actual[0].task_id).toEqual(response[0].task_id);
         });
@@ -378,11 +378,11 @@ describe('RestApi', () => {
             const request = { 'taskId': 'abc', 'alarmLightGroup': '1', 'alarmGroupName': 'potty', 'alarmDays': 'Wed', 'alarmTime': '00:23:34', 'enabled': true, 'taskType': 'no' };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': request };
 
-            fetchMock.mock(`${baseUrl}/userId/${userId}/tasks/update`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/tasks/update`, response, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
-            const actual = await updateScheduledTasks(userId, bearerToken2, request);
+            const actual = await updateScheduledTasks(bearerToken2, request);
 
             expect(actual.task_id).toEqual(taskId);
         });

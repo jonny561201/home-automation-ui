@@ -202,14 +202,14 @@ export const getScheduledTasks = async (bearer) => {
     return response.json()
 }
 
-export const insertLightTask = async (userId, bearer, enabled, taskType, alarmLightGroup, alarmGroupName, alarmDays, alarmTime) => {
+export const insertLightTask = async (bearer, enabled, taskType, alarmLightGroup, alarmGroupName, alarmDays, alarmTime) => {
     const request = { 'alarmLightGroup': alarmLightGroup, 'alarmGroupName': alarmGroupName, 'alarmDays': alarmDays, 'alarmTime': alarmTime, 'enabled': enabled, 'taskType': taskType };
     const options = {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
         body: JSON.stringify(request)
     };
-    const response = await fetch(`${baseUrl}/userId/${userId}/tasks`, options);
+    const response = await fetch(`${baseUrl}/tasks`, options);
     return response.json()
 }
 
@@ -224,12 +224,12 @@ export const insertHvacTask = async (bearer, enabled, taskType, hvacMode, hvacSt
     return response.json()
 }
 
-export const updateScheduledTasks = async (userId, bearer, request) => {
+export const updateScheduledTasks = async (bearer, request) => {
     const options = {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
         body: JSON.stringify(request)
     }
-    const response = await fetch(`${baseUrl}/userId/${userId}/tasks/update`, options);
+    const response = await fetch(`${baseUrl}/tasks/update`, options);
     return response.json();
 }

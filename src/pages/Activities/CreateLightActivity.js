@@ -23,7 +23,7 @@ export default function CreateLightActivity(props) {
 
     const saveActivity = async () => {
         if (edited && selectedRoom !== '' && days !== null) {
-            const tasks = await insertLightTask(state.user.userId, state.auth.bearer, true, props.type, groupId, selectedRoom, days, time);
+            const tasks = await insertLightTask(state.auth.bearer, true, props.type, groupId, selectedRoom, days, time);
             dispatch({ type: 'SET_SCHEDULED_TASK', payload: tasks });
             props.save();
             click();
