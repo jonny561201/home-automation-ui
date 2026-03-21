@@ -27,7 +27,7 @@ export default function AccountChildUser() {
     const submitChildAccount = async (event) => {
         event.preventDefault();
         if ((!isEmailInvalid && !isRoleInvalid) && (selectedRole.length !== 0 && email !== null && email !== "")) {
-            const response = await addUserChildAccount(state.user.userId, state.auth.bearer, email, selectedRole);
+            const response = await addUserChildAccount(state.auth.bearer, email, selectedRole);
             setTest(response);
             setEmail("");
             setSelectedRole([]);

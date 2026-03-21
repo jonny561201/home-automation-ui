@@ -285,11 +285,11 @@ describe('RestApi', () => {
             const response = { 'user_name': 'test' }
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.mock(`${baseUrl}/account/userId/${userId}/createChildAccount`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/account/createChildAccount`, response, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
-            const actual = await addUserChildAccount(userId, bearerToken2, body.email, body.roles);
+            const actual = await addUserChildAccount(bearerToken2, body.email, body.roles);
 
             expect(actual).toEqual(response);
         });

@@ -169,14 +169,14 @@ export const getRolesByUserId = async (userId, bearer) => {
     return response.json();
 }
 
-export const addUserChildAccount = async (userId, bearer, email, roles) => {
+export const addUserChildAccount = async (bearer, email, roles) => {
     const request = { 'email': email, 'roles': roles };
     const options = {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
         body: JSON.stringify(request)
     };
-    const response = await fetch(`${accountBaseUrl}/userId/${userId}/createChildAccount`, options);
+    const response = await fetch(`${accountBaseUrl}/createChildAccount`, options);
     return response.json();
 }
 
