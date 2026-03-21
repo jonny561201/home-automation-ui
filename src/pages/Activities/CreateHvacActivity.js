@@ -25,7 +25,7 @@ export default function CreateHvacActivity(props) {
 
     const saveActivity = async () => {
         if (edited && days !== null) {
-            const tasks = await insertHvacTask(state.user.userId, state.auth.bearer, true, props.type, '', startTime, stopTime, inTemp, outTemp, days);
+            const tasks = await insertHvacTask(state.auth.bearer, true, props.type, '', startTime, stopTime, inTemp, outTemp, days);
             dispatch({ type: 'SET_SCHEDULED_TASK', payload: tasks });
             props.save();
             click();

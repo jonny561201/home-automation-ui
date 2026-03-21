@@ -363,11 +363,11 @@ describe('RestApi', () => {
             const response = [{ 'task_id': 'defg12345', 'alarm_time': '00:00:01', 'alarm_days': 'Mon' }];
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.mock(`${baseUrl}/userId/${userId}/tasks`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/tasks`, response, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
-            const actual = await insertHvacTask(userId, bearerToken2, body.enabled, body.taskType, body.hvacMode, body.hvacStart, body.hvacStop, body.hvacStartTemp, body.hvacStopTemp, body.alarmDays);
+            const actual = await insertHvacTask(bearerToken2, body.enabled, body.taskType, body.hvacMode, body.hvacStart, body.hvacStop, body.hvacStartTemp, body.hvacStopTemp, body.alarmDays);
 
             expect(actual[0].task_id).toEqual(response[0].task_id);
         });
