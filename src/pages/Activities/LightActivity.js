@@ -63,7 +63,7 @@ export default function LightActivity(props) {
 
     const clickDelete = async () => {
         click();
-        const response = await deleteScheduledTask(state.user.userId, state.auth.bearer, props.task.task_id);
+        const response = await deleteScheduledTask(state.auth.bearer, props.task.task_id);
         if (response.ok) {
             dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.task_id });
         }

@@ -323,10 +323,10 @@ describe('RestApi', () => {
             const taskId = "abc1234";
             const options = { 'method': 'DELETE', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
 
-            fetchMock.mock(`${baseUrl}/userId/${userId}/tasks/${taskId}`, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/tasks/${taskId}`, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
-            const actual = await deleteScheduledTask(userId, bearerToken2, taskId);
+            const actual = await deleteScheduledTask(bearerToken2, taskId);
 
             expect(actual.status).toEqual(200);
         });

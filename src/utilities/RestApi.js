@@ -191,9 +191,9 @@ export const deleteUserChildAccount = async (userId, bearer, childAccountId) => 
     return await fetch(`${accountBaseUrl}/userId/${userId}/childUserId/${childAccountId}`, options);
 }
 
-export const deleteScheduledTask = async (userId, bearer, taskId) => {
+export const deleteScheduledTask = async (bearer, taskId) => {
     const options = { method: 'DELETE', headers: { 'Authorization': `Bearer ${bearer}` } };
-    return await fetch(`${baseUrl}/userId/${userId}/tasks/${taskId}`, options);
+    return await fetch(`${baseUrl}/tasks/${taskId}`, options);
 }
 
 export const getScheduledTasks = async (bearer) => {
