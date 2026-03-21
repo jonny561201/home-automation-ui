@@ -38,7 +38,7 @@ export default function AccountChildUser() {
     }
 
     const deleteChildUser = async (childUserId) => {
-        const response = await deleteUserChildAccount(state.user.userId, state.auth.bearer, childUserId);
+        const response = await deleteUserChildAccount(state.auth.bearer, childUserId);
         if (response.ok)
             setTest(test.filter(x => x.user_id !== childUserId));
     }

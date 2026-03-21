@@ -311,10 +311,10 @@ describe('RestApi', () => {
             const childAccount = "abc1234";
             const options = { 'method': 'DELETE', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
 
-            fetchMock.mock(`${baseUrl}/account/userId/${userId}/childUserId/${childAccount}`, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/account/childUserId/${childAccount}`, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
-            const actual = await deleteUserChildAccount(userId, bearerToken2, childAccount);
+            const actual = await deleteUserChildAccount(bearerToken2, childAccount);
 
             expect(actual.status).toEqual(200);
         });
