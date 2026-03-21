@@ -163,9 +163,9 @@ export const addUserDeviceNode = async (userId, bearer, deviceId, nodeName, pref
     return await fetch(`${deviceBaseUrl}/userId/${userId}/devices/${deviceId}/node`, options);
 }
 
-export const getRolesByUserId = async (userId, bearer) => {
+export const getRolesByUserId = async (bearer) => {
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
-    const response = await fetch(`${accountBaseUrl}/userId/${userId}/roles`, options);
+    const response = await fetch(`${accountBaseUrl}/roles`, options);
     return response.json();
 }
 

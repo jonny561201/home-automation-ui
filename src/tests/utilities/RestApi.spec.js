@@ -271,11 +271,11 @@ describe('RestApi', () => {
             const response = { 'roles': [{}] };
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
 
-            fetchMock.mock(`${baseUrl}/account/userId/${userId}/roles`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/account/roles`, response, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
-            const actual = await getRolesByUserId(userId, bearerToken2);
+            const actual = await getRolesByUserId(bearerToken2);
 
             expect(actual.roles).toEqual([{}]);
         });

@@ -47,7 +47,7 @@ export default function AddGarage(props) {
     }
 
     const updateRoles = async () => {
-        const userRoles = await getRolesByUserId(state.user.userId, state.auth.bearer);
+        const userRoles = await getRolesByUserId(state.auth.bearer);
         await dispatch({ type: 'SET_USER_DATA', payload: { ...state.user, roles: userRoles.roles } });
         const garageRole = userRoles.roles.find(x => x.role_name === 'garage_door');
         await dispatch({ type: 'SET_GARAGE_ROLE', payload: garageRole });
