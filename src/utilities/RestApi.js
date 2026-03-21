@@ -132,7 +132,7 @@ export const setLightState = async (bearer, lightId, state, brightness) => {
     return await fetch(`${lightBaseUrl}/group/light`, options);
 }
 
-export const updateUserAccount = async (userId, bearer, oldPass, newPass) => {
+export const updateUserAccount = async (bearer, oldPass, newPass) => {
     const request = { 'oldPassword': oldPass, 'newPassword': newPass };
     const options = {
         method: 'POST',
@@ -140,7 +140,7 @@ export const updateUserAccount = async (userId, bearer, oldPass, newPass) => {
         body: JSON.stringify(request)
     };
 
-    return await fetch(`${accountBaseUrl}/userId/${userId}/updateAccount`, options);
+    return await fetch(`${accountBaseUrl}/updateAccount`, options);
 }
 
 export const addUserDevice = async (userId, bearer, roleName, ipAddress) => {

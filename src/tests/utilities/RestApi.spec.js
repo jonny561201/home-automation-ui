@@ -230,11 +230,11 @@ describe('RestApi', () => {
             const body = { 'oldPassword': 'alsoFake', 'newPassword': 'StillFake' };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.mock(`${baseUrl}/account/userId/${userId}/updateAccount`, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/account/updateAccount`, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
-            const actual = await updateUserAccount(userId, bearerToken2, body.oldPassword, body.newPassword);
+            const actual = await updateUserAccount(bearerToken2, body.oldPassword, body.newPassword);
 
             expect(actual.status).toEqual(200);
         });

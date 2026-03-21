@@ -49,7 +49,7 @@ export default function Account() {
         click();
         setSubmitted(true);
         if (!oldPasswordError && !arePasswordsMismatched && changed) {
-            const response = await updateUserAccount(state.user.userId, state.auth.bearer, oldPassword, secondNewPassword);
+            const response = await updateUserAccount(state.auth.bearer, oldPassword, secondNewPassword);
             setSucceeded(response.ok);
         }
     }
