@@ -17,7 +17,7 @@ export default function AccountChildUser() {
 
     useEffect(() => {
         const getData = async () => {
-            const response = await getUserChildAccounts(state.user.userId, state.auth.bearer);
+            const response = await getUserChildAccounts(state.auth.bearer);
             setTest(response);
         };
         getData();

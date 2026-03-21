@@ -298,11 +298,11 @@ describe('RestApi', () => {
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
             const response = [{ 'user_name': 'test', 'roles': [] }];
 
-            fetchMock.mock(`${baseUrl}/account/userId/${userId}/childAccounts`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/account/childAccounts`, response, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
-            const actual = await getUserChildAccounts(userId, bearerToken2);
+            const actual = await getUserChildAccounts(bearerToken2);
 
             expect(actual[0].user_name).toEqual('test');
         });

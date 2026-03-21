@@ -180,9 +180,9 @@ export const addUserChildAccount = async (bearer, email, roles) => {
     return response.json();
 }
 
-export const getUserChildAccounts = async (userId, bearer) => {
+export const getUserChildAccounts = async (bearer) => {
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
-    const response = await fetch(`${accountBaseUrl}/userId/${userId}/childAccounts`, options);
+    const response = await fetch(`${accountBaseUrl}/childAccounts`, options);
     return response.json();
 }
 
