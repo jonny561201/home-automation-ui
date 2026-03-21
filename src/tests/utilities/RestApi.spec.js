@@ -336,10 +336,10 @@ describe('RestApi', () => {
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
             const response = [{ 'task_id': taskId, 'alarm_time': '00:00:01', 'alarm_days': 'Mon' }];
 
-            fetchMock.mock(`${baseUrl}/userId/${userId}/tasks`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/tasks`, response, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
-            const actual = await getScheduledTasks(userId, bearerToken2);
+            const actual = await getScheduledTasks(bearerToken2);
 
             expect(actual[0].task_id).toEqual(taskId);
         });

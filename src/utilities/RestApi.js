@@ -196,9 +196,9 @@ export const deleteScheduledTask = async (userId, bearer, taskId) => {
     return await fetch(`${baseUrl}/userId/${userId}/tasks/${taskId}`, options);
 }
 
-export const getScheduledTasks = async (userId, bearer) => {
+export const getScheduledTasks = async (bearer) => {
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
-    const response = await fetch(`${baseUrl}/userId/${userId}/tasks`, options);
+    const response = await fetch(`${baseUrl}/tasks`, options);
     return response.json()
 }
 
