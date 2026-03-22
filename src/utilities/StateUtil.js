@@ -70,7 +70,7 @@ export default function StateUtil() {
     }
 
     const getForecastData = async () => {
-        const forecast = await getUserForecast(state.user.userId, state.auth.bearer);
+        const forecast = await getUserForecast(state.auth.bearer);
         const updatedForecast = {
             ...forecast,
             temp: Math.round(forecast.temp),

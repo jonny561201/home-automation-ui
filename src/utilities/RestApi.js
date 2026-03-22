@@ -82,9 +82,9 @@ export const setUserTemperature = async (userId, bearer, desiredTemp, mode, isFa
     return await fetch(`${thermostatBaseUrl}/temperature/${userId}`, options);
 }
 
-export const getUserForecast = async (userId, bearer) => {
+export const getUserForecast = async (bearer) => {
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
-    const response = await fetch(`${thermostatBaseUrl}/forecast/${userId}`, options);
+    const response = await fetch(`${thermostatBaseUrl}/forecast`, options);
     return await response.json();
 }
 
