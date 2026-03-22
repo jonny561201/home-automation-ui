@@ -59,9 +59,9 @@ export const toggleGarageDoor = async (bearer, garageId) => {
     return await fetch(`${garageBaseUrl}/${garageId}/toggle`, options);
 }
 
-export const getSumpLevels = async (userId, bearer) => {
+export const getSumpLevels = async (bearer) => {
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
-    const response = await fetch(`${sumpBaseUrl}/user/${userId}/depth`, options);
+    const response = await fetch(`${sumpBaseUrl}/depth`, options);
     return await response.json();
 }
 

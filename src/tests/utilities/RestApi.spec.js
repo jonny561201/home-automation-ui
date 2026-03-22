@@ -94,11 +94,11 @@ describe('RestApi', () => {
             const response = { 'currentDepth': expectedDepth, 'userId': userId, 'latestDate': '2019-11-12', 'averageDepth': 35.8 };
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
 
-            fetchMock.mock(`${baseUrl}/sumpPump/user/${userId}/depth`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/sumpPump/depth`, response, options).catch(unmatchedUrl => {
                 return { status: 400 };
             });
 
-            const actual = await getSumpLevels(userId, bearerToken2);
+            const actual = await getSumpLevels(bearerToken2);
             expect(actual.currentDepth).toEqual(expectedDepth);
         })
 

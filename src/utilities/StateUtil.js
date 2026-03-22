@@ -55,7 +55,7 @@ export default function StateUtil() {
     };
 
     const getSumpData = async () => {
-        const sump = await getSumpLevels(state.user.userId, state.auth.bearer);
+        const sump = await getSumpLevels(state.auth.bearer);
         dispatch({ type: 'SET_SUMP_DATA', payload: { ...sump, currentDepth: sump.currentDepth.toFixed(1), averageDepth: sump.averageDepth.toFixed(1) } });
     }
 
