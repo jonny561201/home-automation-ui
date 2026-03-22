@@ -143,24 +143,24 @@ export const updateUserAccount = async (bearer, oldPass, newPass) => {
     return await fetch(`${accountBaseUrl}/updateAccount`, options);
 }
 
-export const addUserDevice = async (userId, bearer, roleName, ipAddress) => {
+export const addUserDevice = async (bearer, roleName, ipAddress) => {
     const request = { 'roleName': roleName, 'ipAddress': ipAddress }
     const options = {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
         body: JSON.stringify(request)
     };
-    return await fetch(`${deviceBaseUrl}/userId/${userId}/devices`, options);
+    return await fetch(`${deviceBaseUrl}/register`, options);
 }
 
-export const addUserDeviceNode = async (userId, bearer, deviceId, nodeName, preferred) => {
+export const addUserDeviceNode = async (bearer, deviceId, nodeName, preferred) => {
     const request = { 'nodeName': nodeName, 'preferred': preferred };
     const options = {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
         body: JSON.stringify(request)
     };
-    return await fetch(`${deviceBaseUrl}/userId/${userId}/devices/${deviceId}/node`, options);
+    return await fetch(`${deviceBaseUrl}/${deviceId}/node`, options);
 }
 
 export const getRolesByUserId = async (bearer) => {

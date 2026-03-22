@@ -243,11 +243,11 @@ describe('RestApi', () => {
             const body = { 'roleName': 'fakeName', 'ipAddress': '1.0.0.1' };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.mock(`${baseUrl}/devices/userId/${userId}/devices`, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/devices/register`, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
-            const actual = await addUserDevice(userId, bearerToken2, body.roleName, body.ipAddress);
+            const actual = await addUserDevice(bearerToken2, body.roleName, body.ipAddress);
 
             expect(actual.status).toEqual(200);
         });
@@ -257,11 +257,11 @@ describe('RestApi', () => {
             const body = { 'nodeName': 'fakeName', 'preferred': false };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.mock(`${baseUrl}/devices/userId/${userId}/devices/${deviceId}/node`, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/devices/${deviceId}/node`, options).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
-            const actual = await addUserDeviceNode(userId, bearerToken2, deviceId, body.nodeName, false);
+            const actual = await addUserDeviceNode(bearerToken2, deviceId, body.nodeName, false);
 
             expect(actual.status).toEqual(200);
         });

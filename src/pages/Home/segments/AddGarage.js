@@ -34,7 +34,7 @@ export default function AddGarage(props) {
     }
 
     const updateGarageNode = async () => {
-        const response = await addUserDeviceNode(state.user.userId, state.auth.bearer, state.deviceId, garageName, preferred);
+        const response = await addUserDeviceNode(state.auth.bearer, state.deviceId, garageName, preferred);
         updateRoles();
         setSucceeded(response.ok);
         setPreferred(false);
