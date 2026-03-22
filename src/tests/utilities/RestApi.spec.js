@@ -108,11 +108,11 @@ describe('RestApi', () => {
             const response = { 'currentTemp': expectedTemp, 'isFahrenheit': true };
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
 
-            fetchMock.mock(`${baseUrl}/thermostat/temperature/${userId}`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/thermostat/temperature`, response, options).catch(unmatchedUrl => {
                 return { status: 400 };
             });
 
-            const actual = await getCurrentTemperature(userId, bearerToken2);
+            const actual = await getCurrentTemperature(bearerToken2);
             expect(actual.currentTemp).toEqual(expectedTemp);
         });
 

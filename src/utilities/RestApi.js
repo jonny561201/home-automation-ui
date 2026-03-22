@@ -65,9 +65,9 @@ export const getSumpLevels = async (bearer) => {
     return await response.json();
 }
 
-export const getCurrentTemperature = async (userId, bearer) => {
+export const getCurrentTemperature = async (bearer) => {
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
-    const response = await fetch(`${thermostatBaseUrl}/temperature/${userId}`, options);
+    const response = await fetch(`${thermostatBaseUrl}/temperature`, options);
     return await response.json();
 }
 

@@ -60,7 +60,7 @@ export default function StateUtil() {
     }
 
     const getTempData = async () => {
-        const temp = await getCurrentTemperature(state.user.userId, state.auth.bearer);
+        const temp = await getCurrentTemperature(state.auth.bearer);
         const updatedTemp = {
             ...temp,
             desiredTemp: Math.round(temp.desiredTemp),
