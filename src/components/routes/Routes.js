@@ -6,7 +6,7 @@ import Activities from '../../pages/Activities/Activities';
 import Account from '../../pages/Account/Account';
 import Settings from '../../pages/Settings/Settings';
 import { Context } from '../../state/Store';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes as RouterRoutes, Route } from 'react-router-dom';
 
 
 export default function Routes() {
@@ -15,13 +15,13 @@ export default function Routes() {
   return (
     <Router>
       <header className="App-header" data-testid="app-routes">
-        <Route exact path="/" render={() => <Login />} />
-        <div>
-          <PrivateRoute authed={state.auth.isAuthenticated} path='/home' component={Home} />
-          <PrivateRoute authed={state.auth.isAuthenticated} path='/activities' component={Activities} />
-          <PrivateRoute authed={state.auth.isAuthenticated} path='/settings' component={Settings} />
-          <PrivateRoute authed={state.auth.isAuthenticated} path='/account' component={Account} />
-        </div>
+        <RouterRoutes>
+          <Route path="/" element={<Login />} />
+          <Route path="/home" element={<PrivateRoute authed={state.auth.isAuthenticated} component={Home} />} />
+          <Route path="/activities" element={<PrivateRoute authed={state.auth.isAuthenticated} component={Activities} />} />
+          <Route path="/settings" element={<PrivateRoute authed={state.auth.isAuthenticated} component={Settings} />} />
+          <Route path="/account" element={<PrivateRoute authed={state.auth.isAuthenticated} component={Account} />} />
+        </RouterRoutes>
       </header>
     </Router>
   );

@@ -1,13 +1,12 @@
 import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-export default function PrivateRoute({component: Component, authed, ...rest}) {
+export default function PrivateRoute({component: Component, authed}) {
+    const location = useLocation();
     return (
-        <Route
-          {...rest}
-          render={(props) => authed === true
-            ? <Component {...props} />
-            : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
-        />
+        authed === true
+            ? <Component />
+            : <Navigate to="/" state={{ from: location }} replace />
       )
 }

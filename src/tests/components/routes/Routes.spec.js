@@ -1,33 +1,28 @@
 import React from 'react';
-import { Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
-import { render, screen, act } from '@testing-library/react';
+import { render, act } from '@testing-library/react';
 import Routes from '../../../components/routes/Routes';
 import { Context } from '../../../state/Store';
 
 
 describe('Routes', () => {
-    let history;
 
     const renderComponent = async (authed) => {
         await act(async () => {
             render(
-                <div>
-                    <Context.Provider value={[{ isAuthenticated: authed }, () => { }]}>
-                        <Router history={history}>
-                            <Routes />
-                        </Router>
-                    </Context.Provider>
-                </div>
+                <Context.Provider value={[{ auth: { isAuthenticated: authed } }, () => { }]}>
+                    <Routes />
+                </Context.Provider>
             )
         });
     }
 
-    beforeEach(() => {
-        history = createMemoryHistory();
-    });
 
     describe('app routes', () => {
+
+        it('should render without crashing', async () => {
+            await renderComponent(false);
+            expect(true).toBe(true);
+        });
 
         // it('should have the Login route', async () => {
         //     history.push('/');

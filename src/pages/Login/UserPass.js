@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import useSound from 'use-sound';
 import { jwtDecode } from 'jwt-decode';
 import clickSound from '../../resources/click.mp3';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { Context } from '../../state/Store';
 import { getBearerToken } from '../../utilities/RestApi';
 import { TextField } from '@mui/material';
@@ -57,7 +57,7 @@ export default function UserPass() {
     };
 
     if (state.auth.isAuthenticated) {
-        return <Redirect to='/home' />
+        return <Navigate to='/home' replace />
     }
     return (
         <div>
