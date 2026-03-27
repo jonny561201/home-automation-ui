@@ -1,4 +1,4 @@
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import { getStore } from '../state/GlobalState';
 
 
@@ -15,6 +15,7 @@ export const getBearerToken = async (username, password) => {
     const request = { 'grant_type': 'client_credentials', 'client_id': username, 'client_secret': password }
     const options = {
         method: 'POST',
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(request)
     };
 
