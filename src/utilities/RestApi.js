@@ -23,7 +23,7 @@ export const getBearerToken = async (username, password) => {
         const jsonResponse = await response.json();
         const bearerToken = jsonResponse.bearerToken;
         const dataStore = getStore();
-        const decodedToken = jwt_decode(bearerToken);
+        const decodedToken = jwtDecode(bearerToken);
         dataStore.setUserRoles(decodedToken.roles);
         return jsonResponse;
     }

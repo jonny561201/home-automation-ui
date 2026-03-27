@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import useSound from 'use-sound';
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import clickSound from '../../resources/click.mp3';
 import { Redirect } from 'react-router-dom';
 import { Context } from '../../state/Store';
@@ -34,7 +34,7 @@ export default function UserPass() {
             const response = await getBearerToken(username, password);
             setIsValidLogin(response);
             if (response) {
-                const decodedToken = jwt_decode(response.bearerToken);
+                const decodedToken = jwtDecode(response.bearerToken);
                 await dispatch({ type: 'SET_USER_DATA', payload: { userId: decodedToken.sub, firstName: decodedToken.first_name, lastName: decodedToken.last_name, roles: decodedToken.roles } });
                 const garageRole = decodedToken.roles.find(x => x.role_name === 'garage_door');
                 await dispatch({ type: 'SET_GARAGE_ROLE', payload: garageRole });

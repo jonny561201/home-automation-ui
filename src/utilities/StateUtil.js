@@ -1,6 +1,6 @@
 
 import { useContext, useEffect } from 'react';
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import { Context } from '../state/Store';
 import { useInterval } from './UseInterval';
 import {
@@ -106,7 +106,7 @@ export default function StateUtil() {
             const response = await getRefreshedBearerToken(state.auth.refresh);
             if (response.ok) {
                 const bearer = await response.json()
-                const decodedToken = jwt_decode(bearer.bearerToken);
+                const decodedToken = jwtDecode(bearer.bearerToken);
                 dispatch({ type: 'SET_AUTH_DATA', payload: { bearer: bearer.bearerToken, refresh: decodedToken.refresh_token, isAuthenticated: true, exp: decodedToken.exp } });
             } else {
                 dispatch({ type: 'SET_AUTH_DATA', payload: { isAuthenticated: false } });
