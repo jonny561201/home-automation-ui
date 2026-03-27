@@ -62,14 +62,14 @@ describe('UserPass', () => {
                 fireEvent.change(screen.getByTestId('user-name'), { target: { value: '' } });
             });
             fireEvent.click(screen.getByRole('button'));
-            const actual = screen.getByText('Username').className;
+            const actual = screen.getByText('Username', { selector: 'label' }).className;
             expect(actual).toContain('Mui-error');
         });
 
         it('should display error styles when username is undefined', async () => {
             await renderComponent();
             fireEvent.click(screen.getByRole('button'));
-            const actual = screen.getByText('Username').className;
+            const actual = screen.getByText('Username', { selector: 'label' }).className;
             expect(actual).toContain('Mui-error');
         });
 
@@ -89,14 +89,14 @@ describe('UserPass', () => {
                 fireEvent.change(screen.getByTestId('password'), { target: { value: '' } });
             });
             fireEvent.click(screen.getByRole('button'));
-            const actual = screen.getByText('Password').className;
+            const actual = screen.getByText('Password', { selector: 'label' }).className;
             expect(actual).toContain('Mui-error');
         });
 
         it('should display error styles when password is undefined', async () => {
             await renderComponent();
             fireEvent.click(screen.getByRole('button'));
-            const actual = screen.getByText('Password').className;
+            const actual = screen.getByText('Password', { selector: 'label' }).className;
             expect(actual).toContain('Mui-error');
         });
 

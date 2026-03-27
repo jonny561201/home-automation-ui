@@ -41,7 +41,7 @@ describe('Create Light Activity Panel', () => {
 
      it('should display the light room label', async () => {
         await renderComponent();
-        const actual = screen.getByText('Room');
+        const actual = screen.getByText('Room', { selector: 'label' });
         expect(actual).toBeDefined();
      });
 });
