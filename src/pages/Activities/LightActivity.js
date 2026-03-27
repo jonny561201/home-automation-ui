@@ -4,11 +4,11 @@ import ClickSound from '../../resources/click.mp3';
 import { Context } from '../../state/Store';
 import WeekPicker from '../../components/controls/WeekPicker';
 import TimePicker from '../../components/controls/TimePicker';
-import { Save, Delete } from '@material-ui/icons';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { Save, Delete } from '@mui/icons-material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SingleClickSound from '../../resources/singleClick.mp3';
 import { deleteScheduledTask, updateScheduledTasks } from '../../utilities/RestApi';
-import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary, Divider, Switch, MenuItem, TextField } from '@material-ui/core';
+import { AccordionDetails, Accordion, AccordionSummary, Divider, Switch, MenuItem, TextField } from '@mui/material';
 
 
 export default function LightActivity(props) {
@@ -76,8 +76,8 @@ export default function LightActivity(props) {
 
     return (
         <>
-            <ExpansionPanel className="task-panel" expanded={open} onChange={() => { setOpen(!open) }}>
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <Accordion className="task-panel" expanded={open} onChange={() => { setOpen(!open) }}>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <div className="alarm-summary-panel">
                         <div className="alarm-setting-group">
                             <p className="text activity-group-name">{props.task.task_type} - {props.task.alarm_group_name}</p>
@@ -97,8 +97,8 @@ export default function LightActivity(props) {
                             </div>
                         </div>
                     </div>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails className="center">
+                </AccordionSummary>
+                <AccordionDetails className="center">
                     <div className="activity-detail-panel">
                         <div style={{ display: 'flex' }}>
                             <TextField data-testid="task-type" className="light-alarm-component" select variant="outlined" value={type} onChange={updateSelectedType} label="Task Type">
@@ -123,8 +123,8 @@ export default function LightActivity(props) {
                             </div>
                         </div>
                     </div>
-                </ExpansionPanelDetails>
-            </ExpansionPanel>
+                </AccordionDetails>
+            </Accordion>
         </>
     )
 }

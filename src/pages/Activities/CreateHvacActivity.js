@@ -5,8 +5,8 @@ import clickSound from '../../resources/click.mp3';
 import TimePicker from '../../components/controls/TimePicker';
 import WeekPicker from '../../components/controls/WeekPicker';
 import TempPicker from '../../components/controls/TempPicker';
-import { Save, Delete } from '@material-ui/icons';
-import { Divider, Button } from '@material-ui/core';
+import { Save, Delete } from '@mui/icons-material';
+import { Divider, Button } from '@mui/material';
 import { insertHvacTask } from '../../utilities/RestApi';
 import './CreateHvacActivity.css';
 

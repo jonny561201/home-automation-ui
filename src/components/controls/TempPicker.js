@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Dialog } from '@material-ui/core';
+import { Dialog } from '@mui/material';
 import Knob from '../controls/Knob';
 import './TempPicker.css'
-import { AcUnitOutlined } from '@material-ui/icons';
+import { AcUnitOutlined } from '@mui/icons-material';
 
 
 export default function TempPicker(props) {

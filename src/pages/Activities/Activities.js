@@ -4,7 +4,7 @@ import useSound from 'use-sound';
 import clickSound from '../../resources/singleClick.mp3';
 import Header from '../../components/header/Header';
 import { getStore } from '../../state/GlobalState';
-import AddIcon from '@material-ui/icons/Add';
+import AddIcon from '@mui/icons-material/Add';
 import LightActivity from './LightActivity';
 import HvacActivity from './HvacActivity';
 import CreateNewActivityPanel from './CreateNewActivity';

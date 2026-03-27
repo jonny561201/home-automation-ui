@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
-import { TextField, FormControlLabel } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
+import { TextField, FormControlLabel } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import { addUserDeviceNode, getRolesByUserId } from '../../../utilities/RestApi';
-import { CheckCircle } from '@material-ui/icons';
+import { CheckCircle } from '@mui/icons-material';
 import { Context } from '../../../state/Store';
 import { GreenCheckbox } from '../../../components/controls/CheckBox';
 import './AddGarage.css';

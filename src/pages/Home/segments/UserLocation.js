@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '../../../state/Store';
 import useSound from 'use-sound';
 import dingSound from '../../../resources/ding.mp3';
-import CloseIcon from '@material-ui/icons/Close';
+import CloseIcon from '@mui/icons-material/Close';
 import { updateGarageState } from '../../../utilities/RestApi';
 import { useInterval } from '../../../utilities/UseInterval';
 import { calculateDistanceInMeters } from '../../../utilities/Location';

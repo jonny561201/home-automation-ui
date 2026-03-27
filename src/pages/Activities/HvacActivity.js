@@ -1,15 +1,15 @@
 import React, { useState, useContext } from 'react';
 import { Context } from '../../state/Store';
 import useSound from 'use-sound';
-import { Save, Delete } from '@material-ui/icons';
+import { Save, Delete } from '@mui/icons-material';
 import clickSound from '../../resources/click.mp3';
 import SingleClickSound from '../../resources/singleClick.mp3';
 import TempPicker from '../../components/controls/TempPicker';
 import TimePicker from '../../components/controls/TimePicker';
 import WeekPicker from '../../components/controls/WeekPicker';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { deleteScheduledTask, updateScheduledTasks } from '../../utilities/RestApi';
-import { ExpansionPanelDetails, ExpansionPanel, ExpansionPanelSummary, Divider, Switch, Button } from '@material-ui/core';
+import { AccordionDetails, Accordion, AccordionSummary, Divider, Switch, Button } from '@mui/material';
 
 
 export default function HvacActivity(props) {
@@ -81,8 +81,8 @@ export default function HvacActivity(props) {
     }
 
     return (
-        <ExpansionPanel className="task-panel" expanded={open} onChange={() => { setOpen(!open) }}>
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+        <Accordion className="task-panel" expanded={open} onChange={() => { setOpen(!open) }}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <div className="alarm-summary-panel">
                     <div className="alarm-setting-group">
                         <p className="text activity-group-name">{props.task.task_type}</p>
@@ -102,8 +102,8 @@ export default function HvacActivity(props) {
                         </div>
                     </div>
                 </div>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails className="center">
+            </AccordionSummary>
+            <AccordionDetails className="center">
                 <div className="activity-detail-panel">
                     <div>
                         <div className="picker-row">
@@ -128,7 +128,7 @@ export default function HvacActivity(props) {
                         </div>
                     </div>
                 </div>
-            </ExpansionPanelDetails>
-        </ExpansionPanel>
+            </AccordionDetails>
+        </Accordion>
     )
 }

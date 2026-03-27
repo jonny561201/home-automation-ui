@@ -2,12 +2,12 @@ import React, { useState, useContext } from 'react';
 import useSound from 'use-sound';
 import Knob from '../../../components/controls/Knob';
 import { debounchApi } from '../../../utilities/Services';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TemperatureImage from '../segments/TemperatureImage';
 import singleClickSound from '../../../resources/singleClick.mp3';
 import TemperatureIcon from '../../../resources/panelIcons/TemperatureIcon.png';
 import { setUserTemperature } from '../../../utilities/RestApi';
-import { ExpansionPanel, Typography, ExpansionPanelSummary, Divider, FormControl, FormGroup, FormControlLabel } from '@material-ui/core';
+import { Accordion, Typography, AccordionSummary, Divider, FormControl, FormGroup, FormControlLabel } from '@mui/material';
 import './TemperaturePanel.css';
 import { AutoSwitch, CoolSwitch, HeatSwitch } from '../../../components/controls/Switches';
 import { CSSTransition } from 'react-transition-group';
@@ -37,8 +37,8 @@ export default function TemperaturePanel() {
 
     return (
         <div>
-            <ExpansionPanel data-testid={"temperature-panel"} className="temperature-panel">
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={() => setOpen(!open)}>
+            <Accordion data-testid={"temperature-panel"} className="temperature-panel">
+                <AccordionSummary expandIcon={<ExpandMoreIcon />} onClick={() => setOpen(!open)}>
                     <div className="summary">
                         <img alt="temperature" className="logo-image" src={TemperatureIcon} />
                         <div>
@@ -57,7 +57,7 @@ export default function TemperaturePanel() {
                             }
                         </div>
                     </div>
-                </ExpansionPanelSummary>
+                </AccordionSummary>
                 <Divider />
                 <div>
                     <div className="form-container">
@@ -87,7 +87,7 @@ export default function TemperaturePanel() {
                         </div>
                     </div>
                 </div>
-            </ExpansionPanel>
+            </Accordion>
         </div>
     );
 }

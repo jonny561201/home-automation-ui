@@ -1,6 +1,6 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { Checkbox } from '@material-ui/core';
+import { withStyles } from '@mui/styles';
+import { Checkbox } from '@mui/material';
 
 
 export const GreenCheckbox = withStyles({

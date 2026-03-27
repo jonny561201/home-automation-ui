@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { Context } from '../../../state/Store';
 import LightSwitch from '../../../components/controls/LightSwitch';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import LightingIcon from '../../../resources/panelIcons/LightingIcon.png';
-import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, Divider } from '@material-ui/core';
+import { AccordionDetails, Accordion, Typography, AccordionSummary, Divider } from '@mui/material';
 import './LightingPanel.css'
 
 
@@ -19,22 +19,22 @@ export default function LightingPanel() {
 
     return (
         <div>
-            <ExpansionPanel data-testid={"lighting-panel"} className="lighting-panel">
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <Accordion data-testid={"lighting-panel"} className="lighting-panel">
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <div className="summary">
                         <div>
                             <img alt="lighting" className="logo-image" src={LightingIcon} />
                         </div>
                         <Typography className="panel-text panel-header-text">Lighting</Typography>
                     </div>
-                </ExpansionPanelSummary>
+                </AccordionSummary>
                 <Divider />
-                <ExpansionPanelDetails className="center">
+                <AccordionDetails className="center">
                     <div className="light-panel-group">
                         {renderGroups()}
                     </div>
-                </ExpansionPanelDetails>
-            </ExpansionPanel>
+                </AccordionDetails>
+            </Accordion>
         </div>
     );
 }

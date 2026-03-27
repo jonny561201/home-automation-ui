@@ -2,11 +2,11 @@ import React, { useState, useContext } from 'react';
 import { Context } from '../../state/Store';
 import { debounchApi } from '../../utilities/Services';
 import { CustomSlider } from '../../components/controls/Slider';
-import { ButtonBase } from '@material-ui/core';
+import { ButtonBase } from '@mui/material';
 import SwitchSlider from '../../pages/Home/segments/SwitchSlider';
 import { setLightGroupState } from '../../utilities/RestApi';
 import { ExpandButton } from './Buttons';
-import BrightnessMediumIcon from '@material-ui/icons/BrightnessMedium';
+import BrightnessMediumIcon from '@mui/icons-material/BrightnessMedium';
 import './LightSwitch.css';
 import { CSSTransition } from 'react-transition-group';
 

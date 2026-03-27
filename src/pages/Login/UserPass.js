@@ -5,7 +5,7 @@ import clickSound from '../../resources/click.mp3';
 import { Redirect } from 'react-router-dom';
 import { Context } from '../../state/Store';
 import { getBearerToken } from '../../utilities/RestApi';
-import { TextField } from '@material-ui/core';
+import { TextField } from '@mui/material';
 import { GreenButton } from '../../components/controls/Buttons';
 import './UserPass.css';
 

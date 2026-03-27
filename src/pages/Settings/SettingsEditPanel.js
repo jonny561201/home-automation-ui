@@ -4,7 +4,7 @@ import clickSound from '../../resources/click.mp3';
 import { updateUserPreferences } from '../../utilities/RestApi';
 import './SettingsEditPanel.css'
 import { Context } from '../../state/Store';
-import { Divider, TextField, MenuItem, FormControlLabel, RadioGroup, FormControl, Radio } from '@material-ui/core';
+import { Divider, TextField, MenuItem, FormControlLabel, RadioGroup, FormControl, Radio } from '@mui/material';
 import { GreenButton, RedButton } from '../../components/controls/Buttons';
 
 

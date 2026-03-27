@@ -1,5 +1,5 @@
-import { withStyles } from '@material-ui/core/styles';
-import Switch from '@material-ui/core/Switch';
+import { withStyles } from '@mui/styles';
+import Switch from '@mui/material/Switch';
 
 
 export const HeatSwitch = withStyles({

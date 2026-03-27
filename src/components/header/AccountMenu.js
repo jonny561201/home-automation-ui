@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './AccountMenu.css';
 import { getStore } from '../../state/GlobalState';
 import { Context } from '../../state/Store';
-import { Divider } from '@material-ui/core';
+import { Divider } from '@mui/material';
 
 
 export default function AccountSettings(props) {

@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Context } from '../../../state/Store';
-import { ButtonBase } from '@material-ui/core';
+import { ButtonBase } from '@mui/material';
 import { debounchApi } from '../../../utilities/Services';
 import { setLightState } from '../../../utilities/RestApi';
 import { CustomSlider } from '../../../components/controls/Slider';

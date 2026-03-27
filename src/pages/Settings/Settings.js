@@ -6,7 +6,7 @@ import { getStore } from '../../state/GlobalState';
 import SettingsEditPanel from './SettingsEditPanel';
 import { setTheme, toggleDarkMode, isDayLight } from '../../utilities/Services';
 import { CoolSwitch, HeatSwitch } from '../../components/controls/Switches';
-import { FormControlLabel, FormControl } from '@material-ui/core';
+import { FormControlLabel, FormControl } from '@mui/material';
 import './Settings.css'
 
 

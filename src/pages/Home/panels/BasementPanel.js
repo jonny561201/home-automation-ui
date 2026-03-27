@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import BasementIcon from '../../../resources/panelIcons/BasementIcon.png';
 import SumpPumpLowIcon from '../../../resources/panelIcons/SumpPumpLowIcon.png';
 import SumpPumpMediumLowIcon from '../../../resources/panelIcons/SumpPumpMediumLowIcon.png';
 import SumpPumpMediumHighIcon from '../../../resources/panelIcons/SumpPumpMediumHighIcon.png';
 import SumpPumpHighIcon from '../../../resources/panelIcons/SumpPumpHighIcon.png';
-import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, Divider } from '@material-ui/core';
+import { AccordionDetails, Accordion, Typography, AccordionSummary, Divider } from '@mui/material';
 import './BasementPanel.css';
 import { Context } from '../../../state/Store';
 
@@ -28,8 +28,8 @@ export default function BasementPanel() {
 
     return (
         <div>
-            <ExpansionPanel data-testid={"basement-panel"} className="basement-panel">
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={() => { setOpen(!open) }}>
+            <Accordion data-testid={"basement-panel"} className="basement-panel">
+                <AccordionSummary expandIcon={<ExpandMoreIcon />} onClick={() => { setOpen(!open) }}>
                     <div className="summary">
                         <img data-testid={"sump-logo"} alt="basement" className="logo-image" src={BasementIcon} />
                         <div>
@@ -43,9 +43,9 @@ export default function BasementPanel() {
                             }
                         </div>
                     </div>
-                </ExpansionPanelSummary>
+                </AccordionSummary>
                 <Divider />
-                <ExpansionPanelDetails className="center">
+                <AccordionDetails className="center">
                     <div className="sump-group">
                         {getSumpIcon()}
                         <div className="sump-measure-group">
@@ -61,8 +61,8 @@ export default function BasementPanel() {
                             </div>
                         </div>
                     </div>
-                </ExpansionPanelDetails>
-            </ExpansionPanel>
+                </AccordionDetails>
+            </Accordion>
         </div >
     );
 }

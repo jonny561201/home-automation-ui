@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Slider from '@material-ui/core/Slider';
-import Tooltip from '@material-ui/core/Tooltip';
+import { withStyles } from '@mui/styles';
+import Slider from '@mui/material/Slider';
+import Tooltip from '@mui/material/Tooltip';
 
 function ValueLabelComponent(props) {
   const { children, open, value } = props;

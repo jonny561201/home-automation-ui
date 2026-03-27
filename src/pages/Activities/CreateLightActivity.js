@@ -4,9 +4,9 @@ import clickSound from '../../resources/click.mp3';
 import { Context } from '../../state/Store';
 import TimePicker from '../../components/controls/TimePicker';
 import WeekPicker from '../../components/controls/WeekPicker';
-import { Save, Delete } from '@material-ui/icons';
+import { Save, Delete } from '@mui/icons-material';
 import { insertLightTask } from '../../utilities/RestApi';
-import { MenuItem, TextField, Divider, Button } from '@material-ui/core';
+import { MenuItem, TextField, Divider, Button } from '@mui/material';
 
 
 export default function CreateLightActivity(props) {

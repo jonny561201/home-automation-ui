@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { TextField } from '@material-ui/core';
+import { TextField } from '@mui/material';
 import { isValidIpAddress, debounchApi } from '../../../utilities/Services';
 import { addUserDevice } from '../../../utilities/RestApi';
-import CloseIcon from '@material-ui/icons/Close';
+import CloseIcon from '@mui/icons-material/Close';
 import AddGarage from './AddGarage';
 import './RegisterDevice.css';
 import { Context } from '../../../state/Store';

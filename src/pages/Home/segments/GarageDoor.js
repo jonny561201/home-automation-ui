@@ -4,7 +4,7 @@ import { useInterval } from '../../../utilities/UseInterval';
 import useSound from 'use-sound';
 import dingSound from '../../../resources/ding.mp3';
 import clickSound from '../../../resources/click.mp3';
-import { ExpansionPanelDetails } from '@material-ui/core';
+import { AccordionDetails } from '@mui/material';
 import UpDownIcon from '../../../resources/panelIcons/UpDown.png';
 import { BlueButton, GreenButton, RedButton } from '../../../components/controls/Buttons';
 import { toggleGarageDoor, updateGarageState } from '../../../utilities/RestApi';
@@ -43,7 +43,7 @@ export default function GarageDoor(props) {
 
     return (
         <div>
-            <ExpansionPanelDetails className="center">
+            <AccordionDetails className="center">
                 <div className="garage-door-container">
                     <div className="status-text-group">
                         <p className="garage-text-bold text">{props.device.doorName}</p>
@@ -63,7 +63,7 @@ export default function GarageDoor(props) {
                         </BlueButton>
                     </div>
                 </div>
-            </ExpansionPanelDetails>
+            </AccordionDetails>
         </div>
     );
 }

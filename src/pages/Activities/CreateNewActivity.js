@@ -2,8 +2,8 @@ import React, { useContext, useState } from 'react';
 import { Context } from '../../state/Store';
 import CreateLightActivity from './CreateLightActivity';
 import CreateHvacActivity from './CreateHvacActivity';
-import { Delete } from '@material-ui/icons';
-import { ExpansionPanelDetails, ExpansionPanel, TextField, MenuItem, ExpansionPanelSummary, Button } from '@material-ui/core';
+import { Delete } from '@mui/icons-material';
+import { AccordionDetails, Accordion, TextField, MenuItem, AccordionSummary, Button } from '@mui/material';
 
 
 export default function CreateNewActivityPanel(props) {
@@ -30,9 +30,9 @@ export default function CreateNewActivityPanel(props) {
 
     return (
         <>
-            <ExpansionPanel className="task-panel" expanded={true}>
-                <ExpansionPanelSummary style={{ height: "0px", minHeight: "0px" }} />
-                <ExpansionPanelDetails className="center">
+            <Accordion className="task-panel" expanded={true}>
+                <AccordionSummary style={{ height: "0px", minHeight: "0px" }} />
+                <AccordionDetails className="center">
                     <div className="activity-detail-panel">
                         <div className="settings-row">
                             <TextField data-testid="task-type" className="light-alarm-component task-room-picker-row" select variant="outlined" value={type} onChange={updateSelectedType} label="Task Type">
@@ -45,8 +45,8 @@ export default function CreateNewActivityPanel(props) {
                         </div>
                         {selectedComponents()}
                     </div>
-                </ExpansionPanelDetails>
-            </ExpansionPanel>
+                </AccordionDetails>
+            </Accordion>
         </>
     )
 }

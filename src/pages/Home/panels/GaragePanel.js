@@ -2,8 +2,8 @@ import React, { useContext, useState } from 'react';
 import { Context } from '../../../state/Store';
 import RegisterDevice from '../segments/RegisterDevice';
 import GarageIcon from '../../../resources/panelIcons/GarageDoorIcon.png';
-import { ExpansionPanelDetails, ExpansionPanel, Typography, ExpansionPanelSummary, Divider } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { AccordionDetails, Accordion, Typography, AccordionSummary, Divider } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import './GaragePanel.css';
 import GarageDoor from '../segments/GarageDoor';
 import { GreenButton } from '../../../components/controls/Buttons';
@@ -32,8 +32,8 @@ export default function GaragePanel() {
 
     return (
         <div>
-            <ExpansionPanel className="garage-panel">
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={() => { setOpen(!open) }}>
+            <Accordion className="garage-panel">
+                <AccordionSummary expandIcon={<ExpandMoreIcon />} onClick={() => { setOpen(!open) }}>
                     <div className="summary">
                         <img data-testid={"garage-icon"} alt="garage" className="logo-image" src={GarageIcon} />
                         <div>
@@ -50,10 +50,10 @@ export default function GaragePanel() {
                             </div>
                         </div>
                     </div>
-                </ExpansionPanelSummary>
+                </AccordionSummary>
                 <Divider />
                 {state.devicesToRegister
-                    ? <ExpansionPanelDetails className="center">
+                    ? <AccordionDetails className="center">
                         <div className="door-groups">
                             <h2 className="status-text-bold text">Register New Device!</h2>
                             <Divider />
@@ -67,10 +67,10 @@ export default function GaragePanel() {
                                 {displayRegister && <RegisterDevice close={closeModal} parentRef={wrapperRef} />}
                             </div>
                         </div>
-                    </ExpansionPanelDetails>
+                    </AccordionDetails>
                     : <div className="door-groups">{renderDoors()}</div>
                 }
-            </ExpansionPanel>
+            </Accordion>
         </div>
     );
 }

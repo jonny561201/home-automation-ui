@@ -1,6 +1,6 @@
 import React from 'react';
-import { Add, Remove, ChevronRight } from '@material-ui/icons';
-import { ButtonBase, IconButton } from "@material-ui/core";
+import { Add, Remove, ChevronRight } from '@mui/icons-material';
+import { ButtonBase, IconButton } from '@mui/material';
 import './Buttons.css';
 
 
