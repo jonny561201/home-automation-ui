@@ -3,6 +3,7 @@ import './App.css';
 import Store from './state/Store';
 import Routes from './components/routes/Routes';
 import { setTheme } from './utilities/Services';
+import { BrowserRouter } from 'react-router-dom';
 
 
 export default function App() {
@@ -10,8 +11,10 @@ export default function App() {
   setTheme(theme);
 
   return (
-    <Store>
-      <Routes />
-    </Store>
+    <BrowserRouter>
+      <Store>
+        <Routes />
+      </Store>
+    </BrowserRouter>
   );
 }
