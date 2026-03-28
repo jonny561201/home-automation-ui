@@ -71,7 +71,8 @@ describe('Routes', () => {
 
         it('should render the Activities route at /activities when authenticated', async () => {
             await renderAt('/activities', authState);
-            expect(screen.getByTestId('activities-sub-header')).toBeDefined();
+            const actual = await screen.findByTestId('activities-sub-header');
+            expect(actual).toBeDefined();
         });
 
         it('should render the Settings route at /settings when authenticated', async () => {
