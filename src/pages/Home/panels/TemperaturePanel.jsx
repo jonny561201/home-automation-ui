@@ -10,7 +10,6 @@ import { setUserTemperature } from '../../../utilities/RestApi';
 import { Accordion, Typography, AccordionSummary, Divider, FormControl, FormGroup, FormControlLabel } from '@mui/material';
 import './TemperaturePanel.css';
 import { AutoSwitch, CoolSwitch, HeatSwitch } from '../../../components/controls/Switches';
-import { CSSTransition } from 'react-transition-group';
 import { Context } from '../../../state/Store';
 
 
@@ -76,14 +75,14 @@ export default function TemperaturePanel() {
                                     </FormControl>
                                     : null
                             }
-                            <CSSTransition in={state.tempData.mode !== 'auto' || !state.tasks.some(x => x.task_type === 'hvac')} timeout={400} classNames="expansion" unmountOnExit appear >
+                            {(state.tempData.mode !== 'auto' || !state.tasks.some(x => x.task_type === 'hvac')) && (
                                 <FormControl>
                                     <FormGroup>
                                         <FormControlLabel label="Heat" control={<HeatSwitch data-testid={"heating-switch"} checked={state.tempData.mode === 'heating'} onChange={() => toggleHvac("heating")} />} />
                                         <FormControlLabel label="Cool" control={<CoolSwitch data-testid={"cooling-switch"} checked={state.tempData.mode === 'cooling'} onChange={() => toggleHvac("cooling")} />} />
                                     </FormGroup>
                                 </FormControl>
-                            </CSSTransition>
+                            )}
                         </div>
                     </div>
                 </div>
