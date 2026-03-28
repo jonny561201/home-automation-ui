@@ -7,7 +7,7 @@ describe('App Component', () => {
 
   it('renders', () => {
     render(<App />);
-    const actual = screen.getByTestId('app-routes');
+    const actual = screen.getByRole('heading', { name: 'Member Login' });
     expect(actual).toBeDefined()
   });
 });

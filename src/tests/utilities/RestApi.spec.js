@@ -11,9 +11,8 @@ import { getStore } from '../../state/GlobalState';
 describe('RestApi', () => {
     const username = 'fakeUser';
     const password = 'fakepass';
-    const baseUrl = 'https://www.soaringleafsolutions.com';
+    const baseUrl = 'https://soaringleafsolutions.com';
     // const baseUrl = 'http://localhost:5000';
-    const userId = "e97febc0-fd10-11e9-8f0b-362b9e155667";
     const fakeBearerToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJlOTdmZWJjMC1mZDEwLTExZTktOGYwYi0zNjJiOWUxNTU2NjciLCJyb2xlcyI6WyJnYXJhZ2VfZG9vciIsInNlY3VyaXR5IiwidGhlcm1vc3RhdCIsImxpZ2h0aW5nIiwic3VtcF9wdW1wIl0sImZpcnN0X25hbWUiOiJKb24iLCJsYXN0X25hbWUiOiJUZXN0ZXIifSwiZXhwIjoxNTg1OTY3MDIwfQ.AfGoDyYuMhdQh4UYsMUEFenTDxnQnKg3iMhX3RxXac4";
 
     beforeEach(() => {
@@ -23,9 +22,13 @@ describe('RestApi', () => {
     it('should make rest call to login api using auth header', async () => {
         const response = { 'bearerToken': fakeBearerToken };
         const body = { 'grant_type': 'client_credentials', 'client_id': username, 'client_secret': password };
-        const options = { "method": "POST", "body": body };
+        const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        };
 
-        fetchMock.mock(`${baseUrl}/token`, response, options).catch(unmatchedUrl => {
+        fetchMock.mock(`${baseUrl}/token`, response).catch(unmatchedUrl => {
             return {
                 status: 400,
                 body: { details: 'Bad Request' }
@@ -39,9 +42,13 @@ describe('RestApi', () => {
     it('should store roles after successful login', async () => {
         const response = { 'bearerToken': fakeBearerToken };
         const body = { 'grant_type': 'client_credentials', 'client_id': username, 'client_secret': password };
-        const options = { "method": "POST", "body": body };
+        const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        };
 
-        fetchMock.mock(`${baseUrl}/token`, response, options).catch(unmatchedUrl => {
+        fetchMock.mock(`${baseUrl}/token`, response).catch(unmatchedUrl => {
             return { status: 400 };
         });
 
@@ -67,9 +74,13 @@ describe('RestApi', () => {
 
         it('should make rest call to post garage door status', async () => {
             const response = { 'garageDoorOpen': false };
-            const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': { "garageDoorOpen": false } };
+            const options = {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${bearerToken2}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 'garageDoorOpen': false })
+            };
 
-            fetchMock.mock(`${baseUrl}/garageDoor/${garageId}/state`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/garageDoor/${garageId}/state`, response).catch(unmatchedUrl => {
                 return { status: 400 };
             });
 
@@ -121,7 +132,11 @@ describe('RestApi', () => {
             const mode = "cooling";
             const isFahrenheit = true;
             const body = { 'desiredTemp': desiredTemp, 'mode': mode, 'isFahrenheit': isFahrenheit };
-            const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
+            const options = {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${bearerToken2}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            };
 
             fetchMock.mock(`${baseUrl}/thermostat/temperature/desired`, options).catch(unmatchedUrl => {
                 return { status: 400 }
@@ -189,7 +204,11 @@ describe('RestApi', () => {
 
         it('should make rest call to set the state of a light group', async () => {
             const body = { 'groupId': 1, 'on': true, 'brightness': 224 };
-            const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
+            const options = {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${bearerToken2}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            };
 
             fetchMock.mock(`${baseUrl}/lights/group/state`, options).catch(unmatchedUrl => {
                 return { status: 400 }
@@ -202,7 +221,11 @@ describe('RestApi', () => {
 
         it('should make rest call to set the state of a light group without brightness', async () => {
             const body = { 'groupId': 1, 'on': true };
-            const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
+            const options = {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${bearerToken2}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            };
 
             fetchMock.mock(`${baseUrl}/lights/group/state`, options).catch(unmatchedUrl => {
                 return { status: 400 }
@@ -376,9 +399,13 @@ describe('RestApi', () => {
             const taskId = 'asbcasd34345';
             const response = { 'task_id': taskId }
             const request = { 'taskId': 'abc', 'alarmLightGroup': '1', 'alarmGroupName': 'potty', 'alarmDays': 'Wed', 'alarmTime': '00:23:34', 'enabled': true, 'taskType': 'no' };
-            const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': request };
+            const options = {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${bearerToken2}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify(request)
+            };
 
-            fetchMock.mock(`${baseUrl}/tasks/update`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/tasks/update`, response).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
@@ -392,9 +419,9 @@ describe('RestApi', () => {
             const bearer = '345kh3jbk435iuy';
             const body = { 'grant_type': 'refresh_token', 'refresh_token': refresh };
             const response = { 'bearerToken': bearer };
-            const options = { 'method': 'POST', 'body': body };
+            const options = { method: 'POST', body: JSON.stringify(body) };
 
-            fetchMock.mock(`${baseUrl}/token`, response, options).catch(unmatchedUrl => {
+            fetchMock.mock(`${baseUrl}/token`, response).catch(unmatchedUrl => {
                 return { status: 400 }
             });
 
