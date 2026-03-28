@@ -7,7 +7,7 @@ import UserPass from '../../../pages/Login/UserPass';
 
 describe('UserPass', () => {
 
-    const spyGet = jest.spyOn(lib, 'getBearerToken');
+    const spyGet = vi.spyOn(lib, 'getBearerToken');
 
     const renderComponent = async () => {
         await act(async () => {

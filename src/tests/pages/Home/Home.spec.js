@@ -5,7 +5,7 @@ import Home from '../../../pages/Home/Home';
 import { getStore } from '../../../state/GlobalState';
 
 
-jest.mock('../../../utilities/StateUtil', () => () => { });
+vi.mock('../../../utilities/StateUtil', () => ({ default: () => null }));
 
 
 describe('Home', () => {

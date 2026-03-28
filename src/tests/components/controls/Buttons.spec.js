@@ -12,14 +12,14 @@ describe('Buttons', () => {
         });
 
         it('should execute function on click', () => {
-            const click = jest.fn();
+            const click = vi.fn();
             render(<GreenButton onClick={click}>Test</GreenButton>);
             fireEvent.click(screen.getByText('Test'));
             expect(click).toHaveBeenCalled();
         });
 
         it('should execute function when in a form', () => {
-            const click = jest.fn(e => e.preventDefault());
+            const click = vi.fn(e => e.preventDefault());
             render(
                 <form onSubmit={click}>
                     <GreenButton>Test</GreenButton>
@@ -38,14 +38,14 @@ describe('Buttons', () => {
         });
 
         it('should execute function on click', () => {
-            const click = jest.fn();
+            const click = vi.fn();
             render(<BlueButton onClick={click}>Test</BlueButton>);
             fireEvent.click(screen.getByText('Test'));
             expect(click).toHaveBeenCalled();
         });
 
         it('should execute function when in a form', () => {
-            const click = jest.fn(e => e.preventDefault());
+            const click = vi.fn(e => e.preventDefault());
             render(
                 <form onSubmit={click}>
                     <BlueButton>Test</BlueButton>
@@ -65,14 +65,14 @@ describe('Buttons', () => {
         });
 
         it('should execute function on click', () => {
-            const click = jest.fn();
+            const click = vi.fn();
             render(<RedButton onClick={click}>Test</RedButton>);
             fireEvent.click(screen.getByText('Test'));
             expect(click).toHaveBeenCalled();
         });
 
         it('should execute function when in a form', () => {
-            const click = jest.fn(e => e.preventDefault());
+            const click = vi.fn(e => e.preventDefault());
             render(
                 <form onSubmit={click}>
                     <RedButton>Test</RedButton>
@@ -86,7 +86,7 @@ describe('Buttons', () => {
     describe('Expand Button', () => {
 
         it('should execute function on click', () => {
-            const click = jest.fn();
+            const click = vi.fn();
             render(<ExpandButton onClick={click}></ExpandButton>);
             fireEvent.click(screen.getByRole('button'));
             expect(click).toHaveBeenCalled();
@@ -102,7 +102,7 @@ describe('Buttons', () => {
     describe('Add Button', () => {
 
         it('should execute function on click', () => {
-            const click = jest.fn();
+            const click = vi.fn();
             render(<AddButton onClick={click}></AddButton>);
             fireEvent.click(screen.getByRole('button'));
             expect(click).toHaveBeenCalled();
@@ -118,7 +118,7 @@ describe('Buttons', () => {
     describe('Remove Button', () => {
 
         it('should execute function on click', () => {
-            const click = jest.fn();
+            const click = vi.fn();
             render(<RemoveButton onClick={click}></RemoveButton>);
             fireEvent.click(screen.getByRole('button'));
             expect(click).toHaveBeenCalled();

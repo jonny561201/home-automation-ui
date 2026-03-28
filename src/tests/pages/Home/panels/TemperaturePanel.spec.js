@@ -6,7 +6,7 @@ import { render, screen, act, fireEvent } from '@testing-library/react';
 import TemperaturePanel from '../../../../pages/Home/panels/TemperaturePanel';
 
 
-jest.mock('../../../../components/controls/Knob', () => () => <div></div>);
+vi.mock('../../../../components/controls/Knob', () => ({ default: () => <div></div> }));
 
 
 describe('TemperaturePanel', () => {
@@ -25,8 +25,8 @@ describe('TemperaturePanel', () => {
         minThermostatTemp: minTemp, maxThermostatTemp: maxTemp,
         desiredTemp: desiredTemp, isFahrenheit: true
     };
-    const spySet = jest.spyOn(services, 'debounchApi');
-    const spyUpdate = jest.spyOn(lib, 'setUserTemperature');
+    const spySet = vi.spyOn(services, 'debounchApi');
+    const spyUpdate = vi.spyOn(lib, 'setUserTemperature');
 
     const renderComponent = async () => {
         await act(async () => {
@@ -154,7 +154,7 @@ describe('TemperaturePanel', () => {
                 fireEvent.click(screen.getByLabelText('Heat'));
             });
 
-            expect(spyUpdate).toBeCalledWith(userId, bearer, desiredTemp, 'heating', true);
+            expect(spyUpdate).toBeCalledWith(bearer, desiredTemp, 'heating', true);
         });
 
         it('should make api call to toggle on cooling when initially set to off', async () => {
@@ -164,7 +164,7 @@ describe('TemperaturePanel', () => {
                 fireEvent.click(screen.getByLabelText('Cool'));
             });
 
-            expect(spyUpdate).toBeCalledWith(userId, bearer, desiredTemp, 'cooling', true);
+            expect(spyUpdate).toBeCalledWith(bearer, desiredTemp, 'cooling', true);
         });
 
         it('should make api call to toggle off hvac when initially set to heating', async () => {
@@ -174,7 +174,7 @@ describe('TemperaturePanel', () => {
                 fireEvent.click(screen.getByLabelText('Heat'));
             });
 
-            expect(spyUpdate).toBeCalledWith(userId, bearer, desiredTemp, null, true);
+            expect(spyUpdate).toBeCalledWith(bearer, desiredTemp, null, true);
         });
 
         it('should make api call to toggle off hvac when initially set to cooling', async () => {
@@ -184,7 +184,7 @@ describe('TemperaturePanel', () => {
                 fireEvent.click(screen.getByLabelText('Cool'));
             });
 
-            expect(spyUpdate).toBeCalledWith(userId, bearer, desiredTemp, null, true);
+            expect(spyUpdate).toBeCalledWith(bearer, desiredTemp, null, true);
         });
     });
 

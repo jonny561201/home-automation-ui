@@ -1,8 +1,11 @@
-import '@testing-library/jest-dom/extend-expect';
+import { expect, vi } from 'vitest';
+import matchers from '@testing-library/jest-dom/matchers';
+
+expect.extend(matchers);
 
 const mockGeolocation = {
-  getCurrentPosition: jest.fn(),
-  watchPosition: jest.fn()
+  getCurrentPosition: vi.fn(),
+  watchPosition: vi.fn()
 };
 
 global.navigator.geolocation = mockGeolocation;

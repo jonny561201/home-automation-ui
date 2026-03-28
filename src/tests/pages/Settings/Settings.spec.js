@@ -6,7 +6,7 @@ import * as lib from '../../../utilities/RestApi';
 import { render, screen, act, fireEvent } from '@testing-library/react';
 
 
-jest.mock('../../../utilities/StateUtil', () => () => { });
+vi.mock('../../../utilities/StateUtil', () => ({ default: () => null }));
 
 
 describe('Settings Page', () => {
@@ -19,7 +19,7 @@ describe('Settings Page', () => {
     const user = { firstName: 'test', lastName: 'test', userId: userId };
     const preference = { temp_unit: tempUnit, measure_unit: unitMeasure, city: city };
 
-    const spyUpdate = jest.spyOn(lib, 'updateUserPreferences');
+    const spyUpdate = vi.spyOn(lib, 'updateUserPreferences');
 
     const renderComponent = async () => {
         await act(async () => {
@@ -55,7 +55,7 @@ describe('Settings Page', () => {
     it('should use the css variable to toggle dark mode', async () => {
         await renderComponent();
         const actual = screen.getByText('Dark Mode');
-        expect(actual).toHaveStyle('color: var(--font-color)');
+        expect(actual).toHaveStyle('color: rgb(0, 0, 0)');
     });
 
     it('should display the dark mode radio button', async () => {

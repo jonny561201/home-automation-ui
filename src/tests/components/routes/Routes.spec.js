@@ -4,10 +4,13 @@ import { render, screen, act } from '@testing-library/react';
 import Routes from '../../../components/routes/Routes';
 import { Context } from '../../../state/Store';
 
-jest.mock('../../../utilities/RestApi', () => ({
-    ...jest.requireActual('../../../utilities/RestApi'),
-    getUserChildAccounts: jest.fn().mockResolvedValue([]),
-}));
+vi.mock('../../../utilities/RestApi', async () => {
+    const actual = await vi.importActual('../../../utilities/RestApi');
+    return {
+        ...actual,
+        getUserChildAccounts: vi.fn().mockResolvedValue([]),
+    };
+});
 
 
 const unauthState = {

@@ -5,7 +5,7 @@ import Header from '../../../components/header/Header';
 import { getStore } from '../../../state/GlobalState';
 
 
-jest.mock('../../../utilities/StateUtil', () => () => { });
+vi.mock('../../../utilities/StateUtil', () => ({ default: () => null }));
 
 
 describe('HeaderComponent', () => {

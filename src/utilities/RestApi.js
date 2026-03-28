@@ -25,7 +25,8 @@ export const getBearerToken = async (username, password) => {
         const bearerToken = jsonResponse.bearerToken;
         const dataStore = getStore();
         const decodedToken = jwtDecode(bearerToken);
-        dataStore.setUserRoles(decodedToken.roles);
+        const roles = decodedToken.roles || decodedToken.user?.roles;
+        dataStore.setUserRoles(roles);
         return jsonResponse;
     }
     return null;

@@ -6,15 +6,15 @@ import { getStore } from '../../../state/GlobalState';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 
 
-jest.mock('../../../utilities/StateUtil', () => () => { });
+vi.mock('../../../utilities/StateUtil', () => ({ default: () => null }));
 
 
 describe('Account Page', () => {
     const bearer = 'alkjsdf897';
     const userId = 'fakeUserId';
     const user = { firstName: 'test', lastName: 'test', userId: userId };
-    const spyPost = jest.spyOn(lib, 'updateUserAccount');
-    const spyGet = jest.spyOn(lib, 'getUserChildAccounts');
+    const spyPost = vi.spyOn(lib, 'updateUserAccount');
+    const spyGet = vi.spyOn(lib, 'getUserChildAccounts');
 
     const renderComponent = async () => {
         await act(async () => {
@@ -146,7 +146,7 @@ describe('Account Page', () => {
             await act(async () => {
                 fireEvent.click(screen.getByRole('button', {name: 'Submit'}));
             });
-            expect(spyPost).toHaveBeenCalledWith(userId, bearer, oldPass, matchingPass);
+            expect(spyPost).toHaveBeenCalledWith(bearer, oldPass, matchingPass);
         });
     });
 });

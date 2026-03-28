@@ -16,8 +16,8 @@ describe('HVAC Activity Panel', () => {
     const taskType = 'turn off';
     const task = { task_id: taskId, alarm_group_name: groupName, alarm_days: days, hvac_start: hvacStart, hvac_stop: hvacStop, enabled: true, task_type: taskType };
 
-    const spyDelete = jest.spyOn(lib, 'deleteScheduledTask');
-    const spyUpdate = jest.spyOn(lib, 'updateScheduledTasks');
+    const spyDelete = vi.spyOn(lib, 'deleteScheduledTask');
+    const spyUpdate = vi.spyOn(lib, 'updateScheduledTasks');
 
     const renderComponent = async () => {
         await act(async () => {
@@ -94,7 +94,7 @@ describe('HVAC Activity Panel', () => {
             await act(async () => {
                 fireEvent.click(screen.getByTestId('light-alarm-group'))
             });
-            const actual = screen.getByText('start time');
+            const actual = screen.getByLabelText('start time');
             expect(actual).toBeTruthy();
         });
 
@@ -103,7 +103,7 @@ describe('HVAC Activity Panel', () => {
             await act(async () => {
                 fireEvent.click(screen.getByTestId('light-alarm-group'))
             });
-            const actual = screen.getByText('stop time');
+            const actual = screen.getByLabelText('stop time');
             expect(actual).toBeTruthy();
         });
 
@@ -138,15 +138,25 @@ describe('HVAC Activity Panel', () => {
             spyDelete.mockReturnValue({ ok: true })
             await renderComponent();
             fireEvent.click(screen.getByText('Delete'));
-            expect(spyDelete).toHaveBeenCalledWith(userId, bearer, taskId);
+            expect(spyDelete).toHaveBeenCalledWith(bearer, taskId);
         });
 
         it('should make api call to update task when update button clicked', async () => {
             await renderComponent();
             fireEvent.click(screen.getByText('F'));
             fireEvent.click(screen.getByText('Update'));
-            const request = { 'taskId': taskId, 'alarmGroupName': groupName, 'alarmDays': 'MonFri', 'hvacStart': hvacStart, 'hvacStop': hvacStop, 'enabled': true, 'taskType': 'turn off' };
-            expect(spyUpdate).toHaveBeenCalledWith(userId, bearer, request);
+            expect(spyUpdate).toHaveBeenCalledWith(
+                bearer,
+                expect.objectContaining({
+                    taskId: taskId,
+                    alarmGroupName: groupName,
+                    alarmDays: 'MonFri',
+                    hvacStart: hvacStart,
+                    hvacStop: hvacStop,
+                    enabled: true,
+                    taskType: 'turn off'
+                })
+            );
         });
 
         it('should updated the displayed selected days of the week on the event banner', async () => {

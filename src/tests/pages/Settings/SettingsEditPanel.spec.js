@@ -12,7 +12,7 @@ describe('Settings Edit Panel', () => {
     const roles = [{ "role_name": "lighting" }];
     const user = { userId: userId, roles: roles }
     const preference = { city: 'Des Moines', temp_unit: 'fahrenheit', measureUnit: 'impreial' };
-    const spyUpdate = jest.spyOn(lib, 'updateUserPreferences');
+    const spyUpdate = vi.spyOn(lib, 'updateUserPreferences');
 
     const renderComponent = async () => {
         await act(async () => {

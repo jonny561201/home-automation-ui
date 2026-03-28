@@ -6,7 +6,7 @@ import { render, screen, act } from '@testing-library/react';
 import DashboardPanels from '../../../../pages/Home/panels/DashboardPanels';
 
 
-jest.mock('../../../../components/controls/Knob', () => () => <div></div>);
+vi.mock('../../../../components/controls/Knob', () => ({ default: () => <div></div> }));
 
 
 describe('DashboardPanel', () => {
@@ -32,7 +32,7 @@ describe('DashboardPanel', () => {
 
     describe('Garage Panel', () => {
 
-        const spyGetGarage = jest.spyOn(lib, 'getGarageStatus');
+        const spyGetGarage = vi.spyOn(lib, 'getGarageStatus');
 
         beforeEach(() => {
             spyGetGarage.mockClear();
@@ -59,7 +59,7 @@ describe('DashboardPanel', () => {
 
     describe('Basement Panel', () => {
 
-        const spyGetSump = jest.spyOn(lib, 'getSumpLevels');
+        const spyGetSump = vi.spyOn(lib, 'getSumpLevels');
 
         beforeEach(() => {
             spyGetSump.mockClear();
@@ -68,7 +68,7 @@ describe('DashboardPanel', () => {
 
         it('should show the Basement Panel if user has the sump pump role', async () => {
             store.setUserRoles([{ 'role_name': 'sump_pump' }]);
-            renderComponent();
+            await renderComponent();
 
             const actual = screen.getByTestId('basement-panel');
             expect(actual).toBeDefined();
@@ -76,7 +76,7 @@ describe('DashboardPanel', () => {
 
         it('should not show the Basement Panel if user does not have the sump pump role', async () => {
             store.setUserRoles([]);
-            renderComponent();
+            await renderComponent();
             const actual = screen.queryByTestId('basement-panel')
             expect(actual).toBeNull();
         });
@@ -84,7 +84,7 @@ describe('DashboardPanel', () => {
 
     describe('Temperature Panel', () => {
 
-        const spyGetTemp = jest.spyOn(lib, 'getCurrentTemperature');
+        const spyGetTemp = vi.spyOn(lib, 'getCurrentTemperature');
 
         beforeEach(() => {
             spyGetTemp.mockClear();
@@ -111,7 +111,7 @@ describe('DashboardPanel', () => {
 
     describe('Lighting Panel', () => {
 
-        const spyGetLight = jest.spyOn(lib, 'getLightGroups');
+        const spyGetLight = vi.spyOn(lib, 'getLightGroups');
 
         beforeEach(() => {
             spyGetLight.mockClear();

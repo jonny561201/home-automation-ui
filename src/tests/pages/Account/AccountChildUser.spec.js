@@ -9,9 +9,9 @@ describe('AccountChildUser', () => {
     const userId = 'fakeUserId';
     const childUserId = 'abc123';
     const bearer = ',kasdf8723';
-    const spyGet = jest.spyOn(lib, 'getUserChildAccounts');
-    const spyPost = jest.spyOn(lib, 'addUserChildAccount');
-    const spyDelete = jest.spyOn(lib, 'deleteUserChildAccount');
+    const spyGet = vi.spyOn(lib, 'getUserChildAccounts');
+    const spyPost = vi.spyOn(lib, 'addUserChildAccount');
+    const spyDelete = vi.spyOn(lib, 'deleteUserChildAccount');
     const roles = [{ role_name: 'security' }, { role_name: 'garage_door' }];
     const response = [{ user_name: 'Jon', user_id: childUserId, roles: ['garage_door'] }];
 
@@ -58,7 +58,7 @@ describe('AccountChildUser', () => {
         const roles = [{ role_name: 'security' }, { role_name: 'garage' }];
         getStore().setUserRoles(roles);
         await renderComponent();
-        fireEvent.click(screen.getByTestId("roles-account-user").querySelector('div'));
+        fireEvent.mouseDown(screen.getByRole('combobox'));
         const security = screen.getByText("security").textContent;
         const garage = screen.getByText("garage").textContent;
 
@@ -102,7 +102,7 @@ describe('AccountChildUser', () => {
         it('should not allow submission when email in an error state', async () => {
             await renderComponent();
             const addButton = screen.getByRole('button', {name: 'Add'});
-            fireEvent.click(screen.getByTestId('roles-account-user').querySelector('div'));
+            fireEvent.mouseDown(screen.getByRole('combobox'));
             const listbox = within(screen.getByRole('listbox'));
 
             fireEvent.click(listbox.getByText('garage_door'));
@@ -133,7 +133,7 @@ describe('AccountChildUser', () => {
             const roles = ['garage_door', 'security'];
             await renderComponent();
             const addButton = screen.getByRole('button', {name: 'Add'});
-            fireEvent.click(screen.getByTestId('roles-account-user').querySelector('div'));
+            fireEvent.mouseDown(screen.getByRole('combobox'));
             const listbox = within(screen.getByRole('listbox'));
 
             fireEvent.click(listbox.getByText('garage_door'));
@@ -143,7 +143,7 @@ describe('AccountChildUser', () => {
                 fireEvent.click(addButton);
             });
 
-            expect(spyPost).toHaveBeenCalledWith(userId, bearer, email, roles);
+            expect(spyPost).toHaveBeenCalledWith(bearer, email, roles);
         });
 
         it('should remove item from list after clicking the delete', async () => {

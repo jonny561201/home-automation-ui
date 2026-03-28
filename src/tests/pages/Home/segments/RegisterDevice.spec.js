@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, act, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import * as lib from '../../../../utilities/Services';
 import * as api from '../../../../utilities/RestApi'
 import RegisterDevice from '../../../../pages/Home/segments/RegisterDevice';
@@ -10,31 +10,37 @@ describe('Register Device', () => {
 
     const userId = 'fakeUserId';
     const bearer = 'kljahsdf86';
-    const spyAdd = jest.spyOn(api, 'addUserDevice')
-    const spyDebounce = jest.spyOn(lib, 'debounchApi');
-    const spyValidate = jest.spyOn(lib, 'isValidIpAddress');
+    const spyAdd = vi.spyOn(api, 'addUserDevice')
+    const spyDebounce = vi.spyOn(lib, 'debounchApi');
+    const spyValidate = vi.spyOn(lib, 'isValidIpAddress');
 
-    const renderComponent = async () => {
-        await act(async () => {
-            render(
-                <Context.Provider value={[{ user: { userId: userId }, auth: { bearer: bearer } }, () => { }]}>
-                    <RegisterDevice />
-                </Context.Provider>
-            );
-        });
+    const renderComponent = () => {
+        render(
+            <Context.Provider value={[{ startedGarageRegistration: false, user: { userId: userId }, auth: { bearer: bearer } }, () => { }] }>
+                <RegisterDevice close={() => {}} parentRef={{ contains: () => true }} />
+            </Context.Provider>
+        );
     }
 
     beforeEach(() => {
         spyAdd.mockClear();
         spyDebounce.mockClear();
         spyValidate.mockClear();
-    })
+        // Execute the debounced callback immediately in tests to avoid timer-driven act warnings.
+        spyDebounce.mockImplementation((fn) => fn());
+    });
+
+    afterAll(() => {
+        spyAdd.mockRestore();
+        spyDebounce.mockRestore();
+        spyValidate.mockRestore();
+    });
 
     describe('Before Transition', () => {
 
         beforeEach(() => {
-            spyAdd.mockReturnValue({ json: () => { return { deviceId: "" } } });
-        })
+            spyAdd.mockResolvedValue({ ok: false, json: async () => ({ deviceId: "" }) });
+        });
 
         it('should display Add Device text', () => {
             renderComponent();
@@ -64,19 +70,27 @@ describe('Register Device', () => {
             const ipAddress = "12.12.12.12";
             renderComponent();
             const inputBox = screen.getByRole('textbox');
-            fireEvent.change(inputBox, { target: { value: ipAddress } });
+            await act(async () => {
+                fireEvent.change(inputBox, { target: { value: ipAddress } });
+            });
             expect(spyDebounce).toBeCalled();
         });
 
-        it('should make api call to add device when IP not in error', () => {
+        it('should make api call to add device when IP not in error', async () => {
             const ipAddress = "12.12.12.12";
             renderComponent();
             const inputBox = screen.getByRole('textbox');
-            fireEvent.change(inputBox, { target: { value: ipAddress } });
+
+            await act(async () => {
+                fireEvent.change(inputBox, { target: { value: ipAddress } });
+            });
 
             const button = screen.getByRole('button');
-            fireEvent.submit(button);
-            expect(spyAdd).toBeCalledWith(userId, bearer, 'garage_door', ipAddress);
+            await act(async () => {
+                fireEvent.submit(button);
+            });
+
+            expect(spyAdd).toBeCalledWith(bearer, 'garage_door', ipAddress);
         });
 
         // it('should not make api call to add device when IP in error', async () => {
@@ -94,16 +108,5 @@ describe('Register Device', () => {
         // });
     });
 
-    describe('After Transition', () => {
-        // it('should display Set Garage door name text', async () => {
-        //     spyValidate.mockReturnValue(true);
-        //     const ipAddress = "12.12.12.12";
-        //     render(<RegisterDevice />);
-        //     userEvent.type(screen.getByRole('textbox'), ipAddress);
-        //     userEvent.click(screen.getByRole('button'));
-
-        //     const actual = screen.getByTestId('data-add-device').textContent;
-        //     expect(actual).toEqual('Add Garage Door Opener');
-        // });
-    });
+    // Transition-state tests can be re-enabled when this flow is covered with user-event.
 });

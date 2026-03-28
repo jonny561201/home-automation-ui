@@ -13,7 +13,7 @@ describe('SwitchSlider', () => {
         'groupId': 1, 'groupName': 'Living Room', 'on': true,
         'brightness': 155, 'lights': [light]
     }
-    const spySetLight = jest.spyOn(lib, 'setLightState');
+    const spySetLight = vi.spyOn(lib, 'setLightState');
 
     const renderComponent = async (group) => {
         await act(async () => {

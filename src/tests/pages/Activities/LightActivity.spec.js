@@ -15,8 +15,8 @@ describe('Light Activity Panel', () => {
     const taskType = 'turn off';
     const task = { task_id: taskId, alarm_group_name: groupName, alarm_days: days, alarm_time: alarmTime, alarm_light_group: groupId, enabled: true, task_type: taskType };
 
-    const spyDelete = jest.spyOn(lib, 'deleteScheduledTask');
-    const spyUpdate = jest.spyOn(lib, 'updateScheduledTasks');
+    const spyDelete = vi.spyOn(lib, 'deleteScheduledTask');
+    const spyUpdate = vi.spyOn(lib, 'updateScheduledTasks');
 
     const renderComponent = async () => {
         await act(async () => {
@@ -108,7 +108,7 @@ describe('Light Activity Panel', () => {
             spyDelete.mockReturnValue({ ok: true })
             await renderComponent();
             fireEvent.click(screen.getByText('Delete'));
-            expect(spyDelete).toHaveBeenCalledWith(userId, bearer, taskId);
+            expect(spyDelete).toHaveBeenCalledWith(bearer, taskId);
         });
 
         it('should make api call to update task when update button clicked', async () => {
@@ -116,7 +116,7 @@ describe('Light Activity Panel', () => {
             fireEvent.click(screen.getByText('F'));
             fireEvent.click(screen.getByText('Update'));
             const request = { 'taskId': taskId, 'alarmLightGroup': groupId, 'alarmGroupName': groupName, 'alarmDays': 'MonFri', 'alarmTime': alarmTime, 'enabled': true, 'taskType': 'turn off' };
-            expect(spyUpdate).toHaveBeenCalledWith(userId, bearer, request);
+            expect(spyUpdate).toHaveBeenCalledWith(bearer, request);
         });
 
         it('should update the displayed selected days of the week on the event banner', async () => {

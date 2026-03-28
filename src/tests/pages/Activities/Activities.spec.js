@@ -5,7 +5,7 @@ import { render, screen, act } from '@testing-library/react';
 import ActivitiesPage from '../../../pages/Activities/Activities';
 
 
-jest.mock('../../../utilities/StateUtil', () => () => { });
+vi.mock('../../../utilities/StateUtil', () => ({ default: () => null }));
 
 
 describe('Activities Page', () => {

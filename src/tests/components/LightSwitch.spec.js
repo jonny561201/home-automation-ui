@@ -5,7 +5,7 @@ import LightSwitch from '../../components/controls/LightSwitch';
 import { Context } from '../../state/Store';
 
 
-jest.mock('../../pages/Home/segments/SwitchSlider', () => () => <div data-testid="light-switch"></div>);
+vi.mock('../../pages/Home/segments/SwitchSlider', () => ({ default: () => <div data-testid="light-switch"></div> }));
 
 
 describe('LightSwitch', () => {
@@ -19,7 +19,7 @@ describe('LightSwitch', () => {
         'groupId': '1', 'groupName': groupName, 'on': true,
         'brightness': 155, 'lights': lights
     }
-    const spySetGroup = jest.spyOn(lib, 'setLightGroupState');
+    const spySetGroup = vi.spyOn(lib, 'setLightGroupState');
 
     const renderComponent = async (groupData) => {
         await act(async () => {

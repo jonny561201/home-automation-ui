@@ -11,8 +11,8 @@ describe('Garage Door', () => {
     const doorName = 'testNode';
     const bearer = '986adsfjg';
     const device = { doorName: doorName, doorId: 1, isOpen: true };
-    const spyUpdate = jest.spyOn(lib, 'updateGarageState');
-    const spyToggle = jest.spyOn(lib, 'toggleGarageDoor');
+    const spyUpdate = vi.spyOn(lib, 'updateGarageState');
+    const spyToggle = vi.spyOn(lib, 'toggleGarageDoor');
 
     const renderComponent = async (door) => {
         await act(async () => {
