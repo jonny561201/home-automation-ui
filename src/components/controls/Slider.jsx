@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@mui/styles';
 import Slider from '@mui/material/Slider';
+import { styled } from '@mui/material/styles';
 import Tooltip from '@mui/material/Tooltip';
 
 function ValueLabelComponent(props) {
@@ -21,33 +21,30 @@ ValueLabelComponent.propTypes = {
 };
 
 
-export const CustomSlider = withStyles({
-  root: {
-    color: '#52af77',
-    height: 8,
-    margin: '0 15px 0 15px',
-  },
-  thumb: {
+export const CustomSlider = styled(Slider)({
+  color: '#52af77',
+  height: 8,
+  margin: '0 15px 0 15px',
+  '& .MuiSlider-thumb': {
     height: 24,
     width: 24,
     backgroundColor: '#fff',
     border: '2px solid currentColor',
     marginTop: -8,
     marginLeft: -12,
-    '&:focus, &:hover, &$active': {
+    '&:focus, &:hover, &.Mui-active': {
       boxShadow: 'inherit',
     },
   },
-  active: {},
-  valueLabel: {
+  '& .MuiSlider-valueLabel': {
     left: 'calc(-50% + 4px)',
   },
-  track: {
+  '& .MuiSlider-track': {
     height: 8,
     borderRadius: 4,
   },
-  rail: {
+  '& .MuiSlider-rail': {
     height: 8,
     borderRadius: 4,
   },
-})(Slider);
+});

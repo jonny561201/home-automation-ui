@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { LocalizationProvider, TimePicker as MuiTimePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { TextField } from '@mui/material';
 import './TimePicker.css';
 
 
@@ -34,8 +33,12 @@ export default function TimePicker(props) {
                         label={props.label}
                         value={dateValue || null}
                         onChange={handleDateChange}
-                        inputFormat="hh:mm aa"
-                        renderInput={(params) => <TextField {...params} margin="normal" />}
+                        format="hh:mm aa"
+                        slotProps={{
+                            textField: {
+                                margin: 'normal'
+                            }
+                        }}
                     />
                 </LocalizationProvider>
             </div>

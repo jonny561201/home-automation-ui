@@ -1,45 +1,21 @@
-import { withStyles } from '@mui/styles';
 import Switch from '@mui/material/Switch';
+import { styled } from '@mui/material/styles';
 
 
-export const HeatSwitch = withStyles({
-  switchBase: {
-    color: "#fafafa",
-    '&$checked': {
-      color: "#db5127",
+const createColorSwitch = (checkedColor) => styled(Switch)({
+  '& .MuiSwitch-switchBase': {
+    color: '#fafafa',
+    '&.Mui-checked': {
+      color: checkedColor,
     },
-    '&$checked + $track': {
-      backgroundColor: "#db5127",
+    '&.Mui-checked + .MuiSwitch-track': {
+      backgroundColor: checkedColor,
     },
   },
-  checked: {},
-  track: {},
-})(Switch);
+});
 
-export const CoolSwitch = withStyles({
-  switchBase: {
-    color: "#fafafa",
-    '&$checked': {
-      color: "#27aedb",
-    },
-    '&$checked + $track': {
-      backgroundColor: "#27aedb",
-    },
-  },
-  checked: {},
-  track: {},
-})(Switch);
+export const HeatSwitch = createColorSwitch('#db5127');
 
-export const AutoSwitch = withStyles({
-  switchBase: {
-    color: "#fafafa",
-    '&$checked': {
-      color: "#00c774",
-    },
-    '&$checked + $track': {
-      backgroundColor: "#00c774",
-    },
-  },
-  checked: {},
-  track: {},
-})(Switch);
+export const CoolSwitch = createColorSwitch('#27aedb');
+
+export const AutoSwitch = createColorSwitch('#00c774');
