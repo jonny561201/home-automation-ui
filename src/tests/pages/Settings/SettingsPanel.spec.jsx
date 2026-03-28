@@ -2,7 +2,7 @@ import React from 'react';
 import { Context } from '../../../state/Store';
 import { render, screen, } from '@testing-library/react';
 import SettingsPanel from '../../../pages/Settings/SettingsPanel';
-import { act } from 'react-dom/test-utils';
+import { act } from 'react';
 
 
 describe('Settings Panel', () => {
