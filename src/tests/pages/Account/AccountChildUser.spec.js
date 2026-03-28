@@ -73,9 +73,9 @@ describe('AccountChildUser', () => {
             await act(async () => {
                 fireEvent.submit(screen.getByRole('button', {name: 'Add'}));
             });
-            const actual = screen.getByText('Email');
+            const actual = screen.getByLabelText('Email');
 
-            expect(actual.className).toContain('Mui-error')
+            expect(actual.ariaInvalid).toEqual('true');
         });
 
         it('should mark input in error state when trying updating text to empty', async () => {
@@ -84,9 +84,9 @@ describe('AccountChildUser', () => {
             await act(async () => {
                 fireEvent.submit(screen.getByRole('button', {name: 'Add'}));
             });
-            const actual = screen.getByText('Email');
+            const actual = screen.getByLabelText('Email');
 
-            expect(actual.className).toContain('Mui-error')
+            expect(actual.ariaInvalid).toEqual('true')
         });
 
         it('should mark roles in error state when no role is selected on submission', async () => {
