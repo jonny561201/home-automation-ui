@@ -73,12 +73,12 @@ export default function AccountChildUser() {
                         ))}
                         <tr>
                             <td>
-                                <TextField inputProps={{ "data-testid": "email-account-user" }} error={isEmailInvalid} onChange={(input) => validateEmail(input)} value={email} label="Email" />
+                                <TextField error={isEmailInvalid} onChange={(input) => validateEmail(input)} value={email} label="Email" />
                             </td>
                             <td className="account-roles">
                                 <FormControl error={isRoleInvalid}>
                                     <InputLabel className="child-user-label" id="demo-mutiple-name-label">Roles</InputLabel>
-                                    <Select className="child-user-input" data-testid="roles-account-user" multiple value={selectedRole} onChange={(input) => validateRole(input)} input={<Input />}
+                                    <Select className="child-user-input" multiple value={selectedRole} onChange={(input) => validateRole(input)} input={<Input />}
                                         renderValue={(selectedRole) => (selectedRole.join(', '))}>
                                         {roles.map((role) => (
                                             <MenuItem key={role.role_name} value={role.role_name}>

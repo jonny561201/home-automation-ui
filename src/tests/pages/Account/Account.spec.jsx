@@ -51,7 +51,7 @@ describe('Account Page', () => {
 
     it('should display the old password input box', async () => {
         await renderComponent();
-        const actual = screen.getByTestId('old-pass').querySelector('input');
+        const actual = screen.getByLabelText('Old Password');
         expect(actual).toBeDefined();
     });
 
@@ -63,19 +63,19 @@ describe('Account Page', () => {
 
     it('should display the new password input box', async () => {
         await renderComponent();
-        const actual = screen.getByTestId('new-pass').querySelector('input');
+        const actual = screen.getByLabelText('New Password');
         expect(actual).toBeDefined();
     });
 
     it('should display the confirm new password label', async () => {
         await renderComponent();
-        const actual = screen.queryByLabelText('Confirm Password');
+        const actual = screen.queryByLabelText('Confirm New Password');
         expect(actual).toBeDefined();
     });
 
     it('should display the confirm new password input box', async () => {
         await renderComponent();
-        const actual = screen.getByTestId('confirm-pass').querySelector('input');
+        const actual = screen.getByLabelText('Confirm New Password');
         expect(actual).toBeDefined();
     });
 
@@ -94,43 +94,43 @@ describe('Account Page', () => {
         it('should display error when passwords do not match', async () => {
             await renderComponent();
             await act(async () => {
-                fireEvent.change(screen.getByTestId('new-pass').querySelector('input'), { target: { value: 'pass1' } });
-                fireEvent.change(screen.getByTestId('confirm-pass').querySelector('input'), { target: { value: 'pass2' } });
+                fireEvent.change(screen.getByLabelText('New Password'), { target: { value: 'pass1' } });
+                fireEvent.change(screen.getByLabelText('Confirm New Password'), { target: { value: 'pass2' } });
             });
-            const newInput = screen.getByTestId('new-pass').querySelector('label').className;
-            const confirmInput = screen.getByTestId('confirm-pass').querySelector('label').className;
+            const actualNew = screen.getByText('New Password', { selector: 'label' }).className;
+            const actualConfirm = screen.getByText('Confirm New Password', { selector: 'label' }).className;
 
-            expect(newInput).toContain('error');
-            expect(confirmInput).toContain('error');
+            expect(actualNew).toContain('error');
+            expect(actualConfirm).toContain('error');
         });
 
         it('should not display error when passwords match', async () => {
             const matchingPass = 'test';
             await renderComponent();
-            fireEvent.change(screen.getByTestId('new-pass').querySelector('input'), { target: { value: matchingPass } });
-            fireEvent.change(screen.getByTestId('confirm-pass').querySelector('input'), { target: { value: matchingPass } });
-            const newInput = screen.getByTestId('new-pass').querySelector('label').className;
-            const confirmInput = screen.getByTestId('confirm-pass').querySelector('label').className;
+            fireEvent.change(screen.getByLabelText('New Password'), { target: { value: matchingPass } });
+            fireEvent.change(screen.getByLabelText('Confirm New Password'), { target: { value: matchingPass } });
+            const actualNew = screen.getByText('New Password', { selector: 'label' }).className;
+            const actualConfirm = screen.getByText('Confirm New Password', { selector: 'label' }).className;
 
-            expect(newInput).not.toContain('error');
-            expect(confirmInput).not.toContain('error');
+            expect(actualNew).not.toContain('error');
+            expect(actualConfirm).not.toContain('error');
         });
 
         it('should display old password error when it is empty string on submit', async () => {
             await renderComponent();
             fireEvent.click(screen.getByRole('button', {name: 'Submit'}));
-            const actual = screen.getByTestId('old-pass').querySelector('label').className;
+            const actual = screen.getByText('Old Password', { selector: 'label' }).className;
 
             expect(actual).toContain('error');
         });
 
         it('should not display old password error when it is populated on submit', async () => {
             await renderComponent();
-            fireEvent.change(screen.getByTestId('old-pass').querySelector('input'), { target: { value: 'validPass' } });
+            fireEvent.change(screen.getByLabelText('Old Password'), { target: { value: 'validPass' } });
             await act(async () => {
                 fireEvent.click(screen.getByRole('button', {name: 'Submit'}));
             });
-            const actual = screen.getByTestId('old-pass').querySelector('label').className;
+            const actual = screen.getByText('Old Password', { selector: 'label' }).className;
 
             expect(actual).not.toContain('error');
         });
@@ -139,9 +139,9 @@ describe('Account Page', () => {
             const oldPass = 'oldPass';
             const matchingPass = 'newPass';
             await renderComponent();
-            fireEvent.change(screen.getByTestId('old-pass').querySelector('input'), { target: { value: oldPass } });
-            fireEvent.change(screen.getByTestId('new-pass').querySelector('input'), { target: { value: matchingPass } });
-            fireEvent.change(screen.getByTestId('confirm-pass').querySelector('input'), { target: { value: matchingPass } });
+            fireEvent.change(screen.getByLabelText('Old Password'), { target: { value: oldPass } });
+            fireEvent.change(screen.getByLabelText('New Password'), { target: { value: matchingPass } });
+            fireEvent.change(screen.getByLabelText('Confirm New Password'), { target: { value: matchingPass } });
 
             await act(async () => {
                 fireEvent.click(screen.getByRole('button', {name: 'Submit'}));

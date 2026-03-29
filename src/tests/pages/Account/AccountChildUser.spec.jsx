@@ -42,14 +42,14 @@ describe('AccountChildUser', () => {
 
     it('should display a text box for the email address of new user', async () => {
         await renderComponent();
-        const actual = screen.getByTestId('email-account-user').querySelector('input');
+        const actual = screen.getByRole('textbox', { name: 'Email' });
 
         expect(actual).toBeDefined();
     });
 
     it('should display the drop down for the role assignment', async () => {
         await renderComponent();
-        const actual = screen.getByTestId('roles-account-user').querySelector('input');
+        const actual = screen.getByRole('combobox');
 
         expect(actual).toBeDefined();
     });
@@ -80,7 +80,7 @@ describe('AccountChildUser', () => {
 
         it('should mark input in error state when trying updating text to empty', async () => {
             await renderComponent();
-            fireEvent.change(screen.getByTestId('email-account-user'), { target: { value: "" } });
+            fireEvent.change(screen.getByRole('textbox', { name: 'Email' }), { target: { value: "" } });
             await act(async () => {
                 fireEvent.submit(screen.getByRole('button', {name: 'Add'}));
             });
@@ -94,9 +94,9 @@ describe('AccountChildUser', () => {
             await act(async () => {
                 fireEvent.submit(screen.getByRole('button', {name: 'Add'}));
             });
-            const actual = screen.getByTestId('roles-account-user');
+            const actual = screen.getByText('Roles', { selector: 'label' }).className;
 
-            expect(actual.classList).toContain('Mui-error');
+            expect(actual).toContain('Mui-error');
         });
 
         it('should not allow submission when email in an error state', async () => {
@@ -114,7 +114,7 @@ describe('AccountChildUser', () => {
 
         it('should not allow submission when roles in an error state', async () => {
             await renderComponent();
-            fireEvent.change(screen.getByTestId('email-account-user'), { target: { value: 'test@test.com' } });
+            fireEvent.change(screen.getByRole('textbox', { name: 'Email' }), { target: { value: 'test@test.com' } });
             await act(async () => {
                 fireEvent.submit(screen.getByRole('button', {name: 'Add'}));
             });
@@ -133,12 +133,12 @@ describe('AccountChildUser', () => {
             const roles = ['garage_door', 'security'];
             await renderComponent();
             const addButton = screen.getByRole('button', {name: 'Add'});
+            fireEvent.change(screen.getByRole('textbox', { name: 'Email' }), { target: { value: email } });
             fireEvent.mouseDown(screen.getByRole('combobox'));
             const listbox = within(screen.getByRole('listbox'));
 
             fireEvent.click(listbox.getByText('garage_door'));
             fireEvent.click(listbox.getByText('security'));
-            fireEvent.change(screen.getByTestId('email-account-user'), { target: { value: email } });
             await act(async () => {
                 fireEvent.click(addButton);
             });

@@ -82,13 +82,13 @@ export default function Account() {
                         <h2>Change Password</h2>
                         <Divider />
                         <div className="account-row">
-                            <TextField data-testid="old-pass" error={oldPasswordError} value={oldPassword} variant="outlined" label="Old Password" type="password" onChange={onOldPasswordChange} />
+                            <TextField error={oldPasswordError} value={oldPassword} variant="outlined" label="Old Password" type="password" onChange={onOldPasswordChange} />
                         </div>
                         <div className="account-row">
-                            <TextField data-testid="new-pass" error={arePasswordsMismatched} value={firstNewPassword} variant="outlined" label="New Password" type="password" onChange={(input) => setFirstPassword(input.target.value)} />
+                            <TextField error={arePasswordsMismatched} value={firstNewPassword} variant="outlined" label="New Password" type="password" onChange={(input) => setFirstPassword(input.target.value)} />
                         </div>
                         <div className="account-row">
-                            <TextField data-testid="confirm-pass" error={arePasswordsMismatched} value={secondNewPassword} variant="outlined" label="Confirm New Password" type="password" onChange={(input) => setSecondPassword(input.target.value)} />
+                            <TextField error={arePasswordsMismatched} value={secondNewPassword} variant="outlined" label="Confirm New Password" type="password" onChange={(input) => setSecondPassword(input.target.value)} />
                         </div>
                         {passwordMessage()}
                         <GreenButton type="submit">Submit</GreenButton>
