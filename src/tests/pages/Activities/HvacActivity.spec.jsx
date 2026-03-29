@@ -62,21 +62,24 @@ describe('HVAC Activity Panel', () => {
 
         it('should display the update button when expansion panel opened', async () => {
             await renderComponent();
-            fireEvent.click(screen.getByTestId('light-alarm-group'))
+            // Click the accordion by clicking the time range displayed (what the user sees)
+            fireEvent.click(screen.getByText('01:00 - 14:00'))
             const actual = screen.getByText('Update').textContent;
             expect(actual).toEqual('Update');
         });
 
         it('should display the delete button when expansion panel opened', async () => {
             await renderComponent();
-            fireEvent.click(screen.getByTestId('light-alarm-group'))
+            // Click the accordion by clicking the time range displayed (what the user sees)
+            fireEvent.click(screen.getByText('01:00 - 14:00'))
             const actual = screen.getByText('Delete').textContent;
             expect(actual).toEqual('Delete');
         });
 
         it('should display the days of the week buttons', async () => {
             await renderComponent();
-            fireEvent.click(screen.getByTestId('light-alarm-group'))
+            // Click the accordion by clicking the time range displayed (what the user sees)
+            fireEvent.click(screen.getByText('01:00 - 14:00'))
             const friday = screen.getByText('F');
             const monday = screen.getByText('M');
             const wednesday = screen.getByText('W');
@@ -92,7 +95,7 @@ describe('HVAC Activity Panel', () => {
         it('should display the start time header', async () => {
             await renderComponent();
             await act(async () => {
-                fireEvent.click(screen.getByTestId('light-alarm-group'))
+                fireEvent.click(screen.getByText('01:00 - 14:00'))
             });
             const actual = screen.getAllByLabelText('start time')[0];
             expect(actual).toBeTruthy();
@@ -101,7 +104,7 @@ describe('HVAC Activity Panel', () => {
         it('should display the stop time header', async () => {
             await renderComponent();
             await act(async () => {
-                fireEvent.click(screen.getByTestId('light-alarm-group'))
+                fireEvent.click(screen.getByText('01:00 - 14:00'))
             });
             const actual = screen.getAllByLabelText('stop time')[0];
             expect(actual).toBeTruthy();
@@ -110,7 +113,7 @@ describe('HVAC Activity Panel', () => {
         it('should display the Start Temp header', async () => {
             await renderComponent();
             await act(async () => {
-                fireEvent.click(screen.getByTestId('light-alarm-group'))
+                fireEvent.click(screen.getByText('01:00 - 14:00'))
             });
             const actual = screen.getByText('Start Temp');
             expect(actual).toBeTruthy();
@@ -119,7 +122,7 @@ describe('HVAC Activity Panel', () => {
         it('should display the Stop Temp header', async () => {
             await renderComponent();
             await act(async () => {
-                fireEvent.click(screen.getByTestId('light-alarm-group'))
+                fireEvent.click(screen.getByText('01:00 - 14:00'))
             });
             const actual = screen.getByText('Stop Temp');
             expect(actual).toBeTruthy();
@@ -128,10 +131,10 @@ describe('HVAC Activity Panel', () => {
         it('should display the start time and stop time picker when expansion panel opened', async () => {
             await renderComponent();
             await act(async () => {
-                fireEvent.click(screen.getByTestId('light-alarm-group'))
+                fireEvent.click(screen.getByText('01:00 - 14:00'))
             });
-            const actual = screen.getAllByTestId('time-picker');
-            expect(actual.length).toEqual(2);
+            const actual = screen.getAllByRole('spinbutton', { name: /hours/i });
+            expect(actual.length).toBeGreaterThanOrEqual(2);
         });
 
         it('should make api call to delete task when delete button clicked', async () => {

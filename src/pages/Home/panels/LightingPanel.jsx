@@ -19,7 +19,7 @@ export default function LightingPanel() {
 
     return (
         <div>
-            <Accordion data-testid={"lighting-panel"} className="lighting-panel">
+            <Accordion className="lighting-panel">
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <div className="summary">
                         <div>

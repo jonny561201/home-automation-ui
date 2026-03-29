@@ -87,7 +87,7 @@ export default function HvacActivity(props) {
                     <div className="alarm-setting-group">
                         <p className="text activity-group-name">{props.task.task_type}</p>
                     </div>
-                    <div className="alarm-setting-group" data-testid="light-alarm-group">
+                    <div className="alarm-setting-group">
                         <div className="alarm-column-one">
                             <p className="panel-header-text alarm-time">{`${startTime.slice(0, -3)} - ${stopTime.slice(0, -3)}`}</p>
                         </div>

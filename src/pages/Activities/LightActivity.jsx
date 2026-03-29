@@ -82,7 +82,7 @@ export default function LightActivity(props) {
                         <div className="alarm-setting-group">
                             <p className="text activity-group-name">{props.task.task_type} - {props.task.alarm_group_name}</p>
                         </div>
-                        <div className="alarm-setting-group" data-testid="light-alarm-group">
+                        <div className="alarm-setting-group">
                             <div className="alarm-column-one">
                                 <p className="panel-header-text alarm-time">{time.slice(0, -3)}</p>
                             </div>
@@ -101,7 +101,7 @@ export default function LightActivity(props) {
                 <AccordionDetails className="center">
                     <div className="activity-detail-panel">
                         <div style={{ display: 'flex' }}>
-                            <TextField data-testid="task-type" className="light-alarm-component" select variant="outlined" value={type} onChange={updateSelectedType} label="Task Type">
+                            <TextField className="light-alarm-component" select variant="outlined" value={type} onChange={updateSelectedType} label="Task Type">
                                 {state.taskTypes.map(x => (
                                     <MenuItem key={x} value={x}>
                                         {x}

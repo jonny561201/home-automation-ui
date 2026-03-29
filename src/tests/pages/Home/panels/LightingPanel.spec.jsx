@@ -34,12 +34,14 @@ describe('LightingPanel', () => {
     it('should render a button for every group in response', async () => {
         await renderComponent(lights);
         await act(async () => {
-            fireEvent.click(screen.getByTestId('lighting-panel'));
+            // Click the Lighting header button to expand and show light groups
+            fireEvent.click(screen.getByRole('button', { name: /lighting/i }));
         });
 
-        const actual = screen.getAllByTestId('light-group');
+        // Count the number of slider controls (each light group has a slider)
+        const sliders = screen.getAllByRole('slider');
 
-        expect(actual.length).toEqual(2);
+        expect(sliders.length).toEqual(2);
     });
 
     it('should display error text when there are no groups returned', async () => {

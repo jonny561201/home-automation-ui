@@ -27,7 +27,7 @@ export default function TimePicker(props) {
 
     return (
         <>
-            <div data-testid="time-picker" className="light-alarm-component">
+            <div className="light-alarm-component">
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <MuiTimePicker
                         label={props.label}

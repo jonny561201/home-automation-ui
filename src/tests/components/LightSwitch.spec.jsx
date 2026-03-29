@@ -5,7 +5,7 @@ import LightSwitch from '../../components/controls/LightSwitch';
 import { Context } from '../../state/Store';
 
 
-vi.mock('../../pages/Home/segments/SwitchSlider', () => ({ default: () => <div data-testid="light-switch"></div> }));
+vi.mock('../../pages/Home/segments/SwitchSlider', () => ({ default: (props) => <div role="region" aria-label="light switch slider">{props.data?.lightName || 'Light'}</div> }));
 
 
 describe('LightSwitch', () => {
@@ -50,7 +50,8 @@ describe('LightSwitch', () => {
 
     it('should display the group light switch button', async () => {
         await renderComponent(group);
-        const actual = screen.getByTestId('light-group-switch').querySelector('input');
+        // Find the switch by looking for the slider input role 
+        const actual = screen.getByRole('slider');
         expect(actual).toBeDefined();
     });
 
@@ -58,7 +59,7 @@ describe('LightSwitch', () => {
     it('should call set light group state on toggleChecked', async () => {
         await renderComponent(group);
         await act(async () => {
-            fireEvent.change(screen.getByTestId('light-group-switch').querySelector('input'), { target: { value: 0 } });
+            fireEvent.change(screen.getByRole('slider'), { target: { value: 0 } });
             // fireEvent.click(screen.getByRole('checkbox'));
         });
 
@@ -72,16 +73,16 @@ describe('LightSwitch', () => {
             await act(async () => {
                 fireEvent.click(screen.getByRole('button', { name: 'expand' }));
             });
-            const actual = screen.queryByTestId('light-group-expansion');
-
-            expect(actual).toBeTruthy();
+            // Look for the light switch sliders rendered in the expansion - verify they exist
+            const lightSwitches = screen.getAllByRole('region', { name: /light switch slider/i });
+            expect(lightSwitches.length).toBeGreaterThan(0);
         });
 
         it('should not display expansion panel when areLightsOpen is false', async () => {
             await renderComponent(group);
-            const actual = screen.queryByTestId('light-group-expansion');
-
-            expect(actual).toBeFalsy();
+            // Initially, no light switches should be visible
+            const lightSwitches = screen.queryAllByRole('region', { name: /light switch slider/i });
+            expect(lightSwitches).toHaveLength(0);
         });
 
         it('should display all light switches', async () => {
@@ -89,15 +90,13 @@ describe('LightSwitch', () => {
             await act(async () => {
                 fireEvent.click(screen.getByRole('button', { name: 'expand' }));
             });
-            const actual = screen.getAllByTestId('light-switch');
-
+            const actual = screen.getAllByRole('region', { name: /light switch slider/i });
             expect(actual).toHaveLength(2);
         });
 
         it('should not display light switches when not expanded', async () => {
             await renderComponent(group);
-            const actual = screen.queryAllByTestId('light-switch');
-
+            const actual = screen.queryAllByRole('region', { name: /light switch slider/i });
             expect(actual).toHaveLength(0);
         });
 
