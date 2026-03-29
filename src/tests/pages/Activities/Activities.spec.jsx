@@ -10,11 +10,12 @@ vi.mock('../../../utilities/StateUtil', () => ({ default: () => null }));
 describe('Activities Page', () => {
     const user = { firstName: 'test', lastName: 'test' };
     const dispatch = vi.fn();
+    const state = { user, tasks: [], activePage: 'Activities' };
 
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ user: user, tasks: [] }, dispatch]}> 
+                <Context.Provider value={[state, dispatch]}>
                     <ActivitiesPage />
                 </Context.Provider>
             );
