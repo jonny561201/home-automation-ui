@@ -36,7 +36,7 @@ export default function TemperaturePanel() {
 
     return (
         <div>
-            <Accordion data-testid={"temperature-panel"} className="temperature-panel">
+            <Accordion className="temperature-panel">
                 <AccordionSummary expandIcon={<ExpandMoreIcon />} onClick={() => setOpen(!open)}>
                     <div className="summary">
                         <img alt="temperature" className="logo-image" src={TemperatureIcon} />
@@ -70,7 +70,7 @@ export default function TemperaturePanel() {
                                 state.tasks.some(x => x.task_type === 'hvac') ?
                                     <FormControl>
                                         <FormGroup>
-                                            <FormControlLabel label="Auto" control={<AutoSwitch data-testid={"auto-switch"} checked={state.tempData.mode === 'auto' && state.tasks.some(x => x.task_type === 'hvac')} onChange={() => toggleHvac("auto")} />} />
+                                            <FormControlLabel label="Auto" control={<AutoSwitch checked={state.tempData.mode === 'auto' && state.tasks.some(x => x.task_type === 'hvac')} onChange={() => toggleHvac("auto")} />} />
                                         </FormGroup>
                                     </FormControl>
                                     : null
@@ -78,8 +78,8 @@ export default function TemperaturePanel() {
                             {(state.tempData.mode !== 'auto' || !state.tasks.some(x => x.task_type === 'hvac')) && (
                                 <FormControl>
                                     <FormGroup>
-                                        <FormControlLabel label="Heat" control={<HeatSwitch data-testid={"heating-switch"} checked={state.tempData.mode === 'heating'} onChange={() => toggleHvac("heating")} />} />
-                                        <FormControlLabel label="Cool" control={<CoolSwitch data-testid={"cooling-switch"} checked={state.tempData.mode === 'cooling'} onChange={() => toggleHvac("cooling")} />} />
+                                        <FormControlLabel label="Heat" control={<HeatSwitch checked={state.tempData.mode === 'heating'} onChange={() => toggleHvac("heating")} />} />
+                                        <FormControlLabel label="Cool" control={<CoolSwitch checked={state.tempData.mode === 'cooling'} onChange={() => toggleHvac("cooling")} />} />
                                     </FormGroup>
                                 </FormControl>
                             )}

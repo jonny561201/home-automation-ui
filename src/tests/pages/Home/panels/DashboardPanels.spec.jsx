@@ -43,7 +43,7 @@ describe('DashboardPanel', () => {
             store.setUserRoles([{ 'role_name': 'garage_door' }]);
             await renderComponent();
 
-            const actual = screen.getByTestId('garage-icon');
+            const actual = screen.getByText('Garage');
             expect(actual).toBeDefined();
         });
 
@@ -51,7 +51,7 @@ describe('DashboardPanel', () => {
             store.setUserRoles([]);
             await renderComponent();
 
-            const actual = screen.queryByTestId('garage-icon');
+            const actual = screen.queryByText('Garage');
             expect(actual).toBeNull();
         });
     });
@@ -70,14 +70,14 @@ describe('DashboardPanel', () => {
             store.setUserRoles([{ 'role_name': 'sump_pump' }]);
             await renderComponent();
 
-            const actual = screen.getByTestId('basement-panel');
+            const actual = screen.getByText('Basement');
             expect(actual).toBeDefined();
         });
 
         it('should not show the Basement Panel if user does not have the sump pump role', async () => {
             store.setUserRoles([]);
             await renderComponent();
-            const actual = screen.queryByTestId('basement-panel')
+            const actual = screen.queryByText('Basement')
             expect(actual).toBeNull();
         });
     });
@@ -97,14 +97,14 @@ describe('DashboardPanel', () => {
         it('should show the Temperature Panel if user has the thermostat role', async () => {
             store.setUserRoles([{ 'role_name': 'thermostat' }]);
             await renderComponent();
-            const actual = screen.getByTestId('temperature-panel');
+            const actual = screen.getByText('Temperature');
             expect(actual).toBeDefined();
         });
 
         it('should not show the Temperature Panel if user does not have the thermostat role', async () => {
             store.setUserRoles([]);
             await renderComponent();
-            const actual = screen.queryByTestId('temperature-panel');
+            const actual = screen.queryByText('Temperature');
             expect(actual).toBeNull();
         });
     });
@@ -121,14 +121,14 @@ describe('DashboardPanel', () => {
         it('should show the Lighting Panel if user has the lighting role', async () => {
             store.setUserRoles([{ 'role_name': 'lighting' }]);
             await renderComponent();
-            const actual = screen.queryByTestId('lighting-panel');
+            const actual = screen.queryByText('Lighting');
             expect(actual).toBeDefined();
         });
 
         it('should not show the Lighting Panel if user does not have the lighting role', async () => {
             store.setUserRoles([]);
             await renderComponent();
-            const actual = screen.queryByTestId('lighting-panel');
+            const actual = screen.queryByText('Lighting');
             expect(actual).toBeNull();
         });
     });
@@ -138,14 +138,14 @@ describe('DashboardPanel', () => {
         it('should show the Security Panel if user has the security role', async () => {
             store.setUserRoles([{ 'role_name': 'security' }]);
             await renderComponent();
-            const actual = screen.getByTestId('security-panel');
+            const actual = screen.getByText('Security');
             expect(actual).toBeDefined();
         });
 
         it('should not show the Security Panel if user does not have the security role', async () => {
             store.setUserRoles([]);
             await renderComponent();
-            const actual = screen.queryByTestId('security-panel');
+            const actual = screen.queryByText('Security');
             expect(actual).toBeNull();
         });
     });

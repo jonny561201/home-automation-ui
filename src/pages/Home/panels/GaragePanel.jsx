@@ -35,7 +35,7 @@ export default function GaragePanel() {
             <Accordion className="garage-panel">
                 <AccordionSummary expandIcon={<ExpandMoreIcon />} onClick={() => { setOpen(!open) }}>
                     <div className="summary">
-                        <img data-testid={"garage-icon"} alt="garage" className="logo-image" src={GarageIcon} />
+                        <img alt="garage" className="logo-image" src={GarageIcon} />
                         <div>
                             <Typography className="panel-text panel-header-text">Garage</Typography>
                             <div className="small-text-container">

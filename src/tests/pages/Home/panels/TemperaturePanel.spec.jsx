@@ -45,7 +45,7 @@ describe('TemperaturePanel', () => {
 
     it('should display temperature panel', async () => {
         await renderComponent();
-        const actual = screen.getByTestId('temperature-panel');
+        const actual = screen.getByText('Temperature');
         expect(actual).toBeDefined();
     })
 

@@ -23,13 +23,13 @@ describe('BasementPanel', () => {
 
     it('should show the Basement Panel', async () => {
         await renderComponent();
-        const actual = screen.getByTestId('basement-panel');
+        const actual = screen.getByText('Basement');
         expect(actual).toBeDefined();
     });
 
     it('should show basement icon', async () => {
         await renderComponent();
-        const actual = screen.getByTestId('sump-logo');
+        const actual = screen.getByRole('img', { name: 'basement' });
         expect(actual).toBeDefined();
     });
 
@@ -44,28 +44,32 @@ describe('BasementPanel', () => {
         it('should display the low icon when warning level 0', async () => {
             sumpData.warningLevel = 0;
             await renderComponent();
-            const actual = screen.getByTestId('warning-low');
+            fireEvent.click(screen.getByText('Basement'));
+            const actual = screen.getByRole('img', { name: 'sump pump low' });
             expect(actual).toBeDefined();
         });
 
         it('should display the medium low icon when warning level 1', async () => {
             sumpData.warningLevel = 1;
             await renderComponent();
-            const actual = screen.getByTestId('warning-medium-low');
+            fireEvent.click(screen.getByText('Basement'));
+            const actual = screen.getByRole('img', { name: 'sump pump medium low' });
             expect(actual).toBeDefined();
         });
 
         it('should display the medium high icon when warning level 2', async () => {
             sumpData.warningLevel = 2;
             await renderComponent();
-            const actual = screen.getByTestId('warning-medium-high')
+            fireEvent.click(screen.getByText('Basement'));
+            const actual = screen.getByRole('img', { name: 'sump pump medium high' })
             expect(actual).toBeDefined();
         });
 
         it('should display the high icon when warning level 3', async () => {
             sumpData.warningLevel = 3
             await renderComponent();
-            const actual = screen.getByTestId('warning-high')
+            fireEvent.click(screen.getByText('Basement'));
+            const actual = screen.getByRole('img', { name: 'sump pump high' })
             expect(actual).toBeDefined();
         });
     });

@@ -16,22 +16,22 @@ export default function BasementPanel() {
 
     const getSumpIcon = () => {
         if (state.sumpData.warningLevel === 0) {
-            return <img data-testid={"warning-low"} alt="sump pump" className="sump-icon" src={SumpPumpLowIcon} label="warning-low" />
+            return <img alt="sump pump low" className="sump-icon" src={SumpPumpLowIcon} label="warning-low" />
         } else if (state.sumpData.warningLevel === 1) {
-            return <img data-testid={"warning-medium-low"} alt="sump pump" className="sump-icon" src={SumpPumpMediumLowIcon} label="warning-medium-low" />
+            return <img alt="sump pump medium low" className="sump-icon" src={SumpPumpMediumLowIcon} label="warning-medium-low" />
         } else if (state.sumpData.warningLevel === 2) {
-            return <img data-testid={"warning-medium-high"} alt="sump pump" className="sump-icon" src={SumpPumpMediumHighIcon} label="warning-medium-high" />
+            return <img alt="sump pump medium high" className="sump-icon" src={SumpPumpMediumHighIcon} label="warning-medium-high" />
         } else if (state.sumpData.warningLevel === 3) {
-            return <img data-testid={"warning-high"} alt="sump pump" className="sump-icon" src={SumpPumpHighIcon} label="warning-high" />
+            return <img alt="sump pump high" className="sump-icon" src={SumpPumpHighIcon} label="warning-high" />
         }
     }
 
     return (
         <div>
-            <Accordion data-testid={"basement-panel"} className="basement-panel">
+            <Accordion className="basement-panel">
                 <AccordionSummary expandIcon={<ExpandMoreIcon />} onClick={() => { setOpen(!open) }}>
                     <div className="summary">
-                        <img data-testid={"sump-logo"} alt="basement" className="logo-image" src={BasementIcon} />
+                        <img alt="basement" className="logo-image" src={BasementIcon} />
                         <div>
                             <Typography className="panel-text panel-header-text">Basement</Typography>
                             {!open &&

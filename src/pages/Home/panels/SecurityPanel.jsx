@@ -7,7 +7,7 @@ import { AccordionDetails, Accordion, Typography, AccordionSummary, Divider } fr
 export default function SecurityPanel() {
     return (
         <div>
-            <Accordion data-testid={"security-panel"} className="security-panel">
+            <Accordion className="security-panel">
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <div className="summary">
                         <div>
