@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { getStore } from '../../state/GlobalState';
 import { addUserChildAccount, getUserChildAccounts, deleteUserChildAccount } from '../../utilities/RestApi';
 import { Context } from '../../state/Store';
-import { Divider, MenuItem, Select, InputLabel, Input, FormControl, Checkbox, TextField, ListItemText } from '@mui/material';
+import { Divider, MenuItem, Select, InputLabel, OutlinedInput, FormControl, Checkbox, TextField, ListItemText } from '@mui/material';
 import { AddButton, RemoveButton } from '../../components/controls/Buttons';
 import "./AccountChildUser.css"
 
@@ -76,9 +76,9 @@ export default function AccountChildUser() {
                                 <TextField error={isEmailInvalid} onChange={(input) => validateEmail(input)} value={email} label="Email" />
                             </td>
                             <td className="account-roles">
-                                <FormControl error={isRoleInvalid}>
-                                    <InputLabel className="child-user-label" id="demo-mutiple-name-label">Roles</InputLabel>
-                                    <Select className="child-user-input" multiple value={selectedRole} onChange={(input) => validateRole(input)} input={<Input />}
+                                <FormControl error={isRoleInvalid} variant="outlined">
+                                    <InputLabel className="child-user-label">Roles</InputLabel>
+                                    <Select className="child-user-input" labelId="mutiple-name-label" variant="outlined" multiple value={selectedRole} onChange={(input) => validateRole(input)} input={<OutlinedInput label="Roles" />}
                                         renderValue={(selectedRole) => (selectedRole.join(', '))}>
                                         {roles.map((role) => (
                                             <MenuItem key={role.role_name} value={role.role_name}>

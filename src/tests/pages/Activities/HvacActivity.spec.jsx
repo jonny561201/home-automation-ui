@@ -54,7 +54,7 @@ describe('HVAC Activity Panel', () => {
 
     it('should display the enable/disable toggle button by default', async () => {
         await renderComponent();
-        const actual = screen.getByRole('switch');
+        const actual = screen.getByRole('checkbox', { name: 'primary checkbox' });
         expect(actual).toBeTruthy();
     });
 

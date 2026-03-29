@@ -16,13 +16,13 @@ export default function BasementPanel() {
 
     const getSumpIcon = () => {
         if (state.sumpData.warningLevel === 0) {
-            return <img alt="sump pump low" className="sump-icon" src={SumpPumpLowIcon} label="warning-low" />
+            return <img alt="sump pump low" className="sump-icon" src={SumpPumpLowIcon} />
         } else if (state.sumpData.warningLevel === 1) {
-            return <img alt="sump pump medium low" className="sump-icon" src={SumpPumpMediumLowIcon} label="warning-medium-low" />
+            return <img alt="sump pump medium low" className="sump-icon" src={SumpPumpMediumLowIcon} />
         } else if (state.sumpData.warningLevel === 2) {
-            return <img alt="sump pump medium high" className="sump-icon" src={SumpPumpMediumHighIcon} label="warning-medium-high" />
+            return <img alt="sump pump medium high" className="sump-icon" src={SumpPumpMediumHighIcon} />
         } else if (state.sumpData.warningLevel === 3) {
-            return <img alt="sump pump high" className="sump-icon" src={SumpPumpHighIcon} label="warning-high" />
+            return <img alt="sump pump high" className="sump-icon" src={SumpPumpHighIcon} />
         }
     }
 

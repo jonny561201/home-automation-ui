@@ -93,7 +93,7 @@ export default function HvacActivity(props) {
                         </div>
                         <div className="alarm-column-two">
                             <Switch onClick={(event) => event.stopPropagation()} onFocus={(event) => event.stopPropagation()}
-                                checked={enabled} onChange={toggleTask} color="primary" inputProps={{ 'aria-label': 'primary checkbox' }} />
+                                checked={enabled} onChange={toggleTask} color="primary" slotProps={{ input: { 'aria-label': 'primary checkbox' } }} />
                         </div>
                     </div>
                     <div className="alarm-setting-group">
