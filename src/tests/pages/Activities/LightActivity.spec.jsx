@@ -53,7 +53,7 @@ describe('Light Activity Panel', () => {
 
     it('should display the enable/disable toggle button by default', async () => {
         await renderComponent();
-        const actual = screen.getByRole('checkbox', { name: 'primary checkbox' });
+        const actual = screen.getByRole('switch');
         expect(actual).toBeTruthy();
     });
 

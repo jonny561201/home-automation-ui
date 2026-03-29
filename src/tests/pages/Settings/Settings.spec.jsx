@@ -60,7 +60,7 @@ describe('Settings Page', () => {
 
     it('should display the dark mode radio button', async () => {
         await renderComponent();
-        const actual = screen.getAllByRole('checkbox')[0];
+        const actual = screen.getAllByRole('switch')[0];
         expect(actual).toBeDefined();
     });
 
@@ -245,7 +245,7 @@ describe('Settings Page', () => {
 
     it('should display the auto theme mode toggle', async () => {
         await renderComponent();
-        const actual = screen.getAllByRole('checkbox')[1];
+        const actual = screen.getAllByRole('switch')[1];
         expect(actual).toBeDefined();
     });
 
@@ -257,8 +257,8 @@ describe('Settings Page', () => {
 
     it('should disable the dark mode button when in auto theme mode', async () => {
         await renderComponent();
-        fireEvent.click(screen.getAllByRole('checkbox')[1]);
-        const actual = screen.getAllByRole('checkbox')[0];
+        fireEvent.click(screen.getAllByRole('switch')[1]);
+        const actual = screen.getAllByRole('switch')[0];
         expect(actual).toHaveAttribute('disabled');
     });
 });

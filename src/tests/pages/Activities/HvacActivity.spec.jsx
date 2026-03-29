@@ -54,7 +54,7 @@ describe('HVAC Activity Panel', () => {
 
     it('should display the enable/disable toggle button by default', async () => {
         await renderComponent();
-        const actual = screen.getByRole('checkbox', { name: 'primary checkbox' });
+        const actual = screen.getByRole('switch');
         expect(actual).toBeTruthy();
     });
 
@@ -94,7 +94,7 @@ describe('HVAC Activity Panel', () => {
             await act(async () => {
                 fireEvent.click(screen.getByTestId('light-alarm-group'))
             });
-            const actual = screen.getByLabelText('start time');
+            const actual = screen.getAllByLabelText('start time')[0];
             expect(actual).toBeTruthy();
         });
 
@@ -103,7 +103,7 @@ describe('HVAC Activity Panel', () => {
             await act(async () => {
                 fireEvent.click(screen.getByTestId('light-alarm-group'))
             });
-            const actual = screen.getByLabelText('stop time');
+            const actual = screen.getAllByLabelText('stop time')[0];
             expect(actual).toBeTruthy();
         });
 
