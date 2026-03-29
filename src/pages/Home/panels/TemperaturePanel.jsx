@@ -1,10 +1,8 @@
 import React, { useState, useContext } from 'react';
-import useSound from 'use-sound';
 import Knob from '../../../components/controls/Knob';
 import { debounchApi } from '../../../utilities/Services';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TemperatureImage from '../segments/TemperatureImage';
-import singleClickSound from '../../../resources/singleClick.mp3';
 import TemperatureIcon from '../../../resources/panelIcons/TemperatureIcon.png';
 import { setUserTemperature } from '../../../utilities/RestApi';
 import { Accordion, Typography, AccordionSummary, Divider, FormControl, FormGroup, FormControlLabel } from '@mui/material';
@@ -16,7 +14,6 @@ import { Context } from '../../../state/Store';
 export default function TemperaturePanel() {
     const [state, dispatch] = useContext(Context);
     const [open, setOpen] = useState(false);
-    const [click] = useSound(singleClickSound, { volume: 0.25 });
 
     const knobChange = (newValue) => {
         if (state.tempData.mode === 'heating' || state.tempData.mode === 'cooling') {
@@ -27,7 +24,6 @@ export default function TemperaturePanel() {
 
     const toggleHvac = async (newMode) => {
         if (newMode !== 'auto' || state.tasks.some(x => x.task_type === 'hvac')) {
-            click();
             const modeState = state.tempData.mode === newMode ? null : newMode;
             await dispatch({ type: 'SET_TEMP_DATA', payload: { ...state.tempData, mode: modeState } });
             setUserTemperature(state.auth.bearer, state.tempData.desiredTemp, modeState, state.tempData.isFahrenheit);

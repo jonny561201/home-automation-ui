@@ -1,6 +1,4 @@
 import React, { useContext, useState } from 'react';
-import useSound from 'use-sound';
-import clickSound from '../../resources/click.mp3';
 import { Context } from '../../state/Store';
 import TimePicker from '../../components/controls/TimePicker';
 import WeekPicker from '../../components/controls/WeekPicker';
@@ -13,7 +11,6 @@ export default function CreateLightActivity(props) {
     const [state, dispatch] = useContext(Context);
     const [edited, setEdited] = useState(false);
     const initialDays = [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }];
-    const [click] = useSound(clickSound, { volume: 0.25 });
     const [days, setDays] = useState();
     const [groupId, setGroupId] = useState();
     const [selectedRoom, setSelectedRoom] = useState('');
@@ -26,7 +23,6 @@ export default function CreateLightActivity(props) {
             const tasks = await insertLightTask(state.auth.bearer, true, props.type, groupId, selectedRoom, days, time);
             dispatch({ type: 'SET_SCHEDULED_TASK', payload: tasks });
             props.save();
-            click();
         }
     }
 
@@ -45,7 +41,6 @@ export default function CreateLightActivity(props) {
 
     const deleteActivity = () => {
         props.cancel();
-        click();
     }
 
     const toggleDay = (task, newState) => {

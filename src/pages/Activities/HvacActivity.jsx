@@ -1,9 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Context } from '../../state/Store';
-import useSound from 'use-sound';
 import { Save, Delete } from '@mui/icons-material';
-import clickSound from '../../resources/click.mp3';
-import SingleClickSound from '../../resources/singleClick.mp3';
 import TempPicker from '../../components/controls/TempPicker';
 import TimePicker from '../../components/controls/TimePicker';
 import WeekPicker from '../../components/controls/WeekPicker';
@@ -24,8 +21,6 @@ export default function HvacActivity(props) {
     const [startTime, setStartTime] = useState(props.task.hvac_start);
     const [inTemp, setInTemp] = useState(props.task.hvac_start_temp);
     const [outTemp, setOutTemp] = useState(props.task.hvac_stop_temp);
-    const [click] = useSound(clickSound, { volume: 0.25 });
-    const [singleClick] = useSound(SingleClickSound, { volume: 0.25 });
     const [daysOfWeek, setDaysOfWeek] = useState(initialDays.map(day => props.task.alarm_days.includes(day.id) ? { ...day, on: true } : day));
 
     const updateStopTime = (dateTime) => {
@@ -39,7 +34,6 @@ export default function HvacActivity(props) {
     }
 
     const clickDelete = async () => {
-        click();
         const response = await deleteScheduledTask(state.auth.bearer, props.task.task_id);
         if (response.ok)
             dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.task_id });
@@ -47,13 +41,11 @@ export default function HvacActivity(props) {
 
     const saveTask = async () => {
         if (edited) {
-            click();
             await updateTask(enabled);
         }
     }
 
     const toggleTask = async () => {
-        singleClick();
         const updated = !enabled;
         setEnabled(updated);
         await updateTask(updated);

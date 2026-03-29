@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '../../../state/Store';
-import useSound from 'use-sound';
-import dingSound from '../../../resources/ding.mp3';
 import CloseIcon from '@mui/icons-material/Close';
 import { updateGarageState } from '../../../utilities/RestApi';
 import { useInterval } from '../../../utilities/UseInterval';
@@ -10,7 +8,6 @@ import './UserLocation.css';
 import { RedButton } from '../../../components/controls/Buttons';
 
 export default function UserLocation() {
-    const [ding] = useSound(dingSound, { volume: 0.25 });
     const [state, dispatch] = useContext(Context);
     const [cancel, setCancel] = useState(false);
     const [opened, setOpened] = useState(false);
@@ -45,7 +42,6 @@ export default function UserLocation() {
                 setDisplayMenu(true);
                 return false;
             } else if (distance <= 0.04 && secondCheck && firstCheck && !cancel && !opened) {
-                ding();
                 setDisplayMenu(false);
                 setOpened(true);
                 return true;
@@ -73,7 +69,7 @@ export default function UserLocation() {
                     updateGarageState(state.user.userId, state.auth.bearer, true, state.preferences.garage_id);
                 }
             }
-        }, (error) => {
+        }, () => {
             if (!notified)
                 alert('Enable GPS position feature.');
             setNotified(true);

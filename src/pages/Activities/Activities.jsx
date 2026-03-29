@@ -1,7 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { Context } from '../../state/Store';
-import useSound from 'use-sound';
-import clickSound from '../../resources/singleClick.mp3';
 import Header from '../../components/header/Header';
 import { getStore } from '../../state/GlobalState';
 import AddIcon from '@mui/icons-material/Add';
@@ -13,13 +11,11 @@ import './Activities.css';
 
 export default function ActivitiesPage() {
     getStore().setActivePage('Activities');
-    const [click] = useSound(clickSound, { volume: 0.25 });
     const [state,] = useContext(Context);
     const [addTask, setAddTask] = useState(false)
 
     const createNewTask = () => {
         setAddTask(true);
-        click();
     }
 
     const createActivities = (task) => {

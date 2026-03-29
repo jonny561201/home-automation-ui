@@ -1,6 +1,4 @@
 import React, { useState, useContext } from 'react';
-import useSound from 'use-sound';
-import clickSound from '../../resources/click.mp3';
 import { updateUserPreferences } from '../../utilities/RestApi';
 import './SettingsEditPanel.css'
 import { Context } from '../../state/Store';
@@ -10,7 +8,6 @@ import { GreenButton, RedButton } from '../../components/controls/Buttons';
 
 export default function SettingsEditPanel(props) {
     const [state, dispatch] = useContext(Context);
-    const [click] = useSound(clickSound, { volume: 0.25 });
     const [edited, setEdited] = useState();
     const [garage, setGarage] = useState(state.preferences.garage_door ? state.preferences.garage_door : '');
     const [garageId, setGarageId] = useState();
@@ -19,7 +16,6 @@ export default function SettingsEditPanel(props) {
     const [newMeasureUnit, setNewMeasureUnit] = useState(state.preferences.measure_unit);
 
     const savePreferences = () => {
-        click();
         const isFahrenheit = newTempUnit === "fahrenheit";
         const isImperial = newMeasureUnit === "imperial";
         const request = { isImperial, isFahrenheit, 'city': newCity, 'garageDoor': garage, 'garageId': garageId };
@@ -30,7 +26,6 @@ export default function SettingsEditPanel(props) {
     }
 
     const cancelPreferences = () => {
-        click();
         setNewCity(props.city);
         setNewTempUnit(props.tempUnit);
         setNewMeasureUnit(props.measureUnit);

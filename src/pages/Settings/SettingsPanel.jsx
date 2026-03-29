@@ -1,18 +1,14 @@
 import React, { useContext } from 'react';
-import useSound from 'use-sound';
 import { Context } from '../../state/Store';
-import clickSound from '../../resources/click.mp3';
 import { Divider } from '@mui/material';
 import { GreenButton } from '../../components/controls/Buttons';
 
 
 export default function SettingsPanel(props) {
     const [state,] = useContext(Context)
-    const [click] = useSound(clickSound, { volume: 0.25 });
 
     const handleClick = () => {
         props.toggleEdit();
-        click();
     }
 
     return (

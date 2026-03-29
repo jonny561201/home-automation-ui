@@ -1,9 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Context } from '../../../state/Store';
 import { useInterval } from '../../../utilities/UseInterval';
-import useSound from 'use-sound';
-import dingSound from '../../../resources/ding.mp3';
-import clickSound from '../../../resources/click.mp3';
 import { AccordionDetails } from '@mui/material';
 import UpDownIcon from '../../../resources/panelIcons/UpDown.png';
 import { BlueButton, GreenButton, RedButton } from '../../../components/controls/Buttons';
@@ -12,8 +9,6 @@ import './GarageDoor.css'
 
 
 export default function GarageDoor(props) {
-    const [ding] = useSound(dingSound, { volume: 0.25 });
-    const [click] = useSound(clickSound, { volume: 0.25 });
     const [state, dispatch] = useContext(Context);
     const [statusDays, setStatusDays] = useState();
     const [statusMins, setStatusMins] = useState();
@@ -31,14 +26,12 @@ export default function GarageDoor(props) {
     };
 
     const openCloseGarageDoor = async (newState) => {
-        newState ? ding() : click();
         const response = await updateGarageState(state.user.userId, state.auth.bearer, newState, props.device.doorId);
         dispatch({ type: 'UPDATE_GARAGE_DOORS', payload: { doorName: props.device.doorName, doorId: props.device.doorId, isOpen: response.isGarageOpen, duration: new Date() } });
     }
 
     const toggleDoor = () => {
         toggleGarageDoor(state.user.userId, state.auth.bearer, props.device.doorId);
-        click();
     }
 
     return (

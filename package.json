@@ -14,8 +14,7 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router-dom": "^7.13.2",
-    "sunrise-sunset-js": "^3.2.0",
-    "use-sound": "^5.0.0"
+    "sunrise-sunset-js": "^3.2.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.9.1",

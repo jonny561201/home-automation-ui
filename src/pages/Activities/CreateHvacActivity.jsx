@@ -1,7 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { Context } from '../../state/Store';
-import useSound from 'use-sound';
-import clickSound from '../../resources/click.mp3';
 import TimePicker from '../../components/controls/TimePicker';
 import WeekPicker from '../../components/controls/WeekPicker';
 import TempPicker from '../../components/controls/TempPicker';
@@ -18,7 +16,6 @@ export default function CreateHvacActivity(props) {
     const [inTemp, setInTemp] = useState(72);
     const [outTemp, setOutTemp] = useState(72);
     const [edited, setEdited] = useState(false);
-    const [click] = useSound(clickSound, { volume: 0.25 });
     const [daysOfWeek, setDaysOfWeek] = useState(initialDays);
     const [startTime, setStartTime] = useState(new Date().toLocaleTimeString('it-IT', { hour12: false }));
     const [stopTime, setStopTime] = useState(new Date().toLocaleTimeString('it-IT', { hour12: false }));
@@ -28,7 +25,6 @@ export default function CreateHvacActivity(props) {
             const tasks = await insertHvacTask(state.auth.bearer, true, props.type, '', startTime, stopTime, inTemp, outTemp, days);
             dispatch({ type: 'SET_SCHEDULED_TASK', payload: tasks });
             props.save();
-            click();
         }
     }
 
@@ -44,7 +40,6 @@ export default function CreateHvacActivity(props) {
 
     const deleteActivity = () => {
         props.cancel();
-        click();
     }
 
     const toggleDay = (task, newState) => {

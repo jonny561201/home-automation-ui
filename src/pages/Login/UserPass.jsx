@@ -1,7 +1,5 @@
 import React, { useState, useContext } from 'react';
-import useSound from 'use-sound';
 import { jwtDecode } from 'jwt-decode';
-import clickSound from '../../resources/click.mp3';
 import { Navigate } from 'react-router-dom';
 import { Context } from '../../state/Store';
 import { getBearerToken } from '../../utilities/RestApi';
@@ -11,7 +9,6 @@ import './UserPass.css';
 
 
 export default function UserPass() {
-    const [click] = useSound(clickSound, { volume: 0.25 });
     const [state, dispatch] = useContext(Context);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -21,7 +18,6 @@ export default function UserPass() {
 
     const validateCredentials = async (event) => {
         event.preventDefault();
-        click();
         const userInvalid = username === '';
         const passInvalid = password === '';
         setIsUsernameInvalid(userInvalid);
