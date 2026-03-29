@@ -1,6 +1,6 @@
 import React from 'react';
 import { Context } from '../../../state/Store';
-import { render, screen, act } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import Header from '../../../components/header/Header';
 
 
@@ -13,13 +13,11 @@ describe('HeaderComponent', () => {
 
 
     const renderComponent = async () => {
-        await act(async () => {
-            render(
-                <Context.Provider value={[{ user: user, activePage: expectedPage }, () => { }]}> 
-                    <Header />
-                </Context.Provider>
-            );
-        });
+        render(
+            <Context.Provider value={[{ user: user, activePage: expectedPage }, () => { }]}> 
+                <Header />
+            </Context.Provider>
+        );
     }
 
 

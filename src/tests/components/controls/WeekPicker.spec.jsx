@@ -1,13 +1,11 @@
 import React from 'react';
-import { render, screen, act } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import WeekPicker from '../../../components/controls/WeekPicker';
 
 
 describe('Week Picker', () => {
     const renderComponent = async (daysOfWeek) => {
-        await act(async () => {
-            render(<WeekPicker daysOfWeek={daysOfWeek} />);
-        });
+        render(<WeekPicker daysOfWeek={daysOfWeek} />);
     }
 
     it('should display a daypicker component', async () => {

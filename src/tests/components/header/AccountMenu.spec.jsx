@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, act } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import AccountMenu from '../../../components/header/AccountMenu';
 import { BrowserRouter } from 'react-router-dom';
 import { Context } from '../../../state/Store';
@@ -8,15 +8,13 @@ import { Context } from '../../../state/Store';
 describe('AccountSettings', () => {
 
     const renderComponent = async (activePage = 'Home Automation') => {
-        await act(async () => {
-            render(
-                <Context.Provider value={[{ activePage, auth: {} }, () => { }]}> 
-                    <BrowserRouter>
-                        <AccountMenu />
-                    </BrowserRouter>
-                </Context.Provider>
-            );
-        });
+        render(
+            <Context.Provider value={[{ activePage, auth: {} }, () => { }]}> 
+                <BrowserRouter>
+                    <AccountMenu />
+                </BrowserRouter>
+            </Context.Provider>
+        );
     }
 
     it('should display sign out link', async () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Context } from '../../../state/Store';
-import { render, screen, act } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import Account from '../../../components/header/AccountIcon';
 
 
@@ -9,13 +9,11 @@ describe('Account Icon', () => {
     const lastName = "Rox";
 
     const renderComponent = async (first, last) => {
-        await act(async () => {
-            render(
-                <Context.Provider value={[{ user: { firstName: first, lastName: last } }, () => { }]}>
-                    <Account />
-                </Context.Provider>
-            );
-        });
+        render(
+            <Context.Provider value={[{ user: { firstName: first, lastName: last } }, () => { }]}>
+                <Account />
+            </Context.Provider>
+        );
     }
 
     it('should display account login border', async () => {

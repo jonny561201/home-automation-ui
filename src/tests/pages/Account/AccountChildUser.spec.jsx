@@ -2,7 +2,7 @@ import React from 'react';
 import { Context } from '../../../state/Store';
 import AccountChildUser from '../../../pages/Account/AccountChildUser';
 import * as lib from '../../../utilities/RestApi';
-import { render, screen, fireEvent, within, act } from '@testing-library/react';
+import { render, screen, fireEvent, within, waitFor } from '@testing-library/react';
 
 describe('AccountChildUser', () => {
     const userId = 'fakeUserId';
@@ -15,13 +15,11 @@ describe('AccountChildUser', () => {
     const response = [{ user_name: 'Jon', user_id: childUserId, roles: ['garage_door'] }];
 
     const renderComponent = async (userRoles = roles) => {
-        await act(async () => {
-            render(
-                <Context.Provider value={[{ user: { userId: userId, roles: userRoles }, auth: { bearer: bearer } }, () => { }]}> 
-                    <AccountChildUser />
-                </Context.Provider>
-            );
-        });
+        render(
+            <Context.Provider value={[{ user: { userId: userId, roles: userRoles }, auth: { bearer: bearer } }, () => { }]}> 
+                <AccountChildUser />
+            </Context.Provider>
+        );
     }
 
     beforeEach(() => {
@@ -67,9 +65,7 @@ describe('AccountChildUser', () => {
 
         it('should mark input in error state when trying to submit empty', async () => {
             await renderComponent();
-            await act(async () => {
-                fireEvent.submit(screen.getByRole('button', {name: 'Add'}));
-            });
+            fireEvent.submit(screen.getByRole('button', {name: 'Add'}));
             const actual = screen.getByLabelText('Email');
 
             expect(actual.ariaInvalid).toEqual('true');
@@ -78,9 +74,7 @@ describe('AccountChildUser', () => {
         it('should mark input in error state when trying updating text to empty', async () => {
             await renderComponent();
             fireEvent.change(screen.getByRole('textbox', { name: 'Email' }), { target: { value: "" } });
-            await act(async () => {
-                fireEvent.submit(screen.getByRole('button', {name: 'Add'}));
-            });
+            fireEvent.submit(screen.getByRole('button', {name: 'Add'}));
             const actual = screen.getByLabelText('Email');
 
             expect(actual.ariaInvalid).toEqual('true')
@@ -88,9 +82,7 @@ describe('AccountChildUser', () => {
 
         it('should mark roles in error state when no role is selected on submission', async () => {
             await renderComponent();
-            await act(async () => {
-                fireEvent.submit(screen.getByRole('button', {name: 'Add'}));
-            });
+            fireEvent.submit(screen.getByRole('button', {name: 'Add'}));
             const actual = screen.getByText('Roles', { selector: 'label' }).className;
 
             expect(actual).toContain('Mui-error');
@@ -103,18 +95,14 @@ describe('AccountChildUser', () => {
             const listbox = within(screen.getByRole('listbox'));
 
             fireEvent.click(listbox.getByText('garage_door'));
-            await act(async () => {
-                fireEvent.submit(addButton);
-            });
+            fireEvent.submit(addButton);
             expect(spyPost).not.toHaveBeenCalled();
         });
 
         it('should not allow submission when roles in an error state', async () => {
             await renderComponent();
             fireEvent.change(screen.getByRole('textbox', { name: 'Email' }), { target: { value: 'test@test.com' } });
-            await act(async () => {
-                fireEvent.submit(screen.getByRole('button', {name: 'Add'}));
-            });
+            fireEvent.submit(screen.getByRole('button', {name: 'Add'}));
             expect(spyPost).not.toHaveBeenCalled();
         });
     });
@@ -136,9 +124,7 @@ describe('AccountChildUser', () => {
 
             fireEvent.click(listbox.getByText('garage_door'));
             fireEvent.click(listbox.getByText('security'));
-            await act(async () => {
-                fireEvent.click(addButton);
-            });
+            fireEvent.click(addButton);
 
             expect(spyPost).toHaveBeenCalledWith(bearer, email, roles);
         });
@@ -149,11 +135,8 @@ describe('AccountChildUser', () => {
             spyGet.mockReturnValue([{ user_name: 'Jon', user_id: childUserId, roles: ['garage_door'] }]);
             await renderComponent();
 
-            await act(async () => {
-                fireEvent.click(screen.getByRole('button', {name: 'user-Jon'}));
-            });
-            const actual = screen.queryByText('Jon');
-            expect(actual).toBeNull();
+            fireEvent.click(await screen.findByRole('button', {name: 'user-Jon'}));
+            await waitFor(() => expect(screen.queryByText('Jon')).toBeNull());
         });
     });
 });
