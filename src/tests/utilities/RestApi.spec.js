@@ -26,14 +26,8 @@ describe('RestApi', () => {
 
     it('should make rest call to login api using auth header', async () => {
         const response = { 'bearerToken': fakeBearerToken };
-        const body = { 'grant_type': 'client_credentials', 'client_id': username, 'client_secret': password };
-        const options = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
-        };
 
-        fetchMock.route(`${baseUrl}/token`, response).catch(unmatchedUrl => {
+        fetchMock.route(`${baseUrl}/token`, response).catch(() => {
             return {
                 status: 400,
                 body: { details: 'Bad Request' }
@@ -46,14 +40,8 @@ describe('RestApi', () => {
 
     it('should store roles after successful login', async () => {
         const response = { 'bearerToken': fakeBearerToken };
-        const body = { 'grant_type': 'client_credentials', 'client_id': username, 'client_secret': password };
-        const options = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
-        };
 
-        fetchMock.route(`${baseUrl}/token`, response).catch(unmatchedUrl => {
+        fetchMock.route(`${baseUrl}/token`, response).catch(() => {
             return { status: 400 };
         });
 
@@ -69,7 +57,7 @@ describe('RestApi', () => {
             const response = { 'isGarageOpen': true };
             const options = { "method": "GET", "headers": { 'Authorization': `Bearer ${bearerToken2}` } };
 
-            fetchMock.route(`${baseUrl}/garageDoor/${garageId}/status`, response, options).catch(unmatchedUrl => {
+            fetchMock.route(`${baseUrl}/garageDoor/${garageId}/status`, response, options).catch(() => {
                 return { status: 400 };
             });
 
@@ -79,13 +67,8 @@ describe('RestApi', () => {
 
         it('should make rest call to post garage door status', async () => {
             const response = { 'garageDoorOpen': false };
-            const options = {
-                method: 'POST',
-                headers: { 'Authorization': `Bearer ${bearerToken2}`, 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 'garageDoorOpen': false })
-            };
 
-            fetchMock.route(`${baseUrl}/garageDoor/${garageId}/state`, response).catch(unmatchedUrl => {
+            fetchMock.route(`${baseUrl}/garageDoor/${garageId}/state`, response).catch(() => {
                 return { status: 400 };
             });
 
@@ -96,7 +79,7 @@ describe('RestApi', () => {
         it('should make rest call to toggle garage door state', async () => {
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } }
 
-            fetchMock.route(`${baseUrl}/garageDoor/${garageId}/toggle`, options).catch(unmatchedUrl => {
+            fetchMock.route(`${baseUrl}/garageDoor/${garageId}/toggle`, options).catch(() => {
                 return { status: 400 };
             });
 
@@ -110,7 +93,7 @@ describe('RestApi', () => {
             const response = { 'currentDepth': expectedDepth, 'userId': userId, 'latestDate': '2019-11-12', 'averageDepth': 35.8 };
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
 
-            fetchMock.route(`${baseUrl}/sumpPump/depth`, response, options).catch(unmatchedUrl => {
+            fetchMock.route(`${baseUrl}/sumpPump/depth`, response, options).catch(() => {
                 return { status: 400 };
             });
 
@@ -119,12 +102,11 @@ describe('RestApi', () => {
         })
 
         it('should query the current thermostat temperature', async () => {
-            const userId = 'abc123';
             const expectedTemp = 74.9;
             const response = { 'currentTemp': expectedTemp, 'isFahrenheit': true };
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
 
-            fetchMock.route(`${baseUrl}/thermostat/temperature`, response, options).catch(unmatchedUrl => {
+            fetchMock.route(`${baseUrl}/thermostat/temperature`, response, options).catch(() => {
                 return { status: 400 };
             });
 
@@ -143,7 +125,7 @@ describe('RestApi', () => {
                 body: JSON.stringify(body)
             };
 
-            fetchMock.route(`${baseUrl}/thermostat/temperature/desired`, options).catch(unmatchedUrl => {
+            fetchMock.route(`${baseUrl}/thermostat/temperature/desired`, options).catch(() => {
                 return { status: 400 }
             })
 
@@ -152,12 +134,11 @@ describe('RestApi', () => {
         });
 
         it('should make rest call to get the forecast temperature', async () => {
-            const userId = 'abc123';
             const expectedTemp = 74.9;
             const response = { 'minTemp': expectedTemp };
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
 
-            fetchMock.route(`${baseUrl}/thermostat/forecast`, response, options).catch(unmatchedUrl => {
+            fetchMock.route(`${baseUrl}/thermostat/forecast`, response, options).catch(() => {
                 return { status: 400 }
             })
 
@@ -170,7 +151,7 @@ describe('RestApi', () => {
             const response = { 'unit': expectedUnit, 'city': 'Des Moines', 'is_fahrenheit': true };
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
 
-            fetchMock.route(`${baseUrl}/preferences`, response, options).catch(unmatchedUrl => {
+            fetchMock.route(`${baseUrl}/preferences`, response, options).catch(() => {
                 return { status: 400 };
             });
 
@@ -185,7 +166,7 @@ describe('RestApi', () => {
                 'body': { 'isFahrenheit': true, 'city': 'Praha', 'isImperial': false }
             }
 
-            fetchMock.route(`${baseUrl}/preferences/update`, options).catch(unmatchedUrl => {
+            fetchMock.route(`${baseUrl}/preferences/update`, options).catch(() => {
                 return { status: 400 };
             });
 
@@ -198,7 +179,7 @@ describe('RestApi', () => {
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
             const response = [{ 'groupId': 'One', 'groupName': 'Bathroom' }]
 
-            fetchMock.route(`${baseUrl}/lights/groups`, response, options).catch(unmatchedUrl => {
+            fetchMock.route(`${baseUrl}/lights/groups`, response, options).catch(() => {
                 return { status: 400 }
             });
 
@@ -215,7 +196,7 @@ describe('RestApi', () => {
                 body: JSON.stringify(body)
             };
 
-            fetchMock.route(`${baseUrl}/lights/group/state`, options).catch(unmatchedUrl => {
+            fetchMock.route(`${baseUrl}/lights/group/state`, options).catch(() => {
                 return { status: 400 }
             });
 
@@ -232,7 +213,7 @@ describe('RestApi', () => {
                 body: JSON.stringify(body)
             };
 
-            fetchMock.route(`${baseUrl}/lights/group/state`, options).catch(unmatchedUrl => {
+            fetchMock.route(`${baseUrl}/lights/group/state`, options).catch(() => {
                 return { status: 400 }
             });
 
@@ -245,7 +226,7 @@ describe('RestApi', () => {
             const body = { 'lightId': 1, 'on': true, 'brightness': 211 };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.route(`${baseUrl}/lights/group/light`, options).catch(unmatchedUrl => {
+            fetchMock.route(`${baseUrl}/lights/group/light`, options).catch(() => {
                 return { status: 400 }
             });
 
@@ -258,7 +239,7 @@ describe('RestApi', () => {
             const body = { 'oldPassword': 'alsoFake', 'newPassword': 'StillFake' };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.route(`${baseUrl}/account/updateAccount`, options).catch(unmatchedUrl => {
+            fetchMock.route(`${baseUrl}/account/updateAccount`, options).catch(() => {
                 return { status: 400 }
             });
 
@@ -271,7 +252,7 @@ describe('RestApi', () => {
             const body = { 'roleName': 'fakeName', 'ipAddress': '1.0.0.1' };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.route(`${baseUrl}/devices/register`, options).catch(unmatchedUrl => {
+            fetchMock.route(`${baseUrl}/devices/register`, options).catch(() => {
                 return { status: 400 }
             });
 
@@ -285,7 +266,7 @@ describe('RestApi', () => {
             const body = { 'nodeName': 'fakeName', 'preferred': false };
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.route(`${baseUrl}/devices/${deviceId}/node`, options).catch(unmatchedUrl => {
+            fetchMock.route(`${baseUrl}/devices/${deviceId}/node`, options).catch(() => {
                 return { status: 400 }
             });
 
@@ -295,11 +276,10 @@ describe('RestApi', () => {
         });
 
         it('should make rest call to get roles with bearer token', async () => {
-            const userId = 'jkasdf1';
             const response = { 'roles': [{}] };
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
 
-            fetchMock.route(`${baseUrl}/account/roles`, response, options).catch(unmatchedUrl => {
+            fetchMock.route(`${baseUrl}/account/roles`, response, options).catch(() => {
                 return { status: 400 }
             });
 
@@ -313,7 +293,7 @@ describe('RestApi', () => {
             const response = { 'user_name': 'test' }
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.route(`${baseUrl}/account/createChildAccount`, response, options).catch(unmatchedUrl => {
+            fetchMock.route(`${baseUrl}/account/createChildAccount`, response, options).catch(() => {
                 return { status: 400 }
             });
 
@@ -326,7 +306,7 @@ describe('RestApi', () => {
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
             const response = [{ 'user_name': 'test', 'roles': [] }];
 
-            fetchMock.route(`${baseUrl}/account/childAccounts`, response, options).catch(unmatchedUrl => {
+            fetchMock.route(`${baseUrl}/account/childAccounts`, response, options).catch(() => {
                 return { status: 400 }
             });
 
@@ -339,7 +319,7 @@ describe('RestApi', () => {
             const childAccount = "abc1234";
             const options = { 'method': 'DELETE', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
 
-            fetchMock.route(`${baseUrl}/account/childUserId/${childAccount}`, options).catch(unmatchedUrl => {
+            fetchMock.route(`${baseUrl}/account/childUserId/${childAccount}`, options).catch(() => {
                 return { status: 400 }
             });
             const actual = await deleteUserChildAccount(bearerToken2, childAccount);
@@ -351,7 +331,7 @@ describe('RestApi', () => {
             const taskId = "abc1234";
             const options = { 'method': 'DELETE', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
 
-            fetchMock.route(`${baseUrl}/tasks/${taskId}`, options).catch(unmatchedUrl => {
+            fetchMock.route(`${baseUrl}/tasks/${taskId}`, options).catch(() => {
                 return { status: 400 }
             });
             const actual = await deleteScheduledTask(bearerToken2, taskId);
@@ -364,7 +344,7 @@ describe('RestApi', () => {
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
             const response = [{ 'task_id': taskId, 'alarm_time': '00:00:01', 'alarm_days': 'Mon' }];
 
-            fetchMock.route(`${baseUrl}/tasks`, response, options).catch(unmatchedUrl => {
+            fetchMock.route(`${baseUrl}/tasks`, response, options).catch(() => {
                 return { status: 400 }
             });
             const actual = await getScheduledTasks(bearerToken2);
@@ -377,7 +357,7 @@ describe('RestApi', () => {
             const response = [{ 'task_id': 'asdf678', 'alarm_time': '00:00:01', 'alarm_days': 'Mon' }];
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.route(`${baseUrl}/tasks`, response, options).catch(unmatchedUrl => {
+            fetchMock.route(`${baseUrl}/tasks`, response, options).catch(() => {
                 return { status: 400 }
             });
 
@@ -391,7 +371,7 @@ describe('RestApi', () => {
             const response = [{ 'task_id': 'defg12345', 'alarm_time': '00:00:01', 'alarm_days': 'Mon' }];
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
-            fetchMock.route(`${baseUrl}/tasks`, response, options).catch(unmatchedUrl => {
+            fetchMock.route(`${baseUrl}/tasks`, response, options).catch(() => {
                 return { status: 400 }
             });
 
@@ -404,13 +384,8 @@ describe('RestApi', () => {
             const taskId = 'asbcasd34345';
             const response = { 'task_id': taskId }
             const request = { 'taskId': 'abc', 'alarmLightGroup': '1', 'alarmGroupName': 'potty', 'alarmDays': 'Wed', 'alarmTime': '00:23:34', 'enabled': true, 'taskType': 'no' };
-            const options = {
-                method: 'POST',
-                headers: { 'Authorization': `Bearer ${bearerToken2}`, 'Content-Type': 'application/json' },
-                body: JSON.stringify(request)
-            };
 
-            fetchMock.route(`${baseUrl}/tasks/update`, response).catch(unmatchedUrl => {
+            fetchMock.route(`${baseUrl}/tasks/update`, response).catch(() => {
                 return { status: 400 }
             });
 
@@ -422,11 +397,9 @@ describe('RestApi', () => {
         it('should make rest call to refresh bearer token', async () => {
             const refresh = ',jkasdfkjgasdf8673';
             const bearer = '345kh3jbk435iuy';
-            const body = { 'grant_type': 'refresh_token', 'refresh_token': refresh };
             const response = { 'bearerToken': bearer };
-            const options = { method: 'POST', body: JSON.stringify(body) };
 
-            fetchMock.route(`${baseUrl}/token`, response).catch(unmatchedUrl => {
+            fetchMock.route(`${baseUrl}/token`, response).catch(() => {
                 return { status: 400 }
             });
 
