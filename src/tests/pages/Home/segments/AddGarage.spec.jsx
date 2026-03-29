@@ -44,13 +44,13 @@ describe('Add Garage', () => {
 
         it('should display the close icon', async () => {
             await renderComponent();
-            const actual = screen.getByTestId('garage-close-button');
+            const actual = screen.getByRole('button', { name: 'Close' });
             expect(actual).toBeDefined();
         });
 
         it('should display the Add garage button', async () => {
             await renderComponent();
-            const actual = screen.getByRole('button').textContent;
+            const actual = screen.getByRole('button', { name: 'Add' }).textContent;
             expect(actual).toEqual('Add');
         });
 
@@ -59,7 +59,7 @@ describe('Add Garage', () => {
             await renderComponent();
             fireEvent.change(screen.getByRole('textbox'), { target: { value: name } });
             await act(async () => {
-                fireEvent.click(screen.getByRole('button'));
+                fireEvent.click(screen.getByRole('button', { name: 'Add' }));
             });
             expect(spyAdd).toBeCalledWith(bearer, deviceId, name, false);
         });
@@ -69,7 +69,7 @@ describe('Add Garage', () => {
             await renderComponent();
             fireEvent.change(screen.getByRole('textbox'), { target: { value: name } });
             await act(async () => {
-                fireEvent.click(screen.getByRole('button'));
+                fireEvent.click(screen.getByRole('button', { name: 'Add' }));
             });
             expect(spyGet).toBeCalledWith(bearer);
         });
@@ -79,7 +79,7 @@ describe('Add Garage', () => {
             const name = '';
             fireEvent.change(screen.getByRole('textbox'), { target: { value: name } });
             await act(async () => {
-                fireEvent.click(screen.getByRole('button'));
+                fireEvent.click(screen.getByRole('button', { name: 'Add' }));
             });
             expect(spyAdd).toHaveBeenCalledTimes(0);
         });
@@ -87,7 +87,7 @@ describe('Add Garage', () => {
         it('should not make api call if the when name is untouched', async () => {
             await renderComponent();
             await act(async () => {
-                fireEvent.click(screen.getByRole('button'));
+                fireEvent.click(screen.getByRole('button', { name: 'Add' }));
             });
             expect(spyAdd).toHaveBeenCalledTimes(0);
         });
@@ -101,7 +101,7 @@ describe('Add Garage', () => {
             await renderComponent();
             fireEvent.change(screen.getByRole('textbox'), { target: { value: name } });
             await act(async () => {
-                fireEvent.click(screen.getByRole('button'));
+                fireEvent.click(screen.getByRole('button', { name: 'Add' }));
             });
             const actual = screen.getByText('Successfully Added').textContent;
             expect(actual).toEqual('Successfully Added');
@@ -113,9 +113,9 @@ describe('Add Garage', () => {
             await renderComponent();
             fireEvent.change(screen.getByRole('textbox'), { target: { value: name } });
             await act(async () => {
-                fireEvent.click(screen.getByRole('button'));
+                fireEvent.click(screen.getByRole('button', { name: 'Add' }));
             });
-            const actual = screen.getByTestId('garage-close-button').textContent;
+            const actual = screen.getByRole('button', { name: 'Close' });
             expect(actual).toBeDefined();
         });
 
@@ -126,7 +126,7 @@ describe('Add Garage', () => {
             await renderComponent();
             fireEvent.change(screen.getByRole('textbox'), { target: { value: name } });
             await act(async () => {
-                fireEvent.click(screen.getByRole('button'));
+                fireEvent.click(screen.getByRole('button', { name: 'Add' }));
             });
             const actual = screen.getByText(`Would you like to setup the remaining (${nodeCount}) openers?`).textContent;
             expect(actual).toEqual(`Would you like to setup the remaining (${nodeCount}) openers?`);
@@ -138,9 +138,9 @@ describe('Add Garage', () => {
             await renderComponent();
             fireEvent.change(screen.getByRole('textbox'), { target: { value: name } });
             await act(async () => {
-                fireEvent.click(screen.getByRole('button'));
+                fireEvent.click(screen.getByRole('button', { name: 'Add' }));
             });
-            const actual = screen.getByRole('button').textContent;
+            const actual = screen.getByRole('button', { name: 'Add' }).textContent;
             expect(actual).toEqual('Add');
         });
 
@@ -150,9 +150,9 @@ describe('Add Garage', () => {
             await renderComponent();
             fireEvent.change(screen.getByRole('textbox'), { target: { value: name } });
             await act(async () => {
-                fireEvent.click(screen.getByRole('button'));
+                fireEvent.click(screen.getByRole('button', { name: 'Add' }));
             });
-            fireEvent.click(screen.getByRole('button'));
+            fireEvent.click(screen.getByRole('button', { name: 'Add' }));
             const actual = screen.getByText('Add Garage Door').textContent;
             expect(actual).toEqual('Add Garage Door');
         });

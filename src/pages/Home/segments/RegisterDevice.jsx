@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { TextField } from '@mui/material';
+import { TextField, IconButton } from '@mui/material';
 import { isValidIpAddress, debounchApi } from '../../../utilities/Services';
 import { addUserDevice } from '../../../utilities/RestApi';
 import CloseIcon from '@mui/icons-material/Close';
@@ -58,7 +58,9 @@ export default function RegisterDevice(props) {
                 : <div>
                     <div className="device-group">
                         <h2 className=" device-text text">Add Device</h2>
-                        <CloseIcon data-testid={"close-button"} onClick={() => props.close()} className="close-icon" />
+                        <IconButton aria-label="Close" onClick={() => props.close()} className="close-icon">
+                            <CloseIcon />
+                        </IconButton>
                     </div>
                     <form onSubmit={submitDevice}>
                         <div className="account-row">

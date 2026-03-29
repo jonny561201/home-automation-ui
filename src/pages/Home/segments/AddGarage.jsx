@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { TextField, FormControlLabel } from '@mui/material';
+import { TextField, FormControlLabel, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { addUserDeviceNode, getRolesByUserId } from '../../../utilities/RestApi';
 import { CheckCircle } from '@mui/icons-material';
@@ -70,7 +70,9 @@ export default function AddGarage(props) {
                             </div>
                             <h2 className="device-text text garage-success-text">Successfully Added</h2>
                         </div>
-                        <CloseIcon data-testid={"garage-close-button"} onClick={() => props.close()} className="close-icon" />
+                        <IconButton aria-label="Close" onClick={() => props.close()} className="close-icon">
+                            <CloseIcon />
+                        </IconButton>
                     </div>
                     <div className="device-row">
                         <p className="device-text text">Would you like to setup the remaining ({availableNodes}) openers?</p>
@@ -80,7 +82,9 @@ export default function AddGarage(props) {
                 : <div>
                     <div className="device-group">
                         <h2 className=" device-text text">Add Garage Door</h2>
-                        <CloseIcon data-testid={"garage-close-button"} onClick={() => props.close()} className="close-icon" />
+                        <IconButton aria-label="Close" onClick={() => props.close()} className="close-icon">
+                            <CloseIcon />
+                        </IconButton>
                     </div>
                     <form onSubmit={submitGarageDoor}>
                         <div className="account-row">

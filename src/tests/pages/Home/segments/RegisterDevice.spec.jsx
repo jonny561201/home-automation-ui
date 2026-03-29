@@ -56,13 +56,13 @@ describe('Register Device', () => {
 
         it('should display button for submitting request', () => {
             renderComponent();
-            const actual = screen.getByRole('button');
+            const actual = screen.getByRole('button', { name: 'Next' });
             expect(actual).toBeDefined();
         });
 
         it('should display the close icon', () => {
             renderComponent();
-            const actual = screen.getByTestId('close-button');
+            const actual = screen.getByRole('button', { name: 'Close' });
             expect(actual).toBeDefined();
         });
 
@@ -85,7 +85,7 @@ describe('Register Device', () => {
                 fireEvent.change(inputBox, { target: { value: ipAddress } });
             });
 
-            const button = screen.getByRole('button');
+            const button = screen.getByRole('button', { name: 'Next' });
             await act(async () => {
                 fireEvent.submit(button);
             });
