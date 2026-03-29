@@ -24,7 +24,7 @@ describe('Settings Page', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ garageDoors: [], user: user, preferences: preference, roles: roles, garageCoords: coords }, dispatch]}> 
+                <Context.Provider value={[{ activePage: 'Settings', garageDoors: [], user: user, preferences: preference, roles: roles, garageCoords: coords }, dispatch]}> 
                     <Settings />
                 </Context.Provider>
             );

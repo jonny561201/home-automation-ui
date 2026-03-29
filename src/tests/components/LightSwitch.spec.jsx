@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, act, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import * as lib from '../../utilities/RestApi';
 import LightSwitch from '../../components/controls/LightSwitch';
 import { Context } from '../../state/Store';
@@ -22,13 +22,11 @@ describe('LightSwitch', () => {
     const spySetGroup = vi.spyOn(lib, 'setLightGroupState');
 
     const renderComponent = async (groupData) => {
-        await act(async () => {
-            render(
-                <Context.Provider value={[{ lights: [groupData], auth: { bearer: bearer } }, () => { }]}>
-                    <LightSwitch data={groupData} />
-                </Context.Provider >
-            );
-        });
+        render(
+            <Context.Provider value={[{ lights: [groupData], auth: { bearer: bearer } }, () => { }]}> 
+                <LightSwitch data={groupData} />
+            </Context.Provider >
+        );
     }
 
     beforeEach(() => {
@@ -57,10 +55,8 @@ describe('LightSwitch', () => {
     //TODO: need to get testing working on slider components...
     it('should call set light group state on toggleChecked', async () => {
         await renderComponent(group);
-        await act(async () => {
-            fireEvent.change(screen.getByRole('slider'), { target: { value: 0 } });
-            // fireEvent.click(screen.getByRole('checkbox'));
-        });
+        fireEvent.change(screen.getByRole('slider'), { target: { value: 0 } });
+        // fireEvent.click(screen.getByRole('checkbox'));
 
         // expect(spySetGroup).toBeCalledWith(bearer, groups.groupId, true, 0);
     });
@@ -69,9 +65,7 @@ describe('LightSwitch', () => {
 
         it('should display expansion panel when areLightsOpen is true', async () => {
             await renderComponent(group);
-            await act(async () => {
-                fireEvent.click(screen.getByRole('button', { name: 'expand' }));
-            });
+            fireEvent.click(screen.getByRole('button', { name: 'expand' }));
             const actual = screen.getAllByRole('region', { name: /light switch slider/i });
             expect(actual.length).toBeGreaterThan(0);
         });
@@ -84,9 +78,7 @@ describe('LightSwitch', () => {
 
         it('should display all light switches', async () => {
             await renderComponent(group);
-            await act(async () => {
-                fireEvent.click(screen.getByRole('button', { name: 'expand' }));
-            });
+            fireEvent.click(screen.getByRole('button', { name: 'expand' }));
             const actual = screen.getAllByRole('region', { name: /light switch slider/i });
             expect(actual).toHaveLength(2);
         });
@@ -103,9 +95,7 @@ describe('LightSwitch', () => {
                 'brightness': 155, 'lights': null
             }
             await renderComponent(data);
-            await act(async () => {
-                fireEvent.click(screen.getByRole('button', { name: 'expand' }));
-            });
+            fireEvent.click(screen.getByRole('button', { name: 'expand' }));
             const actual = screen.getByText('No lights assigned to group');
 
             expect(actual).toBeTruthy();
@@ -117,9 +107,7 @@ describe('LightSwitch', () => {
                 'brightness': 155, 'lights': []
             }
             await renderComponent(data);
-            await act(async () => {
-                fireEvent.click(screen.getByRole('button', { name: 'expand' }));
-            });
+            fireEvent.click(screen.getByRole('button', { name: 'expand' }));
             const actual = screen.getByText('No lights assigned to group');
 
             expect(actual).toBeTruthy();
@@ -127,9 +115,7 @@ describe('LightSwitch', () => {
 
         it('should call api to turn off light when button clicked', async () => {
             await renderComponent(group);
-            await act(async () => {
-                fireEvent.click(screen.getByRole('button', { name: group.groupName }));
-            });
+            fireEvent.click(screen.getByRole('button', { name: group.groupName }));
             expect(spySetGroup).toHaveBeenCalledWith(bearer, group.groupId, false);
         });
 
@@ -140,9 +126,7 @@ describe('LightSwitch', () => {
             }
 
             await renderComponent(newGroup);
-            await act(async () => {
-                fireEvent.click(screen.getByRole('button', { name: group.groupName }));
-            });
+            fireEvent.click(screen.getByRole('button', { name: group.groupName }));
             expect(spySetGroup).toHaveBeenCalledWith(bearer, group.groupId, true);
         });
     });

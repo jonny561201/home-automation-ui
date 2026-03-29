@@ -1,6 +1,6 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
-import { render, screen, act } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import Routes from '../../../components/routes/Routes';
 import { Context } from '../../../state/Store';
 
@@ -39,15 +39,22 @@ const authState = {
 describe('Routes', () => {
 
     const renderAt = async (path, state) => {
-        await act(async () => {
-            render(
-                <MemoryRouter initialEntries={[path]}>
-                    <Context.Provider value={[state, () => { }]}>
-                        <Routes />
-                    </Context.Provider>
-                </MemoryRouter>
-            );
-        });
+        const activePages = {
+            '/': 'Login',
+            '/home': 'Home Automation',
+            '/activities': 'Activities',
+            '/settings': 'Settings',
+            '/account': 'Account'
+        };
+        const stateWithPage = { ...state, activePage: activePages[path] || state.activePage };
+
+        render(
+            <MemoryRouter initialEntries={[path]}>
+                <Context.Provider value={[stateWithPage, () => { }]}> 
+                    <Routes />
+                </Context.Provider>
+            </MemoryRouter>
+        );
     };
 
 

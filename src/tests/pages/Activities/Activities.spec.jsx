@@ -1,6 +1,6 @@
 import React from 'react';
 import { Context } from '../../../state/Store';
-import { render, screen, act } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import ActivitiesPage from '../../../pages/Activities/Activities';
 
 
@@ -13,13 +13,11 @@ describe('Activities Page', () => {
     const state = { user, tasks: [], activePage: 'Activities' };
 
     const renderComponent = async () => {
-        await act(async () => {
-            render(
-                <Context.Provider value={[state, dispatch]}>
-                    <ActivitiesPage />
-                </Context.Provider>
-            );
-        });
+        render(
+            <Context.Provider value={[state, dispatch]}>
+                <ActivitiesPage />
+            </Context.Provider>
+        );
     }
 
     beforeEach(() => {

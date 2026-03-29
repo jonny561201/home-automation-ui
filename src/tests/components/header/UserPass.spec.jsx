@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import * as lib from '../../../utilities/RestApi';
 import { Context } from '../../../state/Store';
 import UserPass from '../../../pages/Login/UserPass';
@@ -10,15 +10,13 @@ describe('UserPass', () => {
     const spyGet = vi.spyOn(lib, 'getBearerToken');
 
     const renderComponent = async () => {
-        await act(async () => {
-            render(
-                <div>
-                    <Context.Provider value={[{ auth: { isAuthenticated: false } }, () => { }]}>
-                        <UserPass />
-                    </Context.Provider>
-                </div>
-            );
-        });
+        render(
+            <div>
+                <Context.Provider value={[{ auth: { isAuthenticated: false } }, () => { }]}> 
+                    <UserPass />
+                </Context.Provider>
+            </div>
+        );
     }
 
     beforeEach(() => {
@@ -48,19 +46,14 @@ describe('UserPass', () => {
         it('should not display error styles when username is valid', async () => {
             await renderComponent();
             fireEvent.change(screen.getByRole('textbox', { name: 'Username' }), { target: { value: 'validName' } });
-
-            await act(async () => {
-                fireEvent.click(screen.getByRole('button'));
-            });
+            fireEvent.click(screen.getByRole('button'));
             const actual = screen.getByRole('textbox', { name: 'Username' }).className;
             expect(actual).not.toContain('Mui-error');
         });
 
         it('should display error styles when username is an empty string', async () => {
             await renderComponent();
-            await act(async () => {
-                fireEvent.change(screen.getByRole('textbox', { name: 'Username' }), { target: { value: '' } });
-            });
+            fireEvent.change(screen.getByRole('textbox', { name: 'Username' }), { target: { value: '' } });
             fireEvent.click(screen.getByRole('button'));
             const actual = screen.getByText('Username', { selector: 'label' }).className;
             expect(actual).toContain('Mui-error');
@@ -76,18 +69,14 @@ describe('UserPass', () => {
         it('should not display error styles when password is valid', async () => {
             await renderComponent();
             fireEvent.change(screen.getByLabelText('Password'), { target: { value: 'validName' } });
-            await act(async () => {
-                fireEvent.click(screen.getByRole('button'));
-            });
+            fireEvent.click(screen.getByRole('button'));
             const actual = screen.getByLabelText('Password').className;
             expect(actual).not.toContain('Mui-error');
         });
 
         it('should display error styles when password is an empty string', async () => {
             await renderComponent();
-            await act(async () => {
-                fireEvent.change(screen.getByLabelText('Password'), { target: { value: '' } });
-            });
+            fireEvent.change(screen.getByLabelText('Password'), { target: { value: '' } });
             fireEvent.click(screen.getByRole('button'));
             const actual = screen.getByText('Password', { selector: 'label' }).className;
             expect(actual).toContain('Mui-error');
@@ -104,13 +93,9 @@ describe('UserPass', () => {
             const userName = 'validFirst';
             const password = 'validPass';
             await renderComponent();
-            await act(async () => {
-                fireEvent.change(screen.getByRole('textbox', { name: 'Username' }), { target: { value: userName } });
-                fireEvent.change(screen.getByLabelText('Password'), { target: { value: password } });
-            });
-            await act(async () => {
-                fireEvent.submit(screen.getByRole('button'));
-            });
+            fireEvent.change(screen.getByRole('textbox', { name: 'Username' }), { target: { value: userName } });
+            fireEvent.change(screen.getByLabelText('Password'), { target: { value: password } });
+            fireEvent.submit(screen.getByRole('button'));
 
             expect(spyGet).toHaveBeenCalledWith(userName, password);
         });

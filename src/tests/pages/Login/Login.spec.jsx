@@ -1,17 +1,15 @@
 import React from 'react';
 import Login from '../../../pages/Login/Login';
 import { Context } from '../../../state/Store';
-import { render, screen, act } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 describe('Login Component', () => {
     const renderComponent = async () => {
-        await act(async () => {
-            render(
-                <Context.Provider value={[{ auth: { isAuthenticated: false } }, () => { }]}>
-                    <Login />
-                </Context.Provider>
-            );
-        });
+        render(
+            <Context.Provider value={[{ auth: { isAuthenticated: false } }, () => { }]}> 
+                <Login />
+            </Context.Provider>
+        );
     }
 
     it("should contain a header div", async () => {
