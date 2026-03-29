@@ -35,7 +35,7 @@ export default function CreateNewActivityPanel(props) {
                 <AccordionDetails className="center">
                     <div className="activity-detail-panel">
                         <div className="settings-row">
-                            <TextField data-testid="task-type" className="light-alarm-component task-room-picker-row" select variant="outlined" value={type} onChange={updateSelectedType} label="Task Type">
+                            <TextField className="light-alarm-component task-room-picker-row" select variant="outlined" value={type} onChange={updateSelectedType} label="Task Type">
                                 {state.taskTypes.map(x => (
                                     <MenuItem key={x} value={x}>
                                         {x}

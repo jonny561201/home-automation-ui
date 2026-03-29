@@ -29,16 +29,6 @@ describe('SwitchSlider', () => {
         spySetLight.mockClear();
     });
 
-    // it('should make api call when toggling on the desk lamp', async () => {
-    //     await renderComponent(group);
-
-    //     await act(async () => {
-    //         // fireEvent.change(screen.getByTestId('light-switch'), { target: { value: 25 } });
-    //         fireEvent.click(screen.getByRole('slider'));
-    //     });
-
-    //     expect(spySetLight).toHaveBeenCalled();
-    // });
 
     it('should display the light name', async () => {
         await renderComponent(group);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Context } from '../../../state/Store';
-import { render, screen, act, fireEvent } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import CreateNewActivity from '../../../pages/Activities/CreateNewActivity';
 
 
@@ -19,7 +19,7 @@ describe('Light Alarm Edit Panel', () => {
 
     it('should display the Task Type label', async () => {
         await renderComponent();
-        const actual = screen.getByTestId('task-type');
+        const actual = screen.getByRole('combobox', { name: 'Task Type' });
         expect(actual).toBeDefined();
     });
 

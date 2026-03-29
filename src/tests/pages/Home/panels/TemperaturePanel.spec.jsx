@@ -84,54 +84,6 @@ describe('TemperaturePanel', () => {
         //     expect(button).toBeChecked();
         // });
 
-        //     it('should toggle on cooling mode when initial api responds off', async () => {
-        //         tempData.mode = null;
-        //         await renderComponent();
-        //         const button = screen.getByTestId('cooling-switch');
-        //         expect(button.className).not.toContain('checked');
-
-        //         fireEvent.click(screen.getAllByRole('checkbox')[1]);
-        //         const updatedButton = screen.getByTestId('cooling-switch');
-        //         expect(updatedButton.className).toContain('checked');
-        //     });
-
-        //     it('should toggle off heating mode when initial api responds off', async () => {
-        //         tempData.mode = "heating";
-        //         await renderComponent();
-        //         const button = screen.getByTestId('heating-switch');
-        //         expect(button.className).toContain('checked');
-
-        //         fireEvent.click(screen.getAllByRole('checkbox')[0]);
-        //         const updatedButton = screen.getByTestId('heating-switch');
-        //         expect(updatedButton.className).not.toContain('checked');
-        //     });
-
-        //     it('should toggle off cooling mode when initial api responds off', async () => {
-        //         tempData.mode = "cooling";
-        //         await renderComponent();
-        //         const button = screen.getByTestId('cooling-switch');
-        //         expect(button.className).toContain('checked');
-
-        //         fireEvent.click(screen.getAllByRole('checkbox')[1]);
-        //         const updatedButton = screen.getByTestId('cooling-switch');
-        //         expect(updatedButton.className).not.toContain('checked');
-        //     });
-
-        //     it('should toggle on cooling mode when initial api responds heating', async () => {
-        //         tempData.mode = "heating";
-        //         await renderComponent();
-        //         const coolingButton = screen.getByTestId('cooling-switch');
-        //         const heatingButton = screen.getByTestId('heating-switch');
-        //         expect(coolingButton.className).not.toContain('checked');
-        //         expect(heatingButton.className).toContain('checked');
-
-        //         fireEvent.click(screen.getAllByRole('checkbox')[1]);
-        //         const updatedCoolingButton = screen.getByTestId('cooling-switch');
-        //         const updatedHeatingButton = screen.getByTestId('heating-switch');
-        //         expect(updatedCoolingButton.className).toContain('checked');
-        //         expect(updatedHeatingButton.className).not.toContain('checked');
-        //     });
-
         // it('should toggle on heating mode when initial api responds cooling', async () => {
         //     tempData.mode = "cooling";
         //     await renderComponent();
