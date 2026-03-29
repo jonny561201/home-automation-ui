@@ -20,13 +20,13 @@ describe('Account Icon', () => {
 
     it('should display account login border', async () => {
         await renderComponent(firstName, lastName);
-        const actual = screen.getByTestId('account-border');
+        const actual = screen.getByText('JR').closest('.account-border');
         expect(actual).toBeDefined();
     });
 
     it('should display account login token', async () => {
         await renderComponent(firstName, lastName);
-        const actual = screen.getByTestId('account-center');
+        const actual = screen.getByText('JR').closest('.account-center');
         expect(actual).toBeDefined();
     });
 

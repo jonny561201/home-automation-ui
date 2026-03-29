@@ -6,19 +6,19 @@ describe('LogoHeader', () => {
 
     it("should contain logo image", () => {
         render(<LogoCircle />);
-        const actual = screen.getByRole('img');
+        const actual = screen.getByRole('img', { name: 'Logo' });
         expect(actual).toBeDefined();
     });
 
     it("should contain white logo border", () => {
         render(<LogoCircle />);
-        const actual = screen.getByTestId('white-header');
+        const actual = screen.getByRole('img', { name: 'Logo' }).closest('.white-header');
         expect(actual).toBeDefined();
     });
 
     it("should contain brown logo background", () => {
         render(<LogoCircle />);
-        const actual = screen.getByTestId('logo-background');
+        const actual = screen.getByRole('img', { name: 'Logo' }).closest('.logo-background');
         expect(actual).toBeDefined();
     });
 });

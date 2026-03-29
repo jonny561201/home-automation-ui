@@ -63,10 +63,10 @@ export default function UserPass() {
         <div>
             <form onSubmit={validateCredentials} className="user-pass-body">
                 <div className="column">
-                    <TextField inputProps={{ "data-testid": "user-name" }} className="user-pass-input" error={isUsernameInvalid} onChange={(event) => setUsername(event.target.value)} value={username} variant="outlined" label="Username" />
+                    <TextField className="user-pass-input" error={isUsernameInvalid} onChange={(event) => setUsername(event.target.value)} value={username} variant="outlined" label="Username" />
                 </div>
                 <div className="column">
-                    <TextField inputProps={{ "data-testid": "password" }} className="user-pass-input" error={isPasswordInvalid} onChange={(event) => setPassword(event.target.value)} value={password} variant="outlined" label="Password" type="password" />
+                    <TextField className="user-pass-input" error={isPasswordInvalid} onChange={(event) => setPassword(event.target.value)} value={password} variant="outlined" label="Password" type="password" />
                 </div>
                 <div className="error-text">
                     {isValidLogin

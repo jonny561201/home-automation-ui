@@ -27,13 +27,13 @@ describe('UserPass', () => {
 
     it('should contain username input', async () => {
         await renderComponent();
-        const actual = screen.getByTestId('user-name');
+        const actual = screen.getByRole('textbox', { name: 'Username' });
         expect(actual).toBeDefined();
     });
 
     it('should contain password input', async () => {
         await renderComponent();
-        const actual = screen.getByTestId('password');
+        const actual = screen.getByLabelText('Password');
         expect(actual).toBeDefined();
     });
 
@@ -47,19 +47,19 @@ describe('UserPass', () => {
 
         it('should not display error styles when username is valid', async () => {
             await renderComponent();
-            fireEvent.change(screen.getByTestId('user-name'), { target: { value: 'validName' } });
+            fireEvent.change(screen.getByRole('textbox', { name: 'Username' }), { target: { value: 'validName' } });
 
             await act(async () => {
                 fireEvent.click(screen.getByRole('button'));
             });
-            const actual = screen.getByTestId('user-name').className;
+            const actual = screen.getByRole('textbox', { name: 'Username' }).className;
             expect(actual).not.toContain('Mui-error');
         });
 
         it('should display error styles when username is an empty string', async () => {
             await renderComponent();
             await act(async () => {
-                fireEvent.change(screen.getByTestId('user-name'), { target: { value: '' } });
+                fireEvent.change(screen.getByRole('textbox', { name: 'Username' }), { target: { value: '' } });
             });
             fireEvent.click(screen.getByRole('button'));
             const actual = screen.getByText('Username', { selector: 'label' }).className;
@@ -75,18 +75,18 @@ describe('UserPass', () => {
 
         it('should not display error styles when password is valid', async () => {
             await renderComponent();
-            fireEvent.change(screen.getByTestId('password'), { target: { value: 'validName' } });
+            fireEvent.change(screen.getByLabelText('Password'), { target: { value: 'validName' } });
             await act(async () => {
                 fireEvent.click(screen.getByRole('button'));
             });
-            const actual = screen.getByTestId('password').className;
+            const actual = screen.getByLabelText('Password').className;
             expect(actual).not.toContain('Mui-error');
         });
 
         it('should display error styles when password is an empty string', async () => {
             await renderComponent();
             await act(async () => {
-                fireEvent.change(screen.getByTestId('password'), { target: { value: '' } });
+                fireEvent.change(screen.getByLabelText('Password'), { target: { value: '' } });
             });
             fireEvent.click(screen.getByRole('button'));
             const actual = screen.getByText('Password', { selector: 'label' }).className;
@@ -105,8 +105,8 @@ describe('UserPass', () => {
             const password = 'validPass';
             await renderComponent();
             await act(async () => {
-                fireEvent.change(screen.getByTestId('user-name'), { target: { value: userName } });
-                fireEvent.change(screen.getByTestId('password'), { target: { value: password } });
+                fireEvent.change(screen.getByRole('textbox', { name: 'Username' }), { target: { value: userName } });
+                fireEvent.change(screen.getByLabelText('Password'), { target: { value: password } });
             });
             await act(async () => {
                 fireEvent.submit(screen.getByRole('button'));

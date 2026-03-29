@@ -14,8 +14,8 @@ export default function Routes() {
   const [state,] = useContext(Context);
 
   return (
-    <header className="App-header" data-testid="app-routes">
-      <Suspense fallback={<div data-testid="route-loading" />}>
+    <header className="App-header">
+      <Suspense fallback={<div />}>
         <RouterRoutes>
           <Route path="/" element={<Login />} />
           <Route path="/home" element={<PrivateRoute authed={state.auth.isAuthenticated} component={Home} />} />

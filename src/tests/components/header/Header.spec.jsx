@@ -35,13 +35,13 @@ describe('HeaderComponent', () => {
 
     it('should display company logo', async () => {
         await renderComponent();
-        const actual = screen.getByRole('img');
+        const actual = screen.getByRole('img', { name: 'Logo' });
         expect(actual).toBeDefined();
     });
 
     it('should display account icon', async () => {
         await renderComponent();
-        const actual = screen.getByTestId('user-initials');
+        const actual = screen.getByText('tt');
         expect(actual).toBeDefined();
     });
 });

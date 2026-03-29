@@ -23,19 +23,19 @@ describe('Home', () => {
 
     it('should display Header component', async () => {
         await renderComponent();
-        const actual = screen.getByTestId('white-header');
+        const actual = screen.getByRole('img', { name: 'Logo' });
         expect(actual).toBeDefined();
     });
 
     it('should display page body', async () => {
         await renderComponent();
-        const actual = screen.getByTestId('home-body');
+        const actual = screen.getByRole('main');
         expect(actual).toBeDefined()
     });
 
     it('should display DashboardPanel', async () => {
         await renderComponent();
-        const actual = screen.getByTestId('dashboard-panel');
+        const actual = screen.getByRole('region', { name: 'Dashboard Panels' });
         expect(actual).toBeDefined();
     });
 

@@ -16,7 +16,7 @@ describe('Login Component', () => {
 
     it("should contain a header div", async () => {
         await renderComponent();
-        const actual = screen.getByTestId('login-header');
+        const actual = screen.getByRole('heading', { name: 'Member Login' });
         expect(actual).toBeDefined();
     });
 
@@ -28,7 +28,7 @@ describe('Login Component', () => {
 
     it('should have Logo element', async () => {
         await renderComponent();
-        const actual = screen.getByTestId('white-header');
+        const actual = screen.getByRole('img', { name: 'Logo' });
         expect(actual).toBeDefined();
     });
 

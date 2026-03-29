@@ -10,7 +10,7 @@ export default function Login() {
 
     return (
         <div className="login-menu column">
-            <div data-testid={"login-header"} className="login-header header-text">
+            <div className="login-header header-text">
                 <LogoHeader />
                 <h1>Member Login</h1>
             </div>

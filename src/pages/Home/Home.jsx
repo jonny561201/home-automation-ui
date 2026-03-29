@@ -11,11 +11,11 @@ export default function Home() {
     return (
         <div className="home-main" >
             <Header />
-            <div data-testid={"home-body"} className="home-body body">
+            <main className="home-body body">
                 <div className="center">
                     <DashboardPanel />
                 </div>
-            </div>
+            </main>
         </div>
     );
 }

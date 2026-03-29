@@ -36,7 +36,7 @@ export default function ActivitiesPage() {
             <div className="activities-body body">
                 <div className="activites-wrapper">
                     <div className="settings-group setting panel-header-text">
-                        <h2 data-testid="activities-sub-header">Activities</h2>
+                        <h2>Activities</h2>
                     </div>
                     {
                         addTask &&
@@ -48,9 +48,9 @@ export default function ActivitiesPage() {
                 </div>
                 <div className="add-task-container">
                     <div className="add-task-button-border">
-                        <div className="add-task-button success-ripple">
-                            <AddIcon data-testid="add-task-button" className="add-task-button-plus" onClick={createNewTask} />
-                        </div>
+                        <button type="button" className="add-task-button success-ripple" aria-label="Add task" onClick={createNewTask}>
+                            <AddIcon className="add-task-button-plus" />
+                        </button>
                     </div>
                 </div>
             </div>

@@ -28,25 +28,25 @@ describe('Activities Page', () => {
 
     it('should display Header component', async () => {
         await renderComponent();
-        const actual = screen.getByTestId('white-header');
+        const actual = screen.getByRole('img', { name: 'Logo' });
         expect(actual).toBeDefined();
     });
 
     it('should display the Activities component', async () => {
         await renderComponent();
-        const actual = screen.getByTestId('activities-sub-header').textContent;
-        expect(actual).toEqual('Activities');
+        const actual = screen.getAllByRole('heading', { name: 'Activities' });
+        expect(actual).toHaveLength(2);
     });
 
     it('should not display the light alarm component when zero alarms', async () => {
         await renderComponent();
-        const actual = screen.queryByTestId('light-alarm-group');
+        const actual = screen.queryByRole('switch');
         expect(actual).toBeNull();
     });
 
     it('should display the add task button', async () => {
         await renderComponent();
-        const actual = screen.queryByTestId('add-task-button');
+        const actual = screen.getByRole('button', { name: 'Add task' });
         expect(actual).toBeDefined();
     });
 });

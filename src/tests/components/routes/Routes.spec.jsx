@@ -55,34 +55,38 @@ describe('Routes', () => {
 
         it('should render the Login route at /', async () => {
             await renderAt('/', unauthState);
-            expect(screen.getByTestId('app-routes')).toBeDefined();
+            const actual = await screen.findByRole('heading', { name: 'Member Login' });
+            expect(actual).toBeDefined();
         });
 
         it('should redirect unauthenticated user from /home to /', async () => {
             await renderAt('/home', unauthState);
-            // unauthenticated navigates back to login
-            expect(screen.getByTestId('app-routes')).toBeDefined();
+            const actual = await screen.findByRole('heading', { name: 'Member Login' });
+            expect(actual).toBeDefined();
         });
 
         it('should render the Home route at /home when authenticated', async () => {
             await renderAt('/home', authState);
-            expect(screen.getByTestId('app-routes')).toBeDefined();
+            const actual = await screen.findByText('Home Automation');
+            expect(actual).toBeDefined();
         });
 
         it('should render the Activities route at /activities when authenticated', async () => {
             await renderAt('/activities', authState);
-            const actual = await screen.findByTestId('activities-sub-header');
+            const actual = await screen.findAllByRole('heading', { name: 'Activities' });
             expect(actual).toBeDefined();
         });
 
         it('should render the Settings route at /settings when authenticated', async () => {
             await renderAt('/settings', authState);
-            expect(screen.getByTestId('app-routes')).toBeDefined();
+            const actual = await screen.findByText('Preferences');
+            expect(actual).toBeDefined();
         });
 
         it('should render the Account route at /account when authenticated', async () => {
             await renderAt('/account', authState);
-            expect(screen.getByTestId('app-routes')).toBeDefined();
+            const actual = await screen.findByText('Change Password');
+            expect(actual).toBeDefined();
         });
     });
 });
