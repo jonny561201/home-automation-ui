@@ -1,15 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import './AccountMenu.css';
-import { getStore } from '../../state/GlobalState';
 import { Context } from '../../state/Store';
 import { Divider } from '@mui/material';
 
 
 export default function AccountSettings(props) {
     let wrapperRef;
-    const [activePage,] = useState(getStore().getActivePage());
     const [state, dispatch] = useContext(Context);
+    const activePage = state.activePage;
 
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);

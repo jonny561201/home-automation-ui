@@ -2,7 +2,7 @@ import React, { createContext, useReducer } from "react";
 import Reducer from './Reducer'
 
 
-const initialState = {
+export const initialState = {
     activePage: null,
     auth: { bearer: null, refresh: null, isAuthenticated: false, exp: null },
     user: { userId: null, firstName: '', lastName: '', roles: [] },
@@ -24,6 +24,8 @@ const initialState = {
     taskTypes: ['sunrise alarm', 'turn on', 'turn off', 'hvac']
 };
 
+const noopDispatch = () => {};
+
 const Store = ({ children }) => {
     const [state, dispatch] = useReducer(Reducer, initialState);
     return (
@@ -33,5 +35,5 @@ const Store = ({ children }) => {
     )
 };
 
-export const Context = createContext(initialState);
+export const Context = createContext([initialState, noopDispatch]);
 export default Store;

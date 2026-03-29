@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import GaragePanel from './GaragePanel';
 import BasementPanel from './BasementPanel';
 import TemperaturePanel from './TemperaturePanel';
 import LightingPanel from './LightingPanel';
 import SecurityPanel from './SecurityPanel';
-import { getStore } from '../../../state/GlobalState';
+import { Context } from '../../../state/Store';
 import './DashboardPanel.css';
 
 export default function DashboardPanel() {
 
-    const roles = getStore().getUserRoles();
+    const [state,] = useContext(Context);
+    const roles = state.user.roles || [];
     const roleNames = roles.map(x => x.role_name);
     
     return (

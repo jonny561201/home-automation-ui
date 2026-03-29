@@ -5,7 +5,6 @@ import {
     getUserPreferences, updateUserPreferences, setUserTemperature, addUserChildAccount, deleteScheduledTask, insertHvacTask,
     getLightGroups, setLightGroupState, setLightState, updateUserAccount, getRolesByUserId, getScheduledTasks, getRefreshedBearerToken
 } from '../../utilities/RestApi';
-import { getStore } from '../../state/GlobalState';
 
 
 describe('RestApi', () => {
@@ -38,15 +37,15 @@ describe('RestApi', () => {
         expect(actual).toBeTruthy();
     });
 
-    it('should store roles after successful login', async () => {
+    it('should return bearer token response after successful login', async () => {
         const response = { 'bearerToken': fakeBearerToken };
 
         fetchMock.route(`${baseUrl}/token`, response).catch(() => {
             return { status: 400 };
         });
 
-        await getBearerToken(username, password);
-        expect(getStore().getUserRoles()).toEqual(["garage_door", "security", "thermostat", "lighting", "sump_pump"]);
+        const actual = await getBearerToken(username, password);
+        expect(actual).toEqual(response);
     });
 
     describe('after successful login', () => {

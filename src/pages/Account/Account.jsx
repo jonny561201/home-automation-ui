@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Context } from '../../state/Store';
-import { getStore } from '../../state/GlobalState';
 import Header from '../../components/header/Header';
 import { Divider, TextField } from '@mui/material';
 import { CheckCircle, Error } from '@mui/icons-material';
@@ -11,8 +10,7 @@ import './Account.css';
 
 
 export default function Account() {
-    getStore().setActivePage('Account');
-    const [state,] = useContext(Context);
+    const [state, dispatch] = useContext(Context);
     const [arePasswordsMismatched, setPasswordsMismatched] = useState(null);
     const [changed, setChanged] = useState(false);
     const [oldPasswordError, setPasswordError] = useState(null);
@@ -21,6 +19,10 @@ export default function Account() {
     const [secondNewPassword, setSecondPassword] = useState("");
     const [succeeded, setSucceeded] = useState(null);
     const [submitted, setSubmitted] = useState(false);
+
+    useEffect(() => {
+        dispatch({ type: 'SET_ACTIVE_PAGE', payload: 'Account' });
+    }, [dispatch]);
 
     useEffect(() => {
         if (firstNewPassword !== "" && secondNewPassword !== "") {

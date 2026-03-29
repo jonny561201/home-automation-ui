@@ -1,7 +1,6 @@
 import React from 'react';
 import { Context } from '../../../state/Store';
 import AccountChildUser from '../../../pages/Account/AccountChildUser';
-import { getStore } from '../../../state/GlobalState';
 import * as lib from '../../../utilities/RestApi';
 import { render, screen, fireEvent, within, act } from '@testing-library/react';
 
@@ -15,10 +14,10 @@ describe('AccountChildUser', () => {
     const roles = [{ role_name: 'security' }, { role_name: 'garage_door' }];
     const response = [{ user_name: 'Jon', user_id: childUserId, roles: ['garage_door'] }];
 
-    const renderComponent = async () => {
+    const renderComponent = async (userRoles = roles) => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ user: { userId: userId }, auth: { bearer: bearer } }, () => { }]}>
+                <Context.Provider value={[{ user: { userId: userId, roles: userRoles }, auth: { bearer: bearer } }, () => { }]}> 
                     <AccountChildUser />
                 </Context.Provider>
             );
@@ -26,7 +25,6 @@ describe('AccountChildUser', () => {
     }
 
     beforeEach(() => {
-        getStore().setUserRoles(roles);
         spyGet.mockClear();
         spyPost.mockClear();
         spyDelete.mockClear();
@@ -56,8 +54,7 @@ describe('AccountChildUser', () => {
 
     it('should display the drop down menu items', async () => {
         const roles = [{ role_name: 'security' }, { role_name: 'garage' }];
-        getStore().setUserRoles(roles);
-        await renderComponent();
+        await renderComponent(roles);
         fireEvent.mouseDown(screen.getByRole('combobox'));
         const security = screen.getByText("security").textContent;
         const garage = screen.getByText("garage").textContent;

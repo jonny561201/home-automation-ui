@@ -1,6 +1,5 @@
 import React from 'react';
 import { Context } from '../../../state/Store';
-import { getStore } from '../../../state/GlobalState';
 import { render, screen, act } from '@testing-library/react';
 import ActivitiesPage from '../../../pages/Activities/Activities';
 
@@ -10,20 +9,25 @@ vi.mock('../../../utilities/StateUtil', () => ({ default: () => null }));
 
 describe('Activities Page', () => {
     const user = { firstName: 'test', lastName: 'test' };
+    const dispatch = vi.fn();
 
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ user: user, tasks: [] }, () => { }]}>
+                <Context.Provider value={[{ user: user, tasks: [] }, dispatch]}> 
                     <ActivitiesPage />
                 </Context.Provider>
             );
         });
     }
 
+    beforeEach(() => {
+        dispatch.mockClear();
+    });
+
     it('should set the active page to Activites', async () => {
         await renderComponent();
-        expect(getStore().getActivePage()).toEqual('Activities');
+        expect(dispatch).toHaveBeenCalledWith({ type: 'SET_ACTIVE_PAGE', payload: 'Activities' });
     });
 
     it('should display Header component', async () => {

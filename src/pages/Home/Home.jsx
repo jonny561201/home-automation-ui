@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import Header from '../../components/header/Header';
 import DashboardPanel from './panels/DashboardPanels';
 import './Home.css';
-import { getStore } from '../../state/GlobalState';
+import { Context } from '../../state/Store';
 
 
 export default function Home() {
-    getStore().setActivePage('Home Automation');
+    const [, dispatch] = useContext(Context);
+
+    useEffect(() => {
+        dispatch({ type: 'SET_ACTIVE_PAGE', payload: 'Home Automation' });
+    }, [dispatch]);
 
     return (
         <div className="home-main" >

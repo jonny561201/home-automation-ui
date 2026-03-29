@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { getStore } from '../../state/GlobalState';
 import { addUserChildAccount, getUserChildAccounts, deleteUserChildAccount } from '../../utilities/RestApi';
 import { Context } from '../../state/Store';
 import { Divider, MenuItem, Select, InputLabel, OutlinedInput, FormControl, Checkbox, TextField, ListItemText } from '@mui/material';
@@ -8,7 +7,7 @@ import "./AccountChildUser.css"
 
 export default function AccountChildUser() {
     const [state, _] = useContext(Context);
-    const [roles,] = useState(getStore().getUserRoles());
+    const roles = state.user.roles || [];
     const [selectedRole, setSelectedRole] = useState([]);
     const [email, setEmail] = useState("");
     const [test, setTest] = useState([]);

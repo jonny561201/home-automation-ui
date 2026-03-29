@@ -1,5 +1,3 @@
-import { jwtDecode } from 'jwt-decode';
-import { getStore } from '../state/GlobalState';
 
 
 // const baseUrl = 'http://localhost:5000';
@@ -21,13 +19,7 @@ export const getBearerToken = async (username, password) => {
 
     const response = await fetch(`${baseUrl}/token`, options);
     if (response.ok) {
-        const jsonResponse = await response.json();
-        const bearerToken = jsonResponse.bearerToken;
-        const dataStore = getStore();
-        const decodedToken = jwtDecode(bearerToken);
-        const roles = decodedToken.roles || decodedToken.user?.roles;
-        dataStore.setUserRoles(roles);
-        return jsonResponse;
+        return await response.json();
     }
     return null;
 }

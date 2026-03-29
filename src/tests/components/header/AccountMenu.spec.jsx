@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen, act } from '@testing-library/react';
-import { getStore } from '../../../state/GlobalState';
 import AccountMenu from '../../../components/header/AccountMenu';
 import { BrowserRouter } from 'react-router-dom';
 import { Context } from '../../../state/Store';
@@ -8,10 +7,10 @@ import { Context } from '../../../state/Store';
 
 describe('AccountSettings', () => {
 
-    const renderComponent = async () => {
+    const renderComponent = async (activePage = 'Home Automation') => {
         await act(async () => {
             render(
-                <Context.Provider value={[{}, () => { }]}>
+                <Context.Provider value={[{ activePage, auth: {} }, () => { }]}> 
                     <BrowserRouter>
                         <AccountMenu />
                     </BrowserRouter>
@@ -27,8 +26,7 @@ describe('AccountSettings', () => {
     });
 
     it('should display Settings, Activities, and Account links when active page is set to home', async () => {
-        getStore().setActivePage('Home Automation');
-        await renderComponent();
+        await renderComponent('Home Automation');
 
         const settings = screen.getByText('Settings').textContent;
         const account = screen.getByText('Account').textContent;
@@ -39,8 +37,7 @@ describe('AccountSettings', () => {
     });
 
     it('should display Home, Activities, and Account links when active page is set to settings', async () => {
-        getStore().setActivePage('Settings');
-        await renderComponent();
+        await renderComponent('Settings');
 
         const home = screen.getByText('Home').textContent;
         const account = screen.getByText('Account').textContent;
@@ -51,8 +48,7 @@ describe('AccountSettings', () => {
     });
 
     it('should display Home, Activities, and Settings links when active page is set to Account', async () => {
-        getStore().setActivePage('Account');
-        await renderComponent();
+        await renderComponent('Account');
 
         const settings = screen.getByText('Settings').textContent;
         const home = screen.getByText('Home').textContent;
@@ -63,8 +59,7 @@ describe('AccountSettings', () => {
     });
 
     it('should display Home, Account, and Settings links when active page is set to Activities', async () => {
-        getStore().setActivePage('Activities');
-        await renderComponent();
+        await renderComponent('Activities');
 
         const settings = screen.getByText('Settings').textContent;
         const home = screen.getByText('Home').textContent;

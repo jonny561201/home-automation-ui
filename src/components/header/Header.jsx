@@ -3,9 +3,8 @@ import LogoHeader from '../header/LogoHeader';
 import AccountIcon from './AccountIcon';
 import { Context } from '../../state/Store';
 import AccountMenu from '../header/AccountMenu';
-import { getStore } from '../../state/GlobalState';
 import { setTheme, isDayLight } from '../../utilities/Services';
-import { useInterval } from '.././../utilities/UseInterval';
+import { useInterval } from '../../utilities/UseInterval';
 import UserLocation from '../../pages/Home/segments/UserLocation';
 import './Header.css';
 import StateUtil from '../../utilities/StateUtil';
@@ -13,7 +12,7 @@ import StateUtil from '../../utilities/StateUtil';
 
 export default function Header() {
     const [state,] = useContext(Context);
-    const activePage = getStore().getActivePage();
+    const activePage = state.activePage;
     const [settingsActive, setSettingsActive] = useState(null);
     const [accountWrapperRef, setAccountWrapperRef] = useState(null);
 

@@ -2,7 +2,6 @@ import React from 'react';
 import { Context } from '../../../state/Store';
 import { render, screen, act } from '@testing-library/react';
 import Home from '../../../pages/Home/Home';
-import { getStore } from '../../../state/GlobalState';
 
 
 vi.mock('../../../utilities/StateUtil', () => ({ default: () => null }));
@@ -10,16 +9,21 @@ vi.mock('../../../utilities/StateUtil', () => ({ default: () => null }));
 
 describe('Home', () => {
     const user = { firstName: 'test', lastName: 'test' };
+    const dispatch = vi.fn();
 
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ user: user }, () => { }]}>
+                <Context.Provider value={[{ user: user }, dispatch]}> 
                     <Home />
                 </Context.Provider>
             );
         });
     }
+
+    beforeEach(() => {
+        dispatch.mockClear();
+    });
 
     it('should display Header component', async () => {
         await renderComponent();
@@ -40,6 +44,7 @@ describe('Home', () => {
     });
 
     it('should set the active page to Home', async () => {
-        expect(getStore().getActivePage()).toEqual('Home Automation');
+        await renderComponent();
+        expect(dispatch).toHaveBeenCalledWith({ type: 'SET_ACTIVE_PAGE', payload: 'Home Automation' });
     });
 });

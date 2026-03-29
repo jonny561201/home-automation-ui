@@ -2,7 +2,6 @@ import React from 'react';
 import { Context } from '../../../state/Store';
 import { render, screen, act } from '@testing-library/react';
 import Header from '../../../components/header/Header';
-import { getStore } from '../../../state/GlobalState';
 
 
 vi.mock('../../../utilities/StateUtil', () => ({ default: () => null }));
@@ -16,16 +15,13 @@ describe('HeaderComponent', () => {
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ user: user }, () => { }]}>
+                <Context.Provider value={[{ user: user, activePage: expectedPage }, () => { }]}> 
                     <Header />
                 </Context.Provider>
             );
         });
     }
 
-    beforeEach(() => {
-        getStore().setActivePage(expectedPage);
-    });
 
     it('should display header text', async () => {
         await renderComponent();

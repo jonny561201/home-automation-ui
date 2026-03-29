@@ -1,5 +1,4 @@
 import React from 'react';
-import { getStore } from '../../../state/GlobalState';
 import { Context } from '../../../state/Store';
 import Settings from '../../../pages/Settings/Settings'
 import * as lib from '../../../utilities/RestApi';
@@ -18,13 +17,14 @@ describe('Settings Page', () => {
     const coords = { latitude: 43.123, longitude: 23.23423 };
     const user = { firstName: 'test', lastName: 'test', userId: userId };
     const preference = { temp_unit: tempUnit, measure_unit: unitMeasure, city: city };
+    const dispatch = vi.fn();
 
     const spyUpdate = vi.spyOn(lib, 'updateUserPreferences');
 
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ garageDoors: [], user: user, preferences: preference, roles: roles, garageCoords: coords }, () => { }]}>
+                <Context.Provider value={[{ garageDoors: [], user: user, preferences: preference, roles: roles, garageCoords: coords }, dispatch]}> 
                     <Settings />
                 </Context.Provider>
             );
@@ -32,12 +32,13 @@ describe('Settings Page', () => {
     }
 
     beforeEach(() => {
+        dispatch.mockClear();
         spyUpdate.mockClear();
     });
 
     it('should set the active page to Settings', async () => {
         await renderComponent();
-        expect(getStore().getActivePage()).toEqual('Settings');
+        expect(dispatch).toHaveBeenCalledWith({ type: 'SET_ACTIVE_PAGE', payload: 'Settings' });
     });
 
     it('should display logo header', async () => {

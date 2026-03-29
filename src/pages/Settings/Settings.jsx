@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Context } from '../../state/Store';
 import SettingsPanel from './SettingsPanel';
 import Header from '../../components/header/Header';
-import { getStore } from '../../state/GlobalState';
 import SettingsEditPanel from './SettingsEditPanel';
 import { setTheme, toggleDarkMode, isDayLight } from '../../utilities/Services';
 import { CoolSwitch, HeatSwitch } from '../../components/controls/Switches';
@@ -11,11 +10,14 @@ import './Settings.css'
 
 
 export default function Settings() {
-    getStore().setActivePage('Settings');
-    const [state,] = useContext(Context);
+    const [state, dispatch] = useContext(Context);
     const [isAutoMode, setIsAutoMode] = useState(false);
     const [darkMode, setDarkMode] = useState(false);
     const [isEditMode, setEditMode] = useState(false);
+
+    useEffect(() => {
+        dispatch({ type: 'SET_ACTIVE_PAGE', payload: 'Settings' });
+    }, [dispatch]);
 
     useEffect(() => {
         setDarkMode(localStorage.getItem('theme') === 'theme-dark');

@@ -1,7 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Context } from '../../state/Store';
 import Header from '../../components/header/Header';
-import { getStore } from '../../state/GlobalState';
 import AddIcon from '@mui/icons-material/Add';
 import LightActivity from './LightActivity';
 import HvacActivity from './HvacActivity';
@@ -10,9 +9,12 @@ import './Activities.css';
 
 
 export default function ActivitiesPage() {
-    getStore().setActivePage('Activities');
-    const [state,] = useContext(Context);
+    const [state, dispatch] = useContext(Context);
     const [addTask, setAddTask] = useState(false)
+
+    useEffect(() => {
+        dispatch({ type: 'SET_ACTIVE_PAGE', payload: 'Activities' });
+    }, [dispatch]);
 
     const createNewTask = () => {
         setAddTask(true);

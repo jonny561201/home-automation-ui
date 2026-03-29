@@ -1,7 +1,6 @@
 import React from 'react';
 import { Context } from '../../../../state/Store';
 import * as lib from '../../../../utilities/RestApi';
-import { getStore } from '../../../../state/GlobalState';
 import { render, screen, act } from '@testing-library/react';
 import DashboardPanels from '../../../../pages/Home/panels/DashboardPanels';
 
@@ -10,7 +9,6 @@ vi.mock('../../../../components/controls/Knob', () => ({ default: () => <div></d
 
 
 describe('DashboardPanel', () => {
-    const store = getStore();
     const bearer = 'kjahsd987s798';
     const garageRole = { devices: [{ node_name: 'test' }] };
     const coords = { latitude: 1, longitude: -1 };
@@ -20,10 +18,10 @@ describe('DashboardPanel', () => {
     const userLights = [{ groupId: '1', lightId: '1', lightName: 'room', brightness: 0, on: false }];
     const lightGroups = [{ groupId: '1', groupName: 'test', brightness: 0, lights: userLights, on: false }];
 
-    const renderComponent = async () => {
+    const renderComponent = async (roles = []) => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ forecastData: forecastData, tasks: [], auth: { bearer: bearer }, sumpData: sumpData, tempData: tempData, garageRole: garageRole, garageCoords: coords, userLights: [], garageDoors: [] }, () => { }]}>
+                <Context.Provider value={[{ user: { roles }, forecastData: forecastData, tasks: [], auth: { bearer: bearer }, sumpData: sumpData, tempData: tempData, garageRole: garageRole, garageCoords: coords, userLights: [], garageDoors: [] }, () => { }]}> 
                     <DashboardPanels />
                 </Context.Provider>
             );
@@ -40,16 +38,14 @@ describe('DashboardPanel', () => {
         });
 
         it('should show the Garage Panel if user has garage role', async () => {
-            store.setUserRoles([{ 'role_name': 'garage_door' }]);
-            await renderComponent();
+            await renderComponent([{ 'role_name': 'garage_door' }]);
 
             const actual = screen.getByText('Garage');
             expect(actual).toBeDefined();
         });
 
         it('should not show the Garage Panel if user does not have garage role', async () => {
-            store.setUserRoles([]);
-            await renderComponent();
+            await renderComponent([]);
 
             const actual = screen.queryByText('Garage');
             expect(actual).toBeNull();
@@ -67,16 +63,14 @@ describe('DashboardPanel', () => {
         });
 
         it('should show the Basement Panel if user has the sump pump role', async () => {
-            store.setUserRoles([{ 'role_name': 'sump_pump' }]);
-            await renderComponent();
+            await renderComponent([{ 'role_name': 'sump_pump' }]);
 
             const actual = screen.getByText('Basement');
             expect(actual).toBeDefined();
         });
 
         it('should not show the Basement Panel if user does not have the sump pump role', async () => {
-            store.setUserRoles([]);
-            await renderComponent();
+            await renderComponent([]);
             const actual = screen.queryByText('Basement')
             expect(actual).toBeNull();
         });
@@ -95,15 +89,13 @@ describe('DashboardPanel', () => {
         });
 
         it('should show the Temperature Panel if user has the thermostat role', async () => {
-            store.setUserRoles([{ 'role_name': 'thermostat' }]);
-            await renderComponent();
+            await renderComponent([{ 'role_name': 'thermostat' }]);
             const actual = screen.getByText('Temperature');
             expect(actual).toBeDefined();
         });
 
         it('should not show the Temperature Panel if user does not have the thermostat role', async () => {
-            store.setUserRoles([]);
-            await renderComponent();
+            await renderComponent([]);
             const actual = screen.queryByText('Temperature');
             expect(actual).toBeNull();
         });
@@ -119,15 +111,13 @@ describe('DashboardPanel', () => {
         });
 
         it('should show the Lighting Panel if user has the lighting role', async () => {
-            store.setUserRoles([{ 'role_name': 'lighting' }]);
-            await renderComponent();
+            await renderComponent([{ 'role_name': 'lighting' }]);
             const actual = screen.queryByText('Lighting');
             expect(actual).toBeDefined();
         });
 
         it('should not show the Lighting Panel if user does not have the lighting role', async () => {
-            store.setUserRoles([]);
-            await renderComponent();
+            await renderComponent([]);
             const actual = screen.queryByText('Lighting');
             expect(actual).toBeNull();
         });
@@ -136,15 +126,13 @@ describe('DashboardPanel', () => {
     describe('Security Panel', () => {
 
         it('should show the Security Panel if user has the security role', async () => {
-            store.setUserRoles([{ 'role_name': 'security' }]);
-            await renderComponent();
+            await renderComponent([{ 'role_name': 'security' }]);
             const actual = screen.getByText('Security');
             expect(actual).toBeDefined();
         });
 
         it('should not show the Security Panel if user does not have the security role', async () => {
-            store.setUserRoles([]);
-            await renderComponent();
+            await renderComponent([]);
             const actual = screen.queryByText('Security');
             expect(actual).toBeNull();
         });

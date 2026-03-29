@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import './Login.css';
 import LogoHeader from '../../components/header/LogoHeader';
 import UserPass from './UserPass';
-import { getStore } from '../../state/GlobalState';
+import { Context } from '../../state/Store';
 
 
 export default function Login() {
-    getStore().setActivePage('Login');
+    const [, dispatch] = useContext(Context);
+
+    useEffect(() => {
+        dispatch({ type: 'SET_ACTIVE_PAGE', payload: 'Login' });
+    }, [dispatch]);
 
     return (
         <div className="login-menu column">

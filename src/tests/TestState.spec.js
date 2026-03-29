@@ -1,25 +1,25 @@
-import { getStore } from '../state/GlobalState';
+import Reducer from '../state/Reducer';
 
 
-describe('GlobalState', () => {
+describe('Reducer', () => {
 
     describe('ActivePage', () => {
         let state;
         const activePage = "testPage";
 
         beforeEach(() => {
-            state = getStore()
+            state = { activePage: null };
         });
 
         it('should set active page', () => {
-            state.setActivePage(activePage);
-            const actual = state.state.activePage;
-            expect(actual).toEqual(activePage);
+            const actual = Reducer(state, { type: 'SET_ACTIVE_PAGE', payload: activePage });
+            expect(actual.activePage).toEqual(activePage);
         });
 
-        it('should get active page', () => {
-            state.state.activePage = activePage;
-            expect(state.getActivePage()).toEqual(activePage);
+        it('should retain existing state values when updating active page', () => {
+            const current = { ...state, auth: { isAuthenticated: false } };
+            const actual = Reducer(current, { type: 'SET_ACTIVE_PAGE', payload: activePage });
+            expect(actual.auth).toEqual({ isAuthenticated: false });
         });
     });
 });

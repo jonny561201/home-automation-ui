@@ -2,7 +2,6 @@ import React from 'react';
 import { Context } from '../../../state/Store';
 import Account from '../../../pages/Account/Account';
 import * as lib from '../../../utilities/RestApi';
-import { getStore } from '../../../state/GlobalState';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 
 
@@ -13,13 +12,14 @@ describe('Account Page', () => {
     const bearer = 'alkjsdf897';
     const userId = 'fakeUserId';
     const user = { firstName: 'test', lastName: 'test', userId: userId };
+    const dispatch = vi.fn();
     const spyPost = vi.spyOn(lib, 'updateUserAccount');
     const spyGet = vi.spyOn(lib, 'getUserChildAccounts');
 
     const renderComponent = async () => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ user: user, auth: { bearer: bearer } }, () => { }]}>
+                <Context.Provider value={[{ user: user, auth: { bearer: bearer } }, dispatch]}> 
                     <Account />
                 </Context.Provider>
             );
@@ -27,13 +27,14 @@ describe('Account Page', () => {
     }
 
     beforeEach(() => {
+        dispatch.mockClear();
         spyPost.mockClear();
         spyGet.mockReturnValue([]);
     });
 
     it('should set the active page to Account', async () => {
         await renderComponent();
-        expect(getStore().getActivePage()).toEqual('Account');
+        expect(dispatch).toHaveBeenCalledWith({ type: 'SET_ACTIVE_PAGE', payload: 'Account' });
     });
 
     it('should display header for changing password', async () => {
