@@ -61,7 +61,6 @@ describe('Light Activity Panel', () => {
 
         it('should display the update button when expansion panel opened', async () => {
             await renderComponent();
-            // Click the accordion by clicking the time displayed (what the user sees)
             fireEvent.click(screen.getByText('01:00'))
             const actual = screen.getByText('Update').textContent;
             expect(actual).toEqual('Update');
@@ -69,7 +68,6 @@ describe('Light Activity Panel', () => {
 
         it('should display the delete button when expansion panel opened', async () => {
             await renderComponent();
-            // Click the accordion by clicking the time displayed (what the user sees)
             fireEvent.click(screen.getByText('01:00'))
             const actual = screen.getByText('Delete').textContent;
             expect(actual).toEqual('Delete');
@@ -77,7 +75,6 @@ describe('Light Activity Panel', () => {
 
         it('should display the days of the week buttons', async () => {
             await renderComponent();
-            // Click the accordion by clicking the time displayed (what the user sees)
             fireEvent.click(screen.getByText('01:00'))
             const friday = screen.getByText('F');
             const monday = screen.getByText('M');
@@ -93,20 +90,16 @@ describe('Light Activity Panel', () => {
 
         it('should display the time picker when expansion panel opened', async () => {
             await renderComponent();
-            // Click the accordion by clicking the time displayed (what the user sees)
             fireEvent.click(screen.getByText('01:00'))
-            // Time picker exposes hour, minute, and meridiem as spinbuttons - verify they exist
-            const hourSpinButton = screen.getByRole('spinbutton', { name: /hours/i });
-            expect(hourSpinButton).toBeTruthy();
+            const actual = screen.getByRole('spinbutton', { name: /hours/i });
+            expect(actual).toBeTruthy();
         });
 
         it('should display the task type combobox', async () => {
             await renderComponent();
             await act(async () => {
-                // Click the accordion by clicking the time displayed (what the user sees)
                 fireEvent.click(screen.getByText('01:00'));
             });
-            // Task type is a combobox/select field - find by role
             const actual = screen.getByRole('combobox', { name: /task type/i });
             expect(actual).toBeTruthy();
         });

@@ -29,16 +29,14 @@ describe('Create Light Activity Panel', () => {
 
     it('should display the time picker', async () => {
         await renderComponent();
-        // Look for the hour spinbutton that the time picker renders
-        const hourSpinner = screen.getByRole('spinbutton', { name: /hours/i });
-        expect(hourSpinner).toBeDefined();
+        const actual = screen.getByRole('spinbutton', { name: /hours/i });
+        expect(actual).toBeDefined();
      });
 
      it('should display the light room name selector', async () => {
         await renderComponent();
-        // Look for the combobox with Room label
-        const roomSelector = screen.getByRole('combobox', { name: /room/i });
-        expect(roomSelector).toBeDefined();
+        const actual = screen.getByRole('combobox', { name: /room/i });
+        expect(actual).toBeDefined();
      });
 
      it('should display the light room label', async () => {

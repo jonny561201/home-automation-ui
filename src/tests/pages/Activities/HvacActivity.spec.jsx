@@ -62,7 +62,6 @@ describe('HVAC Activity Panel', () => {
 
         it('should display the update button when expansion panel opened', async () => {
             await renderComponent();
-            // Click the accordion by clicking the time range displayed (what the user sees)
             fireEvent.click(screen.getByText('01:00 - 14:00'))
             const actual = screen.getByText('Update').textContent;
             expect(actual).toEqual('Update');
@@ -70,7 +69,6 @@ describe('HVAC Activity Panel', () => {
 
         it('should display the delete button when expansion panel opened', async () => {
             await renderComponent();
-            // Click the accordion by clicking the time range displayed (what the user sees)
             fireEvent.click(screen.getByText('01:00 - 14:00'))
             const actual = screen.getByText('Delete').textContent;
             expect(actual).toEqual('Delete');
@@ -78,7 +76,6 @@ describe('HVAC Activity Panel', () => {
 
         it('should display the days of the week buttons', async () => {
             await renderComponent();
-            // Click the accordion by clicking the time range displayed (what the user sees)
             fireEvent.click(screen.getByText('01:00 - 14:00'))
             const friday = screen.getByText('F');
             const monday = screen.getByText('M');

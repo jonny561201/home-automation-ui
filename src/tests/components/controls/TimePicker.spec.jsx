@@ -12,23 +12,19 @@ describe('Time Picker', () => {
 
     it('should display the provided time', async () => {
         await renderComponent(time);
-        // Check that the hour spinbutton shows the correct value
-        const hourSpinner = screen.getByRole('spinbutton', { name: /hours/i });
-        expect(hourSpinner).toBeTruthy();
-        expect(hourSpinner.getAttribute('aria-valuenow')).toEqual('9');
+        const actual = screen.getByRole('spinbutton', { name: /hours/i });
+        expect(actual).toBeTruthy();
+        expect(actual.getAttribute('aria-valuenow')).toEqual('9');
     });
 
     it('should display the current time when initial value not supplied', async () => {
         await renderComponent(undefined);
-        // Check that the hour spinbutton exists and has current time
-        const hourSpinner = screen.getByRole('spinbutton', { name: /hours/i });
-        const date = new Date();
-        const currentHour = date.getHours();
-        expect(hourSpinner).toBeTruthy();
-        // The hour should be between 1-12 for 12-hour format
-        const hourValue = parseInt(hourSpinner.getAttribute('aria-valuenow'));
-        expect(hourValue).toBeGreaterThanOrEqual(1);
-        expect(hourValue).toBeLessThanOrEqual(12);
+        const actual = screen.getByRole('spinbutton', { name: /hours/i });
+        expect(actual).toBeTruthy();
+        const actualHour = parseInt(actual.getAttribute('aria-valuenow'));
+        expect(actualHour).toBeGreaterThanOrEqual(1);
+        expect(actualHour).toBeLessThanOrEqual(12);
     });
 });
+
 
