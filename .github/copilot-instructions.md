@@ -35,11 +35,7 @@
    - `setTest(test.filter(...))` in `deleteChildUser` can use stale state.
    - Recommendation: use functional updates (`setTest(prev => prev.filter(...))`).
 
-4. `src/App.jsx`
-   - `setTheme(theme)` runs during render; this is a side effect and can rerun unnecessarily.
-   - Recommendation: move this into `useEffect` with stable dependencies.
-
-5. `src/state/Reducer.js`
+4. `src/state/Reducer.js`
    - There is a TODO in `determineDesired` noting HVAC scheduling edge cases with multiple active events.
    - Recommendation: define deterministic priority/precedence rules and add targeted tests.
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import Store from './state/Store';
 import Routes from './components/routes/Routes';
@@ -7,8 +7,11 @@ import { BrowserRouter } from 'react-router-dom';
 
 
 export default function App() {
-  const theme = localStorage.hasOwnProperty('theme') ? localStorage.getItem('theme') : 'theme-light';
-  setTheme(theme);
+    
+    useEffect(() => {
+        const theme = localStorage.hasOwnProperty('theme') ? localStorage.getItem('theme') : 'theme-light';
+        setTheme(theme);
+    }, []);
 
   return (
     <BrowserRouter>
