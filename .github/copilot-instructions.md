@@ -5,6 +5,7 @@
 - Use **React function components** and React hooks (no class components).
 - Keep UI components in `src/components/**` and page-level containers in `src/pages/**`.
 - Keep global app state in the existing **Context + Reducer** pattern (`src/state/Store.jsx`, `src/state/Reducer.js`).
+- Prefer a **frontend that is ignorant of its deployment environment**. When practical, the UI should talk to the BFF using relative paths and let the host/proxy/infrastructure determine the actual backend target.
 - Use current action naming in reducer dispatches: uppercase string constants like `SET_ACTIVE_PAGE`.
 - Use **Material UI** components for controls and form inputs where possible.
 - Keep styles in adjacent `*.css` files imported by component/page modules.
@@ -51,4 +52,6 @@
 - Keep changes small and localized; avoid broad refactors unless requested.
 - Do not change reducer state shape without updating tests and all dependent selectors/components.
 - For new API features, add utility methods in `RestApi.js` first, then integrate into components.
+- Prefer **relative API routes** (for example, `/api/...`) over embedding environment-specific hosts in the frontend when the BFF/infrastructure can provide routing.
 - For any new behavior, add or update tests in `src/tests/**` before or alongside code changes.
+

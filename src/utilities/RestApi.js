@@ -1,7 +1,4 @@
-
-
-// const baseUrl = 'http://localhost:5000';
-const baseUrl = 'https://soaringleafsolutions.com';
+const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 const accountBaseUrl = `${baseUrl}/account`;
 const deviceBaseUrl = `${baseUrl}/devices`;
 const garageBaseUrl = `${baseUrl}/garageDoor`;
