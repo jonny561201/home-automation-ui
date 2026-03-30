@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act, waitFor } from '@testing-library/react';
 import * as lib from '../../utilities/RestApi';
 import LightSwitch from '../../components/controls/LightSwitch';
 import { Context } from '../../state/Store';
@@ -53,13 +53,10 @@ describe('LightSwitch', () => {
         expect(actual).toBeDefined();
     });
 
-    //TODO: need to get testing working on slider components...
     it('should call set light group state on toggleChecked', async () => {
         await renderComponent(group);
         fireEvent.change(screen.getByRole('slider'), { target: { value: 0 } });
-        // fireEvent.click(screen.getByRole('checkbox'));
-
-        // expect(spySetGroup).toBeCalledWith(bearer, groups.groupId, true, 0);
+        await waitFor(() => expect(spySetGroup).toHaveBeenCalledWith(bearer, group.groupId, true, 0));
     });
 
     describe('Light Expansion', () => {
@@ -116,8 +113,10 @@ describe('LightSwitch', () => {
 
         it('should call api to turn off light when button clicked', async () => {
             await renderComponent(group);
-            fireEvent.click(screen.getByRole('button', { name: group.groupName }));
-            expect(spySetGroup).toHaveBeenCalledWith(bearer, group.groupId, false);
+            await act(async () => {
+                fireEvent.click(screen.getByRole('button', { name: group.groupName }));
+            });
+            await waitFor(() => expect(spySetGroup).toHaveBeenCalledWith(bearer, group.groupId, false));
         });
 
         it('should call api to turn on light when button clicked', async () => {
@@ -127,8 +126,10 @@ describe('LightSwitch', () => {
             }
 
             await renderComponent(newGroup);
-            fireEvent.click(screen.getByRole('button', { name: group.groupName }));
-            expect(spySetGroup).toHaveBeenCalledWith(bearer, group.groupId, true);
+            await act(async () => {
+                fireEvent.click(screen.getByRole('button', { name: group.groupName }));
+            });
+            await waitFor(() => expect(spySetGroup).toHaveBeenCalledWith(bearer, group.groupId, true));
         });
     });
 })

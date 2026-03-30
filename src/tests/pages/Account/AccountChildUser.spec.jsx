@@ -2,7 +2,7 @@ import React from 'react';
 import { Context } from '../../../state/Store';
 import AccountChildUser from '../../../pages/Account/AccountChildUser';
 import * as lib from '../../../utilities/RestApi';
-import { render, screen, fireEvent, within, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, within, waitFor, act } from '@testing-library/react';
 
 describe('AccountChildUser', () => {
     const userId = 'fakeUserId';
@@ -20,13 +20,14 @@ describe('AccountChildUser', () => {
                 <AccountChildUser />
             </Context.Provider>
         );
+        await screen.findByRole('button', { name: 'user-Jon' });
     }
 
     beforeEach(() => {
         spyGet.mockClear();
         spyPost.mockClear();
         spyDelete.mockClear();
-        spyGet.mockReturnValue(response);
+        spyGet.mockResolvedValue(response);
     });
 
     it('should display the add account users button', async () => {
@@ -110,7 +111,7 @@ describe('AccountChildUser', () => {
     describe('Api Calls', () => {
 
         beforeEach(() => {
-            spyPost.mockReturnValue([]);
+            spyPost.mockResolvedValue([]);
         });
 
         it('should make api call to create child account when submitted', async () => {
@@ -124,15 +125,17 @@ describe('AccountChildUser', () => {
 
             fireEvent.click(listbox.getByText('garage_door'));
             fireEvent.click(listbox.getByText('security'));
-            fireEvent.click(addButton);
+            await act(async () => {
+                fireEvent.click(addButton);
+            });
 
-            expect(spyPost).toHaveBeenCalledWith(bearer, email, roles);
+            await waitFor(() => expect(spyPost).toHaveBeenCalledWith(bearer, email, roles));
         });
 
         it('should remove item from list after clicking the delete', async () => {
             const childUserId = 'abc123';
-            spyDelete.mockReturnValue({ ok: true });
-            spyGet.mockReturnValue([{ user_name: 'Jon', user_id: childUserId, roles: ['garage_door'] }]);
+            spyDelete.mockResolvedValue({ ok: true });
+            spyGet.mockResolvedValue([{ user_name: 'Jon', user_id: childUserId, roles: ['garage_door'] }]);
             await renderComponent();
 
             fireEvent.click(await screen.findByRole('button', {name: 'user-Jon'}));

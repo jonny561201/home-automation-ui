@@ -43,9 +43,6 @@
    - There is a TODO in `determineDesired` noting HVAC scheduling edge cases with multiple active events.
    - Recommendation: define deterministic priority/precedence rules and add targeted tests.
 
-6. `src/tests/**`
-   - Some tests still use async wrappers around synchronous render helpers and occasionally produce `act(...)` warnings if async updates are not awaited.
-   - Recommendation: prefer synchronous `render()` helpers unless truly async, and explicitly await async UI transitions.
 
 ## Guidance for future changes
 
