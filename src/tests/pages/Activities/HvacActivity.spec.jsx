@@ -32,6 +32,8 @@ describe('HVAC Activity Panel', () => {
     beforeEach(() => {
         spyDelete.mockClear();
         spyUpdate.mockClear();
+        spyDelete.mockResolvedValue({ ok: true });
+        spyUpdate.mockResolvedValue({ ok: true });
     })
 
     it('should display the event type stored in state', async () => {

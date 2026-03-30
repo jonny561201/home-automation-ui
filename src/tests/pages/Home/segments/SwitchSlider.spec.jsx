@@ -27,6 +27,7 @@ describe('SwitchSlider', () => {
 
     beforeEach(() => {
         spySetLight.mockClear();
+        spySetLight.mockResolvedValue({ ok: true });
     });
 
 

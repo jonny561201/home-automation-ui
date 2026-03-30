@@ -31,6 +31,7 @@ describe('LightSwitch', () => {
 
     beforeEach(() => {
         spySetGroup.mockClear();
+        spySetGroup.mockResolvedValue({ ok: true });
     });
 
     it('should display the group name for the group light switch', async () => {
