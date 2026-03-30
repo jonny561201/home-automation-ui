@@ -24,8 +24,8 @@
 ## Known issues / risks to address (from current code)
 
 1. `src/utilities/RestApi.js`
-   - `baseUrl` is hardcoded to production (`https://soaringleafsolutions.com`).
-   - Recommendation: move to environment config (`import.meta.env`) with a safe default.
+   - `baseUrl` now uses mode-based defaults via `import.meta.env.PROD` (`localhost` for dev, production host for prod).
+   - Recommendation: once CDN/BFF proxy routing is configured, move to relative API routes (for example, `/api/...`) so the frontend is deployment-environment agnostic.
 
 2. `src/utilities/RestApi.js`
    - Many functions call `response.json()` without handling non-OK responses.
