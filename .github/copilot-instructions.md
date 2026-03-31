@@ -11,13 +11,19 @@
 - Keep styles in adjacent `*.css` files imported by component/page modules.
 - Keep API calls centralized in `src/utilities/RestApi.js`; do not fetch directly in random components unless there is a clear reason.
 - Follow current test stack: **Vitest + React Testing Library** in `src/tests/**`.
-- Prefer accessibility-first queries in tests (`getByRole`, `findByRole`, `getByLabelText`) over brittle selectors.
+- Prefer explicit object access over destructuring when reading from hooks/objects (for example, `const auth0 = useAuth0(); auth0.logout(...)`).
+- Keep code comments minimal; only add comments when logic is non-obvious.
+- Avoid introducing extra intermediate constants unless they improve readability or are reused.
+- Keep control flow straightforward and explicit; avoid overly compact patterns that hurt readability.
 
 ## Test authoring preferences
 
+- Prefer user-centric React Testing Library queries (`getByRole`, `findByRole`, `getByLabelText`).
+- Avoid `data-testid` unless there is no accessible alternative.
 - Keep test names behavior-focused (`should ...`).
 - Group tests by component/page and by concern using nested `describe` blocks.
 - Keep `describe` nesting to a maximum of two layers.
+- Prefer accessibility-first queries in tests (`getByRole`, `findByRole`, `getByLabelText`) over brittle selectors.
 - Mock API functions at utility boundaries (`RestApi`) rather than mocking low-level `fetch` for most component tests.
 - Use `findBy*`/`waitFor` when state updates depend on async work (`useEffect`, async handlers).
 
