@@ -1,8 +1,7 @@
-import React, { Suspense, lazy, useContext } from 'react';
+import React, { lazy, Suspense } from 'react';
 import PrivateRoute from '../routes/PrivateRoutes';
 import Activities from '../../pages/Activities/Activities';
-import { Context } from '../../state/Store';
-import { Routes as RouterRoutes, Route } from 'react-router-dom';
+import { Route, Routes as RouterRoutes } from 'react-router-dom';
 
 const Login = lazy(() => import('../../pages/Login/Login'));
 const Home = lazy(() => import('../../pages/Home/Home'));
@@ -11,17 +10,16 @@ const Settings = lazy(() => import('../../pages/Settings/Settings'));
 
 
 export default function Routes() {
-  const [state,] = useContext(Context);
 
   return (
     <header className="App-header">
       <Suspense fallback={<div />}>
         <RouterRoutes>
           <Route path="/" element={<Login />} />
-          <Route path="/home" element={<PrivateRoute authed={state.auth.isAuthenticated} component={Home} />} />
-          <Route path="/activities" element={<PrivateRoute authed={state.auth.isAuthenticated} component={Activities} />} />
-          <Route path="/settings" element={<PrivateRoute authed={state.auth.isAuthenticated} component={Settings} />} />
-          <Route path="/account" element={<PrivateRoute authed={state.auth.isAuthenticated} component={Account} />} />
+          <Route path="/home" element={<PrivateRoute component={Home} />} />
+          <Route path="/activities" element={<PrivateRoute component={Activities} />} />
+          <Route path="/settings" element={<PrivateRoute component={Settings} />} />
+          <Route path="/account" element={<PrivateRoute component={Account} />} />
         </RouterRoutes>
       </Suspense>
     </header>

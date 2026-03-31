@@ -1,26 +1,21 @@
-import React, { useContext, useEffect } from 'react';
+import React, {useEffect} from 'react';
 import './Login.css';
-import LogoHeader from '../../components/header/LogoHeader';
-import UserPass from './UserPass';
-import { Context } from '../../state/Store';
+import { useAuth0 } from "@auth0/auth0-react";
+import { Navigate, useLocation } from "react-router-dom";
 
 
 export default function Login() {
-    const [, dispatch] = useContext(Context);
+    const auth0 = useAuth0();
+    const location = useLocation();
 
     useEffect(() => {
-        dispatch({ type: 'SET_ACTIVE_PAGE', payload: 'Login' });
-    }, [dispatch]);
+        if (!auth0.isLoading && !auth0.isAuthenticated)
+            auth0.loginWithRedirect({ appState: {returnTo: location.state?.from?.pathname || '/home'}})
+    }, [auth0, location.state]);
 
     return (
-        <div className="login-menu column">
-            <div className="login-header header-text">
-                <LogoHeader />
-                <h1>Member Login</h1>
-            </div>
-            <div className="login-body body">
-                <UserPass />
-            </div>
-        </div>
-    );
+            auth0.isAuthenticated
+                ? <Navigate to="/home" replace />
+                : <div>...Redirection to sign in...</div>
+    )
 }

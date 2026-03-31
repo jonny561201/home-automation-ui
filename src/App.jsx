@@ -14,10 +14,10 @@ export default function App() {
     }, []);
 
   return (
-    <BrowserRouter>
-      <Store>
-        <Routes />
-      </Store>
-    </BrowserRouter>
+      <BrowserRouter>
+          <Store>
+              <Routes/>
+          </Store>
+      </BrowserRouter>
   );
 }
