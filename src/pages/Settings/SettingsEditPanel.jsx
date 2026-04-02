@@ -10,7 +10,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 export default function SettingsEditPanel(props) {
     const auth0 = useAuth0();
     const [state, dispatch] = useContext(Context);
-    const [edited, setEdited] = useState();
+    const [edited, setEdited] = useState(false);
     const [garage, setGarage] = useState(state.preferences.garage_door ? state.preferences.garage_door : '');
     const [garageId, setGarageId] = useState();
     const [newCity, setNewCity] = useState(state.preferences.city);
