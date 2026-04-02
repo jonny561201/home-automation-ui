@@ -7,11 +7,6 @@ const Reducer = (state, action) => {
                 ...state,
                 activePage: action.payload
             };
-        case 'SET_AUTH_DATA':
-            return {
-                ...state,
-                auth: action.payload
-            }
         case 'SET_USER_DATA':
             return {
                 ...state,

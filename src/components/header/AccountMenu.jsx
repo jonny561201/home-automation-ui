@@ -1,14 +1,14 @@
 import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import './AccountMenu.css';
 import { Context } from '../../state/Store';
 import { Divider } from '@mui/material';
 import { useAuth0 } from '@auth0/auth0-react'
+import './AccountMenu.css';
 
 
 export default function AccountSettings(props) {
     let wrapperRef;
-    const [state, dispatch] = useContext(Context);
+    const [state, _] = useContext(Context);
     const activePage = state.activePage;
     const auth0 = useAuth0();
 
@@ -23,7 +23,6 @@ export default function AccountSettings(props) {
     }
 
     const logOut = async () => {
-        dispatch({ type: 'SET_AUTH_DATA', payload: { ...state.auth, isAuthenticated: false } });
         await auth0.logout({logoutParams: { returnTo: window.location.origin }});
     }
 
