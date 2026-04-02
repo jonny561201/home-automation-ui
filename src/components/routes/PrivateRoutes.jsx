@@ -9,10 +9,9 @@ export default function PrivateRoute({component: Component}) {
 
     return (
         <>
-            {auth0.isLoading && <div />}
-            {auth0.isAuthenticated && !auth0.isLoading
-                ? <Component/>
-                : <Navigate to="/" state={{from: location}} replace/>}
+            {auth0.isLoading && <div>Loading...</div>}
+            {!auth0.isLoading && auth0.isAuthenticated && <Component />}
+            {!auth0.isLoading && !auth0.isAuthenticated && <Navigate to="/" state={{ from: location }} replace />}
         </>
       )
 }

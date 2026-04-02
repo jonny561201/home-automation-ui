@@ -6,9 +6,11 @@ import UpDownIcon from '../../../resources/panelIcons/UpDown.png';
 import { BlueButton, GreenButton, RedButton } from '../../../components/controls/Buttons';
 import { toggleGarageDoor, updateGarageState } from '../../../utilities/RestApi';
 import './GarageDoor.css'
+import {useAuth0} from "@auth0/auth0-react";
 
 
 export default function GarageDoor(props) {
+    const auth0 = useAuth0();
     const [state, dispatch] = useContext(Context);
     const [statusDays, setStatusDays] = useState();
     const [statusMins, setStatusMins] = useState();
@@ -26,12 +28,14 @@ export default function GarageDoor(props) {
     };
 
     const openCloseGarageDoor = async (newState) => {
-        const response = await updateGarageState(state.user.userId, state.auth.bearer, newState, props.device.doorId);
+        const token = await auth0.getAccessTokenSilently();
+        const response = await updateGarageState(token, newState, props.device.doorId);
         dispatch({ type: 'UPDATE_GARAGE_DOORS', payload: { doorName: props.device.doorName, doorId: props.device.doorId, isOpen: response.isGarageOpen, duration: new Date() } });
     }
 
-    const toggleDoor = () => {
-        toggleGarageDoor(state.user.userId, state.auth.bearer, props.device.doorId);
+    const toggleDoor = async () => {
+        const token = await auth0.getAccessTokenSilently();
+        toggleGarageDoor(token, props.device.doorId);
     }
 
     return (

@@ -7,10 +7,12 @@ import { updateUserAccount } from '../../utilities/RestApi';
 import AccountChildUser from '../../pages/Account/AccountChildUser';
 import { GreenButton } from '../../components/controls/Buttons';
 import './Account.css';
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 export default function Account() {
-    const [state, dispatch] = useContext(Context);
+    const auth0 = useAuth0();
+    const [_, dispatch] = useContext(Context);
     const [arePasswordsMismatched, setPasswordsMismatched] = useState(null);
     const [changed, setChanged] = useState(false);
     const [oldPasswordError, setPasswordError] = useState(null);
@@ -47,7 +49,8 @@ export default function Account() {
         event.preventDefault();
         setSubmitted(true);
         if (!oldPasswordError && !arePasswordsMismatched && changed) {
-            const response = await updateUserAccount(state.auth.bearer, oldPassword, secondNewPassword);
+            const token = await auth0.getAccessTokenSilently();
+            const response = await updateUserAccount(token, oldPassword, secondNewPassword);
             setSucceeded(response.ok);
         }
     }

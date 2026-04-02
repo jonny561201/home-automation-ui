@@ -6,8 +6,10 @@ import { useInterval } from '../../../utilities/UseInterval';
 import { calculateDistanceInMeters } from '../../../utilities/Location';
 import './UserLocation.css';
 import { RedButton } from '../../../components/controls/Buttons';
+import {useAuth0} from "@auth0/auth0-react";
 
 export default function UserLocation() {
+    const auth0 = useAuth0();
     const [state, dispatch] = useContext(Context);
     const [cancel, setCancel] = useState(false);
     const [opened, setOpened] = useState(false);
@@ -57,7 +59,7 @@ export default function UserLocation() {
     }
 
     const calculateDistance = () => {
-        navigator.geolocation.getCurrentPosition((position) => {
+        navigator.geolocation.getCurrentPosition(async (position) => {
             // navigator.geolocation.watchPosition((position) => {
             const userCoords = position.coords;
             dispatch({ type: "SET_USER_COORDS", payload: userCoords });
@@ -66,7 +68,8 @@ export default function UserLocation() {
                 const userDistance = calculateDistanceInMeters(garageCoords.latitude, garageCoords.longitude, userCoords.latitude, userCoords.longitude);
                 if (shouldOpenGarage(userDistance)) {
                     console.log('gonna open')
-                    updateGarageState(state.user.userId, state.auth.bearer, true, state.preferences.garage_id);
+                    const token = await auth0.getAccessTokenSilently();
+                    updateGarageState(token, true, state.preferences.garage_id);
                 }
             }
         }, () => {

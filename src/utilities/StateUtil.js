@@ -1,21 +1,24 @@
-
 import { useContext, useEffect } from 'react';
-import { jwtDecode } from 'jwt-decode';
 import { Context } from '../state/Store';
 import { useInterval } from './UseInterval';
 import {
-    getGarageStatus, getSumpLevels, getCurrentTemperature, getUserPreferences,
-    getScheduledTasks, getRefreshedBearerToken, getLightGroups, getUserForecast
+    getCurrentTemperature,
+    getGarageStatus,
+    getLightGroups,
+    getScheduledTasks,
+    getSumpLevels,
+    getUserForecast,
+    getUserPreferences
 } from './RestApi';
-
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 export default function StateUtil() {
     const [state, dispatch] = useContext(Context);
+    const auth0 = useAuth0();
 
     useInterval(async () => {
         await getGarageData();
-        await refreshBearerToken();
     }, 20000);
 
     useInterval(async () => {
@@ -45,9 +48,10 @@ export default function StateUtil() {
 
     const getGarageData = async () => {
         const doors = state.garageRole.devices;
+        const token = await auth0.getAccessTokenSilently();
         if (doors) {
             doors.forEach(async (door) => {
-                const garageStatus = await getGarageStatus(state.user.userId, state.auth.bearer, door.node_device);
+                const garageStatus = await getGarageStatus(token, door.node_device);
                 dispatch({ type: 'SET_GARAGE_COORDS', payload: garageStatus.coordinates });
                 dispatch({ type: 'UPDATE_GARAGE_DOORS', payload: { doorName: door.node_name, doorId: door.node_device, isOpen: garageStatus.isGarageOpen, duration: garageStatus.statusDuration } });
             });
@@ -55,12 +59,14 @@ export default function StateUtil() {
     };
 
     const getSumpData = async () => {
-        const sump = await getSumpLevels(state.auth.bearer);
+        const token = await auth0.getAccessTokenSilently();
+        const sump = await getSumpLevels(token);
         dispatch({ type: 'SET_SUMP_DATA', payload: { ...sump, currentDepth: sump.currentDepth.toFixed(1), averageDepth: sump.averageDepth.toFixed(1) } });
     }
 
     const getTempData = async () => {
-        const temp = await getCurrentTemperature(state.auth.bearer);
+        const token = await auth0.getAccessTokenSilently();
+        const temp = await getCurrentTemperature(token);
         const updatedTemp = {
             ...temp,
             desiredTemp: Math.round(temp.desiredTemp),
@@ -70,7 +76,8 @@ export default function StateUtil() {
     }
 
     const getForecastData = async () => {
-        const forecast = await getUserForecast(state.auth.bearer);
+        const token = await auth0.getAccessTokenSilently();
+        const forecast = await getUserForecast(token);
         const updatedForecast = {
             ...forecast,
             temp: Math.round(forecast.temp),
@@ -81,36 +88,23 @@ export default function StateUtil() {
     }
 
     const getPreferences = async () => {
-        const preferences = await getUserPreferences(state.auth.bearer);
+        const token = await auth0.getAccessTokenSilently();
+        const preferences = await getUserPreferences(token);
         dispatch({ type: 'SET_USER_PREFERENCES', payload: preferences })
     }
 
     const getActivities = async () => {
-        const activities = await getScheduledTasks(state.auth.bearer);
+        const token = await auth0.getAccessTokenSilently();
+        const activities = await getScheduledTasks(token);
         dispatch({ type: 'SET_SCHEDULED_TASK', payload: activities.tasks });
     }
 
     const getLights = async () => {
-        const groups = await getLightGroups(state.auth.bearer);
+        const token = await auth0.getAccessTokenSilently();
+        const groups = await getLightGroups(token);
         if (groups && groups.length) {
             dispatch({ type: 'SET_LIGHTS', payload: groups });
         }
 
-    }
-
-    const refreshBearerToken = async () => {
-        const fiveMinutes = 300000;
-        const refreshInterval = Date.now() + fiveMinutes;
-        const newDate = state.auth.exp * 1000
-        if (newDate <= refreshInterval) {
-            const response = await getRefreshedBearerToken(state.auth.refresh);
-            if (response.ok) {
-                const bearer = await response.json()
-                const decodedToken = jwtDecode(bearer.bearerToken);
-                dispatch({ type: 'SET_AUTH_DATA', payload: { bearer: bearer.bearerToken, refresh: decodedToken.refresh_token, isAuthenticated: true, exp: decodedToken.exp } });
-            } else {
-                dispatch({ type: 'SET_AUTH_DATA', payload: { isAuthenticated: false } });
-            }
-        }
     }
 }

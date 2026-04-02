@@ -5,9 +5,11 @@ import WeekPicker from '../../components/controls/WeekPicker';
 import { Save, Delete } from '@mui/icons-material';
 import { insertLightTask } from '../../utilities/RestApi';
 import { MenuItem, TextField, Divider, Button } from '@mui/material';
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 export default function CreateLightActivity(props) {
+    const auth0 = useAuth0();
     const [state, dispatch] = useContext(Context);
     const [edited, setEdited] = useState(false);
     const initialDays = [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }];
@@ -20,7 +22,8 @@ export default function CreateLightActivity(props) {
 
     const saveActivity = async () => {
         if (edited && selectedRoom !== '' && days !== null) {
-            const tasks = await insertLightTask(state.auth.bearer, true, props.type, groupId, selectedRoom, days, time);
+            const token = await auth0.getAccessTokenSilently();
+            const tasks = await insertLightTask(token, true, props.type, groupId, selectedRoom, days, time);
             dispatch({ type: 'SET_SCHEDULED_TASK', payload: tasks });
             props.save();
         }

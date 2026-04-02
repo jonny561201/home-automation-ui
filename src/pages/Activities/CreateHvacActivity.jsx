@@ -7,11 +7,13 @@ import { Save, Delete } from '@mui/icons-material';
 import { Divider, Button } from '@mui/material';
 import { insertHvacTask } from '../../utilities/RestApi';
 import './CreateHvacActivity.css';
+import {useAuth0} from "@auth0/auth0-react";
 
 
 export default function CreateHvacActivity(props) {
+    const auth0 = useAuth0();
     const initialDays = [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }];
-    const [state, dispatch] = useContext(Context);
+    const [_, dispatch] = useContext(Context);
     const [days, setDays] = useState();
     const [inTemp, setInTemp] = useState(72);
     const [outTemp, setOutTemp] = useState(72);
@@ -22,7 +24,8 @@ export default function CreateHvacActivity(props) {
 
     const saveActivity = async () => {
         if (edited && days !== null) {
-            const tasks = await insertHvacTask(state.auth.bearer, true, props.type, '', startTime, stopTime, inTemp, outTemp, days);
+            const token = await auth0.getAccessTokenSilently();
+            const tasks = await insertHvacTask(token, true, props.type, '', startTime, stopTime, inTemp, outTemp, days);
             dispatch({ type: 'SET_SCHEDULED_TASK', payload: tasks });
             props.save();
         }

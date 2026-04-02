@@ -1,14 +1,16 @@
-import React, { useState, useContext } from 'react';
-import { Context } from '../../state/Store';
+import React, {useContext, useState} from 'react';
+import {Context} from '../../state/Store';
 import WeekPicker from '../../components/controls/WeekPicker';
 import TimePicker from '../../components/controls/TimePicker';
-import { Save, Delete } from '@mui/icons-material';
+import {Delete, Save} from '@mui/icons-material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { deleteScheduledTask, updateScheduledTasks } from '../../utilities/RestApi';
-import { AccordionDetails, Accordion, AccordionSummary, Divider, Switch, MenuItem, TextField } from '@mui/material';
+import {deleteScheduledTask, updateScheduledTasks} from '../../utilities/RestApi';
+import {Accordion, AccordionDetails, AccordionSummary, Divider, MenuItem, Switch, TextField} from '@mui/material';
+import {useAuth0} from "@auth0/auth0-react";
 
 
 export default function LightActivity(props) {
+    const auth0 = useAuth0();
     const initialDays = [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }];
     const [state, dispatch] = useContext(Context);
     const [open, setOpen] = useState(false);
@@ -38,7 +40,8 @@ export default function LightActivity(props) {
 
     const updateTask = async (isEnabled) => {
         const request = { 'taskId': props.task.task_id, 'alarmLightGroup': props.task.alarm_light_group, 'alarmGroupName': props.task.alarm_group_name, 'alarmDays': days, 'alarmTime': time, 'enabled': isEnabled, 'taskType': type };
-        const response = await updateScheduledTasks(state.auth.bearer, request);
+        const token = await auth0.getAccessTokenSilently();
+        const response = await updateScheduledTasks(token, request);
         if (response) {
             dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.task_id });
             dispatch({ type: 'ADD_SCHEDULED_TASK', payload: response });
@@ -55,7 +58,8 @@ export default function LightActivity(props) {
     }
 
     const clickDelete = async () => {
-        const response = await deleteScheduledTask(state.auth.bearer, props.task.task_id);
+        const token = await auth0.getAccessTokenSilently();
+        const response = await deleteScheduledTask(token, props.task.task_id);
         if (response.ok) {
             dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.task_id });
         }

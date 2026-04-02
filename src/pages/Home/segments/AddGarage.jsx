@@ -7,8 +7,10 @@ import { Context } from '../../../state/Store';
 import { GreenCheckbox } from '../../../components/controls/CheckBox';
 import './AddGarage.css';
 import { GreenButton } from '../../../components/controls/Buttons';
+import {useAuth0} from "@auth0/auth0-react";
 
 export default function AddGarage(props) {
+    const auth0 = useAuth0();
     const [state, dispatch] = useContext(Context);
     const [succeeded, setSucceeded] = useState();
     const [preferred, setPreferred] = useState(false);
@@ -34,7 +36,8 @@ export default function AddGarage(props) {
     }
 
     const updateGarageNode = async () => {
-        const response = await addUserDeviceNode(state.auth.bearer, state.deviceId, garageName, preferred);
+        const token = await auth0.getAccessTokenSilently();
+        const response = await addUserDeviceNode(token, state.deviceId, garageName, preferred);
         updateRoles();
         setSucceeded(response.ok);
         setPreferred(false);
@@ -47,7 +50,8 @@ export default function AddGarage(props) {
     }
 
     const updateRoles = async () => {
-        const userRoles = await getRolesByUserId(state.auth.bearer);
+        const token = await auth0.getAccessTokenSilently();
+        const userRoles = await getRolesByUserId(token);
         await dispatch({ type: 'SET_USER_DATA', payload: { ...state.user, roles: userRoles.roles } });
         const garageRole = userRoles.roles.find(x => x.role_name === 'garage_door');
         await dispatch({ type: 'SET_GARAGE_ROLE', payload: garageRole });

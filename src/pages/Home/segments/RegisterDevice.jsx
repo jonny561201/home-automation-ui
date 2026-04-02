@@ -7,9 +7,11 @@ import AddGarage from './AddGarage';
 import './RegisterDevice.css';
 import { Context } from '../../../state/Store';
 import { GreenButton } from '../../../components/controls/Buttons';
+import {useAuth0} from "@auth0/auth0-react";
 
 
 export default function RegisterDevice(props) {
+    const auth0 = useAuth0();
     const [wrapperRef, setWrapperRef] = useState(null);
     const [state, dispatch] = useContext(Context);
     const [ipAddress, setIpAddress] = useState('');
@@ -43,7 +45,8 @@ export default function RegisterDevice(props) {
     const submitDevice = async (event) => {
         event.preventDefault();
         if (isIpValid && touched) {
-            const response = await addUserDevice(state.auth.bearer, 'garage_door', ipAddress)
+            const token = await auth0.getAccessTokenSilently();
+            const response = await addUserDevice(token, 'garage_door', ipAddress)
             const responseObj = await response.json();
             dispatch({ type: 'SET_STARTED_GARAGE_REGISTRATION', payload: true })
             dispatch({ type: 'SET_DEVICE_ID', payload: responseObj.deviceId });

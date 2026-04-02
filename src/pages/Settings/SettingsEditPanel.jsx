@@ -4,9 +4,11 @@ import './SettingsEditPanel.css'
 import { Context } from '../../state/Store';
 import { Divider, TextField, MenuItem, FormControlLabel, RadioGroup, FormControl, Radio } from '@mui/material';
 import { GreenButton, RedButton } from '../../components/controls/Buttons';
+import { useAuth } from "@auth0/auth0-react";
 
 
 export default function SettingsEditPanel(props) {
+    const auth0 = useAuth0();
     const [state, dispatch] = useContext(Context);
     const [edited, setEdited] = useState();
     const [garage, setGarage] = useState(state.preferences.garage_door ? state.preferences.garage_door : '');
@@ -15,11 +17,12 @@ export default function SettingsEditPanel(props) {
     const [newTempUnit, setNewTempUnit] = useState(state.preferences.temp_unit);
     const [newMeasureUnit, setNewMeasureUnit] = useState(state.preferences.measure_unit);
 
-    const savePreferences = () => {
+    const savePreferences = async () => {
         const isFahrenheit = newTempUnit === "fahrenheit";
         const isImperial = newMeasureUnit === "imperial";
         const request = { isImperial, isFahrenheit, 'city': newCity, 'garageDoor': garage, 'garageId': garageId };
-        updateUserPreferences(state.auth.bearer, request);
+        const token = await auth0.getAccessTokenSilently();
+        await updateUserPreferences(token, request);
 
         dispatch({ type: 'SET_USER_PREFERENCES', payload: { ...state.preferences, city: newCity, temp_unit: newTempUnit, measure_unit: newMeasureUnit, garage_id: garageId, garage_door: garage } });
         props.setEditMode(false);

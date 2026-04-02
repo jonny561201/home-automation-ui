@@ -6,19 +6,24 @@ import TemperatureImage from '../segments/TemperatureImage';
 import TemperatureIcon from '../../../resources/panelIcons/TemperatureIcon.png';
 import { setUserTemperature } from '../../../utilities/RestApi';
 import { Accordion, Typography, AccordionSummary, Divider, FormControl, FormGroup, FormControlLabel } from '@mui/material';
-import './TemperaturePanel.css';
 import { AutoSwitch, CoolSwitch, HeatSwitch } from '../../../components/controls/Switches';
 import { Context } from '../../../state/Store';
+import { useAuth0 } from "@auth0/auth0-react";
+import './TemperaturePanel.css';
 
 
 export default function TemperaturePanel() {
+    const auth0 = useAuth0();
     const [state, dispatch] = useContext(Context);
     const [open, setOpen] = useState(false);
 
-    const knobChange = (newValue) => {
+    const knobChange = async (newValue) => {
         if (state.tempData.mode === 'heating' || state.tempData.mode === 'cooling') {
             dispatch({ type: 'SET_TEMP_DATA', payload: { ...state.tempData, desiredTemp: newValue } });
-            debounchApi(() => setUserTemperature(state.auth.bearer, newValue, state.tempData.mode, state.tempData.isFahrenheit));
+            debounchApi(async () => {
+                const token = await auth0.getAccessTokenSilently();
+                setUserTemperature(token, newValue, state.tempData.mode, state.tempData.isFahrenheit)
+            });
         }
     }
 
@@ -26,7 +31,8 @@ export default function TemperaturePanel() {
         if (newMode !== 'auto' || state.tasks.some(x => x.task_type === 'hvac')) {
             const modeState = state.tempData.mode === newMode ? null : newMode;
             await dispatch({ type: 'SET_TEMP_DATA', payload: { ...state.tempData, mode: modeState } });
-            setUserTemperature(state.auth.bearer, state.tempData.desiredTemp, modeState, state.tempData.isFahrenheit);
+            const token = await auth0.getAccessTokenSilently();
+            setUserTemperature(token, state.tempData.desiredTemp, modeState, state.tempData.isFahrenheit);
         }
     }
 

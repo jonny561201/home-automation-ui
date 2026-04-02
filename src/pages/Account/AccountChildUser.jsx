@@ -4,8 +4,10 @@ import { Context } from '../../state/Store';
 import { Divider, MenuItem, Select, InputLabel, OutlinedInput, FormControl, Checkbox, TextField, ListItemText } from '@mui/material';
 import { AddButton, RemoveButton } from '../../components/controls/Buttons';
 import "./AccountChildUser.css"
+import {useAuth0} from "@auth0/auth0-react";
 
 export default function AccountChildUser() {
+    const auth0 = useAuth0();
     const [state, _] = useContext(Context);
     const roles = state.user.roles || [];
     const [selectedRole, setSelectedRole] = useState([]);
@@ -16,7 +18,8 @@ export default function AccountChildUser() {
 
     useEffect(() => {
         const getData = async () => {
-            const response = await getUserChildAccounts(state.auth.bearer);
+            const token = await auth0.getAccessTokenSilently();
+            const response = await getUserChildAccounts(token);
             if (Array.isArray(response)) {
                 setTest(response);
             }
@@ -28,7 +31,8 @@ export default function AccountChildUser() {
     const submitChildAccount = async (event) => {
         event.preventDefault();
         if ((!isEmailInvalid && !isRoleInvalid) && (selectedRole.length !== 0 && email !== null && email !== "")) {
-            const response = await addUserChildAccount(state.auth.bearer, email, selectedRole);
+            const token = await auth0.getAccessTokenSilently();
+            const response = await addUserChildAccount(token, email, selectedRole);
             setTest(response);
             setEmail("");
             setSelectedRole([]);
@@ -39,7 +43,8 @@ export default function AccountChildUser() {
     }
 
     const deleteChildUser = async (childUserId) => {
-        const response = await deleteUserChildAccount(state.auth.bearer, childUserId);
+        const token = await auth0.getAccessTokenSilently();
+        const response = await deleteUserChildAccount(token, childUserId);
         if (response.ok)
             setTest(test.filter(x => x.user_id !== childUserId));
     }

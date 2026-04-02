@@ -11,35 +11,34 @@ export default function DashboardPanel() {
 
     const [state,] = useContext(Context);
     const roles = state.user.roles || [];
-    const roleNames = roles.map(x => x.role_name);
-    
+
     return (
         <div role="region" aria-label="Dashboard Panels">
-            {roleNames.includes("garage_door") ?
+            {roles.includes("garage_door") ?
                 <div className="panel">
                     <GaragePanel />
                 </div>
                 : null
             }
-            {roleNames.includes("sump_pump") ?
+            {roles.includes("sump_pump") ?
                 <div className="panel">
                     <BasementPanel />
                 </div>
                 : null
             }
-            {roleNames.includes("thermostat") ?
+            {roles.includes("thermostat") ?
                 <div className="panel">
                     <TemperaturePanel />
                 </div>
                 : null
             }
-            {roleNames.includes("lighting") ?
+            {roles.includes("lighting") ?
                 <div className="panel">
                     <LightingPanel />
                 </div>
                 : null
             }
-            {roleNames.includes("security") ?
+            {roles.includes("security") ?
                 <div className="panel">
                     <SecurityPanel />
                 </div>

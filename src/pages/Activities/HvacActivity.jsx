@@ -7,11 +7,13 @@ import WeekPicker from '../../components/controls/WeekPicker';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { deleteScheduledTask, updateScheduledTasks } from '../../utilities/RestApi';
 import { AccordionDetails, Accordion, AccordionSummary, Divider, Switch, Button } from '@mui/material';
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 export default function HvacActivity(props) {
+    const auth0 = useAuth0();
     const initialDays = [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }];
-    const [state, dispatch] = useContext(Context);
+    const [_, dispatch] = useContext(Context);
     const [open, setOpen] = useState(false);
     const [edited, setEdited] = useState(false);
     const [type,] = useState(props.task.task_type);
@@ -34,7 +36,8 @@ export default function HvacActivity(props) {
     }
 
     const clickDelete = async () => {
-        const response = await deleteScheduledTask(state.auth.bearer, props.task.task_id);
+        const token = await auth0.getAccessTokenSilently();
+        const response = await deleteScheduledTask(token, props.task.task_id);
         if (response.ok)
             dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.task_id });
     }
@@ -56,7 +59,8 @@ export default function HvacActivity(props) {
             'taskId': props.task.task_id, 'alarmLightGroup': props.task.alarm_light_group, 'alarmGroupName': props.task.alarm_group_name,
             'alarmDays': days, 'hvacStart': startTime, 'hvacStop': stopTime, 'hvacStartTemp': inTemp, 'hvacStopTemp': outTemp, 'enabled': isEnabled, 'taskType': type
         };
-        const response = await updateScheduledTasks(state.auth.bearer, request);
+        const token = await auth0.getAccessTokenSilently();
+        const response = await updateScheduledTasks(token, request);
         if (response) {
             dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.task_id });
             dispatch({ type: 'ADD_SCHEDULED_TASK', payload: response });

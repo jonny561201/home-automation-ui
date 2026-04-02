@@ -9,13 +9,16 @@ export default function Login() {
     const location = useLocation();
 
     useEffect(() => {
-        if (!auth0.isLoading && !auth0.isAuthenticated)
-            auth0.loginWithRedirect({ appState: {returnTo: location.state?.from?.pathname || '/home'}})
-    }, [auth0, location.state]);
+        if (!auth0.isLoading && !auth0.isAuthenticated) {
+            auth0.loginWithRedirect({ appState: { returnTo: location.state?.from?.pathname || '/home' }});
+        }
+    }, [auth0.isLoading, auth0.isAuthenticated, auth0.loginWithRedirect, location.state]);
 
     return (
-            auth0.isAuthenticated
-                ? <Navigate to="/home" replace />
-                : <div>...Redirection to sign in...</div>
+        <>
+            {auth0.isLoading && <div>...Loading auth...</div>}
+            {!auth0.isLoading && auth0.isAuthenticated && <Navigate to="/home" replace />}
+            {!auth0.isLoading && !auth0.isAuthenticated && <div>...Redirection to sign in...</div>}
+        </>
     )
 }
