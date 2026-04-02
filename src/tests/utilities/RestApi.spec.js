@@ -1,17 +1,14 @@
 import fetchMock from 'fetch-mock';
 import {
-    getBearerToken, getGarageStatus, updateGarageState, addUserDevice, getUserChildAccounts, insertLightTask, getUserForecast,
+    getGarageStatus, updateGarageState, addUserDevice, getUserChildAccounts, insertLightTask, getUserForecast,
     toggleGarageDoor, getSumpLevels, getCurrentTemperature, addUserDeviceNode, deleteUserChildAccount, updateScheduledTasks,
     getUserPreferences, updateUserPreferences, setUserTemperature, addUserChildAccount, deleteScheduledTask, insertHvacTask,
-    getLightGroups, setLightGroupState, setLightState, updateUserAccount, getRolesByUserId, getScheduledTasks, getRefreshedBearerToken
+    getLightGroups, setLightGroupState, setLightState, updateUserAccount, getRolesByUserId, getScheduledTasks
 } from '../../utilities/RestApi';
 
 
 describe('RestApi', () => {
-    const username = 'fakeUser';
-    const password = 'fakepass';
     const baseUrl = 'http://localhost:5000';
-    const fakeBearerToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJlOTdmZWJjMC1mZDEwLTExZTktOGYwYi0zNjJiOWUxNTU2NjciLCJyb2xlcyI6WyJnYXJhZ2VfZG9vciIsInNlY3VyaXR5IiwidGhlcm1vc3RhdCIsImxpZ2h0aW5nIiwic3VtcF9wdW1wIl0sImZpcnN0X25hbWUiOiJKb24iLCJsYXN0X25hbWUiOiJUZXN0ZXIifSwiZXhwIjoxNTg1OTY3MDIwfQ.AfGoDyYuMhdQh4UYsMUEFenTDxnQnKg3iMhX3RxXac4";
 
     beforeEach(() => {
         fetchMock.hardReset();
@@ -20,31 +17,6 @@ describe('RestApi', () => {
 
     afterAll(() => {
         fetchMock.unmockGlobal();
-    });
-
-    it('should make rest call to login api using auth header', async () => {
-        const response = { 'bearerToken': fakeBearerToken };
-
-        fetchMock.route(`${baseUrl}/token`, response).catch(() => {
-            return {
-                status: 400,
-                body: { details: 'Bad Request' }
-            };
-        });
-
-        const actual = await getBearerToken(username, password);
-        expect(actual).toBeTruthy();
-    });
-
-    it('should return bearer token response after successful login', async () => {
-        const response = { 'bearerToken': fakeBearerToken };
-
-        fetchMock.route(`${baseUrl}/token`, response).catch(() => {
-            return { status: 400 };
-        });
-
-        const actual = await getBearerToken(username, password);
-        expect(actual).toEqual(response);
     });
 
     describe('after successful login', () => {
@@ -390,21 +362,6 @@ describe('RestApi', () => {
             const actual = await updateScheduledTasks(bearerToken2, request);
 
             expect(actual.task_id).toEqual(taskId);
-        });
-
-        it('should make rest call to refresh bearer token', async () => {
-            const refresh = ',jkasdfkjgasdf8673';
-            const bearer = '345kh3jbk435iuy';
-            const response = { 'bearerToken': bearer };
-
-            fetchMock.route(`${baseUrl}/token`, response).catch(() => {
-                return { status: 400 }
-            });
-
-            const actual = await getRefreshedBearerToken(refresh);
-            const jsonResponse = await actual.json();
-
-            expect(jsonResponse.bearerToken).toEqual(bearer);
         });
     });
 });

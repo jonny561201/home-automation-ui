@@ -6,27 +6,6 @@ const lightBaseUrl = `${baseUrl}/lights`;
 const sumpBaseUrl = `${baseUrl}/sumpPump`;
 const thermostatBaseUrl = `${baseUrl}/thermostat`;
 
-export const getBearerToken = async (username, password) => {
-    const request = { 'grant_type': 'client_credentials', 'client_id': username, 'client_secret': password }
-    const options = {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(request)
-    };
-
-    const response = await fetch(`${baseUrl}/token`, options);
-    if (response.ok) {
-        return await response.json();
-    }
-    return null;
-}
-
-export const getRefreshedBearerToken = async (refreshToken) => {
-    const request = { 'grant_type': 'refresh_token', 'refresh_token': refreshToken };
-    const options = { method: 'POST', body: JSON.stringify(request) };
-
-    return await fetch(`${baseUrl}/token`, options);
-}
 
 export const getGarageStatus = async (bearer, garageId) => {
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
