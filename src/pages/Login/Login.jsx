@@ -1,7 +1,6 @@
-import React, {useEffect} from 'react';
-import './Login.css';
-import { useAuth0 } from "@auth0/auth0-react";
-import { Navigate, useLocation } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+import { Navigate, useLocation } from 'react-router-dom';
 
 
 export default function Login() {

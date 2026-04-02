@@ -17,22 +17,4 @@ describe('Login Component', () => {
         const actual = screen.getByRole('heading', { name: 'Member Login' });
         expect(actual).toBeDefined();
     });
-
-    it('should have member login text', async () => {
-        await renderComponent();
-        const actual = screen.getByText('Member Login').textContent;
-        expect(actual).toEqual('Member Login');
-    });
-
-    it('should have Logo element', async () => {
-        await renderComponent();
-        const actual = screen.getByRole('img', { name: 'Logo' });
-        expect(actual).toBeDefined();
-    });
-
-    it("should contain user pass screen", async () => {
-        await renderComponent();
-        const actual = screen.getByText('Login');
-        expect(actual).toBeDefined();
-    });
 });

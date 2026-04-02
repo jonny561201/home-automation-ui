@@ -3,7 +3,7 @@ import Header from '../../components/header/Header';
 import DashboardPanel from './panels/DashboardPanels';
 import './Home.css';
 import { Context } from '../../state/Store';
-import {useAuth0} from "@auth0/auth0-react";
+import { useAuth0 } from '@auth0/auth0-react';
 
 
 export default function Home() {
