@@ -4,7 +4,7 @@ import './SettingsEditPanel.css'
 import { Context } from '../../state/Store';
 import { Divider, TextField, MenuItem, FormControlLabel, RadioGroup, FormControl, Radio } from '@mui/material';
 import { GreenButton, RedButton } from '../../components/controls/Buttons';
-import { useAuth } from "@auth0/auth0-react";
+import { useAuth0 } from '@auth0/auth0-react';
 
 
 export default function SettingsEditPanel(props) {
