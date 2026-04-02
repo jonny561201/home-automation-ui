@@ -13,7 +13,7 @@ import {
 import { useAuth0 } from '@auth0/auth0-react';
 
 
-export default function StateUtil() {
+export default function ApiInterval({ children }) {
     const [state, dispatch] = useContext(Context);
     const auth0 = useAuth0();
 
@@ -107,4 +107,6 @@ export default function StateUtil() {
         }
 
     }
+
+    return children
 }

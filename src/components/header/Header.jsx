@@ -7,7 +7,6 @@ import { setTheme, isDayLight } from '../../utilities/Services';
 import { useInterval } from '../../utilities/UseInterval';
 import UserLocation from '../../pages/Home/segments/UserLocation';
 import './Header.css';
-import StateUtil from '../../utilities/StateUtil';
 
 
 export default function Header() {
@@ -15,8 +14,6 @@ export default function Header() {
     const activePage = state.activePage;
     const [settingsActive, setSettingsActive] = useState(null);
     const [accountWrapperRef, setAccountWrapperRef] = useState(null);
-
-    StateUtil();
 
     useInterval(async () => {
         const isAuto = localStorage.getItem('auto-theme');

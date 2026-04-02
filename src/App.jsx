@@ -5,6 +5,7 @@ import { setTheme } from './utilities/Services';
 import { BrowserRouter } from 'react-router-dom';
 import ClaimsInitializer from './state/ClaimsInitializer';
 import './App.css';
+import ApiInterval from './utilities/ApiInterval';
 
 
 export default function App() {
@@ -18,7 +19,9 @@ export default function App() {
         <BrowserRouter>
             <Store>
                 <ClaimsInitializer>
-                    <Routes/>
+                    <ApiInterval>
+                        <Routes/>
+                    </ApiInterval>
                 </ClaimsInitializer>
             </Store>
         </BrowserRouter>
