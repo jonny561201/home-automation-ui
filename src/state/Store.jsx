@@ -4,11 +4,11 @@ import Reducer from './Reducer'
 
 export const initialState = {
     activePage: null,
-    user: { userId: null, firstName: '', lastName: '', roles: [] },
+    user: { userId: null, firstName: '', lastName: '', email: '', roles: [] },
     deviceId: null,
     startedGarageRegistration: false,
     devicesToRegister: false,
-    garageRole: [],
+    // garageRole: [],
     addedGarageNode: false,
     garageCoords: null,
     garageDoors: [],

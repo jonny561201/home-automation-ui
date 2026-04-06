@@ -81,3 +81,7 @@
 .MuiSelect-select {
     min-width: 45px !important;
 }
+
+.account {
+    padding-right: 0.75rem;
+}

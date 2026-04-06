@@ -7,6 +7,14 @@ const sumpBaseUrl = `${baseUrl}/sumpPump`;
 const thermostatBaseUrl = `${baseUrl}/thermostat`;
 
 
+export const changeUserPassword = async (bearer) => {
+    const options = {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' }
+    };
+    return await fetch(`${baseUrl}/resetPassword`, options);
+}
+
 export const getGarageStatus = async (bearer, garageId) => {
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
     const response = await fetch(`${garageBaseUrl}/${garageId}/status`, options);
