@@ -1,13 +1,13 @@
 import React, { useState, useContext } from 'react';
 import { TextField, FormControlLabel, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { addUserDeviceNode, getRolesByUserId } from '../../../utilities/RestApi';
+import { addUserDeviceNode } from '../../../utilities/RestApi';
 import { CheckCircle } from '@mui/icons-material';
 import { Context } from '../../../state/Store';
 import { GreenCheckbox } from '../../../components/controls/CheckBox';
-import './AddGarage.css';
 import { GreenButton } from '../../../components/controls/Buttons';
-import {useAuth0} from "@auth0/auth0-react";
+import { useAuth0 } from '@auth0/auth0-react';
+import './AddGarage.css';
 
 export default function AddGarage(props) {
     const auth0 = useAuth0();
@@ -35,10 +35,11 @@ export default function AddGarage(props) {
             : setIsNameValid(false);
     }
 
+    // TODO: need to get Devices from api NOT ROLES!!!
     const updateGarageNode = async () => {
         const token = await auth0.getAccessTokenSilently();
         const response = await addUserDeviceNode(token, state.deviceId, garageName, preferred);
-        updateRoles();
+        // updateRoles();
         setSucceeded(response.ok);
         setPreferred(false);
         const jsonResponse = await response.json();
@@ -49,13 +50,14 @@ export default function AddGarage(props) {
         }
     }
 
-    const updateRoles = async () => {
-        const token = await auth0.getAccessTokenSilently();
-        const userRoles = await getRolesByUserId(token);
-        await dispatch({ type: 'SET_USER_DATA', payload: { ...state.user, roles: userRoles.roles } });
-        const garageRole = userRoles.roles.find(x => x.role_name === 'garage_door');
-        await dispatch({ type: 'SET_GARAGE_ROLE', payload: garageRole });
-    }
+    // const updateRoles = async () => {
+    //     const garageRole = state.user.roles.find(x => x === 'garage_door')
+    //     // const token = await auth0.getAccessTokenSilently();
+    //     // const userRoles = await getRolesByUserId(token);
+    //     // await dispatch({ type: 'SET_USER_DATA', payload: { ...state.user, roles: userRoles.roles } });
+    //     // const garageRole = userRoles.roles.find(x => x.role_name === 'garage_door');
+    //     // await dispatch({ type: 'SET_GARAGE_ROLE', payload: garageRole });
+    // }
 
     const resetDevices = () => {
         setSucceeded(false);
