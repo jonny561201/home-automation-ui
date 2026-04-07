@@ -4,9 +4,9 @@ import RegisterDevice from '../segments/RegisterDevice';
 import GarageIcon from '../../../resources/panelIcons/GarageDoorIcon.png';
 import { AccordionDetails, Accordion, Typography, AccordionSummary, Divider } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import './GaragePanel.css';
 import GarageDoor from '../segments/GarageDoor';
 import { GreenButton } from '../../../components/controls/Buttons';
+import './GaragePanel.css';
 
 
 export default function GaragePanel() {
@@ -21,7 +21,7 @@ export default function GaragePanel() {
         if (devices && devices.length > 0) {
             return devices.map(x => <GarageDoor key={`door-${x.doorName}`} device={x} />);
         }
-        return <p>No Garge devices have been registered</p>
+        return <p>No Garage devices have been registered</p>
     }
 
     const closeModal = () => {
@@ -52,6 +52,7 @@ export default function GaragePanel() {
                     </div>
                 </AccordionSummary>
                 <Divider />
+
                 {state.devicesToRegister
                     ? <AccordionDetails className="center">
                         <div className="door-groups">
