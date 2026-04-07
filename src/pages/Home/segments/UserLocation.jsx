@@ -13,7 +13,6 @@ export default function UserLocation() {
     const [state, dispatch] = useContext(Context);
     const [cancel, setCancel] = useState(false);
     const [opened, setOpened] = useState(false);
-    const [notified, setNotified] = useState(false);
     const [firstCheck, setFirstCheck] = useState(false);
     const [secondCheck, setSecondCheck] = useState(false);
     const [displayMenu, setDisplayMenu] = useState(false);
@@ -24,7 +23,8 @@ export default function UserLocation() {
 
     //TODO: may not need this with watch position
     useInterval(() => {
-        calculateDistance();
+        if(state.location.granted)
+            calculateDistance();
     }, 5000);
 
     const cancelDoorOpen = () => {
@@ -61,6 +61,7 @@ export default function UserLocation() {
     const calculateDistance = () => {
         navigator.geolocation.getCurrentPosition(async (position) => {
             // navigator.geolocation.watchPosition((position) => {
+            dispatch({ type: 'SET_LOCATION', payload: { granted: true, notified: state.location.notified } });
             const userCoords = position.coords;
             dispatch({ type: "SET_USER_COORDS", payload: userCoords });
             if (state.garageCoords !== null) {
@@ -73,9 +74,10 @@ export default function UserLocation() {
                 }
             }
         }, () => {
-            if (!notified)
+            if (!state.location.notified) {
                 alert('Enable GPS position feature.');
-            setNotified(true);
+                dispatch({ type: "SET_LOCATION", payload: { notified: true, granted: false } });
+            }
         }, { enableHighAccuracy: true });
     }
 
