@@ -18,6 +18,7 @@ export const initialState = {
     tempData: { gaugeColor: '#A0A0A0', currentDesiredTemp: 0.0 },
     forecastData: { description: '' },
     preferences: {},
+    location: { notified: false, granted: false },
     tasks: [],
     loadedUtils: false,
     taskTypes: ['sunrise alarm', 'turn on', 'turn off', 'hvac']

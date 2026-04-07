@@ -100,6 +100,11 @@ const Reducer = (state, action) => {
                 ...state,
                 preferences: action.payload
             }
+        case 'SET_LOCATION':
+            return {
+                ...state,
+                location: action.payload
+            }
         default:
             return state;
     }
