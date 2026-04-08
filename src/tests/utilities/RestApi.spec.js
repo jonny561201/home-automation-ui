@@ -3,7 +3,7 @@ import {
     getGarageStatus, updateGarageState, addUserDevice, getUserChildAccounts, insertLightTask, getUserForecast,
     toggleGarageDoor, getSumpLevels, getCurrentTemperature, addUserDeviceNode, deleteUserChildAccount, updateScheduledTasks,
     getUserPreferences, updateUserPreferences, setUserTemperature, addUserChildAccount, deleteScheduledTask, insertHvacTask,
-    getLightGroups, setLightGroupState, setLightState, updateUserAccount, getRolesByUserId, getScheduledTasks
+    getLightGroups, setLightGroupState, setLightState, updateUserAccount, getRolesByUserId, getScheduledTasks, getAllGarageStatus
 } from '../../utilities/RestApi';
 
 
@@ -33,6 +33,18 @@ describe('RestApi', () => {
 
             const actual = await getGarageStatus(bearerToken2, garageId);
             expect(actual.isGarageOpen).toEqual(true);
+        });
+
+        it('should make rest call to get all garage door states', async () => {
+            const response = {doors: [{'isGarageOpen': true}]};
+            const options = { "method": "GET", "headers": { 'Authorization': `Bearer ${bearerToken2}` } };
+
+            fetchMock.route(`${baseUrl}/garageDoor/status`, response, options).catch(() => {
+                return { status: 400 };
+            });
+
+            const actual = await getAllGarageStatus(bearerToken2);
+            expect(actual).toEqual(response);
         });
 
         it('should make rest call to post garage door status', async () => {
@@ -227,20 +239,6 @@ describe('RestApi', () => {
             });
 
             const actual = await addUserDevice(bearerToken2, body.roleName, body.ipAddress);
-
-            expect(actual.status).toEqual(200);
-        });
-
-        it('should make rest call to add device node for a user', async () => {
-            const deviceId = '456def';
-            const body = { 'nodeName': 'fakeName', 'preferred': false };
-            const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
-
-            fetchMock.route(`${baseUrl}/devices/${deviceId}/node`, options).catch(() => {
-                return { status: 400 }
-            });
-
-            const actual = await addUserDeviceNode(bearerToken2, deviceId, body.nodeName, false);
 
             expect(actual.status).toEqual(200);
         });

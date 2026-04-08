@@ -21,6 +21,12 @@ export const getGarageStatus = async (bearer, garageId) => {
     return await response.json();
 }
 
+export const getAllGarageStatus = async (bearer) => {
+    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
+    const response = await fetch(`${garageBaseUrl}/status`, options);
+    return await response.json();
+}
+
 export const updateGarageState = async (bearer, shouldOpen, garageId) => {
     const request = { 'garageDoorOpen': shouldOpen };
     const options = {
@@ -141,6 +147,17 @@ export const addUserDeviceNode = async (bearer, deviceId, nodeName, preferred) =
     return await fetch(`${deviceBaseUrl}/${deviceId}/node`, options);
 }
 
+// export const addUserDeviceNode = async (bearer, deviceId, nodeName, preferred) => {
+//     const request = { 'nodeName': nodeName, 'preferred': preferred };
+//     const options = {
+//         method: 'POST',
+//         headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
+//         body: JSON.stringify(request)
+//     };
+//     return await fetch(`${deviceBaseUrl}/${deviceId}/node`, options);
+// }
+
+// TODO: kill this function safely
 export const getRolesByUserId = async (bearer) => {
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
     const response = await fetch(`${accountBaseUrl}/roles`, options);
