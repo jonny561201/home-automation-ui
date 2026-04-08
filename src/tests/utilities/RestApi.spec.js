@@ -1,9 +1,10 @@
 import fetchMock from 'fetch-mock';
 import {
     getGarageStatus, updateGarageState, addUserDevice, getUserChildAccounts, insertLightTask, getUserForecast,
-    toggleGarageDoor, getSumpLevels, getCurrentTemperature, addUserDeviceNode, deleteUserChildAccount, updateScheduledTasks,
+    toggleGarageDoor, getSumpLevels, getCurrentTemperature, deleteUserChildAccount, updateScheduledTasks,
     getUserPreferences, updateUserPreferences, setUserTemperature, addUserChildAccount, deleteScheduledTask, insertHvacTask,
-    getLightGroups, setLightGroupState, setLightState, updateUserAccount, getRolesByUserId, getScheduledTasks, getAllGarageStatus
+    getLightGroups, setLightGroupState, setLightState, updateUserAccount, getRolesByUserId, getScheduledTasks, getAllGarageStatus,
+    getDevices
 } from '../../utilities/RestApi';
 
 
@@ -243,6 +244,20 @@ describe('RestApi', () => {
             expect(actual.status).toEqual(200);
         });
 
+        it('should make rest call to get all devices bearer token', async () => {
+            const response = { 'devices': [{}] };
+            const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
+
+            fetchMock.route(`${baseUrl}/devices/devices`, response, options).catch(() => {
+                return { status: 400 }
+            });
+
+            const actual = await getDevices(bearerToken2);
+
+            expect(actual).toEqual(response);
+        });
+
+        //TODO: kill this method
         it('should make rest call to get roles with bearer token', async () => {
             const response = { 'roles': [{}] };
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };

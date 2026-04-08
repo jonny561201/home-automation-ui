@@ -137,14 +137,10 @@ export const addUserDevice = async (bearer, roleName, ipAddress) => {
     return await fetch(`${deviceBaseUrl}/register`, options);
 }
 
-export const addUserDeviceNode = async (bearer, deviceId, nodeName, preferred) => {
-    const request = { 'nodeName': nodeName, 'preferred': preferred };
-    const options = {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify(request)
-    };
-    return await fetch(`${deviceBaseUrl}/${deviceId}/node`, options);
+export const getDevices = async (bearer) => {
+    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
+    const response = await fetch(`${deviceBaseUrl}/devices`, options);
+    return response.json();
 }
 
 // export const addUserDeviceNode = async (bearer, deviceId, nodeName, preferred) => {
