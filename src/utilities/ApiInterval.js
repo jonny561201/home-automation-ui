@@ -2,8 +2,9 @@ import { useContext, useEffect } from 'react';
 import { Context } from '../state/Store';
 import { useInterval } from './UseInterval';
 import {
+    getAllGarageStatus,
     getCurrentTemperature,
-    getGarageStatus,
+    getDevices,
     getLightGroups,
     getScheduledTasks,
     getSumpLevels,
@@ -25,6 +26,7 @@ export default function ApiInterval({ children }) {
         getTempData();
         getForecastData();
         getLights();
+        getUserDevices();
     }, 60000);
 
     useInterval(async () => {
@@ -35,6 +37,7 @@ export default function ApiInterval({ children }) {
 
     useEffect(() => {
         if (!state.loadedUtils) {
+            getUserDevices();
             getLights();
             getGarageData();
             getSumpData();
@@ -47,16 +50,17 @@ export default function ApiInterval({ children }) {
     }, []);
 
     const getGarageData = async () => {
-        const doors = state.garageRole.devices;
         const token = await auth0.getAccessTokenSilently();
-        if (doors) {
-            doors.forEach(async (door) => {
-                const garageStatus = await getGarageStatus(token, door.node_device);
-                dispatch({ type: 'SET_GARAGE_COORDS', payload: garageStatus.coordinates });
-                dispatch({ type: 'UPDATE_GARAGE_DOORS', payload: { doorName: door.node_name, doorId: door.node_device, isOpen: garageStatus.isGarageOpen, duration: garageStatus.statusDuration } });
-            });
-        }
+        const doors = await getAllGarageStatus(token);
+        dispatch({ type: 'SET_GARAGE_COORDS', payload: doors.coordinates });
+        dispatch({ type: 'SET_GARAGE_DOORS', payload: doors.doors });
     };
+
+    const getUserDevices = async () => {
+        const token = await auth0.getAccessTokenSilently();
+        const response = await getDevices(token);
+        dispatch({ type: 'SET_DEVICES', payload: response.devices });
+    }
 
     const getSumpData = async () => {
         const token = await auth0.getAccessTokenSilently();
