@@ -1,108 +1,122 @@
-import React, { useState, useContext } from 'react';
-import { TextField, FormControlLabel, IconButton } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import { addUserDeviceNode } from '../../../utilities/RestApi';
-import { CheckCircle } from '@mui/icons-material';
-import { Context } from '../../../state/Store';
+import React, { useState } from 'react';
+import { TextField, FormControlLabel, Divider, Button } from '@mui/material';
+import { CheckCircle, Save, Delete } from '@mui/icons-material';
 import { GreenCheckbox } from '../../../components/controls/CheckBox';
-import { GreenButton } from '../../../components/controls/Buttons';
+import { AddButton, RemoveButton } from '../../../components/controls/Buttons';
+import { addUserDeviceNode } from '../../../utilities/RestApi';
 import { useAuth0 } from '@auth0/auth0-react';
 import './AddGarage.css';
 
-export default function AddGarage(props) {
+
+export default function AddGarage({ device, onComplete }) {
     const auth0 = useAuth0();
-    const [state, dispatch] = useContext(Context);
-    const [succeeded, setSucceeded] = useState();
-    const [preferred, setPreferred] = useState(false);
-    const [garageName, setGarageName] = useState('');
-    const [isNameValid, setIsNameValid] = useState(true);
-    const [garageTouched, setGarageTouched] = useState(false);
-    const [availableNodes, setAvailableNodes] = useState(1);
+    const [succeeded, setSucceeded] = useState(false);
+    const [doors, setDoors] = useState([{ name: '', preferred: true, nameTouched: false, isNameValid: true }]);
 
-    const checkGarageName = (input) => {
-        if (availableNodes > 0) {
-            const name = input.target.value;
-            setGarageTouched(true);
-            setIsNameValid(name !== "");
-            setGarageName(name);
+    const handleNameChange = (index, event) => {
+        const name = event.target.value;
+        const updated = doors.map((door, i) =>
+            i === index ? { ...door, name, nameTouched: true, isNameValid: name !== '' } : door
+        );
+        setDoors(updated);
+    };
+
+    const handlePreferredChange = (index) => {
+        const updated = doors.map((door, i) =>
+            i === index ? { ...door, preferred: true } : { ...door, preferred: false }
+        );
+        setDoors(updated);
+    };
+
+    const addDoor = () => {
+        if (doors.length < 2) {
+            setDoors([...doors, { name: '', preferred: false, nameTouched: false, isNameValid: true }]);
         }
-    }
+    };
 
-    const submitGarageDoor = async (event) => {
+    const removeDoor = () => {
+        const updated = [{ ...doors[0], preferred: true }];
+        setDoors(updated);
+    };
+
+    const saveDoors = async (event) => {
         event.preventDefault();
-        (garageTouched && isNameValid)
-            ? updateGarageNode()
-            : setIsNameValid(false);
-    }
-
-    // TODO: need to get Devices from api NOT ROLES!!!
-    const updateGarageNode = async () => {
-        const token = await auth0.getAccessTokenSilently();
-        const response = await addUserDeviceNode(token, state.deviceId, garageName, preferred);
-        // updateRoles();
-        setSucceeded(response.ok);
-        setPreferred(false);
-        const jsonResponse = await response.json();
-        setAvailableNodes(jsonResponse.availableNodes);
-        dispatch({ type: "SET_ADDED_GARAGE_NODE", payload: true })
-        if (jsonResponse.availableNodes === 0) {
-            props.close();
+        const allValid = doors.every(door => door.nameTouched && door.isNameValid);
+        if (!allValid) {
+            const updated = doors.map(door => ({
+                ...door,
+                isNameValid: door.nameTouched ? door.isNameValid : false
+            }));
+            setDoors(updated);
+            return;
         }
-    }
-
-    // const updateRoles = async () => {
-    //     const garageRole = state.user.roles.find(x => x === 'garage_door')
-    //     // const token = await auth0.getAccessTokenSilently();
-    //     // const userRoles = await getRolesByUserId(token);
-    //     // await dispatch({ type: 'SET_USER_DATA', payload: { ...state.user, roles: userRoles.roles } });
-    //     // const garageRole = userRoles.roles.find(x => x.role_name === 'garage_door');
-    //     // await dispatch({ type: 'SET_GARAGE_ROLE', payload: garageRole });
-    // }
-
-    const resetDevices = () => {
-        setSucceeded(false);
-        setGarageName('');
-        setGarageTouched(false);
-    }
+        const doorsToSave = doors.length === 1
+            ? [{ ...doors[0], preferred: true }]
+            : doors;
+        const token = await auth0.getAccessTokenSilently();
+        let allSucceeded = true;
+        for (const door of doorsToSave) {
+            const response = await addUserDeviceNode(token, device.id, door.name, door.preferred);
+            if (!response.ok) {
+                allSucceeded = false;
+            }
+        }
+        setSucceeded(allSucceeded);
+    };
 
     return (
-        <div>
+        <>
             {succeeded
-                ? <div>
+                ? <>
                     <div className="device-group">
-                        <div className="device-group">
-                            <div className="border-success-icon">
-                                <CheckCircle className="garage-success-text" />
-                            </div>
-                            <h2 className="device-text text garage-success-text">Successfully Added</h2>
+                        <div className="border-success-icon">
+                            <CheckCircle className="garage-success-text" />
                         </div>
-                        <IconButton aria-label="Close" onClick={() => props.close()} className="close-icon">
-                            <CloseIcon />
-                        </IconButton>
+                        <h2 className="device-text text garage-success-text">Successfully Added</h2>
                     </div>
                     <div className="device-row">
-                        <p className="device-text text">Would you like to setup the remaining ({availableNodes}) openers?</p>
+                        <div className="task-button-container">
+                            <Button onClick={onComplete}>Done</Button>
+                        </div>
                     </div>
-                    <GreenButton onClick={resetDevices}>Add</GreenButton>
-                </div>
-                : <div>
+                </>
+                : <>
                     <div className="device-group">
-                        <h2 className=" device-text text">Add Garage Door</h2>
-                        <IconButton aria-label="Close" onClick={() => props.close()} className="close-icon">
-                            <CloseIcon />
-                        </IconButton>
+                        <h2 className="device-text text">Add Garage Door</h2>
+                        <Divider />
                     </div>
-                    <form onSubmit={submitGarageDoor}>
-                        <div className="account-row">
-                            <TextField value={garageName} error={!isNameValid} onChange={checkGarageName} variant="outlined" label="Garage Name" />
+                    <form onSubmit={saveDoors}>
+                        {doors.map((door, index) =>
+                            <div key={index}>
+                                <div className="door-input-row">
+                                    <TextField value={door.name} error={!door.isNameValid} onChange={(e) => handleNameChange(index, e)} variant="outlined" label="Door Name" className="door-name"/>
+                                    <div style={{padding: '10px'}}>
+                                        {index === doors.length - 1 &&
+                                            (doors.length < 2
+                                                    ? <AddButton onClick={addDoor} />
+                                                    : <RemoveButton aria-label="Remove" onClick={removeDoor} />
+                                            )
+                                        }
+                                    </div>
+                                </div>
+                                {doors.length > 1 &&
+                                    <div className="account-row">
+                                        <FormControlLabel control={<GreenCheckbox checked={door.preferred} onChange={() => handlePreferredChange(index)} />} label="Preferred"/>
+                                    </div>
+                                }
+                            </div>
+                        )}
+                        <div className="tasks-button-group text">
+                            <div className="task-button-container" onClick={(e) => { e.preventDefault(); onComplete(); }}>
+                                <Button className="task-delete" startIcon={<Delete />}>Cancel</Button>
+                            </div>
+                            <div className="task-button-container">
+                                <Button type="submit" startIcon={<Save />}>Save</Button>
+                            </div>
                         </div>
-                        <div className="account-row">
-                            <FormControlLabel control={<GreenCheckbox checked={state.checkedG} onChange={() => setPreferred(!preferred)} name="checkedG" />} label="Preferred Garage Door" />
-                        </div>
-                        <GreenButton>Add</GreenButton>
                     </form>
-                </div>
+                </>
             }
-        </div>
+        </>
     );
 }

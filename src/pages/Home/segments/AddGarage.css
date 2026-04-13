@@ -12,14 +12,15 @@
 }
 
 .device-text {
-    margin-left: 1rem;
+    font-weight: bold;
+    margin: 0 0.5rem 0.5rem 0;
 }
 
 .device-group {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 0 0 0 16px;
+    margin: 0 0 1rem 0;
 }
 
 .device-row {
@@ -27,3 +28,16 @@
     flex-direction: row;
     margin-top: 0.5rem;
 }
+
+.door-input-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 1rem;
+    margin-top: 0.5rem;
+}
+
+.door-name {
+    width: 90%;
+}
+
