@@ -10,18 +10,25 @@ vi.mock('../../../../components/controls/Knob', () => ({ default: () => <div></d
 
 describe('DashboardPanel', () => {
     const bearer = 'kjahsd987s798';
-    const garageRole = { devices: [{ node_name: 'test' }] };
     const coords = { latitude: 1, longitude: -1 };
     const sumpData = { warningLevel: 1, depthUnit: 'in' };
     const forecastData = { temp: 2.0, description: 'thunderstorm' }
     const tempData = { currentTemp: 12.0, desiredTemp: 1.0, mode: 'auto', minThermostatTemp: 1.0, maxThermostatTemp: 3.0 };
-    const userLights = [{ groupId: '1', lightId: '1', lightName: 'room', brightness: 0, on: false }];
-    const lightGroups = [{ groupId: '1', groupName: 'test', brightness: 0, lights: userLights, on: false }];
 
-    const renderComponent = async (roles = []) => {
+    const renderComponent = async (roles = [], devices = []) => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ user: { roles }, forecastData: forecastData, tasks: [], auth: { bearer: bearer }, sumpData: sumpData, tempData: tempData, garageRole: garageRole, garageCoords: coords, userLights: [], garageDoors: [] }, () => { }]}> 
+                <Context.Provider value={[{
+                    user: { roles },
+                    devices: devices,
+                    forecastData: forecastData,
+                    tasks: [],
+                    auth: { bearer: bearer },
+                    sumpData: sumpData,
+                    tempData: tempData,
+                    garageCoords: coords,
+                    garageDoors: [],
+                }, () => { }]}>
                     <DashboardPanels />
                 </Context.Provider>
             );
@@ -30,28 +37,25 @@ describe('DashboardPanel', () => {
 
     describe('Garage Panel', () => {
 
-        const spyGetGarage = vi.spyOn(lib, 'getGarageStatus');
-
-        beforeEach(() => {
-            spyGetGarage.mockClear();
-            spyGetGarage.mockReturnValue({ isGarageOpen: true, statusDuration: 12343 });
-        });
-
         it('should show the Garage Panel if user has garage role', async () => {
-            await renderComponent([{ 'role_name': 'garage_door' }]);
-
+            await renderComponent(['garage_door']);
             const actual = screen.getByText('Garage');
             expect(actual).toBeDefined();
         });
 
-        it('should not show the Garage Panel if user does not have garage role', async () => {
-            await renderComponent([]);
+        it('should show the Garage Panel if unregistered garage device exists', async () => {
+            const unregisteredDevice = { id: 1, name: 'Garage Hub', type: 'garage_door', registered: false };
+            await renderComponent([], [unregisteredDevice]);
+            const actual = screen.getByText('Garage');
+            expect(actual).toBeDefined();
+        });
 
+        it('should not show the Garage Panel if no role and no unregistered device', async () => {
+            await renderComponent([]);
             const actual = screen.queryByText('Garage');
             expect(actual).toBeNull();
         });
     });
-
 
     describe('Basement Panel', () => {
 
@@ -63,8 +67,7 @@ describe('DashboardPanel', () => {
         });
 
         it('should show the Basement Panel if user has the sump pump role', async () => {
-            await renderComponent([{ 'role_name': 'sump_pump' }]);
-
+            await renderComponent(['sump_pump']);
             const actual = screen.getByText('Basement');
             expect(actual).toBeDefined();
         });
@@ -89,7 +92,7 @@ describe('DashboardPanel', () => {
         });
 
         it('should show the Temperature Panel if user has the thermostat role', async () => {
-            await renderComponent([{ 'role_name': 'thermostat' }]);
+            await renderComponent(['thermostat']);
             const actual = screen.getByText('Temperature');
             expect(actual).toBeDefined();
         });
@@ -107,11 +110,11 @@ describe('DashboardPanel', () => {
 
         beforeEach(() => {
             spyGetLight.mockClear();
-            spyGetLight.mockReturnValue(lightGroups);
+            spyGetLight.mockReturnValue([{ groupId: '1', groupName: 'test', brightness: 0, lights: [], on: false }]);
         });
 
         it('should show the Lighting Panel if user has the lighting role', async () => {
-            await renderComponent([{ 'role_name': 'lighting' }]);
+            await renderComponent(['lighting']);
             const actual = screen.queryByText('Lighting');
             expect(actual).toBeDefined();
         });
@@ -126,7 +129,7 @@ describe('DashboardPanel', () => {
     describe('Security Panel', () => {
 
         it('should show the Security Panel if user has the security role', async () => {
-            await renderComponent([{ 'role_name': 'security' }]);
+            await renderComponent(['security']);
             const actual = screen.getByText('Security');
             expect(actual).toBeDefined();
         });
@@ -137,6 +140,4 @@ describe('DashboardPanel', () => {
             expect(actual).toBeNull();
         });
     });
-
-
 });

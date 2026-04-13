@@ -11,38 +11,28 @@ export default function DashboardPanel() {
 
     const [state,] = useContext(Context);
     const roles = state.user.roles || [];
+    const unregistered = (state.devices || []).filter(x => !x.registered);
+
+    const showPanel = (type) => {
+        return roles.includes(type) || unregistered.some(d => d.type === type)
+    };
 
     return (
         <div role="region" aria-label="Dashboard Panels">
-            {roles.includes("garage_door") ?
-                <div className="panel">
-                    <GaragePanel />
-                </div>
-                : null
+            {showPanel("garage_door") &&
+                <div className="panel"><GaragePanel /></div>
             }
-            {roles.includes("sump_pump") ?
-                <div className="panel">
-                    <BasementPanel />
-                </div>
-                : null
+            {showPanel("sump_pump") &&
+                <div className="panel"><BasementPanel /></div>
             }
-            {roles.includes("thermostat") ?
-                <div className="panel">
-                    <TemperaturePanel />
-                </div>
-                : null
+            {showPanel("thermostat") &&
+                <div className="panel"><TemperaturePanel /></div>
             }
-            {roles.includes("lighting") ?
-                <div className="panel">
-                    <LightingPanel />
-                </div>
-                : null
+            {showPanel("lighting") &&
+                <div className="panel"><LightingPanel /></div>
             }
-            {roles.includes("security") ?
-                <div className="panel">
-                    <SecurityPanel />
-                </div>
-                : null
+            {showPanel("security") &&
+                <div className="panel"><SecurityPanel /></div>
             }
         </div>
     );
