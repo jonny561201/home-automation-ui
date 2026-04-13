@@ -69,11 +69,6 @@ export default function AddGarage({ device, onComplete }) {
                         </div>
                         <h2 className="device-text text garage-success-text">Successfully Added</h2>
                     </div>
-                    <div className="device-row">
-                        <div className="task-button-container">
-                            <Button onClick={onComplete}>Done</Button>
-                        </div>
-                    </div>
                 </>
                 : <>
                     <div className="device-group">
