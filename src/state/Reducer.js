@@ -12,31 +12,11 @@ const Reducer = (state, action) => {
                 ...state,
                 user: action.payload
             }
-        case 'SET_DEVICE_ID':
+        case 'SET_DEVICES':
             return {
                 ...state,
-                deviceId: action.payload
-            };
-        case 'SET_STARTED_GARAGE_REGISTRATION':
-            return {
-                ...state,
-                startedGarageRegistration: action.payload
-            };
-        case 'SET_DEVICES_TO_REGISTER':
-            return {
-                ...state,
-                devicesToRegister: action.payload
-            };
-        case 'SET_GARAGE_ROLE':
-            return {
-                ...state,
-                garageRole: action.payload
-            };
-        case 'SET_ADDED_GARAGE_NODE':
-            return {
-                ...state,
-                addedGarageNode: action.payload
-            };
+                devices: action.payload
+            }
         case 'SET_GARAGE_COORDS':
             return {
                 ...state,
@@ -51,6 +31,11 @@ const Reducer = (state, action) => {
             return {
                 ...state,
                 lights: action.payload
+            }
+        case 'SET_GARAGE_DOORS':
+            return {
+                ...state,
+                garageDoors: action.payload
             }
         case 'UPDATE_GARAGE_DOORS':
             const doorIndex = state.garageDoors.findIndex(door => door.doorName === action.payload.doorName);

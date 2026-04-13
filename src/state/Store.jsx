@@ -5,11 +5,7 @@ import Reducer from './Reducer'
 export const initialState = {
     activePage: null,
     user: { userId: null, firstName: '', lastName: '', email: '', roles: [] },
-    deviceId: null,
-    startedGarageRegistration: false,
-    devicesToRegister: false,
-    // garageRole: [],
-    addedGarageNode: false,
+    devices: [],
     garageCoords: null,
     garageDoors: [],
     userCoords: null,

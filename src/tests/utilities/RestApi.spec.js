@@ -3,8 +3,8 @@ import {
     getGarageStatus, updateGarageState, addUserDevice, getUserChildAccounts, insertLightTask, getUserForecast,
     toggleGarageDoor, getSumpLevels, getCurrentTemperature, deleteUserChildAccount, updateScheduledTasks,
     getUserPreferences, updateUserPreferences, setUserTemperature, addUserChildAccount, deleteScheduledTask, insertHvacTask,
-    getLightGroups, setLightGroupState, setLightState, updateUserAccount, getRolesByUserId, getScheduledTasks, getAllGarageStatus,
-    getDevices
+    getLightGroups, setLightGroupState, setLightState, updateUserAccount, getScheduledTasks, getAllGarageStatus,
+    getDevices, addUserDeviceNode
 } from '../../utilities/RestApi';
 
 
@@ -257,18 +257,19 @@ describe('RestApi', () => {
             expect(actual).toEqual(response);
         });
 
-        //TODO: kill this method
-        it('should make rest call to get roles with bearer token', async () => {
-            const response = { 'roles': [{}] };
-            const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
+        it('should make rest call to add device node', async () => {
+            const deviceId = 5;
+            const body = { 'nodeName': 'Main Door', 'preferred': true };
+            const response = { 'availableNodes': 1 };
+            const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}`, 'Content-Type': 'application/json' }, 'body': body };
 
-            fetchMock.route(`${baseUrl}/account/roles`, response, options).catch(() => {
+            fetchMock.route(`${baseUrl}/devices/${deviceId}/node`, response, options).catch(() => {
                 return { status: 400 }
             });
 
-            const actual = await getRolesByUserId(bearerToken2);
+            const actual = await addUserDeviceNode(bearerToken2, deviceId, body.nodeName, body.preferred);
 
-            expect(actual.roles).toEqual([{}]);
+            expect(actual.status).toEqual(200);
         });
 
         it('should make rest call to add child account to a user account', async () => {

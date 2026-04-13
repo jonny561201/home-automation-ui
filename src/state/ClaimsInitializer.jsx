@@ -16,8 +16,11 @@ export default function ClaimsInitializer({ children }) {
         const roles = claims['https://soaringleafsolutions.com/roles'];
         const firstName = claims.given_name ?? claims.nickname;
         const lastName = claims.last_name ?? "";
-        await dispatch({ type: 'SET_USER_DATA', payload: { userId: userId, firstName: firstName, lastName: lastName, roles: roles } });
+        const email = claims.email ?? "";
+
+        await dispatch({ type: 'SET_USER_DATA', payload: { userId: userId, firstName: firstName, lastName: lastName, email: email, roles: roles } });
     };
 
     return children
 }
+

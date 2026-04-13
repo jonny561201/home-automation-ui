@@ -24,8 +24,7 @@ const unauthState = {
     preferences: {},
     tasks: [],
     taskTypes: [],
-    garageRole: [],
-    devicesToRegister: false,
+    devices: [],
     garageCoords: null,
 };
 
