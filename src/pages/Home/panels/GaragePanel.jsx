@@ -1,33 +1,24 @@
 import React, { useContext, useState } from 'react';
 import { Context } from '../../../state/Store';
-import RegisterDevice from '../segments/RegisterDevice';
+import DeviceRegistration from '../segments/DeviceRegistration';
 import GarageIcon from '../../../resources/panelIcons/GarageDoorIcon.png';
 import { AccordionDetails, Accordion, Typography, AccordionSummary, Divider } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import GarageDoor from '../segments/GarageDoor';
-import { GreenButton } from '../../../components/controls/Buttons';
 import './GaragePanel.css';
 
 
 export default function GaragePanel() {
     const [open, setOpen] = useState(false);
-    const [state, dispatch] = useContext(Context);
-    const [displayRegister, setDisplayRegister] = useState(false);
-    const [wrapperRef, setWrapperRef] = useState(null);
+    const [state] = useContext(Context);
+    const devicesToRegister = (state.devices || []).filter(x => !x.registered && x.type === 'garage_door');
 
     const renderDoors = () => {
-        //TODO: need to test all of this behavior
-        const devices = state.garageDoors;
-        if (devices && devices.length > 0) {
-            return devices.map(x => <GarageDoor key={`door-${x.doorName}`} device={x} />);
+        const doors = state.garageDoors;
+        if (doors && doors.length > 0) {
+            return doors.map(x => <GarageDoor key={`door-${x.doorName}`} device={x} />);
         }
         return <p>No Garage devices have been registered</p>
-    }
-
-    const closeModal = () => {
-        setDisplayRegister(false);
-        if (state.addedGarageNode)
-            dispatch({ type: 'SET_DEVICES_TO_REGISTER', payload: false });
     }
 
     return (
@@ -52,24 +43,13 @@ export default function GaragePanel() {
                     </div>
                 </AccordionSummary>
                 <Divider />
-
-                {state.devicesToRegister
-                    ? <AccordionDetails className="center">
-                        <div className="door-groups">
-                            <h2 className="status-text-bold text">Register New Device!</h2>
-                            <Divider />
-                            <div>
-                                <p className="status-text text">A new device has been detected and needs to be registered.</p>
-                            </div>
-                            <div>
-                                <GreenButton onClick={() => setDisplayRegister(true)}>Register</GreenButton>
-                            </div>
-                            <div ref={(node) => { setWrapperRef(node) }}>
-                                {displayRegister && <RegisterDevice close={closeModal} parentRef={wrapperRef} />}
-                            </div>
-                        </div>
+                {devicesToRegister.length > 0
+                    ? <AccordionDetails>
+                        <DeviceRegistration device={devicesToRegister[0]} />
                     </AccordionDetails>
-                    : <div className="door-groups">{renderDoors()}</div>
+                    : <AccordionDetails>
+                        <div className="door-groups">{renderDoors()}</div>
+                    </AccordionDetails>
                 }
             </Accordion>
         </div>
