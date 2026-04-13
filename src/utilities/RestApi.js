@@ -143,21 +143,14 @@ export const getDevices = async (bearer) => {
     return response.json();
 }
 
-// export const addUserDeviceNode = async (bearer, deviceId, nodeName, preferred) => {
-//     const request = { 'nodeName': nodeName, 'preferred': preferred };
-//     const options = {
-//         method: 'POST',
-//         headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
-//         body: JSON.stringify(request)
-//     };
-//     return await fetch(`${deviceBaseUrl}/${deviceId}/node`, options);
-// }
-
-// TODO: kill this function safely
-export const getRolesByUserId = async (bearer) => {
-    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
-    const response = await fetch(`${accountBaseUrl}/roles`, options);
-    return response.json();
+export const addUserDeviceNode = async (bearer, deviceId, nodes) => {
+    const request = { 'nodes': nodes };
+    const options = {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify(request)
+    };
+    return await fetch(`${deviceBaseUrl}/${deviceId}/node`, options);
 }
 
 export const addUserChildAccount = async (bearer, email, roles) => {

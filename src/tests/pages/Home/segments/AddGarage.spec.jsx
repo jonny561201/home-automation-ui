@@ -11,7 +11,7 @@ vi.mock('@auth0/auth0-react', () => ({
 
 
 describe('Add Garage', () => {
-    const device = { id: 1, name: 'Garage Hub', type: 'garage_door', registered: false };
+    const device = { deviceId: 1, name: 'Garage Hub', type: 'garage_door', registered: false, maxNodes: 2 };
     const spyAdd = vi.spyOn(lib, 'addUserDeviceNode');
     const mockOnComplete = vi.fn();
 
@@ -35,6 +35,12 @@ describe('Add Garage', () => {
             expect(actual).toEqual('Add Garage Door');
         });
 
+        it('should display the available nodes count', async () => {
+            await renderComponent();
+            const actual = screen.getByText('1 of 2 available');
+            expect(actual).toBeDefined();
+        });
+
         it('should display a single Door Name input', async () => {
             await renderComponent();
             const actual = screen.getAllByRole('textbox');
@@ -53,10 +59,17 @@ describe('Add Garage', () => {
             expect(actual).toBeDefined();
         });
 
-        it('should display the add button next to the input', async () => {
+        it('should not show add button until first door name is valid', async () => {
             await renderComponent();
-            const actual = screen.getByRole('button', { name: 'Add' });
-            expect(actual).toBeDefined();
+            const addButton = screen.queryByRole('button', { name: 'Add' });
+            expect(addButton).toBeNull();
+        });
+
+        it('should show add button after entering a valid door name', async () => {
+            await renderComponent();
+            fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Main Door' } });
+            const addButton = screen.getByRole('button', { name: 'Add' });
+            expect(addButton).toBeDefined();
         });
 
         it('should call onComplete when cancel button clicked', async () => {
@@ -77,7 +90,9 @@ describe('Add Garage', () => {
             await act(async () => {
                 fireEvent.click(screen.getByRole('button', { name: 'Save' }));
             });
-            expect(spyAdd).toHaveBeenCalledWith(bearer, device.id, 'Main Door', true);
+            expect(spyAdd).toHaveBeenCalledWith(bearer, device.deviceId, [
+                { nodeDevice: 1, nodeName: 'Main Door', preferred: true }
+            ]);
         });
 
         it('should not make api call when name is empty', async () => {
@@ -102,13 +117,23 @@ describe('Add Garage', () => {
 
         it('should add a second door input when add button is clicked', async () => {
             await renderComponent();
+            fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Left Door' } });
             fireEvent.click(screen.getByRole('button', { name: 'Add' }));
             const inputs = screen.getAllByRole('textbox');
             expect(inputs).toHaveLength(2);
         });
 
+        it('should update available count when adding a door', async () => {
+            await renderComponent();
+            fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Left Door' } });
+            fireEvent.click(screen.getByRole('button', { name: 'Add' }));
+            const actual = screen.getByText('0 of 2 available');
+            expect(actual).toBeDefined();
+        });
+
         it('should show preferred checkboxes when two doors are present', async () => {
             await renderComponent();
+            fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Left Door' } });
             fireEvent.click(screen.getByRole('button', { name: 'Add' }));
             const checkboxes = screen.getAllByRole('checkbox');
             expect(checkboxes).toHaveLength(2);
@@ -116,6 +141,7 @@ describe('Add Garage', () => {
 
         it('should replace add button with a remove button on the last row', async () => {
             await renderComponent();
+            fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Left Door' } });
             fireEvent.click(screen.getByRole('button', { name: 'Add' }));
             const addButton = screen.queryByRole('button', { name: 'Add' });
             expect(addButton).toBeNull();
@@ -125,6 +151,7 @@ describe('Add Garage', () => {
 
         it('should remove a door and restore add button when remove is clicked', async () => {
             await renderComponent();
+            fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Left Door' } });
             fireEvent.click(screen.getByRole('button', { name: 'Add' }));
             fireEvent.click(screen.getByRole('button', { name: 'Remove' }));
             const inputs = screen.getAllByRole('textbox');
@@ -143,11 +170,14 @@ describe('Add Garage', () => {
             await act(async () => {
                 fireEvent.click(screen.getByRole('button', { name: 'Save' }));
             });
-            expect(spyAdd).toHaveBeenCalledWith(bearer, device.id, 'Left Door', true);
+            expect(spyAdd).toHaveBeenCalledWith(bearer, device.deviceId, [
+                { nodeDevice: 1, nodeName: 'Left Door', preferred: true }
+            ]);
         });
 
         it('should only allow one door to be preferred', async () => {
             await renderComponent();
+            fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Left Door' } });
             fireEvent.click(screen.getByRole('button', { name: 'Add' }));
             const checkboxes = screen.getAllByRole('checkbox');
             expect(checkboxes[0].checked).toBe(true);
@@ -157,7 +187,7 @@ describe('Add Garage', () => {
             expect(checkboxes[1].checked).toBe(true);
         });
 
-        it('should make api calls for both doors when saving', async () => {
+        it('should make a single api call with both doors when saving', async () => {
             await renderComponent();
             fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Left Door' } });
             fireEvent.click(screen.getByRole('button', { name: 'Add' }));
@@ -166,9 +196,11 @@ describe('Add Garage', () => {
             await act(async () => {
                 fireEvent.click(screen.getByRole('button', { name: 'Save' }));
             });
-            expect(spyAdd).toHaveBeenCalledTimes(2);
-            expect(spyAdd).toHaveBeenCalledWith(bearer, device.id, 'Left Door', true);
-            expect(spyAdd).toHaveBeenCalledWith(bearer, device.id, 'Right Door', false);
+            expect(spyAdd).toHaveBeenCalledTimes(1);
+            expect(spyAdd).toHaveBeenCalledWith(bearer, device.deviceId, [
+                { nodeDevice: 1, nodeName: 'Left Door', preferred: true },
+                { nodeDevice: 2, nodeName: 'Right Door', preferred: false }
+            ]);
         });
 
         it('should not save when a door name is empty', async () => {

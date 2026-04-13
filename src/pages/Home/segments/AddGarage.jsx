@@ -28,8 +28,10 @@ export default function AddGarage({ device, onComplete }) {
         setDoors(updated);
     };
 
+    const canAddDoor = doors.length < device.maxNodes && doors.every(door => door.nameTouched && door.isNameValid);
+
     const addDoor = () => {
-        if (doors.length < 2) {
+        if (doors.length < device.maxNodes) {
             setDoors([...doors, { name: '', preferred: false, nameTouched: false, isNameValid: true }]);
         }
     };
@@ -43,25 +45,18 @@ export default function AddGarage({ device, onComplete }) {
         event.preventDefault();
         const allValid = doors.every(door => door.nameTouched && door.isNameValid);
         if (!allValid) {
-            const updated = doors.map(door => ({
-                ...door,
-                isNameValid: door.nameTouched ? door.isNameValid : false
-            }));
+            const updated = doors.map(door => ({ ...door, isNameValid: door.nameTouched ? door.isNameValid : false }));
             setDoors(updated);
             return;
         }
-        const doorsToSave = doors.length === 1
-            ? [{ ...doors[0], preferred: true }]
-            : doors;
+        const nodes = doors.map((door, index) => ({
+            nodeDevice: index + 1,
+            nodeName: door.name,
+            preferred: doors.length === 1 ? true : door.preferred
+        }));
         const token = await auth0.getAccessTokenSilently();
-        let allSucceeded = true;
-        for (const door of doorsToSave) {
-            const response = await addUserDeviceNode(token, device.id, door.name, door.preferred);
-            if (!response.ok) {
-                allSucceeded = false;
-            }
-        }
-        setSucceeded(allSucceeded);
+        const response = await addUserDeviceNode(token, device.deviceId, nodes);
+        setSucceeded(response.ok);
     };
 
     return (
@@ -83,6 +78,7 @@ export default function AddGarage({ device, onComplete }) {
                 : <>
                     <div className="device-group">
                         <h2 className="device-text text">Add Garage Door</h2>
+                        <p className="device-text text">{`${device.maxNodes - doors.length} of ${device.maxNodes} available`}</p>
                         <Divider />
                     </div>
                     <form onSubmit={saveDoors}>
@@ -92,9 +88,9 @@ export default function AddGarage({ device, onComplete }) {
                                     <TextField value={door.name} error={!door.isNameValid} onChange={(e) => handleNameChange(index, e)} variant="outlined" label="Door Name" className="door-name"/>
                                     <div style={{padding: '10px'}}>
                                         {index === doors.length - 1 &&
-                                            (doors.length < 2
+                                            (canAddDoor
                                                     ? <AddButton onClick={addDoor} />
-                                                    : <RemoveButton aria-label="Remove" onClick={removeDoor} />
+                                                    : doors.length > 1 && <RemoveButton aria-label="Remove" onClick={removeDoor} />
                                             )
                                         }
                                     </div>
