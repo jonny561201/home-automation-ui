@@ -1,10 +1,37 @@
-.garage-setting-row {
-    margin-top: 1rem !important;
-    min-width: 194px !important;
-}
+.settings-edit-panel {
+    display: block;
+    flex: 1;
+    padding-right: 0.5rem;
 
-.settings-button-group {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    .settings-edit-row {
+        display: flex;
+        flex-direction: row;
+        margin: 5px 0 5px 1rem;
+    }
+
+    .settings-edit-garage {
+        margin-top: 1rem !important;
+        min-width: 194px !important;
+    }
+
+    .settings-edit-actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .settings-edit-action {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            cursor: pointer;
+        }
+
+        .settings-edit-cancel {
+            color: #ff6666 !important;
+        }
+
+        .settings-edit-save {
+            color: #00c774 !important;
+        }
+    }
 }

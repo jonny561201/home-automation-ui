@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { updateUserPreferences } from '../../utilities/RestApi';
 import { Context } from '../../state/Store';
-import { Divider, TextField, MenuItem, FormControlLabel, RadioGroup, FormControl, Radio } from '@mui/material';
-import { GreenButton, RedButton } from '../../components/controls/Buttons';
+import { Divider, TextField, MenuItem, FormControlLabel, RadioGroup, FormControl, Radio, Button } from '@mui/material';
 import { useAuth0 } from '@auth0/auth0-react';
 import './SettingsEditPanel.scss'
+import { Delete, Save } from '@mui/icons-material';
 
 
 export default function SettingsEditPanel(props) {
@@ -59,11 +59,11 @@ export default function SettingsEditPanel(props) {
 
     return (
         <>
-            <div className="settings-group setting text">
+            <div className="settings-edit-panel text">
                 <h2 className="panel-header-text">Garage</h2>
                 <Divider />
-                <div className="settings-row">
-                    <TextField className="garage-setting-row" variant="outlined" select value={garage} onChange={updateGarageDoor} label="Garage Door">
+                <div className="settings-edit-row">
+                    <TextField className="settings-edit-garage" variant="outlined" select value={garage} onChange={updateGarageDoor} label="Garage Door">
                         <MenuItem value="">None</MenuItem>
                         {state.garageDoors.map(x => (
                             <MenuItem key={x.doorName} value={x.doorName}>
@@ -74,7 +74,7 @@ export default function SettingsEditPanel(props) {
                 </div>
                 <h2 className="panel-header-text">Temperature</h2>
                 <Divider />
-                <div className="settings-row">
+                <div className="settings-edit-row">
                     <FormControl>
                         <RadioGroup row label="Unit:">
                             <FormControlLabel onChange={updateTempRadioButton} value="fahrenheit" checked={newTempUnit === "fahrenheit"} control={<Radio color="primary" />} label="Fahrenheit" />
@@ -82,12 +82,12 @@ export default function SettingsEditPanel(props) {
                         </RadioGroup>
                     </FormControl>
                 </div>
-                <div className="settings-row">
+                <div className="settings-edit-row">
                     <TextField variant="outlined" label="City" value={newCity} onChange={updateCity} />
                 </div>
                 <h2 className="panel-header-text">Measurement</h2>
                 <Divider />
-                <div className="settings-row">
+                <div className="settings-edit-row">
                     <FormControl>
                         <RadioGroup row label="Unit:">
                             <FormControlLabel onChange={updateMeasureRadioButton} value="imperial" checked={newMeasureUnit === "imperial"} control={<Radio color="primary" />} label="Imperial" />
@@ -95,10 +95,15 @@ export default function SettingsEditPanel(props) {
                         </RadioGroup>
                     </FormControl>
                 </div>
-            </div>
-            <div className="settings-button-group">
-                <GreenButton disabled={!edited} onClick={savePreferences}>Save</GreenButton>
-                <RedButton onClick={cancelPreferences}>Cancel</RedButton>
+                <Divider style={{ margin: '1rem 0 1rem 0' }} />
+                <div className="settings-edit-actions">
+                    <div className="settings-edit-action" onClick={cancelPreferences}>
+                        <Button className="settings-edit-cancel" startIcon={<Delete />}>Cancel</Button>
+                    </div>
+                    <div className="settings-edit-action">
+                        <Button className="settings-edit-save" onClick={savePreferences} startIcon={<Save />}>Save</Button>
+                    </div>
+                </div>
             </div>
         </>
     );
