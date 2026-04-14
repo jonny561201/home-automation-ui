@@ -4,7 +4,7 @@ import LightSwitch from '../../../components/controls/LightSwitch';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import LightingIcon from '../../../resources/panelIcons/LightingIcon.png';
 import { AccordionDetails, Accordion, Typography, AccordionSummary, Divider } from '@mui/material';
-import './LightingPanel.css'
+import './LightingPanel.scss'
 
 
 export default function LightingPanel() {
