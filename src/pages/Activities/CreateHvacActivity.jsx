@@ -6,7 +6,7 @@ import TempPicker from '../../components/controls/TempPicker';
 import { Save, Delete } from '@mui/icons-material';
 import { Divider, Button } from '@mui/material';
 import { insertHvacTask } from '../../utilities/RestApi';
-import './CreateHvacActivity.css';
+import './CreateHvacActivity.scss';
 import {useAuth0} from "@auth0/auth0-react";
 
 
