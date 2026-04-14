@@ -69,11 +69,11 @@ export default function AddGarage({ device, onComplete }) {
         <>
             {succeeded
                 ? <>
-                    <div className="device-group">
+                    <div className="success-group">
                         <div className="border-success-icon">
                             <CheckCircle className="garage-success-text" />
                         </div>
-                        <h2 className="device-text text garage-success-text">Successfully Added</h2>
+                        <h2 className="text garage-success-text">Successfully Added</h2>
                     </div>
                 </>
                 : <>

@@ -1,6 +1,13 @@
+.success-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 .garage-success-text {
     color: #055219;
     align-self: center;
+    margin: 0;
 }
 
 .border-success-icon {
@@ -9,6 +16,7 @@
     height: 1.5rem;
     width: 1.5rem;
     align-self: center;
+    padding: 0 5px 0 5px;
 }
 
 .device-text {
