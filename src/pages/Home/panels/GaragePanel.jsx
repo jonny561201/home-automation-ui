@@ -42,15 +42,13 @@ export default function GaragePanel() {
                         </div>
                     </div>
                 </AccordionSummary>
-                <Divider />
-                {devicesToRegister.length > 0
-                    ? <AccordionDetails>
-                        <DeviceRegistration device={devicesToRegister[0]} />
-                    </AccordionDetails>
-                    : <AccordionDetails>
-                        <div className="door-groups">{renderDoors()}</div>
-                    </AccordionDetails>
-                }
+                <Divider/>
+                <AccordionDetails>
+                    {devicesToRegister.length > 0
+                        ? <DeviceRegistration device={devicesToRegister[0]}/>
+                        : <div className="door-groups">{renderDoors()}</div>
+                    }
+                </AccordionDetails>
             </Accordion>
         </div>
     );

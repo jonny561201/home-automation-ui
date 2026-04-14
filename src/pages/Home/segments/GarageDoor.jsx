@@ -11,7 +11,7 @@ import {useAuth0} from "@auth0/auth0-react";
 
 export default function GarageDoor(props) {
     const auth0 = useAuth0();
-    const [state, dispatch] = useContext(Context);
+    const [_, dispatch] = useContext(Context);
     const [statusDays, setStatusDays] = useState();
     const [statusMins, setStatusMins] = useState();
     const [statusHours, setStatusHours] = useState();
