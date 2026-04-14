@@ -10,7 +10,7 @@ import './AccountChildUser.scss'
 export default function AccountChildUser() {
     const auth0 = useAuth0();
     const [state, _] = useContext(Context);
-    const roles = state.user.roles || [];
+    const devices = state.devices || [];
     const [selectedRole, setSelectedRole] = useState([]);
     const [email, setEmail] = useState("");
     const [childAccounts, setChildAccounts] = useState([]);
@@ -88,10 +88,10 @@ export default function AccountChildUser() {
                             <InputLabel>Roles</InputLabel>
                             <Select labelId="mutiple-name-label" variant="outlined" multiple value={selectedRole} onChange={(input) => validateRole(input)} input={<OutlinedInput label="Roles" />}
                                     renderValue={(selectedRole) => (selectedRole.join(', '))}>
-                                {roles.map((role) => (
-                                    <MenuItem key={role.role_name} value={role.role_name}>
-                                        <Checkbox checked={selectedRole.indexOf(role.role_name) > -1} />
-                                        <ListItemText primary={role.role_name} />
+                                {devices.map((role) => (
+                                    <MenuItem key={role.name} value={role.name}>
+                                        <Checkbox checked={selectedRole.indexOf(role.name) > -1} />
+                                        <ListItemText primary={role.name} />
                                     </MenuItem>
                                 ))}
                             </Select>

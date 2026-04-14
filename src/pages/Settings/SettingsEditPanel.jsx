@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { updateUserPreferences } from '../../utilities/RestApi';
-import './SettingsEditPanel.scss'
 import { Context } from '../../state/Store';
 import { Divider, TextField, MenuItem, FormControlLabel, RadioGroup, FormControl, Radio } from '@mui/material';
 import { GreenButton, RedButton } from '../../components/controls/Buttons';
 import { useAuth0 } from '@auth0/auth0-react';
+import './SettingsEditPanel.scss'
 
 
 export default function SettingsEditPanel(props) {
