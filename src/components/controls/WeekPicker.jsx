@@ -1,6 +1,6 @@
 import React from 'react';
 import DayPicker from './DayPicker';
-import './WeekPicker.css'
+import './WeekPicker.scss'
 
 
 export default function WeekPicker(props) {

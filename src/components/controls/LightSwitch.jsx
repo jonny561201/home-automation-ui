@@ -7,7 +7,7 @@ import SwitchSlider from '../../pages/Home/segments/SwitchSlider';
 import { setLightGroupState } from '../../utilities/RestApi';
 import { ExpandButton } from './Buttons';
 import BrightnessMediumIcon from '@mui/icons-material/BrightnessMedium';
-import './LightSwitch.css';
+import './LightSwitch.scss';
 import {useAuth0} from "@auth0/auth0-react";
 
 

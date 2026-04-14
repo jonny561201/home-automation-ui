@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Dialog } from '@mui/material';
 import Knob from '../controls/Knob';
-import './TempPicker.css'
+import './TempPicker.scss'
 import { AcUnitOutlined } from '@mui/icons-material';
 
 

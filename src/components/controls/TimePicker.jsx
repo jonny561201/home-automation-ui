@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { LocalizationProvider, TimePicker as MuiTimePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import './TimePicker.css';
+import './TimePicker.scss';
 
 
 export default function TimePicker(props) {

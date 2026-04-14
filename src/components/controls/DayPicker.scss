@@ -11,11 +11,11 @@
     margin: 0.5rem;
     outline: none;
     border: none;
-}
 
-.selected {
-    background-color: #00c774;
-    color: white;
+    &.selected {
+        background-color: #00c774;
+        color: white;
+    }
 }
 
 @media (max-width: 479px) {

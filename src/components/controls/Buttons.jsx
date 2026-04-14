@@ -1,7 +1,7 @@
 import React from 'react';
 import { Add, Remove, ChevronRight } from '@mui/icons-material';
 import { ButtonBase, IconButton } from '@mui/material';
-import './Buttons.css';
+import './Buttons.scss';
 
 
 export function GreenButton(props) {

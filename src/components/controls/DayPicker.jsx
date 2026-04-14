@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './DayPicker.css';
+import './DayPicker.scss';
 
 
 export default function DayPicker(props) {
