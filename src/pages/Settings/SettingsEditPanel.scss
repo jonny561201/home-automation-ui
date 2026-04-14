@@ -7,3 +7,14 @@
     margin-top: 1rem !important;
     min-width: 194px !important;
 }
+
+.settings-group {
+    display: block;
+    flex: 1;
+}
+
+.settings-button-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
