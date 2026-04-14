@@ -6,7 +6,7 @@ import AccountMenu from '../header/AccountMenu';
 import { setTheme, isDayLight } from '../../utilities/Services';
 import { useInterval } from '../../utilities/UseInterval';
 import UserLocation from '../../pages/Home/segments/UserLocation';
-import './Header.css';
+import './Header.scss';
 
 
 export default function Header() {
