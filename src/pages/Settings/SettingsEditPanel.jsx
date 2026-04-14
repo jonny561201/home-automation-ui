@@ -76,7 +76,7 @@ export default function SettingsEditPanel(props) {
                 <Divider />
                 <div className="settings-row">
                     <FormControl>
-                        <RadioGroup label="Unit:">
+                        <RadioGroup row label="Unit:">
                             <FormControlLabel onChange={updateTempRadioButton} value="fahrenheit" checked={newTempUnit === "fahrenheit"} control={<Radio color="primary" />} label="Fahrenheit" />
                             <FormControlLabel onChange={updateTempRadioButton} value="celsius" checked={newTempUnit === "celsius"} control={<Radio color="primary" />} label="Celsius" />
                         </RadioGroup>
@@ -89,7 +89,7 @@ export default function SettingsEditPanel(props) {
                 <Divider />
                 <div className="settings-row">
                     <FormControl>
-                        <RadioGroup label="Unit:">
+                        <RadioGroup row label="Unit:">
                             <FormControlLabel onChange={updateMeasureRadioButton} value="imperial" checked={newMeasureUnit === "imperial"} control={<Radio color="primary" />} label="Imperial" />
                             <FormControlLabel onChange={updateMeasureRadioButton} value="metric" checked={newMeasureUnit === "metric"} control={<Radio color="primary" />} label="Metric" />
                         </RadioGroup>
