@@ -9,7 +9,7 @@ import { Accordion, Typography, AccordionSummary, Divider, FormControl, FormGrou
 import { AutoSwitch, CoolSwitch, HeatSwitch } from '../../../components/controls/Switches';
 import { Context } from '../../../state/Store';
 import { useAuth0 } from "@auth0/auth0-react";
-import './TemperaturePanel.css';
+import './TemperaturePanel.scss';
 
 
 export default function TemperaturePanel() {

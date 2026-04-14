@@ -1,0 +1,53 @@
+.temperature-panel {
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 2px rgba(0,0,0,0.12) !important;
+
+    .form-container {
+        display: flex;
+
+        .form-column {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    .MuiFormGroup-root {
+        flex-direction: row !important;
+    }
+
+    .MuiFormControl-root {
+        display: flex !important;
+    }
+
+    .MuiFormLabel-root {
+        align-self: center;
+    }
+}
+
+@media (max-width: 479px) {
+    .temperature-panel {
+        .form-container {
+            flex-direction: column;
+
+            .form-column {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    }
+}
+
+@media (min-width: 480px) {
+    .temperature-panel {
+        .form-container {
+            margin: 1rem;
+
+            .image-column {
+                margin-right: 10px;
+            }
+
+            .gauge-column {
+                margin-left: 10px;
+            }
+        }
+    }
+}
