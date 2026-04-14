@@ -60,46 +60,40 @@ export default function AccountChildUser() {
     }
 
     return (
-        <div>
-            <div>
-                <h2 className="panel-header-text">Account Users</h2>
-                <Divider />
-                <table className="table-container">
-                    <tbody>
-                        {test.map(x => (
-                            <tr key={`user-${x.user_name}`}>
-                                <td>{x.user_name}</td>
-                                <td>{x.roles.join(', ')}</td>
-                                <td className="table-end-item">
-                                    <RemoveButton aria-label={`user-${x.user_name}`} onClick={() => deleteChildUser(x.user_id)}></RemoveButton>
-                                </td>
-                            </tr>
-                        ))}
-                        <tr>
-                            <td>
-                                <TextField error={isEmailInvalid} onChange={(input) => validateEmail(input)} value={email} label="Email" />
-                            </td>
-                            <td className="account-roles">
-                                <FormControl error={isRoleInvalid} variant="outlined">
-                                    <InputLabel>Roles</InputLabel>
-                                    <Select labelId="mutiple-name-label" variant="outlined" multiple value={selectedRole} onChange={(input) => validateRole(input)} input={<OutlinedInput label="Roles" />}
-                                        renderValue={(selectedRole) => (selectedRole.join(', '))}>
-                                        {roles.map((role) => (
-                                            <MenuItem key={role.role_name} value={role.role_name}>
-                                                <Checkbox checked={selectedRole.indexOf(role.role_name) > -1} />
-                                                <ListItemText primary={role.role_name} />
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                            </td>
-                            <td className="table-end-item">
-                                <AddButton onClick={() => { submitChildAccount() }}></AddButton>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div className="child-user-container">
+            <h2 className="panel-header-text">Account Users</h2>
+            <Divider />
+            {test.map(x => (
+                <div className="row align-items-center child-user-row" key={`user-${x.user_name}`}>
+                    <div className="col-sm">{x.user_name}</div>
+                    <div className="col-sm">{x.roles.join(', ')}</div>
+                    <div className="col-sm-auto">
+                        <RemoveButton aria-label={`user-${x.user_name}`} onClick={() => deleteChildUser(x.user_id)}></RemoveButton>
+                    </div>
+                </div>
+            ))}
+            <div className="row align-items-center child-user-row">
+                <div className="col-sm">
+                    <TextField error={isEmailInvalid} onChange={(input) => validateEmail(input)} value={email} label="Email" fullWidth />
+                </div>
+                <div className="col-sm">
+                    <FormControl error={isRoleInvalid} variant="outlined" fullWidth>
+                        <InputLabel>Roles</InputLabel>
+                        <Select labelId="mutiple-name-label" variant="outlined" multiple value={selectedRole} onChange={(input) => validateRole(input)} input={<OutlinedInput label="Roles" />}
+                            renderValue={(selectedRole) => (selectedRole.join(', '))}>
+                            {roles.map((role) => (
+                                <MenuItem key={role.role_name} value={role.role_name}>
+                                    <Checkbox checked={selectedRole.indexOf(role.role_name) > -1} />
+                                    <ListItemText primary={role.role_name} />
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </div>
+                <div className="col-sm-auto">
+                    <AddButton onClick={() => { submitChildAccount() }}></AddButton>
+                </div>
             </div>
-        </div >
+        </div>
     );
 }
