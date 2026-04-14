@@ -1,0 +1,34 @@
+.garage-door-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+
+    .status-text-group {
+        display: flex;
+        flex-direction: column;
+
+        .garage-big-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 0 0.5rem 0 0;
+            color: var(--panel-font-color);
+        }
+
+        .garage-text-bold {
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin: 0 0.5rem 0 0;
+        }
+    }
+
+    .status-button-group {
+        display: flex;
+        flex-direction: row;
+
+        .icon-image {
+            width: 15px;
+            height: 15px;
+        }
+    }
+}

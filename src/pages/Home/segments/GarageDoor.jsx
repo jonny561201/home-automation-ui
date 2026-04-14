@@ -5,7 +5,7 @@ import { AccordionDetails } from '@mui/material';
 import UpDownIcon from '../../../resources/panelIcons/UpDown.png';
 import { BlueButton, GreenButton, RedButton } from '../../../components/controls/Buttons';
 import { toggleGarageDoor, updateGarageState } from '../../../utilities/RestApi';
-import './GarageDoor.css'
+import './GarageDoor.scss'
 import {useAuth0} from "@auth0/auth0-react";
 
 
