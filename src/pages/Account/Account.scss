@@ -61,6 +61,14 @@
 }
 
 @media (max-width: 479px) {
+    .account-message p {
+        display: none;
+    }
+
+    .account-message {
+        margin-left: 0.75rem;
+    }
+
     .account-body {
         margin-top: 69px;
         position: absolute;

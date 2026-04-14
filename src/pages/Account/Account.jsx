@@ -19,21 +19,25 @@ export default function Account() {
         dispatch({ type: 'SET_ACTIVE_PAGE', payload: 'Account' });
     }, [dispatch]);
 
+    useEffect(() => {
+        if (succeeded === null) return;
+        const timer = setTimeout(() => setSucceeded(null), 5000);
+        return () => clearTimeout(timer);
+    }, [succeeded]);
 
     const passwordMessage = () => {
         if (succeeded) {
             return <div className="account-message">
                 <CheckCircle className="success-text" />
-                <p className="success-text">Password reset email sent</p>
+                <p className="success-text">Sent</p>
             </div>
         } else if (succeeded === false) {
             return <div className="account-message">
                 <Error className="failure-text" />
-                <p className="failure-text">Password Reset Failed</p>
+                <p className="failure-text">Failed</p>
             </div>
-        } else {
-            return <div><p></p></div>
         }
+        return null;
     }
 
     const changePassword = async (_) => {
@@ -65,8 +69,10 @@ export default function Account() {
                             <p className="account">Email:</p>
                             <p className="account">{state.user.email}</p>
                         </div>
-                        <GreenButton onClick={changePassword}>Change Password</GreenButton>
-                        { passwordMessage() }
+                        <div className="account-row">
+                            <GreenButton onClick={changePassword}>Send Password Reset Email</GreenButton>
+                            { passwordMessage() }
+                        </div>
                     </div>
                     <AccountChildUser />
                 </div>
