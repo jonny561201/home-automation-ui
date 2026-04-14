@@ -2,6 +2,7 @@ import React from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SecurityIcon from '../../../resources/panelIcons/SecurityIcon.png';
 import { AccordionDetails, Accordion, Typography, AccordionSummary, Divider } from '@mui/material';
+import './SecurityPanel.scss'
 
 
 export default function SecurityPanel() {
