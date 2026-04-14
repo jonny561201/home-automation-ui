@@ -7,7 +7,7 @@ import { changeUserPassword } from '../../utilities/RestApi';
 import AccountChildUser from '../../pages/Account/AccountChildUser';
 import { GreenButton } from '../../components/controls/Buttons';
 import { useAuth0 } from '@auth0/auth0-react';
-import './Account.css';
+import './Account.scss';
 
 
 export default function Account() {
