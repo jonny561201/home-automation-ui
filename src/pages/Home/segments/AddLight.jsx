@@ -8,7 +8,7 @@ export default function AddLight({ device, onComplete }) {
         <div>
             <div className="device-group">
                 <h2 className="device-text text">Add Lighting Device</h2>
-                <IconButton aria-label="Close" onClick={onComplete} className="close-icon">
+                <IconButton aria-label="Close" onClick={onComplete}>
                     <CloseIcon />
                 </IconButton>
             </div>

@@ -45,7 +45,7 @@ export default function Account() {
 
     return (
         <div>
-            <div className="account-header">
+            <div>
                 <Header />
             </div>
             <div className="account-body body">
@@ -54,16 +54,16 @@ export default function Account() {
                         <h2>User</h2>
                         <Divider />
                         <div className="account-row text">
-                            <p className="account measure-unit">Given Name:</p>
-                            <p className="account measure-unit">{state.user.firstName}</p>
+                            <p className="account">Given Name:</p>
+                            <p className="account">{state.user.firstName}</p>
                         </div>
                         <div className="account-row text">
-                            <p className="account measure-unit">Family Name:</p>
-                            <p className="account measure-unit">{state.user.lastName}</p>
+                            <p className="account">Family Name:</p>
+                            <p className="account">{state.user.lastName}</p>
                         </div>
                         <div className="account-row text">
-                            <p className="account measure-unit">Email:</p>
-                            <p className="account measure-unit">{state.user.email}</p>
+                            <p className="account">Email:</p>
+                            <p className="account">{state.user.email}</p>
                         </div>
                         <GreenButton onClick={changePassword}>Change Password</GreenButton>
                         { passwordMessage() }

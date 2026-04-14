@@ -72,7 +72,7 @@ export default function LightActivity(props) {
 
     return (
         <>
-            <Accordion className="task-panel" expanded={open} onChange={() => { setOpen(!open) }}>
+            <Accordion expanded={open} onChange={() => { setOpen(!open) }}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <div className="alarm-summary-panel">
                         <div className="alarm-setting-group">
@@ -110,11 +110,11 @@ export default function LightActivity(props) {
                         <Divider />
                         <div className="tasks-button-group text">
                             <div className="task-button-container" onClick={clickDelete}>
-                                <Delete className="task-button task-delete" />
+                                <Delete className="task-delete" />
                                 <p className="task-delete">Delete</p>
                             </div>
                             <div className="task-button-container" onClick={saveTask}>
-                                <Save className={`task-button ${edited ? "edited" : ""}`} />
+                                <Save className={edited ? "edited" : ""} />
                                 <p className={edited ? "edited" : ''}>Update</p>
                             </div>
                         </div>

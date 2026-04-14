@@ -67,7 +67,7 @@ export default function AccountChildUser() {
                 <table className="table-container">
                     <tbody>
                         {test.map(x => (
-                            <tr className="table-rows" key={`user-${x.user_name}`}>
+                            <tr key={`user-${x.user_name}`}>
                                 <td>{x.user_name}</td>
                                 <td>{x.roles.join(', ')}</td>
                                 <td className="table-end-item">
@@ -81,8 +81,8 @@ export default function AccountChildUser() {
                             </td>
                             <td className="account-roles">
                                 <FormControl error={isRoleInvalid} variant="outlined">
-                                    <InputLabel className="child-user-label">Roles</InputLabel>
-                                    <Select className="child-user-input" labelId="mutiple-name-label" variant="outlined" multiple value={selectedRole} onChange={(input) => validateRole(input)} input={<OutlinedInput label="Roles" />}
+                                    <InputLabel>Roles</InputLabel>
+                                    <Select labelId="mutiple-name-label" variant="outlined" multiple value={selectedRole} onChange={(input) => validateRole(input)} input={<OutlinedInput label="Roles" />}
                                         renderValue={(selectedRole) => (selectedRole.join(', '))}>
                                         {roles.map((role) => (
                                             <MenuItem key={role.role_name} value={role.role_name}>

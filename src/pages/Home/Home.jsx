@@ -13,7 +13,7 @@ export default function Home() {
     }, [dispatch]);
 
     return (
-        <div className="home-main" >
+        <div>
             <Header />
             <main className="home-body body">
                 <div className="center">

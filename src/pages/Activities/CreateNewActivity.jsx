@@ -30,7 +30,7 @@ export default function CreateNewActivityPanel(props) {
 
     return (
         <>
-            <Accordion className="task-panel" expanded={true}>
+            <Accordion expanded={true}>
                 <AccordionSummary style={{ height: "0px", minHeight: "0px" }} />
                 <AccordionDetails className="center">
                     <div className="activity-detail-panel">

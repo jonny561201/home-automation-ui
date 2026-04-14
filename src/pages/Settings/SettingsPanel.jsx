@@ -18,28 +18,28 @@ export default function SettingsPanel(props) {
             </div>
             <Divider />
             <div className="settings-row text">
-                <p className="setting measure-unit">Open Door:</p>
-                <p className="setting temp-unit">{state.preferences.garage_door ? state.preferences.garage_door : "None"}</p>
+                <p className="setting">Open Door:</p>
+                <p className="setting">{state.preferences.garage_door ? state.preferences.garage_door : "None"}</p>
             </div>
             <div className="settings-group setting panel-header-text">
                 <h2>Temperature</h2>
             </div>
             <Divider />
             <div className="settings-row text">
-                <p className="setting temp-unit">Unit:</p>
-                <p className="setting temp-unit">{state.preferences.temp_unit}</p>
+                <p className="setting">Unit:</p>
+                <p className="setting">{state.preferences.temp_unit}</p>
             </div>
             <div className="settings-row text">
-                <p className="setting temp-city">City:</p>
-                <p className="setting temp-city">{state.preferences.city}</p>
+                <p className="setting">City:</p>
+                <p className="setting">{state.preferences.city}</p>
             </div>
             <div className="setting text panel-header-text">
                 <h2>Measurement</h2>
             </div>
             <Divider />
             <div className="settings-row text">
-                <p className="setting measure-unit">Unit:</p>
-                <p className="setting measure-unit">{state.preferences.measure_unit}</p>
+                <p className="setting">Unit:</p>
+                <p className="setting">{state.preferences.measure_unit}</p>
             </div>
             <div>
                 <GreenButton onClick={handleClick}>Edit</GreenButton>

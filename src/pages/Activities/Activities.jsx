@@ -28,7 +28,7 @@ export default function ActivitiesPage() {
 
     return (
         <div>
-            <div className="activities-header">
+            <div>
                 <Header />
             </div>
             <div className="activities-body body">
@@ -46,7 +46,7 @@ export default function ActivitiesPage() {
                 </div>
                 <div className="add-task-container">
                     <div className="add-task-button-border">
-                        <button type="button" className="add-task-button success-ripple" aria-label="Add task" onClick={createNewTask}>
+                        <button type="button" className="add-task-button" aria-label="Add task" onClick={createNewTask}>
                             <AddIcon className="add-task-button-plus" />
                         </button>
                     </div>

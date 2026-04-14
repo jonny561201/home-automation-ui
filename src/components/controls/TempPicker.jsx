@@ -35,10 +35,10 @@ export default function TempPicker(props) {
             </div>
 
             <Dialog open={open}>
-            <div className="MyuiDialogContent-root MyuiPickersModal-dialog">
-                <div className="MyuiPickersBasePicker-container">
-                    <div className="MyuiToolbar-root MyuiToolbar-regular MyuiPickersToolbar-toolbar MyuiToolbar-gutters">
-                        <div className="MyuiPickersTimePickerToolbar-hourMinuteLabel">
+            <div className="MyuiPickersModal-dialog">
+                <div>
+                    <div className="MyuiToolbar-regular MyuiPickersToolbar-toolbar">
+                        <div>
                             <h2 className="header-text">Temperature</h2>
                         </div>
                     </div>
@@ -49,12 +49,12 @@ export default function TempPicker(props) {
                     </div>
                 </div>
             </div>
-            <div className="MyuiDialogActions-root MyuiDialogActions-spacing">
-                <button className="MyuiButtonBase-root MyuiButton-root MyuiButton-text MyuiButton-textPrimary" type="button" onClick={() => setOpen(false)}>
+            <div className="MyuiDialogActions-root">
+                <button className="MyuiButtonBase-root MyuiButton-root MyuiButton-text" type="button" onClick={() => setOpen(false)}>
                     <span className="MyuiButton-label">Cancel</span>
                     <span className="MyuiTouchRipple-root"></span>
                 </button>
-                <button className="MyuiButtonBase-root MyuiButton-root MyuiButton-text MyuiButton-textPrimary" type="button" onClick={knobChange}>
+                <button className="MyuiButtonBase-root MyuiButton-root MyuiButton-text" type="button" onClick={knobChange}>
                     <span className="MyuiButton-label">OK</span>
                     <span className="MyuiTouchRipple-root"></span>
                 </button>

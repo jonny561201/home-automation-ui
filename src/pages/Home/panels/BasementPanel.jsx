@@ -50,14 +50,14 @@ export default function BasementPanel() {
                         {getSumpIcon()}
                         <div className="sump-measure-group">
                             <div className="sump-text-group">
-                                <p className="current-text sump-text text">Current: </p>
-                                <p className={"current-depth sump-text text " + (state.sumpData.warningLevel === 3 ? 'alert' : 'healthy')}>{state.sumpData.currentDepth}</p>
-                                <p className={"current-text sump-text text " + (state.sumpData.warningLevel === 3 ? 'alert' : 'healthy')}>{state.sumpData.depthUnit}</p>
+                                <p className="sump-text text">Current: </p>
+                                <p className={"sump-text text " + (state.sumpData.warningLevel === 3 ? 'alert' : 'healthy')}>{state.sumpData.currentDepth}</p>
+                                <p className={"sump-text text " + (state.sumpData.warningLevel === 3 ? 'alert' : 'healthy')}>{state.sumpData.depthUnit}</p>
                             </div>
                             <div className="sump-text-group">
-                                <p className="average-text sump-text text">Average: </p>
-                                <p className="average-depth sump-text text">{state.sumpData.averageDepth}</p>
-                                <p className="average-text sump-text text">{state.sumpData.depthUnit}</p>
+                                <p className="sump-text text">Average: </p>
+                                <p className="sump-text text">{state.sumpData.averageDepth}</p>
+                                <p className="sump-text text">{state.sumpData.depthUnit}</p>
                             </div>
                         </div>
                     </div>

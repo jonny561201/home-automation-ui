@@ -41,7 +41,7 @@ export default function Settings() {
 
     return (
         <div>
-            <div className="settings-header">
+            <div>
                 <Header />
             </div>
             <div className="settings-body body">

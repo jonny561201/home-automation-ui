@@ -77,7 +77,7 @@ export default function HvacActivity(props) {
     }
 
     return (
-        <Accordion className="task-panel" expanded={open} onChange={() => { setOpen(!open) }}>
+        <Accordion expanded={open} onChange={() => { setOpen(!open) }}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <div className="alarm-summary-panel">
                     <div className="alarm-setting-group">

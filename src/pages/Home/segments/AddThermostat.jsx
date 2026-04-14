@@ -8,7 +8,7 @@ export default function AddThermostat({ device, onComplete }) {
         <div>
             <div className="device-group">
                 <h2 className="device-text text">Add Thermostat</h2>
-                <IconButton aria-label="Close" onClick={onComplete} className="close-icon">
+                <IconButton aria-label="Close" onClick={onComplete}>
                     <CloseIcon />
                 </IconButton>
             </div>
