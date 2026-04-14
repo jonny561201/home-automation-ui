@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, FormControlLabel, Divider, Button } from '@mui/material';
 import { CheckCircle, Save, Delete } from '@mui/icons-material';
 import { GreenCheckbox } from '../../../components/controls/CheckBox';
@@ -12,6 +12,12 @@ export default function AddGarage({ device, onComplete }) {
     const auth0 = useAuth0();
     const [succeeded, setSucceeded] = useState(false);
     const [doors, setDoors] = useState([{ name: '', preferred: true, nameTouched: false, isNameValid: true }]);
+
+    useEffect(() => {
+        if (!succeeded) return;
+        const timer = setTimeout(() => onComplete(), 5000);
+        return () => clearTimeout(timer);
+    }, [succeeded]);
 
     const handleNameChange = (index, event) => {
         const name = event.target.value;

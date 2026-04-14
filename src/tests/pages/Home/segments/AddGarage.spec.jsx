@@ -216,6 +216,14 @@ describe('Add Garage', () => {
 
     describe('Success Screen', () => {
 
+        beforeEach(() => {
+            vi.useFakeTimers();
+        });
+
+        afterEach(() => {
+            vi.useRealTimers();
+        });
+
         it('should display the success message after saving', async () => {
             await renderComponent();
             fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Main' } });
@@ -226,13 +234,14 @@ describe('Add Garage', () => {
             expect(actual).toEqual('Successfully Added');
         });
 
-        it('should call onComplete when Done is clicked', async () => {
+        it('should call onComplete after 5 seconds', async () => {
             await renderComponent();
             fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Main' } });
             await act(async () => {
                 fireEvent.click(screen.getByRole('button', { name: 'Save' }));
             });
-            fireEvent.click(screen.getByRole('button', { name: 'Done' }));
+            expect(mockOnComplete).not.toHaveBeenCalled();
+            act(() => { vi.advanceTimersByTime(5000); });
             expect(mockOnComplete).toHaveBeenCalled();
         });
 
