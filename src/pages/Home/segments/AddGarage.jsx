@@ -80,7 +80,6 @@ export default function AddGarage({ device, onComplete }) {
                     <div className="device-group">
                         <h2 className="device-text text">Add Garage Door</h2>
                         <p className="device-text text">{`${device.maxNodes - doors.length} of ${device.maxNodes} available`}</p>
-                        <Divider />
                     </div>
                     <form onSubmit={saveDoors}>
                         {doors.map((door, index) =>
@@ -103,6 +102,7 @@ export default function AddGarage({ device, onComplete }) {
                                 }
                             </div>
                         )}
+                        <Divider style={{marginTop: '1rem'}}/>
                         <div className="tasks-button-group text">
                             <div className="task-button-container" onClick={(e) => { e.preventDefault(); onComplete(); }}>
                                 <Button className="task-delete" startIcon={<Delete />}>Cancel</Button>
