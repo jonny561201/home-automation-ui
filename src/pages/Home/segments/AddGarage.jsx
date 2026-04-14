@@ -5,7 +5,7 @@ import { GreenCheckbox } from '../../../components/controls/CheckBox';
 import { AddButton, RemoveButton } from '../../../components/controls/Buttons';
 import { addUserDeviceNode } from '../../../utilities/RestApi';
 import { useAuth0 } from '@auth0/auth0-react';
-import './AddGarage.css';
+import './AddGarage.scss';
 
 
 export default function AddGarage({ device, onComplete }) {
