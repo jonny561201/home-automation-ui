@@ -45,6 +45,6 @@ describe('Home', () => {
 
     it('should set the active page to Home', async () => {
         await renderComponent();
-        expect(dispatch).toHaveBeenCalledWith({ type: 'SET_ACTIVE_PAGE', payload: 'Home Automation' });
+        expect(dispatch).toHaveBeenCalledWith({ type: 'SET_ACTIVE_PAGE', payload: 'Home' });
     });
 });

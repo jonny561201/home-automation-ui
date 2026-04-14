@@ -9,7 +9,7 @@ export default function Home() {
     const [_, dispatch] = useContext(Context);
 
     useEffect(() => {
-        dispatch({ type: 'SET_ACTIVE_PAGE', payload: 'Home Automation' });
+        dispatch({ type: 'SET_ACTIVE_PAGE', payload: 'Home' });
     }, [dispatch]);
 
     return (
