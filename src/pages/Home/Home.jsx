@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import Header from '../../components/header/Header';
 import DashboardPanel from './panels/DashboardPanels';
-import './Home.css';
+import './Home.scss';
 import { Context } from '../../state/Store';
 
 
