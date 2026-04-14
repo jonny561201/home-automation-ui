@@ -3,8 +3,9 @@ import { addUserChildAccount, deleteUserChildAccount, getUserChildAccounts } fro
 import { Context } from '../../state/Store';
 import { Checkbox, Divider, FormControl, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, TextField } from '@mui/material';
 import { AddButton, RemoveButton } from '../../components/controls/Buttons';
-import './AccountChildUser.scss'
 import { useAuth0 } from '@auth0/auth0-react';
+import './AccountChildUser.scss'
+
 
 export default function AccountChildUser() {
     const auth0 = useAuth0();
@@ -28,8 +29,7 @@ export default function AccountChildUser() {
     }, []);
 
 
-    const submitChildAccount = async (event) => {
-        event.preventDefault();
+    const submitChildAccount = async () => {
         if ((!isEmailInvalid && !isRoleInvalid) && (selectedRole.length !== 0 && email !== null && email !== "")) {
             const token = await auth0.getAccessTokenSilently();
             const response = await addUserChildAccount(token, email, selectedRole);
@@ -61,7 +61,7 @@ export default function AccountChildUser() {
 
     return (
         <div>
-            <form onSubmit={submitChildAccount}>
+            <div>
                 <h2 className="panel-header-text">Account Users</h2>
                 <Divider />
                 <table className="table-container">
@@ -94,12 +94,12 @@ export default function AccountChildUser() {
                                 </FormControl>
                             </td>
                             <td className="table-end-item">
-                                <AddButton onClick={(event) => { submitChildAccount(event) }}></AddButton>
+                                <AddButton onClick={() => { submitChildAccount() }}></AddButton>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-            </form>
+            </div>
         </div >
     );
 }
