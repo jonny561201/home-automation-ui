@@ -5,7 +5,7 @@ import GarageIcon from '../../../resources/panelIcons/GarageDoorIcon.png';
 import { AccordionDetails, Accordion, Typography, AccordionSummary, Divider } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import GarageDoor from '../segments/GarageDoor';
-import './GaragePanel.css';
+import './GaragePanel.scss';
 
 
 export default function GaragePanel() {
