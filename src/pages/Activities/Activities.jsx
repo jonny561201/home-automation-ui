@@ -5,7 +5,7 @@ import AddIcon from '@mui/icons-material/Add';
 import LightActivity from './LightActivity';
 import HvacActivity from './HvacActivity';
 import CreateNewActivityPanel from './CreateNewActivity';
-import './Activities.css';
+import './Activities.scss';
 
 
 export default function ActivitiesPage() {
