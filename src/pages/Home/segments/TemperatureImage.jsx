@@ -17,7 +17,7 @@ import ThunderstormIcon from '../../../resources/weatherIcons/thunderstorm.png';
 import HomeIcon from '../../../resources/weatherIcons/home.png';
 import ClearNightIcon from '../../../resources/weatherIcons/clear_night.png';
 import MistIcon from '../../../resources/weatherIcons/misty.png';
-import './TemperatureImage.css'
+import './TemperatureImage.scss'
 
 
 export default function TemperatureImage() {

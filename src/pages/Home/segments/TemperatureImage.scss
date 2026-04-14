@@ -1,0 +1,94 @@
+.temp-container {
+    display: flex;
+
+    .temp-external-container {
+        display: flex;
+        flex-direction: row;
+
+        .weather-icon {
+            height: 200px;
+        }
+
+        .external-temp {
+            margin-left: -1rem;
+            padding-top: 1.9rem;
+            font-size: 35px;
+            font-weight: bolder;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+
+            .min-max {
+                font-size: 20px;
+                margin: 0;
+            }
+
+            .external {
+                margin: 0;
+            }
+
+            .top-fade {
+                background: -webkit-linear-gradient(#27aedb, var(--primary-color));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            .bottom-fade {
+                background: -webkit-linear-gradient(var(--primary-color), #db5127);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        }
+    }
+
+    .temp-home-container {
+        align-items: flex-end;
+        display: flex;
+        flex-direction: row;
+
+        .home-icon {
+            height: 100px;
+            width: 200px;
+        }
+
+        .internal-temp {
+            margin: 0 4rem 0 -7.7rem;
+            font-size: 40px;
+            font-weight: bolder;
+        }
+    }
+}
+
+@media (max-width: 479px) {
+    .temp-container {
+        .temp-external-container {
+            .weather-icon {
+                height: 150px;
+                object-fit: contain;
+            }
+
+            .external-temp {
+                margin-left: -0.5rem;
+                padding-top: 1.1rem;
+                font-size: 30px;
+
+                .min-max {
+                    font-size: 17px;
+                    margin: 0;
+                }
+            }
+        }
+
+        .temp-home-container {
+            .home-icon {
+                padding-top: 5.25rem;
+                height: 75px;
+                object-fit: contain;
+            }
+
+            .internal-temp {
+                font-size: 35px;
+            }
+        }
+    }
+}
