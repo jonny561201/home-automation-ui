@@ -1,0 +1,19 @@
+.panel-text {
+    margin-left: 1rem !important;
+}
+
+.small-text-container {
+    display: flex;
+
+    .small-text-group {
+        margin-left: 2rem;
+        display: flex;
+        justify-content: center;
+
+        .small-text {
+            margin: 0 0 0 0.25rem;
+            font-size: 0.75rem;
+            align-items: center;
+        }
+    }
+}

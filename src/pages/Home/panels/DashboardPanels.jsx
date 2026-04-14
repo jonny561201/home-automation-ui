@@ -5,7 +5,7 @@ import TemperaturePanel from './TemperaturePanel';
 import LightingPanel from './LightingPanel';
 import SecurityPanel from './SecurityPanel';
 import { Context } from '../../../state/Store';
-import './DashboardPanel.css';
+import './DashboardPanel.scss';
 
 export default function DashboardPanel() {
 
