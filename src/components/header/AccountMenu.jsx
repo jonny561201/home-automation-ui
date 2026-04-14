@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Context } from '../../state/Store';
 import { Divider } from '@mui/material';
 import { useAuth0 } from '@auth0/auth0-react'
-import './AccountMenu.css';
+import './AccountMenu.scss';
 
 
 export default function AccountSettings(props) {

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Context } from '../../state/Store';
-import './AccountIcon.css';
+import './AccountIcon.scss';
 
 
 export default function Account(props) {
