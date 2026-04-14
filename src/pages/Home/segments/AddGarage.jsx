@@ -96,19 +96,19 @@ export default function AddGarage({ device, onComplete }) {
                                     </div>
                                 </div>
                                 {doors.length > 1 &&
-                                    <div className="account-row">
+                                    <div className="add-garage-preferred-row">
                                         <FormControlLabel control={<GreenCheckbox checked={door.preferred} onChange={() => handlePreferredChange(index)} />} label="Preferred"/>
                                     </div>
                                 }
                             </div>
                         )}
                         <Divider style={{marginTop: '1rem'}}/>
-                        <div className="tasks-button-group text">
-                            <div className="task-button-container" onClick={(e) => { e.preventDefault(); onComplete(); }}>
-                                <Button className="task-delete" startIcon={<Delete />}>Cancel</Button>
+                        <div className="add-garage-actions text">
+                            <div className="add-garage-action" onClick={(e) => { e.preventDefault(); onComplete(); }}>
+                                <Button className="add-garage-cancel" startIcon={<Delete />}>Cancel</Button>
                             </div>
-                            <div className="task-button-container">
-                                <Button type="submit" startIcon={<Save />}>Save</Button>
+                            <div className="add-garage-action">
+                                <Button className="add-garage-save" type="submit" startIcon={<Save />}>Save</Button>
                             </div>
                         </div>
                     </form>

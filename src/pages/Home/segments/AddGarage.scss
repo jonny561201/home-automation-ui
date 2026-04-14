@@ -43,3 +43,32 @@
         width: 90%;
     }
 }
+
+.add-garage-preferred-row {
+    display: flex;
+    flex-direction: row;
+    margin-left: 1rem;
+    margin-top: 0.5rem;
+}
+
+.add-garage-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 4px;
+
+    .add-garage-action {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        cursor: pointer;
+    }
+
+    .add-garage-cancel {
+        color: #ff6666 !important;
+    }
+
+    .add-garage-save {
+        color: #00c774 !important;
+    }
+}
