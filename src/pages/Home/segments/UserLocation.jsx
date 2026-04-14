@@ -4,7 +4,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { updateGarageState } from '../../../utilities/RestApi';
 import { useInterval } from '../../../utilities/UseInterval';
 import { calculateDistanceInMeters } from '../../../utilities/Location';
-import './UserLocation.css';
+import './UserLocation.scss';
 import { RedButton } from '../../../components/controls/Buttons';
 import {useAuth0} from "@auth0/auth0-react";
 
