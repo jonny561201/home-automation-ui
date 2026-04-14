@@ -6,7 +6,7 @@ import AddThermostat from './AddThermostat';
 import AddSumpPump from './AddSumpPump';
 import AddSecurity from './AddSecurity';
 import { GreenButton } from '../../../components/controls/Buttons';
-import './DeviceRegistration.css';
+import './DeviceRegistration.scss';
 
 
 export default function DeviceRegistration({ device }) {
