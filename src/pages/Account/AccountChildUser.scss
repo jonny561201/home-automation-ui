@@ -1,0 +1,55 @@
+.table-container {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0 0 1rem;
+
+    .table-header {
+        margin-top: 0.5rem;
+    }
+
+    .table-end-item {
+        flex-direction: row-reverse;
+    }
+
+    .account-roles {
+        justify-content: space-between;
+    }
+
+    table {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    td {
+        max-width: 250px;
+    }
+
+    tr {
+        margin-top: 0.5rem;
+        align-items: center;
+    }
+
+    input {
+        border-color: lightgray;
+
+        &:focus {
+            background-color: lightgray;
+        }
+    }
+
+    .input-error {
+        border-color: #e60000;
+    }
+}
+
+@media (max-width: 479px) {
+    .table-container {
+        td, tr {
+            flex: 0;
+        }
+
+        td {
+            max-width: 160px;
+        }
+    }
+}
