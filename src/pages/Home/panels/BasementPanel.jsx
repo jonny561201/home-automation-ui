@@ -6,7 +6,7 @@ import SumpPumpMediumLowIcon from '../../../resources/panelIcons/SumpPumpMediumL
 import SumpPumpMediumHighIcon from '../../../resources/panelIcons/SumpPumpMediumHighIcon.png';
 import SumpPumpHighIcon from '../../../resources/panelIcons/SumpPumpHighIcon.png';
 import { AccordionDetails, Accordion, Typography, AccordionSummary, Divider } from '@mui/material';
-import './BasementPanel.css';
+import './BasementPanel.scss';
 import { Context } from '../../../state/Store';
 
 
