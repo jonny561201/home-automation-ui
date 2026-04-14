@@ -3,6 +3,10 @@
 
     .child-user-row {
         margin-top: 0.75rem;
+
+        .user-input {
+            margin: 0 0 0.75rem 0;
+        }
     }
 
     input {
@@ -20,5 +24,9 @@
         margin-top: 0.5rem;
         border: 1px solid lightgray;
         border-radius: 8px;
+
+        .col-sm-auto {
+            text-align: right;
+        }
     }
 }

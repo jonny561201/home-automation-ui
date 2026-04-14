@@ -73,10 +73,10 @@ export default function AccountChildUser() {
                 </div>
             ))}
             <div className="row align-items-center child-user-row">
-                <div className="col-sm">
+                <div className="col-sm user-input">
                     <TextField error={isEmailInvalid} onChange={(input) => validateEmail(input)} value={email} label="Email" fullWidth />
                 </div>
-                <div className="col-sm">
+                <div className="col-sm user-input">
                     <FormControl error={isRoleInvalid} variant="outlined" fullWidth>
                         <InputLabel>Roles</InputLabel>
                         <Select labelId="mutiple-name-label" variant="outlined" multiple value={selectedRole} onChange={(input) => validateRole(input)} input={<OutlinedInput label="Roles" />}
