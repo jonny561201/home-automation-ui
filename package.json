@@ -10,6 +10,7 @@
     "@mui/icons-material": "^7.3.9",
     "@mui/material": "^7.3.9",
     "@mui/x-date-pickers": "^8.27.2",
+    "bootstrap": "^5.3.8",
     "date-fns": "^4.1.0",
     "jwt-decode": "^4.0.0",
     "react": "^19.2.4",
