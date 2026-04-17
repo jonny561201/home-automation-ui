@@ -18,8 +18,12 @@ export default function ApiInterval({ children }) {
     const [state, dispatch] = useContext(Context);
     const auth0 = useAuth0();
 
+    const roles = state.user.roles || [];
+    const hasGarage = roles.includes('garage_door');
+    const hasSump = roles.includes('sump_pump');
+
     useInterval(async () => {
-        await getGarageData();
+        if (hasGarage) await getGarageData();
     }, 20000);
 
     useInterval(async () => {
@@ -30,7 +34,7 @@ export default function ApiInterval({ children }) {
     }, 60000);
 
     useInterval(async () => {
-        await getSumpData();
+        if (hasSump) await getSumpData();
         await getPreferences();
         await getActivities();
     }, 120000);
@@ -39,8 +43,8 @@ export default function ApiInterval({ children }) {
         if (!state.loadedUtils) {
             getUserDevices();
             getLights();
-            getGarageData();
-            getSumpData();
+            if (hasGarage) getGarageData();
+            if (hasSump) getSumpData();
             getTempData();
             getForecastData();
             getPreferences();
