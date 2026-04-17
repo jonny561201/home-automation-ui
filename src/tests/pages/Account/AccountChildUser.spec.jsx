@@ -16,12 +16,12 @@ describe('AccountChildUser', () => {
     const spyGet = vi.spyOn(lib, 'getUserChildAccounts');
     const spyPost = vi.spyOn(lib, 'addUserChildAccount');
     const spyDelete = vi.spyOn(lib, 'deleteUserChildAccount');
-    const roles = [{ role_name: 'security' }, { role_name: 'garage_door' }];
+    const devices = [{ name: 'security' }, { name: 'garage_door' }];
     const response = [{ user_name: 'Jon', user_id: childUserId, roles: ['garage_door'] }];
 
-    const renderComponent = async (userRoles = roles) => {
+    const renderComponent = async (userDevices = devices) => {
         render(
-            <Context.Provider value={[{ user: { userId: userId, roles: userRoles }, auth: { bearer: bearer } }, () => { }]}> 
+            <Context.Provider value={[{ user: { userId: userId}, devices: userDevices, auth: { bearer: bearer } }, () => { }]}>
                 <AccountChildUser />
             </Context.Provider>
         );
@@ -57,14 +57,14 @@ describe('AccountChildUser', () => {
     });
 
     it('should display the drop down menu items', async () => {
-        const roles = [{ role_name: 'security' }, { role_name: 'garage' }];
-        await renderComponent(roles);
+        const devices = [{ name: 'security' }, { name: 'garage' }];
+        await renderComponent(devices);
         fireEvent.mouseDown(screen.getByRole('combobox'));
-        const security = screen.getByText("security").textContent;
-        const garage = screen.getByText("garage").textContent;
+        const security = screen.getByText("security");
+        const garage = screen.getByText("garage");
 
-        expect(security).toEqual('security');
-        expect(garage).toEqual('garage');
+        expect(security).toBeTruthy();
+        expect(garage).toBeTruthy();
     });
 
     describe('Input Validations', () => {
@@ -89,7 +89,7 @@ describe('AccountChildUser', () => {
         it('should mark roles in error state when no role is selected on submission', async () => {
             await renderComponent();
             fireEvent.click(screen.getByRole('button', {name: 'Add'}));
-            const actual = screen.getByText('Roles', { selector: 'label' }).className;
+            const actual = screen.getByText('Devices', { selector: 'label' }).className;
 
             expect(actual).toContain('Mui-error');
         });

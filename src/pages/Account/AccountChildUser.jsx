@@ -11,11 +11,11 @@ export default function AccountChildUser() {
     const auth0 = useAuth0();
     const [state, _] = useContext(Context);
     const devices = state.devices || [];
-    const [selectedRole, setSelectedRole] = useState([]);
+    const [selectedDevice, setSelectedDevice] = useState([]);
     const [email, setEmail] = useState("");
     const [childAccounts, setChildAccounts] = useState([]);
     const [isEmailInvalid, setIsEmailInvalid] = useState(undefined);
-    const [isRoleInvalid, setIsRoleInvalid] = useState(undefined);
+    const [isDeviceInvalid, setIsDeviceInvalid] = useState(undefined);
 
     useEffect(() => {
         const getData = async () => {
@@ -30,15 +30,15 @@ export default function AccountChildUser() {
 
 
     const submitChildAccount = async () => {
-        if ((!isEmailInvalid && !isRoleInvalid) && (selectedRole.length !== 0 && email !== null && email !== "")) {
+        if ((!isEmailInvalid && !isDeviceInvalid) && (selectedDevice.length !== 0 && email !== null && email !== "")) {
             const token = await auth0.getAccessTokenSilently();
-            const response = await addUserChildAccount(token, email, selectedRole);
+            const response = await addUserChildAccount(token, email, selectedDevice);
             setChildAccounts(response);
             setEmail("");
-            setSelectedRole([]);
+            setSelectedDevice([]);
         } else {
             setIsEmailInvalid(email === "" || email === null);
-            setIsRoleInvalid(selectedRole.length === 0);
+            setIsDeviceInvalid(selectedDevice.length === 0);
         }
     }
 
@@ -54,9 +54,9 @@ export default function AccountChildUser() {
         setIsEmailInvalid(input.target.value === "");
     }
 
-    const validateRole = (input) => {
-        setSelectedRole(input.target.value);
-        setIsRoleInvalid(input.target.value === "");
+    const validateDevice = (input) => {
+        setSelectedDevice(input.target.value);
+        setIsDeviceInvalid(input.target.value === "");
     }
 
     return (
@@ -84,16 +84,18 @@ export default function AccountChildUser() {
                         <TextField error={isEmailInvalid} onChange={(input) => validateEmail(input)} value={email} label="Email" fullWidth />
                     </div>
                     <div className="col-sm user-input">
-                        <FormControl error={isRoleInvalid} variant="outlined" fullWidth>
-                            <InputLabel>Roles</InputLabel>
-                            <Select labelId="mutiple-name-label" variant="outlined" multiple value={selectedRole} onChange={(input) => validateRole(input)} input={<OutlinedInput label="Roles" />}
-                                    renderValue={(selectedRole) => (selectedRole.join(', '))}>
-                                {devices.map((role) => (
-                                    <MenuItem key={role.name} value={role.name}>
-                                        <Checkbox checked={selectedRole.indexOf(role.name) > -1} />
-                                        <ListItemText primary={role.name} />
-                                    </MenuItem>
-                                ))}
+                        <FormControl error={isDeviceInvalid} variant="outlined" fullWidth>
+                            <InputLabel>Devices</InputLabel>
+                            <Select labelId="multiple-name-label" variant="outlined" multiple value={selectedDevice} onChange={(input) => validateDevice(input)} input={<OutlinedInput label="Devices" />}
+                                    renderValue={(selectedDevice) => (selectedDevice.join(', '))}>
+                                {
+                                    devices.map((device) => (
+                                        <MenuItem key={device.name} value={device.name}>
+                                            <Checkbox checked={selectedDevice.indexOf(device.name) > -1} />
+                                            <ListItemText primary={device.name} />
+                                        </MenuItem>
+                                    ))
+                                }
                             </Select>
                         </FormControl>
                     </div>
