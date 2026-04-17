@@ -30,7 +30,12 @@ export default function GaragePanel() {
                         <div>
                             <Typography className="panel-text panel-header-text">Garage</Typography>
                             <div className="small-text-container">
-                                {!open &&
+                                {!open && devicesToRegister.length > 0 &&
+                                    <div className="small-text-group">
+                                        <p className="small-text text alert">Registration Needed</p>
+                                    </div>
+                                }
+                                {!open && devicesToRegister.length === 0 &&
                                     state.garageDoors.map(x => {
                                         return <div className="small-text-group" key={`door-notify-${x.doorName}`}>
                                             <p className="small-text text">{x.doorName}:</p>

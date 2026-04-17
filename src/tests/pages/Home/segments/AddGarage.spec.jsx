@@ -1,12 +1,22 @@
 import React from 'react';
 import * as lib from '../../../../utilities/RestApi';
 import AddGarage from '../../../../pages/Home/segments/AddGarage';
+import { Context } from '../../../../state/Store';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 
 const bearer = 'fake-token';
 
 vi.mock('@auth0/auth0-react', () => ({
-    useAuth0: () => ({ getAccessTokenSilently: vi.fn().mockResolvedValue(bearer) }),
+    useAuth0: () => ({
+        getAccessTokenSilently: vi.fn().mockResolvedValue(bearer),
+        getIdTokenClaims: vi.fn().mockResolvedValue({
+            'https://soaringleafsolutions.com/user_id': 'user123',
+            'https://soaringleafsolutions.com/roles': ['garage_door'],
+            given_name: 'Test',
+            last_name: 'User',
+            email: 'test@test.com',
+        }),
+    }),
 }));
 
 
@@ -14,16 +24,22 @@ describe('Add Garage', () => {
     const device = { deviceId: 1, name: 'Garage Hub', type: 'garage_door', registered: false, maxNodes: 2 };
     const spyAdd = vi.spyOn(lib, 'addUserDeviceNode');
     const mockOnComplete = vi.fn();
+    const mockDispatch = vi.fn();
 
     const renderComponent = async () => {
         await act(async () => {
-            render(<AddGarage device={device} onComplete={mockOnComplete} />);
+            render(
+                <Context.Provider value={[{}, mockDispatch]}>
+                    <AddGarage device={device} onComplete={mockOnComplete} />
+                </Context.Provider>
+            );
         });
     }
 
     beforeEach(() => {
         spyAdd.mockClear();
         mockOnComplete.mockClear();
+        mockDispatch.mockClear();
         spyAdd.mockResolvedValue({ ok: true });
     });
 

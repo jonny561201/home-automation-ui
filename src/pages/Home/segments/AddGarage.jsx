@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { TextField, FormControlLabel, Divider, Button } from '@mui/material';
 import { CheckCircle, Save, Delete } from '@mui/icons-material';
 import { GreenCheckbox } from '../../../components/controls/CheckBox';
 import { AddButton, RemoveButton } from '../../../components/controls/Buttons';
 import { addUserDeviceNode } from '../../../utilities/RestApi';
 import { useAuth0 } from '@auth0/auth0-react';
+import { Context } from '../../../state/Store';
 import './AddGarage.scss';
 
 
 export default function AddGarage({ device, onComplete }) {
     const auth0 = useAuth0();
+    const [, dispatch] = useContext(Context);
     const [succeeded, setSucceeded] = useState(false);
     const [doors, setDoors] = useState([{ name: '', preferred: true, nameTouched: false, isNameValid: true }]);
 
@@ -62,6 +64,16 @@ export default function AddGarage({ device, onComplete }) {
         }));
         const token = await auth0.getAccessTokenSilently();
         const response = await addUserDeviceNode(token, device.deviceId, nodes);
+        if (response.ok) {
+            await auth0.getAccessTokenSilently({ cacheMode: 'off' });
+            const claims = await auth0.getIdTokenClaims();
+            const roles = claims['https://soaringleafsolutions.com/roles'];
+            const userId = claims['https://soaringleafsolutions.com/user_id'];
+            const firstName = claims.given_name ?? claims.nickname;
+            const lastName = claims.last_name ?? '';
+            const email = claims.email ?? '';
+            dispatch({ type: 'SET_USER_DATA', payload: { userId, firstName, lastName, email, roles } });
+        }
         setSucceeded(response.ok);
     };
 
