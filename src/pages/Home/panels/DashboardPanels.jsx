@@ -17,8 +17,13 @@ export default function DashboardPanel() {
         return roles.includes(type) || unregistered.some(d => d.type === type);
     };
 
+    const hasAnyPanel = showPanel("garage_door") || showPanel("sump_pump") || showPanel("thermostat") || showPanel("lighting") || showPanel("security");
+
     return (
         <div role="region" aria-label="Dashboard Panels">
+            {!hasAnyPanel &&
+                <p className="panel text">No devices have been assigned to your account.</p>
+            }
             {showPanel("garage_door") &&
                 <div className="panel"><GaragePanel /></div>
             }
