@@ -3,7 +3,7 @@ import { TextField, FormControlLabel, Divider, Button } from '@mui/material';
 import { CheckCircle, Save, Delete } from '@mui/icons-material';
 import { GreenCheckbox } from '../../../components/controls/CheckBox';
 import { AddButton, RemoveButton } from '../../../components/controls/Buttons';
-import { addUserDeviceNode } from '../../../utilities/RestApi';
+import { addUserDeviceNode, getAllGarageStatus, getDevices } from '../../../utilities/RestApi';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Context } from '../../../state/Store';
 import './AddGarage.scss';
@@ -64,6 +64,7 @@ export default function AddGarage({ device, onComplete }) {
         }));
         const token = await auth0.getAccessTokenSilently();
         const response = await addUserDeviceNode(token, device.deviceId, nodes);
+        setSucceeded(response.ok);
         if (response.ok) {
             await auth0.getAccessTokenSilently({ cacheMode: 'off' });
             const claims = await auth0.getIdTokenClaims();
@@ -73,8 +74,13 @@ export default function AddGarage({ device, onComplete }) {
             const lastName = claims.last_name ?? '';
             const email = claims.email ?? '';
             dispatch({ type: 'SET_USER_DATA', payload: { userId, firstName, lastName, email, roles } });
+            const freshToken = await auth0.getAccessTokenSilently();
+            const devices = await getDevices(freshToken);
+            dispatch({ type: 'SET_DEVICES', payload: devices.devices });
+            const doors = await getAllGarageStatus(freshToken);
+            dispatch({ type: 'SET_GARAGE_COORDS', payload: doors.coordinates });
+            dispatch({ type: 'SET_GARAGE_DOORS', payload: doors.doors });
         }
-        setSucceeded(response.ok);
     };
 
     return (

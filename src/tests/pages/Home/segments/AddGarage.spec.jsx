@@ -23,6 +23,8 @@ vi.mock('@auth0/auth0-react', () => ({
 describe('Add Garage', () => {
     const device = { deviceId: 1, name: 'Garage Hub', type: 'garage_door', registered: false, maxNodes: 2 };
     const spyAdd = vi.spyOn(lib, 'addUserDeviceNode');
+    const spyGetDevices = vi.spyOn(lib, 'getDevices');
+    const spyGetGarageStatus = vi.spyOn(lib, 'getAllGarageStatus');
     const mockOnComplete = vi.fn();
     const mockDispatch = vi.fn();
 
@@ -38,9 +40,13 @@ describe('Add Garage', () => {
 
     beforeEach(() => {
         spyAdd.mockClear();
+        spyGetDevices.mockClear();
+        spyGetGarageStatus.mockClear();
         mockOnComplete.mockClear();
         mockDispatch.mockClear();
         spyAdd.mockResolvedValue({ ok: true });
+        spyGetDevices.mockResolvedValue({ devices: [] });
+        spyGetGarageStatus.mockResolvedValue({ coordinates: null, doors: [] });
     });
 
     describe('Add Door Form', () => {

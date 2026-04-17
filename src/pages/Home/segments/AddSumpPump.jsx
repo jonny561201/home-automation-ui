@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Divider, Button } from '@mui/material';
 import { CheckCircle, Save, Delete } from '@mui/icons-material';
-import { addUserDeviceNode } from '../../../utilities/RestApi';
+import { addUserDeviceNode, getSumpLevels, getDevices } from '../../../utilities/RestApi';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Context } from '../../../state/Store';
 import './AddSumpPump.scss';
@@ -22,6 +22,7 @@ export default function AddSumpPump({ device, onComplete }) {
         event.preventDefault();
         const token = await auth0.getAccessTokenSilently();
         const response = await addUserDeviceNode(token, device.deviceId, []);
+        setSucceeded(response.ok);
         if (response.ok) {
             await auth0.getAccessTokenSilently({ cacheMode: 'off' });
             const claims = await auth0.getIdTokenClaims();
@@ -31,8 +32,12 @@ export default function AddSumpPump({ device, onComplete }) {
             const lastName = claims.last_name ?? '';
             const email = claims.email ?? '';
             dispatch({ type: 'SET_USER_DATA', payload: { userId, firstName, lastName, email, roles } });
+            const freshToken = await auth0.getAccessTokenSilently();
+            const devices = await getDevices(freshToken);
+            dispatch({ type: 'SET_DEVICES', payload: devices.devices });
+            const sump = await getSumpLevels(freshToken);
+            dispatch({ type: 'SET_SUMP_DATA', payload: sump });
         }
-        setSucceeded(response.ok);
     };
 
     return (
