@@ -27,11 +27,11 @@ export default function SettingsPanel(props) {
             <Divider />
             <div className="settings-row text">
                 <p className="setting">Unit:</p>
-                <p className="setting">{state.preferences.tempUnit}</p>
+                <p className="setting">{state.preferences.tempUnit || '--'}</p>
             </div>
             <div className="settings-row text">
                 <p className="setting">City:</p>
-                <p className="setting">{state.preferences.city}</p>
+                <p className="setting">{state.preferences.city || '--'}</p>
             </div>
             <div className="setting text panel-header-text">
                 <h2>Measurement</h2>
@@ -39,7 +39,7 @@ export default function SettingsPanel(props) {
             <Divider />
             <div className="settings-row text">
                 <p className="setting">Unit:</p>
-                <p className="setting">{state.preferences.measureUnit}</p>
+                <p className="setting">{state.preferences.measureUnit || '--'}</p>
             </div>
             <div>
                 <GreenButton onClick={handleClick}>Edit</GreenButton>

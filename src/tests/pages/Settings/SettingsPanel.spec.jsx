@@ -10,8 +10,8 @@ describe('Settings Panel', () => {
     const city = 'Vienna';
     const tempUnit = 'fahrenheit';
     const measureUnit = 'imperial';
-    const garage = 3;
-    const preference = { temp_unit: tempUnit, city: city, measure_unit: measureUnit, garage_door: garage };
+    const garageName = 'Main Door';
+    const preference = { tempUnit: tempUnit, city: city, measureUnit: measureUnit, garageName: garageName };
 
 
     const renderComponent = async (pref) => {
@@ -86,20 +86,20 @@ describe('Settings Panel', () => {
 
     it('should display the door text for garage', async () => {
         await renderComponent(preference);
-        const actual = screen.getByText('Open Door:').textContent;
-        expect(actual).toEqual('Open Door:');
+        const actual = screen.getByText('Preferred Garage:').textContent;
+        expect(actual).toEqual('Preferred Garage:');
     });
 
     it('should display the door preference stored in state', async () => {
         await renderComponent(preference);
-        const actual = screen.getByText(garage.toString()).textContent;
-        expect(actual).toEqual(garage.toString());
+        const actual = screen.getByText(garageName).textContent;
+        expect(actual).toEqual(garageName);
     });
 
-    it('should display the door preference of None if nothing stored in state', async () => {
-        const preference = { temp_unit: tempUnit, city: city, measure_unit: measureUnit, garage_door: null };
+    it('should display -- if no door preference stored in state', async () => {
+        const preference = { tempUnit: tempUnit, city: city, measureUnit: measureUnit };
         await renderComponent(preference);
-        const actual = screen.getByText("None").textContent;
-        expect(actual).toEqual("None");
+        const dashes = screen.getAllByText('--');
+        expect(dashes.length).toBeGreaterThanOrEqual(1);
     });
 });

@@ -16,7 +16,7 @@ describe('Settings Page', () => {
     const unitMeasure = 'imperial';
     const coords = { latitude: 43.123, longitude: 23.23423 };
     const user = { firstName: 'test', lastName: 'test', userId: userId };
-    const preference = { temp_unit: tempUnit, measure_unit: unitMeasure, city: city };
+    const preference = { tempUnit: tempUnit, measureUnit: unitMeasure, city: city };
     const dispatch = vi.fn();
 
     const spyUpdate = vi.spyOn(lib, 'updateUserPreferences');

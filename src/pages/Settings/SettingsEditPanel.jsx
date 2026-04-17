@@ -20,7 +20,7 @@ export default function SettingsEditPanel(props) {
     const savePreferences = async () => {
         const isFahrenheit = newTempUnit === "fahrenheit";
         const isImperial = newMeasureUnit === "imperial";
-        const request = { isImperial, isFahrenheit, 'city': newCity, 'garageDoor': garage, 'garageId': garageId };
+        const request = { isImperial, isFahrenheit, 'city': newCity, 'garageDoor': garage, 'garageNodeId': garageId };
         const token = await auth0.getAccessTokenSilently();
         await updateUserPreferences(token, request);
 
