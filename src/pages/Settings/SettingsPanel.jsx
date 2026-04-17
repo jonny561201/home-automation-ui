@@ -18,8 +18,8 @@ export default function SettingsPanel(props) {
             </div>
             <Divider />
             <div className="settings-row text">
-                <p className="setting">Open Door:</p>
-                <p className="setting">{state.preferences.garage_door ? state.preferences.garage_door : "None"}</p>
+                <p className="setting">Preferred Garage:</p>
+                <p className="setting">{state.preferences.garageName ? state.preferences.garageName : "--"}</p>
             </div>
             <div className="settings-group setting panel-header-text">
                 <h2>Temperature</h2>
@@ -27,7 +27,7 @@ export default function SettingsPanel(props) {
             <Divider />
             <div className="settings-row text">
                 <p className="setting">Unit:</p>
-                <p className="setting">{state.preferences.temp_unit}</p>
+                <p className="setting">{state.preferences.tempUnit}</p>
             </div>
             <div className="settings-row text">
                 <p className="setting">City:</p>
@@ -39,7 +39,7 @@ export default function SettingsPanel(props) {
             <Divider />
             <div className="settings-row text">
                 <p className="setting">Unit:</p>
-                <p className="setting">{state.preferences.measure_unit}</p>
+                <p className="setting">{state.preferences.measureUnit}</p>
             </div>
             <div>
                 <GreenButton onClick={handleClick}>Edit</GreenButton>

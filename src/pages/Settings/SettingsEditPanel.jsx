@@ -24,7 +24,7 @@ export default function SettingsEditPanel(props) {
         const token = await auth0.getAccessTokenSilently();
         await updateUserPreferences(token, request);
 
-        dispatch({ type: 'SET_USER_PREFERENCES', payload: { ...state.preferences, city: newCity, temp_unit: newTempUnit, measure_unit: newMeasureUnit, garage_id: garageId, garage_door: garage } });
+        dispatch({ type: 'SET_USER_PREFERENCES', payload: { ...state.preferences, city: newCity, tempUnit: newTempUnit, measureUnit: newMeasureUnit, garageId: garageId, garageName: garage } });
         props.setEditMode(false);
     }
 
