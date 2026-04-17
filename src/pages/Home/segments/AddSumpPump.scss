@@ -1,0 +1,31 @@
+.sump-success-text {
+    color: #055219;
+    align-self: center;
+    margin: 0;
+}
+
+.add-sump-confirm {
+    margin-left: 1rem;
+}
+
+.add-sump-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 4px;
+
+    .add-sump-action {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        cursor: pointer;
+    }
+
+    .add-sump-cancel {
+        color: #ff6666 !important;
+    }
+
+    .add-sump-save {
+        color: #00c774 !important;
+    }
+}
