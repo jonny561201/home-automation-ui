@@ -8,202 +8,312 @@ const thermostatBaseUrl = `${baseUrl}/thermostat`;
 
 
 export const changeUserPassword = async (bearer) => {
-    const options = {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' }
-    };
-    return await fetch(`${baseUrl}/resetPassword`, options);
+    try {
+        const options = {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' }
+        };
+        return await fetch(`${baseUrl}/resetPassword`, options);
+    } catch {
+        return { ok: false };
+    }
 }
 
 export const getGarageStatus = async (bearer, garageId) => {
-    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
-    const response = await fetch(`${garageBaseUrl}/${garageId}/status`, options);
-    return await response.json();
+    try {
+        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
+        const response = await fetch(`${garageBaseUrl}/${garageId}/status`, options);
+        if (!response.ok) return {};
+        return await response.json();
+    } catch {
+        return {};
+    }
 }
 
 export const getAllGarageStatus = async (bearer) => {
-    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
-    const response = await fetch(`${garageBaseUrl}/status`, options);
-    return await response.json();
+    try {
+        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
+        const response = await fetch(`${garageBaseUrl}/status`, options);
+        if (!response.ok) return {};
+        return await response.json();
+    } catch {
+        return {};
+    }
 }
 
 export const updateGarageState = async (bearer, shouldOpen, garageId) => {
-    const request = { 'garageDoorOpen': shouldOpen };
-    const options = {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify(request)
-    };
-    const response = await fetch(`${garageBaseUrl}/${garageId}/state`, options);
-    return await response.json();
+    try {
+        const request = { 'garageDoorOpen': shouldOpen };
+        const options = {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify(request)
+        };
+        const response = await fetch(`${garageBaseUrl}/${garageId}/state`, options);
+        if (!response.ok) return {};
+        return await response.json();
+    } catch {
+        return {};
+    }
 }
 
 export const toggleGarageDoor = async (bearer, garageId) => {
-    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } }
-    return await fetch(`${garageBaseUrl}/${garageId}/toggle`, options);
+    try {
+        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } }
+        return await fetch(`${garageBaseUrl}/${garageId}/toggle`, options);
+    } catch {
+        return { ok: false };
+    }
 }
 
 export const getSumpLevels = async (bearer) => {
-    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
-    const response = await fetch(`${sumpBaseUrl}/depth`, options);
-    return await response.json();
+    try {
+        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
+        const response = await fetch(`${sumpBaseUrl}/depth`, options);
+        if (!response.ok) return {};
+        return await response.json();
+    } catch {
+        return {};
+    }
 }
 
 export const getCurrentTemperature = async (bearer) => {
-    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
-    const response = await fetch(`${thermostatBaseUrl}/temperature`, options);
-    return await response.json();
+    try {
+        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
+        const response = await fetch(`${thermostatBaseUrl}/temperature`, options);
+        if (!response.ok) return {};
+        return await response.json();
+    } catch {
+        return {};
+    }
 }
 
 export const setUserTemperature = async (bearer, desiredTemp, mode, isFahrenheit) => {
-    const request = { 'desiredTemp': desiredTemp, 'mode': mode, 'isFahrenheit': isFahrenheit }
-    const options = {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify(request)
-    };
-
-    return await fetch(`${thermostatBaseUrl}/temperature/desired`, options);
+    try {
+        const request = { 'desiredTemp': desiredTemp, 'mode': mode, 'isFahrenheit': isFahrenheit }
+        const options = {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify(request)
+        };
+        return await fetch(`${thermostatBaseUrl}/temperature/desired`, options);
+    } catch {
+        return { ok: false };
+    }
 }
 
 export const getUserForecast = async (bearer) => {
-    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
-    const response = await fetch(`${thermostatBaseUrl}/forecast`, options);
-    return await response.json();
+    try {
+        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
+        const response = await fetch(`${thermostatBaseUrl}/forecast`, options);
+        if (!response.ok) return {};
+        return await response.json();
+    } catch {
+        return {};
+    }
 }
 
 export const getUserPreferences = async (bearer) => {
-    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
-    const response = await fetch(`${baseUrl}/preferences`, options);
-    return await response.json();
+    try {
+        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
+        const response = await fetch(`${baseUrl}/preferences`, options);
+        if (!response.ok) return {};
+        return await response.json();
+    } catch {
+        return {};
+    }
 }
 
 export const updateUserPreferences = async (bearer, request) => {
-    const options = {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify(request)
+    try {
+        const options = {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify(request)
+        }
+        return await fetch(`${baseUrl}/preferences/update`, options);
+    } catch {
+        return { ok: false };
     }
-
-    return await fetch(`${baseUrl}/preferences/update`, options);
 }
 
 export const getLightGroups = async (bearer) => {
-    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
-    const response = await fetch(`${lightBaseUrl}/groups`, options);
-    return response.json();
+    try {
+        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
+        const response = await fetch(`${lightBaseUrl}/groups`, options);
+        if (!response.ok) return {};
+        return response.json();
+    } catch {
+        return {};
+    }
 }
 
 export const setLightGroupState = async (bearer, groupId, state, brightness = null) => {
-    const request = { 'groupId': groupId, 'on': state, ...(brightness !== null && { 'brightness': brightness }) };
-    const options = {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify(request)
-    };
-
-    return await fetch(`${lightBaseUrl}/group/state`, options);
+    try {
+        const request = { 'groupId': groupId, 'on': state, ...(brightness !== null && { 'brightness': brightness }) };
+        const options = {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify(request)
+        };
+        return await fetch(`${lightBaseUrl}/group/state`, options);
+    } catch {
+        return { ok: false };
+    }
 }
 
 export const setLightState = async (bearer, lightId, state, brightness) => {
-    const request = { 'lightId': lightId, 'on': state, 'brightness': brightness };
-    const options = {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify(request)
-    };
-
-    return await fetch(`${lightBaseUrl}/group/light`, options);
+    try {
+        const request = { 'lightId': lightId, 'on': state, 'brightness': brightness };
+        const options = {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify(request)
+        };
+        return await fetch(`${lightBaseUrl}/group/light`, options);
+    } catch {
+        return { ok: false };
+    }
 }
 
 export const updateUserAccount = async (bearer, oldPass, newPass) => {
-    const request = { 'oldPassword': oldPass, 'newPassword': newPass };
-    const options = {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify(request)
-    };
-
-    return await fetch(`${accountBaseUrl}/updateAccount`, options);
+    try {
+        const request = { 'oldPassword': oldPass, 'newPassword': newPass };
+        const options = {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify(request)
+        };
+        return await fetch(`${accountBaseUrl}/updateAccount`, options);
+    } catch {
+        return { ok: false };
+    }
 }
 
 export const getDevices = async (bearer) => {
-    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
-    const response = await fetch(`${deviceBaseUrl}/devices`, options);
-    return response.json();
+    try {
+        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
+        const response = await fetch(`${deviceBaseUrl}/devices`, options);
+        if (!response.ok) return {};
+        return response.json();
+    } catch {
+        return {};
+    }
 }
 
 export const addUserDeviceNode = async (bearer, deviceId, nodes) => {
-    const request = { 'nodes': nodes };
-    const options = {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify(request)
-    };
-    return await fetch(`${deviceBaseUrl}/${deviceId}/node`, options);
+    try {
+        const request = { 'nodes': nodes };
+        const options = {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify(request)
+        };
+        return await fetch(`${deviceBaseUrl}/${deviceId}/node`, options);
+    } catch {
+        return { ok: false };
+    }
 }
 
 export const addUserChildAccount = async (bearer, email, roles) => {
-    const request = { 'email': email, 'roles': roles };
-    const options = {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify(request)
-    };
-    const response = await fetch(`${accountBaseUrl}/createChildAccount`, options);
-    return response.json();
+    try {
+        const request = { 'email': email, 'roles': roles };
+        const options = {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify(request)
+        };
+        const response = await fetch(`${accountBaseUrl}/createChildAccount`, options);
+        if (!response.ok) return {};
+        return response.json();
+    } catch {
+        return {};
+    }
 }
 
 export const getUserChildAccounts = async (bearer) => {
-    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
-    const response = await fetch(`${accountBaseUrl}/childAccounts`, options);
-    return response.json();
+    try {
+        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
+        const response = await fetch(`${accountBaseUrl}/childAccounts`, options);
+        if (!response.ok) return {};
+        return response.json();
+    } catch {
+        return {};
+    }
 }
 
 export const deleteUserChildAccount = async (bearer, childAccountId) => {
-    const options = { method: 'DELETE', headers: { 'Authorization': `Bearer ${bearer}` } };
-    return await fetch(`${accountBaseUrl}/childUserId/${childAccountId}`, options);
+    try {
+        const options = { method: 'DELETE', headers: { 'Authorization': `Bearer ${bearer}` } };
+        return await fetch(`${accountBaseUrl}/childUserId/${childAccountId}`, options);
+    } catch {
+        return { ok: false };
+    }
 }
 
 export const deleteScheduledTask = async (bearer, taskId) => {
-    const options = { method: 'DELETE', headers: { 'Authorization': `Bearer ${bearer}` } };
-    return await fetch(`${baseUrl}/tasks/${taskId}`, options);
+    try {
+        const options = { method: 'DELETE', headers: { 'Authorization': `Bearer ${bearer}` } };
+        return await fetch(`${baseUrl}/tasks/${taskId}`, options);
+    } catch {
+        return { ok: false };
+    }
 }
 
 export const getScheduledTasks = async (bearer) => {
-    const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
-    const response = await fetch(`${baseUrl}/tasks`, options);
-    return response.json()
+    try {
+        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
+        const response = await fetch(`${baseUrl}/tasks`, options);
+        if (!response.ok) return {};
+        return response.json()
+    } catch {
+        return {};
+    }
 }
 
 export const insertLightTask = async (bearer, enabled, taskType, alarmLightGroup, alarmGroupName, alarmDays, alarmTime) => {
-    const request = { 'alarmLightGroup': alarmLightGroup, 'alarmGroupName': alarmGroupName, 'alarmDays': alarmDays, 'alarmTime': alarmTime, 'enabled': enabled, 'taskType': taskType };
-    const options = {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify(request)
-    };
-    const response = await fetch(`${baseUrl}/tasks`, options);
-    return response.json()
+    try {
+        const request = { 'alarmLightGroup': alarmLightGroup, 'alarmGroupName': alarmGroupName, 'alarmDays': alarmDays, 'alarmTime': alarmTime, 'enabled': enabled, 'taskType': taskType };
+        const options = {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify(request)
+        };
+        const response = await fetch(`${baseUrl}/tasks`, options);
+        if (!response.ok) return {};
+        return response.json()
+    } catch {
+        return {};
+    }
 }
 
 export const insertHvacTask = async (bearer, enabled, taskType, hvacMode, hvacStart, hvacStop, hvacStartTemp, hvacStopTemp, alarmDays) => {
-    const request = { 'hvacMode': hvacMode, 'hvacStart': hvacStart, 'hvacStop': hvacStop, 'hvacStartTemp': hvacStartTemp, 'hvacStopTemp': hvacStopTemp, 'alarmDays': alarmDays, 'enabled': enabled, 'taskType': taskType };
-    const options = {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify(request)
-    };
-    const response = await fetch(`${baseUrl}/tasks`, options);
-    return response.json()
+    try {
+        const request = { 'hvacMode': hvacMode, 'hvacStart': hvacStart, 'hvacStop': hvacStop, 'hvacStartTemp': hvacStartTemp, 'hvacStopTemp': hvacStopTemp, 'alarmDays': alarmDays, 'enabled': enabled, 'taskType': taskType };
+        const options = {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify(request)
+        };
+        const response = await fetch(`${baseUrl}/tasks`, options);
+        if (!response.ok) return {};
+        return response.json()
+    } catch {
+        return {};
+    }
 }
 
 export const updateScheduledTasks = async (bearer, request) => {
-    const options = {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify(request)
+    try {
+        const options = {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify(request)
+        }
+        const response = await fetch(`${baseUrl}/tasks/update`, options);
+        if (!response.ok) return {};
+        return response.json();
+    } catch {
+        return {};
     }
-    const response = await fetch(`${baseUrl}/tasks/update`, options);
-    return response.json();
 }
