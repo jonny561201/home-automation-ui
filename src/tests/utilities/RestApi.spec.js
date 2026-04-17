@@ -1,6 +1,6 @@
 import fetchMock from 'fetch-mock';
 import {
-    getGarageStatus, updateGarageState, addUserDevice, getUserChildAccounts, insertLightTask, getUserForecast,
+    getGarageStatus, updateGarageState, getUserChildAccounts, insertLightTask, getUserForecast,
     toggleGarageDoor, getSumpLevels, getCurrentTemperature, deleteUserChildAccount, updateScheduledTasks,
     getUserPreferences, updateUserPreferences, setUserTemperature, addUserChildAccount, deleteScheduledTask, insertHvacTask,
     getLightGroups, setLightGroupState, setLightState, updateUserAccount, getScheduledTasks, getAllGarageStatus,
@@ -227,19 +227,6 @@ describe('RestApi', () => {
             });
 
             const actual = await updateUserAccount(bearerToken2, body.oldPassword, body.newPassword);
-
-            expect(actual.status).toEqual(200);
-        });
-
-        it('should make rest call to add device to a user', async () => {
-            const body = { 'roleName': 'fakeName', 'ipAddress': '1.0.0.1' };
-            const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
-
-            fetchMock.route(`${baseUrl}/devices/register`, options).catch(() => {
-                return { status: 400 }
-            });
-
-            const actual = await addUserDevice(bearerToken2, body.roleName, body.ipAddress);
 
             expect(actual.status).toEqual(200);
         });

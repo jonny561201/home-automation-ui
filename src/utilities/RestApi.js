@@ -127,16 +127,6 @@ export const updateUserAccount = async (bearer, oldPass, newPass) => {
     return await fetch(`${accountBaseUrl}/updateAccount`, options);
 }
 
-export const addUserDevice = async (bearer, roleName, ipAddress) => {
-    const request = { 'roleName': roleName, 'ipAddress': ipAddress }
-    const options = {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify(request)
-    };
-    return await fetch(`${deviceBaseUrl}/register`, options);
-}
-
 export const getDevices = async (bearer) => {
     const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
     const response = await fetch(`${deviceBaseUrl}/devices`, options);
