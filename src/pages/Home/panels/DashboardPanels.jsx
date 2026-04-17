@@ -14,7 +14,7 @@ export default function DashboardPanel() {
     const unregistered = (state.devices || []).filter(x => !x.registered);
 
     const showPanel = (type) => {
-        return roles.includes(type) || unregistered.some(d => d.type === type)
+        return roles.includes(type) || unregistered.some(d => d.type === type);
     };
 
     return (

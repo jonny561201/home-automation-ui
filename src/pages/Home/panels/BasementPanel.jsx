@@ -38,7 +38,12 @@ export default function BasementPanel() {
                         <img alt="basement" className="logo-image" src={BasementIcon} />
                         <div>
                             <Typography className="panel-text panel-header-text">Basement</Typography>
-                            {!open &&
+                            {!open && devicesToRegister.length > 0 &&
+                                <div className="small-text-group">
+                                    <p className="small-text text alert">Registration Needed</p>
+                                </div>
+                            }
+                            {!open && devicesToRegister.length === 0 &&
                                 <div className="small-text-group">
                                     <p className="small-text text">Depth:</p>
                                     <p className={"small-text text " + (state.sumpData.warningLevel === 3 ? 'alert' : 'healthy')}>{currentDepth}</p>
