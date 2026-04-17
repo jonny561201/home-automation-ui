@@ -65,7 +65,7 @@ export default function ApiInterval({ children }) {
     const getSumpData = async () => {
         const token = await auth0.getAccessTokenSilently();
         const sump = await getSumpLevels(token);
-        dispatch({ type: 'SET_SUMP_DATA', payload: { ...sump, currentDepth: sump.currentDepth.toFixed(1), averageDepth: sump.averageDepth.toFixed(1) } });
+        dispatch({ type: 'SET_SUMP_DATA', payload: sump });
     }
 
     const getTempData = async () => {

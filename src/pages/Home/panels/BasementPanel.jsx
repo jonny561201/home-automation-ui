@@ -7,12 +7,16 @@ import SumpPumpMediumHighIcon from '../../../resources/panelIcons/SumpPumpMedium
 import SumpPumpHighIcon from '../../../resources/panelIcons/SumpPumpHighIcon.png';
 import { AccordionDetails, Accordion, Typography, AccordionSummary, Divider } from '@mui/material';
 import { Context } from '../../../state/Store';
+import DeviceRegistration from '../segments/DeviceRegistration';
 import './BasementPanel.scss';
 
 
 export default function BasementPanel() {
     const [open, setOpen] = useState(false);
     const [state,] = useContext(Context);
+    const devicesToRegister = (state.devices || []).filter(x => !x.registered && x.type === 'sump_pump');
+    const currentDepth = state.sumpData.currentDepth != null ? state.sumpData.currentDepth.toFixed(1) : '--';
+    const averageDepth = state.sumpData.averageDepth != null ? state.sumpData.averageDepth.toFixed(1) : '--';
 
     const getSumpIcon = () => {
         if (state.sumpData.warningLevel === 0) {
@@ -37,7 +41,7 @@ export default function BasementPanel() {
                             {!open &&
                                 <div className="small-text-group">
                                     <p className="small-text text">Depth:</p>
-                                    <p className={"small-text text " + (state.sumpData.warningLevel === 3 ? 'alert' : 'healthy')}>{state.sumpData.currentDepth}</p>
+                                    <p className={"small-text text " + (state.sumpData.warningLevel === 3 ? 'alert' : 'healthy')}>{currentDepth}</p>
                                     <p className={"small-text text " + (state.sumpData.warningLevel === 3 ? 'alert' : 'healthy')}>{state.sumpData.depthUnit}</p>
                                 </div>
                             }
@@ -46,21 +50,24 @@ export default function BasementPanel() {
                 </AccordionSummary>
                 <Divider />
                 <AccordionDetails className="center">
-                    <div className="sump-group">
-                        {getSumpIcon()}
-                        <div className="sump-measure-group">
-                            <div className="sump-text-group">
-                                <p className="sump-text text">Current: </p>
-                                <p className={"sump-text text " + (state.sumpData.warningLevel === 3 ? 'alert' : 'healthy')}>{state.sumpData.currentDepth}</p>
-                                <p className={"sump-text text " + (state.sumpData.warningLevel === 3 ? 'alert' : 'healthy')}>{state.sumpData.depthUnit}</p>
-                            </div>
-                            <div className="sump-text-group">
-                                <p className="sump-text text">Average: </p>
-                                <p className="sump-text text">{state.sumpData.averageDepth}</p>
-                                <p className="sump-text text">{state.sumpData.depthUnit}</p>
+                    {devicesToRegister.length > 0
+                        ? <DeviceRegistration device={devicesToRegister[0]}/>
+                        : <div className="sump-group">
+                            {getSumpIcon()}
+                            <div className="sump-measure-group">
+                                <div className="sump-text-group">
+                                    <p className="sump-text text">Current: </p>
+                                    <p className={"sump-text text " + (state.sumpData.warningLevel === 3 ? 'alert' : 'healthy')}>{currentDepth}</p>
+                                    <p className={"sump-text text " + (state.sumpData.warningLevel === 3 ? 'alert' : 'healthy')}>{state.sumpData.depthUnit}</p>
+                                </div>
+                                <div className="sump-text-group">
+                                    <p className="sump-text text">Average: </p>
+                                    <p className="sump-text text">{averageDepth}</p>
+                                    <p className="sump-text text">{state.sumpData.depthUnit}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 </AccordionDetails>
             </Accordion>
         </div >
