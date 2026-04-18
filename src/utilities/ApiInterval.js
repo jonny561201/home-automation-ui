@@ -56,14 +56,14 @@ export default function ApiInterval({ children }) {
     const getGarageData = async () => {
         const token = await auth0.getAccessTokenSilently();
         const doors = await getAllGarageStatus(token);
-        dispatch({ type: 'SET_GARAGE_COORDS', payload: doors.coordinates });
-        dispatch({ type: 'SET_GARAGE_DOORS', payload: doors.doors });
+        dispatch({ type: 'SET_GARAGE_COORDS', payload: doors.coordinates || null });
+        dispatch({ type: 'SET_GARAGE_DOORS', payload: doors.doors || [] });
     };
 
     const getUserDevices = async () => {
         const token = await auth0.getAccessTokenSilently();
         const response = await getDevices(token);
-        dispatch({ type: 'SET_DEVICES', payload: response.devices });
+        dispatch({ type: 'SET_DEVICES', payload: response.devices || [] });
     }
 
     const getSumpData = async () => {
@@ -75,36 +75,29 @@ export default function ApiInterval({ children }) {
     const getTempData = async () => {
         const token = await auth0.getAccessTokenSilently();
         const temp = await getCurrentTemperature(token);
-        const updatedTemp = {
-            ...temp,
-            desiredTemp: Math.round(temp.desiredTemp),
-            currentTemp: Math.round(temp.currentTemp),
-        };
-        dispatch({ type: 'SET_TEMP_DATA', payload: updatedTemp });
+        if (!temp.currentTemp && temp.currentTemp !== 0) return;
+        dispatch({ type: 'SET_TEMP_DATA', payload: { ...temp, desiredTemp: Math.round(temp.desiredTemp), currentTemp: Math.round(temp.currentTemp) } });
     }
 
     const getForecastData = async () => {
         const token = await auth0.getAccessTokenSilently();
         const forecast = await getUserForecast(token);
-        const updatedForecast = {
-            ...forecast,
-            temp: Math.round(forecast.temp),
-            minTemp: Math.round(forecast.minTemp),
-            maxTemp: Math.round(forecast.maxTemp)
-        };
-        dispatch({ type: 'SET_FORECAST_DATA', payload: updatedForecast });
+        if (!forecast.temp && forecast.temp !== 0) return;
+        dispatch({ type: 'SET_FORECAST_DATA', payload: { ...forecast, temp: Math.round(forecast.temp), minTemp: Math.round(forecast.minTemp), maxTemp: Math.round(forecast.maxTemp) } });
     }
 
     const getPreferences = async () => {
         const token = await auth0.getAccessTokenSilently();
         const preferences = await getUserPreferences(token);
-        dispatch({ type: 'SET_USER_PREFERENCES', payload: preferences })
+        if (Object.keys(preferences).length > 0) {
+            dispatch({ type: 'SET_USER_PREFERENCES', payload: preferences });
+        }
     }
 
     const getActivities = async () => {
         const token = await auth0.getAccessTokenSilently();
         const activities = await getScheduledTasks(token);
-        dispatch({ type: 'SET_SCHEDULED_TASK', payload: activities.tasks });
+        dispatch({ type: 'SET_SCHEDULED_TASK', payload: activities.tasks || [] });
     }
 
     const getLights = async () => {
@@ -113,7 +106,6 @@ export default function ApiInterval({ children }) {
         if (groups && groups.length) {
             dispatch({ type: 'SET_LIGHTS', payload: groups });
         }
-
     }
 
     return children

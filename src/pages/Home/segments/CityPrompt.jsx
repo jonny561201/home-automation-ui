@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import { Dialog, DialogTitle, DialogContent, TextField, Divider, Button, IconButton } from '@mui/material';
 import { Save } from '@mui/icons-material';
 import CloseIcon from '@mui/icons-material/Close';
@@ -14,10 +14,13 @@ export default function CityPrompt() {
     const [open, setOpen] = useState(false);
     const [city, setCity] = useState('');
     const [addrState, setAddrState] = useState('');
+    const prompted = useRef(false);
 
     useEffect(() => {
+        if (prompted.current) return;
         if (!state.preferences) return;
         if (state.preferences.city) return;
+        prompted.current = true;
         setOpen(true);
     }, [state.preferences]);
 
