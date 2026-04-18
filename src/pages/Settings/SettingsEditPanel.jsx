@@ -14,9 +14,9 @@ export default function SettingsEditPanel(props) {
     const [edited, setEdited] = useState(false);
     const [garage, setGarage] = useState(preferences.garage_door ? preferences.garage_door : '');
     const [garageId, setGarageId] = useState();
-    const [newCity, setNewCity] = useState(preferences.city);
-    const [newTempUnit, setNewTempUnit] = useState(preferences.temp_unit);
-    const [newMeasureUnit, setNewMeasureUnit] = useState(preferences.measure_unit);
+    const [newCity, setNewCity] = useState(preferences.city || '');
+    const [newTempUnit, setNewTempUnit] = useState(preferences.tempUnit || '');
+    const [newMeasureUnit, setNewMeasureUnit] = useState(preferences.measureUnit || '');
 
     const savePreferences = async () => {
         const isFahrenheit = newTempUnit === "fahrenheit";
@@ -30,9 +30,9 @@ export default function SettingsEditPanel(props) {
     }
 
     const cancelPreferences = () => {
-        setNewCity(props.city);
-        setNewTempUnit(props.tempUnit);
-        setNewMeasureUnit(props.measureUnit);
+        setNewCity(preferences.city || '');
+        setNewTempUnit(preferences.tempUnit || '');
+        setNewMeasureUnit(preferences.measureUnit || '');
         props.setEditMode(false);
     }
 
