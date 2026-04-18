@@ -11,6 +11,7 @@ export default function ClaimsInitializer({ children }) {
     }, [auth0.isLoading, auth0.isAuthenticated, dispatch]);
 
     const setClaims = async () => {
+        await auth0.getAccessTokenSilently();
         const claims = await auth0.getIdTokenClaims();
         const userId = claims['https://soaringleafsolutions.com/user_id'];
         const roles = claims['https://soaringleafsolutions.com/roles'];

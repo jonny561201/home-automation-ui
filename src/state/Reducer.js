@@ -75,11 +75,6 @@ const Reducer = (state, action) => {
                 ...state,
                 forecastData: action.payload
             }
-        case 'SET_LOADED_UTILS':
-            return {
-                ...state,
-                loadedUtils: action.payload
-            }
         case 'SET_USER_PREFERENCES':
             return {
                 ...state,

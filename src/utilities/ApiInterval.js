@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { Context } from '../state/Store';
 import { useInterval } from './UseInterval';
 import {
@@ -38,19 +38,20 @@ export default function ApiInterval({ children }) {
         await getActivities();
     }, 120000);
 
+    const loaded = useRef(false);
+
     useEffect(() => {
-        if (!state.loadedUtils) {
-            getUserDevices();
-            getLights();
-            if (hasGarage) getGarageData();
-            if (hasSump) getSumpData();
-            getTempData();
-            getForecastData();
-            getPreferences();
-            getActivities();
-            dispatch({ type: 'SET_LOADED_UTILS', payload: true });
-        }
-    }, []);
+        if (!state.user.userId || loaded.current) return;
+        loaded.current = true;
+        getUserDevices();
+        getLights();
+        if (hasGarage) getGarageData();
+        if (hasSump) getSumpData();
+        getTempData();
+        getForecastData();
+        getPreferences();
+        getActivities();
+    }, [state.user.userId]);
 
     const getGarageData = async () => {
         const token = await auth0.getAccessTokenSilently();

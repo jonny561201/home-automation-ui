@@ -16,7 +16,6 @@ export const initialState = {
     preferences: null,
     location: { notified: false, granted: false },
     tasks: [],
-    loadedUtils: false,
     taskTypes: ['sunrise alarm', 'turn on', 'turn off', 'hvac']
 };
 
