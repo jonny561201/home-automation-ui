@@ -1,0 +1,33 @@
+.city-prompt-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+
+    .city-prompt-close {
+        margin-left: auto;
+    }
+}
+
+.city-prompt-content {
+    min-width: 300px;
+
+    .city-prompt-description {
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .city-prompt-field {
+        margin-bottom: 0.75rem !important;
+    }
+}
+
+.city-prompt-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px 16px;
+
+    .city-prompt-save {
+        color: #00c774 !important;
+    }
+}

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import Header from '../../components/header/Header';
 import DashboardPanel from './panels/DashboardPanels';
+import CityPrompt from './segments/CityPrompt';
 import './Home.scss';
 import { Context } from '../../state/Store';
 
@@ -15,6 +16,7 @@ export default function Home() {
     return (
         <div>
             <Header />
+            <CityPrompt />
             <main className="home-body body">
                 <div className="center">
                     <DashboardPanel />
