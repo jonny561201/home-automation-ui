@@ -35,7 +35,6 @@ export default function ApiInterval({ children }) {
 
     useInterval(async () => {
         if (hasSump) await getSumpData();
-        await getActivities();
     }, 120000);
 
     const loaded = useRef(false);
