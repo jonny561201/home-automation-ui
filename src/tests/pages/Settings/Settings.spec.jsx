@@ -6,6 +6,9 @@ import { render, screen, act, fireEvent } from '@testing-library/react';
 
 
 vi.mock('../../../utilities/StateUtil', () => ({ default: () => null }));
+vi.mock('@auth0/auth0-react', () => ({
+    useAuth0: () => ({ getAccessTokenSilently: vi.fn().mockResolvedValue('fake-token') }),
+}));
 
 
 describe('Settings Page', () => {
@@ -20,6 +23,7 @@ describe('Settings Page', () => {
     const dispatch = vi.fn();
 
     const spyUpdate = vi.spyOn(lib, 'updateUserPreferences');
+    const spyGetPrefs = vi.spyOn(lib, 'getUserPreferences');
 
     const renderComponent = async () => {
         await act(async () => {
@@ -34,6 +38,8 @@ describe('Settings Page', () => {
     beforeEach(() => {
         dispatch.mockClear();
         spyUpdate.mockClear();
+        spyGetPrefs.mockClear();
+        spyGetPrefs.mockResolvedValue(preference);
     });
 
     it('should set the active page to Settings', async () => {

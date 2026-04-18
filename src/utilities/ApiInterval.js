@@ -35,7 +35,6 @@ export default function ApiInterval({ children }) {
 
     useInterval(async () => {
         if (hasSump) await getSumpData();
-        await getPreferences();
         await getActivities();
     }, 120000);
 
