@@ -70,7 +70,7 @@ export default function UserLocation() {
                 if (shouldOpenGarage(userDistance)) {
                     console.log('gonna open')
                     const token = await auth0.getAccessTokenSilently();
-                    updateGarageState(token, true, state.preferences.garage_id);
+                    updateGarageState(token, true, (state.preferences || {}).garage_id);
                 }
             }
         }, () => {

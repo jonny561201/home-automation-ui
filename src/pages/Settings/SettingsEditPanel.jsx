@@ -10,12 +10,13 @@ import { Delete, Save } from '@mui/icons-material';
 export default function SettingsEditPanel(props) {
     const auth0 = useAuth0();
     const [state, dispatch] = useContext(Context);
+    const preferences = state.preferences || {};
     const [edited, setEdited] = useState(false);
-    const [garage, setGarage] = useState(state.preferences.garage_door ? state.preferences.garage_door : '');
+    const [garage, setGarage] = useState(preferences.garage_door ? preferences.garage_door : '');
     const [garageId, setGarageId] = useState();
-    const [newCity, setNewCity] = useState(state.preferences.city);
-    const [newTempUnit, setNewTempUnit] = useState(state.preferences.temp_unit);
-    const [newMeasureUnit, setNewMeasureUnit] = useState(state.preferences.measure_unit);
+    const [newCity, setNewCity] = useState(preferences.city);
+    const [newTempUnit, setNewTempUnit] = useState(preferences.temp_unit);
+    const [newMeasureUnit, setNewMeasureUnit] = useState(preferences.measure_unit);
 
     const savePreferences = async () => {
         const isFahrenheit = newTempUnit === "fahrenheit";
