@@ -346,7 +346,7 @@ class Knob extends React.Component {
         return (
             <div
                 className={className}
-                style={{ width: this.w, height: this.h, display: 'inline-block' }}
+                style={{ width: this.w, height: this.h, display: 'inline-block', position: 'relative', overflow: 'hidden' }}
                 onWheel={readOnly || disableMouseWheel ? null : this.handleWheel}
             >
                 <canvas

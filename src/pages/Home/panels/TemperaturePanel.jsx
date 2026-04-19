@@ -5,7 +5,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TemperatureImage from '../segments/TemperatureImage';
 import TemperatureIcon from '../../../resources/panelIcons/TemperatureIcon.png';
 import { setUserTemperature } from '../../../utilities/RestApi';
-import { Accordion, Typography, AccordionSummary, Divider, FormControl, FormGroup, FormControlLabel } from '@mui/material';
+import { Accordion, AccordionDetails, Typography, AccordionSummary, Divider, FormControl, FormGroup, FormControlLabel } from '@mui/material';
 import { AutoSwitch, CoolSwitch, HeatSwitch } from '../../../components/controls/Switches';
 import { Context } from '../../../state/Store';
 import { useAuth0 } from "@auth0/auth0-react";
@@ -60,7 +60,7 @@ export default function TemperaturePanel() {
                     </div>
                 </AccordionSummary>
                 <Divider />
-                <div>
+                <AccordionDetails>
                     <div className="form-container">
                         <div className="form-column image-column">
                             <TemperatureImage />
@@ -87,7 +87,7 @@ export default function TemperaturePanel() {
                             )}
                         </div>
                     </div>
-                </div>
+                </AccordionDetails>
             </Accordion>
         </div>
     );
