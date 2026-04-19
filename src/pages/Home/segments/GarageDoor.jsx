@@ -1,7 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Context } from '../../../state/Store';
 import { useInterval } from '../../../utilities/UseInterval';
 import { AccordionDetails } from '@mui/material';
+import { WarningAmber } from '@mui/icons-material';
 import UpDownIcon from '../../../resources/panelIcons/UpDown.png';
 import { BlueButton, GreenButton, RedButton } from '../../../components/controls/Buttons';
 import { toggleGarageDoor, updateGarageState } from '../../../utilities/RestApi';
@@ -11,20 +12,36 @@ import {useAuth0} from "@auth0/auth0-react";
 
 export default function GarageDoor(props) {
     const auth0 = useAuth0();
-    const [_, dispatch] = useContext(Context);
+    const [state, dispatch] = useContext(Context);
     const [statusDays, setStatusDays] = useState();
     const [statusMins, setStatusMins] = useState();
     const [statusHours, setStatusHours] = useState();
+    const [exceeded, setExceeded] = useState(false);
+    const originalTitle = useRef(document.title);
 
     useInterval(() => {
         updateGarageDuration();
     }, 2000);
+
+    useEffect(() => {
+        return () => { document.title = originalTitle.current; };
+    }, []);
 
     const updateGarageDuration = () => {
         const diffMs = new Date() - new Date(props.device.duration);
         setStatusDays(Math.floor(diffMs / 86400000));
         setStatusHours(Math.floor((diffMs % 86400000) / 3600000));
         setStatusMins(Math.round(((diffMs % 86400000) % 3600000) / 60000));
+
+        const alertMinutes = state.preferences ? state.preferences.garageAlertTime : 0;
+        const isExceeded = props.device.isOpen && alertMinutes > 0 && (diffMs / 60000) >= alertMinutes;
+        setExceeded(isExceeded);
+
+        if (isExceeded) {
+            document.title = '\u26A0\uFE0F Garage Open - ' + props.device.doorName;
+        } else if (document.title !== originalTitle.current && !isExceeded) {
+            document.title = originalTitle.current;
+        }
     };
 
     const openCloseGarageDoor = async (newState) => {
@@ -45,12 +62,13 @@ export default function GarageDoor(props) {
                     <div className="status-text-group">
                         <p className="garage-text-bold text">{props.device.doorName}</p>
                         {props.device.isOpen
-                            ? <p className="garage-big-text text">Opened</p>
+                            ? <p className={"garage-big-text text" + (exceeded ? " alert" : "")}>Opened</p>
                             : <p className="garage-big-text text">Closed</p>}
                         {statusDays === 0
-                            ? <p className="status-text text">{statusHours}Hrs {statusMins}Min</p>
-                            : <p className="status-text text">{statusDays}Days {statusHours}Hrs</p>}
+                            ? <p className={"status-text text" + (exceeded ? " alert" : "")}>{statusHours}Hrs {statusMins}Min</p>
+                            : <p className={"status-text text" + (exceeded ? " alert" : "")}>{statusDays}Days {statusHours}Hrs</p>}
                     </div>
+                    <WarningAmber className={"garage-alert-icon" + (exceeded ? "" : " garage-alert-icon-hidden")} />
                     <div className="status-button-group">
                         {props.device.isOpen
                             ? <RedButton onClick={() => openCloseGarageDoor(false)}>Close</RedButton>

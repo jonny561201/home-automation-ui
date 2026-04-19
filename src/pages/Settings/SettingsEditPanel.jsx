@@ -17,15 +17,17 @@ export default function SettingsEditPanel(props) {
     const [newCity, setNewCity] = useState(preferences.city || '');
     const [newTempUnit, setNewTempUnit] = useState(preferences.tempUnit || '');
     const [newMeasureUnit, setNewMeasureUnit] = useState(preferences.measureUnit || '');
+    const [newAlertMinutes, setNewAlertMinutes] = useState(preferences.garageAlertTime || '');
 
     const savePreferences = async () => {
         const isFahrenheit = newTempUnit === "fahrenheit";
         const isImperial = newMeasureUnit === "imperial";
-        const request = { isImperial, isFahrenheit, 'city': newCity, 'garageDoor': garage, 'garageNodeId': garageId };
+        const alertMinutes = newAlertMinutes === '' ? 0 : parseInt(newAlertMinutes, 10);
+        const request = { isImperial, isFahrenheit, 'city': newCity, 'garageDoor': garage, 'garageNodeId': garageId, 'garageAlertTime': alertMinutes };
         const token = await auth0.getAccessTokenSilently();
         await updateUserPreferences(token, request);
 
-        dispatch({ type: 'SET_USER_PREFERENCES', payload: { ...state.preferences, city: newCity, tempUnit: newTempUnit, measureUnit: newMeasureUnit, garageId: garageId, garageName: garage } });
+        dispatch({ type: 'SET_USER_PREFERENCES', payload: { ...state.preferences, city: newCity, tempUnit: newTempUnit, measureUnit: newMeasureUnit, garageId: garageId, garageName: garage, garageAlertTime: alertMinutes } });
         props.setEditMode(false);
     }
 
@@ -33,6 +35,7 @@ export default function SettingsEditPanel(props) {
         setNewCity(preferences.city || '');
         setNewTempUnit(preferences.tempUnit || '');
         setNewMeasureUnit(preferences.measureUnit || '');
+        setNewAlertMinutes(preferences.garageAlertTime || '');
         props.setEditMode(false);
     }
 
@@ -58,6 +61,14 @@ export default function SettingsEditPanel(props) {
         setGarageId(door ? door.doorId : null);
     }
 
+    const updateAlertMinutes = (input) => {
+        const value = input.target.value;
+        if (value === '' || (/^\d+$/.test(value) && parseInt(value, 10) <= 1440)) {
+            setEdited(true);
+            setNewAlertMinutes(value);
+        }
+    }
+
     return (
         <>
             <div className="settings-edit-panel text">
@@ -72,6 +83,9 @@ export default function SettingsEditPanel(props) {
                             </MenuItem>
                         ))}
                     </TextField>
+                </div>
+                <div className="settings-edit-row">
+                    <TextField className="settings-edit-garage" variant="outlined" label="Door Open Alert (min)" value={newAlertMinutes} onChange={updateAlertMinutes} placeholder="0 = disabled" />
                 </div>
                 <h2 className="panel-header-text">Temperature</h2>
                 <Divider />

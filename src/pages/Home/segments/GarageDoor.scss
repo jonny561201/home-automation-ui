@@ -31,4 +31,19 @@
             height: 15px;
         }
     }
+
+    .garage-alert-icon {
+        color: #ff9800;
+        font-size: 2rem;
+        animation: pulse-text 2s ease-in-out infinite;
+    }
+
+    .garage-alert-icon-hidden {
+        visibility: hidden;
+    }
+}
+
+@keyframes pulse-text {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
 }

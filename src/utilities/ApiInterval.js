@@ -56,7 +56,8 @@ export default function ApiInterval({ children }) {
         const token = await auth0.getAccessTokenSilently();
         const doors = await getAllGarageStatus(token);
         dispatch({ type: 'SET_GARAGE_COORDS', payload: doors.coordinates || null });
-        dispatch({ type: 'SET_GARAGE_DOORS', payload: doors.doors || [] });
+        const mapped = (doors.doors || []).map(x => ({ ...x, isOpen: x.isGarageOpen }));
+        dispatch({ type: 'SET_GARAGE_DOORS', payload: mapped });
     };
 
     const getUserDevices = async () => {

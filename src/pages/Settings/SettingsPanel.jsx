@@ -22,6 +22,10 @@ export default function SettingsPanel(props) {
                 <p className="setting">Preferred Garage:</p>
                 <p className="setting">{preferences.garageName ? preferences.garageName : "--"}</p>
             </div>
+            <div className="settings-row text">
+                <p className="setting">Door Open Alert:</p>
+                <p className="setting">{preferences.garageAlertTime ? preferences.garageAlertTime + " min" : "Disabled"}</p>
+            </div>
             <div className="settings-group setting panel-header-text">
                 <h2>Temperature</h2>
             </div>

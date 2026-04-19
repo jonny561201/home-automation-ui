@@ -4,6 +4,7 @@ import DeviceRegistration from '../segments/DeviceRegistration';
 import GarageIcon from '../../../resources/panelIcons/GarageDoorIcon.png';
 import { AccordionDetails, Accordion, Typography, AccordionSummary, Divider } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { WarningAmber } from '@mui/icons-material';
 import GarageDoor from '../segments/GarageDoor';
 import './GaragePanel.scss';
 
@@ -37,9 +38,15 @@ export default function GaragePanel() {
                                 }
                                 {!open && devicesToRegister.length === 0 &&
                                     state.garageDoors.map(x => {
+                                        const alertMinutes = state.preferences ? state.preferences.garageAlertTime : 0;
+                                        const diffMs = x.isOpen && x.duration ? new Date() - new Date(x.duration) : 0;
+                                        const isExceeded = x.isOpen && alertMinutes > 0 && (diffMs / 60000) >= alertMinutes;
                                         return <div className="small-text-group" key={`door-notify-${x.doorName}`}>
                                             <p className="small-text text">{x.doorName}:</p>
-                                            <p className={"small-text text " + (x.isOpen ? 'alert' : 'healthy')}>{x.isOpen ? 'Open' : 'Closed'}</p>
+                                            <p className={"small-text text " + (x.isOpen ? 'alert' : 'healthy')}>
+                                                {x.isOpen ? 'Open' : 'Closed'}
+                                            </p>
+                                            {isExceeded && <WarningAmber className="garage-header-alert-icon" />}
                                         </div>
                                     })
                                 }
