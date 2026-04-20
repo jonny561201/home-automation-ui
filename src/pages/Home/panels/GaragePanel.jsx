@@ -19,7 +19,10 @@ export default function GaragePanel() {
         if (doors && doors.length > 0) {
             return doors.map(x => <GarageDoor key={`door-${x.doorName}`} device={x} />);
         }
-        return <p>No Garage devices have been registered</p>
+        return <div className="garage-disconnected">
+            <WarningAmber className="garage-disconnected-icon" />
+            <p className="text alert">Garage doors are disconnected!</p>
+        </div>
     }
 
     return (
