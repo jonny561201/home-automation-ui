@@ -130,7 +130,7 @@ input {
     color: var(--primary-color);
 }
 
-@media (min-width: 688px) {
+@media (min-width: 820px) {
     .App-header {
         display: flex;
         flex-direction: column;
@@ -141,7 +141,7 @@ input {
     }
 }
 
-@media (max-width: 687px) {
+@media (max-width: 819px) {
     body {
         background-color: var(--primary-mobile-color);
     }

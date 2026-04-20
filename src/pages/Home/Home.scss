@@ -4,14 +4,14 @@
     border-radius: 0 0 10px 10px;
 }
 
-@media (min-width: 688px) {
+@media (min-width: 820px) {
     .home-body {
         display: flex;
-        min-width: 670px;
+        min-width: 800px;
     }
 }
 
-@media (max-width: 687px) {
+@media (max-width: 819px) {
     .home-body {
         position: absolute;
         left: 0;

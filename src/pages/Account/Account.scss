@@ -54,13 +54,13 @@
     min-width: 45px !important;
 }
 
-@media (min-width: 688px) {
+@media (min-width: 820px) {
     .account-body {
-        min-width: 670px;
+        min-width: 800px;
     }
 }
 
-@media (max-width: 687px) {
+@media (max-width: 819px) {
     .account-message p {
         display: none;
     }

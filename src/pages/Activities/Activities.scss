@@ -123,9 +123,9 @@
     margin: 0 0 1rem 1rem !important;
 }
 
-@media (min-width: 688px) {
+@media (min-width: 820px) {
     .activities-body {
-        min-width: 670px;
+        min-width: 800px;
 
         .add-task-container {
             display: flex;
@@ -135,7 +135,7 @@
     }
 }
 
-@media (max-width: 687px) {
+@media (max-width: 819px) {
     .settings-button-group {
         display: flex;
         justify-content: center;
