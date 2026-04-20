@@ -3,8 +3,8 @@ import { updateUserPreferences } from '../../utilities/RestApi';
 import { Context } from '../../state/Store';
 import { Divider, TextField, MenuItem, FormControlLabel, RadioGroup, FormControl, Radio, Button } from '@mui/material';
 import { useAuth0 } from '@auth0/auth0-react';
-import './SettingsEditPanel.scss'
 import { Delete, Save } from '@mui/icons-material';
+import './SettingsEditPanel.scss'
 
 
 export default function SettingsEditPanel(props) {
@@ -72,43 +72,51 @@ export default function SettingsEditPanel(props) {
     return (
         <>
             <div className="settings-edit-panel text">
-                <h2 className="panel-header-text">Garage</h2>
-                <Divider />
-                <div className="settings-edit-row">
-                    <TextField className="settings-edit-garage" variant="outlined" select value={garage} onChange={updateGarageDoor} label="Garage Door">
-                        <MenuItem value="">None</MenuItem>
-                        {state.garageDoors.map(x => (
-                            <MenuItem key={x.doorName} value={x.doorName}>
-                                {x.doorName}
-                            </MenuItem>
-                        ))}
-                    </TextField>
+                <div>
+                    <h2 className="panel-header-text">Garage</h2>
+                    <Divider />
+                    <div className="row">
+                        <div className="col-lg-2 col-md-1 settings-edit-row">
+                            <TextField className="settings-edit-garage" variant="outlined" select value={garage} onChange={updateGarageDoor} label="Garage Door">
+                                <MenuItem value="">None</MenuItem>
+                                {state.garageDoors.map(x => (
+                                    <MenuItem key={x.doorName} value={x.doorName}>
+                                        {x.doorName}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                        </div>
+                        <div className="col-lg-2 col-md-1 settings-edit-row">
+                            <TextField className="settings-edit-garage" variant="outlined" label="Door Open Alert (min)" value={newAlertMinutes} onChange={updateAlertMinutes} placeholder="0 = disabled" />
+                        </div>
+                    </div>
                 </div>
-                <div className="settings-edit-row">
-                    <TextField className="settings-edit-garage" variant="outlined" label="Door Open Alert (min)" value={newAlertMinutes} onChange={updateAlertMinutes} placeholder="0 = disabled" />
+                <div>
+                    <h2 className="panel-header-text">Temperature</h2>
+                    <Divider />
+                    <div className="settings-edit-row">
+                        <FormControl>
+                            <RadioGroup className="settings-radio-group" label="Unit:">
+                                <FormControlLabel onChange={updateTempRadioButton} value="fahrenheit" checked={newTempUnit === "fahrenheit"} control={<Radio color="primary"/>} label="Fahrenheit"/>
+                                <FormControlLabel onChange={updateTempRadioButton} value="celsius" checked={newTempUnit === "celsius"} control={<Radio color="primary"/>} label="Celsius"/>
+                            </RadioGroup>
+                        </FormControl>
+                    </div>
+                    <div className="settings-edit-row">
+                        <TextField variant="outlined" label="City" value={newCity} onChange={updateCity}/>
+                    </div>
                 </div>
-                <h2 className="panel-header-text">Temperature</h2>
-                <Divider />
-                <div className="settings-edit-row">
-                    <FormControl>
-                        <RadioGroup row label="Unit:">
-                            <FormControlLabel onChange={updateTempRadioButton} value="fahrenheit" checked={newTempUnit === "fahrenheit"} control={<Radio color="primary" />} label="Fahrenheit" />
-                            <FormControlLabel onChange={updateTempRadioButton} value="celsius" checked={newTempUnit === "celsius"} control={<Radio color="primary" />} label="Celsius" />
-                        </RadioGroup>
-                    </FormControl>
-                </div>
-                <div className="settings-edit-row">
-                    <TextField variant="outlined" label="City" value={newCity} onChange={updateCity} />
-                </div>
-                <h2 className="panel-header-text">Measurement</h2>
-                <Divider />
-                <div className="settings-edit-row">
-                    <FormControl>
-                        <RadioGroup row label="Unit:">
-                            <FormControlLabel onChange={updateMeasureRadioButton} value="imperial" checked={newMeasureUnit === "imperial"} control={<Radio color="primary" />} label="Imperial" />
-                            <FormControlLabel onChange={updateMeasureRadioButton} value="metric" checked={newMeasureUnit === "metric"} control={<Radio color="primary" />} label="Metric" />
-                        </RadioGroup>
-                    </FormControl>
+                <div>
+                    <h2 className="panel-header-text">Measurement</h2>
+                    <Divider />
+                    <div className="settings-edit-row">
+                        <FormControl>
+                            <RadioGroup className="settings-radio-group" label="Unit:">
+                                <FormControlLabel onChange={updateMeasureRadioButton} value="imperial" checked={newMeasureUnit === "imperial"} control={<Radio color="primary" />} label="Imperial" />
+                                <FormControlLabel onChange={updateMeasureRadioButton} value="metric" checked={newMeasureUnit === "metric"} control={<Radio color="primary" />} label="Metric" />
+                            </RadioGroup>
+                        </FormControl>
+                    </div>
                 </div>
 
                 <Divider style={{ margin: '1rem 0 1rem 0' }} />

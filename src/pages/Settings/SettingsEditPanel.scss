@@ -4,14 +4,24 @@
     padding-right: 0.5rem;
 
     .settings-edit-row {
-        display: flex;
-        flex-direction: row;
+        width: auto;
         margin: 5px 0 5px 1rem;
+
     }
 
     .settings-edit-garage {
         margin-top: 1rem !important;
         min-width: 194px !important;
+    }
+
+    .settings-radio-group {
+        flex-direction: row !important;
+        width: max-content;
+
+        @media (max-width: 499px) {
+            flex-direction: column !important;
+            width: auto;
+        }
     }
 
     .settings-edit-actions {
