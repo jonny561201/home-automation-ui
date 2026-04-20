@@ -28,13 +28,13 @@
     margin-left: 1rem;
 }
 
-@media (min-width: 480px) {
+@media (min-width: 688px) {
     .settings-body {
         min-width: 670px;
     }
 }
 
-@media (max-width: 479px) {
+@media (max-width: 687px) {
     .settings-button-group {
         display: flex;
         justify-content: center;

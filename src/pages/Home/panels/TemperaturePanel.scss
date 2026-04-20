@@ -27,7 +27,7 @@
     }
 }
 
-@media (max-width: 479px) {
+@media (max-width: 687px) {
     .temperature-panel {
         .form-container {
             flex-direction: column;
@@ -40,7 +40,7 @@
     }
 }
 
-@media (min-width: 480px) {
+@media (min-width: 688px) {
     .temperature-panel {
         .form-container {
             margin: 1rem;
