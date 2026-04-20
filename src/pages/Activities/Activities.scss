@@ -30,10 +30,13 @@
                 background-color: #00c774;
                 transition: transform 250ms;
 
-                &:active {
-                    transform: rotate(-90deg);
-                    -webkit-transform: rotate(-90deg);
-                    -ms-transform: rotate(-90deg);
+                &.rotated {
+                    transform: rotate(90deg);
+                }
+
+                &:disabled {
+                    background-color: #a0a0a0;
+                    cursor: not-allowed;
                 }
 
                 .add-task-button-plus {
@@ -90,6 +93,7 @@
 
 .activity-detail-panel {
     padding: 8px;
+    width: 100%;
 }
 
 .tasks-button-group {

@@ -13,7 +13,7 @@ describe('Light Activity Panel', () => {
     const groupName = 'Bedroom';
     const alarmTime = '01:00:00';
     const taskType = 'turn off';
-    const task = { task_id: taskId, alarm_group_name: groupName, alarm_days: days, alarm_time: alarmTime, alarm_light_group: groupId, enabled: true, task_type: taskType };
+    const task = { taskId: taskId, alarmGroupName: groupName, alarmDays: days, alarmTime: alarmTime, alarmLightGroup: groupId, enabled: true, taskType: taskType };
 
     const spyDelete = vi.spyOn(lib, 'deleteScheduledTask');
     const spyUpdate = vi.spyOn(lib, 'updateScheduledTasks');
@@ -37,7 +37,7 @@ describe('Light Activity Panel', () => {
 
     it('should display the event type and affected lights stored in state', async () => {
         await renderComponent();
-        const actual = screen.getByText(`${task.task_type} - ${task.alarm_group_name}`);
+        const actual = screen.getByText(`${task.taskType} - ${task.alarmGroupName}`);
         expect(actual).toBeTruthy();
     });
 

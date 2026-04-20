@@ -314,19 +314,19 @@ describe('RestApi', () => {
         it('should make rest call to get the scheduled tasks for a user id', async () => {
             const taskId = '123lkj';
             const options = { 'method': 'GET', 'headers': { 'Authorization': `Bearer ${bearerToken2}` } };
-            const response = [{ 'task_id': taskId, 'alarm_time': '00:00:01', 'alarm_days': 'Mon' }];
+            const response = [{ 'taskId': taskId, 'alarmTime': '00:00:01', 'alarmDays': 'Mon' }];
 
             fetchMock.route(`${baseUrl}/tasks`, response, options).catch(() => {
                 return { status: 400 }
             });
             const actual = await getScheduledTasks(bearerToken2);
 
-            expect(actual[0].task_id).toEqual(taskId);
+            expect(actual[0].taskId).toEqual(taskId);
         });
 
         it('should make rest call to insert scheduled light tasks for a user account', async () => {
             const body = { 'alarmLightGroup': '1', 'alarmGroupName': 'potty', 'alarmDays': 'Wed', 'alarmTime': '00:23:34', 'enabled': false, 'taskType': 'off' };
-            const response = [{ 'task_id': 'asdf678', 'alarm_time': '00:00:01', 'alarm_days': 'Mon' }];
+            const response = [{ 'taskId': 'asdf678', 'alarmTime': '00:00:01', 'alarmDays': 'Mon' }];
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
             fetchMock.route(`${baseUrl}/tasks`, response, options).catch(() => {
@@ -335,12 +335,12 @@ describe('RestApi', () => {
 
             const actual = await insertLightTask(bearerToken2, body.enabled, body.taskType, body.alarmLightGroup, body.alarmGroupName, body.alarmDays, body.alarmTime);
 
-            expect(actual[0].task_id).toEqual(response[0].task_id);
+            expect(actual[0].taskId).toEqual(response[0].taskId);
         });
 
         it('should make rest call to insert scheduled hvac task for a user account', async () => {
             const body = { 'hvacStart': '', 'hvacStop': '', 'hvacStopTemp': '1', 'hvacStartTemp': 'potty', 'alarmDays': 'Wed', 'hvacMode': '00:23:34', 'enabled': false, 'taskType': 'off' };
-            const response = [{ 'task_id': 'defg12345', 'alarm_time': '00:00:01', 'alarm_days': 'Mon' }];
+            const response = [{ 'taskId': 'defg12345', 'alarmTime': '00:00:01', 'alarmDays': 'Mon' }];
             const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
 
             fetchMock.route(`${baseUrl}/tasks`, response, options).catch(() => {
@@ -349,12 +349,12 @@ describe('RestApi', () => {
 
             const actual = await insertHvacTask(bearerToken2, body.enabled, body.taskType, body.hvacMode, body.hvacStart, body.hvacStop, body.hvacStartTemp, body.hvacStopTemp, body.alarmDays);
 
-            expect(actual[0].task_id).toEqual(response[0].task_id);
+            expect(actual[0].taskId).toEqual(response[0].taskId);
         });
 
         it('should make rest call to update scheduled tasks for a user account', async () => {
             const taskId = 'asbcasd34345';
-            const response = { 'task_id': taskId }
+            const response = { 'taskId': taskId }
             const request = { 'taskId': 'abc', 'alarmLightGroup': '1', 'alarmGroupName': 'potty', 'alarmDays': 'Wed', 'alarmTime': '00:23:34', 'enabled': true, 'taskType': 'no' };
 
             fetchMock.route(`${baseUrl}/tasks/update`, response).catch(() => {
@@ -363,7 +363,7 @@ describe('RestApi', () => {
 
             const actual = await updateScheduledTasks(bearerToken2, request);
 
-            expect(actual.task_id).toEqual(taskId);
+            expect(actual.taskId).toEqual(taskId);
         });
     });
 });

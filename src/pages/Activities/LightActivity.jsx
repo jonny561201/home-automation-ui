@@ -15,11 +15,11 @@ export default function LightActivity(props) {
     const [state, dispatch] = useContext(Context);
     const [open, setOpen] = useState(false);
     const [edited, setEdited] = useState(false);
-    const [type, setType] = useState(props.task.task_type);
-    const [days, setDays] = useState(props.task.alarm_days);
-    const [time, setTime] = useState(props.task.alarm_time);
+    const [type, setType] = useState(props.task.taskType);
+    const [days, setDays] = useState(props.task.alarmDays);
+    const [time, setTime] = useState(props.task.alarmTime);
     const [enabled, setEnabled] = useState(props.task.enabled);
-    const [daysOfWeek, setDaysOfWeek] = useState(initialDays.map(day => props.task.alarm_days.includes(day.id) ? { ...day, on: true } : day));
+    const [daysOfWeek, setDaysOfWeek] = useState(initialDays.map(day => props.task.alarmDays.includes(day.id) ? { ...day, on: true } : day));
 
     const updateTime = (dateTime) => {
         setEdited(true);
@@ -39,11 +39,11 @@ export default function LightActivity(props) {
     }
 
     const updateTask = async (isEnabled) => {
-        const request = { 'taskId': props.task.task_id, 'alarmLightGroup': props.task.alarm_light_group, 'alarmGroupName': props.task.alarm_group_name, 'alarmDays': days, 'alarmTime': time, 'enabled': isEnabled, 'taskType': type };
+        const request = { 'taskId': props.task.taskId, 'alarmLightGroup': props.task.alarmLightGroup, 'alarmGroupName': props.task.alarmGroupName, 'alarmDays': days, 'alarmTime': time, 'enabled': isEnabled, 'taskType': type };
         const token = await auth0.getAccessTokenSilently();
         const response = await updateScheduledTasks(token, request);
         if (response) {
-            dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.task_id });
+            dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.taskId });
             dispatch({ type: 'ADD_SCHEDULED_TASK', payload: response });
         }
     }
@@ -59,9 +59,9 @@ export default function LightActivity(props) {
 
     const clickDelete = async () => {
         const token = await auth0.getAccessTokenSilently();
-        const response = await deleteScheduledTask(token, props.task.task_id);
+        const response = await deleteScheduledTask(token, props.task.taskId);
         if (response.ok) {
-            dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.task_id });
+            dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.taskId });
         }
     }
 
@@ -76,7 +76,7 @@ export default function LightActivity(props) {
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <div className="alarm-summary-panel">
                         <div className="alarm-setting-group">
-                            <p className="text activity-group-name">{props.task.task_type} - {props.task.alarm_group_name}</p>
+                            <p className="text activity-group-name">{props.task.taskType} - {props.task.alarmGroupName}</p>
                         </div>
                         <div className="alarm-setting-group">
                             <div className="alarm-column-one">

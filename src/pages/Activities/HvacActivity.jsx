@@ -16,14 +16,14 @@ export default function HvacActivity(props) {
     const [_, dispatch] = useContext(Context);
     const [open, setOpen] = useState(false);
     const [edited, setEdited] = useState(false);
-    const [type,] = useState(props.task.task_type);
-    const [days, setDays] = useState(props.task.alarm_days);
+    const [type,] = useState(props.task.taskType);
+    const [days, setDays] = useState(props.task.alarmDays);
     const [enabled, setEnabled] = useState(props.task.enabled);
-    const [stopTime, setStopTime] = useState(props.task.hvac_stop);
-    const [startTime, setStartTime] = useState(props.task.hvac_start);
-    const [inTemp, setInTemp] = useState(props.task.hvac_start_temp);
-    const [outTemp, setOutTemp] = useState(props.task.hvac_stop_temp);
-    const [daysOfWeek, setDaysOfWeek] = useState(initialDays.map(day => props.task.alarm_days.includes(day.id) ? { ...day, on: true } : day));
+    const [stopTime, setStopTime] = useState(props.task.hvacStop);
+    const [startTime, setStartTime] = useState(props.task.hvacStart);
+    const [inTemp, setInTemp] = useState(props.task.hvacStartTemp);
+    const [outTemp, setOutTemp] = useState(props.task.hvacStopTemp);
+    const [daysOfWeek, setDaysOfWeek] = useState(initialDays.map(day => props.task.alarmDays.includes(day.id) ? { ...day, on: true } : day));
 
     const updateStopTime = (dateTime) => {
         setEdited(true);
@@ -37,9 +37,9 @@ export default function HvacActivity(props) {
 
     const clickDelete = async () => {
         const token = await auth0.getAccessTokenSilently();
-        const response = await deleteScheduledTask(token, props.task.task_id);
+        const response = await deleteScheduledTask(token, props.task.taskId);
         if (response.ok)
-            dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.task_id });
+            dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.taskId });
     }
 
     const saveTask = async () => {
@@ -56,13 +56,13 @@ export default function HvacActivity(props) {
 
     const updateTask = async (isEnabled) => {
         const request = {
-            'taskId': props.task.task_id, 'alarmLightGroup': props.task.alarm_light_group, 'alarmGroupName': props.task.alarm_group_name,
+            'taskId': props.task.taskId, 'alarmLightGroup': props.task.alarmLightGroup, 'alarmGroupName': props.task.alarmGroupName,
             'alarmDays': days, 'hvacStart': startTime, 'hvacStop': stopTime, 'hvacStartTemp': inTemp, 'hvacStopTemp': outTemp, 'enabled': isEnabled, 'taskType': type
         };
         const token = await auth0.getAccessTokenSilently();
         const response = await updateScheduledTasks(token, request);
         if (response) {
-            dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.task_id });
+            dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.taskId });
             dispatch({ type: 'ADD_SCHEDULED_TASK', payload: response });
         }
     }
@@ -81,7 +81,7 @@ export default function HvacActivity(props) {
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <div className="alarm-summary-panel">
                     <div className="alarm-setting-group">
-                        <p className="text activity-group-name">{props.task.task_type}</p>
+                        <p className="text activity-group-name">{props.task.taskType}</p>
                     </div>
                     <div className="alarm-setting-group">
                         <div className="alarm-column-one">

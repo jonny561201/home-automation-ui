@@ -14,7 +14,7 @@ describe('HVAC Activity Panel', () => {
     const hvacStart = '01:00:00';
     const hvacStop = '14:00:00';
     const taskType = 'turn off';
-    const task = { task_id: taskId, alarm_group_name: groupName, alarm_days: days, hvac_start: hvacStart, hvac_stop: hvacStop, enabled: true, task_type: taskType };
+    const task = { taskId: taskId, alarmGroupName: groupName, alarmDays: days, hvacStart: hvacStart, hvacStop: hvacStop, enabled: true, taskType: taskType };
 
     const spyDelete = vi.spyOn(lib, 'deleteScheduledTask');
     const spyUpdate = vi.spyOn(lib, 'updateScheduledTasks');
@@ -38,7 +38,7 @@ describe('HVAC Activity Panel', () => {
 
     it('should display the event type stored in state', async () => {
         await renderComponent();
-        const actual = screen.getByText(`${task.task_type}`);
+        const actual = screen.getByText(`${task.taskType}`);
         expect(actual).toBeTruthy();
     });
 

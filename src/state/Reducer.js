@@ -51,7 +51,7 @@ const Reducer = (state, action) => {
         case 'DELETE_SCHEDULED_TASK':
             return {
                 ...state,
-                tasks: state.tasks.filter(task => task.task_id !== action.payload)
+                tasks: state.tasks.filter(task => task.taskId !== action.payload)
             }
         case 'ADD_SCHEDULED_TASK':
             return {
@@ -95,7 +95,7 @@ const toggleColor = (mode, state) => {
         return "#27aedb";
     else if (mode === "heating")
         return "#db5127";
-    else if (mode === "auto" && state.tasks.some(x => x.task_type === 'hvac'))
+    else if (mode === "auto" && state.tasks.some(x => x.taskType === 'hvac'))
         return "#00c774";
     else
         return "#A0A0A0";
@@ -106,12 +106,12 @@ const toggleColor = (mode, state) => {
 const determineDesired = (state, payload) => {
     const now = new Date();
     const name = now.toLocaleString('en-us', { weekday: 'long' }).substring(0, 3);
-    const tasks = state.tasks.filter(x => x.task_type === 'hvac');
-    const activeTask = tasks.find(x => now > parseDate(x.hvac_start) && now < parseDate(x.hvac_stop) && x.alarm_days.includes(name));
+    const tasks = state.tasks.filter(x => x.taskType === 'hvac');
+    const activeTask = tasks.find(x => now > parseDate(x.hvacStart) && now < parseDate(x.hvacStop) && x.alarmDays.includes(name));
     if (payload.mode === 'auto' && activeTask)
-        return activeTask.hvac_start_temp;
-    else if (payload.mode === 'auto' && tasks.length > 0 && tasks.find(x => x.alarm_days.includes(name)))
-        return tasks.find(x => x.task_type === 'hvac').hvac_stop_temp;
+        return activeTask.hvacStartTemp;
+    else if (payload.mode === 'auto' && tasks.length > 0 && tasks.find(x => x.alarmDays.includes(name)))
+        return tasks.find(x => x.taskType === 'hvac').hvacStopTemp;
     else if (payload.minThermostatTemp && payload.mode === 'auto')
         return (payload.minThermostatTemp + payload.maxThermostatTemp) / 2;
     else

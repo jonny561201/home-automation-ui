@@ -13,7 +13,8 @@ import './Activities.scss';
 export default function ActivitiesPage() {
     const auth0 = useAuth0();
     const [state, dispatch] = useContext(Context);
-    const [addTask, setAddTask] = useState(false)
+    const [addTask, setAddTask] = useState(false);
+    const [rotated, setRotated] = useState(false);
 
     useEffect(() => {
         dispatch({ type: 'SET_ACTIVE_PAGE', payload: 'Activities' });
@@ -26,13 +27,14 @@ export default function ActivitiesPage() {
     }, [dispatch]);
 
     const createNewTask = () => {
-        setAddTask(true);
+        setRotated(true);
+        setTimeout(() => setAddTask(true), 250);
     }
 
     const createActivities = (task) => {
-        return task.task_type === 'hvac'
-            ? <HvacActivity key={task.task_id} task={task} />
-            : <LightActivity key={task.task_id} task={task} />
+        return task.taskType === 'hvac'
+            ? <HvacActivity key={task.taskId} task={task} />
+            : <LightActivity key={task.taskId} task={task} />
     }
 
     return (
@@ -47,7 +49,7 @@ export default function ActivitiesPage() {
                     </div>
                     {
                         addTask &&
-                        <CreateNewActivityPanel saveNewTask={() => { setAddTask(false) }} cancelNewTask={() => { setAddTask(false) }} />
+                        <CreateNewActivityPanel saveNewTask={() => { setAddTask(false); setRotated(false); }} cancelNewTask={() => { setAddTask(false); setRotated(false); }} />
                     }
                     {
                         state.tasks.map(x => createActivities(x))
@@ -55,7 +57,7 @@ export default function ActivitiesPage() {
                 </div>
                 <div className="add-task-container">
                     <div className="add-task-button-border">
-                        <button type="button" className="add-task-button" aria-label="Add task" onClick={createNewTask}>
+                        <button type="button" className={"add-task-button" + (rotated ? " rotated" : "")} aria-label="Add task" disabled={addTask} onClick={createNewTask}>
                             <AddIcon className="add-task-button-plus" />
                         </button>
                     </div>

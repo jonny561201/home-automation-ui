@@ -28,7 +28,7 @@ export default function TemperaturePanel() {
     }
 
     const toggleHvac = async (newMode) => {
-        if (newMode !== 'auto' || state.tasks.some(x => x.task_type === 'hvac')) {
+        if (newMode !== 'auto' || state.tasks.some(x => x.taskType === 'hvac')) {
             const modeState = state.tempData.mode === newMode ? null : newMode;
             await dispatch({ type: 'SET_TEMP_DATA', payload: { ...state.tempData, mode: modeState } });
             const token = await auth0.getAccessTokenSilently();
@@ -69,15 +69,15 @@ export default function TemperaturePanel() {
                             <Knob value={state.tempData.currentDesiredTemp} lineCap={"round"} inputColor={state.tempData.gaugeColor} fgColor={state.tempData.gaugeColor} title="Desired Temp"
                                 onChange={knobChange} angleArc={240} angleOffset={240} min={state.tempData.minThermostatTemp} max={state.tempData.maxThermostatTemp} />
                             {
-                                state.tasks.some(x => x.task_type === 'hvac') ?
+                                state.tasks.some(x => x.taskType === 'hvac') ?
                                     <FormControl>
                                         <FormGroup>
-                                            <FormControlLabel label="Auto" control={<AutoSwitch checked={state.tempData.mode === 'auto' && state.tasks.some(x => x.task_type === 'hvac')} onChange={() => toggleHvac("auto")} />} />
+                                            <FormControlLabel label="Auto" control={<AutoSwitch checked={state.tempData.mode === 'auto' && state.tasks.some(x => x.taskType === 'hvac')} onChange={() => toggleHvac("auto")} />} />
                                         </FormGroup>
                                     </FormControl>
                                     : null
                             }
-                            {(state.tempData.mode !== 'auto' || !state.tasks.some(x => x.task_type === 'hvac')) && (
+                            {(state.tempData.mode !== 'auto' || !state.tasks.some(x => x.taskType === 'hvac')) && (
                                 <FormControl>
                                     <FormGroup>
                                         <FormControlLabel label="Heat" control={<HeatSwitch checked={state.tempData.mode === 'heating'} onChange={() => toggleHvac("heating")} />} />
