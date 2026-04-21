@@ -43,7 +43,7 @@ export default function Settings() {
     const toggleAutoTheme = () => {
         localStorage.setItem('auto-theme', !isAutoMode);
         setIsAutoMode(!isAutoMode);
-        isDayLight(state.garageCoords, state.userCoords)
+        isDayLight(state.garageCoords || state.userCoords)
             ? setTheme('theme-light')
             : setTheme('theme-dark')
         if (!isAutoMode === false && !darkMode)

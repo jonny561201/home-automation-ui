@@ -9,7 +9,7 @@ import './TemperatureImage.scss'
 export default function TemperatureImage() {
     const [state,] = useContext(Context);
 
-    const isNight = !isDayLight(state.garageCoords, state.userCoords);
+    const isNight = !isDayLight(state.garageCoords || state.userCoords);
     const description = (state.forecastData.description || 'cloudy').toLowerCase();
     const weather = isNight ? nightWeather : dayWeather;
     const icon = weather[description] || defaultWeatherIcon;

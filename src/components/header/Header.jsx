@@ -18,7 +18,7 @@ export default function Header() {
     useInterval(async () => {
         const isAuto = localStorage.getItem('auto-theme');
         if (isAuto === 'true') {
-            isDayLight(state.garageCoords, state.userCoords)
+            isDayLight(state.garageCoords || state.userCoords)
                 ? setTheme('theme-light')
                 : setTheme('theme-dark')
         }

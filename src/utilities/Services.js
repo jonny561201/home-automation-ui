@@ -31,18 +31,13 @@ export const parseDate = (time) => {
     return date;
 }
 
-export const isDayLight = (garageCoords, userCoords, today = new Date()) => {
+export const isDayLight = (coords, today = new Date()) => {
+    if (!coords) return true;
     const newDate = new Date(today);
-    newDate.setDate(newDate.getDate() + 1)
-    if (garageCoords !== null) {
-        const sunrise = getSunrise(garageCoords.latitude, garageCoords.longitude, today);
-        const sunset = getSunset(garageCoords.latitude, garageCoords.longitude, newDate);
-        return (today >= sunrise && today < sunset);
-    } else if (userCoords !== null) {
-        const sunrise = getSunrise(userCoords.latitude, userCoords.longitude, today);
-        const sunset = getSunset(userCoords.latitude, userCoords.longitude, newDate);
-        return (today >= sunrise && today < sunset);
-    }
+    newDate.setDate(newDate.getDate() + 1);
+    const sunrise = getSunrise(coords.latitude, coords.longitude, today);
+    const sunset = getSunset(coords.latitude, coords.longitude, newDate);
+    return (today >= sunrise && today < sunset);
 }
 
 export const toggleDarkMode = () => {
