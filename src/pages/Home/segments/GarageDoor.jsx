@@ -4,8 +4,8 @@ import { useInterval } from '../../../utilities/UseInterval';
 import { AccordionDetails } from '@mui/material';
 import { WarningAmber } from '@mui/icons-material';
 import UpDownIcon from '../../../resources/panelIcons/UpDown.png';
-import { BlueButton, GreenButton, RedButton } from '../../../components/controls/Buttons';
-import { toggleGarageDoor, updateGarageState } from '../../../utilities/RestApi';
+import { BlueButton, GreenButton, OrangeButton, RedButton } from '../../../components/controls/Buttons';
+import { cancelGarageSchedule, scheduleGarageClose, toggleGarageDoor, updateGarageState } from '../../../utilities/RestApi';
 import './GarageDoor.scss'
 import {useAuth0} from "@auth0/auth0-react";
 
@@ -17,7 +17,11 @@ export default function GarageDoor(props) {
     const [statusMins, setStatusMins] = useState();
     const [statusHours, setStatusHours] = useState();
     const [exceeded, setExceeded] = useState(false);
+    const [cancelled, setCancelled] = useState(false);
+    const [countdown, setCountdown] = useState(null);
+    const [scheduledCloseTime, setScheduledCloseTime] = useState(null);
     const originalTitle = useRef(document.title);
+    const prevIsOpen = useRef(props.device.isOpen);
 
     useInterval(() => {
         updateGarageDuration();
@@ -26,6 +30,27 @@ export default function GarageDoor(props) {
     useEffect(() => {
         return () => { document.title = originalTitle.current; };
     }, []);
+
+    useEffect(() => {
+        const wasOpen = prevIsOpen.current;
+        prevIsOpen.current = props.device.isOpen;
+
+        const alertMinutes = state.preferences ? state.preferences.garageAlertTime : 0;
+        if (props.device.isOpen && !wasOpen && alertMinutes > 0) {
+            setScheduledCloseTime(new Date(Date.now() + alertMinutes * 60000));
+            setCancelled(false);
+            const scheduleClose = async () => {
+                const token = await auth0.getAccessTokenSilently();
+                await scheduleGarageClose(token, props.device.doorId);
+            };
+            scheduleClose();
+        }
+        if (!props.device.isOpen) {
+            setCancelled(false);
+            setCountdown(null);
+            setScheduledCloseTime(null);
+        }
+    }, [props.device.isOpen]);
 
     const updateGarageDuration = () => {
         const diffMs = new Date() - new Date(props.device.duration);
@@ -42,6 +67,19 @@ export default function GarageDoor(props) {
         } else if (document.title !== originalTitle.current && !isExceeded) {
             document.title = originalTitle.current;
         }
+
+        if (scheduledCloseTime && props.device.isOpen && !cancelled) {
+            const remainingMs = scheduledCloseTime - new Date();
+            if (remainingMs > 0) {
+                const mins = Math.floor(remainingMs / 60000);
+                const secs = Math.floor((remainingMs % 60000) / 1000);
+                setCountdown(`${mins}:${secs.toString().padStart(2, '0')}`);
+            } else {
+                setCountdown(null);
+            }
+        } else {
+            setCountdown(null);
+        }
     };
 
     const openCloseGarageDoor = async (newState) => {
@@ -53,6 +91,13 @@ export default function GarageDoor(props) {
     const toggleDoor = async () => {
         const token = await auth0.getAccessTokenSilently();
         toggleGarageDoor(token, props.device.doorId);
+    }
+
+    const cancelAutoClose = async () => {
+        setCancelled(true);
+        setCountdown(null);
+        const token = await auth0.getAccessTokenSilently();
+        await cancelGarageSchedule(token, props.device.doorId);
     }
 
     return (
@@ -70,6 +115,9 @@ export default function GarageDoor(props) {
                     </div>
                     <WarningAmber className={"garage-alert-icon" + (exceeded ? "" : " garage-alert-icon-hidden")} />
                     <div className="status-button-group">
+                        {countdown && !cancelled &&
+                            <OrangeButton onClick={cancelAutoClose}>Cancel {countdown}</OrangeButton>
+                        }
                         {props.device.isOpen
                             ? <RedButton onClick={() => openCloseGarageDoor(false)}>Close</RedButton>
                             : <GreenButton onClick={() => openCloseGarageDoor(true)}>Open</GreenButton>}
