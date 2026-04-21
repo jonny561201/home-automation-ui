@@ -23,7 +23,7 @@ export default function SettingsEditPanel(props) {
         const isFahrenheit = newTempUnit === "fahrenheit";
         const isImperial = newMeasureUnit === "imperial";
         const alertMinutes = newAlertMinutes === '' ? 0 : parseInt(newAlertMinutes, 10);
-        const request = { isImperial, isFahrenheit, 'city': newCity, 'garageDoor': garage, 'garageNodeId': garageId, 'garageAlertTime': alertMinutes };
+        const request = { isImperial, isFahrenheit, city: newCity, garageId: garageId, garageAlertTime: alertMinutes };
         const token = await auth0.getAccessTokenSilently();
         await updateUserPreferences(token, request);
 
@@ -58,7 +58,7 @@ export default function SettingsEditPanel(props) {
         const door = state.garageDoors.find(x => x.doorName === input.target.value);
         setEdited(true);
         setGarage(input.target.value);
-        setGarageId(door ? door.doorId : null);
+        setGarageId(door ? door.garageId : null);
     }
 
     const updateAlertMinutes = (input) => {
@@ -87,7 +87,7 @@ export default function SettingsEditPanel(props) {
                             </TextField>
                         </div>
                         <div className="col-lg-2 col-md-1 settings-edit-row">
-                            <TextField className="settings-edit-garage" variant="outlined" label="Door Open Alert (min)" value={newAlertMinutes} onChange={updateAlertMinutes} placeholder="0 = disabled" />
+                            <TextField className="settings-edit-garage" variant="outlined" label="Auto-Close Timer (min)" value={newAlertMinutes} onChange={updateAlertMinutes} placeholder="0 = disabled" />
                         </div>
                     </div>
                 </div>
