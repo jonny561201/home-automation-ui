@@ -33,11 +33,9 @@ export const parseDate = (time) => {
 
 export const isDayLight = (coords, today = new Date()) => {
     if (!coords) return true;
-    const newDate = new Date(today);
-    newDate.setDate(newDate.getDate() + 1);
     const sunrise = getSunrise(coords.latitude, coords.longitude, today);
-    const sunset = getSunset(coords.latitude, coords.longitude, newDate);
-    return (today >= sunrise && today < sunset);
+    const sunset = getSunset(coords.latitude, coords.longitude, today);
+    return today >= sunrise && today < sunset;
 }
 
 export const toggleDarkMode = () => {
