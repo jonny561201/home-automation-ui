@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Context } from '../../../state/Store';
 import CloseIcon from '@mui/icons-material/Close';
 import { updateGarageState } from '../../../utilities/RestApi';
-import { useInterval } from '../../../utilities/UseInterval';
 import { calculateDistanceInMeters } from '../../../utilities/Location';
 import './UserLocation.scss';
 import { RedButton } from '../../../components/controls/Buttons';
@@ -16,16 +15,36 @@ export default function UserLocation() {
     const [firstCheck, setFirstCheck] = useState(false);
     const [secondCheck, setSecondCheck] = useState(false);
     const [displayMenu, setDisplayMenu] = useState(false);
+    const watchIdRef = useRef(null);
 
     useEffect(() => {
-        calculateDistance();
+        watchIdRef.current = navigator.geolocation.watchPosition(onPositionUpdate, onPositionError, { enableHighAccuracy: true });
+        return () => {
+            if (watchIdRef.current !== null)
+                navigator.geolocation.clearWatch(watchIdRef.current);
+        };
     }, []);
 
-    //TODO: may not need this with watch position
-    useInterval(() => {
-        if(state.location.granted)
-            calculateDistance();
-    }, 5000);
+    const onPositionUpdate = async (position) => {
+        dispatch({ type: 'SET_LOCATION', payload: { granted: true, notified: state.location.notified } });
+        const userCoords = position.coords;
+        dispatch({ type: "SET_USER_COORDS", payload: userCoords });
+        if (state.garageCoords !== null) {
+            const garageCoords = state.garageCoords;
+            const userDistance = calculateDistanceInMeters(garageCoords.latitude, garageCoords.longitude, userCoords.latitude, userCoords.longitude);
+            if (shouldOpenGarage(userDistance)) {
+                const token = await auth0.getAccessTokenSilently();
+                updateGarageState(token, true, (state.preferences || {}).garage_id);
+            }
+        }
+    }
+
+    const onPositionError = () => {
+        if (!state.location.notified) {
+            alert('Enable GPS position feature.');
+            dispatch({ type: "SET_LOCATION", payload: { notified: true, granted: false } });
+        }
+    }
 
     const cancelDoorOpen = () => {
         setCancel(true);
@@ -56,28 +75,6 @@ export default function UserLocation() {
             setOpened(false)
             return false;
         }
-    }
-
-    const calculateDistance = () => {
-        navigator.geolocation.getCurrentPosition(async (position) => {
-            // navigator.geolocation.watchPosition((position) => {
-            dispatch({ type: 'SET_LOCATION', payload: { granted: true, notified: state.location.notified } });
-            const userCoords = position.coords;
-            dispatch({ type: "SET_USER_COORDS", payload: userCoords });
-            if (state.garageCoords !== null) {
-                const garageCoords = state.garageCoords;
-                const userDistance = calculateDistanceInMeters(garageCoords.latitude, garageCoords.longitude, userCoords.latitude, userCoords.longitude);
-                if (shouldOpenGarage(userDistance)) {
-                    const token = await auth0.getAccessTokenSilently();
-                    updateGarageState(token, true, (state.preferences || {}).garage_id);
-                }
-            }
-        }, () => {
-            if (!state.location.notified) {
-                alert('Enable GPS position feature.');
-                dispatch({ type: "SET_LOCATION", payload: { notified: true, granted: false } });
-            }
-        }, { enableHighAccuracy: true });
     }
 
     return (
