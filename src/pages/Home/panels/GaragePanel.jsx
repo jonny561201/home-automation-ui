@@ -14,6 +14,24 @@ export default function GaragePanel() {
     const [state] = useContext(Context);
     const devicesToRegister = (state.devices || []).filter(x => !x.registered && x.type === 'garage_door');
 
+    const isDoorExceeded = (door) => {
+        const alertMinutes = state.preferences ? state.preferences.garageAlertTime : 0;
+        const diffMs = door.isOpen && door.duration ? new Date() - new Date(door.duration) : 0;
+        return door.isOpen && alertMinutes > 0 && (diffMs / 60000) >= alertMinutes;
+    }
+
+    const renderDoorStatus = () => {
+        return state.garageDoors.map(x => {
+            return <div className="small-text-group" key={`door-notify-${x.doorName}`}>
+                <p className="small-text text">{x.doorName}:</p>
+                <p className={"small-text text " + (x.isOpen ? 'alert' : 'healthy')}>
+                    {x.isOpen ? 'Open' : 'Closed'}
+                </p>
+                {isDoorExceeded(x) && <WarningAmber className="garage-header-alert-icon" />}
+            </div>
+        });
+    }
+
     const renderDoors = () => {
         const doors = state.garageDoors;
         if (doors && doors.length > 0) {
@@ -39,20 +57,7 @@ export default function GaragePanel() {
                                         <p className="small-text text alert">Registration Needed</p>
                                     </div>
                                 }
-                                {!open && devicesToRegister.length === 0 &&
-                                    state.garageDoors.map(x => {
-                                        const alertMinutes = state.preferences ? state.preferences.garageAlertTime : 0;
-                                        const diffMs = x.isOpen && x.duration ? new Date() - new Date(x.duration) : 0;
-                                        const isExceeded = x.isOpen && alertMinutes > 0 && (diffMs / 60000) >= alertMinutes;
-                                        return <div className="small-text-group" key={`door-notify-${x.doorName}`}>
-                                            <p className="small-text text">{x.doorName}:</p>
-                                            <p className={"small-text text " + (x.isOpen ? 'alert' : 'healthy')}>
-                                                {x.isOpen ? 'Open' : 'Closed'}
-                                            </p>
-                                            {isExceeded && <WarningAmber className="garage-header-alert-icon" />}
-                                        </div>
-                                    })
-                                }
+                                {!open && devicesToRegister.length === 0 && renderDoorStatus()}
                             </div>
                         </div>
                     </div>
