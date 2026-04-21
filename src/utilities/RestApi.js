@@ -66,6 +66,29 @@ export const toggleGarageDoor = async (bearer, garageId) => {
     }
 }
 
+export const scheduleGarageClose = async (bearer, garageId) => {
+    try {
+        const options = {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' }
+        };
+        const response = await fetch(`${garageBaseUrl}/${garageId}/schedule`, options);
+        if (!response.ok) return {};
+        return await response.json();
+    } catch {
+        return {};
+    }
+}
+
+export const cancelGarageSchedule = async (bearer, garageId) => {
+    try {
+        const options = { method: 'DELETE', headers: { 'Authorization': `Bearer ${bearer}` } };
+        return await fetch(`${garageBaseUrl}/${garageId}/schedule`, options);
+    } catch {
+        return { ok: false };
+    }
+}
+
 export const getSumpLevels = async (bearer) => {
     try {
         const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
