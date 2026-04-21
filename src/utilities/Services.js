@@ -1,7 +1,7 @@
 import { getSunrise, getSunset } from 'sunrise-sunset-js';
 
 
-export const debounce = (func, wait) => {
+const debounce = (func, wait) => {
     let timeout;
     return function () {
         const context = this;

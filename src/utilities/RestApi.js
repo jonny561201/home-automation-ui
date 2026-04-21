@@ -19,17 +19,6 @@ export const changeUserPassword = async (bearer) => {
     }
 }
 
-export const getGarageStatus = async (bearer, garageId) => {
-    try {
-        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
-        const response = await fetch(`${garageBaseUrl}/${garageId}/status`, options);
-        if (!response.ok) return {};
-        return await response.json();
-    } catch {
-        return {};
-    }
-}
-
 export const getAllGarageStatus = async (bearer) => {
     try {
         const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
@@ -194,20 +183,6 @@ export const setLightState = async (bearer, lightId, state, brightness) => {
             body: JSON.stringify(request)
         };
         return await fetch(`${lightBaseUrl}/group/light`, options);
-    } catch {
-        return { ok: false };
-    }
-}
-
-export const updateUserAccount = async (bearer, oldPass, newPass) => {
-    try {
-        const request = { 'oldPassword': oldPass, 'newPassword': newPass };
-        const options = {
-            method: 'POST',
-            headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
-            body: JSON.stringify(request)
-        };
-        return await fetch(`${accountBaseUrl}/updateAccount`, options);
     } catch {
         return { ok: false };
     }

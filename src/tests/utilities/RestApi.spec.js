@@ -1,9 +1,9 @@
 import fetchMock from 'fetch-mock';
 import {
-    getGarageStatus, updateGarageState, getUserChildAccounts, insertLightTask, getUserForecast,
+    updateGarageState, getUserChildAccounts, insertLightTask, getUserForecast,
     toggleGarageDoor, getSumpLevels, getCurrentTemperature, deleteUserChildAccount, updateScheduledTasks,
     getUserPreferences, updateUserPreferences, setUserTemperature, addUserChildAccount, deleteScheduledTask, insertHvacTask,
-    getLightGroups, setLightGroupState, setLightState, updateUserAccount, getScheduledTasks, getAllGarageStatus,
+    getLightGroups, setLightGroupState, setLightState, getScheduledTasks, getAllGarageStatus,
     getDevices, addUserDeviceNode
 } from '../../utilities/RestApi';
 
@@ -23,18 +23,6 @@ describe('RestApi', () => {
     describe('after successful login', () => {
         const garageId = 1;
         const bearerToken2 = 'abc123';
-
-        it('should make rest call to get garage door state', async () => {
-            const response = { 'isGarageOpen': true };
-            const options = { "method": "GET", "headers": { 'Authorization': `Bearer ${bearerToken2}` } };
-
-            fetchMock.route(`${baseUrl}/garageDoor/${garageId}/status`, response, options).catch(() => {
-                return { status: 400 };
-            });
-
-            const actual = await getGarageStatus(bearerToken2, garageId);
-            expect(actual.isGarageOpen).toEqual(true);
-        });
 
         it('should make rest call to get all garage door states', async () => {
             const response = {doors: [{'isGarageOpen': true}]};
@@ -214,19 +202,6 @@ describe('RestApi', () => {
             });
 
             const actual = await setLightState(bearerToken2, body.lightId, body.on, body.brightness);
-
-            expect(actual.status).toEqual(200);
-        });
-
-        it('should make rest call to change user password', async () => {
-            const body = { 'oldPassword': 'alsoFake', 'newPassword': 'StillFake' };
-            const options = { 'method': 'POST', 'headers': { 'Authorization': `Bearer ${bearerToken2}` }, 'body': body };
-
-            fetchMock.route(`${baseUrl}/account/updateAccount`, options).catch(() => {
-                return { status: 400 }
-            });
-
-            const actual = await updateUserAccount(bearerToken2, body.oldPassword, body.newPassword);
 
             expect(actual.status).toEqual(200);
         });

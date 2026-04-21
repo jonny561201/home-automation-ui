@@ -68,7 +68,6 @@ export default function UserLocation() {
                 const garageCoords = state.garageCoords;
                 const userDistance = calculateDistanceInMeters(garageCoords.latitude, garageCoords.longitude, userCoords.latitude, userCoords.longitude);
                 if (shouldOpenGarage(userDistance)) {
-                    console.log('gonna open')
                     const token = await auth0.getAccessTokenSilently();
                     updateGarageState(token, true, (state.preferences || {}).garage_id);
                 }

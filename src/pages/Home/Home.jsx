@@ -2,8 +2,8 @@ import React, { useContext, useEffect } from 'react';
 import Header from '../../components/header/Header';
 import DashboardPanel from './panels/DashboardPanels';
 import CityPrompt from './segments/CityPrompt';
-import './Home.scss';
 import { Context } from '../../state/Store';
+import './Home.scss';
 
 
 export default function Home() {
