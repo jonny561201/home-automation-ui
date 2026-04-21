@@ -28,6 +28,14 @@ export function RedButton(props) {
     )
 }
 
+export function OrangeButton(props) {
+    return (
+        <div className="button-container">
+            <ButtonBase type="submit" className={`orange my-button ${props.className}`} disabled={props.disabled} onClick={props.onClick}>{props.children}</ButtonBase>
+        </div>
+    )
+}
+
 export function ExpandButton(props) {
     return (
         <IconButton aria-label="expand" className={props.className} onClick={props.onClick}>
