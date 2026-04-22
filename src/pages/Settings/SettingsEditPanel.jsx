@@ -11,7 +11,6 @@ export default function SettingsEditPanel(props) {
     const auth0 = useAuth0();
     const [state, dispatch] = useContext(Context);
     const preferences = state.preferences || {};
-    const [edited, setEdited] = useState(false);
     const [garage, setGarage] = useState(state.garageDoors.find(x => x.nodeId === preferences.garageNodeId) || null);
     const [newCity, setNewCity] = useState(preferences.city || '');
     const [newTempUnit, setNewTempUnit] = useState(preferences.tempUnit || '');
@@ -40,30 +39,30 @@ export default function SettingsEditPanel(props) {
     }
 
     const updateCity = (input) => {
-        setEdited(true);
+
         setNewCity(input.target.value);
     }
 
     const updateTempRadioButton = (input) => {
-        setEdited(true);
+
         setNewTempUnit(input.target.value);
     }
 
     const updateMeasureRadioButton = (input) => {
-        setEdited(true);
+
         setNewMeasureUnit(input.target.value);
     }
 
     const updateGarageDoor = (input) => {
         const door = state.garageDoors.find(x => x.doorName === input.target.value) || null;
-        setEdited(true);
+
         setGarage(door);
     }
 
     const updateAlertMinutes = (input) => {
         const value = input.target.value;
         if (value === '' || (/^\d+$/.test(value) && parseInt(value, 10) <= 1440)) {
-            setEdited(true);
+    
             setNewAlertMinutes(value);
         }
     }
