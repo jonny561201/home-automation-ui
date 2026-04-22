@@ -11,6 +11,19 @@
             font-size: 0.75rem;
             align-items: center;
         }
+
+        .summary-trend-icon {
+            font-size: 0.9rem !important;
+            margin-left: 0.25rem;
+        }
+
+        .trend-rising {
+            color: red;
+        }
+
+        .trend-falling {
+            color: green;
+        }
     }
 
     .logo-image {
