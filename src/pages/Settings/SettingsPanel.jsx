@@ -5,8 +5,9 @@ import { GreenButton } from '../../components/controls/Buttons';
 
 
 export default function SettingsPanel(props) {
-    const [state,] = useContext(Context)
+    const [state,] = useContext(Context);
     const preferences = state.preferences || {};
+    const selectedGarage = state.garageDoors.find(x => x.nodeId === preferences.garageNodeId);
 
     const handleClick = () => {
         props.toggleEdit();
@@ -20,7 +21,7 @@ export default function SettingsPanel(props) {
             <Divider />
             <div className="settings-row text">
                 <p className="setting">Preferred Garage:</p>
-                <p className="setting">{preferences.garageName ? preferences.garageName : "--"}</p>
+                <p className="setting">{selectedGarage ? selectedGarage.doorName : "--"}</p>
             </div>
             <div className="settings-row text">
                 <p className="setting">Auto-Close Timer:</p>

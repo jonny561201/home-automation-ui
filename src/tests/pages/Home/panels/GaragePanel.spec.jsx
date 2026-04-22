@@ -84,9 +84,9 @@ describe('GaragePanel', () => {
             expect(actual).toEqual('Closed')
         });
 
-        it('should display no devices message when no doors registered', async () => {
+        it('should display disconnected message when no doors registered', async () => {
             await renderComponent([], []);
-            const actual = screen.getByText('No Garage devices have been registered');
+            const actual = screen.getByText('Garage doors unavailable');
             expect(actual).toBeDefined();
         });
     });

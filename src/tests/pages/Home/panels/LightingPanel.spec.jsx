@@ -40,15 +40,15 @@ describe('LightingPanel', () => {
         expect(actual.length).toEqual(2);
     });
 
-    it('should display error text when there are no groups returned', async () => {
+    it('should display disconnected text when there are no groups returned', async () => {
         await renderComponent(null);
-        const actual = screen.getByText('No Light Groups were found').textContent;
-        expect(actual).toEqual('No Light Groups were found');
+        const actual = screen.getByText('Light groups unavailable').textContent;
+        expect(actual).toEqual('Light groups unavailable');
     });
 
-    it('should display error text when there are empty list of groups', async () => {
+    it('should display disconnected text when there are empty list of groups', async () => {
         await renderComponent([]);
-        const actual = screen.getByText('No Light Groups were found').textContent;
-        expect(actual).toEqual('No Light Groups were found');
+        const actual = screen.getByText('Light groups unavailable').textContent;
+        expect(actual).toEqual('Light groups unavailable');
     });
 });

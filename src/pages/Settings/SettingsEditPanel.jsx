@@ -12,8 +12,7 @@ export default function SettingsEditPanel(props) {
     const [state, dispatch] = useContext(Context);
     const preferences = state.preferences || {};
     const [edited, setEdited] = useState(false);
-    const [garage, setGarage] = useState(preferences.garage_door ? preferences.garage_door : '');
-    const [garageId, setGarageId] = useState();
+    const [garage, setGarage] = useState(state.garageDoors.find(x => x.nodeId === preferences.garageNodeId) || null);
     const [newCity, setNewCity] = useState(preferences.city || '');
     const [newTempUnit, setNewTempUnit] = useState(preferences.tempUnit || '');
     const [newMeasureUnit, setNewMeasureUnit] = useState(preferences.measureUnit || '');
@@ -23,11 +22,12 @@ export default function SettingsEditPanel(props) {
         const isFahrenheit = newTempUnit === "fahrenheit";
         const isImperial = newMeasureUnit === "imperial";
         const alertMinutes = newAlertMinutes === '' ? 0 : parseInt(newAlertMinutes, 10);
-        const request = { isImperial, isFahrenheit, city: newCity, garageId: garageId, garageAlertTime: alertMinutes };
+        const garageNodeId = garage ? garage.nodeId : null;
+        const request = { isImperial, isFahrenheit, city: newCity, garageNodeId, garageAlertTime: alertMinutes };
         const token = await auth0.getAccessTokenSilently();
         await updateUserPreferences(token, request);
 
-        dispatch({ type: 'SET_USER_PREFERENCES', payload: { ...state.preferences, city: newCity, tempUnit: newTempUnit, measureUnit: newMeasureUnit, garageId: garageId, garageName: garage, garageAlertTime: alertMinutes } });
+        dispatch({ type: 'SET_USER_PREFERENCES', payload: { ...state.preferences, city: newCity, tempUnit: newTempUnit, measureUnit: newMeasureUnit, garageNodeId: garageNodeId, garageAlertTime: alertMinutes } });
         props.setEditMode(false);
     }
 
@@ -55,10 +55,9 @@ export default function SettingsEditPanel(props) {
     }
 
     const updateGarageDoor = (input) => {
-        const door = state.garageDoors.find(x => x.doorName === input.target.value);
+        const door = state.garageDoors.find(x => x.doorName === input.target.value) || null;
         setEdited(true);
-        setGarage(input.target.value);
-        setGarageId(door ? door.garageId : null);
+        setGarage(door);
     }
 
     const updateAlertMinutes = (input) => {
@@ -77,7 +76,7 @@ export default function SettingsEditPanel(props) {
                     <Divider />
                     <div className="row">
                         <div className="col-lg-2 col-md-1 settings-edit-row">
-                            <TextField className="settings-edit-garage" variant="outlined" select value={garage} onChange={updateGarageDoor} label="Garage Door">
+                            <TextField className="settings-edit-garage" variant="outlined" select value={garage ? garage.doorName : ''} onChange={updateGarageDoor} label="Garage Door">
                                 <MenuItem value="">None</MenuItem>
                                 {state.garageDoors.map(x => (
                                     <MenuItem key={x.doorName} value={x.doorName}>
