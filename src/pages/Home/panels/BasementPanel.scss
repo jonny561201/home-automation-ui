@@ -17,6 +17,12 @@
         height: 90px
     }
 
+    .sump-details {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
     .sump-group {
         display: flex;
         flex-direction: row;

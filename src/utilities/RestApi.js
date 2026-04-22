@@ -89,6 +89,28 @@ export const getSumpLevels = async (bearer) => {
     }
 }
 
+export const getSumpDepthHistory = async (bearer) => {
+    try {
+        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
+        const response = await fetch(`${sumpBaseUrl}/depth/history`, options);
+        if (!response.ok) return {};
+        return await response.json();
+    } catch {
+        return {};
+    }
+}
+
+export const getSumpDailyHistory = async (bearer, days) => {
+    try {
+        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
+        const response = await fetch(`${sumpBaseUrl}/depth/daily?days=${days}`, options);
+        if (!response.ok) return {};
+        return await response.json();
+    } catch {
+        return {};
+    }
+}
+
 export const getCurrentTemperature = async (bearer) => {
     try {
         const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };

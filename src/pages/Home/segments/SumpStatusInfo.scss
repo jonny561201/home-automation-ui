@@ -1,0 +1,56 @@
+.sump-status-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .sump-status-row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .sump-text {
+            margin: 0.75rem 0rem 0rem 0.5rem;
+        }
+
+        .status-normal {
+            color: green;
+        }
+
+        .status-elevated {
+            color: orange;
+        }
+
+        .status-critical {
+            color: red;
+            font-weight: bolder;
+        }
+
+        .trend-indicator {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .trend-icon {
+            font-size: 1rem !important;
+        }
+
+        .trend-rising {
+            color: red;
+        }
+
+        .trend-falling {
+            color: green;
+        }
+
+        .trend-stable {
+            color: var(--font-color);
+        }
+    }
+
+    .sump-last-reading {
+        margin: 0.5rem 0 0 0;
+        font-size: 0.7rem;
+        opacity: 0.7;
+    }
+}

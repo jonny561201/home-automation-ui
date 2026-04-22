@@ -8,6 +8,8 @@ import SumpPumpHighIcon from '../../../resources/panelIcons/SumpPumpHighIcon.png
 import { AccordionDetails, Accordion, Typography, AccordionSummary, Divider } from '@mui/material';
 import { Context } from '../../../state/Store';
 import DeviceRegistration from '../segments/DeviceRegistration';
+import SumpStatusInfo from '../segments/SumpStatusInfo';
+import SumpDepthChart from '../segments/SumpDepthChart';
 import './BasementPanel.scss';
 
 
@@ -57,20 +59,25 @@ export default function BasementPanel() {
                 <AccordionDetails className="center">
                     {devicesToRegister.length > 0
                         ? <DeviceRegistration device={devicesToRegister[0]}/>
-                        : <div className="sump-group">
-                            {getSumpIcon()}
-                            <div className="sump-measure-group">
-                                <div className="sump-text-group">
-                                    <p className="sump-text text">Current: </p>
-                                    <p className={"sump-text text " + (state.sumpData.warningLevel === 3 ? 'alert' : 'healthy')}>{currentDepth}</p>
-                                    <p className={"sump-text text " + (state.sumpData.warningLevel === 3 ? 'alert' : 'healthy')}>{state.sumpData.depthUnit}</p>
-                                </div>
-                                <div className="sump-text-group">
-                                    <p className="sump-text text">Average: </p>
-                                    <p className="sump-text text">{averageDepth}</p>
-                                    <p className="sump-text text">{state.sumpData.depthUnit}</p>
+                        : <div className="sump-details">
+                            <div className="sump-group">
+                                {getSumpIcon()}
+                                <div className="sump-measure-group">
+                                    <div className="sump-text-group">
+                                        <p className="sump-text text">Current: </p>
+                                        <p className={"sump-text text " + (state.sumpData.warningLevel === 3 ? 'alert' : 'healthy')}>{currentDepth}</p>
+                                        <p className={"sump-text text " + (state.sumpData.warningLevel === 3 ? 'alert' : 'healthy')}>{state.sumpData.depthUnit}</p>
+                                    </div>
+                                    <div className="sump-text-group">
+                                        <p className="sump-text text">Average: </p>
+                                        <p className="sump-text text">{averageDepth}</p>
+                                        <p className="sump-text text">{state.sumpData.depthUnit}</p>
+                                    </div>
+                                    <SumpStatusInfo />
                                 </div>
                             </div>
+                            <Divider />
+                            <SumpDepthChart />
                         </div>
                     }
                 </AccordionDetails>

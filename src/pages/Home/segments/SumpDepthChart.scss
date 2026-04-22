@@ -1,0 +1,37 @@
+.sump-chart-container {
+    width: 100%;
+    padding: 8px 0;
+
+    .range-button-group {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 12px;
+
+        .range-button {
+            padding: 4px 16px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+
+        .range-button-active {
+            background-color: #00c774;
+            color: #ffffff;
+            border-color: #00c774;
+        }
+    }
+
+    .chart-wrapper {
+        width: 100%;
+    }
+
+    .chart-empty {
+        text-align: center;
+        padding: 2rem 0;
+        font-size: 0.8rem;
+        opacity: 0.6;
+    }
+}
