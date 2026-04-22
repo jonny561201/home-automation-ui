@@ -13,17 +13,6 @@
     }
 }
 
-.garage-disconnected {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0;
-
-    .garage-disconnected-icon {
-        color: red;
-        font-size: 1.5rem !important;
-    }
-}
 
 .garage-header-alert-icon {
     color: #ff9800;

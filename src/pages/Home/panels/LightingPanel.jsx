@@ -4,6 +4,7 @@ import LightSwitch from '../../../components/controls/LightSwitch';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import LightingIcon from '../../../resources/panelIcons/LightingIcon.png';
 import { AccordionDetails, Accordion, Typography, AccordionSummary, Divider } from '@mui/material';
+import Disconnected from '../../../components/controls/Disconnected';
 import './LightingPanel.scss'
 
 
@@ -14,7 +15,7 @@ export default function LightingPanel() {
         if (state.lights && state.lights.length) {
             return state.lights.map(group => <LightSwitch key={`switch-${group.groupId}`} data={group} />)
         }
-        return <p className="text">No Light Groups were found</p>
+        return <Disconnected message="Light groups unavailable" />
     };
 
     return (

@@ -6,6 +6,7 @@ import { AccordionDetails, Accordion, Typography, AccordionSummary, Divider } fr
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { WarningAmber } from '@mui/icons-material';
 import GarageDoor from '../segments/GarageDoor';
+import Disconnected from '../../../components/controls/Disconnected';
 import './GaragePanel.scss';
 
 
@@ -37,10 +38,7 @@ export default function GaragePanel() {
         if (doors && doors.length > 0) {
             return doors.map(x => <GarageDoor key={`door-${x.doorName}`} device={x} />);
         }
-        return <div className="garage-disconnected">
-            <WarningAmber className="garage-disconnected-icon" />
-            <p className="text alert">Garage doors are disconnected!</p>
-        </div>
+        return <Disconnected message="Garage doors unavailable" />
     }
 
     return (
