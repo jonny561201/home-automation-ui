@@ -23,8 +23,8 @@ export default function CreateLightActivity(props) {
     const saveActivity = async () => {
         if (edited && selectedRoom !== '' && days !== null) {
             const token = await auth0.getAccessTokenSilently();
-            const tasks = await insertLightTask(token, true, props.type, groupId, selectedRoom, days, time);
-            dispatch({ type: 'SET_SCHEDULED_TASK', payload: tasks });
+            const response = await insertLightTask(token, true, props.type, groupId, selectedRoom, days, time);
+            dispatch({ type: 'SET_SCHEDULED_TASK', payload: response.tasks || [] });
             props.save();
         }
     }
