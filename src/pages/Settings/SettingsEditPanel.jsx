@@ -1,7 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { updateUserPreferences } from '../../utilities/RestApi';
 import { Context } from '../../state/Store';
-import { Divider, TextField, MenuItem, FormControlLabel, RadioGroup, FormControl, Radio, Button } from '@mui/material';
+import { Button, Divider, FormControl, FormControlLabel, MenuItem, Radio, RadioGroup, TextField } from '@mui/material';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Delete, Save } from '@mui/icons-material';
 import './SettingsEditPanel.scss'
@@ -38,18 +38,11 @@ export default function SettingsEditPanel(props) {
         props.setEditMode(false);
     }
 
-    const updateCity = (input) => {
-
-        setNewCity(input.target.value);
-    }
-
     const updateTempRadioButton = (input) => {
-
         setNewTempUnit(input.target.value);
     }
 
     const updateMeasureRadioButton = (input) => {
-
         setNewMeasureUnit(input.target.value);
     }
 
@@ -101,7 +94,7 @@ export default function SettingsEditPanel(props) {
                         </FormControl>
                     </div>
                     <div className="settings-edit-row">
-                        <TextField variant="outlined" label="City" value={newCity} onChange={updateCity}/>
+                        <TextField variant="outlined" label="City" value={newCity} onChange={(input) => setNewCity(input.target.value)}/>
                     </div>
                 </div>
                 <div>

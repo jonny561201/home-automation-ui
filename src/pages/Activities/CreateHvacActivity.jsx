@@ -75,7 +75,7 @@ export default function CreateHvacActivity(props) {
                     <Button className="task-delete" onClick={deleteActivity} startIcon={<Delete/>}>Cancel</Button>
                 </div>
                 <div className="task-button-container">
-                    <Button className={`${edited ? "edited" : ""}`} onClick={saveActivity} startIcon={<Save/>}>Save</Button>
+                    <Button className="task-save" onClick={saveActivity} startIcon={<Save/>}>Save</Button>
                 </div>
             </div>
         </>

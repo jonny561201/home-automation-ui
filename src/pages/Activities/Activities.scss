@@ -111,12 +111,14 @@
     }
 }
 
-.task-delete {
+.task-delete,
+.MuiButton-text.task-delete {
     color: #ff6666 !important;
 }
 
-.edited {
-    color: cornflowerblue;
+.task-save,
+.MuiButton-text.task-save {
+    color: #00c774 !important;
 }
 
 .task-room-picker-row {
