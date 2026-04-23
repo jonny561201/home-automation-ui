@@ -103,27 +103,35 @@ export default function GarageDoor(props) {
     return (
         <div>
             <AccordionDetails className="center">
-                <div className="garage-door-container">
-                    <div className="status-text-group">
-                        <p className="garage-text-bold text">{props.device.doorName}</p>
-                        {props.device.isOpen
-                            ? <p className={"garage-big-text text" + (exceeded ? " alert" : "")}>Opened</p>
-                            : <p className="garage-big-text text">Closed</p>}
-                        {statusDays === 0
-                            ? <p className={"status-text text" + (exceeded ? " alert" : "")}>{statusHours}Hrs {statusMins}Min</p>
-                            : <p className={"status-text text" + (exceeded ? " alert" : "")}>{statusDays}Days {statusHours}Hrs</p>}
-                    </div>
-                    <WarningAmber className={"garage-alert-icon" + (exceeded ? "" : " garage-alert-icon-hidden")} />
-                    <div className="status-button-group">
+                <div className="garage-door-container container-fluid">
+                    <div className="row align-items-center">
+                        <div className="col status-text-group">
+                            <p className="garage-text-bold text">{props.device.doorName}</p>
+                            {props.device.isOpen
+                                ? <p className={"garage-big-text text" + (exceeded ? " alert" : "")}>Opened</p>
+                                : <p className="garage-big-text text">Closed</p>}
+                            {statusDays === 0
+                                ? <p className={"status-text text" + (exceeded ? " alert" : "")}>{statusHours}Hrs {statusMins}Min</p>
+                                : <p className={"status-text text" + (exceeded ? " alert" : "")}>{statusDays}Days {statusHours}Hrs</p>}
+                        </div>
+                        <div className="col-auto">
+                            <WarningAmber className={"garage-alert-icon" + (exceeded ? "" : " garage-alert-icon-hidden")} />
+                        </div>
                         {countdown && !cancelled &&
-                            <OrangeButton onClick={cancelAutoClose}>Cancel {countdown}</OrangeButton>
+                            <div className="col-12 col-sm-auto order-last order-sm-0 cancel-slot">
+                                <OrangeButton onClick={cancelAutoClose}>Cancel ({countdown})</OrangeButton>
+                            </div>
                         }
-                        {props.device.isOpen
-                            ? <RedButton onClick={() => openCloseGarageDoor(false)}>Close</RedButton>
-                            : <GreenButton onClick={() => openCloseGarageDoor(true)}>Open</GreenButton>}
-                        <BlueButton onClick={toggleDoor}>
-                            <img alt="UpDown" className="icon-image" src={UpDownIcon} />
-                        </BlueButton>
+                        <div className="col-auto main-slot">
+                            {props.device.isOpen
+                                ? <RedButton onClick={() => openCloseGarageDoor(false)}>Close</RedButton>
+                                : <GreenButton onClick={() => openCloseGarageDoor(true)}>Open</GreenButton>}
+                        </div>
+                        <div className="col-auto toggle-slot">
+                            <BlueButton onClick={toggleDoor}>
+                                <img alt="UpDown" className="icon-image" src={UpDownIcon} />
+                            </BlueButton>
+                        </div>
                     </div>
                 </div>
             </AccordionDetails>

@@ -1,34 +1,46 @@
 .garage-door-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
+    width: 100%;
+
+    .row {
+        flex-wrap: nowrap;
+    }
+
+    .col {
+        flex: 1 1 0;
+        min-width: 0;
+    }
 
     .status-text-group {
         display: flex;
         flex-direction: column;
+        min-width: 0;
+        overflow-wrap: break-word;
 
         .garage-big-text {
             font-size: 1.2rem;
             font-weight: bold;
             margin: 0 0.5rem 0 0;
             color: var(--panel-font-color);
+            overflow-wrap: break-word;
         }
 
         .garage-text-bold {
             font-size: 0.8rem;
             font-weight: bold;
             margin: 0 0.5rem 0 0;
+            overflow-wrap: break-word;
         }
     }
 
-    .status-button-group {
+    .cancel-slot,
+    .main-slot,
+    .toggle-slot {
         display: flex;
-        flex-direction: row;
+        align-items: center;
+        justify-content: center;
 
-        .icon-image {
-            width: 15px;
-            height: 15px;
+        .button-container {
+            margin: 0.25rem !important;
         }
     }
 
@@ -42,6 +54,24 @@
         visibility: hidden;
     }
 
+    .icon-image {
+        width: 15px;
+        height: 15px;
+    }
+
+    @media (max-width: 575.98px) {
+        .row {
+            flex-wrap: wrap;
+        }
+
+        .cancel-slot {
+            margin-top: 0.25rem;
+        }
+
+        .garage-alert-icon {
+            font-size: 1.5rem;
+        }
+    }
 }
 
 @keyframes pulse-text {
