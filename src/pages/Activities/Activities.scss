@@ -121,6 +121,13 @@
     color: #00c774 !important;
 }
 
+.task-disabled,
+.MuiButton-text.task-disabled {
+    color: var(--border-color) !important;
+    cursor: default;
+    pointer-events: none;
+}
+
 .task-room-picker-row {
     margin: 0 0 1rem 1rem !important;
 }

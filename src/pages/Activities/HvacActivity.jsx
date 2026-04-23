@@ -120,7 +120,7 @@ export default function HvacActivity(props) {
                             <Button className="task-delete" onClick={clickDelete} startIcon={<Delete/>}>Delete</Button>
                         </div>
                         <div className="task-button-container">
-                            <Button className="task-save" onClick={saveTask} startIcon={<Save/>}>Update</Button>
+                            <Button className={edited ? "task-save" : "task-disabled"} disabled={!edited} onClick={saveTask} startIcon={<Save/>}>Update</Button>
                         </div>
                     </div>
                 </div>

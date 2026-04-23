@@ -113,9 +113,9 @@ export default function LightActivity(props) {
                                 <Delete className="task-delete" />
                                 <p className="task-delete">Delete</p>
                             </div>
-                            <div className="task-button-container" onClick={saveTask}>
-                                <Save className="task-save" />
-                                <p className="task-save">Update</p>
+                            <div className={"task-button-container" + (edited ? "" : " task-disabled")} onClick={saveTask}>
+                                <Save className={edited ? "task-save" : ""} />
+                                <p className={edited ? "task-save" : ""}>Update</p>
                             </div>
                         </div>
                     </div>
