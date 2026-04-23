@@ -2,6 +2,7 @@ import React from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SecurityIcon from '../../../resources/panelIcons/SecurityIcon.png';
 import { AccordionDetails, Accordion, Typography, AccordionSummary, Divider } from '@mui/material';
+import Disconnected from '../../../components/controls/Disconnected';
 import './SecurityPanel.scss'
 
 
@@ -19,7 +20,7 @@ export default function SecurityPanel() {
                 </AccordionSummary>
                 <Divider />
                 <AccordionDetails className="center">
-                    <Typography className="text">Test Detail line 2</Typography>
+                    <Disconnected message="Security unavailable" />
                 </AccordionDetails>
             </Accordion>
         </div>
