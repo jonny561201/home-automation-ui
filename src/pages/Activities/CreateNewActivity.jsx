@@ -36,7 +36,8 @@ export default function CreateNewActivityPanel(props) {
                 <AccordionDetails className="center">
                     <div className="create-activity-panel">
                         <div className="create-activity-type-row">
-                            <TextField className="light-alarm-component" select fullWidth variant="outlined" value={type} onChange={updateSelectedType} label="Task Type">
+                            <TextField className="light-alarm-component" select fullWidth variant="outlined" value={type} onChange={updateSelectedType} label="Task Type"
+                                slotProps={{ select: { MenuProps: { disableScrollLock: true } } }}>
                                 {state.taskTypes.map(x => (
                                     <MenuItem key={x} value={x}>
                                         {x}
