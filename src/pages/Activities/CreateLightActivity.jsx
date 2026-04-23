@@ -6,6 +6,7 @@ import { Save, Delete } from '@mui/icons-material';
 import { insertLightTask } from '../../utilities/RestApi';
 import { MenuItem, TextField, Divider, Button } from '@mui/material';
 import { useAuth0 } from "@auth0/auth0-react";
+import './CreateLightActivity.scss';
 
 
 export default function CreateLightActivity(props) {
@@ -57,8 +58,8 @@ export default function CreateLightActivity(props) {
 
     return (
         <>
-            <div className="settings-row">
-                <TextField className="light-alarm-component task-room-picker-row" select variant="outlined" value={selectedRoom} onChange={updateSelectedRoom} label="Room">
+            <div className="create-light-activity-row">
+                <TextField className="light-alarm-component" select variant="outlined" value={selectedRoom} onChange={updateSelectedRoom} label="Room">
                     <MenuItem key="all-rooms" value="All Rooms">All Rooms</MenuItem>
                     {state.lights.map((group) => (
                         <MenuItem key={group.groupId} value={group.groupName}>
