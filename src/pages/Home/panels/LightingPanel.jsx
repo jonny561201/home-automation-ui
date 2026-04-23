@@ -2,9 +2,11 @@ import React, { useContext, useState } from 'react';
 import { Context } from '../../../state/Store';
 import LightSwitch from '../../../components/controls/LightSwitch';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { WbSunny, DarkMode } from '@mui/icons-material';
 import LightingIcon from '../../../resources/panelIcons/LightingIcon.png';
 import { AccordionDetails, Accordion, Typography, AccordionSummary, Divider } from '@mui/material';
 import Disconnected from '../../../components/controls/Disconnected';
+import { isDayLight } from '../../../utilities/Services';
 import './LightingPanel.scss'
 
 
@@ -17,6 +19,13 @@ export default function LightingPanel() {
             return state.lights.map(group => <LightSwitch key={`switch-${group.groupId}`} data={group} />)
         }
         return <Disconnected message="Light groups unavailable" />
+    };
+
+    const getDaylightIcon = () => {
+        const coords = state.garageCoords || state.userCoords;
+        if (!coords) return null;
+        if (isDayLight(coords)) return <WbSunny className="daylight-icon daylight-sun" />;
+        return <DarkMode className="daylight-icon daylight-moon" />;
     };
 
     const getSummaryText = () => {
@@ -37,6 +46,7 @@ export default function LightingPanel() {
                             <Typography className="panel-text panel-header-text">Lighting</Typography>
                             {!open && getSummaryText() &&
                                 <div className="small-text-group">
+                                    {getDaylightIcon()}
                                     <p className="small-text text">Rooms:</p>
                                     <p className={"small-text text " + (getSummaryText() === 'All off' ? '' : 'healthy')}>{getSummaryText()}</p>
                                 </div>

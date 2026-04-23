@@ -2,11 +2,13 @@ import React, {useContext, useState} from 'react';
 import {Context} from '../../state/Store';
 import WeekPicker from '../../components/controls/WeekPicker';
 import TimePicker from '../../components/controls/TimePicker';
-import {Delete, Save} from '@mui/icons-material';
+import {Delete, Save, WbSunny, DarkMode} from '@mui/icons-material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {deleteScheduledTask, updateScheduledTasks} from '../../utilities/RestApi';
 import {Accordion, AccordionDetails, AccordionSummary, Divider, MenuItem, Switch, TextField} from '@mui/material';
 import {useAuth0} from "@auth0/auth0-react";
+import {getSunrise, getSunset} from 'sunrise-sunset-js';
+import {parseDate} from '../../utilities/Services';
 
 
 export default function LightActivity(props) {
@@ -20,6 +22,22 @@ export default function LightActivity(props) {
     const [time, setTime] = useState(props.task.alarmTime);
     const [enabled, setEnabled] = useState(props.task.enabled);
     const [daysOfWeek, setDaysOfWeek] = useState(initialDays.map(day => props.task.alarmDays.includes(day.id) ? { ...day, on: true } : day));
+
+    const getSunRelation = () => {
+        const coords = state.garageCoords || state.userCoords;
+        if (!coords) return null;
+        const taskTime = parseDate(time);
+        const sunrise = getSunrise(coords.latitude, coords.longitude);
+        const sunset = getSunset(coords.latitude, coords.longitude);
+        const closerToSunrise = Math.abs(taskTime - sunrise) <= Math.abs(taskTime - sunset);
+        const ref = closerToSunrise ? sunrise : sunset;
+        const mins = Math.round((taskTime - ref) / 60000);
+        const label = closerToSunrise ? 'sunrise' : 'sunset';
+        if (Math.abs(mins) < 2) return { text: 'at ' + label, icon: closerToSunrise ? 'sun' : 'moon' };
+        const value = Math.abs(mins) < 60 ? Math.abs(mins) + ' min' : Math.round(Math.abs(mins) / 60) + ' hr';
+        const direction = mins > 0 ? 'after' : 'before';
+        return { text: value + ' ' + direction + ' ' + label, icon: closerToSunrise ? 'sun' : 'moon' };
+    };
 
     const updateTime = (dateTime) => {
         setEdited(true);
@@ -92,6 +110,17 @@ export default function LightActivity(props) {
                                 <p className="text activity-subtext">{days}</p>
                             </div>
                         </div>
+                        {getSunRelation() &&
+                            <div className="alarm-setting-group">
+                                <div className="alarm-column-one sun-relation">
+                                    {getSunRelation().icon === 'sun'
+                                        ? <WbSunny className="sun-relation-icon sun-icon" />
+                                        : <DarkMode className="sun-relation-icon moon-icon" />
+                                    }
+                                    <p className="text activity-subtext">{getSunRelation().text}</p>
+                                </div>
+                            </div>
+                        }
                     </div>
                 </AccordionSummary>
                 <AccordionDetails className="center">

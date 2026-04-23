@@ -12,12 +12,24 @@
     .small-text-group {
         margin-left: 2rem;
         display: flex;
-        justify-content: center;
+        align-items: center;
 
         .small-text {
             margin: 0 0 0 0.25rem;
             font-size: 0.75rem;
-            align-items: center;
+        }
+
+        .daylight-icon {
+            font-size: 0.9rem !important;
+            margin-right: 0.25rem;
+        }
+
+        .daylight-sun {
+            color: #f5a623;
+        }
+
+        .daylight-moon {
+            color: #7b8ab0;
         }
     }
 }

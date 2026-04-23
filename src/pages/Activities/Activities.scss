@@ -97,6 +97,24 @@
         .alarm-column-two {
             flex: 1;
         }
+
+        .sun-relation {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+
+            .sun-relation-icon {
+                font-size: 0.85rem !important;
+            }
+
+            .sun-icon {
+                color: #f5a623;
+            }
+
+            .moon-icon {
+                color: #7b8ab0;
+            }
+        }
     }
 }
 
