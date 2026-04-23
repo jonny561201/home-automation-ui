@@ -31,7 +31,7 @@ export default function ActivitiesPage() {
         setTimeout(() => setAddTask(true), 250);
     }
 
-    const createActivities = (task) => {
+    const getExistingActivities = (task) => {
         return task.taskType === 'hvac'
             ? <HvacActivity key={task.taskId} task={task} />
             : <LightActivity key={task.taskId} task={task} />
@@ -52,7 +52,7 @@ export default function ActivitiesPage() {
                         <CreateNewActivityPanel saveNewTask={() => { setAddTask(false); setRotated(false); }} cancelNewTask={() => { setAddTask(false); setRotated(false); }} />
                     }
                     {
-                        state.tasks.map(x => createActivities(x))
+                        state.tasks.map(x => getExistingActivities(x))
                     }
                 </div>
                 <div className="add-task-container">

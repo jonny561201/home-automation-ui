@@ -1,0 +1,11 @@
+.create-activity-panel {
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+
+    .create-activity-type-row {
+        display: flex;
+        flex-direction: row;
+        margin: 0 0 1rem 1rem;
+    }
+}

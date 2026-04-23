@@ -56,17 +56,13 @@ export default function CreateHvacActivity(props) {
 
     return (
         <>
-            <div className="settings-row">
-                <div className="picker-row">
-                    <TimePicker initialTime={startTime} setTime={updateStartTime} label="start time" />
-                    <TimePicker initialTime={stopTime} setTime={updateStopTime} label="stop time" />
-                </div>
+            <div className="picker-row">
+                <TimePicker initialTime={startTime} setTime={updateStartTime} label="start time" />
+                <TimePicker initialTime={stopTime} setTime={updateStopTime} label="stop time" />
             </div>
-            <div className="settings-row">
-                <div className="picker-row">
-                    <TempPicker value={inTemp} onChange={setInTemp} label="Start Temp" />
-                    <TempPicker value={outTemp} onChange={setOutTemp} label="Stop Temp" />
-                </div>
+            <div className="picker-row">
+                <TempPicker value={inTemp} onChange={setInTemp} label="Start Temp" />
+                <TempPicker value={outTemp} onChange={setOutTemp} label="Stop Temp" />
             </div>
             <WeekPicker daysOfWeek={daysOfWeek} toggleDay={toggleDay} setEdited={() => setEdited(true)} />
             <Divider />

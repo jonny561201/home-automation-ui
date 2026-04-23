@@ -4,6 +4,7 @@ import CreateLightActivity from './CreateLightActivity';
 import CreateHvacActivity from './CreateHvacActivity';
 import { Delete } from '@mui/icons-material';
 import { AccordionDetails, Accordion, TextField, MenuItem, AccordionSummary, Button } from '@mui/material';
+import './CreateNewActivity.scss';
 
 
 export default function CreateNewActivityPanel(props) {
@@ -33,9 +34,9 @@ export default function CreateNewActivityPanel(props) {
             <Accordion expanded={true}>
                 <AccordionSummary style={{ height: "0px", minHeight: "0px" }} />
                 <AccordionDetails className="center">
-                    <div className="activity-detail-panel">
-                        <div className="settings-row">
-                            <TextField className="light-alarm-component task-room-picker-row" select fullWidth variant="outlined" value={type} onChange={updateSelectedType} label="Task Type">
+                    <div className="create-activity-panel">
+                        <div className="create-activity-type-row">
+                            <TextField className="light-alarm-component" select fullWidth variant="outlined" value={type} onChange={updateSelectedType} label="Task Type">
                                 {state.taskTypes.map(x => (
                                     <MenuItem key={x} value={x}>
                                         {x}

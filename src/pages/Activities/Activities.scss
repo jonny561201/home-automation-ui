@@ -51,6 +51,7 @@
 
 .light-alarm-component {
     flex: 1;
+    min-width: 0;
     margin-right: 1rem !important;
 }
 
@@ -129,7 +130,7 @@
 }
 
 .task-room-picker-row {
-    margin: 0 0 1rem 1rem !important;
+    margin: 0 0 1rem 0 !important;
 }
 
 @media (min-width: 820px) {
