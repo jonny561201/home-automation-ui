@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { Context } from '../../state/Store';
-import { debounchApi } from '../../utilities/Services';
 import { CustomSlider } from '../../components/controls/Slider';
 import { ButtonBase } from '@mui/material';
 import SwitchSlider from '../../pages/Home/segments/SwitchSlider';
@@ -23,15 +22,15 @@ export default function LightSwitch(props) {
     const [prevBrightness, setPrevBrightness] = useState(initalBrightness);
     const [areLightsOpen, setLightsOpen] = useState(false);
 
-    const sliderToggleLightGroup = async (event, value) => {
-        const newBrightness = Math.round(value * 2.55);
-        debounchApi(async () => {
-            const token = await auth0.getAccessTokenSilently();
-            setLightGroupState(token, groupId, true, newBrightness)
-        });
-        if (newBrightness > 0)
-            setIsOn(true);
+    const sliderToggleLightGroup = (event, value) => {
+        if (value > 0) setIsOn(true);
         setBrightness(value);
+    };
+
+    const commitSliderLightGroup = async (event, value) => {
+        const newBrightness = Math.round(value * 2.55);
+        const token = await auth0.getAccessTokenSilently();
+        setLightGroupState(token, groupId, true, newBrightness);
         const newList = state.lights.map(x => (x.groupId === groupId) ? { ...x, brightness: newBrightness, lights: x.lights.map(y => ({ ...y, brightness: newBrightness })) } : x);
         dispatch({ type: 'SET_LIGHTS', payload: newList });
     };
@@ -69,7 +68,7 @@ export default function LightSwitch(props) {
                 <ButtonBase className="light-button" onClick={toggleLightGroup}>
                     <p className="light-text text">{groupName}</p>
                 </ButtonBase>
-                <CustomSlider onChange={sliderToggleLightGroup} value={brightness} valueLabelDisplay="auto" aria-label="slider" />
+                <CustomSlider onChange={sliderToggleLightGroup} onChangeCommitted={commitSliderLightGroup} value={brightness} valueLabelDisplay="auto" aria-label="slider" />
                 <BrightnessMediumIcon className="brightness-icon text" />
             </div>
             {areLightsOpen && (

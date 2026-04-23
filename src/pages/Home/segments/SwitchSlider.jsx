@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Context} from '../../../state/Store';
 import {ButtonBase} from '@mui/material';
-import {debounchApi} from '../../../utilities/Services';
 import {setLightState} from '../../../utilities/RestApi';
 import {CustomSlider} from '../../../components/controls/Slider';
 import {useAuth0} from "@auth0/auth0-react";
@@ -16,21 +15,25 @@ export default function SwitchSlider(props) {
     const [prevBrightness, setPrevBrightness] = useState(0);
 
     useEffect(() => {
-        const group = state.lights.find(x => x.groupId === props.data.groupId)
-        if (group.lights)
-            setLight(group.lights.find(y => y.lightId === lightId));
-    });
+        const group = state.lights.find(x => x.groupId === props.data.groupId);
+        if (group && group.lights) {
+            const found = group.lights.find(y => y.lightId === lightId);
+            if (found) setLight(found);
+        }
+    }, [state.lights]);
 
     const updateSlider = (event, value) => {
-        const newLight = { ...light, brightness: value * 2.55, on: value > 0 };
-        setLight(newLight);
-        debounchApi(async () => {
-            const token = await auth0.getAccessTokenSilently();
-            setLightState(token, lightId, true, value * 2.55)
-        });
+        setLight({ ...light, brightness: value * 2.55, on: value > 0 });
+    };
+
+    const commitSlider = async (event, value) => {
+        const newBrightness = value * 2.55;
+        const token = await auth0.getAccessTokenSilently();
+        setLightState(token, lightId, true, newBrightness);
+        const newLight = { ...light, brightness: newBrightness, on: value > 0 };
         const newList = state.lights.map(x => (x.groupId === groupId) ? { ...x, lights: x.lights.map(y => (y.lightId === lightId) ? newLight : y) } : x);
         dispatch({ type: 'SET_LIGHTS', payload: newList });
-    }
+    };
 
     const toggleLight = async () => {
         const newState = !light.on;
@@ -51,7 +54,7 @@ export default function SwitchSlider(props) {
             <ButtonBase className="light-button" onClick={toggleLight}>
                 <p className="light-text-small text">{light.lightName}</p>
             </ButtonBase>
-            <CustomSlider onChange={(event, val) => updateSlider(event, val)} value={Math.round(light.brightness / 2.55)} valueLabelDisplay="auto" aria-label="slider" />
+            <CustomSlider onChange={updateSlider} onChangeCommitted={commitSlider} value={Math.round(light.brightness / 2.55)} valueLabelDisplay="auto" aria-label="slider" />
             <div className="light-spacer-two"/>
         </div>
     )
