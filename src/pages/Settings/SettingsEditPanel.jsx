@@ -11,6 +11,7 @@ export default function SettingsEditPanel(props) {
     const auth0 = useAuth0();
     const [state, dispatch] = useContext(Context);
     const preferences = state.preferences || {};
+    const [edited, setEdited] = useState(false);
     const [garage, setGarage] = useState(state.garageDoors.find(x => x.nodeId === preferences.garageNodeId) || null);
     const [newCity, setNewCity] = useState(preferences.city || '');
     const [newTempUnit, setNewTempUnit] = useState(preferences.tempUnit || '');
@@ -18,6 +19,7 @@ export default function SettingsEditPanel(props) {
     const [newAlertMinutes, setNewAlertMinutes] = useState(preferences.garageAlertTime || '');
 
     const savePreferences = async () => {
+        if (!edited) return;
         const isFahrenheit = newTempUnit === "fahrenheit";
         const isImperial = newMeasureUnit === "imperial";
         const alertMinutes = newAlertMinutes === '' ? 0 : parseInt(newAlertMinutes, 10);
@@ -38,24 +40,31 @@ export default function SettingsEditPanel(props) {
         props.setEditMode(false);
     }
 
+    const setCity = (input) => {
+        setEdited(true);
+        setNewCity(input.target.value);
+    }
+
     const updateTempRadioButton = (input) => {
+        setEdited(true);
         setNewTempUnit(input.target.value);
     }
 
     const updateMeasureRadioButton = (input) => {
+        setEdited(true);
         setNewMeasureUnit(input.target.value);
     }
 
     const updateGarageDoor = (input) => {
         const door = state.garageDoors.find(x => x.doorName === input.target.value) || null;
-
+        setEdited(true);
         setGarage(door);
     }
 
     const updateAlertMinutes = (input) => {
         const value = input.target.value;
         if (value === '' || (/^\d+$/.test(value) && parseInt(value, 10) <= 1440)) {
-    
+            setEdited(true);
             setNewAlertMinutes(value);
         }
     }
@@ -94,7 +103,7 @@ export default function SettingsEditPanel(props) {
                         </FormControl>
                     </div>
                     <div className="settings-edit-row">
-                        <TextField variant="outlined" label="City" value={newCity} onChange={(input) => setNewCity(input.target.value)}/>
+                        <TextField variant="outlined" label="City" value={newCity} onChange={setCity}/>
                     </div>
                 </div>
                 <div>
@@ -116,7 +125,7 @@ export default function SettingsEditPanel(props) {
                         <Button className="settings-edit-cancel" startIcon={<Delete />}>Cancel</Button>
                     </div>
                     <div className="settings-edit-action">
-                        <Button className="settings-edit-save" onClick={savePreferences} startIcon={<Save />}>Save</Button>
+                        <Button className={edited ? "settings-edit-save" : "settings-edit-disabled"} disabled={!edited} onClick={savePreferences} startIcon={<Save />}>Save</Button>
                     </div>
                 </div>
             </div>

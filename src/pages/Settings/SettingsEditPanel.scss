@@ -43,5 +43,9 @@
         .settings-edit-save {
             color: #00c774 !important;
         }
+
+        .settings-edit-disabled {
+            color: var(--border-color) !important;
+        }
     }
 }
