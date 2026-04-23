@@ -30,8 +30,6 @@ export const CustomSlider = styled(Slider)({
     width: 24,
     backgroundColor: '#fff',
     border: '2px solid currentColor',
-    marginTop: -8,
-    marginLeft: -12,
     '&:focus, &:hover, &.Mui-active': {
       boxShadow: 'inherit',
     },
