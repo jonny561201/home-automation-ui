@@ -47,13 +47,16 @@ export default function ActivitiesPage() {
                     <div className="settings-group setting panel-header-text">
                         <h2>Activities</h2>
                     </div>
-                    {
-                        addTask &&
-                        <CreateNewActivityPanel saveNewTask={() => { setAddTask(false); setRotated(false); }} cancelNewTask={() => { setAddTask(false); setRotated(false); }} />
+                    {addTask &&
+                        <>
+                            <p className="activity-section-label text">New Activity</p>
+                            <CreateNewActivityPanel saveNewTask={() => { setAddTask(false); setRotated(false); }} cancelNewTask={() => { setAddTask(false); setRotated(false); }} />
+                        </>
                     }
-                    {
-                        state.tasks.map(x => getExistingActivities(x))
+                    {addTask && state.tasks.length > 0 &&
+                        <p className="activity-section-label text">Existing</p>
                     }
+                    {state.tasks.map(x => getExistingActivities(x))}
                 </div>
                 <div className="add-task-container">
                     <div className="add-task-button-border">
