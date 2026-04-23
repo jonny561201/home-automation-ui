@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog } from '@mui/material';
+import { Dialog, TextField, InputAdornment, IconButton } from '@mui/material';
 import Knob from '../controls/Knob';
 import './TempPicker.scss'
 import { AcUnitOutlined } from '@mui/icons-material';
@@ -19,19 +19,21 @@ export default function TempPicker(props) {
 
     return (
         <>
-            <div className="MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal temp-picker-gap">
-                <label className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled" data-shrink="true">{props.label}</label>
-                <div className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd">
-                    <input aria-invalid="false" className="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd" value={props.value} onChange={() => { }} />
-                    <div className="MuiInputAdornment-root MuiInputAdornment-positionEnd">
-                        <button className="MuiButtonBase-root MuiIconButton-root" tabIndex="0" type="button" aria-label="change time" onClick={() => setOpen(!open)}>
-                            <span className="MuiIconButton-label">
-                                <AcUnitOutlined/>
-                            </span>
-                            <span className="MuiTouchRipple-root"></span>
-                        </button>
-                    </div>
-                </div>
+            <div className="light-alarm-component">
+            <TextField fullWidth label={props.label} value={props.value} variant="outlined" margin="normal"
+                slotProps={{
+                    input: {
+                        readOnly: true,
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton aria-label="change temperature" onClick={() => setOpen(!open)} size="small">
+                                    <AcUnitOutlined fontSize="small" />
+                                </IconButton>
+                            </InputAdornment>
+                        ),
+                    },
+                }}
+            />
             </div>
 
             <Dialog open={open}>
@@ -63,4 +65,3 @@ export default function TempPicker(props) {
         </>
     )
 }
-

@@ -36,7 +36,8 @@ export default function TimePicker(props) {
                         format="hh:mm aa"
                         slotProps={{
                             textField: {
-                                margin: 'normal'
+                                margin: 'normal',
+                                fullWidth: true
                             }
                         }}
                     />
