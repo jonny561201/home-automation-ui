@@ -15,6 +15,7 @@ export const initialState = {
     forecastData: { description: '' },
     preferences: null,
     location: { notified: false, granted: false },
+    scenes: [],
     tasks: [],
     taskTypes: ['sunrise alarm', 'turn on', 'turn off', 'hvac']
 };

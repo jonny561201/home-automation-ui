@@ -58,6 +58,21 @@ const Reducer = (state, action) => {
                 ...state,
                 tasks: [...state.tasks, action.payload]
             }
+        case 'SET_SCENES':
+            return {
+                ...state,
+                scenes: action.payload
+            }
+        case 'ADD_SCENE':
+            return {
+                ...state,
+                scenes: [...state.scenes, action.payload]
+            }
+        case 'DELETE_SCENE':
+            return {
+                ...state,
+                scenes: state.scenes.filter(s => s.sceneId !== action.payload)
+            }
         case 'SET_SUMP_DATA':
             return {
                 ...state,

@@ -6,6 +6,7 @@ import { WbSunny, DarkMode } from '@mui/icons-material';
 import LightingIcon from '../../../resources/panelIcons/LightingIcon.png';
 import { AccordionDetails, Accordion, Typography, AccordionSummary, Divider } from '@mui/material';
 import Disconnected from '../../../components/controls/Disconnected';
+import LightScenes from '../segments/LightScenes';
 import { isDayLight } from '../../../utilities/Services';
 import './LightingPanel.scss'
 
@@ -56,6 +57,8 @@ export default function LightingPanel() {
                 </AccordionSummary>
                 <Divider />
                 <AccordionDetails className="center">
+                    {state.scenes && state.scenes.length > 0 && <LightScenes />}
+                    <p className="light-section-label text">Rooms</p>
                     <div className="light-panel-group">
                         {renderGroups()}
                     </div>

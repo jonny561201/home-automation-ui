@@ -44,6 +44,7 @@ export default function ApiInterval({ children }) {
         loaded.current = true;
         getUserDevices();
         getLights();
+        getScenes();
         if (hasGarage) getGarageData();
         if (hasSump) getSumpData();
         getTempData();

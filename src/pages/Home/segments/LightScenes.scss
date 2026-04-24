@@ -1,0 +1,41 @@
+.light-scenes {
+    .light-scenes-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin: 0.5rem 0 0 0.75rem;
+        opacity: 0.5;
+    }
+
+    .light-scenes-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 8px 12px;
+    }
+
+    .scene-pill {
+        padding: 6px 16px;
+        border-radius: 16px;
+        border: 1px solid var(--border-color);
+        background: transparent;
+        cursor: pointer;
+        font-size: 0.8rem;
+    }
+
+    .scene-pill-active {
+        background-color: #00c774;
+        color: #ffffff;
+        border-color: #00c774;
+    }
+
+    .scene-pill-add {
+        display: flex;
+        align-items: center;
+        padding: 6px 10px;
+
+        .scene-pill-add-icon {
+            font-size: 1rem !important;
+        }
+    }
+}
