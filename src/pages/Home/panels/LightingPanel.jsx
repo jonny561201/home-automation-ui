@@ -57,7 +57,7 @@ export default function LightingPanel() {
                 </AccordionSummary>
                 <Divider />
                 <AccordionDetails className="center">
-                    {state.scenes && state.scenes.length > 0 && <LightScenes />}
+                    {state.lights && state.lights.length > 0 && <LightScenes />}
                     <p className="light-section-label text">Rooms</p>
                     <div className="light-panel-group">
                         {renderGroups()}
