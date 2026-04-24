@@ -15,6 +15,7 @@
         flex-direction: column;
         min-width: 0;
         overflow-wrap: break-word;
+        padding: 0;
 
         .garage-big-text {
             font-size: 1.2rem;
@@ -59,7 +60,7 @@
         height: 15px;
     }
 
-    @media (max-width: 575.98px) {
+    @media (max-width: 576px) {
         .row {
             flex-wrap: wrap;
         }
@@ -70,6 +71,10 @@
 
         .garage-alert-icon {
             font-size: 1.5rem;
+        }
+
+        .col-auto {
+            padding: 0 0.5rem 0 0;
         }
     }
 }
