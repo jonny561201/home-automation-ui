@@ -59,22 +59,22 @@ export default function CreateScene({ onSave, onCancel }) {
         setSelections({ ...selections, ['light-' + lightId]: value });
     };
 
-    const buildDetails = () => {
-        const details = [];
+    const buildLights = () => {
+        const lights = [];
         Object.keys(selections).forEach(key => {
             const brightness = Math.round(selections[key] * 2.55);
             if (key.startsWith('group-')) {
-                details.push({ groupId: key.replace('group-', ''), brightness: brightness });
+                lights.push({ groupId: key.replace('group-', ''), brightness: brightness });
             } else if (key.startsWith('light-')) {
-                details.push({ lightId: key.replace('light-', ''), brightness: brightness });
+                lights.push({ lightId: key.replace('light-', ''), brightness: brightness });
             }
         });
-        return details;
+        return lights;
     };
 
     const handleSave = () => {
         if (!name.trim() || Object.keys(selections).length === 0) return;
-        onSave({ name: name.trim(), details: buildDetails() });
+        onSave({ name: name.trim(), lights: buildLights() });
     };
 
     return (

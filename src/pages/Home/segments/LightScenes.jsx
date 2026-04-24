@@ -14,9 +14,9 @@ export default function LightScenes() {
     const [showCreate, setShowCreate] = useState(false);
 
     const activateScene = async (scene) => {
-        setActiveScene(scene.sceneId);
+        setActiveScene(scene.id);
         const token = await auth0.getAccessTokenSilently();
-        for (const detail of scene.details) {
+        for (const detail of scene.lights) {
             const isOn = detail.brightness > 0;
             if (detail.groupId) {
                 await setLightGroupState(token, detail.groupId, isOn, detail.brightness);
@@ -29,7 +29,7 @@ export default function LightScenes() {
 
     const updateLightsFromScene = (scene) => {
         let updated = state.lights.map(g => ({ ...g, lights: g.lights ? [...g.lights] : [] }));
-        for (const detail of scene.details) {
+        for (const detail of scene.lights) {
             if (detail.groupId) {
                 updated = updated.map(g => g.groupId === detail.groupId
                     ? { ...g, brightness: detail.brightness, on: detail.brightness > 0, lights: g.lights.map(l => ({ ...l, brightness: detail.brightness, on: detail.brightness > 0 })) }
