@@ -1,0 +1,62 @@
+.create-scene-dialog {
+    padding: 1rem;
+
+    .create-scene-title {
+        margin: 0 0 1rem 0;
+    }
+
+    .create-scene-name {
+        margin-bottom: 1rem;
+    }
+
+    .create-scene-tree {
+        max-height: 400px;
+        overflow-y: auto;
+        padding: 0.5rem 0;
+
+        .create-scene-group {
+            margin-bottom: 0.25rem;
+        }
+
+        .create-scene-row {
+            display: flex;
+            align-items: center;
+
+            .create-scene-group-name {
+                margin: 0;
+                font-weight: bold;
+                font-size: 0.9rem;
+                white-space: nowrap;
+            }
+
+            .create-scene-light-name {
+                margin: 0;
+                font-size: 0.85rem;
+                white-space: nowrap;
+            }
+
+            .create-scene-slider {
+                flex: 1;
+                margin: 0 1rem 0 1rem !important;
+            }
+        }
+
+        .create-scene-light-row {
+            padding-left: 2rem;
+        }
+    }
+
+    .create-scene-actions {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 0.75rem;
+
+        .create-scene-cancel {
+            color: #ff6666 !important;
+        }
+
+        .create-scene-save {
+            color: #00c774 !important;
+        }
+    }
+}
