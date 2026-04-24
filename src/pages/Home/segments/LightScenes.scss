@@ -1,4 +1,5 @@
 .light-scenes {
+    padding: 0 0 1rem 0;
     .light-scenes-label {
         font-size: 0.7rem;
         text-transform: uppercase;
@@ -15,18 +16,43 @@
     }
 
     .scene-pill {
-        padding: 6px 16px;
+        display: flex;
+        align-items: center;
+        padding: 4px 8px 4px 14px;
         border-radius: 16px;
         border: 1px solid var(--border-color);
         background: transparent;
-        cursor: pointer;
-        font-size: 0.8rem;
+
+        .scene-pill-label {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.8rem;
+            padding: 0;
+            color: inherit;
+            font-family: inherit;
+        }
+
+        .scene-pill-delete {
+            font-size: 0.9rem !important;
+            margin-left: 6px;
+            cursor: pointer;
+            opacity: 0.5;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
     }
 
     .scene-pill-active {
         background-color: #00c774;
         color: #ffffff;
         border-color: #00c774;
+
+        .scene-pill-delete {
+            color: #ffffff;
+        }
     }
 
     .scene-pill-add {

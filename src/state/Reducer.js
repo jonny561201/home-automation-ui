@@ -71,7 +71,7 @@ const Reducer = (state, action) => {
         case 'DELETE_SCENE':
             return {
                 ...state,
-                scenes: state.scenes.filter(s => s.sceneId !== action.payload)
+                scenes: state.scenes.filter(s => s.id !== action.payload)
             }
         case 'SET_SUMP_DATA':
             return {

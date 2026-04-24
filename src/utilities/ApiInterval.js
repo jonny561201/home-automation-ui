@@ -6,6 +6,7 @@ import {
     getCurrentTemperature,
     getDevices,
     getLightGroups,
+    getScenes,
     getScheduledTasks,
     getSumpLevels,
     getUserForecast,
@@ -44,7 +45,7 @@ export default function ApiInterval({ children }) {
         loaded.current = true;
         getUserDevices();
         getLights();
-        getScenes();
+        getScenesData();
         if (hasGarage) getGarageData();
         if (hasSump) getSumpData();
         getTempData();
@@ -108,6 +109,26 @@ export default function ApiInterval({ children }) {
             dispatch({ type: 'SET_LIGHTS', payload: groups });
         }
     }
+
+    const getScenesData = async () => {
+        const token = await auth0.getAccessTokenSilently();
+        const response = await getScenes(token);
+        // const testScenes = [
+        //     { sceneId: '1', name: 'Movie Night', details: [
+        //         { groupId: '1', brightness: 30 },
+        //         { lightId: '3', brightness: 0 },
+        //     ]},
+        //     { sceneId: '2', name: 'All Off', details: [
+        //         { groupId: '1', brightness: 0 },
+        //         { groupId: '2', brightness: 0 },
+        //         { groupId: '3', brightness: 0 },
+        //     ]},
+        //     { sceneId: '3', name: 'Cooking', details: [
+        //         { groupId: '3', brightness: 255 },
+        //     ]},
+        // ];
+        dispatch({ type: 'SET_SCENES', payload: response.scenes || [] });
+    };
 
     return children
 }

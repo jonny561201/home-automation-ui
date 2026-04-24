@@ -4,6 +4,7 @@ const deviceBaseUrl = `${baseUrl}/devices`;
 const garageBaseUrl = `${baseUrl}/garageDoor`;
 const lightBaseUrl = `${baseUrl}/lights`;
 const sumpBaseUrl = `${baseUrl}/sumpPump`;
+const sceneBaseUrl = `${baseUrl}/scenes`;
 const thermostatBaseUrl = `${baseUrl}/thermostat`;
 
 
@@ -205,6 +206,41 @@ export const setLightState = async (bearer, lightId, state, brightness) => {
             body: JSON.stringify(request)
         };
         return await fetch(`${lightBaseUrl}/group/light`, options);
+    } catch {
+        return { ok: false };
+    }
+}
+
+export const getScenes = async (bearer) => {
+    try {
+        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
+        const response = await fetch(`${sceneBaseUrl}/list`, options);
+        if (!response.ok) return {};
+        return await response.json();
+    } catch {
+        return {};
+    }
+}
+
+export const createScene = async (bearer, request) => {
+    try {
+        const options = {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify(request)
+        };
+        const response = await fetch(sceneBaseUrl, options);
+        if (!response.ok) return {};
+        return await response.json();
+    } catch {
+        return {};
+    }
+}
+
+export const deleteScene = async (bearer, sceneId) => {
+    try {
+        const options = { method: 'DELETE', headers: { 'Authorization': `Bearer ${bearer}` } };
+        return await fetch(`${sceneBaseUrl}/${sceneId}`, options);
     } catch {
         return { ok: false };
     }
