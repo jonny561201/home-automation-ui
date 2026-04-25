@@ -16,15 +16,17 @@ export default function LightScenes() {
     const activateScene = async (scene) => {
         setActiveScene(scene.id);
         const token = await auth0.getAccessTokenSilently();
-        for (const detail of scene.lights) {
-            const isOn = detail.brightness > 0;
-            if (detail.groupId) {
-                await setLightGroupState(token, detail.groupId, isOn, detail.brightness);
-            } else if (detail.lightId) {
-                await setLightState(token, detail.lightId, isOn, detail.brightness);
+        for (const light of scene.lights) {
+            const isOn = light.brightness > 0;
+            if (light.groupId) {
+                await setLightGroupState(token, light.groupId, isOn, light.brightness);
+            } else if (light.lightId) {
+                await setLightState(token, light.lightId, isOn, light.brightness);
             }
         }
         updateLightsFromScene(scene);
+        await new Promise(r => setTimeout(r, 800));
+        setActiveScene(null);
     };
 
     const updateLightsFromScene = (scene) => {
@@ -60,7 +62,6 @@ export default function LightScenes() {
         const response = await deleteScene(token, sceneId);
         if (response.ok) {
             dispatch({ type: 'DELETE_SCENE', payload: sceneId });
-            if (activeScene === sceneId) setActiveScene(null);
         }
     };
 
