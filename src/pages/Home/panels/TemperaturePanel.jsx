@@ -83,7 +83,7 @@ export default function TemperaturePanel() {
                             <TemperatureImage />
                         </div>
                         <div className="form-column gauge-column">
-                            <Knob value={state.tempData.currentDesiredTemp} lineCap={"round"} inputColor={state.tempData.gaugeColor} fgColor={state.tempData.gaugeColor} title="Desired Temp"
+                            <Knob value={state.tempData.currentDesiredTemp} lineCap={"round"} inputColor={state.tempData.gaugeColor} fgColor={state.tempData.gaugeColor} fgGradient={state.tempData.gaugeGradient} title="Desired Temp"
                                 onChange={knobChange} angleArc={240} angleOffset={240} min={state.tempData.minThermostatTemp} max={state.tempData.maxThermostatTemp} />
                             {
                                 state.tasks.some(x => x.taskType === 'hvac') ?

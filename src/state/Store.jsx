@@ -11,7 +11,7 @@ export const initialState = {
     userCoords: null,
     lights: [],
     sumpData: {},
-    tempData: { gaugeColor: '#A0A0A0', currentDesiredTemp: 0.0 },
+    tempData: { gaugeColor: '#A0A0A0', gaugeGradient: null, currentDesiredTemp: 0.0 },
     forecastData: { description: '' },
     preferences: null,
     location: { notified: false, granted: false },

@@ -90,10 +90,18 @@ export default function Knob(props) {
         ctx.stroke();
         const a = getArcToValue(props.value);
         ctx.beginPath();
-        ctx.strokeStyle = fgColor;
+        if (props.fgGradient && props.fgGradient.length >= 2) {
+            const gradient = ctx.createLinearGradient(0, xy, w, xy);
+            props.fgGradient.forEach((color, i) => {
+                gradient.addColorStop(i / (props.fgGradient.length - 1), color);
+            });
+            ctx.strokeStyle = gradient;
+        } else {
+            ctx.strokeStyle = fgColor;
+        }
         ctx.arc(xy, xy, radius, a.startAngle, a.endAngle, a.acw);
         ctx.stroke();
-    }, [w, h, thickness, lineCap, bgColor, fgColor, startAngle, endAngle, props.value, min, max, angleArc, log, clockwise, cursor, cursorExt]);
+    }, [w, h, thickness, lineCap, bgColor, fgColor, props.fgGradient, startAngle, endAngle, props.value, min, max, angleArc, log, clockwise, cursor, cursorExt]);
 
     const eventToValue = useCallback((e) => {
         const bounds = canvasRef.current.getBoundingClientRect();

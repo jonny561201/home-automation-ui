@@ -80,10 +80,11 @@ const Reducer = (state, action) => {
             }
         case 'SET_TEMP_DATA':
             const color = toggleColor(action.payload.mode, state);
+            const gradient = toggleGradient(action.payload.mode, state);
             const current = determineDesired(state, action.payload);
             return {
                 ...state,
-                tempData: { ...action.payload, gaugeColor: color, currentDesiredTemp: current }
+                tempData: { ...action.payload, gaugeColor: color, gaugeGradient: gradient, currentDesiredTemp: current }
             }
         case 'SET_FORECAST_DATA':
             return {
@@ -111,9 +112,19 @@ const toggleColor = (mode, state) => {
     else if (mode === "heating")
         return "#db5127";
     else if (mode === "auto" && state.tasks.some(x => x.taskType === 'hvac'))
-        return "#00c774";
+        return "#e88a4f";
     else
         return "#A0A0A0";
+}
+
+const toggleGradient = (mode, state) => {
+    if (mode === "cooling")
+        return ['#1a6e8a', '#7ecde8'];
+    if (mode === "heating")
+        return ['#f0b860', '#d94a1a'];
+    if (mode === "auto" && state.tasks.some(x => x.taskType === 'hvac'))
+        return ['#4bbde0', '#e07040'];
+    return null;
 }
 
 
