@@ -3,6 +3,7 @@ import Knob from '../../../components/controls/Knob';
 import { debounchApi } from '../../../utilities/Services';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TemperatureImage from '../segments/TemperatureImage';
+import WeatherForecast from '../segments/WeatherForecast';
 import TemperatureIcon from '../../../resources/panelIcons/TemperatureIcon.png';
 import { setUserTemperature } from '../../../utilities/RestApi';
 import { parseDate } from '../../../utilities/Services';
@@ -87,37 +88,41 @@ export default function TemperaturePanel() {
                 </AccordionSummary>
                 <Divider />
                 <AccordionDetails>
-                    <div className="form-container">
-                        <div className="form-column image-column">
-                            <TemperatureImage />
-                        </div>
-                        <div className="form-column gauge-column">
-                            <Knob value={state.tempData.currentDesiredTemp} lineCap={"round"} inputColor={state.tempData.gaugeColor} fgColor={state.tempData.gaugeColor} fgGradient={state.tempData.gaugeGradient} title="Desired Temp"
-                                onChange={knobChange} angleArc={240} angleOffset={240} min={state.tempData.minThermostatTemp} max={state.tempData.maxThermostatTemp} />
-                            {
-                                state.tasks.some(x => x.taskType === 'hvac') ?
+                    <div className="temperature-panel-content">
+                        <div className="form-container">
+                            <div className="form-column image-column">
+                                <TemperatureImage />
+                            </div>
+                            <div className="form-column gauge-column">
+                                <Knob value={state.tempData.currentDesiredTemp} lineCap={"round"} inputColor={state.tempData.gaugeColor} fgColor={state.tempData.gaugeColor} fgGradient={state.tempData.gaugeGradient} title="Desired Temp"
+                                    onChange={knobChange} angleArc={240} angleOffset={240} min={state.tempData.minThermostatTemp} max={state.tempData.maxThermostatTemp} />
+                                {
+                                    state.tasks.some(x => x.taskType === 'hvac') ?
+                                        <FormControl>
+                                            <FormGroup>
+                                                <FormControlLabel label="Auto" control={<AutoSwitch checked={state.tempData.mode === 'auto' && state.tasks.some(x => x.taskType === 'hvac')} onChange={() => toggleHvac("auto")} />} />
+                                            </FormGroup>
+                                        </FormControl>
+                                        : null
+                                }
+                                {(state.tempData.mode !== 'auto' || !state.tasks.some(x => x.taskType === 'hvac')) && (
                                     <FormControl>
                                         <FormGroup>
-                                            <FormControlLabel label="Auto" control={<AutoSwitch checked={state.tempData.mode === 'auto' && state.tasks.some(x => x.taskType === 'hvac')} onChange={() => toggleHvac("auto")} />} />
+                                            <FormControlLabel label="Heat" control={<HeatSwitch checked={state.tempData.mode === 'heating'} onChange={() => toggleHvac("heating")} />} />
+                                            <FormControlLabel label="Cool" control={<CoolSwitch checked={state.tempData.mode === 'cooling'} onChange={() => toggleHvac("cooling")} />} />
                                         </FormGroup>
                                     </FormControl>
-                                    : null
-                            }
-                            {(state.tempData.mode !== 'auto' || !state.tasks.some(x => x.taskType === 'hvac')) && (
-                                <FormControl>
-                                    <FormGroup>
-                                        <FormControlLabel label="Heat" control={<HeatSwitch checked={state.tempData.mode === 'heating'} onChange={() => toggleHvac("heating")} />} />
-                                        <FormControlLabel label="Cool" control={<CoolSwitch checked={state.tempData.mode === 'cooling'} onChange={() => toggleHvac("cooling")} />} />
-                                    </FormGroup>
-                                </FormControl>
-                            )}
-                            {getSchedulePreview() &&
-                                <div className="schedule-preview">
-                                    <span className={'schedule-indicator' + (getSchedulePreview().active ? ' schedule-active' : ' schedule-idle')} />
-                                    <p className="schedule-preview-text text">{getSchedulePreview().text}</p>
-                                </div>
-                            }
+                                )}
+                                {getSchedulePreview() &&
+                                    <div className="schedule-preview">
+                                        <span className={'schedule-indicator' + (getSchedulePreview().active ? ' schedule-active' : ' schedule-idle')} />
+                                        <p className="schedule-preview-text text">{getSchedulePreview().text}</p>
+                                    </div>
+                                }
+                            </div>
                         </div>
+                        <Divider />
+                        <WeatherForecast />
                     </div>
                 </AccordionDetails>
             </Accordion>
