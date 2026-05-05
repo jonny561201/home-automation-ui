@@ -109,8 +109,8 @@ export default function HvacActivity(props) {
                     </div>
                     <div>
                         <div className="picker-row">
-                            <TempPicker value={inTemp} onChange={setInTemp} label="Start Temp" />
-                            <TempPicker value={outTemp} onChange={setOutTemp} label="Stop Temp" />
+                            <TempPicker value={inTemp} onChange={(val) => { setEdited(true); setInTemp(val); }} label="Start Temp" />
+                            <TempPicker value={outTemp} onChange={(val) => { setEdited(true); setOutTemp(val); }} label="Stop Temp" />
                         </div>
                     </div>
                     <WeekPicker daysOfWeek={daysOfWeek} toggleDay={toggleDay} setEdited={() => setEdited(true)} />
