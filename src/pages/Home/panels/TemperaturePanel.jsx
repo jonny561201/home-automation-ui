@@ -5,6 +5,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TemperatureImage from '../segments/TemperatureImage';
 import TemperatureIcon from '../../../resources/panelIcons/TemperatureIcon.png';
 import { setUserTemperature } from '../../../utilities/RestApi';
+import { parseDate } from '../../../utilities/Services';
 import { Accordion, AccordionDetails, Typography, AccordionSummary, Divider, FormControl, FormGroup, FormControlLabel } from '@mui/material';
 import { AutoSwitch, CoolSwitch, HeatSwitch } from '../../../components/controls/Switches';
 import { Context } from '../../../state/Store';
@@ -26,6 +27,22 @@ export default function TemperaturePanel() {
             });
         }
     }
+
+    const getSchedulePreview = () => {
+        const hvacTasks = state.tasks.filter(x => x.taskType === 'hvac' && x.enabled);
+        if (hvacTasks.length === 0) return null;
+        const now = new Date();
+        const today = now.toLocaleString('en-us', { weekday: 'long' }).substring(0, 3);
+        const activeTask = hvacTasks.find(x => now > parseDate(x.hvacStart) && now < parseDate(x.hvacStop) && x.alarmDays.includes(today));
+        if (activeTask) {
+            return 'Active: ' + activeTask.hvacStartTemp + '° until ' + activeTask.hvacStop.slice(0, -3);
+        }
+        const upcoming = hvacTasks.find(x => now < parseDate(x.hvacStart) && x.alarmDays.includes(today));
+        if (upcoming) {
+            return 'Next: ' + upcoming.hvacStartTemp + '° at ' + upcoming.hvacStart.slice(0, -3);
+        }
+        return null;
+    };
 
     const toggleHvac = async (newMode) => {
         if (newMode !== 'auto' || state.tasks.some(x => x.taskType === 'hvac')) {
@@ -85,6 +102,9 @@ export default function TemperaturePanel() {
                                     </FormGroup>
                                 </FormControl>
                             )}
+                            {getSchedulePreview() &&
+                                <p className="schedule-preview text">{getSchedulePreview()}</p>
+                            }
                         </div>
                     </div>
                 </AccordionDetails>
