@@ -29,17 +29,26 @@ export default function TemperaturePanel() {
     }
 
     const getSchedulePreview = () => {
+        if (state.tempData.mode !== 'auto') return null;
         const hvacTasks = state.tasks.filter(x => x.taskType === 'hvac' && x.enabled);
         if (hvacTasks.length === 0) return null;
         const now = new Date();
-        const today = now.toLocaleString('en-us', { weekday: 'long' }).substring(0, 3);
+        const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const today = dayNames[now.getDay()];
         const activeTask = hvacTasks.find(x => now > parseDate(x.hvacStart) && now < parseDate(x.hvacStop) && x.alarmDays.includes(today));
         if (activeTask) {
             return 'Active: ' + activeTask.hvacStartTemp + '° until ' + activeTask.hvacStop.slice(0, -3);
         }
-        const upcoming = hvacTasks.find(x => now < parseDate(x.hvacStart) && x.alarmDays.includes(today));
-        if (upcoming) {
-            return 'Next: ' + upcoming.hvacStartTemp + '° at ' + upcoming.hvacStart.slice(0, -3);
+        const upcomingToday = hvacTasks.find(x => now < parseDate(x.hvacStart) && x.alarmDays.includes(today));
+        if (upcomingToday) {
+            return 'Next: ' + upcomingToday.hvacStartTemp + '° at ' + upcomingToday.hvacStart.slice(0, -3);
+        }
+        for (let i = 1; i <= 7; i++) {
+            const nextDay = dayNames[(now.getDay() + i) % 7];
+            const nextTask = hvacTasks.find(x => x.alarmDays.includes(nextDay));
+            if (nextTask) {
+                return 'Next: ' + nextTask.hvacStartTemp + '° ' + nextDay + ' at ' + nextTask.hvacStart.slice(0, -3);
+            }
         }
         return null;
     };
