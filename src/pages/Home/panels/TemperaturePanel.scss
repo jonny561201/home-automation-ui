@@ -28,10 +28,32 @@
     }
 
     .schedule-preview {
-        font-size: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         margin: 0.5rem 0 0 0;
-        opacity: 0.7;
-        text-align: center;
+        gap: 6px;
+
+        .schedule-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .schedule-active {
+            background-color: #00c774;
+        }
+
+        .schedule-idle {
+            background-color: #e8a040;
+        }
+
+        .schedule-preview-text {
+            font-size: 0.75rem;
+            margin: 0;
+            opacity: 0.7;
+        }
     }
 }
 

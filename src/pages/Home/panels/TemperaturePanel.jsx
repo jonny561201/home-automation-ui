@@ -37,17 +37,17 @@ export default function TemperaturePanel() {
         const today = dayNames[now.getDay()];
         const activeTask = hvacTasks.find(x => now > parseDate(x.hvacStart) && now < parseDate(x.hvacStop) && x.alarmDays.includes(today));
         if (activeTask) {
-            return 'Active: ' + activeTask.hvacStartTemp + '° until ' + activeTask.hvacStop.slice(0, -3);
+            return { active: true, text: 'Active: ' + activeTask.hvacStartTemp + '° until ' + activeTask.hvacStop.slice(0, -3) };
         }
         const upcomingToday = hvacTasks.find(x => now < parseDate(x.hvacStart) && x.alarmDays.includes(today));
         if (upcomingToday) {
-            return 'Next: ' + upcomingToday.hvacStartTemp + '° at ' + upcomingToday.hvacStart.slice(0, -3);
+            return { active: false, text: 'Next: ' + upcomingToday.hvacStartTemp + '° at ' + upcomingToday.hvacStart.slice(0, -3) };
         }
         for (let i = 1; i <= 7; i++) {
             const nextDay = dayNames[(now.getDay() + i) % 7];
             const nextTask = hvacTasks.find(x => x.alarmDays.includes(nextDay));
             if (nextTask) {
-                return 'Next: ' + nextTask.hvacStartTemp + '° ' + nextDay + ' at ' + nextTask.hvacStart.slice(0, -3);
+                return { active: false, text: 'Next: ' + nextTask.hvacStartTemp + '° ' + nextDay + ' at ' + nextTask.hvacStart.slice(0, -3) };
             }
         }
         return null;
@@ -112,7 +112,10 @@ export default function TemperaturePanel() {
                                 </FormControl>
                             )}
                             {getSchedulePreview() &&
-                                <p className="schedule-preview text">{getSchedulePreview()}</p>
+                                <div className="schedule-preview">
+                                    <span className={'schedule-indicator' + (getSchedulePreview().active ? ' schedule-active' : ' schedule-idle')} />
+                                    <p className="schedule-preview-text text">{getSchedulePreview().text}</p>
+                                </div>
                             }
                         </div>
                     </div>
