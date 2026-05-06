@@ -13,8 +13,65 @@
     min-width: 300px;
 
     .city-prompt-description {
-        margin-bottom: 1rem;
+        margin: 0 0 1rem;
         font-size: 0.9rem;
+        opacity: 0.8;
+    }
+
+    .city-prompt-gps {
+        margin-bottom: 0.35rem !important;
+        text-transform: none !important;
+        font-weight: 600 !important;
+    }
+
+    .city-prompt-gps-hint {
+        margin: 0 0 0.5rem;
+        font-size: 0.75rem;
+        opacity: 0.6;
+        text-align: center;
+    }
+
+    .city-prompt-status {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.4rem 0.5rem;
+        margin-bottom: 0.5rem;
+        border-radius: 4px;
+        font-size: 0.8rem;
+    }
+
+    .city-prompt-status-ok {
+        background: rgba(0, 199, 116, 0.12);
+        color: #00a060;
+    }
+
+    .city-prompt-status-warn {
+        background: rgba(232, 138, 64, 0.12);
+        color: #c46a1a;
+    }
+
+    .city-prompt-status-error {
+        background: rgba(219, 81, 39, 0.12);
+        color: #b8431f;
+    }
+
+    .city-prompt-divider {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 0.75rem 0;
+        font-size: 0.75rem;
+        opacity: 0.5;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+
+        &::before, &::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(0, 0, 0, 0.12);
+        }
     }
 
     .city-prompt-field {

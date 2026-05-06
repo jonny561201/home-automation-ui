@@ -159,6 +159,17 @@ export const getUserPreferences = async (bearer) => {
     }
 }
 
+export const reverseGeocode = async (bearer, latitude, longitude) => {
+    try {
+        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
+        const response = await fetch(`${baseUrl}/geocode/reverse?latitude=${latitude}&longitude=${longitude}`, options);
+        if (!response.ok) return {};
+        return await response.json();
+    } catch {
+        return {};
+    }
+}
+
 export const updateUserPreferences = async (bearer, request) => {
     try {
         const options = {

@@ -1,19 +1,30 @@
 import React, { useContext, useState } from 'react';
 import { updateUserPreferences } from '../../utilities/RestApi';
+import { captureCurrentPosition } from '../../utilities/Location';
+import { usStates } from '../../utilities/USStates';
 import { Context } from '../../state/Store';
-import { Button, Divider, FormControl, FormControlLabel, MenuItem, Radio, RadioGroup, TextField } from '@mui/material';
+import { Button, CircularProgress, Divider, FormControl, FormControlLabel, MenuItem, Radio, RadioGroup, TextField } from '@mui/material';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Delete, Save } from '@mui/icons-material';
+import { CheckCircle, Delete, ErrorOutline, MyLocation, Save } from '@mui/icons-material';
 import './SettingsEditPanel.scss'
 
+
+const ACCURACY_THRESHOLD_METERS = 100;
 
 export default function SettingsEditPanel(props) {
     const auth0 = useAuth0();
     const [state, dispatch] = useContext(Context);
     const preferences = state.preferences || {};
+    const initialCoords = (preferences.latitude && preferences.longitude)
+        ? { latitude: preferences.latitude, longitude: preferences.longitude, accuracy: null }
+        : null;
     const [edited, setEdited] = useState(false);
     const [garage, setGarage] = useState(state.garageDoors.find(x => x.nodeId === preferences.garageNodeId) || null);
     const [newCity, setNewCity] = useState(preferences.city || '');
+    const [newAddrState, setNewAddrState] = useState(preferences.state || '');
+    const [newCoords, setNewCoords] = useState(initialCoords);
+    const [capturing, setCapturing] = useState(false);
+    const [gpsError, setGpsError] = useState('');
     const [newTempUnit, setNewTempUnit] = useState(preferences.tempUnit || '');
     const [newMeasureUnit, setNewMeasureUnit] = useState(preferences.measureUnit || '');
     const [newAlertMinutes, setNewAlertMinutes] = useState(preferences.garageAlertTime || '');
@@ -24,16 +35,28 @@ export default function SettingsEditPanel(props) {
         const isImperial = newMeasureUnit === "imperial";
         const alertMinutes = newAlertMinutes === '' ? 0 : parseInt(newAlertMinutes, 10);
         const garageNodeId = garage ? garage.nodeId : null;
-        const request = { isImperial, isFahrenheit, city: newCity, garageNodeId, garageAlertTime: alertMinutes };
+        const request = { isImperial, isFahrenheit, city: newCity, state: newAddrState, garageNodeId, garageAlertTime: alertMinutes };
+        if (newCoords) {
+            request.latitude = newCoords.latitude;
+            request.longitude = newCoords.longitude;
+        }
         const token = await auth0.getAccessTokenSilently();
         await updateUserPreferences(token, request);
 
-        dispatch({ type: 'SET_USER_PREFERENCES', payload: { ...state.preferences, city: newCity, tempUnit: newTempUnit, measureUnit: newMeasureUnit, garageNodeId: garageNodeId, garageAlertTime: alertMinutes } });
+        const payload = { ...state.preferences, city: newCity, state: newAddrState, tempUnit: newTempUnit, measureUnit: newMeasureUnit, garageNodeId: garageNodeId, garageAlertTime: alertMinutes };
+        if (newCoords) {
+            payload.latitude = newCoords.latitude;
+            payload.longitude = newCoords.longitude;
+        }
+        dispatch({ type: 'SET_USER_PREFERENCES', payload });
         props.setEditMode(false);
     }
 
     const cancelPreferences = () => {
         setNewCity(preferences.city || '');
+        setNewAddrState(preferences.state || '');
+        setNewCoords(initialCoords);
+        setGpsError('');
         setNewTempUnit(preferences.tempUnit || '');
         setNewMeasureUnit(preferences.measureUnit || '');
         setNewAlertMinutes(preferences.garageAlertTime || '');
@@ -43,6 +66,25 @@ export default function SettingsEditPanel(props) {
     const setCity = (input) => {
         setEdited(true);
         setNewCity(input.target.value);
+    }
+
+    const updateAddrState = (input) => {
+        setEdited(true);
+        setNewAddrState(input.target.value);
+    }
+
+    const captureLocation = async () => {
+        setGpsError('');
+        setCapturing(true);
+        try {
+            const position = await captureCurrentPosition();
+            setNewCoords(position);
+            setEdited(true);
+        } catch (error) {
+            setGpsError(error.message || "Couldn't get your location.");
+        } finally {
+            setCapturing(false);
+        }
     }
 
     const updateTempRadioButton = (input) => {
@@ -68,6 +110,13 @@ export default function SettingsEditPanel(props) {
             setNewAlertMinutes(value);
         }
     }
+
+    const formatCoords = () => {
+        if (!newCoords) return null;
+        return newCoords.latitude.toFixed(5) + ', ' + newCoords.longitude.toFixed(5);
+    }
+
+    const isLowAccuracy = () => newCoords && newCoords.accuracy !== null && newCoords.accuracy > ACCURACY_THRESHOLD_METERS;
 
     return (
         <>
@@ -102,8 +151,32 @@ export default function SettingsEditPanel(props) {
                             </RadioGroup>
                         </FormControl>
                     </div>
-                    <div className="settings-edit-row">
-                        <TextField variant="outlined" label="City" value={newCity} onChange={setCity}/>
+                    <div className="settings-edit-row settings-edit-location-row">
+                        <TextField className="settings-edit-city" variant="outlined" label="City" value={newCity} onChange={setCity}/>
+                        <TextField className="settings-edit-state" variant="outlined" select label="State" value={newAddrState} onChange={updateAddrState}>
+                            <MenuItem value="">--</MenuItem>
+                            {usStates.map(s =>
+                                <MenuItem key={s.abbrev} value={s.abbrev}>{s.name} ({s.abbrev})</MenuItem>
+                            )}
+                        </TextField>
+                    </div>
+                    <div className="settings-edit-row settings-edit-gps-row">
+                        <Button className="settings-edit-gps" variant="outlined" disabled={capturing} onClick={captureLocation}
+                            startIcon={capturing ? <CircularProgress size={16} /> : <MyLocation />}>
+                            {capturing ? 'Getting location…' : (newCoords ? 'Update GPS location' : 'Use My Location')}
+                        </Button>
+                        {newCoords &&
+                            <span className={'settings-edit-coords ' + (isLowAccuracy() ? 'settings-edit-coords-warn' : 'settings-edit-coords-ok')}>
+                                <CheckCircle fontSize="small" />
+                                <span>{formatCoords()}{newCoords.accuracy !== null && ' (±' + newCoords.accuracy + ' m)'}</span>
+                            </span>
+                        }
+                        {gpsError &&
+                            <span className="settings-edit-coords settings-edit-coords-error">
+                                <ErrorOutline fontSize="small" />
+                                <span>{gpsError}</span>
+                            </span>
+                        }
                     </div>
                 </div>
                 <div>

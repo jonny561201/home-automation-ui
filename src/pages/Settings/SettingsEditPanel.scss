@@ -24,6 +24,55 @@
         }
     }
 
+    .settings-edit-location-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+
+        .settings-edit-city {
+            min-width: 180px;
+        }
+
+        .settings-edit-state {
+            min-width: 200px;
+        }
+    }
+
+    .settings-edit-gps-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.75rem;
+
+        .settings-edit-gps {
+            text-transform: none !important;
+        }
+
+        .settings-edit-coords {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.3rem 0.55rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        .settings-edit-coords-ok {
+            background: rgba(0, 199, 116, 0.12);
+            color: #00a060;
+        }
+
+        .settings-edit-coords-warn {
+            background: rgba(232, 138, 64, 0.12);
+            color: #c46a1a;
+        }
+
+        .settings-edit-coords-error {
+            background: rgba(219, 81, 39, 0.12);
+            color: #b8431f;
+        }
+    }
+
     .settings-edit-actions {
         display: flex;
         flex-direction: row;

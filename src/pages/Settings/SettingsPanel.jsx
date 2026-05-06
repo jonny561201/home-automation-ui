@@ -13,6 +13,19 @@ export default function SettingsPanel(props) {
         props.toggleEdit();
     }
 
+    const formatCity = () => {
+        if (preferences.city && preferences.state) return preferences.city + ', ' + preferences.state;
+        if (preferences.city) return preferences.city;
+        return '--';
+    }
+
+    const formatCoords = () => {
+        if (preferences.latitude && preferences.longitude) {
+            return preferences.latitude.toFixed(5) + ', ' + preferences.longitude.toFixed(5);
+        }
+        return '--';
+    }
+
     return (
         <>
             <div className="settings-group setting panel-header-text">
@@ -37,7 +50,11 @@ export default function SettingsPanel(props) {
             </div>
             <div className="settings-row text">
                 <p className="setting">City:</p>
-                <p className="setting">{preferences.city || '--'}</p>
+                <p className="setting">{formatCity()}</p>
+            </div>
+            <div className="settings-row text">
+                <p className="setting">Coordinates:</p>
+                <p className="setting">{formatCoords()}</p>
             </div>
             <div className="setting text panel-header-text">
                 <h2>Measurement</h2>

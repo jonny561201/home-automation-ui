@@ -12,3 +12,27 @@ export const calculateDistanceInMeters = (lat1, long1, lat2, long2) => {
 
     return ((meterConversion * c) * 0.000621371).toFixed(2);
 }
+
+export const captureCurrentPosition = () => {
+    return new Promise((resolve, reject) => {
+        if (!navigator.geolocation) {
+            reject(new Error('Geolocation is not supported on this device.'));
+            return;
+        }
+        const success = (position) => resolve({
+            latitude: Number(position.coords.latitude.toFixed(5)),
+            longitude: Number(position.coords.longitude.toFixed(5)),
+            accuracy: Math.round(position.coords.accuracy),
+        });
+        const tryLowAccuracy = () => navigator.geolocation.getCurrentPosition(
+            success, reject,
+            { enableHighAccuracy: false, timeout: 15000, maximumAge: 300000 }
+        );
+        navigator.geolocation.getCurrentPosition(
+            success,
+            (error) => error.code === error.PERMISSION_DENIED ? reject(error) : tryLowAccuracy(),
+            { enableHighAccuracy: true, timeout: 8000, maximumAge: 60000 }
+        );
+    });
+};
+
