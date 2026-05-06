@@ -29,7 +29,6 @@ export default function ApiInterval({ children }) {
 
     useInterval(async () => {
         getTempData();
-        getForecastData();
         getLights();
         getUserDevices();
     }, 60000);
@@ -37,6 +36,10 @@ export default function ApiInterval({ children }) {
     useInterval(async () => {
         if (hasSump) await getSumpData();
     }, 120000);
+
+    useInterval(async () => {
+        getForecastData();
+    }, 300000);
 
     const loaded = useRef(false);
 
