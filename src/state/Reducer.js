@@ -91,6 +91,11 @@ const Reducer = (state, action) => {
                 ...state,
                 forecastData: action.payload
             }
+        case 'SET_EXTENDED_FORECAST':
+            return {
+                ...state,
+                extendedForecast: action.payload
+            }
         case 'SET_USER_PREFERENCES':
             return {
                 ...state,

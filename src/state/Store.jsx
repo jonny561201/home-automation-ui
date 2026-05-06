@@ -13,6 +13,7 @@ export const initialState = {
     sumpData: {},
     tempData: { gaugeColor: '#A0A0A0', gaugeGradient: null, currentDesiredTemp: 0.0 },
     forecastData: { description: '' },
+    extendedForecast: [],
     preferences: null,
     location: { notified: false, granted: false },
     scenes: [],

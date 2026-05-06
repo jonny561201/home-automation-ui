@@ -148,6 +148,17 @@ export const getUserForecast = async (bearer) => {
     }
 }
 
+export const getExtendedForecast = async (bearer) => {
+    try {
+        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
+        const response = await fetch(`${thermostatBaseUrl}/forecast/extended`, options);
+        if (!response.ok) return {};
+        return await response.json();
+    } catch {
+        return {};
+    }
+}
+
 export const getUserPreferences = async (bearer) => {
     try {
         const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };

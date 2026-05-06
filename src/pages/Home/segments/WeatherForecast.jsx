@@ -1,22 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Card } from '@mui/material';
 import { dayWeather, defaultWeatherIcon } from '../../../utilities/WeatherIcons';
+import { Context } from '../../../state/Store';
 import './WeatherForecast.scss';
 
 
 export default function WeatherForecast() {
-    const [forecast, setForecast] = useState([]);
-
-    useEffect(() => {
-        const mockForecast = [
-            { day: 'Mon', high: 72, low: 58, description: 'sunny' },
-            { day: 'Tue', high: 68, low: 55, description: 'partly cloudy' },
-            { day: 'Wed', high: 65, low: 52, description: 'light rain' },
-            { day: 'Thu', high: 70, low: 54, description: 'cloudy' },
-            { day: 'Fri', high: 74, low: 60, description: 'thunderstorm' },
-        ];
-        setForecast(mockForecast);
-    }, []);
+    const [state] = useContext(Context);
+    const forecast = state.extendedForecast || [];
 
     const getIcon = (description) => {
         return dayWeather[description] || defaultWeatherIcon;

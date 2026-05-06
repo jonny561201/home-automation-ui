@@ -4,7 +4,7 @@ import {
     toggleGarageDoor, getSumpLevels, getCurrentTemperature, deleteUserChildAccount, updateScheduledTasks,
     getUserPreferences, updateUserPreferences, setUserTemperature, addUserChildAccount, deleteScheduledTask, insertHvacTask,
     getLightGroups, setLightGroupState, setLightState, getScheduledTasks, getAllGarageStatus,
-    getDevices, addUserDeviceNode, reverseGeocode
+    getDevices, addUserDeviceNode, reverseGeocode, getExtendedForecast
 } from '../../utilities/RestApi';
 
 
@@ -128,6 +128,30 @@ describe('RestApi', () => {
 
             const actual = await getUserPreferences(bearerToken2);
             expect(actual.unit).toEqual(expectedUnit);
+        });
+
+        it('should make rest call to get extended forecast', async () => {
+            const response = {
+                forecast: [
+                    { date: '2026-05-06', minTemp: 55, maxTemp: 72, description: 'sunny' },
+                    { date: '2026-05-07', minTemp: 58, maxTemp: 70, description: 'partly cloudy' },
+                ],
+            };
+            const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearerToken2}` } };
+
+            fetchMock.route(`${baseUrl}/forecast/extended`, response, options).catch(() => {
+                return { status: 400 };
+            });
+
+            const actual = await getExtendedForecast(bearerToken2);
+            expect(actual).toEqual(response);
+        });
+
+        it('should return empty object when extended forecast response is not ok', async () => {
+            fetchMock.route(`${baseUrl}/forecast/extended`, { status: 500 });
+
+            const actual = await getExtendedForecast(bearerToken2);
+            expect(actual).toEqual({});
         });
 
         it('should make rest call to reverse geocode coordinates', async () => {

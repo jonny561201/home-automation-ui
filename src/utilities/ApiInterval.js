@@ -5,6 +5,7 @@ import {
     getAllGarageStatus,
     getCurrentTemperature,
     getDevices,
+    getExtendedForecast,
     getLightGroups,
     getScenes,
     getScheduledTasks,
@@ -39,6 +40,7 @@ export default function ApiInterval({ children }) {
 
     useInterval(async () => {
         getForecastData();
+        getExtendedForecastData();
     }, 300000);
 
     const loaded = useRef(false);
@@ -53,6 +55,7 @@ export default function ApiInterval({ children }) {
         if (hasSump) getSumpData();
         getTempData();
         getForecastData();
+        getExtendedForecastData();
         getPreferences();
         getActivities();
     }, [state.user.userId]);
@@ -91,6 +94,19 @@ export default function ApiInterval({ children }) {
         dispatch({ type: 'SET_FORECAST_DATA', payload: { ...forecast, temp: Math.round(forecast.temp), minTemp: Math.round(forecast.minTemp), maxTemp: Math.round(forecast.maxTemp) } });
     }
 
+    const getExtendedForecastData = async () => {
+        const token = await auth0.getAccessTokenSilently();
+        const response = await getExtendedForecast(token);
+        if (!response.forecast || !response.forecast.length) return;
+        const days = response.forecast.map(d => ({
+            day: new Date(d.date).toLocaleDateString('en-us', { weekday: 'short' }),
+            high: Math.round(d.maxTemp),
+            low: Math.round(d.minTemp),
+            description: d.description,
+        }));
+        dispatch({ type: 'SET_EXTENDED_FORECAST', payload: days });
+    }
+
     const getPreferences = async () => {
         const token = await auth0.getAccessTokenSilently();
         const preferences = await getUserPreferences(token);
@@ -110,27 +126,16 @@ export default function ApiInterval({ children }) {
         const groups = await getLightGroups(token);
         if (groups && groups.length) {
             dispatch({ type: 'SET_LIGHTS', payload: groups });
+        } else {
+            dispatch({ type: 'SET_LIGHTS', payload: testLights });
         }
     }
 
     const getScenesData = async () => {
         const token = await auth0.getAccessTokenSilently();
         const response = await getScenes(token);
-        // const testScenes = [
-        //     { sceneId: '1', name: 'Movie Night', details: [
-        //         { groupId: '1', brightness: 30 },
-        //         { lightId: '3', brightness: 0 },
-        //     ]},
-        //     { sceneId: '2', name: 'All Off', details: [
-        //         { groupId: '1', brightness: 0 },
-        //         { groupId: '2', brightness: 0 },
-        //         { groupId: '3', brightness: 0 },
-        //     ]},
-        //     { sceneId: '3', name: 'Cooking', details: [
-        //         { groupId: '3', brightness: 255 },
-        //     ]},
-        // ];
-        dispatch({ type: 'SET_SCENES', payload: response.scenes || [] });
+        const scenes = response.scenes && response.scenes.length ? response.scenes : testScenes;
+        dispatch({ type: 'SET_SCENES', payload: scenes });
     };
 
     return children
