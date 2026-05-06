@@ -4,7 +4,7 @@ import {
     toggleGarageDoor, getSumpLevels, getCurrentTemperature, deleteUserChildAccount, updateScheduledTasks,
     getUserPreferences, updateUserPreferences, setUserTemperature, addUserChildAccount, deleteScheduledTask, insertHvacTask,
     getLightGroups, setLightGroupState, setLightState, getScheduledTasks, getAllGarageStatus,
-    getDevices, addUserDeviceNode
+    getDevices, addUserDeviceNode, reverseGeocode
 } from '../../utilities/RestApi';
 
 
@@ -128,6 +128,25 @@ describe('RestApi', () => {
 
             const actual = await getUserPreferences(bearerToken2);
             expect(actual.unit).toEqual(expectedUnit);
+        });
+
+        it('should make rest call to reverse geocode coordinates', async () => {
+            const response = { city: 'Mingo', state: 'IA' };
+            const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearerToken2}` } };
+
+            fetchMock.route(`${baseUrl}/geocode/reverse?latitude=41.77&longitude=-93.27`, response, options).catch(() => {
+                return { status: 400 };
+            });
+
+            const actual = await reverseGeocode(bearerToken2, 41.77, -93.27);
+            expect(actual).toEqual(response);
+        });
+
+        it('should return empty object when reverse geocode response is not ok', async () => {
+            fetchMock.route(`${baseUrl}/geocode/reverse?latitude=0&longitude=0`, { status: 404 });
+
+            const actual = await reverseGeocode(bearerToken2, 0, 0);
+            expect(actual).toEqual({});
         });
 
         it('should make rest call to post user preferences', async () => {
