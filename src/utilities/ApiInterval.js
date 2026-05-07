@@ -83,8 +83,9 @@ export default function ApiInterval({ children }) {
     const getTempData = async () => {
         const token = await auth0.getAccessTokenSilently();
         const temp = await getCurrentTemperature(token);
-        if (!temp.currentTemp && temp.currentTemp !== 0) return;
-        dispatch({ type: 'SET_TEMP_DATA', payload: { ...temp, desiredTemp: Math.round(temp.desiredTemp), currentTemp: Math.round(temp.currentTemp) } });
+        if (Object.keys(temp).length === 0) return;
+        const currentTemp = temp.currentTemp != null ? Math.round(temp.currentTemp) : null;
+        dispatch({ type: 'SET_TEMP_DATA', payload: { ...temp, desiredTemp: Math.round(temp.desiredTemp), currentTemp } });
     }
 
     const getForecastData = async () => {
