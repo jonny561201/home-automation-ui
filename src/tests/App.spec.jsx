@@ -7,7 +7,7 @@ describe('App Component', () => {
 
   it('renders', async () => {
     render(<App />);
-    const actual = await screen.findByRole('heading', { name: 'Member Login' });
+    const actual = await screen.findByText('...Redirection to sign in...');
     expect(actual).toBeDefined()
   });
 });

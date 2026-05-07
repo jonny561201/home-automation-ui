@@ -36,7 +36,7 @@ export default function DashboardPanel() {
             {showPanel("lighting") &&
                 <div className="panel"><LightingPanel /></div>
             }
-            {showPanel("security_system") &&
+            {showPanel("security") &&
                 <div className="panel"><SecurityPanel /></div>
             }
         </div>

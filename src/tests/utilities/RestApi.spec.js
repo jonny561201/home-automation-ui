@@ -141,7 +141,7 @@ describe('RestApi', () => {
             };
             const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearerToken2}` } };
 
-            fetchMock.route(`${baseUrl}/forecast/extended`, response, options).catch(() => {
+            fetchMock.route(`${baseUrl}/thermostat/forecast/extended`, response, options).catch(() => {
                 return { status: 400 };
             });
 
@@ -150,7 +150,7 @@ describe('RestApi', () => {
         });
 
         it('should return empty object when extended forecast response is not ok', async () => {
-            fetchMock.route(`${baseUrl}/forecast/extended`, { status: 500 });
+            fetchMock.route(`${baseUrl}/thermostat/forecast/extended`, { status: 500 });
 
             const actual = await getExtendedForecast();
             expect(actual).toEqual({});

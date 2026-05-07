@@ -11,13 +11,15 @@ describe('Settings Panel', () => {
     const tempUnit = 'fahrenheit';
     const measureUnit = 'imperial';
     const garageName = 'Main Door';
-    const preference = { tempUnit: tempUnit, city: city, measureUnit: measureUnit, garageName: garageName };
+    const garageNodeId = 'node-1';
+    const garageDoors = [{ nodeId: garageNodeId, doorName: garageName }];
+    const preference = { tempUnit: tempUnit, city: city, measureUnit: measureUnit, garageNodeId: garageNodeId };
 
 
-    const renderComponent = async (pref) => {
+    const renderComponent = async (pref, doors = garageDoors) => {
         await act(async () => {
             render(
-                <Context.Provider value={[{ preferences: pref, roles: roles }, () => { }]}>
+                <Context.Provider value={[{ preferences: pref, roles: roles, garageDoors: doors }, () => { }]}>
                     <SettingsPanel />
                 </Context.Provider>
             );
@@ -98,7 +100,7 @@ describe('Settings Panel', () => {
 
     it('should display -- if no door preference stored in state', async () => {
         const preference = { tempUnit: tempUnit, city: city, measureUnit: measureUnit };
-        await renderComponent(preference);
+        await renderComponent(preference, []);
         const dashes = screen.getAllByText('--');
         expect(dashes.length).toBeGreaterThanOrEqual(1);
     });

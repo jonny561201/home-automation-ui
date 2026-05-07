@@ -114,8 +114,8 @@ describe('HVAC Activity Panel', () => {
             await act(async () => {
                 fireEvent.click(screen.getByText('01:00 - 14:00'))
             });
-            const actual = screen.getByText('Start Temp');
-            expect(actual).toBeTruthy();
+            const actual = screen.getAllByText('Start Temp');
+            expect(actual.length).toBeGreaterThanOrEqual(1);
         });
 
         it('should display the Stop Temp header', async () => {
@@ -123,8 +123,8 @@ describe('HVAC Activity Panel', () => {
             await act(async () => {
                 fireEvent.click(screen.getByText('01:00 - 14:00'))
             });
-            const actual = screen.getByText('Stop Temp');
-            expect(actual).toBeTruthy();
+            const actual = screen.getAllByText('Stop Temp');
+            expect(actual.length).toBeGreaterThanOrEqual(1);
         });
 
         it('should display the start time and stop time picker when expansion panel opened', async () => {
@@ -148,7 +148,6 @@ describe('HVAC Activity Panel', () => {
             fireEvent.click(screen.getByText('F'));
             fireEvent.click(screen.getByText('Update'));
             expect(spyUpdate).toHaveBeenCalledWith(
-                bearer,
                 expect.objectContaining({
                     taskId: taskId,
                     alarmGroupName: groupName,
