@@ -14,7 +14,8 @@ export const changeUserPassword = async (bearer) => {
             method: 'POST',
             headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' }
         };
-        return await fetch(`${baseUrl}/resetPassword`, options);
+        const response = await fetch(`${baseUrl}/resetPassword`, options);
+        return { ok: response.ok };
     } catch {
         return { ok: false };
     }
@@ -50,7 +51,8 @@ export const updateGarageState = async (bearer, shouldOpen, garageId) => {
 export const toggleGarageDoor = async (bearer, garageId) => {
     try {
         const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } }
-        return await fetch(`${garageBaseUrl}/${garageId}/toggle`, options);
+        const response = await fetch(`${garageBaseUrl}/${garageId}/toggle`, options);
+        return { ok: response.ok };
     } catch {
         return { ok: false };
     }
@@ -73,7 +75,8 @@ export const scheduleGarageClose = async (bearer, garageId) => {
 export const cancelGarageSchedule = async (bearer, garageId) => {
     try {
         const options = { method: 'DELETE', headers: { 'Authorization': `Bearer ${bearer}` } };
-        return await fetch(`${garageBaseUrl}/${garageId}/schedule`, options);
+        const response = await fetch(`${garageBaseUrl}/${garageId}/schedule`, options);
+        return { ok: response.ok };
     } catch {
         return { ok: false };
     }
@@ -131,7 +134,8 @@ export const setUserTemperature = async (bearer, desiredTemp, mode, isFahrenheit
             headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
             body: JSON.stringify(request)
         };
-        return await fetch(`${thermostatBaseUrl}/temperature/desired`, options);
+        const response = await fetch(`${thermostatBaseUrl}/temperature/desired`, options);
+        return { ok: response.ok };
     } catch {
         return { ok: false };
     }
@@ -188,7 +192,8 @@ export const updateUserPreferences = async (bearer, request) => {
             headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
             body: JSON.stringify(request)
         }
-        return await fetch(`${baseUrl}/preferences/update`, options);
+        const response = await fetch(`${baseUrl}/preferences/update`, options);
+        return { ok: response.ok };
     } catch {
         return { ok: false };
     }
@@ -213,7 +218,8 @@ export const setLightGroupState = async (bearer, groupId, state, brightness = nu
             headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
             body: JSON.stringify(request)
         };
-        return await fetch(`${lightBaseUrl}/group/state`, options);
+        const response = await fetch(`${lightBaseUrl}/group/state`, options);
+        return { ok: response.ok };
     } catch {
         return { ok: false };
     }
@@ -227,7 +233,8 @@ export const setLightState = async (bearer, lightId, state, brightness) => {
             headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
             body: JSON.stringify(request)
         };
-        return await fetch(`${lightBaseUrl}/group/light`, options);
+        const response = await fetch(`${lightBaseUrl}/group/light`, options);
+        return { ok: response.ok };
     } catch {
         return { ok: false };
     }
@@ -262,7 +269,8 @@ export const createScene = async (bearer, request) => {
 export const deleteScene = async (bearer, sceneId) => {
     try {
         const options = { method: 'DELETE', headers: { 'Authorization': `Bearer ${bearer}` } };
-        return await fetch(`${sceneBaseUrl}/${sceneId}`, options);
+        const response = await fetch(`${sceneBaseUrl}/${sceneId}`, options);
+        return { ok: response.ok };
     } catch {
         return { ok: false };
     }
@@ -287,7 +295,8 @@ export const addUserDeviceNode = async (bearer, deviceId, nodes) => {
             headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
             body: JSON.stringify(request)
         };
-        return await fetch(`${deviceBaseUrl}/${deviceId}/node`, options);
+        const response = await fetch(`${deviceBaseUrl}/${deviceId}/node`, options);
+        return { ok: response.ok };
     } catch {
         return { ok: false };
     }
@@ -323,7 +332,8 @@ export const getUserChildAccounts = async (bearer) => {
 export const deleteUserChildAccount = async (bearer, childAccountId) => {
     try {
         const options = { method: 'DELETE', headers: { 'Authorization': `Bearer ${bearer}` } };
-        return await fetch(`${accountBaseUrl}/childUserId/${childAccountId}`, options);
+        const response = await fetch(`${accountBaseUrl}/childUserId/${childAccountId}`, options);
+        return { ok: response.ok };
     } catch {
         return { ok: false };
     }
@@ -332,7 +342,8 @@ export const deleteUserChildAccount = async (bearer, childAccountId) => {
 export const deleteScheduledTask = async (bearer, taskId) => {
     try {
         const options = { method: 'DELETE', headers: { 'Authorization': `Bearer ${bearer}` } };
-        return await fetch(`${baseUrl}/tasks/${taskId}`, options);
+        const response = await fetch(`${baseUrl}/tasks/${taskId}`, options);
+        return { ok: response.ok };
     } catch {
         return { ok: false };
     }

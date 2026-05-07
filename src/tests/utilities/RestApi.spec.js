@@ -55,7 +55,7 @@ describe('RestApi', () => {
             });
 
             const actual = await toggleGarageDoor(bearerToken2, garageId);
-            expect(actual.status).toEqual(200);
+            expect(actual.ok).toBe(true);
         });
 
         it('should make rest call to get current sump pump level', async () => {
@@ -101,7 +101,7 @@ describe('RestApi', () => {
             })
 
             const actual = await setUserTemperature(bearerToken2, desiredTemp, mode, isFahrenheit);
-            expect(actual.status).toEqual(200);
+            expect(actual.ok).toBe(true);
         });
 
         it('should make rest call to get the forecast temperature', async () => {
@@ -186,7 +186,7 @@ describe('RestApi', () => {
 
             const actual = await updateUserPreferences(bearerToken2, request);
 
-            expect(actual.status).toEqual(200);
+            expect(actual.ok).toBe(true);
         });
 
         it('should make rest call to get light groups', async () => {
@@ -216,7 +216,7 @@ describe('RestApi', () => {
 
             const actual = await setLightGroupState(bearerToken2, body.groupId, body.on, body.brightness);
 
-            expect(actual.status).toEqual(200);
+            expect(actual.ok).toBe(true);
         });
 
         it('should make rest call to set the state of a light group without brightness', async () => {
@@ -233,7 +233,7 @@ describe('RestApi', () => {
 
             const actual = await setLightGroupState(bearerToken2, body.groupId, body.on);
 
-            expect(actual.status).toEqual(200);
+            expect(actual.ok).toBe(true);
         });
 
         it('should make rest call to set the state of an individual light', async () => {
@@ -246,7 +246,7 @@ describe('RestApi', () => {
 
             const actual = await setLightState(bearerToken2, body.lightId, body.on, body.brightness);
 
-            expect(actual.status).toEqual(200);
+            expect(actual.ok).toBe(true);
         });
 
         it('should make rest call to get all devices bearer token', async () => {
@@ -275,7 +275,7 @@ describe('RestApi', () => {
 
             const actual = await addUserDeviceNode(bearerToken2, deviceId, nodes);
 
-            expect(actual.status).toEqual(200);
+            expect(actual.ok).toBe(true);
         });
 
         it('should make rest call to add child account to a user account', async () => {
@@ -314,7 +314,7 @@ describe('RestApi', () => {
             });
             const actual = await deleteUserChildAccount(bearerToken2, childAccount);
 
-            expect(actual.status).toEqual(200);
+            expect(actual.ok).toBe(true);
         });
 
         it('should make rest call to delete the tasks for a user id', async () => {
@@ -326,7 +326,7 @@ describe('RestApi', () => {
             });
             const actual = await deleteScheduledTask(bearerToken2, taskId);
 
-            expect(actual.status).toEqual(200);
+            expect(actual.ok).toBe(true);
         });
 
         it('should make rest call to get the scheduled tasks for a user id', async () => {
