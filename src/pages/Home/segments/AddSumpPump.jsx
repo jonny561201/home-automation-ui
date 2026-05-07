@@ -20,8 +20,7 @@ export default function AddSumpPump({ device, onComplete }) {
 
     const savePump = async (event) => {
         event.preventDefault();
-        const token = await auth0.getAccessTokenSilently();
-        const response = await addUserDeviceNode(token, device.deviceId, []);
+        const response = await addUserDeviceNode(device.deviceId, []);
         setSucceeded(response.ok);
         if (response.ok) {
             await auth0.getAccessTokenSilently({ cacheMode: 'off' });
@@ -32,10 +31,9 @@ export default function AddSumpPump({ device, onComplete }) {
             const lastName = claims.last_name ?? '';
             const email = claims.email ?? '';
             dispatch({ type: 'SET_USER_DATA', payload: { userId, firstName, lastName, email, roles } });
-            const freshToken = await auth0.getAccessTokenSilently();
-            const devices = await getDevices(freshToken);
+            const devices = await getDevices();
             dispatch({ type: 'SET_DEVICES', payload: devices.devices });
-            const sump = await getSumpLevels(freshToken);
+            const sump = await getSumpLevels();
             dispatch({ type: 'SET_SUMP_DATA', payload: sump });
         }
     };

@@ -3,12 +3,10 @@ import { addUserChildAccount, deleteUserChildAccount, getUserChildAccounts } fro
 import { Context } from '../../state/Store';
 import { Checkbox, Divider, FormControl, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, TextField } from '@mui/material';
 import { AddButton, RemoveButton } from '../../components/controls/Buttons';
-import { useAuth0 } from '@auth0/auth0-react';
 import './AccountChildUser.scss'
 
 
 export default function AccountChildUser() {
-    const auth0 = useAuth0();
     const [state, _] = useContext(Context);
     const devices = state.devices || [];
     const [selectedDevice, setSelectedDevice] = useState([]);
@@ -19,8 +17,7 @@ export default function AccountChildUser() {
 
     useEffect(() => {
         const getData = async () => {
-            const token = await auth0.getAccessTokenSilently();
-            const response = await getUserChildAccounts(token);
+            const response = await getUserChildAccounts();
             if (Array.isArray(response)) {
                 setChildAccounts(response);
             }
@@ -31,8 +28,7 @@ export default function AccountChildUser() {
 
     const submitChildAccount = async () => {
         if ((!isEmailInvalid && !isDeviceInvalid) && (selectedDevice.length !== 0 && email !== null && email !== "")) {
-            const token = await auth0.getAccessTokenSilently();
-            const response = await addUserChildAccount(token, email, selectedDevice);
+            const response = await addUserChildAccount(email, selectedDevice);
             setChildAccounts(response);
             setEmail("");
             setSelectedDevice([]);
@@ -43,8 +39,7 @@ export default function AccountChildUser() {
     }
 
     const deleteChildUser = async (childUserId) => {
-        const token = await auth0.getAccessTokenSilently();
-        const response = await deleteUserChildAccount(token, childUserId);
+        const response = await deleteUserChildAccount(childUserId);
         if (response.ok)
             setChildAccounts(childAccounts.filter(x => x.user_id !== childUserId));
     }

@@ -62,8 +62,7 @@ export default function AddGarage({ device, onComplete }) {
             nodeName: door.name,
             preferred: doors.length === 1 ? true : door.preferred
         }));
-        const token = await auth0.getAccessTokenSilently();
-        const response = await addUserDeviceNode(token, device.deviceId, nodes);
+        const response = await addUserDeviceNode(device.deviceId, nodes);
         setSucceeded(response.ok);
         if (response.ok) {
             await auth0.getAccessTokenSilently({ cacheMode: 'off' });
@@ -74,10 +73,9 @@ export default function AddGarage({ device, onComplete }) {
             const lastName = claims.last_name ?? '';
             const email = claims.email ?? '';
             dispatch({ type: 'SET_USER_DATA', payload: { userId, firstName, lastName, email, roles } });
-            const freshToken = await auth0.getAccessTokenSilently();
-            const devices = await getDevices(freshToken);
+            const devices = await getDevices();
             dispatch({ type: 'SET_DEVICES', payload: devices.devices });
-            const doors = await getAllGarageStatus(freshToken);
+            const doors = await getAllGarageStatus();
             dispatch({ type: 'SET_GARAGE_COORDS', payload: doors.coordinates });
             dispatch({ type: 'SET_GARAGE_DOORS', payload: doors.doors });
         }

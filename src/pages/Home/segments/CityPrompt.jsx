@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect, useRef } from 'react';
 import { Dialog, DialogTitle, DialogContent, TextField, Divider, Button, IconButton, MenuItem, CircularProgress } from '@mui/material';
 import { Save, MyLocation, CheckCircle, ErrorOutline } from '@mui/icons-material';
 import CloseIcon from '@mui/icons-material/Close';
-import { useAuth0 } from '@auth0/auth0-react';
 import { Context } from '../../../state/Store';
 import { reverseGeocode, updateUserPreferences } from '../../../utilities/RestApi';
 import { captureCurrentPosition } from '../../../utilities/Location';
@@ -13,7 +12,6 @@ import './CityPrompt.scss';
 const ACCURACY_THRESHOLD_METERS = 100;
 
 export default function CityPrompt() {
-    const auth0 = useAuth0();
     const [state, dispatch] = useContext(Context);
     const [open, setOpen] = useState(false);
     const [city, setCity] = useState('');
@@ -36,8 +34,7 @@ export default function CityPrompt() {
         setCapturing(true);
         try {
             const position = await captureCurrentPosition();
-            const token = await auth0.getAccessTokenSilently();
-            const place = await reverseGeocode(token, position.latitude, position.longitude);
+            const place = await reverseGeocode(position.latitude, position.longitude);
             if (!place.city || !place.state) {
                 throw new Error('Could not determine your city and state — enter manually.');
             }
@@ -58,8 +55,7 @@ export default function CityPrompt() {
             request.latitude = coords.latitude;
             request.longitude = coords.longitude;
         }
-        const token = await auth0.getAccessTokenSilently();
-        await updateUserPreferences(token, request);
+        await updateUserPreferences(request);
         dispatch({ type: 'SET_USER_PREFERENCES', payload: { ...(state.preferences || {}), ...request } });
         setOpen(false);
     };

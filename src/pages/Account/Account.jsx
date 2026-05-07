@@ -6,12 +6,10 @@ import { CheckCircle, Error } from '@mui/icons-material';
 import { changeUserPassword } from '../../utilities/RestApi';
 import AccountChildUser from '../../pages/Account/AccountChildUser';
 import { GreenButton } from '../../components/controls/Buttons';
-import { useAuth0 } from '@auth0/auth0-react';
 import './Account.scss';
 
 
 export default function Account() {
-    const auth0 = useAuth0();
     const [state, dispatch] = useContext(Context);
     const [succeeded, setSucceeded] = useState(null);
 
@@ -40,10 +38,9 @@ export default function Account() {
         return null;
     }
 
-    const changePassword = async (_) => {
-        const token = await auth0.getAccessTokenSilently();
-        const response = await changeUserPassword(token)
-        setSucceeded(response.ok)
+    const changePassword = async () => {
+        const response = await changeUserPassword();
+        setSucceeded(response.ok);
     }
 
 

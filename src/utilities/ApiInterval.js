@@ -61,43 +61,37 @@ export default function ApiInterval({ children }) {
     }, [state.user.userId]);
 
     const getGarageData = async () => {
-        const token = await auth0.getAccessTokenSilently();
-        const doors = await getAllGarageStatus(token);
+        const doors = await getAllGarageStatus();
         dispatch({ type: 'SET_GARAGE_COORDS', payload: doors.coordinates || null });
         const mapped = (doors.doors || []).map(x => ({ ...x, isOpen: x.isGarageOpen }));
         dispatch({ type: 'SET_GARAGE_DOORS', payload: mapped });
     };
 
     const getUserDevices = async () => {
-        const token = await auth0.getAccessTokenSilently();
-        const response = await getDevices(token);
+        const response = await getDevices();
         dispatch({ type: 'SET_DEVICES', payload: response.devices || [] });
     }
 
     const getSumpData = async () => {
-        const token = await auth0.getAccessTokenSilently();
-        const sump = await getSumpLevels(token);
+        const sump = await getSumpLevels();
         dispatch({ type: 'SET_SUMP_DATA', payload: sump });
     }
 
     const getTempData = async () => {
-        const token = await auth0.getAccessTokenSilently();
-        const temp = await getCurrentTemperature(token);
+        const temp = await getCurrentTemperature();
         if (Object.keys(temp).length === 0) return;
         const currentTemp = temp.currentTemp != null ? Math.round(temp.currentTemp) : null;
         dispatch({ type: 'SET_TEMP_DATA', payload: { ...temp, desiredTemp: Math.round(temp.desiredTemp), currentTemp } });
     }
 
     const getForecastData = async () => {
-        const token = await auth0.getAccessTokenSilently();
-        const forecast = await getUserForecast(token);
+        const forecast = await getUserForecast();
         if (!forecast.temp && forecast.temp !== 0) return;
         dispatch({ type: 'SET_FORECAST_DATA', payload: { ...forecast, temp: Math.round(forecast.temp), minTemp: Math.round(forecast.minTemp), maxTemp: Math.round(forecast.maxTemp) } });
     }
 
     const getExtendedForecastData = async () => {
-        const token = await auth0.getAccessTokenSilently();
-        const response = await getExtendedForecast(token);
+        const response = await getExtendedForecast();
         if (!response.forecast || !response.forecast.length) return;
         const days = response.forecast.map(d => ({
             day: new Date(d.date).toLocaleDateString('en-us', { weekday: 'short' }),
@@ -109,22 +103,19 @@ export default function ApiInterval({ children }) {
     }
 
     const getPreferences = async () => {
-        const token = await auth0.getAccessTokenSilently();
-        const preferences = await getUserPreferences(token);
+        const preferences = await getUserPreferences();
         if (Object.keys(preferences).length > 0) {
             dispatch({ type: 'SET_USER_PREFERENCES', payload: preferences });
         }
     }
 
     const getActivities = async () => {
-        const token = await auth0.getAccessTokenSilently();
-        const activities = await getScheduledTasks(token);
+        const activities = await getScheduledTasks();
         dispatch({ type: 'SET_SCHEDULED_TASK', payload: activities.tasks || [] });
     }
 
     const getLights = async () => {
-        const token = await auth0.getAccessTokenSilently();
-        const groups = await getLightGroups(token);
+        const groups = await getLightGroups();
         if (groups && groups.length) {
             dispatch({ type: 'SET_LIGHTS', payload: groups });
         } else {
@@ -133,8 +124,7 @@ export default function ApiInterval({ children }) {
     }
 
     const getScenesData = async () => {
-        const token = await auth0.getAccessTokenSilently();
-        const response = await getScenes(token);
+        const response = await getScenes();
         const scenes = response.scenes && response.scenes.length ? response.scenes : testScenes;
         dispatch({ type: 'SET_SCENES', payload: scenes });
     };

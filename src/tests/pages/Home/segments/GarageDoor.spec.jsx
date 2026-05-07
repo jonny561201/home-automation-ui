@@ -72,21 +72,21 @@ describe('Garage Door', () => {
             spyUpdate.mockReturnValue({ isOpen: false });
             await renderComponent({ ...device, isOpen: true });
             await userEvent.click(screen.getByText("Close"));
-            expect(spyUpdate).toBeCalledWith(userId, bearer, false, 1);
+            expect(spyUpdate).toBeCalledWith(false, 1);
         });
 
         it('should call update function with true when opening', async () => {
             spyUpdate.mockReturnValue({ isOpen: true });
             await renderComponent({ ...device, isOpen: false });
             await userEvent.click(screen.getByText("Open"));
-            expect(spyUpdate).toBeCalledWith(userId, bearer, true, 1);
+            expect(spyUpdate).toBeCalledWith(true, 1);
         });
 
         it('should call toggle function', async () => {
             await renderComponent(device);
             await userEvent.click(screen.getByAltText('UpDown'));
 
-            expect(spyToggle).toBeCalledWith(userId, bearer, 1);
+            expect(spyToggle).toBeCalledWith(1);
         });
     });
 });

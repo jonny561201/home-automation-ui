@@ -64,7 +64,7 @@ describe('SumpDepthChart', () => {
 
         it('should call getSumpDepthHistory on mount for Today range', async () => {
             await renderComponent();
-            await waitFor(() => expect(spyGetHistory).toHaveBeenCalledWith(bearer));
+            await waitFor(() => expect(spyGetHistory).toHaveBeenCalled());
         });
 
         it('should call getSumpDailyHistory with 7 when 7d is clicked', async () => {
@@ -72,7 +72,7 @@ describe('SumpDepthChart', () => {
             await act(async () => {
                 fireEvent.click(screen.getByText('7d'));
             });
-            await waitFor(() => expect(spyGetDaily).toHaveBeenCalledWith(bearer, 7));
+            await waitFor(() => expect(spyGetDaily).toHaveBeenCalledWith(7));
         });
 
         it('should call getSumpDailyHistory with 30 when 30d is clicked', async () => {
@@ -80,7 +80,7 @@ describe('SumpDepthChart', () => {
             await act(async () => {
                 fireEvent.click(screen.getByText('30d'));
             });
-            await waitFor(() => expect(spyGetDaily).toHaveBeenCalledWith(bearer, 30));
+            await waitFor(() => expect(spyGetDaily).toHaveBeenCalledWith(30));
         });
     });
 

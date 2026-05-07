@@ -47,7 +47,7 @@ describe('SwitchSlider', () => {
             fireEvent.click(screen.getByRole('button', {name: light.lightName}));
         });
 
-        expect(spySetLight).toHaveBeenCalledWith(bearer, light.lightId, false, 0);
+        expect(spySetLight).toHaveBeenCalledWith(light.lightId, false, 0);
     });
 
     it('should make api call to turn on light on first click of button', async () => {
@@ -61,6 +61,6 @@ describe('SwitchSlider', () => {
             fireEvent.click(screen.getByRole('button', {name: light.lightName}));
         });
 
-        expect(spySetLight).toHaveBeenCalledWith(bearer, light.lightId, true, 0);
+        expect(spySetLight).toHaveBeenCalledWith(light.lightId, true, 0);
     });
 });

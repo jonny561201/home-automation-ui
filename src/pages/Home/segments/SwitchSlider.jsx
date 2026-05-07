@@ -3,11 +3,9 @@ import {Context} from '../../../state/Store';
 import {ButtonBase} from '@mui/material';
 import {setLightState} from '../../../utilities/RestApi';
 import {CustomSlider} from '../../../components/controls/Slider';
-import {useAuth0} from "@auth0/auth0-react";
 
 
 export default function SwitchSlider(props) {
-    const auth0 = useAuth0();
     const [state, dispatch] = useContext(Context);
     const [light, setLight] = useState(props.data);
     const [lightId,] = useState(props.data.lightId);
@@ -28,8 +26,7 @@ export default function SwitchSlider(props) {
 
     const commitSlider = async (event, value) => {
         const newBrightness = value * 2.55;
-        const token = await auth0.getAccessTokenSilently();
-        setLightState(token, lightId, true, newBrightness);
+        setLightState(lightId, true, newBrightness);
         const newLight = { ...light, brightness: newBrightness, on: value > 0 };
         const newList = state.lights.map(x => (x.groupId === groupId) ? { ...x, lights: x.lights.map(y => (y.lightId === lightId) ? newLight : y) } : x);
         dispatch({ type: 'SET_LIGHTS', payload: newList });
@@ -38,8 +35,7 @@ export default function SwitchSlider(props) {
     const toggleLight = async () => {
         const newState = !light.on;
         const newBrightness = !newState ? 0 : prevBrightness;
-        const token = await auth0.getAccessTokenSilently();
-        await setLightState(token, lightId, newState, newBrightness)
+        await setLightState(lightId, newState, newBrightness)
         setPrevBrightness(light.brightness);
 
         const newLight = { ...light, brightness: newBrightness, on: newState };

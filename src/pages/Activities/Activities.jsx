@@ -7,12 +7,10 @@ import LightActivity from './LightActivity';
 import HvacActivity from './HvacActivity';
 import CreateNewActivityPanel from './CreateNewActivity';
 import { getScheduledTasks } from '../../utilities/RestApi';
-import { useAuth0 } from '@auth0/auth0-react';
 import './Activities.scss';
 
 
 export default function ActivitiesPage() {
-    const auth0 = useAuth0();
     const [state, dispatch] = useContext(Context);
     const [addTask, setAddTask] = useState(false);
     const [rotated, setRotated] = useState(false);
@@ -20,8 +18,7 @@ export default function ActivitiesPage() {
     useEffect(() => {
         dispatch({ type: 'SET_ACTIVE_PAGE', payload: 'Activities' });
         const fetchActivities = async () => {
-            const token = await auth0.getAccessTokenSilently();
-            const activities = await getScheduledTasks(token);
+            const activities = await getScheduledTasks();
             dispatch({ type: 'SET_SCHEDULED_TASK', payload: activities.tasks || [] });
         };
         fetchActivities();

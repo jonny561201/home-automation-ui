@@ -10,12 +10,10 @@ import { parseDate } from '../../../utilities/Services';
 import { Accordion, AccordionDetails, Typography, AccordionSummary, Divider, FormControl, FormGroup, FormControlLabel } from '@mui/material';
 import { AutoSwitch, CoolSwitch, HeatSwitch } from '../../../components/controls/Switches';
 import { Context } from '../../../state/Store';
-import { useAuth0 } from "@auth0/auth0-react";
 import './TemperaturePanel.scss';
 
 
 export default function TemperaturePanel() {
-    const auth0 = useAuth0();
     const [state, dispatch] = useContext(Context);
     const [open, setOpen] = useState(false);
 
@@ -27,9 +25,8 @@ export default function TemperaturePanel() {
     const knobChange = async (newValue) => {
         if (state.tempData.mode === 'heating' || state.tempData.mode === 'cooling') {
             dispatch({ type: 'SET_TEMP_DATA', payload: { ...state.tempData, desiredTemp: newValue } });
-            debounceApi(async () => {
-                const token = await auth0.getAccessTokenSilently();
-                setUserTemperature(token, newValue, state.tempData.mode, state.tempData.isFahrenheit)
+            debounceApi(() => {
+                setUserTemperature(newValue, state.tempData.mode, state.tempData.isFahrenheit);
             });
         }
     }
@@ -63,8 +60,7 @@ export default function TemperaturePanel() {
         if (newMode !== 'auto' || state.tasks.some(x => x.taskType === 'hvac')) {
             const modeState = state.tempData.mode === newMode ? null : newMode;
             await dispatch({ type: 'SET_TEMP_DATA', payload: { ...state.tempData, mode: modeState } });
-            const token = await auth0.getAccessTokenSilently();
-            setUserTemperature(token, state.tempData.desiredTemp, modeState, state.tempData.isFahrenheit);
+            setUserTemperature(state.tempData.desiredTemp, modeState, state.tempData.isFahrenheit);
         }
     }
 

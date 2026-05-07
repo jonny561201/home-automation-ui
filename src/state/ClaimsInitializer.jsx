@@ -1,12 +1,14 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useContext, useEffect } from 'react';
 import { Context } from './Store';
+import { initRestApi } from '../utilities/RestApi';
 
 export default function ClaimsInitializer({ children }) {
     const auth0 = useAuth0();
     const [_, dispatch] = useContext(Context)
 
     useEffect(() => {
+        initRestApi(auth0);
         setClaims();
     }, [auth0.isLoading, auth0.isAuthenticated, dispatch]);
 

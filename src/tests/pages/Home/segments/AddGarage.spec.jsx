@@ -112,7 +112,7 @@ describe('Add Garage', () => {
             await act(async () => {
                 fireEvent.click(screen.getByRole('button', { name: 'Save' }));
             });
-            expect(spyAdd).toHaveBeenCalledWith(bearer, device.deviceId, [
+            expect(spyAdd).toHaveBeenCalledWith(device.deviceId, [
                 { nodeDevice: 1, nodeName: 'Main Door', preferred: true }
             ]);
         });
@@ -192,7 +192,7 @@ describe('Add Garage', () => {
             await act(async () => {
                 fireEvent.click(screen.getByRole('button', { name: 'Save' }));
             });
-            expect(spyAdd).toHaveBeenCalledWith(bearer, device.deviceId, [
+            expect(spyAdd).toHaveBeenCalledWith(device.deviceId, [
                 { nodeDevice: 1, nodeName: 'Left Door', preferred: true }
             ]);
         });
@@ -219,7 +219,7 @@ describe('Add Garage', () => {
                 fireEvent.click(screen.getByRole('button', { name: 'Save' }));
             });
             expect(spyAdd).toHaveBeenCalledTimes(1);
-            expect(spyAdd).toHaveBeenCalledWith(bearer, device.deviceId, [
+            expect(spyAdd).toHaveBeenCalledWith(device.deviceId, [
                 { nodeDevice: 1, nodeName: 'Left Door', preferred: true },
                 { nodeDevice: 2, nodeName: 'Right Door', preferred: false }
             ]);

@@ -1,5 +1,6 @@
 import fetchMock from 'fetch-mock';
 import {
+    initRestApi,
     updateGarageState, getUserChildAccounts, insertLightTask, getUserForecast,
     toggleGarageDoor, getSumpLevels, getCurrentTemperature, deleteUserChildAccount, updateScheduledTasks,
     getUserPreferences, updateUserPreferences, setUserTemperature, addUserChildAccount, deleteScheduledTask, insertHvacTask,
@@ -10,10 +11,12 @@ import {
 
 describe('RestApi', () => {
     const baseUrl = 'http://localhost:5000';
+    const bearerToken2 = 'abc123';
 
     beforeEach(() => {
         fetchMock.hardReset();
         fetchMock.mockGlobal();
+        initRestApi({ getAccessTokenSilently: () => Promise.resolve(bearerToken2) });
     });
 
     afterAll(() => {
@@ -22,7 +25,6 @@ describe('RestApi', () => {
 
     describe('after successful login', () => {
         const garageId = 1;
-        const bearerToken2 = 'abc123';
 
         it('should make rest call to get all garage door states', async () => {
             const response = {doors: [{'isGarageOpen': true}]};
@@ -32,7 +34,7 @@ describe('RestApi', () => {
                 return { status: 400 };
             });
 
-            const actual = await getAllGarageStatus(bearerToken2);
+            const actual = await getAllGarageStatus();
             expect(actual).toEqual(response);
         });
 
@@ -43,7 +45,7 @@ describe('RestApi', () => {
                 return { status: 400 };
             });
 
-            const actual = await updateGarageState(bearerToken2, false, garageId);
+            const actual = await updateGarageState(false, garageId);
             expect(actual.garageDoorOpen).toEqual(false);
         });
 
@@ -54,7 +56,7 @@ describe('RestApi', () => {
                 return { status: 400 };
             });
 
-            const actual = await toggleGarageDoor(bearerToken2, garageId);
+            const actual = await toggleGarageDoor(garageId);
             expect(actual.ok).toBe(true);
         });
 
@@ -68,7 +70,7 @@ describe('RestApi', () => {
                 return { status: 400 };
             });
 
-            const actual = await getSumpLevels(bearerToken2);
+            const actual = await getSumpLevels();
             expect(actual.currentDepth).toEqual(expectedDepth);
         })
 
@@ -81,7 +83,7 @@ describe('RestApi', () => {
                 return { status: 400 };
             });
 
-            const actual = await getCurrentTemperature(bearerToken2);
+            const actual = await getCurrentTemperature();
             expect(actual.currentTemp).toEqual(expectedTemp);
         });
 
@@ -100,7 +102,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             })
 
-            const actual = await setUserTemperature(bearerToken2, desiredTemp, mode, isFahrenheit);
+            const actual = await setUserTemperature(desiredTemp, mode, isFahrenheit);
             expect(actual.ok).toBe(true);
         });
 
@@ -113,7 +115,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             })
 
-            const actual = await getUserForecast(bearerToken2);
+            const actual = await getUserForecast();
             expect(actual.minTemp).toEqual(expectedTemp);
         });
 
@@ -126,7 +128,7 @@ describe('RestApi', () => {
                 return { status: 400 };
             });
 
-            const actual = await getUserPreferences(bearerToken2);
+            const actual = await getUserPreferences();
             expect(actual.unit).toEqual(expectedUnit);
         });
 
@@ -143,14 +145,14 @@ describe('RestApi', () => {
                 return { status: 400 };
             });
 
-            const actual = await getExtendedForecast(bearerToken2);
+            const actual = await getExtendedForecast();
             expect(actual).toEqual(response);
         });
 
         it('should return empty object when extended forecast response is not ok', async () => {
             fetchMock.route(`${baseUrl}/forecast/extended`, { status: 500 });
 
-            const actual = await getExtendedForecast(bearerToken2);
+            const actual = await getExtendedForecast();
             expect(actual).toEqual({});
         });
 
@@ -162,14 +164,14 @@ describe('RestApi', () => {
                 return { status: 400 };
             });
 
-            const actual = await reverseGeocode(bearerToken2, 41.77, -93.27);
+            const actual = await reverseGeocode(41.77, -93.27);
             expect(actual).toEqual(response);
         });
 
         it('should return empty object when reverse geocode response is not ok', async () => {
             fetchMock.route(`${baseUrl}/geocode/reverse?latitude=0&longitude=0`, { status: 404 });
 
-            const actual = await reverseGeocode(bearerToken2, 0, 0);
+            const actual = await reverseGeocode(0, 0);
             expect(actual).toEqual({});
         });
 
@@ -184,7 +186,7 @@ describe('RestApi', () => {
                 return { status: 400 };
             });
 
-            const actual = await updateUserPreferences(bearerToken2, request);
+            const actual = await updateUserPreferences(request);
 
             expect(actual.ok).toBe(true);
         });
@@ -197,7 +199,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             });
 
-            const actual = await getLightGroups(bearerToken2);
+            const actual = await getLightGroups();
 
             expect(actual[0].groupName).toEqual('Bathroom');
         });
@@ -214,7 +216,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             });
 
-            const actual = await setLightGroupState(bearerToken2, body.groupId, body.on, body.brightness);
+            const actual = await setLightGroupState(body.groupId, body.on, body.brightness);
 
             expect(actual.ok).toBe(true);
         });
@@ -231,7 +233,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             });
 
-            const actual = await setLightGroupState(bearerToken2, body.groupId, body.on);
+            const actual = await setLightGroupState(body.groupId, body.on);
 
             expect(actual.ok).toBe(true);
         });
@@ -244,7 +246,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             });
 
-            const actual = await setLightState(bearerToken2, body.lightId, body.on, body.brightness);
+            const actual = await setLightState(body.lightId, body.on, body.brightness);
 
             expect(actual.ok).toBe(true);
         });
@@ -257,7 +259,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             });
 
-            const actual = await getDevices(bearerToken2);
+            const actual = await getDevices();
 
             expect(actual).toEqual(response);
         });
@@ -273,7 +275,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             });
 
-            const actual = await addUserDeviceNode(bearerToken2, deviceId, nodes);
+            const actual = await addUserDeviceNode(deviceId, nodes);
 
             expect(actual.ok).toBe(true);
         });
@@ -287,7 +289,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             });
 
-            const actual = await addUserChildAccount(bearerToken2, body.email, body.roles);
+            const actual = await addUserChildAccount(body.email, body.roles);
 
             expect(actual).toEqual(response);
         });
@@ -300,7 +302,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             });
 
-            const actual = await getUserChildAccounts(bearerToken2);
+            const actual = await getUserChildAccounts();
 
             expect(actual[0].user_name).toEqual('test');
         });
@@ -312,7 +314,7 @@ describe('RestApi', () => {
             fetchMock.route(`${baseUrl}/account/childUserId/${childAccount}`, options).catch(() => {
                 return { status: 400 }
             });
-            const actual = await deleteUserChildAccount(bearerToken2, childAccount);
+            const actual = await deleteUserChildAccount(childAccount);
 
             expect(actual.ok).toBe(true);
         });
@@ -324,7 +326,7 @@ describe('RestApi', () => {
             fetchMock.route(`${baseUrl}/tasks/${taskId}`, options).catch(() => {
                 return { status: 400 }
             });
-            const actual = await deleteScheduledTask(bearerToken2, taskId);
+            const actual = await deleteScheduledTask(taskId);
 
             expect(actual.ok).toBe(true);
         });
@@ -337,7 +339,7 @@ describe('RestApi', () => {
             fetchMock.route(`${baseUrl}/tasks`, response, options).catch(() => {
                 return { status: 400 }
             });
-            const actual = await getScheduledTasks(bearerToken2);
+            const actual = await getScheduledTasks();
 
             expect(actual[0].taskId).toEqual(taskId);
         });
@@ -351,7 +353,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             });
 
-            const actual = await insertLightTask(bearerToken2, body.enabled, body.taskType, body.alarmLightGroup, body.alarmGroupName, body.alarmDays, body.alarmTime);
+            const actual = await insertLightTask(body.enabled, body.taskType, body.alarmLightGroup, body.alarmGroupName, body.alarmDays, body.alarmTime);
 
             expect(actual[0].taskId).toEqual(response[0].taskId);
         });
@@ -365,7 +367,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             });
 
-            const actual = await insertHvacTask(bearerToken2, body.enabled, body.taskType, body.hvacMode, body.hvacStart, body.hvacStop, body.hvacStartTemp, body.hvacStopTemp, body.alarmDays);
+            const actual = await insertHvacTask(body.enabled, body.taskType, body.hvacMode, body.hvacStart, body.hvacStop, body.hvacStartTemp, body.hvacStopTemp, body.alarmDays);
 
             expect(actual[0].taskId).toEqual(response[0].taskId);
         });
@@ -379,7 +381,7 @@ describe('RestApi', () => {
                 return { status: 400 }
             });
 
-            const actual = await updateScheduledTasks(bearerToken2, request);
+            const actual = await updateScheduledTasks(request);
 
             expect(actual.taskId).toEqual(taskId);
         });

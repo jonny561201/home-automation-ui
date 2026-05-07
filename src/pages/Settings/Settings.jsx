@@ -5,14 +5,12 @@ import Header from '../../components/header/Header';
 import SettingsEditPanel from './SettingsEditPanel';
 import { setTheme, toggleDarkMode, isDayLight } from '../../utilities/Services';
 import { getUserPreferences } from '../../utilities/RestApi';
-import { useAuth0 } from '@auth0/auth0-react';
 import { CoolSwitch, HeatSwitch } from '../../components/controls/Switches';
 import { FormControlLabel, FormControl } from '@mui/material';
 import './Settings.scss'
 
 
 export default function Settings() {
-    const auth0 = useAuth0();
     const [state, dispatch] = useContext(Context);
     const [isAutoMode, setIsAutoMode] = useState(false);
     const [darkMode, setDarkMode] = useState(false);
@@ -21,8 +19,7 @@ export default function Settings() {
     useEffect(() => {
         dispatch({ type: 'SET_ACTIVE_PAGE', payload: 'Settings' });
         const fetchPreferences = async () => {
-            const token = await auth0.getAccessTokenSilently();
-            const preferences = await getUserPreferences(token);
+            const preferences = await getUserPreferences();
             if (Object.keys(preferences).length > 0) {
                 dispatch({ type: 'SET_USER_PREFERENCES', payload: preferences });
             }

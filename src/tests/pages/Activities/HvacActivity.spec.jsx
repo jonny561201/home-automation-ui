@@ -140,7 +140,7 @@ describe('HVAC Activity Panel', () => {
             spyDelete.mockReturnValue({ ok: true })
             await renderComponent();
             fireEvent.click(screen.getByText('Delete'));
-            expect(spyDelete).toHaveBeenCalledWith(bearer, taskId);
+            expect(spyDelete).toHaveBeenCalledWith(taskId);
         });
 
         it('should make api call to update task when update button clicked', async () => {

@@ -106,7 +106,7 @@ describe('TemperaturePanel', () => {
                 fireEvent.click(screen.getByLabelText('Heat'));
             });
 
-            expect(spyUpdate).toBeCalledWith(bearer, desiredTemp, 'heating', true);
+            expect(spyUpdate).toBeCalledWith(desiredTemp, 'heating', true);
         });
 
         it('should make api call to toggle on cooling when initially set to off', async () => {
@@ -116,7 +116,7 @@ describe('TemperaturePanel', () => {
                 fireEvent.click(screen.getByLabelText('Cool'));
             });
 
-            expect(spyUpdate).toBeCalledWith(bearer, desiredTemp, 'cooling', true);
+            expect(spyUpdate).toBeCalledWith(desiredTemp, 'cooling', true);
         });
 
         it('should make api call to toggle off hvac when initially set to heating', async () => {
@@ -126,7 +126,7 @@ describe('TemperaturePanel', () => {
                 fireEvent.click(screen.getByLabelText('Heat'));
             });
 
-            expect(spyUpdate).toBeCalledWith(bearer, desiredTemp, null, true);
+            expect(spyUpdate).toBeCalledWith(desiredTemp, null, true);
         });
 
         it('should make api call to toggle off hvac when initially set to cooling', async () => {
@@ -136,7 +136,7 @@ describe('TemperaturePanel', () => {
                 fireEvent.click(screen.getByLabelText('Cool'));
             });
 
-            expect(spyUpdate).toBeCalledWith(bearer, desiredTemp, null, true);
+            expect(spyUpdate).toBeCalledWith(desiredTemp, null, true);
         });
     });
 

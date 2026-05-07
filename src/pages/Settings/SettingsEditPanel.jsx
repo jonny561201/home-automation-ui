@@ -4,7 +4,6 @@ import { captureCurrentPosition } from '../../utilities/Location';
 import { usStates } from '../../utilities/USStates';
 import { Context } from '../../state/Store';
 import { Button, CircularProgress, Divider, FormControl, FormControlLabel, MenuItem, Radio, RadioGroup, TextField } from '@mui/material';
-import { useAuth0 } from '@auth0/auth0-react';
 import { CheckCircle, Delete, ErrorOutline, MyLocation, Save } from '@mui/icons-material';
 import './SettingsEditPanel.scss'
 
@@ -12,7 +11,6 @@ import './SettingsEditPanel.scss'
 const ACCURACY_THRESHOLD_METERS = 100;
 
 export default function SettingsEditPanel(props) {
-    const auth0 = useAuth0();
     const [state, dispatch] = useContext(Context);
     const preferences = state.preferences || {};
     const initialCoords = (preferences.latitude && preferences.longitude)
@@ -40,8 +38,7 @@ export default function SettingsEditPanel(props) {
             request.latitude = newCoords.latitude;
             request.longitude = newCoords.longitude;
         }
-        const token = await auth0.getAccessTokenSilently();
-        await updateUserPreferences(token, request);
+        await updateUserPreferences(request);
 
         const payload = { ...state.preferences, city: newCity, state: newAddrState, tempUnit: newTempUnit, measureUnit: newMeasureUnit, garageNodeId: garageNodeId, garageAlertTime: alertMinutes };
         if (newCoords) {

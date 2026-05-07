@@ -7,9 +7,14 @@ const sumpBaseUrl = `${baseUrl}/sumpPump`;
 const sceneBaseUrl = `${baseUrl}/scenes`;
 const thermostatBaseUrl = `${baseUrl}/thermostat`;
 
+let auth = null;
+export const initRestApi = (auth0) => { auth = auth0; };
+const getToken = () => auth.getAccessTokenSilently();
 
-export const changeUserPassword = async (bearer) => {
+
+export const changeUserPassword = async () => {
     try {
+        const bearer = await getToken();
         const options = {
             method: 'POST',
             headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' }
@@ -21,8 +26,9 @@ export const changeUserPassword = async (bearer) => {
     }
 }
 
-export const getAllGarageStatus = async (bearer) => {
+export const getAllGarageStatus = async () => {
     try {
+        const bearer = await getToken();
         const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
         const response = await fetch(`${garageBaseUrl}/status`, options);
         if (!response.ok) return {};
@@ -32,8 +38,9 @@ export const getAllGarageStatus = async (bearer) => {
     }
 }
 
-export const updateGarageState = async (bearer, shouldOpen, garageId) => {
+export const updateGarageState = async (shouldOpen, garageId) => {
     try {
+        const bearer = await getToken();
         const request = { 'garageDoorOpen': shouldOpen };
         const options = {
             method: 'POST',
@@ -48,8 +55,9 @@ export const updateGarageState = async (bearer, shouldOpen, garageId) => {
     }
 }
 
-export const toggleGarageDoor = async (bearer, garageId) => {
+export const toggleGarageDoor = async (garageId) => {
     try {
+        const bearer = await getToken();
         const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } }
         const response = await fetch(`${garageBaseUrl}/${garageId}/toggle`, options);
         return { ok: response.ok };
@@ -58,8 +66,9 @@ export const toggleGarageDoor = async (bearer, garageId) => {
     }
 }
 
-export const scheduleGarageClose = async (bearer, garageId) => {
+export const scheduleGarageClose = async (garageId) => {
     try {
+        const bearer = await getToken();
         const options = {
             method: 'POST',
             headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' }
@@ -72,8 +81,9 @@ export const scheduleGarageClose = async (bearer, garageId) => {
     }
 }
 
-export const cancelGarageSchedule = async (bearer, garageId) => {
+export const cancelGarageSchedule = async (garageId) => {
     try {
+        const bearer = await getToken();
         const options = { method: 'DELETE', headers: { 'Authorization': `Bearer ${bearer}` } };
         const response = await fetch(`${garageBaseUrl}/${garageId}/schedule`, options);
         return { ok: response.ok };
@@ -82,8 +92,9 @@ export const cancelGarageSchedule = async (bearer, garageId) => {
     }
 }
 
-export const getSumpLevels = async (bearer) => {
+export const getSumpLevels = async () => {
     try {
+        const bearer = await getToken();
         const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
         const response = await fetch(`${sumpBaseUrl}/depth`, options);
         if (!response.ok) return {};
@@ -93,8 +104,9 @@ export const getSumpLevels = async (bearer) => {
     }
 }
 
-export const getSumpDepthHistory = async (bearer) => {
+export const getSumpDepthHistory = async () => {
     try {
+        const bearer = await getToken();
         const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
         const response = await fetch(`${sumpBaseUrl}/depth/history`, options);
         if (!response.ok) return {};
@@ -104,8 +116,9 @@ export const getSumpDepthHistory = async (bearer) => {
     }
 }
 
-export const getSumpDailyHistory = async (bearer, days) => {
+export const getSumpDailyHistory = async (days) => {
     try {
+        const bearer = await getToken();
         const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
         const response = await fetch(`${sumpBaseUrl}/depth/daily?days=${days}`, options);
         if (!response.ok) return {};
@@ -115,8 +128,9 @@ export const getSumpDailyHistory = async (bearer, days) => {
     }
 }
 
-export const getCurrentTemperature = async (bearer) => {
+export const getCurrentTemperature = async () => {
     try {
+        const bearer = await getToken();
         const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
         const response = await fetch(`${thermostatBaseUrl}/temperature`, options);
         if (!response.ok) return {};
@@ -126,8 +140,9 @@ export const getCurrentTemperature = async (bearer) => {
     }
 }
 
-export const setUserTemperature = async (bearer, desiredTemp, mode, isFahrenheit) => {
+export const setUserTemperature = async (desiredTemp, mode, isFahrenheit) => {
     try {
+        const bearer = await getToken();
         const request = { 'desiredTemp': desiredTemp, 'mode': mode, 'isFahrenheit': isFahrenheit }
         const options = {
             method: 'POST',
@@ -141,8 +156,9 @@ export const setUserTemperature = async (bearer, desiredTemp, mode, isFahrenheit
     }
 }
 
-export const getUserForecast = async (bearer) => {
+export const getUserForecast = async () => {
     try {
+        const bearer = await getToken();
         const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
         const response = await fetch(`${thermostatBaseUrl}/forecast`, options);
         if (!response.ok) return {};
@@ -152,8 +168,9 @@ export const getUserForecast = async (bearer) => {
     }
 }
 
-export const getExtendedForecast = async (bearer) => {
+export const getExtendedForecast = async () => {
     try {
+        const bearer = await getToken();
         const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
         const response = await fetch(`${thermostatBaseUrl}/forecast/extended`, options);
         if (!response.ok) return {};
@@ -163,8 +180,9 @@ export const getExtendedForecast = async (bearer) => {
     }
 }
 
-export const getUserPreferences = async (bearer) => {
+export const getUserPreferences = async () => {
     try {
+        const bearer = await getToken();
         const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
         const response = await fetch(`${baseUrl}/preferences`, options);
         if (!response.ok) return {};
@@ -174,8 +192,9 @@ export const getUserPreferences = async (bearer) => {
     }
 }
 
-export const reverseGeocode = async (bearer, latitude, longitude) => {
+export const reverseGeocode = async (latitude, longitude) => {
     try {
+        const bearer = await getToken();
         const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
         const response = await fetch(`${baseUrl}/geocode/reverse?latitude=${latitude}&longitude=${longitude}`, options);
         if (!response.ok) return {};
@@ -185,8 +204,9 @@ export const reverseGeocode = async (bearer, latitude, longitude) => {
     }
 }
 
-export const updateUserPreferences = async (bearer, request) => {
+export const updateUserPreferences = async (request) => {
     try {
+        const bearer = await getToken();
         const options = {
             method: 'POST',
             headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
@@ -199,8 +219,9 @@ export const updateUserPreferences = async (bearer, request) => {
     }
 }
 
-export const getLightGroups = async (bearer) => {
+export const getLightGroups = async () => {
     try {
+        const bearer = await getToken();
         const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
         const response = await fetch(`${lightBaseUrl}/groups`, options);
         if (!response.ok) return {};
@@ -210,8 +231,9 @@ export const getLightGroups = async (bearer) => {
     }
 }
 
-export const setLightGroupState = async (bearer, groupId, state, brightness = null) => {
+export const setLightGroupState = async (groupId, state, brightness = null) => {
     try {
+        const bearer = await getToken();
         const request = { 'groupId': groupId, 'on': state, ...(brightness !== null && { 'brightness': brightness }) };
         const options = {
             method: 'POST',
@@ -225,8 +247,9 @@ export const setLightGroupState = async (bearer, groupId, state, brightness = nu
     }
 }
 
-export const setLightState = async (bearer, lightId, state, brightness) => {
+export const setLightState = async (lightId, state, brightness) => {
     try {
+        const bearer = await getToken();
         const request = { 'lightId': lightId, 'on': state, 'brightness': brightness };
         const options = {
             method: 'POST',
@@ -240,8 +263,9 @@ export const setLightState = async (bearer, lightId, state, brightness) => {
     }
 }
 
-export const getScenes = async (bearer) => {
+export const getScenes = async () => {
     try {
+        const bearer = await getToken();
         const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
         const response = await fetch(`${sceneBaseUrl}/list`, options);
         if (!response.ok) return {};
@@ -251,8 +275,9 @@ export const getScenes = async (bearer) => {
     }
 }
 
-export const createScene = async (bearer, request) => {
+export const createScene = async (request) => {
     try {
+        const bearer = await getToken();
         const options = {
             method: 'POST',
             headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
@@ -266,8 +291,9 @@ export const createScene = async (bearer, request) => {
     }
 }
 
-export const deleteScene = async (bearer, sceneId) => {
+export const deleteScene = async (sceneId) => {
     try {
+        const bearer = await getToken();
         const options = { method: 'DELETE', headers: { 'Authorization': `Bearer ${bearer}` } };
         const response = await fetch(`${sceneBaseUrl}/${sceneId}`, options);
         return { ok: response.ok };
@@ -276,8 +302,9 @@ export const deleteScene = async (bearer, sceneId) => {
     }
 }
 
-export const getDevices = async (bearer) => {
+export const getDevices = async () => {
     try {
+        const bearer = await getToken();
         const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
         const response = await fetch(`${deviceBaseUrl}/devices`, options);
         if (!response.ok) return {};
@@ -287,8 +314,9 @@ export const getDevices = async (bearer) => {
     }
 }
 
-export const addUserDeviceNode = async (bearer, deviceId, nodes) => {
+export const addUserDeviceNode = async (deviceId, nodes) => {
     try {
+        const bearer = await getToken();
         const request = { 'nodes': nodes };
         const options = {
             method: 'POST',
@@ -302,8 +330,9 @@ export const addUserDeviceNode = async (bearer, deviceId, nodes) => {
     }
 }
 
-export const addUserChildAccount = async (bearer, email, roles) => {
+export const addUserChildAccount = async (email, roles) => {
     try {
+        const bearer = await getToken();
         const request = { 'email': email, 'roles': roles };
         const options = {
             method: 'POST',
@@ -318,8 +347,9 @@ export const addUserChildAccount = async (bearer, email, roles) => {
     }
 }
 
-export const getUserChildAccounts = async (bearer) => {
+export const getUserChildAccounts = async () => {
     try {
+        const bearer = await getToken();
         const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
         const response = await fetch(`${accountBaseUrl}/childAccounts`, options);
         if (!response.ok) return {};
@@ -329,8 +359,9 @@ export const getUserChildAccounts = async (bearer) => {
     }
 }
 
-export const deleteUserChildAccount = async (bearer, childAccountId) => {
+export const deleteUserChildAccount = async (childAccountId) => {
     try {
+        const bearer = await getToken();
         const options = { method: 'DELETE', headers: { 'Authorization': `Bearer ${bearer}` } };
         const response = await fetch(`${accountBaseUrl}/childUserId/${childAccountId}`, options);
         return { ok: response.ok };
@@ -339,8 +370,9 @@ export const deleteUserChildAccount = async (bearer, childAccountId) => {
     }
 }
 
-export const deleteScheduledTask = async (bearer, taskId) => {
+export const deleteScheduledTask = async (taskId) => {
     try {
+        const bearer = await getToken();
         const options = { method: 'DELETE', headers: { 'Authorization': `Bearer ${bearer}` } };
         const response = await fetch(`${baseUrl}/tasks/${taskId}`, options);
         return { ok: response.ok };
@@ -349,8 +381,9 @@ export const deleteScheduledTask = async (bearer, taskId) => {
     }
 }
 
-export const getScheduledTasks = async (bearer) => {
+export const getScheduledTasks = async () => {
     try {
+        const bearer = await getToken();
         const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
         const response = await fetch(`${baseUrl}/tasks`, options);
         if (!response.ok) return {};
@@ -360,8 +393,9 @@ export const getScheduledTasks = async (bearer) => {
     }
 }
 
-export const insertLightTask = async (bearer, enabled, taskType, alarmLightGroup, alarmGroupName, alarmDays, alarmTime) => {
+export const insertLightTask = async (enabled, taskType, alarmLightGroup, alarmGroupName, alarmDays, alarmTime) => {
     try {
+        const bearer = await getToken();
         const request = { 'alarmLightGroup': alarmLightGroup, 'alarmGroupName': alarmGroupName, 'alarmDays': alarmDays, 'alarmTime': alarmTime, 'enabled': enabled, 'taskType': taskType };
         const options = {
             method: 'POST',
@@ -376,8 +410,9 @@ export const insertLightTask = async (bearer, enabled, taskType, alarmLightGroup
     }
 }
 
-export const insertHvacTask = async (bearer, enabled, taskType, hvacMode, hvacStart, hvacStop, hvacStartTemp, hvacStopTemp, alarmDays) => {
+export const insertHvacTask = async (enabled, taskType, hvacMode, hvacStart, hvacStop, hvacStartTemp, hvacStopTemp, alarmDays) => {
     try {
+        const bearer = await getToken();
         const request = { 'hvacMode': hvacMode, 'hvacStart': hvacStart, 'hvacStop': hvacStop, 'hvacStartTemp': hvacStartTemp, 'hvacStopTemp': hvacStopTemp, 'alarmDays': alarmDays, 'enabled': enabled, 'taskType': taskType };
         const options = {
             method: 'POST',
@@ -392,8 +427,9 @@ export const insertHvacTask = async (bearer, enabled, taskType, hvacMode, hvacSt
     }
 }
 
-export const updateScheduledTasks = async (bearer, request) => {
+export const updateScheduledTasks = async (request) => {
     try {
+        const bearer = await getToken();
         const options = {
             method: 'POST',
             headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },

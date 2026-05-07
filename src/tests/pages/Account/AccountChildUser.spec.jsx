@@ -134,7 +134,7 @@ describe('AccountChildUser', () => {
                 fireEvent.click(addButton);
             });
 
-            await waitFor(() => expect(spyPost).toHaveBeenCalledWith(bearer, email, roles));
+            await waitFor(() => expect(spyPost).toHaveBeenCalledWith(email, roles));
         });
 
         it('should remove item from list after clicking the delete', async () => {

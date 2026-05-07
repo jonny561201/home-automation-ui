@@ -7,11 +7,9 @@ import { setLightGroupState } from '../../utilities/RestApi';
 import { ExpandButton } from './Buttons';
 import BrightnessMediumIcon from '@mui/icons-material/BrightnessMedium';
 import './LightSwitch.scss';
-import {useAuth0} from "@auth0/auth0-react";
 
 
 export default function LightSwitch(props) {
-    const auth0 = useAuth0();
     const initalBrightness = Math.round(props.data.brightness / 2.55);
     const [state, dispatch] = useContext(Context);
     const [isOn, setIsOn] = useState(props.data.on);
@@ -29,8 +27,7 @@ export default function LightSwitch(props) {
 
     const commitSliderLightGroup = async (event, value) => {
         const newBrightness = Math.round(value * 2.55);
-        const token = await auth0.getAccessTokenSilently();
-        setLightGroupState(token, groupId, true, newBrightness);
+        setLightGroupState(groupId, true, newBrightness);
         const newList = state.lights.map(x => (x.groupId === groupId) ? { ...x, brightness: newBrightness, lights: x.lights.map(y => ({ ...y, brightness: newBrightness })) } : x);
         dispatch({ type: 'SET_LIGHTS', payload: newList });
     };
@@ -38,8 +35,7 @@ export default function LightSwitch(props) {
     const toggleLightGroup = async () => {
         const newState = !isOn;
         setIsOn(!isOn);
-        const token = await auth0.getAccessTokenSilently();
-        await setLightGroupState(token, groupId, newState);
+        await setLightGroupState(groupId, newState);
         if (!newState) {
             setPrevBrightness(brightness);            
             setBrightness(0);

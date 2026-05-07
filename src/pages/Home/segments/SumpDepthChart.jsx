@@ -8,7 +8,6 @@ import './SumpDepthChart.scss';
 
 
 export default function SumpDepthChart() {
-    const auth0 = useAuth0();
     const [state,] = useContext(Context);
     const [historyData, setHistoryData] = useState([]);
     const [selectedRange, setSelectedRange] = useState('today');
@@ -22,10 +21,9 @@ export default function SumpDepthChart() {
         setHistoryData([]);
         setLoading(true);
         try {
-            const token = await auth0.getAccessTokenSilently();
             const response = range === 'today'
-                ? await getSumpDepthHistory(token)
-                : await getSumpDailyHistory(token, range === '7d' ? 7 : 30);
+                ? await getSumpDepthHistory()
+                : await getSumpDailyHistory(range === '7d' ? 7 : 30);
             const readings = response.readings || [];
             const converted = readings.map(r => ({ depth: r.depth, timestamp: new Date(r.dateTime || r.date).getTime() }));
             setHistoryData(converted);

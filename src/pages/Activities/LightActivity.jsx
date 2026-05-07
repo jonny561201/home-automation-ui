@@ -6,13 +6,11 @@ import {Delete, Save, WbSunny, DarkMode} from '@mui/icons-material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {deleteScheduledTask, updateScheduledTasks} from '../../utilities/RestApi';
 import {Accordion, AccordionDetails, AccordionSummary, Divider, MenuItem, Switch, TextField} from '@mui/material';
-import {useAuth0} from "@auth0/auth0-react";
 import {getSunrise, getSunset} from 'sunrise-sunset-js';
 import {parseDate} from '../../utilities/Services';
 
 
 export default function LightActivity(props) {
-    const auth0 = useAuth0();
     const initialDays = [{ id: 'Sun', day: 'S', on: false }, { id: 'Mon', day: 'M', on: false }, { id: 'Tue', day: 'T', on: false }, { id: 'Wed', day: 'W', on: false }, { id: 'Thu', day: 'T', on: false }, { id: 'Fri', day: 'F', on: false }, { id: 'Sat', day: 'S', on: false }];
     const [state, dispatch] = useContext(Context);
     const [open, setOpen] = useState(false);
@@ -58,8 +56,7 @@ export default function LightActivity(props) {
 
     const updateTask = async (isEnabled) => {
         const request = { 'taskId': props.task.taskId, 'alarmLightGroup': props.task.alarmLightGroup, 'alarmGroupName': props.task.alarmGroupName, 'alarmDays': days, 'alarmTime': time, 'enabled': isEnabled, 'taskType': type };
-        const token = await auth0.getAccessTokenSilently();
-        const response = await updateScheduledTasks(token, request);
+        const response = await updateScheduledTasks(request);
         if (response) {
             dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.taskId });
             dispatch({ type: 'ADD_SCHEDULED_TASK', payload: response });
@@ -76,8 +73,7 @@ export default function LightActivity(props) {
     }
 
     const clickDelete = async () => {
-        const token = await auth0.getAccessTokenSilently();
-        const response = await deleteScheduledTask(token, props.task.taskId);
+        const response = await deleteScheduledTask(props.task.taskId);
         if (response.ok) {
             dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.taskId });
         }

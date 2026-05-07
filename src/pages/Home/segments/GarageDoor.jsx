@@ -7,11 +7,9 @@ import UpDownIcon from '../../../resources/panelIcons/UpDown.png';
 import { BlueButton, GreenButton, OrangeButton, RedButton } from '../../../components/controls/Buttons';
 import { cancelGarageSchedule, scheduleGarageClose, toggleGarageDoor, updateGarageState } from '../../../utilities/RestApi';
 import './GarageDoor.scss'
-import {useAuth0} from "@auth0/auth0-react";
 
 
 export default function GarageDoor(props) {
-    const auth0 = useAuth0();
     const [state, dispatch] = useContext(Context);
     const [statusDays, setStatusDays] = useState();
     const [statusMins, setStatusMins] = useState();
@@ -40,8 +38,7 @@ export default function GarageDoor(props) {
             setScheduledCloseTime(new Date(Date.now() + alertMinutes * 60000));
             setCancelled(false);
             const scheduleClose = async () => {
-                const token = await auth0.getAccessTokenSilently();
-                await scheduleGarageClose(token, props.device.doorId);
+                await scheduleGarageClose(props.device.doorId);
             };
             scheduleClose();
         }
@@ -83,21 +80,18 @@ export default function GarageDoor(props) {
     };
 
     const openCloseGarageDoor = async (newState) => {
-        const token = await auth0.getAccessTokenSilently();
-        const response = await updateGarageState(token, newState, props.device.doorId);
+        const response = await updateGarageState(newState, props.device.doorId);
         dispatch({ type: 'UPDATE_GARAGE_DOORS', payload: { doorName: props.device.doorName, doorId: props.device.doorId, isOpen: response.isGarageOpen, duration: new Date() } });
     }
 
     const toggleDoor = async () => {
-        const token = await auth0.getAccessTokenSilently();
-        toggleGarageDoor(token, props.device.doorId);
+        toggleGarageDoor(props.device.doorId);
     }
 
     const cancelAutoClose = async () => {
         setCancelled(true);
         setCountdown(null);
-        const token = await auth0.getAccessTokenSilently();
-        await cancelGarageSchedule(token, props.device.doorId);
+        await cancelGarageSchedule(props.device.doorId);
     }
 
     return (

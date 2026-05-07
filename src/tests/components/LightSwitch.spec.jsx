@@ -56,7 +56,7 @@ describe('LightSwitch', () => {
     it('should call set light group state on toggleChecked', async () => {
         await renderComponent(group);
         fireEvent.change(screen.getByRole('slider'), { target: { value: 0 } });
-        await waitFor(() => expect(spySetGroup).toHaveBeenCalledWith(bearer, group.groupId, true, 0));
+        await waitFor(() => expect(spySetGroup).toHaveBeenCalledWith(group.groupId, true, 0));
     });
 
     describe('Light Expansion', () => {
@@ -116,7 +116,7 @@ describe('LightSwitch', () => {
             await act(async () => {
                 fireEvent.click(screen.getByRole('button', { name: group.groupName }));
             });
-            await waitFor(() => expect(spySetGroup).toHaveBeenCalledWith(bearer, group.groupId, false));
+            await waitFor(() => expect(spySetGroup).toHaveBeenCalledWith(group.groupId, false));
         });
 
         it('should call api to turn on light when button clicked', async () => {
@@ -129,7 +129,7 @@ describe('LightSwitch', () => {
             await act(async () => {
                 fireEvent.click(screen.getByRole('button', { name: group.groupName }));
             });
-            await waitFor(() => expect(spySetGroup).toHaveBeenCalledWith(bearer, group.groupId, true));
+            await waitFor(() => expect(spySetGroup).toHaveBeenCalledWith(group.groupId, true));
         });
     });
 })

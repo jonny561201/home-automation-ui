@@ -3,26 +3,23 @@ import { Context } from '../../../state/Store';
 import { Add, Close } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import { setLightGroupState, setLightState, createScene, deleteScene } from '../../../utilities/RestApi';
-import { useAuth0 } from '@auth0/auth0-react';
 import CreateScene from './CreateScene';
 import './LightScenes.scss';
 
 
 export default function LightScenes() {
-    const auth0 = useAuth0();
     const [state, dispatch] = useContext(Context);
     const [activeScene, setActiveScene] = useState(null);
     const [showCreate, setShowCreate] = useState(false);
 
     const activateScene = async (scene) => {
         setActiveScene(scene.id);
-        const token = await auth0.getAccessTokenSilently();
         for (const light of scene.lights) {
             const isOn = light.brightness > 0;
             if (light.groupId) {
-                await setLightGroupState(token, light.groupId, isOn, light.brightness);
+                await setLightGroupState(light.groupId, isOn, light.brightness);
             } else if (light.lightId) {
-                await setLightState(token, light.lightId, isOn, light.brightness);
+                await setLightState(light.lightId, isOn, light.brightness);
             }
         }
         updateLightsFromScene(scene);
@@ -52,15 +49,13 @@ export default function LightScenes() {
     };
 
     const handleCreateSave = async (scene) => {
-        const token = await auth0.getAccessTokenSilently();
-        const response = await createScene(token, scene);
+        const response = await createScene(scene);
         dispatch({ type: 'ADD_SCENE', payload: response });
         setShowCreate(false);
     };
 
     const handleDelete = async (sceneId) => {
-        const token = await auth0.getAccessTokenSilently();
-        const response = await deleteScene(token, sceneId);
+        const response = await deleteScene(sceneId);
         if (response.ok) {
             dispatch({ type: 'DELETE_SCENE', payload: sceneId });
         }

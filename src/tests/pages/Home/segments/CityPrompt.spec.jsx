@@ -75,7 +75,7 @@ describe('CityPrompt', () => {
         renderComponent({});
         await clickGpsButton();
 
-        expect(spyReverseGeocode).toHaveBeenCalledWith(bearer, 41.77, -93.27);
+        expect(spyReverseGeocode).toHaveBeenCalledWith(41.77, -93.27);
     });
 
     it('should show captured accuracy badge after a successful lookup', async () => {
@@ -124,7 +124,7 @@ describe('CityPrompt', () => {
         await clickGpsButton();
         await clickSaveButton();
 
-        expect(spyUpdatePrefs).toHaveBeenCalledWith(bearer, {
+        expect(spyUpdatePrefs).toHaveBeenCalledWith({
             city: 'Mingo',
             state: 'IA',
             isFahrenheit: true,
@@ -144,7 +144,7 @@ describe('CityPrompt', () => {
         fireEvent.change(screen.getByLabelText('City'), { target: { value: 'Mingo' } });
         await clickSaveButton();
 
-        expect(spyUpdatePrefs).toHaveBeenCalledWith(bearer, {
+        expect(spyUpdatePrefs).toHaveBeenCalledWith({
             city: 'Mingo',
             state: 'IA',
             isFahrenheit: true,
