@@ -14,6 +14,11 @@ export default function TemperatureImage() {
     const weather = isNight ? nightWeather : dayWeather;
     const icon = weather[description] || defaultWeatherIcon;
 
+    const formatInsideTemp = () => {
+        if (state.tempData.currentTemp == null) return '--';
+        return state.tempData.currentTemp + '°';
+    };
+
     return (
         <div className="temp-container">
             <div className="temp-external-container">
@@ -26,7 +31,7 @@ export default function TemperatureImage() {
             </div>
             <div className="temp-home-container">
                 <img className="home-icon" alt="home" src={HomeIcon} />
-                <p className="internal-temp text">{state.tempData.currentTemp}&deg;</p>
+                <p className="internal-temp text">{formatInsideTemp()}</p>
             </div>
         </div>
     );

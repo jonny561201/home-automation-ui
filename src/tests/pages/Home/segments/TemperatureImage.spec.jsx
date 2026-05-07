@@ -48,6 +48,15 @@ describe('TemperatureImage', () => {
             expect(actual).toBeTruthy();
         });
 
+        it('should show -- when internal temperature is null', async () => {
+            tempData.currentTemp = null;
+            await renderComponent('clear sky');
+            const actual = screen.getByText('--');
+
+            expect(actual).toBeTruthy();
+            tempData.currentTemp = internalTemp;
+        });
+
         it('should return sunny weather icon', async () => {
             await renderComponent('clear sky');
             const actual = screen.getByAltText('description');

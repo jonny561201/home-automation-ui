@@ -84,7 +84,7 @@ export default function TemperaturePanel() {
                                     </div>
                                     <div className="small-text-group" style={{ marginLeft: '1rem' }}>
                                         <p className="small-text text">Inside:</p>
-                                        <p className="small-text text">{state.tempData.currentTemp}&deg;</p>
+                                        <p className="small-text text">{formatInsideTemp()}</p>
                                     </div>
                                 </div>
                             }

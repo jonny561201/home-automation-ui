@@ -172,5 +172,12 @@ describe('TemperaturePanel', () => {
             const actual = screen.getAllByText("33°")[0].textContent;
             expect(actual).toEqual("33°");
         });
+
+        it('should display -- when inside temperature is null', async () => {
+            tempData.currentTemp = null;
+            await renderComponent();
+            const actual = screen.getAllByText('--')[0].textContent;
+            expect(actual).toEqual('--');
+        });
     });
 });
