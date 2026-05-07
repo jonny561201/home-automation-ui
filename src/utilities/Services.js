@@ -15,7 +15,7 @@ const debounce = (func, wait) => {
     };
 };
 
-export const debounchApi = debounce(fn => {
+export const debounceApi = debounce(fn => {
     fn();
 }, 300);
 

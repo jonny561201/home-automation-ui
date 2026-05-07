@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import Knob from '../../../components/controls/Knob';
-import { debounchApi } from '../../../utilities/Services';
+import { debounceApi } from '../../../utilities/Services';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TemperatureImage from '../segments/TemperatureImage';
 import WeatherForecast from '../segments/WeatherForecast';
@@ -19,10 +19,15 @@ export default function TemperaturePanel() {
     const [state, dispatch] = useContext(Context);
     const [open, setOpen] = useState(false);
 
+    const formatInsideTemp = () => {
+        if (state.tempData.currentTemp == null) return '--';
+        return state.tempData.currentTemp + '°';
+    };
+
     const knobChange = async (newValue) => {
         if (state.tempData.mode === 'heating' || state.tempData.mode === 'cooling') {
             dispatch({ type: 'SET_TEMP_DATA', payload: { ...state.tempData, desiredTemp: newValue } });
-            debounchApi(async () => {
+            debounceApi(async () => {
                 const token = await auth0.getAccessTokenSilently();
                 setUserTemperature(token, newValue, state.tempData.mode, state.tempData.isFahrenheit)
             });

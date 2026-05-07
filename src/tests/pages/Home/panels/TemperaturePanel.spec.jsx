@@ -25,7 +25,7 @@ describe('TemperaturePanel', () => {
         minThermostatTemp: minTemp, maxThermostatTemp: maxTemp,
         desiredTemp: desiredTemp, isFahrenheit: true
     };
-    const spySet = vi.spyOn(services, 'debounchApi');
+    const spySet = vi.spyOn(services, 'debounceApi');
     const spyUpdate = vi.spyOn(lib, 'setUserTemperature');
 
     const renderComponent = async () => {
