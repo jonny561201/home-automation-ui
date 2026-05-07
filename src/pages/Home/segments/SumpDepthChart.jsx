@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip } from 'recharts';
-import { Button } from '@mui/material';
 import { format, startOfHour, addHours } from 'date-fns';
 import { getSumpDepthHistory, getSumpDailyHistory } from '../../../utilities/RestApi';
 import { Context } from '../../../state/Store';
@@ -81,15 +80,14 @@ export default function SumpDepthChart() {
         return (
             <div className="range-button-group">
                 {ranges.map(r =>
-                    <Button
+                    <button
                         key={r.key}
-                        variant="text"
-                        disableElevation
+                        type="button"
                         className={'range-button text' + (selectedRange === r.key ? ' range-button-active' : '')}
                         onClick={() => setSelectedRange(r.key)}
                     >
                         {r.label}
-                    </Button>
+                    </button>
                 )}
             </div>
         );

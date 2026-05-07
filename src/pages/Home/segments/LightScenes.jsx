@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Context } from '../../../state/Store';
 import { Add, Close } from '@mui/icons-material';
-import { Button } from '@mui/material';
 import { setLightGroupState, setLightState, createScene, deleteScene } from '../../../utilities/RestApi';
 import CreateScene from './CreateScene';
 import './LightScenes.scss';
@@ -67,15 +66,15 @@ export default function LightScenes() {
             <div className="light-scenes-pills">
             {(state.scenes || []).map(scene =>
                 <div key={scene.id} className={'scene-pill' + (activeScene === scene.id ? ' scene-pill-active' : '')}>
-                    <Button variant="text" className="scene-pill-label text" onClick={() => activateScene(scene)}>
+                    <button type="button" className="scene-pill-label text" onClick={() => activateScene(scene)}>
                         {scene.name}
-                    </Button>
+                    </button>
                     <Close className="scene-pill-delete" onClick={() => handleDelete(scene.id)} />
                 </div>
             )}
-            <Button variant="text" className="scene-pill scene-pill-add text" onClick={() => setShowCreate(true)} aria-label="Add scene">
+            <button type="button" className="scene-pill scene-pill-add text" onClick={() => setShowCreate(true)} aria-label="Add scene">
                 <Add className="scene-pill-add-icon" />
-            </Button>
+            </button>
             </div>
             {showCreate && <CreateScene onSave={handleCreateSave} onCancel={() => setShowCreate(false)} />}
         </div>
