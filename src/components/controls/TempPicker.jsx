@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, TextField, InputAdornment, IconButton } from '@mui/material';
+import { Button, Dialog, TextField, InputAdornment, IconButton } from '@mui/material';
 import Knob from '../controls/Knob';
 import './TempPicker.scss'
 import { AcUnitOutlined } from '@mui/icons-material';
@@ -52,14 +52,8 @@ export default function TempPicker(props) {
                 </div>
             </div>
             <div className="MyuiDialogActions-root">
-                <button className="MyuiButtonBase-root MyuiButton-root MyuiButton-text" type="button" onClick={() => setOpen(false)}>
-                    <span className="MyuiButton-label">Cancel</span>
-                    <span className="MyuiTouchRipple-root"></span>
-                </button>
-                <button className="MyuiButtonBase-root MyuiButton-root MyuiButton-text" type="button" onClick={knobChange}>
-                    <span className="MyuiButton-label">OK</span>
-                    <span className="MyuiTouchRipple-root"></span>
-                </button>
+                <Button variant="text" onClick={() => setOpen(false)}>Cancel</Button>
+                <Button variant="text" onClick={knobChange}>OK</Button>
             </div>
         </Dialog>
         </>

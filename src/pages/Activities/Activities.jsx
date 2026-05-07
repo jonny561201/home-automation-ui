@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Context } from '../../state/Store';
 import Header from '../../components/header/Header';
 import AddIcon from '@mui/icons-material/Add';
+import { Fab } from '@mui/material';
 import LightActivity from './LightActivity';
 import HvacActivity from './HvacActivity';
 import CreateNewActivityPanel from './CreateNewActivity';
@@ -60,9 +61,9 @@ export default function ActivitiesPage() {
                 </div>
                 <div className="add-task-container">
                     <div className="add-task-button-border">
-                        <button type="button" className={"add-task-button" + (rotated ? " rotated" : "")} aria-label="Add task" disabled={addTask} onClick={createNewTask}>
+                        <Fab className={"add-task-button" + (rotated ? " rotated" : "")} aria-label="Add task" disabled={addTask} onClick={createNewTask}>
                             <AddIcon className="add-task-button-plus" />
-                        </button>
+                        </Fab>
                     </div>
                 </div>
             </div>

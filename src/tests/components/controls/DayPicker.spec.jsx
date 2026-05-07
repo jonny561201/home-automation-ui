@@ -25,22 +25,22 @@ describe('Day Picker', () => {
 
     it('should display the selected value when starts in an on state', async () => {
         await renderComponent(daySelected);
-        const actual = screen.getByText('M').classList;
+        const actual = screen.getByRole('button', { name: 'M' }).classList;
         expect(actual).toContain('selected');
         expect(actual).toContain('day-picker');
     });
 
     it('should not display the selected value when starts in an off state', async () => {
         await renderComponent(dayUnselected);
-        const actual = screen.getByText('T').classList;
+        const actual = screen.getByRole('button', { name: 'T' }).classList;
         expect(actual).not.toContain('selected');
         expect(actual).toContain('day-picker');
     });
 
     it('should toggle the button state when clicked', async () => {
         await renderComponent(dayUnselected);
-        fireEvent.click(screen.getByText('T'));
-        const actual = screen.getByText('T').classList;
+        fireEvent.click(screen.getByRole('button', { name: 'T' }));
+        const actual = screen.getByRole('button', { name: 'T' }).classList;
         expect(actual).toContain('selected');
     });
 });

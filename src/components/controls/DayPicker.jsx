@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Button } from '@mui/material';
 import './DayPicker.scss';
 
 
@@ -13,8 +14,8 @@ export default function DayPicker(props) {
     }
 
     return (
-        <button className={on ? "day-picker selected" : "day-picker"} onClick={toggleDay}>
+        <Button disableElevation variant="contained" className={on ? "day-picker selected" : "day-picker"} onClick={toggleDay}>
             {props.day.day}
-        </button>
+        </Button>
     )
 }

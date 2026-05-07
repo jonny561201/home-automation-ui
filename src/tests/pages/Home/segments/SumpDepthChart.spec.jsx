@@ -47,7 +47,7 @@ describe('SumpDepthChart', () => {
 
         it('should have Today button active by default', async () => {
             await renderComponent();
-            expect(screen.getByText('Today').classList).toContain('range-button-active');
+            expect(screen.getByRole('button', { name: 'Today' }).classList).toContain('range-button-active');
         });
 
         it('should switch active state when 7d is clicked', async () => {
@@ -55,8 +55,8 @@ describe('SumpDepthChart', () => {
             await act(async () => {
                 fireEvent.click(screen.getByText('7d'));
             });
-            expect(screen.getByText('7d').classList).toContain('range-button-active');
-            expect(screen.getByText('Today').classList).not.toContain('range-button-active');
+            expect(screen.getByRole('button', { name: '7d' }).classList).toContain('range-button-active');
+            expect(screen.getByRole('button', { name: 'Today' }).classList).not.toContain('range-button-active');
         });
     });
 
