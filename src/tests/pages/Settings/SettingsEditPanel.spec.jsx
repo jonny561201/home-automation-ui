@@ -54,16 +54,16 @@ describe('Settings Edit Panel', () => {
         expect(actual).toBeDefined();
     })
 
-    it('should display Temperature header', async () => {
+    it('should display the Measurements header', async () => {
         await renderComponent();
-        const actual = screen.getByText('Temperature').textContent;
-        expect(actual).toEqual('Temperature');
+        const actual = screen.getByText('Measurements').textContent;
+        expect(actual).toEqual('Measurements');
     });
 
-    it('should display the Measurement header', async () => {
+    it('should display the Location header', async () => {
         await renderComponent();
-        const actual = screen.getByText('Measurement').textContent;
-        expect(actual).toEqual('Measurement');
+        const actual = screen.getByText('Location').textContent;
+        expect(actual).toEqual('Location');
     });
 
     it('should display the radio buttons for imperial and metric', async () => {

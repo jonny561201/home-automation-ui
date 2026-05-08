@@ -32,10 +32,16 @@ describe('Settings Panel', () => {
         expect(actual).toEqual('Edit');
     });
 
-    it('should display the unit text for temperature', async () => {
+    it('should display the Measurements header', async () => {
         await renderComponent(preference);
-        const actual = screen.getAllByText('Unit:')[0].textContent;
-        expect(actual).toEqual('Unit:');
+        const actual = screen.getByText('Measurements').textContent;
+        expect(actual).toEqual('Measurements');
+    });
+
+    it('should display the temperature label', async () => {
+        await renderComponent(preference);
+        const actual = screen.getByText('Temperature:').textContent;
+        expect(actual).toEqual('Temperature:');
     });
 
     it('should display the fahrenheit setting stored in state', async () => {
@@ -44,7 +50,25 @@ describe('Settings Panel', () => {
         expect(actual).toEqual(tempUnit);
     });
 
-    it('should display the city text for temperature', async () => {
+    it('should display the distance label', async () => {
+        await renderComponent(preference);
+        const actual = screen.getByText('Distance:').textContent;
+        expect(actual).toEqual('Distance:');
+    });
+
+    it('should display the measurement unit stored in state', async () => {
+        await renderComponent(preference);
+        const actual = screen.getByText(measureUnit).textContent;
+        expect(actual).toEqual(measureUnit);
+    });
+
+    it('should display the Location header', async () => {
+        await renderComponent(preference);
+        const actual = screen.getByText('Location').textContent;
+        expect(actual).toEqual('Location');
+    });
+
+    it('should display the city label', async () => {
         await renderComponent(preference);
         const actual = screen.getByText('City:').textContent;
         expect(actual).toEqual('City:');
@@ -54,30 +78,6 @@ describe('Settings Panel', () => {
         await renderComponent(preference);
         const actual = screen.getByText(city).textContent;
         expect(actual).toEqual(city);
-    });
-
-    it('should display Temperature header', async () => {
-        await renderComponent(preference);
-        const actual = screen.getByText('Temperature').textContent;
-        expect(actual).toEqual('Temperature');
-    });
-
-    it('should display the Measurement header', async () => {
-        await renderComponent(preference);
-        const actual = screen.getByText('Measurement').textContent;
-        expect(actual).toEqual('Measurement');
-    });
-
-    it('should display the unit text for measurement', async () => {
-        await renderComponent(preference);
-        const actual = screen.getAllByText('Unit:')[1].textContent;
-        expect(actual).toEqual('Unit:');
-    });
-
-    it('should display the measurement unit stored in state', async () => {
-        await renderComponent(preference);
-        const actual = screen.getByText(measureUnit).textContent;
-        expect(actual).toEqual(measureUnit);
     });
 
     it('should display the Garage header', async () => {

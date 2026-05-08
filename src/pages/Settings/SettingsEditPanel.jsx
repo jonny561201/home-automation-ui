@@ -5,7 +5,7 @@ import { usStates } from '../../utilities/USStates';
 import { Context } from '../../state/Store';
 import { SET_USER_PREFERENCES } from '../../state/actions';
 import { selectPreferredGarage } from '../../state/selectors';
-import { Button, CircularProgress, Divider, FormControl, FormControlLabel, MenuItem, Radio, RadioGroup, TextField } from '@mui/material';
+import { Button, CircularProgress, Divider, FormControl, FormControlLabel, FormLabel, MenuItem, Radio, RadioGroup, TextField } from '@mui/material';
 import { CheckCircle, Delete, ErrorOutline, MyLocation, Save } from '@mui/icons-material';
 import './SettingsEditPanel.scss'
 
@@ -140,16 +140,30 @@ export default function SettingsEditPanel(props) {
                     </div>
                 </div>
                 <div>
-                    <h2 className="panel-header-text">Temperature</h2>
+                    <h2 className="panel-header-text">Measurements</h2>
                     <Divider />
                     <div className="settings-edit-row">
                         <FormControl>
-                            <RadioGroup className="settings-radio-group" label="Unit:">
+                            <FormLabel className="settings-edit-radio-label">Temperature</FormLabel>
+                            <RadioGroup className="settings-radio-group">
                                 <FormControlLabel onChange={updateTempRadioButton} value="fahrenheit" checked={newTempUnit === "fahrenheit"} control={<Radio color="primary"/>} label="Fahrenheit"/>
                                 <FormControlLabel onChange={updateTempRadioButton} value="celsius" checked={newTempUnit === "celsius"} control={<Radio color="primary"/>} label="Celsius"/>
                             </RadioGroup>
                         </FormControl>
                     </div>
+                    <div className="settings-edit-row">
+                        <FormControl>
+                            <FormLabel className="settings-edit-radio-label">Distance</FormLabel>
+                            <RadioGroup className="settings-radio-group">
+                                <FormControlLabel onChange={updateMeasureRadioButton} value="imperial" checked={newMeasureUnit === "imperial"} control={<Radio color="primary" />} label="Imperial" />
+                                <FormControlLabel onChange={updateMeasureRadioButton} value="metric" checked={newMeasureUnit === "metric"} control={<Radio color="primary" />} label="Metric" />
+                            </RadioGroup>
+                        </FormControl>
+                    </div>
+                </div>
+                <div>
+                    <h2 className="panel-header-text">Location</h2>
+                    <Divider />
                     <div className="settings-edit-row settings-edit-location-row">
                         <TextField className="settings-edit-city" variant="outlined" label="City" value={newCity} onChange={setCity}/>
                         <TextField className="settings-edit-state" variant="outlined" select label="State" value={newAddrState} onChange={updateAddrState}>
@@ -176,18 +190,6 @@ export default function SettingsEditPanel(props) {
                                 <span>{gpsError}</span>
                             </span>
                         }
-                    </div>
-                </div>
-                <div>
-                    <h2 className="panel-header-text">Measurement</h2>
-                    <Divider />
-                    <div className="settings-edit-row">
-                        <FormControl>
-                            <RadioGroup className="settings-radio-group" label="Unit:">
-                                <FormControlLabel onChange={updateMeasureRadioButton} value="imperial" checked={newMeasureUnit === "imperial"} control={<Radio color="primary" />} label="Imperial" />
-                                <FormControlLabel onChange={updateMeasureRadioButton} value="metric" checked={newMeasureUnit === "metric"} control={<Radio color="primary" />} label="Metric" />
-                            </RadioGroup>
-                        </FormControl>
                     </div>
                 </div>
 

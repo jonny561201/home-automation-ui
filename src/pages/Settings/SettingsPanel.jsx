@@ -42,13 +42,21 @@ export default function SettingsPanel(props) {
                 <p className="setting">{preferences.garageAlertTime ? preferences.garageAlertTime + " min" : "Disabled"}</p>
             </div>
             <div className="settings-group setting panel-header-text">
-                <h2>Temperature</h2>
+                <h2>Measurements</h2>
             </div>
             <Divider />
             <div className="settings-row text">
-                <p className="setting">Unit:</p>
+                <p className="setting">Temperature:</p>
                 <p className="setting">{preferences.tempUnit || '--'}</p>
             </div>
+            <div className="settings-row text">
+                <p className="setting">Distance:</p>
+                <p className="setting">{preferences.measureUnit || '--'}</p>
+            </div>
+            <div className="settings-group setting panel-header-text">
+                <h2>Location</h2>
+            </div>
+            <Divider />
             <div className="settings-row text">
                 <p className="setting">City:</p>
                 <p className="setting">{formatCity()}</p>
@@ -56,14 +64,6 @@ export default function SettingsPanel(props) {
             <div className="settings-row text">
                 <p className="setting">Coordinates:</p>
                 <p className="setting">{formatCoords()}</p>
-            </div>
-            <div className="setting text panel-header-text">
-                <h2>Measurement</h2>
-            </div>
-            <Divider />
-            <div className="settings-row text">
-                <p className="setting">Unit:</p>
-                <p className="setting">{preferences.measureUnit || '--'}</p>
             </div>
             <div>
                 <GreenButton onClick={handleClick}>Edit</GreenButton>
