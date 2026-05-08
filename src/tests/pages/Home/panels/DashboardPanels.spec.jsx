@@ -129,7 +129,7 @@ describe('DashboardPanel', () => {
     describe('Security Panel', () => {
 
         it('should show the Security Panel if user has the security role', async () => {
-            await renderComponent(['security']);
+            await renderComponent(['security_system']);
             const actual = screen.getByText('Security');
             expect(actual).toBeDefined();
         });

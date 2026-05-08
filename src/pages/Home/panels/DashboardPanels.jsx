@@ -17,7 +17,7 @@ export default function DashboardPanel() {
         return roles.includes(type) || unregistered.some(d => d.type === type);
     };
 
-    const hasAnyPanel = showPanel("garage_door") || showPanel("sump_pump") || showPanel("thermostat") || showPanel("lighting") || showPanel("security");
+    const hasAnyPanel = showPanel("garage_door") || showPanel("sump_pump") || showPanel("thermostat") || showPanel("lighting") || showPanel("security_system");
 
     return (
         <div role="region" aria-label="Dashboard Panels">
@@ -36,7 +36,7 @@ export default function DashboardPanel() {
             {showPanel("lighting") &&
                 <div className="panel"><LightingPanel /></div>
             }
-            {showPanel("security") &&
+            {showPanel("security_system") &&
                 <div className="panel"><SecurityPanel /></div>
             }
         </div>
