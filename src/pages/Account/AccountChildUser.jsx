@@ -54,6 +54,10 @@ export default function AccountChildUser() {
         setIsDeviceInvalid(input.target.value === "");
     }
 
+    const isFormValid = () => {
+        return email.trim() !== "" && selectedDevice.length > 0;
+    }
+
     return (
         <div className="child-user-container">
             <h2 className="panel-header-text">Managed Accounts</h2>
@@ -95,7 +99,7 @@ export default function AccountChildUser() {
                         </FormControl>
                     </div>
                     <div className="col-sm-auto user-input">
-                        <AddButton onClick={() => { submitChildAccount() }}></AddButton>
+                        <AddButton disabled={!isFormValid()} onClick={() => { submitChildAccount() }}></AddButton>
                     </div>
                 </div>
             </div>

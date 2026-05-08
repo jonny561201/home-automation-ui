@@ -69,29 +69,47 @@ describe('AccountChildUser', () => {
 
     describe('Input Validations', () => {
 
-        it('should mark input in error state when trying to submit empty', async () => {
+        it('should disable the add button when the form is empty', async () => {
             await renderComponent();
-            fireEvent.click(screen.getByRole('button', {name: 'Add'}));
-            const actual = screen.getByLabelText('Email');
+            const actual = screen.getByRole('button', { name: 'Add' });
 
-            expect(actual.ariaInvalid).toEqual('true');
+            expect(actual).toBeDisabled();
         });
 
-        it('should mark input in error state when trying updating text to empty', async () => {
+        it('should disable the add button when only an email is entered', async () => {
             await renderComponent();
-            fireEvent.change(screen.getByRole('textbox', { name: 'Email' }), { target: { value: "" } });
-            fireEvent.click(screen.getByRole('button', {name: 'Add'}));
-            const actual = screen.getByLabelText('Email');
+            fireEvent.change(screen.getByRole('textbox', { name: 'Email' }), { target: { value: 'test@test.com' } });
+            const actual = screen.getByRole('button', { name: 'Add' });
 
-            expect(actual.ariaInvalid).toEqual('true')
+            expect(actual).toBeDisabled();
         });
 
-        it('should mark roles in error state when no role is selected on submission', async () => {
+        it('should disable the add button when only a device is selected', async () => {
             await renderComponent();
-            fireEvent.click(screen.getByRole('button', {name: 'Add'}));
-            const actual = screen.getByText('Devices', { selector: 'label' }).className;
+            const actual = screen.getByRole('button', { name: 'Add' });
+            fireEvent.mouseDown(screen.getByRole('combobox'));
+            fireEvent.click(within(screen.getByRole('listbox')).getByText('garage_door'));
 
-            expect(actual).toContain('Mui-error');
+            expect(actual).toBeDisabled();
+        });
+
+        it('should enable the add button when email and device are populated', async () => {
+            await renderComponent();
+            const actual = screen.getByRole('button', { name: 'Add' });
+            fireEvent.change(screen.getByRole('textbox', { name: 'Email' }), { target: { value: 'test@test.com' } });
+            fireEvent.mouseDown(screen.getByRole('combobox'));
+            fireEvent.click(within(screen.getByRole('listbox')).getByText('garage_door'));
+
+            expect(actual).not.toBeDisabled();
+        });
+
+        it('should mark input in error state when clearing the email', async () => {
+            await renderComponent();
+            const emailInput = screen.getByRole('textbox', { name: 'Email' });
+            fireEvent.change(emailInput, { target: { value: 'test@test.com' } });
+            fireEvent.change(emailInput, { target: { value: '' } });
+
+            expect(emailInput.ariaInvalid).toEqual('true');
         });
 
         it('should not allow submission when email in an error state', async () => {

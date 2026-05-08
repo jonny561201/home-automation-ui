@@ -52,7 +52,7 @@ export function AddButton(props) {
     }
 
     return (
-        <ButtonBase aria-label="Add" className="button-border" onClick={myClick}>
+        <ButtonBase aria-label="Add" className="button-border" disabled={props.disabled} onClick={myClick}>
             <div className="button-item add-item" rotate={rotate} onAnimationEnd={() => setRotate(0)}>
                 <Add className="button-icon" />
             </div>

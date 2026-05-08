@@ -75,6 +75,19 @@
             cursor: pointer;
         }
     }
+
+    &.Mui-disabled {
+        box-shadow: none;
+        opacity: 0.6;
+
+        .add-item {
+            background-color: #b0b0b0;
+        }
+
+        .button-item {
+            cursor: not-allowed;
+        }
+    }
 }
 
 @keyframes rotate {
