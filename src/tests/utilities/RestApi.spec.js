@@ -5,7 +5,8 @@ import {
     toggleGarageDoor, getSumpLevels, getCurrentTemperature, deleteUserChildAccount, updateScheduledTasks,
     getUserPreferences, updateUserPreferences, setUserTemperature, addUserChildAccount, deleteScheduledTask, insertHvacTask,
     getLightGroups, setLightGroupState, setLightState, getScheduledTasks, getAllGarageStatus,
-    getDevices, addUserDeviceNode, reverseGeocode, getExtendedForecast
+    getDevices, addUserDeviceNode, reverseGeocode, getExtendedForecast,
+    subscribeToPushNotifications, unsubscribeFromPushNotifications, getVapidPublicKey
 } from '../../utilities/RestApi';
 
 
@@ -276,6 +277,43 @@ describe('RestApi', () => {
             });
 
             const actual = await addUserDeviceNode(deviceId, nodes);
+
+            expect(actual.ok).toBe(true);
+        });
+
+        it('should make rest call to fetch the VAPID public key', async () => {
+            fetchMock.route(`${baseUrl}/notifications/vapid-key`, { publicKey: 'B-vapid-key' }).catch(() => {
+                return { status: 400 }
+            });
+
+            const actual = await getVapidPublicKey();
+
+            expect(actual).toEqual('B-vapid-key');
+        });
+
+        it('should make rest call to subscribe to push notifications', async () => {
+            const subscription = {
+                endpoint: 'https://fcm.googleapis.com/fcm/send/abc123',
+                keys: { p256dh: 'pubKey', auth: 'authSecret' }
+            };
+
+            fetchMock.route(`${baseUrl}/notifications/subscribe`, { ok: true }).catch(() => {
+                return { status: 400 }
+            });
+
+            const actual = await subscribeToPushNotifications(subscription);
+
+            expect(actual.ok).toBe(true);
+        });
+
+        it('should make rest call to unsubscribe from push notifications', async () => {
+            const endpoint = 'https://fcm.googleapis.com/fcm/send/abc123';
+
+            fetchMock.route(`${baseUrl}/notifications/subscribe`, { ok: true }).catch(() => {
+                return { status: 400 }
+            });
+
+            const actual = await unsubscribeFromPushNotifications(endpoint);
 
             expect(actual.ok).toBe(true);
         });

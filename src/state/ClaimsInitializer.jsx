@@ -1,7 +1,8 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useContext, useEffect } from 'react';
 import { Context } from './Store';
-import { initRestApi } from '../utilities/RestApi';
+import { initRestApi, subscribeToPushNotifications } from '../utilities/RestApi';
+import { registerPushServiceWorker, getCurrentSubscription, isPushSupported } from '../utilities/PushNotifications';
 import { SET_USER_DATA } from './actions';
 
 export default function ClaimsInitializer({ children }) {
@@ -23,6 +24,18 @@ export default function ClaimsInitializer({ children }) {
         const email = claims.email ?? "";
 
         await dispatch({ type: SET_USER_DATA, payload: { userId: userId, firstName: firstName, lastName: lastName, email: email, roles: roles } });
+        syncPushSubscription();
+    };
+
+    const syncPushSubscription = async () => {
+        if (!isPushSupported()) return;
+        try {
+            await registerPushServiceWorker();
+            const subscription = await getCurrentSubscription();
+            if (subscription) await subscribeToPushNotifications(subscription);
+        } catch {
+            // Best-effort; user can re-enable from Account if this fails.
+        }
     };
 
     return children

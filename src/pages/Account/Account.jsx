@@ -6,6 +6,7 @@ import { Divider } from '@mui/material';
 import { CheckCircle, Error } from '@mui/icons-material';
 import { changeUserPassword } from '../../utilities/RestApi';
 import AccountChildUser from '../../pages/Account/AccountChildUser';
+import AccountNotifications from '../../pages/Account/AccountNotifications';
 import { GreenButton } from '../../components/controls/Buttons';
 import './Account.scss';
 
@@ -72,6 +73,7 @@ export default function Account() {
                             { passwordMessage() }
                         </div>
                     </div>
+                    <AccountNotifications />
                     <AccountChildUser />
                 </div>
             </div>

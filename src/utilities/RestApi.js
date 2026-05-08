@@ -3,6 +3,7 @@ const accountBaseUrl = `${baseUrl}/account`;
 const deviceBaseUrl = `${baseUrl}/devices`;
 const garageBaseUrl = `${baseUrl}/garageDoor`;
 const lightBaseUrl = `${baseUrl}/lights`;
+const notificationsBaseUrl = `${baseUrl}/notifications`;
 const sumpBaseUrl = `${baseUrl}/sumpPump`;
 const sceneBaseUrl = `${baseUrl}/scenes`;
 const thermostatBaseUrl = `${baseUrl}/thermostat`;
@@ -20,6 +21,49 @@ export const changeUserPassword = async () => {
             headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' }
         };
         const response = await fetch(`${baseUrl}/resetPassword`, options);
+        return { ok: response.ok };
+    } catch {
+        return { ok: false };
+    }
+}
+
+export const getVapidPublicKey = async () => {
+    try {
+        const bearer = await getToken();
+        const options = { method: 'GET', headers: { 'Authorization': `Bearer ${bearer}` } };
+        const response = await fetch(`${notificationsBaseUrl}/vapid-key`, options);
+        if (!response.ok) return null;
+        const data = await response.json();
+        return data.publicKey || null;
+    } catch {
+        return null;
+    }
+}
+
+export const subscribeToPushNotifications = async (subscription) => {
+    try {
+        const bearer = await getToken();
+        const options = {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify(subscription)
+        };
+        const response = await fetch(`${notificationsBaseUrl}/subscribe`, options);
+        return { ok: response.ok };
+    } catch {
+        return { ok: false };
+    }
+}
+
+export const unsubscribeFromPushNotifications = async (endpoint) => {
+    try {
+        const bearer = await getToken();
+        const options = {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${bearer}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ endpoint })
+        };
+        const response = await fetch(`${notificationsBaseUrl}/subscribe`, options);
         return { ok: response.ok };
     } catch {
         return { ok: false };
