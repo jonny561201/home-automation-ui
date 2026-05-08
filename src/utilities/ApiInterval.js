@@ -61,32 +61,32 @@ export default function ApiInterval({ children }) {
 
     const getGarageData = async () => {
         const doors = await getAllGarageStatus();
-        dispatch({ type: 'SET_GARAGE_COORDS', payload: doors.coordinates || null });
+        dispatch({ type: SET_GARAGE_COORDS, payload: doors.coordinates || null });
         const mapped = (doors.doors || []).map(x => ({ ...x, isOpen: x.isGarageOpen }));
-        dispatch({ type: 'SET_GARAGE_DOORS', payload: mapped });
+        dispatch({ type: SET_GARAGE_DOORS, payload: mapped });
     };
 
     const getUserDevices = async () => {
         const response = await getDevices();
-        dispatch({ type: 'SET_DEVICES', payload: response.devices || [] });
+        dispatch({ type: SET_DEVICES, payload: response.devices || [] });
     }
 
     const getSumpData = async () => {
         const sump = await getSumpLevels();
-        dispatch({ type: 'SET_SUMP_DATA', payload: sump });
+        dispatch({ type: SET_SUMP_DATA, payload: sump });
     }
 
     const getTempData = async () => {
         const temp = await getCurrentTemperature();
         if (Object.keys(temp).length === 0) return;
         const currentTemp = temp.currentTemp != null ? Math.round(temp.currentTemp) : null;
-        dispatch({ type: 'SET_TEMP_DATA', payload: { ...temp, desiredTemp: Math.round(temp.desiredTemp), currentTemp } });
+        dispatch({ type: SET_TEMP_DATA, payload: { ...temp, desiredTemp: Math.round(temp.desiredTemp), currentTemp } });
     }
 
     const getForecastData = async () => {
         const forecast = await getUserForecast();
         if (!forecast.temp && forecast.temp !== 0) return;
-        dispatch({ type: 'SET_FORECAST_DATA', payload: { ...forecast, temp: Math.round(forecast.temp), minTemp: Math.round(forecast.minTemp), maxTemp: Math.round(forecast.maxTemp) } });
+        dispatch({ type: SET_FORECAST_DATA, payload: { ...forecast, temp: Math.round(forecast.temp), minTemp: Math.round(forecast.minTemp), maxTemp: Math.round(forecast.maxTemp) } });
     }
 
     const getExtendedForecastData = async () => {
@@ -98,34 +98,34 @@ export default function ApiInterval({ children }) {
             low: Math.round(d.minTemp),
             description: d.description,
         }));
-        dispatch({ type: 'SET_EXTENDED_FORECAST', payload: days });
+        dispatch({ type: SET_EXTENDED_FORECAST, payload: days });
     }
 
     const getPreferences = async () => {
         const preferences = await getUserPreferences();
         if (Object.keys(preferences).length > 0) {
-            dispatch({ type: 'SET_USER_PREFERENCES', payload: preferences });
+            dispatch({ type: SET_USER_PREFERENCES, payload: preferences });
         }
     }
 
     const getActivities = async () => {
         const activities = await getScheduledTasks();
-        dispatch({ type: 'SET_SCHEDULED_TASK', payload: activities.tasks || [] });
+        dispatch({ type: SET_SCHEDULED_TASK, payload: activities.tasks || [] });
     }
 
     const getLights = async () => {
         const groups = await getLightGroups();
         if (groups && groups.length) {
-            dispatch({ type: 'SET_LIGHTS', payload: groups });
+            dispatch({ type: SET_LIGHTS, payload: groups });
         } else {
-            dispatch({ type: 'SET_LIGHTS', payload: testLights });
+            dispatch({ type: SET_LIGHTS, payload: testLights });
         }
     }
 
     const getScenesData = async () => {
         const response = await getScenes();
         const scenes = response.scenes && response.scenes.length ? response.scenes : testScenes;
-        dispatch({ type: 'SET_SCENES', payload: scenes });
+        dispatch({ type: SET_SCENES, payload: scenes });
     };
 
     return children

@@ -6,6 +6,7 @@ import { AddButton, RemoveButton } from '../../../components/controls/Buttons';
 import { addUserDeviceNode, getAllGarageStatus, getDevices } from '../../../utilities/RestApi';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Context } from '../../../state/Store';
+import { SET_DEVICES, SET_GARAGE_COORDS, SET_GARAGE_DOORS, SET_USER_DATA } from '../../../state/actions';
 import './AddGarage.scss';
 
 
@@ -72,12 +73,12 @@ export default function AddGarage({ device, onComplete }) {
             const firstName = claims.given_name ?? claims.nickname;
             const lastName = claims.last_name ?? '';
             const email = claims.email ?? '';
-            dispatch({ type: 'SET_USER_DATA', payload: { userId, firstName, lastName, email, roles } });
+            dispatch({ type: SET_USER_DATA, payload: { userId, firstName, lastName, email, roles } });
             const devices = await getDevices();
-            dispatch({ type: 'SET_DEVICES', payload: devices.devices });
+            dispatch({ type: SET_DEVICES, payload: devices.devices });
             const doors = await getAllGarageStatus();
-            dispatch({ type: 'SET_GARAGE_COORDS', payload: doors.coordinates });
-            dispatch({ type: 'SET_GARAGE_DOORS', payload: doors.doors });
+            dispatch({ type: SET_GARAGE_COORDS, payload: doors.coordinates });
+            dispatch({ type: SET_GARAGE_DOORS, payload: doors.doors });
         }
     };
 

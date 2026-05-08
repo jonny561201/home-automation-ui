@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '../../state/Store';
+import { SET_ACTIVE_PAGE } from '../../state/actions';
 import Header from '../../components/header/Header';
 import { Divider } from '@mui/material';
 import { CheckCircle, Error } from '@mui/icons-material';
@@ -14,7 +15,7 @@ export default function Account() {
     const [succeeded, setSucceeded] = useState(null);
 
     useEffect(() => {
-        dispatch({ type: 'SET_ACTIVE_PAGE', payload: 'Account' });
+        dispatch({ type: SET_ACTIVE_PAGE, payload: 'Account' });
     }, [dispatch]);
 
     useEffect(() => {

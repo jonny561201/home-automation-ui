@@ -1,5 +1,6 @@
 import React, {useContext, useState} from 'react';
 import {Context} from '../../state/Store';
+import {ADD_SCHEDULED_TASK, DELETE_SCHEDULED_TASK} from '../../state/actions';
 import WeekPicker from '../../components/controls/WeekPicker';
 import TimePicker from '../../components/controls/TimePicker';
 import {Delete, Save, WbSunny, DarkMode} from '@mui/icons-material';
@@ -58,8 +59,8 @@ export default function LightActivity(props) {
         const request = { 'taskId': props.task.taskId, 'alarmLightGroup': props.task.alarmLightGroup, 'alarmGroupName': props.task.alarmGroupName, 'alarmDays': days, 'alarmTime': time, 'enabled': isEnabled, 'taskType': type };
         const response = await updateScheduledTasks(request);
         if (response) {
-            dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.taskId });
-            dispatch({ type: 'ADD_SCHEDULED_TASK', payload: response });
+            dispatch({ type: DELETE_SCHEDULED_TASK, payload: props.task.taskId });
+            dispatch({ type: ADD_SCHEDULED_TASK, payload: response });
         }
     }
 
@@ -75,7 +76,7 @@ export default function LightActivity(props) {
     const clickDelete = async () => {
         const response = await deleteScheduledTask(props.task.taskId);
         if (response.ok) {
-            dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.taskId });
+            dispatch({ type: DELETE_SCHEDULED_TASK, payload: props.task.taskId });
         }
     }
 

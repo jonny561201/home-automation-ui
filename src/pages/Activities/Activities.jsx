@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Context } from '../../state/Store';
+import { SET_ACTIVE_PAGE, SET_SCHEDULED_TASK } from '../../state/actions';
 import Header from '../../components/header/Header';
 import AddIcon from '@mui/icons-material/Add';
 import { Fab } from '@mui/material';
@@ -16,10 +17,10 @@ export default function ActivitiesPage() {
     const [rotated, setRotated] = useState(false);
 
     useEffect(() => {
-        dispatch({ type: 'SET_ACTIVE_PAGE', payload: 'Activities' });
+        dispatch({ type: SET_ACTIVE_PAGE, payload: 'Activities' });
         const fetchActivities = async () => {
             const activities = await getScheduledTasks();
-            dispatch({ type: 'SET_SCHEDULED_TASK', payload: activities.tasks || [] });
+            dispatch({ type: SET_SCHEDULED_TASK, payload: activities.tasks || [] });
         };
         fetchActivities();
     }, [dispatch]);

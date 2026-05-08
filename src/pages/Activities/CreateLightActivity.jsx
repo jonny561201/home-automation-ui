@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Context } from '../../state/Store';
+import { SET_SCHEDULED_TASK } from '../../state/actions';
 import TimePicker from '../../components/controls/TimePicker';
 import WeekPicker from '../../components/controls/WeekPicker';
 import { Save, Delete } from '@mui/icons-material';
@@ -22,7 +23,7 @@ export default function CreateLightActivity(props) {
     const saveActivity = async () => {
         if (edited && selectedRoom !== '' && days !== null) {
             const response = await insertLightTask(true, props.type, groupId, selectedRoom, days, time);
-            dispatch({ type: 'SET_SCHEDULED_TASK', payload: response.tasks || [] });
+            dispatch({ type: SET_SCHEDULED_TASK, payload: response.tasks || [] });
             props.save();
         }
     }

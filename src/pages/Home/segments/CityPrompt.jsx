@@ -3,6 +3,7 @@ import { Dialog, DialogTitle, DialogContent, TextField, Divider, Button, IconBut
 import { Save, MyLocation, CheckCircle, ErrorOutline } from '@mui/icons-material';
 import CloseIcon from '@mui/icons-material/Close';
 import { Context } from '../../../state/Store';
+import { SET_USER_PREFERENCES } from '../../../state/actions';
 import { reverseGeocode, updateUserPreferences } from '../../../utilities/RestApi';
 import { captureCurrentPosition } from '../../../utilities/Location';
 import { usStates } from '../../../utilities/USStates';
@@ -56,7 +57,7 @@ export default function CityPrompt() {
             request.longitude = coords.longitude;
         }
         await updateUserPreferences(request);
-        dispatch({ type: 'SET_USER_PREFERENCES', payload: { ...(state.preferences || {}), ...request } });
+        dispatch({ type: SET_USER_PREFERENCES, payload: { ...(state.preferences || {}), ...request } });
         setOpen(false);
     };
 

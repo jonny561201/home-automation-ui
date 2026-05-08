@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Context } from '../../state/Store';
+import { selectPreferredGarage } from '../../state/selectors';
 import { Divider } from '@mui/material';
 import { GreenButton } from '../../components/controls/Buttons';
 
@@ -7,7 +8,7 @@ import { GreenButton } from '../../components/controls/Buttons';
 export default function SettingsPanel(props) {
     const [state,] = useContext(Context);
     const preferences = state.preferences || {};
-    const selectedGarage = state.garageDoors.find(x => x.nodeId === preferences.garageNodeId);
+    const selectedGarage = selectPreferredGarage(state);
 
     const handleClick = () => {
         props.toggleEdit();

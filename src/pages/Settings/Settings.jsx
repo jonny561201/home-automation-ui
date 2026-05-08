@@ -5,6 +5,7 @@ import Header from '../../components/header/Header';
 import SettingsEditPanel from './SettingsEditPanel';
 import { setTheme, toggleDarkMode, isDayLight } from '../../utilities/Services';
 import { getUserPreferences } from '../../utilities/RestApi';
+import { SET_ACTIVE_PAGE, SET_USER_PREFERENCES } from '../../state/actions';
 import { CoolSwitch, HeatSwitch } from '../../components/controls/Switches';
 import { FormControlLabel, FormControl } from '@mui/material';
 import './Settings.scss'
@@ -17,11 +18,11 @@ export default function Settings() {
     const [isEditMode, setEditMode] = useState(false);
 
     useEffect(() => {
-        dispatch({ type: 'SET_ACTIVE_PAGE', payload: 'Settings' });
+        dispatch({ type: SET_ACTIVE_PAGE, payload: 'Settings' });
         const fetchPreferences = async () => {
             const preferences = await getUserPreferences();
             if (Object.keys(preferences).length > 0) {
-                dispatch({ type: 'SET_USER_PREFERENCES', payload: preferences });
+                dispatch({ type: SET_USER_PREFERENCES, payload: preferences });
             }
         };
         fetchPreferences();

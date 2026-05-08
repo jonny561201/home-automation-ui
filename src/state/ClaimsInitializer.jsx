@@ -2,6 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useContext, useEffect } from 'react';
 import { Context } from './Store';
 import { initRestApi } from '../utilities/RestApi';
+import { SET_USER_DATA } from './actions';
 
 export default function ClaimsInitializer({ children }) {
     const auth0 = useAuth0();
@@ -21,7 +22,7 @@ export default function ClaimsInitializer({ children }) {
         const lastName = claims.last_name ?? "";
         const email = claims.email ?? "";
 
-        await dispatch({ type: 'SET_USER_DATA', payload: { userId: userId, firstName: firstName, lastName: lastName, email: email, roles: roles } });
+        await dispatch({ type: SET_USER_DATA, payload: { userId: userId, firstName: firstName, lastName: lastName, email: email, roles: roles } });
     };
 
     return children

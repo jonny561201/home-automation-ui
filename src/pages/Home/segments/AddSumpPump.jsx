@@ -4,6 +4,7 @@ import { CheckCircle, Save, Delete } from '@mui/icons-material';
 import { addUserDeviceNode, getSumpLevels, getDevices } from '../../../utilities/RestApi';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Context } from '../../../state/Store';
+import { SET_DEVICES, SET_SUMP_DATA, SET_USER_DATA } from '../../../state/actions';
 import './AddSumpPump.scss';
 
 
@@ -30,11 +31,11 @@ export default function AddSumpPump({ device, onComplete }) {
             const firstName = claims.given_name ?? claims.nickname;
             const lastName = claims.last_name ?? '';
             const email = claims.email ?? '';
-            dispatch({ type: 'SET_USER_DATA', payload: { userId, firstName, lastName, email, roles } });
+            dispatch({ type: SET_USER_DATA, payload: { userId, firstName, lastName, email, roles } });
             const devices = await getDevices();
-            dispatch({ type: 'SET_DEVICES', payload: devices.devices });
+            dispatch({ type: SET_DEVICES, payload: devices.devices });
             const sump = await getSumpLevels();
-            dispatch({ type: 'SET_SUMP_DATA', payload: sump });
+            dispatch({ type: SET_SUMP_DATA, payload: sump });
         }
     };
 

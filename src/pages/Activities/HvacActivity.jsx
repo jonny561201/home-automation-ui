@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Context } from '../../state/Store';
+import { ADD_SCHEDULED_TASK, DELETE_SCHEDULED_TASK } from '../../state/actions';
 import { Save, Delete } from '@mui/icons-material';
 import TempPicker from '../../components/controls/TempPicker';
 import TimePicker from '../../components/controls/TimePicker';
@@ -36,7 +37,7 @@ export default function HvacActivity(props) {
     const clickDelete = async () => {
         const response = await deleteScheduledTask(props.task.taskId);
         if (response.ok)
-            dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.taskId });
+            dispatch({ type: DELETE_SCHEDULED_TASK, payload: props.task.taskId });
     }
 
     const saveTask = async () => {
@@ -58,8 +59,8 @@ export default function HvacActivity(props) {
         };
         const response = await updateScheduledTasks(request);
         if (response) {
-            dispatch({ type: 'DELETE_SCHEDULED_TASK', payload: props.task.taskId });
-            dispatch({ type: 'ADD_SCHEDULED_TASK', payload: response });
+            dispatch({ type: DELETE_SCHEDULED_TASK, payload: props.task.taskId });
+            dispatch({ type: ADD_SCHEDULED_TASK, payload: response });
         }
     }
 

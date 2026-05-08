@@ -3,6 +3,8 @@ import { updateUserPreferences } from '../../utilities/RestApi';
 import { captureCurrentPosition } from '../../utilities/Location';
 import { usStates } from '../../utilities/USStates';
 import { Context } from '../../state/Store';
+import { SET_USER_PREFERENCES } from '../../state/actions';
+import { selectPreferredGarage } from '../../state/selectors';
 import { Button, CircularProgress, Divider, FormControl, FormControlLabel, MenuItem, Radio, RadioGroup, TextField } from '@mui/material';
 import { CheckCircle, Delete, ErrorOutline, MyLocation, Save } from '@mui/icons-material';
 import './SettingsEditPanel.scss'
@@ -17,7 +19,7 @@ export default function SettingsEditPanel(props) {
         ? { latitude: preferences.latitude, longitude: preferences.longitude, accuracy: null }
         : null;
     const [edited, setEdited] = useState(false);
-    const [garage, setGarage] = useState(state.garageDoors.find(x => x.nodeId === preferences.garageNodeId) || null);
+    const [garage, setGarage] = useState(selectPreferredGarage(state));
     const [newCity, setNewCity] = useState(preferences.city || '');
     const [newAddrState, setNewAddrState] = useState(preferences.state || '');
     const [newCoords, setNewCoords] = useState(initialCoords);
@@ -45,7 +47,7 @@ export default function SettingsEditPanel(props) {
             payload.latitude = newCoords.latitude;
             payload.longitude = newCoords.longitude;
         }
-        dispatch({ type: 'SET_USER_PREFERENCES', payload });
+        dispatch({ type: SET_USER_PREFERENCES, payload });
         props.setEditMode(false);
     }
 

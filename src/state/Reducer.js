@@ -1,84 +1,94 @@
 import { parseDate } from "../utilities/Services";
+import {
+    SET_ACTIVE_PAGE, SET_USER_DATA, SET_USER_PREFERENCES, SET_USER_COORDS, SET_LOCATION,
+    SET_DEVICES,
+    SET_GARAGE_COORDS, SET_GARAGE_DOORS, UPDATE_GARAGE_DOORS,
+    SET_LIGHTS, SET_SCENES, ADD_SCENE, DELETE_SCENE,
+    SET_TEMP_DATA, SET_FORECAST_DATA, SET_EXTENDED_FORECAST,
+    SET_SUMP_DATA,
+    SET_SCHEDULED_TASK, ADD_SCHEDULED_TASK, DELETE_SCHEDULED_TASK,
+} from "./actions";
+import { hasHvacTasks } from "./selectors";
 
 const Reducer = (state, action) => {
     switch (action.type) {
-        case 'SET_ACTIVE_PAGE':
+        case SET_ACTIVE_PAGE:
             return {
                 ...state,
                 activePage: action.payload
             };
-        case 'SET_USER_DATA':
+        case SET_USER_DATA:
             return {
                 ...state,
                 user: action.payload
             }
-        case 'SET_DEVICES':
+        case SET_DEVICES:
             return {
                 ...state,
                 devices: action.payload
             }
-        case 'SET_GARAGE_COORDS':
+        case SET_GARAGE_COORDS:
             return {
                 ...state,
                 garageCoords: action.payload
             };
-        case 'SET_USER_COORDS':
+        case SET_USER_COORDS:
             return {
                 ...state,
                 userCoords: action.payload
             };
-        case 'SET_LIGHTS':
+        case SET_LIGHTS:
             return {
                 ...state,
                 lights: action.payload
             }
-        case 'SET_GARAGE_DOORS':
+        case SET_GARAGE_DOORS:
             return {
                 ...state,
                 garageDoors: action.payload
             }
-        case 'UPDATE_GARAGE_DOORS':
+        case UPDATE_GARAGE_DOORS:
             const doorIndex = state.garageDoors.findIndex(door => door.doorName === action.payload.doorName);
             return {
                 ...state,
                 garageDoors: doorIndex > -1 ? state.garageDoors.map(door => door.doorName === action.payload.doorName ? { ...door, isOpen: action.payload.isOpen, duration: action.payload.duration } : door) : [...state.garageDoors, action.payload]
             }
-        case 'SET_SCHEDULED_TASK':
+        case SET_SCHEDULED_TASK:
             return {
                 ...state,
                 tasks: action.payload
             }
-        case 'DELETE_SCHEDULED_TASK':
+        case DELETE_SCHEDULED_TASK:
             return {
                 ...state,
                 tasks: state.tasks.filter(task => task.taskId !== action.payload)
             }
-        case 'ADD_SCHEDULED_TASK':
+        case ADD_SCHEDULED_TASK:
             return {
                 ...state,
                 tasks: [...state.tasks, action.payload]
             }
-        case 'SET_SCENES':
+        case SET_SCENES:
             return {
                 ...state,
                 scenes: action.payload
             }
-        case 'ADD_SCENE':
+        case ADD_SCENE:
             return {
                 ...state,
                 scenes: [...state.scenes, action.payload]
             }
-        case 'DELETE_SCENE':
+        case DELETE_SCENE:
             return {
                 ...state,
                 scenes: state.scenes.filter(s => s.id !== action.payload)
             }
-        case 'SET_SUMP_DATA':
+        case SET_SUMP_DATA:
             return {
                 ...state,
                 sumpData: action.payload
             }
-        case 'SET_TEMP_DATA':
+        case SET_TEMP_DATA:
             const color = toggleColor(action.payload.mode, state);
             const gradient = toggleGradient(action.payload.mode, state);
             const current = determineDesired(state, action.payload);
@@ -86,22 +96,22 @@ const Reducer = (state, action) => {
                 ...state,
                 tempData: { ...action.payload, gaugeColor: color, gaugeGradient: gradient, currentDesiredTemp: current }
             }
-        case 'SET_FORECAST_DATA':
+        case SET_FORECAST_DATA:
             return {
                 ...state,
                 forecastData: action.payload
             }
-        case 'SET_EXTENDED_FORECAST':
+        case SET_EXTENDED_FORECAST:
             return {
                 ...state,
                 extendedForecast: action.payload
             }
-        case 'SET_USER_PREFERENCES':
+        case SET_USER_PREFERENCES:
             return {
                 ...state,
                 preferences: action.payload
             }
-        case 'SET_LOCATION':
+        case SET_LOCATION:
             return {
                 ...state,
                 location: action.payload
@@ -116,7 +126,7 @@ const toggleColor = (mode, state) => {
         return "#27aedb";
     else if (mode === "heating")
         return "#db5127";
-    else if (mode === "auto" && state.tasks.some(x => x.taskType === 'hvac'))
+    else if (mode === "auto" && hasHvacTasks(state))
         return "#e88a4f";
     else
         return "#A0A0A0";
@@ -127,7 +137,7 @@ const toggleGradient = (mode, state) => {
         return ['#1a6e8a', '#7ecde8'];
     if (mode === "heating")
         return ['#f0b860', '#d94a1a'];
-    if (mode === "auto" && state.tasks.some(x => x.taskType === 'hvac'))
+    if (mode === "auto" && hasHvacTasks(state))
         return ['#4bbde0', '#e07040'];
     return null;
 }

@@ -1,5 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Context} from '../../../state/Store';
+import {SET_LIGHTS} from '../../../state/actions';
 import {ButtonBase} from '@mui/material';
 import {setLightState} from '../../../utilities/RestApi';
 import {CustomSlider} from '../../../components/controls/Slider';
@@ -29,7 +30,7 @@ export default function SwitchSlider(props) {
         setLightState(lightId, true, newBrightness);
         const newLight = { ...light, brightness: newBrightness, on: value > 0 };
         const newList = state.lights.map(x => (x.groupId === groupId) ? { ...x, lights: x.lights.map(y => (y.lightId === lightId) ? newLight : y) } : x);
-        dispatch({ type: 'SET_LIGHTS', payload: newList });
+        dispatch({ type: SET_LIGHTS, payload: newList });
     };
 
     const toggleLight = async () => {
@@ -41,7 +42,7 @@ export default function SwitchSlider(props) {
         const newLight = { ...light, brightness: newBrightness, on: newState };
         const newList = state.lights.map(x => (x.groupId === groupId) ? { ...x, lights: x.lights.map(y => (y.lightId === lightId) ? newLight : y) } : x);
         setLight(newLight);
-        dispatch({ type: 'SET_LIGHTS', payload: newList });
+        dispatch({ type: SET_LIGHTS, payload: newList });
     }
 
     return (

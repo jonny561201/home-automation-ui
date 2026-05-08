@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Context } from '../../../state/Store';
+import { UPDATE_GARAGE_DOORS } from '../../../state/actions';
 import { useInterval } from '../../../utilities/UseInterval';
 import { AccordionDetails } from '@mui/material';
 import { WarningAmber } from '@mui/icons-material';
@@ -81,7 +82,7 @@ export default function GarageDoor(props) {
 
     const openCloseGarageDoor = async (newState) => {
         const response = await updateGarageState(newState, props.device.doorId);
-        dispatch({ type: 'UPDATE_GARAGE_DOORS', payload: { doorName: props.device.doorName, doorId: props.device.doorId, isOpen: response.isGarageOpen, duration: new Date() } });
+        dispatch({ type: UPDATE_GARAGE_DOORS, payload: { doorName: props.device.doorName, doorId: props.device.doorId, isOpen: response.isGarageOpen, duration: new Date() } });
     }
 
     const toggleDoor = async () => {

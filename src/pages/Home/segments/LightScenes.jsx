@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Context } from '../../../state/Store';
+import { ADD_SCENE, DELETE_SCENE, SET_LIGHTS } from '../../../state/actions';
 import { Add, Close } from '@mui/icons-material';
 import { setLightGroupState, setLightState, createScene, deleteScene } from '../../../utilities/RestApi';
 import CreateScene from './CreateScene';
@@ -44,19 +45,19 @@ export default function LightScenes() {
                 }));
             }
         }
-        dispatch({ type: 'SET_LIGHTS', payload: updated });
+        dispatch({ type: SET_LIGHTS, payload: updated });
     };
 
     const handleCreateSave = async (scene) => {
         const response = await createScene(scene);
-        dispatch({ type: 'ADD_SCENE', payload: response });
+        dispatch({ type: ADD_SCENE, payload: response });
         setShowCreate(false);
     };
 
     const handleDelete = async (sceneId) => {
         const response = await deleteScene(sceneId);
         if (response.ok) {
-            dispatch({ type: 'DELETE_SCENE', payload: sceneId });
+            dispatch({ type: DELETE_SCENE, payload: sceneId });
         }
     };
 

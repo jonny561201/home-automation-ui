@@ -10,6 +10,8 @@ import { parseDate } from '../../../utilities/Services';
 import { Accordion, AccordionDetails, Typography, AccordionSummary, Divider, FormControl, FormGroup, FormControlLabel } from '@mui/material';
 import { AutoSwitch, CoolSwitch, HeatSwitch } from '../../../components/controls/Switches';
 import { Context } from '../../../state/Store';
+import { SET_TEMP_DATA } from '../../../state/actions';
+import { hasHvacTasks } from '../../../state/selectors';
 import './TemperaturePanel.scss';
 
 
@@ -24,7 +26,7 @@ export default function TemperaturePanel() {
 
     const knobChange = async (newValue) => {
         if (state.tempData.mode === 'heating' || state.tempData.mode === 'cooling') {
-            dispatch({ type: 'SET_TEMP_DATA', payload: { ...state.tempData, desiredTemp: newValue } });
+            dispatch({ type: SET_TEMP_DATA, payload: { ...state.tempData, desiredTemp: newValue } });
             debounceApi(() => {
                 setUserTemperature(newValue, state.tempData.mode, state.tempData.isFahrenheit);
             });
@@ -57,9 +59,9 @@ export default function TemperaturePanel() {
     };
 
     const toggleHvac = async (newMode) => {
-        if (newMode !== 'auto' || state.tasks.some(x => x.taskType === 'hvac')) {
+        if (newMode !== 'auto' || hasHvacTasks(state)) {
             const modeState = state.tempData.mode === newMode ? null : newMode;
-            await dispatch({ type: 'SET_TEMP_DATA', payload: { ...state.tempData, mode: modeState } });
+            await dispatch({ type: SET_TEMP_DATA, payload: { ...state.tempData, mode: modeState } });
             setUserTemperature(state.tempData.desiredTemp, modeState, state.tempData.isFahrenheit);
         }
     }
@@ -98,15 +100,15 @@ export default function TemperaturePanel() {
                                 <Knob value={state.tempData.currentDesiredTemp} lineCap={"round"} inputColor={state.tempData.gaugeColor} fgColor={state.tempData.gaugeColor} fgGradient={state.tempData.gaugeGradient} title="Desired Temp"
                                     onChange={knobChange} angleArc={240} angleOffset={240} min={state.tempData.minThermostatTemp} max={state.tempData.maxThermostatTemp} />
                                 {
-                                    state.tasks.some(x => x.taskType === 'hvac') ?
+                                    hasHvacTasks(state) ?
                                         <FormControl>
                                             <FormGroup>
-                                                <FormControlLabel label="Auto" control={<AutoSwitch checked={state.tempData.mode === 'auto' && state.tasks.some(x => x.taskType === 'hvac')} onChange={() => toggleHvac("auto")} />} />
+                                                <FormControlLabel label="Auto" control={<AutoSwitch checked={state.tempData.mode === 'auto' && hasHvacTasks(state)} onChange={() => toggleHvac("auto")} />} />
                                             </FormGroup>
                                         </FormControl>
                                         : null
                                 }
-                                {(state.tempData.mode !== 'auto' || !state.tasks.some(x => x.taskType === 'hvac')) && (
+                                {(state.tempData.mode !== 'auto' || !hasHvacTasks(state)) && (
                                     <FormControl>
                                         <FormGroup>
                                             <FormControlLabel label="Heat" control={<HeatSwitch checked={state.tempData.mode === 'heating'} onChange={() => toggleHvac("heating")} />} />

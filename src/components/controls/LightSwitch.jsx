@@ -4,6 +4,7 @@ import { CustomSlider } from '../../components/controls/Slider';
 import { ButtonBase } from '@mui/material';
 import SwitchSlider from '../../pages/Home/segments/SwitchSlider';
 import { setLightGroupState } from '../../utilities/RestApi';
+import { SET_LIGHTS } from '../../state/actions';
 import { ExpandButton } from './Buttons';
 import BrightnessMediumIcon from '@mui/icons-material/BrightnessMedium';
 import './LightSwitch.scss';
@@ -29,7 +30,7 @@ export default function LightSwitch(props) {
         const newBrightness = Math.round(value * 2.55);
         setLightGroupState(groupId, true, newBrightness);
         const newList = state.lights.map(x => (x.groupId === groupId) ? { ...x, brightness: newBrightness, lights: x.lights.map(y => ({ ...y, brightness: newBrightness })) } : x);
-        dispatch({ type: 'SET_LIGHTS', payload: newList });
+        dispatch({ type: SET_LIGHTS, payload: newList });
     };
 
     const toggleLightGroup = async () => {
@@ -40,11 +41,11 @@ export default function LightSwitch(props) {
             setPrevBrightness(brightness);            
             setBrightness(0);
             const newList = state.lights.map(x => (x.groupId === groupId) ? { ...x, brightness: 0, lights: x.lights.map(y => ({ ...y, brightness: 0 })) } : x);
-            dispatch({ type: 'SET_LIGHTS', payload: newList });
+            dispatch({ type: SET_LIGHTS, payload: newList });
         } else {
             setBrightness(prevBrightness);
             const newList = state.lights.map(x => (x.groupId === groupId) ? { ...x, brightness: prevBrightness, lights: x.lights.map(y => ({ ...y, brightness: Math.round(prevBrightness * 2.55) })) } : x);
-            dispatch({ type: 'SET_LIGHTS', payload: newList });
+            dispatch({ type: SET_LIGHTS, payload: newList });
         }
     }
 

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Context } from '../../../state/Store';
+import { SET_LOCATION, SET_USER_COORDS } from '../../../state/actions';
 import CloseIcon from '@mui/icons-material/Close';
 import { updateGarageState } from '../../../utilities/RestApi';
 import { calculateDistanceInMeters } from '../../../utilities/Location';
@@ -24,9 +25,9 @@ export default function UserLocation() {
     }, []);
 
     const onPositionUpdate = async (position) => {
-        dispatch({ type: 'SET_LOCATION', payload: { granted: true, notified: state.location.notified } });
+        dispatch({ type: SET_LOCATION, payload: { granted: true, notified: state.location.notified } });
         const userCoords = position.coords;
-        dispatch({ type: "SET_USER_COORDS", payload: userCoords });
+        dispatch({ type: SET_USER_COORDS, payload: userCoords });
         if (state.garageCoords !== null) {
             const garageCoords = state.garageCoords;
             const userDistance = calculateDistanceInMeters(garageCoords.latitude, garageCoords.longitude, userCoords.latitude, userCoords.longitude);
@@ -39,7 +40,7 @@ export default function UserLocation() {
     const onPositionError = () => {
         if (!state.location.notified) {
             alert('Enable GPS position feature.');
-            dispatch({ type: "SET_LOCATION", payload: { notified: true, granted: false } });
+            dispatch({ type: SET_LOCATION, payload: { notified: true, granted: false } });
         }
     }
 

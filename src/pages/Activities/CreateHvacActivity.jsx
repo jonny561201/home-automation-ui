@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Context } from '../../state/Store';
+import { SET_SCHEDULED_TASK } from '../../state/actions';
 import TimePicker from '../../components/controls/TimePicker';
 import WeekPicker from '../../components/controls/WeekPicker';
 import TempPicker from '../../components/controls/TempPicker';
@@ -23,7 +24,7 @@ export default function CreateHvacActivity(props) {
     const saveActivity = async () => {
         if (edited && days !== null) {
             const response = await insertHvacTask(true, props.type, '', startTime, stopTime, inTemp, outTemp, days);
-            dispatch({ type: 'SET_SCHEDULED_TASK', payload: response.tasks || [] });
+            dispatch({ type: SET_SCHEDULED_TASK, payload: response.tasks || [] });
             props.save();
         }
     }
